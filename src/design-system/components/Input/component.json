@@ -1,0 +1,272 @@
+{
+  "name": "Input",
+  "category": "Forms",
+  "status": "stable",
+  "version": "1.1.0",
+  "description": "Single-line text input with a two-column horizontal form layout. Label (40%) and input (60%) share a 20px gap. Hover and focus states implemented.",
+
+  "anatomy": {
+    "root": {
+      "element": "div",
+      "description": "Outer wrapper. Owns total component width. Hosts .formRow in horizontal layout."
+    },
+    "formRow": {
+      "element": "div",
+      "layout": "horizontal only",
+      "description": "CSS Grid — 40% label col | 20px column-gap | 1fr field col. align-items: start so label wraps downward and input stays fixed."
+    },
+    "label": {
+      "element": "label",
+      "optional": true,
+      "description": "Left column in horizontal layout. padding-top: 7px aligns its first text line with the input's vertical centre."
+    },
+    "fieldColumn": {
+      "element": "div",
+      "layout": "horizontal only",
+      "description": "Right column. Flex column stacking inputWrapper and helperText."
+    },
+    "inputWrapper": {
+      "element": "div",
+      "description": "The visible bordered box. Receives :hover, :focus-within, and data-state for visual states. Future prefix/suffix icon slots live here."
+    },
+    "input": {
+      "element": "input",
+      "description": "Bare input element. Transparent background, fills the wrapper."
+    },
+    "helperText": {
+      "element": "span",
+      "optional": true,
+      "description": "Assistive copy below the field. Linked via aria-describedby."
+    }
+  },
+
+  "layout": {
+    "type": "CSS Grid — 2fr 3fr",
+    "labelWidth": "2fr = 40% of available space after gap",
+    "inputWidth": "3fr = 60% of available space after gap",
+    "inputWidthPx": 390,
+    "inputWidthNote": "390px is the fixed reference; the total form width is derived from it",
+    "labelWidthPx": 260,
+    "gap": 20,
+    "gapUnit": "px",
+    "totalWidth": 670,
+    "totalWidthFormula": "labelPx + gap + inputPx = 260 + 20 + 390 = 670",
+    "labelAlignment": "right",
+    "labelAlignmentNote": "text-align: right — label text sits flush against the input",
+    "verticalAlignment": "start",
+    "labelWrap": true,
+    "wrapAlignment": "first-line",
+    "wrapAlignmentNote": "padding-top: 7px on .formRow .label = (34 − 20) / 2"
+  },
+
+  "size": {
+    "height": 34,
+    "defaultWidth": 670,
+    "defaultWidthNote": "total component width: 260px label + 20px gap + 390px input",
+    "inputWidth": 390,
+    "borderRadius": 6
+  },
+
+  "padding": {
+    "top": 8,
+    "right": 10,
+    "bottom": 8,
+    "left": 10
+  },
+
+  "container": {
+    "background": {
+      "token": "bg.common.card",
+      "cssVar": "--ds-bg-common-card",
+      "value": "#FFFFFF"
+    },
+    "border": {
+      "token": "components.input.defaultOutline",
+      "cssVar": "--ds-components-input-default-outline",
+      "value": "#C0C8E2",
+      "width": 1,
+      "position": "inside"
+    }
+  },
+
+  "label": {
+    "typography": {
+      "fontFamily": {
+        "token": "fontFamily.base",
+        "cssVar": "--ds-font-family-base",
+        "note": "same as input text"
+      },
+      "fontSize": {
+        "token": "fontSize.base",
+        "cssVar": "--ds-font-size-base",
+        "value": 14,
+        "note": "same as input text"
+      },
+      "fontWeight": {
+        "token": "fontWeight.regular",
+        "cssVar": "--ds-font-weight-regular",
+        "value": 400,
+        "note": "same as input text"
+      },
+      "lineHeight": {
+        "token": "lineHeight.base",
+        "cssVar": "--ds-line-height-base",
+        "value": 20,
+        "note": "same as input text"
+      }
+    },
+    "color": {
+      "token": "text.label",
+      "cssVar": "--ds-text-label",
+      "value": "#616E88"
+    }
+  },
+
+  "inputValue": {
+    "typography": {
+      "fontFamily": { "token": "fontFamily.base", "cssVar": "--ds-font-family-base" },
+      "fontSize":   { "token": "fontSize.base",   "cssVar": "--ds-font-size-base",   "value": 14 },
+      "fontWeight": { "token": "fontWeight.regular","cssVar": "--ds-font-weight-regular", "value": 400 },
+      "lineHeight": { "token": "lineHeight.base",  "cssVar": "--ds-line-height-base", "value": 20 }
+    },
+    "color": {
+      "token": "text.base",
+      "cssVar": "--ds-text-base",
+      "value": "#313949"
+    }
+  },
+
+  "placeholder": {
+    "optional": true,
+    "typographyNote": "identical to input value typography — only color differs",
+    "color": {
+      "token": "components.input.placeholderText",
+      "cssVar": "--ds-components-input-placeholder-text",
+      "value": "#8C91AB"
+    }
+  },
+
+  "requiredIndicator": {
+    "type": "CSS ::before pseudo-element on .inputWrapper[data-required] — no extra DOM node",
+    "reusable": "add data-required to any position:relative form control wrapper to apply the same indicator",
+    "width": 3,
+    "widthNote": "3px content-box width + 3px border-left = 6px total element rendered",
+    "height": "full height of inputWrapper via top:0; bottom:0",
+    "position": {
+      "left": "-1px — overlaps the 1px left border so the accent color fully replaces it",
+      "note": "bar sits on top of the border, not inside the padding area"
+    },
+    "interiorLayout": "| border (covered by bar, 1px) | 3px bar | 2px gap | 10px padding | text",
+    "borderRadius": "4px 0 0 4px — chosen to avoid CSS radius scaling constraint (sum of adjacent radii ≤ element width, i.e. 4+0=4 ≤ 6px)",
+    "color": {
+      "cssVar": "--ds-components-input-required-accent",
+      "value": "#FF5D5A",
+      "fallback": "#FF5D5A",
+      "TODO": "Add --ds-components-input-required-accent: #FF5D5A to color.json. Hex matches --ds-components-input-error-outline but the tokens are semantically distinct."
+    },
+    "trigger": "data-required attribute on .inputWrapper; set when required={true}",
+    "accessibility": "CSS pseudo-element — not in the accessibility tree; required attribute on <input> announces to screen readers",
+    "inputPaddingLeft": "15px when required (padding-left override on .input) — 3px bar + 2px gap + 10px base",
+    "affects": {
+      "inputWrapperWidth": false,
+      "inputWrapperHeight": false,
+      "borderRadius": false,
+      "borderThickness": false,
+      "labelAlignment": false,
+      "formLayout": false,
+      "stateTransitions": false
+    }
+  },
+
+  "suffixSlot": {
+    "type": "flex child <span class='suffixSlot'> inside .inputWrapper",
+    "width": 32,
+    "height": 32,
+    "sizeNote": "32×32px square; wrapper 1px padding (top/right/bottom) keeps slot inset from the border so it appears centred",
+    "background": { "value": "#F4F4F6", "TODO": "map to a design token once the icon-slot background is added to color.json" },
+    "borderRadius": "0 5px 5px 0 — follows wrapper's 6px outer radius minus 1px border",
+    "alignment": "center — icon centred horizontally and vertically within the slot",
+    "color": { "cssVar": "--ds-text-label", "value": "#616E88", "note": "SVG icons inherit currentColor" },
+    "trigger": "data-has-suffix attribute on .inputWrapper; set when suffix prop is provided",
+    "wrapperPadding": "1px 1px 1px 0 when suffix present — 1px gap around icon from border; left stays 0 for required indicator",
+    "accessibility": "aria-hidden='true' on the slot span — decorative; interactive icons need their own accessible label"
+  },
+
+  "states": {
+    "default": {
+      "status": "stable",
+      "border": { "cssVar": "--ds-components-input-default-outline", "value": "#C0C8E2" }
+    },
+    "hover": {
+      "status": "stable",
+      "trigger": "CSS :hover + [data-state='hover']",
+      "border": { "cssVar": "--ds-components-input-hover-outline", "value": "#797883" }
+    },
+    "focus": {
+      "status": "stable",
+      "trigger": "CSS :focus-within + [data-state='focus']",
+      "border": { "cssVar": "--ds-components-input-focus-outline", "value": "#5464F2" },
+      "shadow": { "cssVar": "--ds-components-input-focus-shadow", "value": "rgba(76,94,253,0.50)", "full": "0 0 6px 0 rgba(76,94,253,0.50)" }
+    },
+    "error": {
+      "status": "stable",
+      "border": { "cssVar": "--ds-components-input-error-outline", "value": "#FF5D5A" },
+      "background": "unchanged — same as default (#FFFFFF)",
+      "helperText": { "color": "#FF5D5A", "cssVar": "--ds-components-input-error-outline" },
+      "focusShadow": "none — border-only feedback in error state",
+      "implementation": "error prop on Input → data-variant='error' on .root → CSS cascade"
+    },
+    "disabled": {
+      "status": "stable",
+      "border": { "cssVar": "--ds-components-input-disable-outline", "value": "#D2D9F1" },
+      "background": { "cssVar": "--ds-components-input-disable-bg", "value": "#F5F6F8" },
+      "cursor": "not-allowed",
+      "hoverFocusOverride": "border-color stays disable-outline, box-shadow: none",
+      "implementation": "rootVariant derived from inputProps.disabled; data-variant='disabled' on .root → CSS cascade"
+    },
+    "warning": {
+      "status": "future",
+      "implementation": "data-variant='warning' on .root → CSS cascade"
+    },
+    "success": {
+      "status": "future",
+      "implementation": "data-variant='success' on .root → CSS cascade"
+    }
+  },
+
+  "sizes": {
+    "sm": { "height": 28, "fontSize": "fontSize.sm", "status": "future", "implementation": "data-size='sm' on .root" },
+    "md": { "height": 34, "fontSize": "fontSize.base", "status": "stable" },
+    "lg": { "height": 40, "fontSize": "fontSize.h3", "status": "future", "implementation": "data-size='lg' on .root" }
+  },
+
+  "props": {
+    "label":       { "type": "string",           "optional": true },
+    "helperText":  { "type": "string",           "optional": true },
+    "placeholder": { "type": "string",           "optional": true },
+    "value":       { "type": "string",           "optional": true },
+    "defaultValue":{ "type": "string",           "optional": true },
+    "width":       { "type": "number | string",  "default": 670,  "optional": true, "defaultNote": "260px label + 20px gap + 390px input" },
+    "layout":      { "type": "'horizontal' | 'vertical'", "default": "horizontal", "optional": true },
+    "type":        { "type": "string",           "default": "text", "optional": true,
+                     "options": ["text","email","password","search","tel","url","number"] },
+    "required":    { "type": "boolean",          "optional": true },
+    "disabled":    { "type": "boolean",          "optional": true, "status": "stable" },
+    "suffix":      { "type": "React.ReactNode",  "optional": true, "note": "icon or element for the 32px right-side slot" },
+    "forceState":  { "type": "'hover' | 'focus'","optional": true, "note": "testing/Storybook only" }
+  },
+
+  "accessibility": {
+    "role": "textbox",
+    "labelledBy": "htmlFor/id pair — id is auto-generated via React useId() when not provided",
+    "describedBy": "aria-describedby links helperText span to the input",
+    "requiredIndicator": "decorative CSS ::before accent bar — no aria-hidden needed (pseudo-element is not in the accessibility tree); required attribute on <input> announces to screen readers",
+    "keyboardNavigation": "native — Tab to focus, Shift+Tab to blur"
+  },
+
+  "tokenSource": {
+    "colors":       "src/design-system/foundations/tokens/color.json",
+    "typography":   "src/design-system/foundations/tokens/typography.json",
+    "cssVariables": "src/design-system/foundations/design-tokens.css"
+  }
+}

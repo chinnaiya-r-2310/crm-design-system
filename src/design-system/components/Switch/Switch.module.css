@@ -1,0 +1,114 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Switch — CSS Module
+   Figma source: Chinnaiya Style Sheet, node 31:9146
+
+   DOM anatomy
+   ────────────
+     label.root
+       span.label?        (optional, left position)
+       span.control
+         input[type="checkbox"][role="switch"]   (visually hidden)
+         span.track
+           span.thumb
+       span.label?        (optional, right position)
+
+   States
+   ────────────
+     Default   — track #D7D9EB, thumb at left (2px)
+     Checked   — track #72C98A, thumb at right (14px)
+     Disable   — track #E5E7F0, 50% opacity, pointer-events none
+     Checked+Disable — track #72C98A, 50% opacity, pointer-events none
+
+   Figma specs
+   ────────────
+     Track:  30 × 18px, border-radius 100px
+     Thumb:  14 × 14px, white, border-radius 100%
+     Thumb margin: 2px from each edge
+     Transition: 200ms ease-in (default→checked), 200ms ease-out (checked→default)
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Root ────────────────────────────────────────────────────────────────── */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.root[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ── Control (track + hidden input) ──────────────────────────────────────── */
+
+.control {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+/* ── Hidden native checkbox ──────────────────────────────────────────────── */
+
+.nativeInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 1;
+  cursor: inherit;
+  margin: 0;
+  width: 30px;
+  height: 18px;
+}
+
+/* ── Track ───────────────────────────────────────────────────────────────── */
+
+.track {
+  position: relative;
+  width: 30px;
+  height: 18px;
+  border-radius: 100px;
+  background: var(--ds-components-switch-default-bg, #D7D9EB);
+  transition: background 200ms ease;
+  flex-shrink: 0;
+}
+
+.nativeInput:checked ~ .track {
+  background: var(--ds-components-switch-checked-bg, #72C98A);
+}
+
+/* Focus ring on keyboard navigation */
+.nativeInput:focus-visible ~ .track {
+  outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
+  outline-offset: 2px;
+}
+
+/* ── Thumb ───────────────────────────────────────────────────────────────── */
+
+.thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: left 200ms ease;
+  pointer-events: none;
+}
+
+.nativeInput:checked ~ .track .thumb {
+  left: 14px;
+}
+
+/* ── Label text ──────────────────────────────────────────────────────────── */
+
+.label {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-base);
+}

@@ -1,0 +1,7 @@
+{
+  "Check":             { "category": "Actions",    "keywords": ["confirm", "done", "success", "tick", "approve", "checkmark"] },
+  "ChevronDownFilled": { "category": "Navigation", "keywords": ["expand", "dropdown", "arrow", "filled", "select", "caret"] },
+  "Info":              { "category": "Status",     "keywords": ["information", "help", "hint", "tooltip", "detail"] },
+  "Lock":              { "category": "Security",   "keywords": ["locked", "secure", "password", "protect", "private"] },
+  "Search":            { "category": "Navigation", "keywords": ["find", "lookup", "magnifier", "query", "seek"] }
+}

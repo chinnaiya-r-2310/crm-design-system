@@ -1,0 +1,394 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Input — CSS Module  v1.1
+   All values reference CSS custom properties from design-tokens.css.
+
+   DOM anatomy (horizontal layout)
+   ────────────────────────────────
+     .root                    outer wrapper; owns total width
+       .formRow               CSS Grid — 2fr label (260px) | 20px gap | 3fr input (390px)
+         .label               <label>; left column
+         .fieldColumn         right column; stacks inputWrapper + helperText
+           .inputWrapper      the visible bordered box
+             .input           bare <input>; transparent, fills wrapper
+           .helperText        assistive copy
+
+   DOM anatomy (vertical layout)
+   ────────────────────────────────
+     .root.vertical           flex column; stacks label / inputWrapper / helperText
+       .label
+       .inputWrapper
+         .input
+       .helperText
+
+   State hooks (current)
+   ────────────────────────────────
+     .inputWrapper:hover
+     .inputWrapper[data-state="hover"]   — Storybook/visual testing forced hover
+     .inputWrapper:focus-within
+     .inputWrapper[data-state="focus"]   — Storybook/visual testing forced focus
+
+   Future variant hooks (data-variant on .root)
+   ────────────────────────────────
+     .root[data-variant="error"]   → targets .inputWrapper + .helperText
+     .root[data-variant="disabled"]
+     .root[data-variant="warning"]
+     .root[data-variant="success"]
+
+   Future size hooks (data-size on .root)
+   ────────────────────────────────
+     .root[data-size="sm"]  → .inputWrapper height 28px
+     .root[data-size="lg"]  → .inputWrapper height 40px
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Root ───────────────────────────────────────────────────────────────── */
+
+.root {
+  display: block;
+  /* width is applied via inline style to allow dynamic values */
+}
+
+/* Vertical layout — stacks label / input / helper with a small gap */
+.vertical {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Form Row — horizontal two-column grid ──────────────────────────────── */
+
+.formRow {
+  display: grid;
+  /* 3fr : 7fr = 30% : 70%
+     At default total width of 670px:
+       column-gap consumes 20px → fr pool = 650px
+       label  = 650 × 3/10 = 195px  (30%)
+       input  = 650 × 7/10 = 455px  (70%) ← always the reference anchor
+     Ratio stays proportional as total width changes.               */
+  grid-template-columns: 3fr 7fr;
+  column-gap: 20px;
+  align-items: start;   /* label wraps downward; input stays at top of its cell */
+}
+
+/* ── Field Column — right side of the horizontal grid ──────────────────── */
+
+.fieldColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Label ──────────────────────────────────────────────────────────────── */
+
+.label {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);         /* 14px — same as input text */
+  font-weight: var(--ds-font-weight-regular);  /* 400 — same as input text */
+  line-height: var(--ds-line-height-base);     /* 20px */
+  color: var(--ds-text-label);                 /* #616E88 */
+  word-break: break-word;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+/* Horizontal only — right-align label text so it sits close to the input.
+   Single line:   label text is centred against the 34px input height.
+   Multi-line:    label wraps downward; input stays fixed at top of its cell,
+                  giving "first-line alignment."
+   padding-top nudge: (input-height − line-height) / 2 = (34 − 20) / 2 = 7px */
+.formRow .label {
+  text-align: right;
+  padding-top: 7px;
+}
+
+/* ── Input Wrapper ──────────────────────────────────────────────────────── */
+
+.inputWrapper {
+  position: relative;  /* anchors ::before required indicator and future prefix/suffix slots */
+  display: flex;
+  align-items: center;
+  height: 34px;
+  background: var(--ds-bg-common-card);
+  border: 1px solid var(--ds-components-input-default-outline);
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+/* ── Required indicator ─────────────────────────────────────────────────── */
+
+/* ::before sits ON TOP of the left border — not inside it.
+   left/top/bottom: -1px anchors to the outer border edge so the bar fully
+   covers the gray left border with the red accent color.
+   width: 3px (1px covering the border + 2px inside the padding area).
+   border-radius: 6px 0 0 6px matches the input's outer corner radius exactly,
+   giving the bar the same rounded left corners as the input box itself.
+   z-index: 1 ensures the bar paints above all sibling content.
+   No overflow:hidden needed — the bar is contained within the inputWrapper
+   stacking context.
+
+   Input text spacing when required:
+     bar right edge: -1px start + 3px width = 2px into padding-box
+     2px gap + 10px base padding = 12px after bar → padding-left: 14px on input.
+
+   Reusable: add data-required to any position:relative form control wrapper.
+
+   TODO: add --ds-components-input-required-accent: #FF5D5A to color.json
+   (value matches --ds-components-input-error-outline but semantics differ). */
+.inputWrapper[data-required]::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 3px;
+  border-radius: 4px 0 0 4px;
+  z-index: 1;
+  border-left: 3px solid var(--ds-components-input-required-accent, #FF5D5A);
+  background: transparent;
+  pointer-events: none;
+}
+
+/* Bar right edge is 2px inside the padding box — no extra padding needed;
+   text at 10px won't overlap the bar. */
+
+/* ── Hover ──────────────────────────────────────────────────────────────── */
+
+/* :hover   — real browser hover
+   [data-state="hover"] — forced state for Storybook/visual tests           */
+.inputWrapper:hover,
+.inputWrapper[data-state="hover"] {
+  border-color: var(--ds-components-input-hover-outline); /* #797883 */
+}
+
+/* ── Focus ──────────────────────────────────────────────────────────────── */
+
+/* :focus-within   — real keyboard/pointer focus (any child element focused)
+   [data-state="focus"] — forced state for Storybook/visual tests           */
+.inputWrapper:focus-within,
+.inputWrapper[data-state="focus"] {
+  border-color: var(--ds-components-input-focus-outline);    /* #5464F2 */
+  box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow); /* rgba(76,94,253,0.50) */
+  outline: none;
+}
+
+/* Focus always wins over hover when both are active */
+.inputWrapper:focus-within:hover {
+  border-color: var(--ds-components-input-focus-outline);
+}
+
+/* ── Suffix icon slot ───────────────────────────────────────────────────── */
+
+/* When a suffix icon is present the wrapper gets 1px padding on top/right/bottom
+   so the icon has breathing room from the border. Left stays 0 (required
+   indicator lives there via ::before). */
+.inputWrapper[data-has-suffix] {
+  padding: 1px 0 1px 0;
+}
+
+/* 32×32px slot; wrapper padding (1px top/right/bottom) keeps the slot inset
+   from the border. Background is set explicitly so it's not transparent over
+   any element behind it. Icon content is centred. */
+.suffixSlot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: #F4F4F6;
+  border-radius: 0 5px 5px 0;   /* follow wrapper's 6px radius minus 1px border */
+  color: var(--ds-text-label);   /* #616E88 — inheritable by SVG icons */
+}
+
+/* ── Lookup type ─────────────────────────────────────────────────────────── */
+
+/* Lookup inputs are read-only — pointer cursor on both text area and suffix icon */
+.inputWrapper[data-type="lookup"] .input,
+.inputWrapper[data-type="lookup"] .suffixSlot {
+  cursor: pointer;
+}
+
+/* Disabled state takes over fully when combined with lookup */
+.root[data-variant="disabled"][data-type="lookup"] .inputWrapper .input {
+  cursor: not-allowed;
+}
+
+/* ── Disabled state ─────────────────────────────────────────────────────── */
+
+.root[data-variant="disabled"] .inputWrapper {
+  background: var(--ds-components-input-disable-bg);       /* #F5F6F8 */
+  border-color: var(--ds-components-input-disable-outline);/* #D2D9F1 */
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Cancel hover/focus border changes while disabled */
+.root[data-variant="disabled"] .inputWrapper:hover,
+.root[data-variant="disabled"] .inputWrapper[data-state="hover"],
+.root[data-variant="disabled"] .inputWrapper:focus-within,
+.root[data-variant="disabled"] .inputWrapper[data-state="focus"] {
+  border-color: var(--ds-components-input-disable-outline);
+  box-shadow: none;
+}
+
+.root[data-variant="disabled"] .input {
+  cursor: not-allowed;
+  color: var(--ds-text-muted);
+}
+
+/* ── Read-only state ────────────────────────────────────────────────────── */
+
+.root[data-variant="readonly"] .inputWrapper {
+  background: var(--ds-components-input-disable-bg);
+  border-color: var(--ds-components-input-disable-outline);
+}
+
+.root[data-variant="readonly"] .inputWrapper:hover,
+.root[data-variant="readonly"] .inputWrapper[data-state="hover"],
+.root[data-variant="readonly"] .inputWrapper:focus-within,
+.root[data-variant="readonly"] .inputWrapper[data-state="focus"] {
+  border-color: var(--ds-components-input-disable-outline);
+  box-shadow: none;
+}
+
+.root[data-variant="readonly"] .input {
+  color: var(--ds-text-base);
+}
+
+/* ──────────────────────── Future: variant hooks ────────────────────────── */
+
+/* ── Error state ────────────────────────────────────────────────────────── */
+
+.root[data-variant="error"] .inputWrapper {
+  border-color: var(--ds-components-input-error-outline);   /* #FF5D5A */
+}
+
+/* Hover stays at error border — no override needed */
+.root[data-variant="error"] .inputWrapper:hover,
+.root[data-variant="error"] .inputWrapper[data-state="hover"] {
+  border-color: var(--ds-components-input-error-outline);
+}
+
+/* Focus: error border, no shadow */
+.root[data-variant="error"] .inputWrapper:focus-within,
+.root[data-variant="error"] .inputWrapper[data-state="focus"] {
+  border-color: var(--ds-components-input-error-outline);
+  box-shadow: none;
+}
+
+/* Helper text switches to error color */
+.root[data-variant="error"] .helperText {
+  color: var(--ds-components-input-error-outline);          /* #FF5D5A */
+}
+
+/* ── Auto-update state ──────────────────────────────────────────────────────
+   Light yellow background + warm border indicate value was auto-populated.
+   Figma: node 52027-148588 — "Auto Update" variant.
+   Colors: bg #FFFFEA (rgb 255,255,234), border #E5DEC5 (rgb 229,222,197). */
+
+.root[data-variant="auto-update"] .inputWrapper {
+  background: #FFFFEA;
+  border-color: #E5DEC5;
+}
+
+.root[data-variant="auto-update"] .inputWrapper:hover,
+.root[data-variant="auto-update"] .inputWrapper[data-state="hover"] {
+  border-color: #C8BB9C;
+}
+
+.root[data-variant="auto-update"] .inputWrapper:focus-within,
+.root[data-variant="auto-update"] .inputWrapper[data-state="focus"] {
+  border-color: var(--ds-components-input-focus-outline);
+  box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow);
+}
+
+/* Warning — add data-variant="warning" to .root
+.root[data-variant="warning"] .inputWrapper {
+  border-color: var(--ds-status-warning-default);
+}
+*/
+
+/* Success — add data-variant="success" to .root
+.root[data-variant="success"] .inputWrapper {
+  border-color: var(--ds-status-success-default);
+}
+*/
+
+/* ── Date & Time split layout ───────────────────────────────────────────────
+   Two adjacent text inputs separated by a 1px vertical divider.
+   Figma: node 1354-62104 — "Date & Time" variant.             */
+
+.datetimeParts {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  align-items: stretch;
+}
+
+.datetimeParts .input {
+  flex: 1;
+  min-width: 0;
+}
+
+.datetimeDivider {
+  width: 1px;
+  align-self: stretch;
+  flex-shrink: 0;
+  background: var(--ds-components-input-default-outline);
+}
+
+/* ─────────────────────── Future: size hooks ────────────────────────────── */
+
+/* Small — add data-size="sm" to .root
+.root[data-size="sm"] .inputWrapper { height: 28px; }
+.root[data-size="sm"] .input { font-size: var(--ds-font-size-sm); }
+*/
+
+/* Large — add data-size="lg" to .root
+.root[data-size="lg"] .inputWrapper { height: 40px; }
+.root[data-size="lg"] .input { font-size: var(--ds-font-size-h3); }
+*/
+
+/* ── Input Element ──────────────────────────────────────────────────────── */
+
+.input {
+  flex: 1;
+  min-width: 0;        /* allow shrink inside flexbox */
+  height: 100%;
+  padding: 0 10px;
+  border: none;
+  outline: none;
+  background: transparent;
+  border-radius: inherit;
+
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);     /* 14px */
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-base); /* 20px */
+  color: var(--ds-text-base);              /* #313949 */
+  box-sizing: border-box;
+}
+
+/* Placeholder — same typography as value, only color differs */
+.input::placeholder {
+  color: var(--ds-components-input-placeholder-text); /* #8C91AB */
+  opacity: 1;   /* Firefox reduces opacity by default */
+}
+
+/* Hide native browser calendar / spinner icons on date/time inputs */
+.input[type="date"]::-webkit-calendar-picker-indicator,
+.input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+.input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+/* ── Helper Text ────────────────────────────────────────────────────────── */
+
+.helperText {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-xs);      /* 11px */
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-xs);  /* 15px */
+  color: var(--ds-text-base);             /* #313949 */
+}

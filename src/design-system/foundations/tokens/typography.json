@@ -1,0 +1,242 @@
+{
+  "fontFamily": {
+    "base": {
+      "$type": "fontFamily",
+      "$value": "Zoho Puvi, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    },
+    "mono": {
+      "$type": "fontFamily",
+      "$value": "'Zoho Puvi Mono', 'SFMono-Regular', Consolas, 'Courier New', monospace"
+    }
+  },
+  "fontWeight": {
+    "regular": {
+      "$type": "number",
+      "$value": 400
+    },
+    "medium": {
+      "$type": "number",
+      "$value": 500
+    },
+    "semibold": {
+      "$type": "number",
+      "$value": 600
+    },
+    "bold": {
+      "$type": "number",
+      "$value": 700
+    }
+  },
+  "fontSize": {
+    "xs": {
+      "$type": "number",
+      "$value": 11,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82174:149227",
+        "com.figma.scopes": [
+          "FONT_SIZE"
+        ]
+      }
+    },
+    "sm": {
+      "$type": "number",
+      "$value": 12,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145629",
+        "com.figma.scopes": [
+          "FONT_SIZE"
+        ]
+      }
+    },
+    "md": {
+      "$type": "number",
+      "$value": 13,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145630",
+        "com.figma.scopes": [
+          "FONT_SIZE"
+        ]
+      }
+    },
+    "base": {
+      "$type": "number",
+      "$value": 14,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145631",
+        "com.figma.scopes": [
+          "FONT_SIZE"
+        ]
+      }
+    },
+    "h3": {
+      "$type": "number",
+      "$value": 15,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145632",
+        "com.figma.scopes": [
+          "FONT_SIZE"
+        ]
+      }
+    },
+    "h2": {
+      "$type": "number",
+      "$value": 18,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145633",
+        "com.figma.scopes": [
+          "FONT_SIZE"
+        ]
+      }
+    },
+    "h1": {
+      "$type": "number",
+      "$value": 20,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145634",
+        "com.figma.scopes": [
+          "FONT_SIZE"
+        ]
+      }
+    }
+  },
+  "lineHeight": {
+    "xs": {
+      "$type": "number",
+      "$value": 15,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145635",
+        "com.figma.scopes": [
+          "LINE_HEIGHT"
+        ]
+      }
+    },
+    "sm": {
+      "$type": "number",
+      "$value": 17,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145637",
+        "com.figma.scopes": [
+          "LINE_HEIGHT"
+        ]
+      }
+    },
+    "md": {
+      "$type": "number",
+      "$value": 18,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145638",
+        "com.figma.scopes": [
+          "LINE_HEIGHT"
+        ]
+      }
+    },
+    "base": {
+      "$type": "number",
+      "$value": 20,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145636",
+        "com.figma.scopes": [
+          "LINE_HEIGHT"
+        ]
+      }
+    },
+    "h3": {
+      "$type": "number",
+      "$value": 18,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145639",
+        "com.figma.scopes": [
+          "LINE_HEIGHT"
+        ]
+      }
+    },
+    "h2": {
+      "$type": "number",
+      "$value": 22,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145640",
+        "com.figma.scopes": [
+          "LINE_HEIGHT"
+        ]
+      }
+    },
+    "h1": {
+      "$type": "number",
+      "$value": 27,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:82175:145641",
+        "com.figma.scopes": [
+          "LINE_HEIGHT"
+        ]
+      }
+    }
+  },
+  "scale": {
+    "xs": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{fontFamily.base}",
+        "fontSize": "{fontSize.xs}",
+        "fontWeight": "{fontWeight.regular}",
+        "lineHeight": "{lineHeight.xs}"
+      }
+    },
+    "sm": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{fontFamily.base}",
+        "fontSize": "{fontSize.sm}",
+        "fontWeight": "{fontWeight.regular}",
+        "lineHeight": "{lineHeight.sm}"
+      }
+    },
+    "md": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{fontFamily.base}",
+        "fontSize": "{fontSize.md}",
+        "fontWeight": "{fontWeight.regular}",
+        "lineHeight": "{lineHeight.md}"
+      }
+    },
+    "base": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{fontFamily.base}",
+        "fontSize": "{fontSize.base}",
+        "fontWeight": "{fontWeight.regular}",
+        "lineHeight": "{lineHeight.base}"
+      }
+    },
+    "h3": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{fontFamily.base}",
+        "fontSize": "{fontSize.h3}",
+        "fontWeight": "{fontWeight.semibold}",
+        "lineHeight": "{lineHeight.h3}"
+      }
+    },
+    "h2": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{fontFamily.base}",
+        "fontSize": "{fontSize.h2}",
+        "fontWeight": "{fontWeight.semibold}",
+        "lineHeight": "{lineHeight.h2}"
+      }
+    },
+    "h1": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{fontFamily.base}",
+        "fontSize": "{fontSize.h1}",
+        "fontWeight": "{fontWeight.bold}",
+        "lineHeight": "{lineHeight.h1}"
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "☀️ Day Mode (NXT GEN)"
+  }
+}

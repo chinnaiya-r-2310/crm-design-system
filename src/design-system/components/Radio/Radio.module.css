@@ -1,0 +1,141 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Radio Button — CSS Module
+   Figma source: Chinnaiya Style Sheet, node 31:9080
+
+   DOM anatomy
+   ────────────
+     label.root
+       span.control      (15×15 positioned container)
+         input.nativeInput   (transparent, full-size, z-index:1)
+         span.circle         (visual ring; sibling after input)
+       span.labelText    (optional label text)
+
+   State hooks
+   ────────────
+     :checked        → blue ring + white inner dot
+     :disabled       → grey bg + muted border
+     :checked:disabled → blue at 50% opacity
+     :focus-visible  → 2px outside circular focus ring
+     [data-force-state="hover"]  → forced hover
+     [data-force-state="focus"]  → forced focus ring
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Root ────────────────────────────────────────────────────────────────── */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.root[data-disabled] {
+  cursor: not-allowed;
+}
+
+/* ── Control — positioned wrapper ────────────────────────────────────────── */
+
+.control {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* ── Native input — visually hidden, full-size click target ──────────────── */
+
+.nativeInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.nativeInput:disabled {
+  cursor: not-allowed;
+}
+
+/* ── Visual circle ───────────────────────────────────────────────────────── */
+
+.circle {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--ds-components-input-default-outline, #C0C8E2);
+  border-radius: 50%;
+  background: var(--ds-bg-common-card, #ffffff);
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+/* Inner dot shown when checked */
+.circle::after {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #ffffff;
+  border-radius: 50%;
+  transition: transform 150ms ease;
+}
+
+/* ── Hover ───────────────────────────────────────────────────────────────── */
+
+.nativeInput:hover + .circle,
+.root[data-force-state="hover"] .circle {
+  border-color: var(--ds-components-input-hover-outline, #797883);
+}
+
+/* ── Checked ─────────────────────────────────────────────────────────────── */
+
+.nativeInput:checked + .circle {
+  background: var(--ds-brand-primary, #5464F2);
+  border-color: var(--ds-brand-primary, #5464F2);
+}
+
+.nativeInput:checked + .circle::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ── Focus ring ──────────────────────────────────────────────────────────── */
+
+/* Circular 2px outside ring at 1px offset — matches Figma Focus variant */
+.nativeInput:focus-visible + .circle,
+.root[data-force-state="focus"] .circle {
+  outline: 2px solid var(--ds-components-input-focus-ring, #8792F0);
+  outline-offset: 1px;
+}
+
+/* ── Disabled ────────────────────────────────────────────────────────────── */
+
+.nativeInput:disabled + .circle {
+  background: var(--ds-components-input-disable-bg, #F5F6F8);
+  border-color: var(--ds-components-input-disable-outline, #D2D9F1);
+}
+
+/* Checked + disabled: blue at 50% opacity */
+.nativeInput:checked:disabled + .circle {
+  background: var(--ds-brand-primary, #5464F2);
+  border-color: var(--ds-brand-primary, #5464F2);
+  opacity: 0.5;
+}
+
+/* ── Label text ──────────────────────────────────────────────────────────── */
+
+.labelText {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-base, #313949);
+}
+
+.root[data-disabled] .labelText {
+  opacity: 0.5;
+}

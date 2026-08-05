@@ -1,0 +1,53 @@
+{
+  "name": "Icon",
+  "category": "Foundation",
+  "status": "stable",
+  "version": "1.0.0",
+  "description": "Renders a design-system SVG icon from the central registry. Icons use currentColor and scale via the size prop. Accessibility is automatic — decorative icons are hidden from AT, meaningful icons get role=img.",
+
+  "source": {
+    "svgDirectory": "src/design-system/foundations/icons/",
+    "namingConvention": "PascalCase.svg",
+    "registry": "src/design-system/components/Icon/iconMap.ts",
+    "metadata": "src/design-system/foundations/icons/icons.json"
+  },
+
+  "renderStrategy": "ReactComponent",
+  "svgTransform": "vite-plugin-svgr (query: ?react)",
+  "colorStrategy": "currentColor — inherited from CSS color property",
+
+  "props": {
+    "name":       { "type": "IconName",                       "required": true,  "description": "Registered icon key from iconMap" },
+    "size":       { "type": "number",                         "optional": true,  "default": 16, "description": "Width and height in px" },
+    "className":  { "type": "string",                         "optional": true,  "description": "CSS class on the SVG element" },
+    "title":      { "type": "string",                         "optional": true,  "description": "Accessible label (applied as aria-label)" },
+    "aria-label": { "type": "string",                         "optional": true,  "description": "Explicit aria-label — overrides title" },
+    "aria-hidden":{ "type": "boolean | 'true' | 'false'",    "optional": true,  "description": "Override auto aria-hidden" }
+  },
+
+  "accessibility": {
+    "decorative": "aria-hidden='true' applied automatically when no aria-label or title is provided",
+    "meaningful": "role='img' and aria-label applied when aria-label or title is provided",
+    "svgTitleElement": "not injected — accessible name lives on the SVG element attribute for simplicity"
+  },
+
+  "iconCount": 24,
+  "icons": [
+    "Add", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowUp",
+    "Bell", "Calendar", "Check", "ChevronDown", "ChevronLeft", "ChevronRight",
+    "Close", "Delete", "Edit", "Filter", "Folder",
+    "Info", "More", "Search", "Settings", "Sort", "Star", "User", "Warning"
+  ],
+
+  "scalability": {
+    "strategy": "Add SVG → import in iconMap.ts → IconName type updates automatically",
+    "noSwitchStatements": true,
+    "noCodegenRequired": true,
+    "targetScale": "500+ icons"
+  },
+
+  "tokenSource": {
+    "colors": "src/design-system/foundations/tokens/color.json",
+    "iconMetadata": "src/design-system/foundations/icons/icons.json"
+  }
+}
