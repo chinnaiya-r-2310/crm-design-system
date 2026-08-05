@@ -839,6 +839,9 @@ export const GroupButtonMeetingInvitation: Story = {
   name: 'Group Button — Meeting Invitation',
   render: () => {
     const [rsvp, setRsvp] = useState<string | undefined>(undefined);
+    const [rsvpYes, setRsvpYes] = useState<string>('yes');
+    const [rsvpMaybe, setRsvpMaybe] = useState<string>('maybe');
+    const [rsvpNo, setRsvpNo] = useState<string>('no');
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
@@ -860,13 +863,13 @@ export const GroupButtonMeetingInvitation: Story = {
           </div>
         </Section>
         <Section title="Yes selected — single solid more button">
-          <ButtonGroup options={RSVP_OPTIONS} value="yes" size="sm" />
+          <ButtonGroup options={RSVP_OPTIONS} value={rsvpYes} size="sm" onChange={setRsvpYes} />
         </Section>
         <Section title="Maybe selected">
-          <ButtonGroup options={RSVP_OPTIONS} value="maybe" size="sm" />
+          <ButtonGroup options={RSVP_OPTIONS} value={rsvpMaybe} size="sm" onChange={setRsvpMaybe} />
         </Section>
         <Section title="No selected">
-          <ButtonGroup options={RSVP_OPTIONS} value="no" size="sm" />
+          <ButtonGroup options={RSVP_OPTIONS} value={rsvpNo} size="sm" onChange={setRsvpNo} />
         </Section>
         <Section title="Default — no selection">
           <ButtonGroup options={RSVP_OPTIONS} size="sm" />

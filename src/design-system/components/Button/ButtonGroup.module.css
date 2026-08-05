@@ -18,11 +18,9 @@
 .option {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
   height: 32px;
   margin: 0 6px;
-  padding: 0 10px;
+  padding: 0;
   border-radius: 5px;
   border: none;
   background: none;
@@ -37,24 +35,39 @@
   user-select: none;
 }
 
-.optionLabel {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: 1;
-}
-
 .optionTick {
+  width: 25px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
   color: var(--ds-text-base);
+}
+
+.optionLabel {
+  flex: 1;
+  min-width: 0;
+  padding-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .option:hover {
   background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
 }
 
+/* Selected option shows hover bg by default (no cursor in panel yet) */
 .option[data-selected] {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+/* Once cursor enters the panel, clear the selected default — only the hovered row highlights */
+.panel:hover .option[data-selected] {
+  background: none;
+}
+
+/* Restore hover bg if cursor is directly on the selected option */
+.panel:hover .option[data-selected]:hover {
   background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
 }

@@ -85,12 +85,10 @@ export function ButtonGroup({
                   data-selected={opt.value === selected || undefined}
                   onClick={() => handleSelect(opt.value)}
                 >
+                  <span className={styles.optionTick} aria-hidden="true">
+                    {opt.value === selected && <Check />}
+                  </span>
                   <span className={styles.optionLabel}>{opt.label}</span>
-                  {opt.value === selected && (
-                    <span className={styles.optionTick} aria-hidden="true">
-                      <Check />
-                    </span>
-                  )}
                 </button>
               ))}
             </div>

@@ -227,6 +227,7 @@ export function Input({
       readOnly={isLookup || readOnly}
       {...inputProps}
       placeholder={resolvedPlaceholder}
+      onWheel={resolvedType === 'number' ? (e) => (e.currentTarget as HTMLInputElement).blur() : inputProps.onWheel}
     />
   );
 
