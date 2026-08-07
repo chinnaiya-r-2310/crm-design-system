@@ -83,6 +83,11 @@ export interface InputProps
    */
   columns?: string;
 
+  /** For datetime type: controlled value for the time half of the field. */
+  timeValue?: string;
+  /** For datetime type: change handler for the time half of the field. */
+  onTimeChange?: React.ChangeEventHandler<HTMLInputElement>;
+
   /**
    * Puts the field in the error visual state.
    * Border turns #FF5D5A and helper text (if provided) renders in the same color.
@@ -157,6 +162,8 @@ export function Input({
   style,
   className: _className,  // consumed; not forwarded to root (use portal pattern later)
   readOnly,
+  timeValue,
+  onTimeChange,
   ...inputProps
 }: InputProps) {
   const autoId = useId();
@@ -205,8 +212,12 @@ export function Input({
         className={styles.input}
         placeholder="DD/MM/YYYY"
         aria-label="Date"
+        aria-describedby={helperText ? `${inputId}-helper` : undefined}
+        value={inputProps.value}
+        onChange={inputProps.onChange}
         readOnly={readOnly}
         disabled={inputProps.disabled}
+        required={inputProps.required}
       />
       <span className={styles.datetimeDivider} aria-hidden="true" />
       <input
@@ -214,6 +225,8 @@ export function Input({
         className={styles.input}
         placeholder="HH:MM"
         aria-label="Time"
+        value={timeValue}
+        onChange={onTimeChange}
         readOnly={readOnly}
         disabled={inputProps.disabled}
       />

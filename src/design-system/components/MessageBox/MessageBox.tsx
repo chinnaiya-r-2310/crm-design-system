@@ -24,8 +24,16 @@ export interface MessageBoxProps {
   title?: React.ReactNode;
 
   /**
-   * When provided a close (×) button is shown and called on click.
+   * Show the close (×) button. Defaults to true.
+   * Pass false to hide it (e.g. inline banners that are not dismissible).
    * Figma: "Close Icon" boolean property.
+   */
+  closable?: boolean;
+
+  /**
+   * Called when the close button is clicked.
+   * When omitted the button is still shown (unless closable is false) but clicking
+   * it is a no-op — the parent component owns visibility state.
    */
   onClose?: () => void;
 
@@ -52,6 +60,7 @@ export function MessageBox({
   variant = 'info',
   message,
   title,
+  closable = true,
   onClose,
   className,
   style,
@@ -74,7 +83,7 @@ export function MessageBox({
         </div>
       </div>
 
-      {onClose && (
+      {closable && (
         <button
           type="button"
           className={styles.closeBtn}

@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Input } from './Input';
+import { DateTimeInput } from './DateTimeInput';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -402,12 +404,53 @@ export const AutoUpdate: Story = {
  * Left: DD/MM/YYYY · Right: HH:MM
  * Figma: node 1354-62104.
  */
-export const DateTimeInput: Story = {
+export const DateTimeField: Story = {
   name: 'Date & Time',
   args: {
     label: 'Created Time',
     width: 670,
     layout: 'horizontal',
     type: 'datetime',
+  },
+};
+
+/**
+ * Date and time — vertical layout at 390px (as used inside CriteriaBuilder).
+ */
+export const DateTimeVertical: Story = {
+  name: 'Date & Time (Vertical)',
+  args: {
+    width: 390,
+    layout: 'vertical',
+    type: 'datetime',
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DateTimeInput — calendar-integrated split date | time field
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * DateTimeInput — 390px split field with calendar popup on the date half.
+ * Time defaults to the next rounded hour on first render when empty.
+ * Clicking the date half opens a Calendar; the time half accepts free text.
+ */
+export const DateTimeInputStory: Story = {
+  name: 'Date & Time (with Calendar)',
+  parameters: { controls: { disable: true } },
+  render: () => {
+    const [date, setDate] = useState('22/04/2025');
+    const [time, setTime] = useState('');
+    return (
+      <div style={{ padding: 24 }}>
+        <DateTimeInput
+          width={390}
+          dateValue={date}
+          timeValue={time}
+          onDateChange={setDate}
+          onTimeChange={setTime}
+        />
+      </div>
+    );
   },
 };

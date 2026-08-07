@@ -89,3 +89,34 @@ export const ResizeHandle: FC<P> = (props) => (
     <path d="M8.1 9.4L9.6 7.9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
   </svg>
 );
+
+export const More: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M9.5 8C9.5 8.82843 8.82843 9.5 8 9.5C7.17157 9.5 6.5 8.82843 6.5 8C6.5 7.17157 7.17157 6.5 8 6.5C8.82843 6.5 9.5 7.17157 9.5 8Z" fill="currentColor"/>
+    <path d="M4.5 8C4.5 8.82843 3.82843 9.5 3 9.5C2.17157 9.5 1.5 8.82843 1.5 8C1.5 7.17157 2.17157 6.5 3 6.5C3.82843 6.5 4.5 7.17157 4.5 8Z" fill="currentColor"/>
+    <path d="M14.5 8C14.5 8.82843 13.8284 9.5 13 9.5C12.1716 9.5 11.5 8.82843 11.5 8C11.5 7.17157 12.1716 6.5 13 6.5C13.8284 6.5 14.5 7.17157 14.5 8Z" fill="currentColor"/>
+  </svg>
+);
+
+export const CriteriaMinus: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M8 0.75C12.0302 0.75 15.25 3.96977 15.25 8C15.25 12.0302 12.0302 15.25 8 15.25C3.96977 15.25 0.75 12.0302 0.75 8C0.75 3.96977 3.96977 0.75 8 0.75Z" stroke="currentColor" strokeWidth="1.5"/>
+    <path d="M11 8H5" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round"/>
+  </svg>
+);
+
+export const CriteriaPlus: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M8 0.75C12.0302 0.75 15.25 3.96977 15.25 8C15.25 12.0302 12.0302 15.25 8 15.25C3.96977 15.25 0.75 12.0302 0.75 8C0.75 3.96977 3.96977 0.75 8 0.75Z" stroke="currentColor" strokeWidth="1.5"/>
+    <path d="M8 5V11" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round"/>
+    <path d="M11 8H5" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round"/>
+  </svg>
+);
+
+export const HelpCircle: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M8 0.75C12.0041 0.75 15.25 3.99594 15.25 8C15.25 12.0041 12.0041 15.25 8 15.25C3.99594 15.25 0.75 12.0041 0.75 8C0.75 3.99594 3.99594 0.75 8 0.75Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round"/>
+    <path d="M6 5.33532C6.16131 4.8901 6.47969 4.51467 6.89877 4.27553C7.31784 4.0364 7.81056 3.94898 8.28966 4.02877C8.76875 4.10856 9.2033 4.35041 9.51635 4.71147C9.82939 5.07254 10.0007 5.52952 10 6.00149C10 7.33383 7.94168 8 7.94168 8" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round"/>
+    <circle cx="8" cy="11" r="1" fill="currentColor"/>
+  </svg>
+);

@@ -27,9 +27,7 @@ export interface TabsProps {
 
 interface IndicatorRect {
   left: number;
-  top: number;
   width: number;
-  height: number;
 }
 
 export function Tabs({
@@ -40,36 +38,36 @@ export function Tabs({
   variant = 'primary',
   showCount = false,
 }: TabsProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [indicator, setIndicator] = useState<IndicatorRect>({ left: 0, top: 0, width: 0, height: 0 });
+  const [indicator, setIndicator] = useState<IndicatorRect>({ left: 0, width: 0 });
   // Suppress transition on first render so indicator snaps to position without animating from 0.
   const [animated, setAnimated] = useState(false);
 
   useLayoutEffect(() => {
     const idx = tabs.findIndex(t => t.id === activeTab);
     const el = tabRefs.current[idx];
-    if (el) {
-      setIndicator({
-        left: el.offsetLeft,
-        top: el.offsetTop,
-        width: el.offsetWidth,
-        height: el.offsetHeight,
-      });
-    }
+    const container = containerRef.current;
+    if (!el || !container) return;
+
+    // getBoundingClientRect gives positions relative to the viewport.
+    // Subtracting the container's left border gives position from the padding edge,
+    // which is what CSS `left` expects for position:absolute children.
+    const containerRect = container.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const borderLeft = parseFloat(getComputedStyle(container).borderLeftWidth) || 0;
+
+    setIndicator({
+      left: elRect.left - containerRect.left - borderLeft,
+      width: elRect.width,
+    });
   }, [activeTab, tabs]);
 
   useEffect(() => { setAnimated(true); }, []);
 
-  const isPrimary = variant === 'primary';
-
-  // Primary indicator uses only left+width (bottom-anchored via CSS).
-  // Secondary indicator uses all four dimensions (full pill).
-  const indicatorStyle = isPrimary
-    ? { left: indicator.left, width: indicator.width }
-    : { left: indicator.left, top: indicator.top, width: indicator.width, height: indicator.height };
-
   return (
     <div
+      ref={containerRef}
       className={styles.tabBar}
       data-variant={variant}
       data-size={size}
@@ -103,7 +101,7 @@ export function Tabs({
       <span
         className={styles.indicator}
         data-animated={animated || undefined}
-        style={indicatorStyle}
+        style={indicator}
         aria-hidden="true"
       />
     </div>

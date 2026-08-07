@@ -1,0 +1,311 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   CriteriaBuilder
+   Figma: Chinnaiya-Style-Sheet node 93656-149883
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Root ──────────────────────────────────────────────────────────────────── */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--ds-font-family-base, 'Inter', sans-serif);
+  font-size: 13px;
+  color: var(--ds-text-base, #313949);
+}
+
+/* ── Row layout ────────────────────────────────────────────────────────────── */
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.circleCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  /* Stretch to full row height so circleConnLine can fill remaining space. */
+  align-self: stretch;
+}
+
+/* 3px spacer before the circle on the first row — aligns circle centre
+   with the 34px input centre: (34 − 28) / 2 = 3px. No background so the
+   connecting line is not extended here (first row has nothing above it). */
+.circleTopSpacer {
+  flex: 0 0 3px;
+}
+
+/* 3px line above the circle for every non-first row — visually continues
+   the connector line right up to the circle's top border. */
+.circleTopLine {
+  width: 1px;
+  flex: 0 0 3px;
+  background: var(--ds-border-subtle, #D6D6E3);
+}
+
+/* Vertical line that runs from the bottom of the circle to the bottom of the
+   row, keeping the visual connection to the connector below unbroken even
+   when the row is taller than a single input (e.g. date-range). */
+.circleConnLine {
+  flex: 1;
+  width: 1px;
+  background: var(--ds-border-subtle, #D6D6E3);
+}
+
+.circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #F8FAFF;
+  border: 1px solid var(--ds-border-subtle, #D6D6E3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: var(--ds-font-weight-regular, 400);
+  color: var(--ds-text-base, #313949);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* ── Fields row ────────────────────────────────────────────────────────────── */
+
+/* Field, Operator, Value columns and Actions all sit in this flex row.
+   Widths are set via each component's own width prop (200 / 150 / 390 px).
+   Gap is 10px between every column. */
+.fields {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* ── Empty / Not-empty placeholder value — base text color exception ────────── */
+
+/* Overrides the disabled input text color for ${EMPTY} / ${NOTEMPTY} sentinel
+   values so they read as regular text rather than muted placeholder text. */
+.emptyValueWrap {
+  --_input-disabled-text-color: var(--ds-text-base, #313949);
+}
+
+/* ── Date value rows (date-range type — two datetime inputs stacked) ────────── */
+
+.dateRows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Action buttons (remove / add) ────────────────────────────────────────── */
+
+/* margin-left: 5px pushes total gap from last input to actions from 10px → 15px.
+   margin-top centres 16px icons against 34px input height: (34 - 16) / 2 ≈ 9px */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-top: 9px;
+  margin-left: 5px;
+}
+
+.removeBtn,
+.addBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: opacity 150ms ease;
+}
+
+.removeBtn { color: var(--ds-icon-primary-negative-red, #FF5D5A); }
+.addBtn    { color: var(--ds-icon-primary-green, #12AA67); }
+
+.removeBtn:hover,
+.addBtn:hover {
+  opacity: 0.75;
+}
+
+/* ── Connector (AND / OR) ──────────────────────────────────────────────────── */
+
+/* Height = 38px so the vertical gap from one row's inputs to the next is 38px. */
+.connector {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  height: 38px;
+}
+
+.connectorCol {
+  width: 28px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.connLine {
+  width: 1px;
+  flex: 1;
+  background: var(--ds-border-subtle, #D6D6E3);
+}
+
+.connBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: var(--ds-font-weight-regular, 400);
+  color: var(--ds-text-link, #5464F2);
+  cursor: pointer;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: background 120ms ease;
+}
+
+.connBtn:hover {
+  background: rgba(84, 100, 242, 0.08);
+}
+
+/* ── Criteria limit toast — fixed at 100px from top, centered horizontally ── */
+
+.limitToast {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  pointer-events: none;
+  animation: toastFadeIn 200ms ease forwards;
+}
+
+@keyframes toastFadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Criteria Pattern section — label and value in the same row ────────────── */
+
+/* Single flex row: [label + help icon] [pattern content] */
+.pattern {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.patternHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  min-width: 140px;
+}
+
+.patternLabel {
+  font-size: 13px;
+  font-weight: var(--ds-font-weight-regular, 400);
+  color: var(--ds-text-label, #616E88);
+  white-space: nowrap;
+}
+
+.helpIcon {
+  color: var(--ds-text-label, #616E88);
+  flex-shrink: 0;
+}
+
+/* Pattern edit mode — fills the right side of the .pattern row */
+.patternEdit {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.patternInputWrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.patternSaveBtn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ds-text-link, #5464F2);
+  border: none;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 150ms ease;
+}
+
+.patternSaveBtn:hover { opacity: 0.85; }
+
+.patternCancelBtn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ds-bg-common-card, #ffffff);
+  border: 1.5px solid var(--ds-icon-primary-negative-red, #FF5D5A);
+  color: var(--ds-icon-primary-negative-red, #FF5D5A);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 150ms ease;
+}
+
+.patternCancelBtn:hover { background: rgba(255, 93, 90, 0.06); }
+
+/* Pattern view mode — fills the right side of the .pattern row */
+.patternView {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.patternText {
+  font-size: 13px;
+  font-weight: var(--ds-font-weight-regular, 400);
+  color: var(--ds-text-base, #313949);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.editPatternBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: var(--ds-font-weight-regular, 400);
+  color: var(--ds-text-link, #5464F2);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: text-decoration-color 150ms ease;
+}
+
+.editPatternBtn:hover {
+  text-decoration-color: var(--ds-text-link, #5464F2);
+}

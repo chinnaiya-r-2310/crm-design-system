@@ -1,0 +1,192 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   SetupTable — CSS Module
+   Figma: Chinnaiya-Style-Sheet node 93640-149179 — "Setup - List"
+
+   DOM anatomy
+   ─────────────
+     .root                      rounded card wrapper
+       table.table
+         thead
+           tr.headerRow
+             th.th               (+ .thWithSep for all but last)
+             th.th.checkboxCell  (first, when selectable)
+             th.th.actionsCell   (last, when onRowAction provided)
+         tbody
+           tr.bodyRow            [data-selected] [data-alt]
+             td.td
+             td.td.checkboxCell
+             td.td.actionsCell
+               button.actionBtn
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Root card ───────────────────────────────────────────────────────────── */
+
+.root {
+  border-radius: 12px;
+  border: 1px solid var(--ds-components-table-header-outline-border, #D9E0EB);
+  background: var(--ds-bg-common-card, #FFFFFF);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ── Table ───────────────────────────────────────────────────────────────── */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* ── Header row ──────────────────────────────────────────────────────────── */
+
+.headerRow {
+  height: 36px;
+  background: var(--ds-components-table-header-bg, #F4F7FF);
+  border-bottom: 1px solid var(--ds-components-table-header-outline-border, #D9E0EB);
+}
+
+/* ── Header cell ─────────────────────────────────────────────────────────── */
+
+.th {
+  position: relative;
+  padding: 0 12px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  font-weight: var(--ds-font-weight-regular, 400);
+  line-height: var(--ds-line-height-base, 20px);
+  color: var(--ds-text-label, #616E88);
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+/* Thin separator line between header cells */
+.thWithSep::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 16px;
+  width: 1px;
+  background: var(--ds-components-table-header-outline-border, #D9E0EB);
+}
+
+/* ── Sort button in header ───────────────────────────────────────────────── */
+
+.sortBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  white-space: nowrap;
+  outline: none;
+}
+
+.sortBtn:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
+  border-radius: 2px;
+}
+
+/* ── Body row ────────────────────────────────────────────────────────────── */
+
+.bodyRow {
+  height: 40px;
+  border-bottom: 1px solid var(--ds-components-table-row-border, #EEF1F7);
+  transition: background 150ms ease;
+}
+
+.bodyRow:last-child {
+  border-bottom: none;
+}
+
+.bodyRow:hover {
+  background: var(--ds-components-table-table-hover, #F7F8FB);
+}
+
+.bodyRow[data-selected] {
+  background: var(--ds-components-table-table-checked, #F5F8FF);
+}
+
+.bodyRow[data-selected]:hover {
+  background: var(--ds-components-table-table-checked, #F5F8FF);
+}
+
+/* Alternate row tint */
+.bodyRow[data-alt] {
+  background: var(--ds-components-table-alter-color, #FAFBFC);
+}
+
+.bodyRow[data-alt]:hover {
+  background: var(--ds-components-table-table-hover, #F7F8FB);
+}
+
+/* ── Body cell ───────────────────────────────────────────────────────────── */
+
+.td {
+  padding: 0 12px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  font-weight: var(--ds-font-weight-regular, 400);
+  line-height: var(--ds-line-height-base, 20px);
+  color: var(--ds-text-base, #313949);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+/* ── Checkbox column ─────────────────────────────────────────────────────── */
+
+.checkboxCell {
+  width: 46px;
+  padding: 0 8px 0 12px;
+  text-align: center;
+}
+
+/* ── Actions column (3-dot menu) ─────────────────────────────────────────── */
+
+.actionsCell {
+  width: 52px;
+  padding: 0 8px;
+  text-align: center;
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ds-text-label, #616E88);
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.actionBtn:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+  color: var(--ds-text-base, #313949);
+}
+
+.actionBtn:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
+}
+
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+
+.emptyCell {
+  padding: 48px 24px;
+  text-align: center;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  color: var(--ds-text-muted, #8C9BAB);
+}

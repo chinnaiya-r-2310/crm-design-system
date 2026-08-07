@@ -4,7 +4,8 @@ import { iconMap } from './iconMap';
 import type { IconName } from './iconMap';
 import {
   AlertError, AlertInfo, AlertSuccess, AlertWarning,
-  Check, ChevronDownFilled, CloseSmall, Info, Lock, ResizeHandle, Search,
+  Check, ChevronDownFilled, CloseSmall, CriteriaMinus, CriteriaPlus, HelpCircle,
+  Info, Lock, More, ResizeHandle, Search,
 } from '../../foundations/icons/Icons';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -27,7 +28,7 @@ const meta: Meta<typeof Icon> = {
         component: [
           'Renders a design-system icon from the central registry (`iconMap.ts`).',
           'Source: crm-icon-library Figma file (node 91-19).',
-          'Icons: AlertError · AlertInfo · AlertSuccess · AlertWarning · Check · ChevronDownFilled · CloseSmall · Info · Lock · ResizeHandle · Search.',
+          'Icons: AlertError · AlertInfo · AlertSuccess · AlertWarning · Check · ChevronDownFilled · CloseSmall · CriteriaMinus · CriteriaPlus · HelpCircle · Info · Lock · More · ResizeHandle · Search.',
           'Line icons use `currentColor`. Alert icons use fixed Figma brand colors.',
         ].join(' '),
       },
@@ -266,8 +267,12 @@ export const LineIcons: Story = {
         [Check,            'Check',            11],
         [ChevronDownFilled,'ChevronDownFilled', 10],
         [CloseSmall,       'CloseSmall',         8],
+        [CriteriaMinus,    'CriteriaMinus',     16],
+        [CriteriaPlus,     'CriteriaPlus',      16],
+        [HelpCircle,       'HelpCircle',        16],
         [Info,             'Info',              18],
         [Lock,             'Lock',              16],
+        [More,             'More',              16],
         [ResizeHandle,     'ResizeHandle',      10],
         [Search,           'Search',            14],
       ] as const).map(([Comp, label, size]) => (

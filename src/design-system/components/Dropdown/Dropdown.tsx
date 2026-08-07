@@ -152,6 +152,7 @@ export function Dropdown({
   const [activeIndex, setActiveIndex] = useState(-1);
   const [panelPos, setPanelPos] = useState<{ top: number; left: number; width: number } | null>(null);
   const justOpenedRef = useRef(false); // true only on the render cycle when panel first appears
+  const isKeyNavRef   = useRef(false); // true when activeIndex changed via keyboard — gates scrollIntoView
 
   const updatePanelPos = () => {
     if (!triggerRef.current) return;
@@ -288,9 +289,10 @@ export function Dropdown({
     setActiveIndex(first >= 0 ? first : 0);
   }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Scroll active option into view
+  // Scroll active option into view — only for keyboard navigation, not mouse hover
   useEffect(() => {
-    if (activeIndex < 0 || !listRef.current) return;
+    if (!isKeyNavRef.current || activeIndex < 0 || !listRef.current) return;
+    isKeyNavRef.current = false;
     const el = listRef.current.querySelector<HTMLElement>(`[data-option-index="${activeIndex}"]`);
     el?.scrollIntoView({ block: 'nearest' });
   }, [activeIndex]);
@@ -300,6 +302,7 @@ export function Dropdown({
     if (!open) return;
     if (e.key === 'ArrowDown') {
       e.preventDefault();
+      isKeyNavRef.current = true;
       setActiveIndex(prev => {
         let next = prev + 1;
         while (next < filtered.length && filtered[next]?.disabled) next++;
@@ -307,6 +310,7 @@ export function Dropdown({
       });
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
+      isKeyNavRef.current = true;
       setActiveIndex(prev => {
         let next = prev - 1;
         while (next >= 0 && filtered[next]?.disabled) next--;
@@ -403,7 +407,7 @@ export function Dropdown({
               ref={searchRef}
               className={styles.searchInput}
               type="text"
-              placeholder="Search..."
+              placeholder="Search"
               value={search}
               onChange={e => setSearch(e.target.value)}
               aria-label="Search options"

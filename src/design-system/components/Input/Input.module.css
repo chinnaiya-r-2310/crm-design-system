@@ -234,14 +234,16 @@
 
 .root[data-variant="disabled"] .input {
   cursor: not-allowed;
-  color: var(--ds-text-muted);
+  color: var(--_input-disabled-text-color, var(--ds-text-muted));
 }
 
-/* ── Read-only state ────────────────────────────────────────────────────── */
+/* ── Read-only state — disabled appearance + lock icon ──────────────────── */
 
 .root[data-variant="readonly"] .inputWrapper {
   background: var(--ds-components-input-disable-bg);
   border-color: var(--ds-components-input-disable-outline);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .root[data-variant="readonly"] .inputWrapper:hover,
@@ -253,7 +255,8 @@
 }
 
 .root[data-variant="readonly"] .input {
-  color: var(--ds-text-base);
+  color: var(--ds-text-muted);
+  cursor: not-allowed;
 }
 
 /* ──────────────────────── Future: variant hooks ────────────────────────── */
@@ -317,7 +320,8 @@
 
 /* ── Date & Time split layout ───────────────────────────────────────────────
    Two adjacent text inputs separated by a 1px vertical divider.
-   Figma: node 1354-62104 — "Date & Time" variant.             */
+   Left half: DD/MM/YYYY · Right half: HH:MM
+   Figma: node 1354-62104 — "Date & Time" variant, 390×34px.   */
 
 .datetimeParts {
   display: flex;
@@ -336,6 +340,15 @@
   align-self: stretch;
   flex-shrink: 0;
   background: var(--ds-components-input-default-outline);
+}
+
+/* Divider adopts border color for each state so it blends with the wrapper border */
+.root[data-variant="disabled"] .datetimeDivider {
+  background: var(--ds-components-input-disable-outline);
+}
+
+.root[data-variant="error"] .datetimeDivider {
+  background: var(--ds-components-input-error-outline);
 }
 
 /* ─────────────────────── Future: size hooks ────────────────────────────── */

@@ -47,7 +47,6 @@ const TABS_WITH_COUNT: TabItem[] = [
   { id: 'open', label: 'Open', count: 12 },
   { id: 'in-progress', label: 'In Progress', count: 5 },
   { id: 'closed', label: 'Closed', count: 128 },
-  { id: 'all', label: 'All' },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -52,6 +52,7 @@
 .tabBar[data-variant="primary"][data-size="sm"] .tab {
   height: 26px;
   padding-top: 3px;
+  font-size: 12px;
 }
 
 .tabBar[data-variant="primary"] .tab:hover {
@@ -78,13 +79,13 @@
 }
 
 .tabBar[data-variant="primary"][data-size="md"] .tab::after { height: 3px; }
-.tabBar[data-variant="primary"][data-size="sm"] .tab::after { height: 3px; }
+.tabBar[data-variant="primary"][data-size="sm"] .tab::after { height: 2px; }
 
 .tabBar[data-variant="primary"] .tab:hover:not([data-active])::after { opacity: 1; }
 
 /* Primary content row padding */
-.tabBar[data-variant="primary"][data-size="md"] .content { padding-bottom: 2px; }
-.tabBar[data-variant="primary"][data-size="sm"] .content { padding-bottom: 2px; }
+.tabBar[data-variant="primary"][data-size="md"] .content { padding-bottom: 3px; }
+.tabBar[data-variant="primary"][data-size="sm"] .content { padding-bottom: 3px; }
 
 /* Primary count badge — 19×19 for both sizes */
 .tabBar[data-variant="primary"] .count {
@@ -96,6 +97,12 @@
   border-color: var(--ds-border-subtle, #D6D6E3);
 }
 
+.tabBar[data-variant="primary"][data-size="sm"] .count {
+  min-width: 15px;
+  height: 15px;
+  font-size: 11px;
+}
+
 /* Primary sliding indicator — bottom-anchored underline */
 .tabBar[data-variant="primary"] .indicator {
   bottom: -1px;
@@ -104,7 +111,7 @@
 }
 
 .tabBar[data-variant="primary"][data-size="md"] .indicator { height: 3px; }
-.tabBar[data-variant="primary"][data-size="sm"] .indicator { height: 3px; }
+.tabBar[data-variant="primary"][data-size="sm"] .indicator { height: 2px; }
 
 /* ══════════════════════════════════════════════════════════════════════════════
    SECONDARY TAB — pill container, sliding filled-pill indicator
@@ -113,6 +120,7 @@
    ══════════════════════════════════════════════════════════════════════════════ */
 
 .tabBar[data-variant="secondary"] {
+  display: inline-flex;
   padding: 3px;
   gap: 5px;
   border: 1px solid var(--ds-components-navigation-tab-tab-border, #DCDBEE);
@@ -166,10 +174,10 @@
 }
 
 .tabBar[data-variant="secondary"][data-size="sm"] .count {
-  min-width: 16px;
-  height: 16px;
+  min-width: 15px;
+  height: 15px;
   padding: 0 4px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: inherit;
 }
 
@@ -180,7 +188,10 @@
 }
 
 /* Secondary sliding indicator — full-height pill */
+/* top/bottom are CSS-owned (3px each) so the gap is always exactly 3px regardless of JS rounding */
 .tabBar[data-variant="secondary"] .indicator {
+  top: 3px;
+  bottom: 3px;
   border-radius: 100px;
   background: var(--ds-components-navigation-tab-active-bg, #EBEDFF);
   border: 1px solid var(--ds-components-navigation-tab-active-border, #A3ACFF);

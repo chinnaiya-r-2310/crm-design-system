@@ -145,7 +145,7 @@ export function DateRangePicker({
     applyDates(start, end);
   };
 
-  const displayText = resolvedStart ? formatRange(resolvedStart, resolvedEnd) : null;
+  const displayText = resolvedStart ? formatRange(resolvedStart, resolvedEnd ?? null) : null;
   const showCalendar = activePreset === 'specific' || activePreset === 'range';
   const isDualCalendar = activePreset === 'range';
 
