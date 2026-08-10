@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>1.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>1.7s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -8317,18 +8317,17 @@ export const AllTypography: StoryObj = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  14 | // ─────────────────────────────────────────────────────────────────────────────
-  15 |
-&gt; 16 | const meta: Meta = {
+  13 | // ─────────────────────────────────────────────────────────────────────────────
+  14 |
+&gt; 15 | const meta: Meta = {
      | ^
-  17 |   title: &#39;Design System/Patterns/Usage Limit Notification&#39;,
-  18 |   parameters: {
-  19 |     layout: &#39;centered&#39;,
+  16 |   title: &#39;Design System/Patterns/Usage Limit Notification&#39;,
+  17 |   parameters: {
+  18 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/UsageLimitNotification.stories.tsx:
-import { useState, useRef, useEffect } from &#39;react&#39;;
+import { useState } from &#39;react&#39;;
 import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
-import { ChevronDownFilled } from &#39;../foundations/icons/Icons&#39;;
 import { Modal } from &#39;../components/Modal/Modal&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
 import { Tags, type TagItem } from &#39;../components/Tags/Tags&#39;;
@@ -8484,6 +8483,7 @@ function FormRow({
 }
 
 // TODO: Missing component — TagInput (multi-value token field for Users / Roles)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function TagPlaceholder({ tags }: { tags: Array&lt;{ label: string; count: number }&gt; }) {
   return (
     &lt;div style={{
@@ -11576,18 +11576,17 @@ export const CreateDeal: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  14 | // ─────────────────────────────────────────────────────────────────────────────
-  15 |
-&gt; 16 | const meta: Meta = {
+  13 | // ─────────────────────────────────────────────────────────────────────────────
+  14 |
+&gt; 15 | const meta: Meta = {
      | ^
-  17 |   title: &#39;Design System/Patterns/Usage Limit Notification&#39;,
-  18 |   parameters: {
-  19 |     layout: &#39;centered&#39;,
+  16 |   title: &#39;Design System/Patterns/Usage Limit Notification&#39;,
+  17 |   parameters: {
+  18 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/UsageLimitNotification.stories.tsx:
-import { useState, useRef, useEffect } from &#39;react&#39;;
+import { useState } from &#39;react&#39;;
 import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
-import { ChevronDownFilled } from &#39;../foundations/icons/Icons&#39;;
 import { Modal } from &#39;../components/Modal/Modal&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
 import { Tags, type TagItem } from &#39;../components/Tags/Tags&#39;;
@@ -11743,6 +11742,7 @@ function FormRow({
 }
 
 // TODO: Missing component — TagInput (multi-value token field for Users / Roles)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function TagPlaceholder({ tags }: { tags: Array&lt;{ label: string; count: number }&gt; }) {
   return (
     &lt;div style={{
