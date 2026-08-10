@@ -152,7 +152,7 @@
     },
     "h2": {
       "$type": "number",
-      "$value": 22,
+      "$value": 24,
       "$extensions": {
         "com.figma.variableId": "VariableID:82175:145640",
         "com.figma.scopes": [
@@ -231,7 +231,7 @@
       "$value": {
         "fontFamily": "{fontFamily.base}",
         "fontSize": "{fontSize.h1}",
-        "fontWeight": "{fontWeight.bold}",
+        "fontWeight": "{fontWeight.semibold}",
         "lineHeight": "{lineHeight.h1}"
       }
     }

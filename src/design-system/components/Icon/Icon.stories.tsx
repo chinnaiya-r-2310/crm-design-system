@@ -4,8 +4,8 @@ import { iconMap } from './iconMap';
 import type { IconName } from './iconMap';
 import {
   AlertError, AlertInfo, AlertSuccess, AlertWarning,
-  Check, ChevronDownFilled, CloseSmall, CriteriaMinus, CriteriaPlus, HelpCircle,
-  Info, Lock, More, ResizeHandle, Search,
+  Check, ChevronDownFilled, Close, CloseSmall, CompanyAvatar, CriteriaMinus, CriteriaPlus,
+  Edit, GroupAvatar, HelpCircle, ImageAvatar, Info, Lock, More, ResizeHandle, Search, UserAvatar,
 } from '../../foundations/icons/Icons';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -28,7 +28,7 @@ const meta: Meta<typeof Icon> = {
         component: [
           'Renders a design-system icon from the central registry (`iconMap.ts`).',
           'Source: crm-icon-library Figma file (node 91-19).',
-          'Icons: AlertError · AlertInfo · AlertSuccess · AlertWarning · Check · ChevronDownFilled · CloseSmall · CriteriaMinus · CriteriaPlus · HelpCircle · Info · Lock · More · ResizeHandle · Search.',
+          'Icons: AlertError · AlertInfo · AlertSuccess · AlertWarning · Check · ChevronDownFilled · Close · CloseSmall · CompanyAvatar · CriteriaMinus · CriteriaPlus · Edit · GroupAvatar · HelpCircle · ImageAvatar · Info · Lock · More · ResizeHandle · Search · UserAvatar.',
           'Line icons use `currentColor`. Alert icons use fixed Figma brand colors.',
         ].join(' '),
       },
@@ -264,20 +264,52 @@ export const LineIcons: Story = {
       color: 'var(--ds-text-base)',
     }}>
       {([
-        [Check,            'Check',            11],
-        [ChevronDownFilled,'ChevronDownFilled', 10],
-        [CloseSmall,       'CloseSmall',         8],
-        [CriteriaMinus,    'CriteriaMinus',     16],
-        [CriteriaPlus,     'CriteriaPlus',      16],
-        [HelpCircle,       'HelpCircle',        16],
-        [Info,             'Info',              18],
-        [Lock,             'Lock',              16],
-        [More,             'More',              16],
-        [ResizeHandle,     'ResizeHandle',      10],
-        [Search,           'Search',            14],
+        [Check,             'Check',             11],
+        [ChevronDownFilled, 'ChevronDownFilled',  10],
+        [Close,             'Close',               8],
+        [CloseSmall,        'CloseSmall',           8],
+        [CriteriaMinus,     'CriteriaMinus',       16],
+        [CriteriaPlus,      'CriteriaPlus',        16],
+        [Edit,              'Edit',                12],
+        [HelpCircle,        'HelpCircle',          16],
+        [Info,              'Info',                18],
+        [Lock,              'Lock',                16],
+        [More,              'More',                16],
+        [ResizeHandle,      'ResizeHandle',        10],
+        [Search,            'Search',              14],
       ] as const).map(([Comp, label, size]) => (
         <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
           <Comp width={size} height={size} />
+          <span style={{ fontSize: '11px', color: 'var(--ds-text-label)', textAlign: 'center' }}>{label}</span>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Avatar icons — fixed colors, 80×80
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Avatar placeholder icons — fixed Figma colors, not recolorable via currentColor. */
+export const AvatarIcons: Story = {
+  name: 'Avatar Icons',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '24px',
+      fontFamily: 'var(--ds-font-family-base)',
+    }}>
+      {([
+        [UserAvatar,    'UserAvatar'],
+        [GroupAvatar,   'GroupAvatar'],
+        [CompanyAvatar, 'CompanyAvatar'],
+        [ImageAvatar,   'ImageAvatar'],
+      ] as const).map(([Comp, label]) => (
+        <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+          <Comp width={48} height={48} />
           <span style={{ fontSize: '11px', color: 'var(--ds-text-label)', textAlign: 'center' }}>{label}</span>
         </div>
       ))}

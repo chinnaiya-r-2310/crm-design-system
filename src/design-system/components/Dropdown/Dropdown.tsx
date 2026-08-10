@@ -77,6 +77,7 @@ export interface DropdownProps {
 
 // ─────────────────────────────────────────────────────────────────────────────
 import { ChevronDownFilled, Check, Search as SearchIcon } from '../../foundations/icons/Icons';
+import { Tooltip } from '../Tooltip/Tooltip';
 
 // Icons
 // ─────────────────────────────────────────────────────────────────────────────
@@ -96,6 +97,42 @@ const PlusIcon = () => (
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers
 // ─────────────────────────────────────────────────────────────────────────────
+
+// Shows a black tooltip only when the text is actually truncated (scrollWidth > clientWidth).
+// Checks on mouseEnter so the first hover already shows the tooltip when truncated.
+function TruncatedLabel({
+  text,
+  className,
+  wrapperStyle,
+  spanProps,
+}: {
+  text: string;
+  className: string;
+  wrapperStyle?: React.CSSProperties;
+  spanProps?: React.HTMLAttributes<HTMLSpanElement> & Record<string, unknown>;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [isTruncated, setIsTruncated] = useState(false);
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
+    if (ref.current) setIsTruncated(ref.current.scrollWidth > ref.current.clientWidth);
+    spanProps?.onMouseEnter?.(e);
+  };
+
+  return (
+    <Tooltip
+      content={text}
+      variant="black"
+      placement="top"
+      disabled={!isTruncated}
+      wrapperStyle={wrapperStyle}
+    >
+      <span ref={ref} {...spanProps} className={className} onMouseEnter={handleMouseEnter}>
+        {text}
+      </span>
+    </Tooltip>
+  );
+}
 
 function groupOptions(options: DropdownOption[]) {
   const groups: Map<string | undefined, DropdownOption[]> = new Map();
@@ -150,6 +187,7 @@ export function Dropdown({
   const listRef    = useRef<HTMLDivElement>(null);
 
   const [activeIndex, setActiveIndex] = useState(-1);
+  const PANEL_MAX_WIDTH = 390;
   const [panelPos, setPanelPos] = useState<{ top: number; left: number; width: number } | null>(null);
   const justOpenedRef = useRef(false); // true only on the render cycle when panel first appears
   const isKeyNavRef   = useRef(false); // true when activeIndex changed via keyboard — gates scrollIntoView
@@ -364,7 +402,7 @@ export function Dropdown({
             {isSelected && <Check aria-hidden="true" />}
           </span>
         )}
-        <span className={styles.optionLabel}>{opt.label}</span>
+        <TruncatedLabel text={opt.label} className={styles.optionLabel} wrapperStyle={{ flex: 1, minWidth: 0 }} />
       </div>
     );
   };
@@ -393,7 +431,13 @@ export function Dropdown({
       ref={panelRef}
       id={listId}
       className={styles.panel}
-      style={{ top: panelPos.top, left: panelPos.left, width: panelPos.width }}
+      style={{
+          top: panelPos.top,
+          left: panelPos.left,
+          ...(panelPos.width >= PANEL_MAX_WIDTH
+            ? { width: PANEL_MAX_WIDTH }
+            : { width: 'max-content', maxWidth: PANEL_MAX_WIDTH }),
+        }}
       role="listbox"
       aria-label={label}
       aria-multiselectable={multiSelect}
@@ -469,9 +513,12 @@ export function Dropdown({
         data-open={open || undefined}
         onClick={toggle}
       >
-        <span className={styles.triggerValue} data-placeholder={isPlaceholder || undefined}>
-          {displayValue}
-        </span>
+        <TruncatedLabel
+          text={displayValue}
+          className={styles.triggerValue}
+          wrapperStyle={{ flex: 1, minWidth: 0 }}
+          spanProps={{ 'data-placeholder': isPlaceholder || undefined }}
+        />
         <span className={styles.chevron} aria-hidden="true">
           <ChevronDownFilled aria-hidden="true" />
         </span>

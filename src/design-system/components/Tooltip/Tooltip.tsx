@@ -19,6 +19,12 @@ export interface TooltipProps {
   showIcon?: boolean;
   alwaysVisible?: boolean;
   iconLabel?: string;
+  /** When true, tooltip never shows. Useful for conditionally disabling without changing tree structure. */
+  disabled?: boolean;
+  /** Style forwarded to the outer wrapper span (e.g. flex layout). */
+  wrapperStyle?: React.CSSProperties;
+  /** Class name forwarded to the outer wrapper span. */
+  wrapperClassName?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -44,6 +50,9 @@ export function Tooltip({
   showIcon = false,
   alwaysVisible = false,
   iconLabel,
+  disabled = false,
+  wrapperStyle,
+  wrapperClassName,
 }: TooltipProps) {
   const [visible, setVisible] = useState(false);
   const [rect, setRect] = useState<DOMRect | null>(null);
@@ -63,7 +72,7 @@ export function Tooltip({
     }
   }, [alwaysVisible]);
 
-  const isVisible = alwaysVisible || visible;
+  const isVisible = !disabled && (alwaysVisible || visible);
 
   const tooltipEl = (
     <span
@@ -85,7 +94,8 @@ export function Tooltip({
   return (
     <span
       ref={wrapperRef}
-      className={styles.wrapper}
+      className={`${styles.wrapper}${wrapperClassName ? ` ${wrapperClassName}` : ''}`}
+      style={wrapperStyle}
       onMouseEnter={show}
       onMouseLeave={hide}
       onFocus={show}

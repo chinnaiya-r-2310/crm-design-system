@@ -6,15 +6,21 @@ import {
   AlertWarning,
   Check,
   ChevronDownFilled,
+  Close,
   CloseSmall,
+  CompanyAvatar,
   CriteriaMinus,
   CriteriaPlus,
+  Edit,
+  GroupAvatar,
   HelpCircle,
+  ImageAvatar,
   Info,
   Lock,
   More,
   ResizeHandle,
   Search,
+  UserAvatar,
 } from '../../foundations/icons/Icons';
 
 export type SvgComponent = FC<SVGProps<SVGSVGElement>>;
@@ -26,15 +32,21 @@ export const iconMap = {
   AlertWarning,
   Check,
   ChevronDownFilled,
+  Close,
   CloseSmall,
+  CompanyAvatar,
   CriteriaMinus,
   CriteriaPlus,
+  Edit,
+  GroupAvatar,
   HelpCircle,
+  ImageAvatar,
   Info,
   Lock,
   More,
   ResizeHandle,
   Search,
+  UserAvatar,
 } satisfies Record<string, SvgComponent>;
 
 export type IconName = keyof typeof iconMap;

@@ -106,9 +106,9 @@
 .title {
   margin: 0;
   font-family: var(--ds-font-family-base);
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 25px;
+  font-size: var(--ds-font-size-h1);
+  font-weight: var(--ds-font-weight-semibold);
+  line-height: var(--ds-line-height-h1);
   color: var(--ds-text-heading, #20212A);
 }
 

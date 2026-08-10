@@ -1,21 +1,41 @@
 {
-  "name": "crm-design-system",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@chinnaiya-r-2310/design-system",
+  "version": "1.0.0",
+  "description": "CRM Design System — shared UI components, design tokens and icons",
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "storybook build -o dist",
+    "storybook": "storybook dev -p 6006",
+    "build": "vite build --config vite.lib.config.ts && tsc -p tsconfig.lib.json",
+    "build-storybook": "storybook build",
     "build:app": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "test": "vitest",
+    "pack:verify": "node scripts/verify-package.mjs"
   },
-  "dependencies": {
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
   },
+  "dependencies": {},
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
     "@eslint/js": "^10.0.1",
@@ -36,10 +56,13 @@
     "eslint-plugin-storybook": "^10.5.5",
     "globals": "^17.7.0",
     "playwright": "^1.62.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "storybook": "^10.5.5",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.62.0",
     "vite": "^8.1.1",
+    "vite-plugin-dts": "^4.5.4",
     "vite-plugin-svgr": "^5.2.0",
     "vitest": "^4.1.10"
   }
