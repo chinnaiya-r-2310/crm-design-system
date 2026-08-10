@@ -92,7 +92,7 @@
           "snippet": "const AllVariations = () => (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>\n    <Section title=\"Two levels\">\n      <Breadcrumb items={[{ label: 'Contacts' }, { label: 'John Smith' }]} />\n    </Section>\n    <Section title=\"Three levels\">\n      <Breadcrumb items={[{ label: 'Home' }, { label: 'Deals' }, { label: 'Deal Details' }]} />\n    </Section>\n    <Section title=\"Four levels\">\n      <Breadcrumb items={[{ label: 'CRM' }, { label: 'Accounts' }, { label: 'Zoho Corp' }, { label: 'New Deal' }]} />\n    </Section>\n    <Section title=\"Current only\">\n      <Breadcrumb items={[{ label: 'Dashboard' }]} />\n    </Section>\n  </div>\n);"
         }
       ],
-      "import": "import { Breadcrumb } from \"crm-design-system\";"
+      "import": "import { Breadcrumb } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-button": {
       "id": "design-system-components-button",
@@ -441,7 +441,7 @@
           "snippet": "const Overview = () => (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 24, padding: 8 }}>\n    <Section title=\"Filled — md\">\n      <Row>\n        <Button variant=\"primary\">Primary</Button>\n        <Button variant=\"default\">Default</Button>\n        <Button variant=\"negative\">Negative</Button>\n        <Button variant=\"success\">Success</Button>\n      </Row>\n    </Section>\n    <Section title=\"Filled — sm (warning available)\">\n      <Row>\n        <Button variant=\"primary\" size=\"sm\">Primary</Button>\n        <Button variant=\"default\" size=\"sm\">Default</Button>\n        <Button variant=\"negative\" size=\"sm\">Negative</Button>\n        <Button variant=\"success\" size=\"sm\">Success</Button>\n        <Button variant=\"warning\" size=\"sm\">Warning</Button>\n      </Row>\n    </Section>\n    <Section title=\"Outline — md\">\n      <Row>\n        <Button variant=\"outline-blue\">Outline Blue</Button>\n        <Button variant=\"outline-green\">Outline Green</Button>\n        <Button variant=\"outline-red\">Outline Red</Button>\n      </Row>\n    </Section>\n    <Section title=\"Outline — sm (orange available)\">\n      <Row>\n        <Button variant=\"outline-blue\" size=\"sm\">Outline Blue</Button>\n        <Button variant=\"outline-green\" size=\"sm\">Outline Green</Button>\n        <Button variant=\"outline-red\" size=\"sm\">Outline Red</Button>\n        <Button variant=\"outline-orange\" size=\"sm\">Outline Orange</Button>\n      </Row>\n    </Section>\n    <Section title=\"Ghost — md\">\n      <Row>\n        <Button variant=\"ghost-blue\">Ghost Blue</Button>\n        <Button variant=\"ghost-red\">Ghost Red</Button>\n      </Row>\n    </Section>\n    <Section title=\"Ghost — sm\">\n      <Row>\n        <Button variant=\"ghost-blue\" size=\"sm\">Ghost Blue</Button>\n        <Button variant=\"ghost-red\" size=\"sm\">Ghost Red</Button>\n      </Row>\n    </Section>\n    <Section title=\"Link\">\n      <Row>\n        <Button variant=\"link-primary\">Primary Link</Button>\n        <Button variant=\"link-secondary\">Secondary Link</Button>\n        <Button variant=\"link-default\">Default Link</Button>\n        <Button variant=\"link-red\">Red Link</Button>\n      </Row>\n    </Section>\n    <Section title=\"With Arrow — menu button\">\n      <Row>\n        <Button variant=\"primary\" arrow>Actions</Button>\n        <Button variant=\"default\" arrow>Actions</Button>\n        <Button variant=\"outline-blue\" arrow>Actions</Button>\n        <Button variant=\"outline-blue\" size=\"sm\" arrow>Actions</Button>\n      </Row>\n    </Section>\n    <Section title=\"Extreme Small (xs) — default only\">\n      <Row>\n        <Button variant=\"default\" size=\"xs\">Verify</Button>\n        <Button variant=\"default\" size=\"xs\">Send</Button>\n        <Button variant=\"default\" size=\"xs\">Export</Button>\n      </Row>\n    </Section>\n  </div>\n);"
         }
       ],
-      "import": "import { Button, ButtonGroup } from \"crm-design-system\";"
+      "import": "import { Button, ButtonGroup } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-calendar": {
       "id": "design-system-components-calendar",
@@ -743,7 +743,7 @@
           "description": "All standalone variants side by side."
         }
       ],
-      "import": "import { Calendar } from \"crm-design-system\";"
+      "import": "import { Calendar } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-calendar-date-range-picker": {
       "id": "design-system-components-calendar-date-range-picker",
@@ -897,7 +897,7 @@
           "description": "Full interactive demo — shows selection updating in real time."
         }
       ],
-      "import": "import { DateRangePicker } from \"crm-design-system\";"
+      "import": "import { DateRangePicker } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-checkbox": {
       "id": "design-system-components-checkbox",
@@ -1007,7 +1007,7 @@
           "description": "All states in a grid for quick visual comparison."
         }
       ],
-      "import": "import { Checkbox } from \"crm-design-system\";"
+      "import": "import { Checkbox } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-criteriabuilder": {
       "id": "design-system-components-criteriabuilder",
@@ -1210,7 +1210,7 @@
           "description": "Limit reached — 25 rows filled; clicking + shows the info toast."
         }
       ],
-      "import": "import { CriteriaBuilder } from \"crm-design-system\";"
+      "import": "import { CriteriaBuilder } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-datepicker": {
       "id": "design-system-components-datepicker",
@@ -1409,7 +1409,7 @@
           "snippet": "const Controlled = () => {\n    const [date, setDate] = useState<Date | null>(null);\n\n    return (\n        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>\n            <DatePicker\n                label=\"Pick a date\"\n                layout=\"horizontal\"\n                width={550}\n                columns=\"140px 390px\"\n                value={date}\n                onChange={setDate} />\n            <p style={{ margin: 0, fontSize: 13, color: '#616E88' }}>Selected: {date ? `${String(date.getDate()).padStart(2,'0')}/${String(date.getMonth()+1).padStart(2,'0')}/${date.getFullYear()}` : 'none'}\n            </p>\n        </div>\n    );\n};"
         }
       ],
-      "import": "import { DatePicker } from \"crm-design-system\";"
+      "import": "import { DatePicker } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-dropdown": {
       "id": "design-system-components-dropdown",
@@ -1748,7 +1748,7 @@
           "description": "Two dropdowns in a form context."
         }
       ],
-      "import": "import { Dropdown } from \"crm-design-system\";"
+      "import": "import { Dropdown } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-foundations-icons": {
       "id": "design-system-foundations-icons",
@@ -1860,8 +1860,14 @@
         {
           "id": "design-system-foundations-icons--line-icons",
           "name": "Line Icons",
-          "snippet": "const LineIcons = () => (\n  <div style={{\n    display: 'flex',\n    alignItems: 'center',\n    gap: '24px',\n    fontFamily: 'var(--ds-font-family-base)',\n    color: 'var(--ds-text-base)',\n  }}>\n    {([\n      [Check,            'Check',            11],\n      [ChevronDownFilled,'ChevronDownFilled', 10],\n      [CloseSmall,       'CloseSmall',         8],\n      [CriteriaMinus,    'CriteriaMinus',     16],\n      [CriteriaPlus,     'CriteriaPlus',      16],\n      [HelpCircle,       'HelpCircle',        16],\n      [Info,             'Info',              18],\n      [Lock,             'Lock',              16],\n      [More,             'More',              16],\n      [ResizeHandle,     'ResizeHandle',      10],\n      [Search,           'Search',            14],\n    ] as const).map(([Comp, label, size]) => (\n      <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>\n        <Comp width={size} height={size} />\n        <span style={{ fontSize: '11px', color: 'var(--ds-text-label)', textAlign: 'center' }}>{label}</span>\n      </div>\n    ))}\n  </div>\n);",
+          "snippet": "const LineIcons = () => (\n  <div style={{\n    display: 'flex',\n    alignItems: 'center',\n    gap: '24px',\n    fontFamily: 'var(--ds-font-family-base)',\n    color: 'var(--ds-text-base)',\n  }}>\n    {([\n      [Check,             'Check',             11],\n      [ChevronDownFilled, 'ChevronDownFilled',  10],\n      [Close,             'Close',               8],\n      [CloseSmall,        'CloseSmall',           8],\n      [CriteriaMinus,     'CriteriaMinus',       16],\n      [CriteriaPlus,      'CriteriaPlus',        16],\n      [Edit,              'Edit',                12],\n      [HelpCircle,        'HelpCircle',          16],\n      [Info,              'Info',                18],\n      [Lock,              'Lock',                16],\n      [More,              'More',                16],\n      [ResizeHandle,      'ResizeHandle',        10],\n      [Search,            'Search',              14],\n    ] as const).map(([Comp, label, size]) => (\n      <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>\n        <Comp width={size} height={size} />\n        <span style={{ fontSize: '11px', color: 'var(--ds-text-label)', textAlign: 'center' }}>{label}</span>\n      </div>\n    ))}\n  </div>\n);",
           "description": "Small line icons that inherit color from `currentColor`."
+        },
+        {
+          "id": "design-system-foundations-icons--avatar-icons",
+          "name": "Avatar Icons",
+          "snippet": "const AvatarIcons = () => (\n  <div style={{\n    display: 'flex',\n    alignItems: 'center',\n    gap: '24px',\n    fontFamily: 'var(--ds-font-family-base)',\n  }}>\n    {([\n      [UserAvatar,    'UserAvatar'],\n      [GroupAvatar,   'GroupAvatar'],\n      [CompanyAvatar, 'CompanyAvatar'],\n      [ImageAvatar,   'ImageAvatar'],\n    ] as const).map(([Comp, label]) => (\n      <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>\n        <Comp width={48} height={48} />\n        <span style={{ fontSize: '11px', color: 'var(--ds-text-label)', textAlign: 'center' }}>{label}</span>\n      </div>\n    ))}\n  </div>\n);",
+          "description": "Avatar placeholder icons — fixed Figma colors, not recolorable via currentColor."
         },
         {
           "id": "design-system-foundations-icons--accessibility",
@@ -1870,7 +1876,7 @@
           "description": "Decorative icons get aria-hidden=\"true\" automatically. Meaningful icons need a label."
         }
       ],
-      "import": "import { Icon } from \"crm-design-system\";"
+      "import": "import { Icon } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-input": {
       "id": "design-system-components-input",
@@ -2196,7 +2202,7 @@
           "description": "DateTimeInput — 390px split field with calendar popup on the date half.\nTime defaults to the next rounded hour on first render when empty.\nClicking the date half opens a Calendar; the time half accepts free text."
         }
       ],
-      "import": "import { DateTimeInput, Input } from \"crm-design-system\";"
+      "import": "import { DateTimeInput, Input } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-messagebox": {
       "id": "design-system-components-messagebox",
@@ -2342,7 +2348,7 @@
           "snippet": "const AllWithTitle = () => (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 440 }}>\n    <MessageBox variant=\"success\" title=\"Account created\" message=\"You have successfully created the account.\" onClose={() => {}} />\n    <MessageBox variant=\"error\"   title=\"Submission failed\" message=\"Please fix the errors and try again.\" onClose={() => {}} />\n    <MessageBox variant=\"warning\" title=\"Session expiring\" message=\"Your session will expire in 5 minutes.\" onClose={() => {}} />\n    <MessageBox variant=\"info\"    title=\"Note\" message=\"This record was last modified 3 days ago.\" onClose={() => {}} />\n  </div>\n);"
         }
       ],
-      "import": "import { MessageBox } from \"crm-design-system\";"
+      "import": "import { MessageBox } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-modal": {
       "id": "design-system-components-modal",
@@ -2373,7 +2379,7 @@
           "description": "Wide modal — 590px, 120px label + 390px input."
         }
       ],
-      "import": "import { Button, Checkbox, Dropdown, Input, Modal } from \"crm-design-system\";"
+      "import": "import { Button, Checkbox, Dropdown, Input, Modal } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-radio": {
       "id": "design-system-components-radio",
@@ -2468,7 +2474,7 @@
           "description": "All states in a grid for quick visual comparison."
         }
       ],
-      "import": "import { Radio } from \"crm-design-system\";"
+      "import": "import { Radio } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-select": {
       "id": "design-system-components-select",
@@ -2728,7 +2734,7 @@
           "description": "Vertical layout — label stacked above the trigger."
         }
       ],
-      "import": "import { Select } from \"crm-design-system\";"
+      "import": "import { Select } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-switch": {
       "id": "design-system-components-switch",
@@ -2820,7 +2826,7 @@
           "snippet": "const AllStates = () => (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>\n    <Switch label=\"Default (off)\" />\n    <Switch label=\"Checked (on)\" defaultChecked />\n    <Switch label=\"Disabled\" disabled />\n    <Switch label=\"Checked + Disabled\" defaultChecked disabled />\n  </div>\n);"
         }
       ],
-      "import": "import { Switch } from \"crm-design-system\";"
+      "import": "import { Switch } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-table": {
       "id": "design-system-components-table",
@@ -3064,7 +3070,7 @@
           "description": "Empty state — no rows."
         }
       ],
-      "import": "import { SetupTable, Switch } from \"crm-design-system\";"
+      "import": "import { SetupTable, Switch } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-tabs": {
       "id": "design-system-components-tabs",
@@ -3198,7 +3204,170 @@
           "description": "Both variants side by side for comparison."
         }
       ],
-      "import": "import { Tabs } from \"crm-design-system\";"
+      "import": "import { Tabs } from \"@chinnaiya-r-2310/design-system\";"
+    },
+    "design-system-components-tags": {
+      "id": "design-system-components-tags",
+      "name": "Tags",
+      "path": "./src/design-system/components/Tags/Tags.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "Tags",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Tags/Tags.tsx",
+        "actualName": "Tags",
+        "exportName": "Tags",
+        "props": {
+          "value": {
+            "required": false,
+            "tsType": {
+              "name": "Array",
+              "elements": [
+                {
+                  "name": "TagItem"
+                }
+              ],
+              "raw": "TagItem[]"
+            },
+            "description": "Controlled list of selected tag items.",
+            "defaultValue": {
+              "value": "[]",
+              "computed": false
+            }
+          },
+          "options": {
+            "required": false,
+            "tsType": {
+              "name": "Array",
+              "elements": [
+                {
+                  "name": "TagItem"
+                }
+              ],
+              "raw": "TagItem[]"
+            },
+            "description": "Pool of items the user can select from.",
+            "defaultValue": {
+              "value": "[]",
+              "computed": false
+            }
+          },
+          "placeholder": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "Placeholder shown when no tags are selected. @default 'Select'",
+            "defaultValue": {
+              "value": "'Select'",
+              "computed": false
+            }
+          },
+          "onChange": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(items: TagItem[]) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "Array",
+                      "elements": [
+                        {
+                          "name": "TagItem"
+                        }
+                      ],
+                      "raw": "TagItem[]"
+                    },
+                    "name": "items"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
+            },
+            "description": "Called whenever the tag list changes (add or remove)."
+          },
+          "width": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "number | string",
+              "elements": [
+                {
+                  "name": "number"
+                },
+                {
+                  "name": "string"
+                }
+              ]
+            },
+            "description": "Total width of the container. @default '100%'",
+            "defaultValue": {
+              "value": "'100%'",
+              "computed": false
+            }
+          },
+          "required": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": ""
+          },
+          "disabled": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": ""
+          },
+          "error": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": ""
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-components-tags--default",
+          "name": "Default",
+          "snippet": "const Default = () => {\n  const [tags, setTags] = useState<TagItem[]>([]);\n  return (\n    <Tags\n      value={tags}\n      options={USER_OPTIONS}\n      onChange={setTags}\n      placeholder=\"Select users\"\n      width={390}\n    />\n  );\n};"
+        },
+        {
+          "id": "design-system-components-tags--with-values",
+          "name": "With Values",
+          "snippet": "const WithValues = () => {\n  const [tags, setTags] = useState<TagItem[]>([\n    { value: 'alice', label: 'Alice Johnson' },\n    { value: 'bob',   label: 'Bob Smith' },\n  ]);\n  return (\n    <Tags\n      value={tags}\n      options={USER_OPTIONS}\n      onChange={setTags}\n      placeholder=\"Select users\"\n      width={390}\n    />\n  );\n};"
+        },
+        {
+          "id": "design-system-components-tags--with-count",
+          "name": "With Count",
+          "snippet": "const WithCount = () => {\n  const [tags, setTags] = useState<TagItem[]>([\n    { value: 'users', label: 'Users', count: 12 },\n    { value: 'roles', label: 'Roles', count: 4 },\n  ]);\n  const countOptions: TagItem[] = [\n    { value: 'users',  label: 'Users',  count: 12 },\n    { value: 'roles',  label: 'Roles',  count: 4 },\n    { value: 'groups', label: 'Groups', count: 7 },\n  ];\n  return (\n    <Tags\n      value={tags}\n      options={countOptions}\n      onChange={setTags}\n      placeholder=\"Select\"\n      width={390}\n    />\n  );\n};"
+        },
+        {
+          "id": "design-system-components-tags--roles",
+          "name": "Roles",
+          "snippet": "const Roles = () => {\n  const [tags, setTags] = useState<TagItem[]>([]);\n  return (\n    <Tags\n      value={tags}\n      options={ROLE_OPTIONS}\n      onChange={setTags}\n      placeholder=\"Select roles\"\n      width={390}\n      required\n    />\n  );\n};"
+        },
+        {
+          "id": "design-system-components-tags--error-state",
+          "name": "Error State",
+          "snippet": "const ErrorState = () => {\n  const [tags, setTags] = useState<TagItem[]>([]);\n  return (\n    <Tags\n      value={tags}\n      options={USER_OPTIONS}\n      onChange={setTags}\n      error\n      width={390}\n      placeholder=\"Required\"\n    />\n  );\n};"
+        },
+        {
+          "id": "design-system-components-tags--disabled",
+          "name": "Disabled",
+          "snippet": "const Disabled = () => {\n  const tags: TagItem[] = [\n    { value: 'alice', label: 'Alice Johnson' },\n    { value: 'carol', label: 'Carol Williams' },\n  ];\n  return <Tags value={tags} options={USER_OPTIONS} disabled width={390} />;\n};"
+        }
+      ],
+      "import": "import { Tags } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-textarea": {
       "id": "design-system-components-textarea",
@@ -3372,7 +3541,7 @@
           "snippet": "const AllStates = () => (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: 670 }}>\n    <Textarea label=\"Default\" placeholder=\"Enter text…\" width={670} />\n    <Textarea label=\"Hover\" placeholder=\"Enter text…\" width={670} forceState=\"hover\" />\n    <Textarea label=\"Focus\" placeholder=\"Enter text…\" width={670} forceState=\"focus\" />\n    <Textarea label=\"Required\" placeholder=\"Required field\" required width={670} />\n    <Textarea label=\"Disabled\" value=\"This field is disabled.\" disabled width={670} />\n    <Textarea label=\"Read Only\" value=\"This field is read-only.\" readOnly width={670} />\n    <Textarea\n      label=\"Error\"\n      value=\"Bad input\"\n      error\n      helperText=\"This field has an error.\"\n      width={670}\n    />\n  </div>\n);"
         }
       ],
-      "import": "import { Textarea } from \"crm-design-system\";"
+      "import": "import { Textarea } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-tooltip": {
       "id": "design-system-components-tooltip",
@@ -3487,6 +3656,32 @@
               "name": "string"
             },
             "description": ""
+          },
+          "disabled": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "When true, tooltip never shows. Useful for conditionally disabling without changing tree structure.",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "wrapperStyle": {
+            "required": false,
+            "tsType": {
+              "name": "ReactCSSProperties",
+              "raw": "React.CSSProperties"
+            },
+            "description": "Style forwarded to the outer wrapper span (e.g. flex layout)."
+          },
+          "wrapperClassName": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "Class name forwarded to the outer wrapper span."
           }
         }
       },
@@ -3524,7 +3719,7 @@
           "description": "Interactive — hover any button to see the tooltip."
         }
       ],
-      "import": "import { Button, Tooltip } from \"crm-design-system\";"
+      "import": "import { Button, Tooltip } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-userpicker": {
       "id": "design-system-components-userpicker",
@@ -3729,7 +3924,7 @@
           "description": "Disabled — trigger is non-interactive."
         }
       ],
-      "import": "import { UserPicker } from \"crm-design-system\";"
+      "import": "import { UserPicker } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-foundations-colors": {
       "id": "design-system-foundations-colors",
@@ -3747,7 +3942,7 @@
           "snippet": "const AllColors = () => <ColorFoundationsPage />;"
         }
       ],
-      "import": "import { ColorFoundationsPage } from \"crm-design-system\";"
+      "import": "import { ColorFoundationsPage } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-foundations-typography": {
       "id": "design-system-foundations-typography",
@@ -3765,7 +3960,7 @@
           "snippet": "const AllTypography = () => <TypographyPage />;"
         }
       ],
-      "import": "import { TypographyPage } from \"crm-design-system\";"
+      "import": "import { TypographyPage } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-patterns-forms": {
       "id": "design-system-patterns-forms",
@@ -3798,11 +3993,29 @@
           "snippet": "const CreateDeal = () => {\n  const [open, setOpen] = useState(false);\n\n  const W    = 550;\n  const COLS = '140px 390px';\n\n  return (\n    <>\n      <Button variant=\"primary\" onClick={() => setOpen(true)}>\n        Create Deal\n      </Button>\n      <Modal\n        isOpen={open}\n        title=\"Create Deal\"\n        onClose={() => setOpen(false)}\n        onCancel={() => setOpen(false)}\n        onSave={() => setOpen(false)}\n        cancelLabel=\"Cancel\"\n        saveLabel=\"Save Deal\"\n        width={610}\n      >\n        <FormSection title=\"Deal Information\">\n          <Input label=\"Deal Name\"    required layout=\"horizontal\" width={W} columns={COLS} />\n          <Input label=\"Account Name\" required layout=\"horizontal\" width={W} columns={COLS} placeholder=\"Search account…\" />\n          <Input label=\"Contact Name\"          layout=\"horizontal\" width={W} columns={COLS} placeholder=\"Search contact…\" />\n        </FormSection>\n\n        <FormSection title=\"Sales Details\">\n          <Dropdown\n            label=\"Stage\"\n            required\n            layout=\"horizontal\" width={W} columns={COLS}\n            options={[\n              { value: 'qualification',     label: 'Qualification' },\n              { value: 'needs_analysis',    label: 'Needs Analysis' },\n              { value: 'value_proposition', label: 'Value Proposition' },\n              { value: 'decision_makers',   label: 'Id. Decision Makers' },\n              { value: 'perception',        label: 'Perception Analysis' },\n              { value: 'proposal',          label: 'Proposal / Price Quote' },\n              { value: 'negotiation',       label: 'Negotiation / Review' },\n              { value: 'closed_won',        label: 'Closed Won' },\n              { value: 'closed_lost',       label: 'Closed Lost' },\n            ]}\n          />\n          <Input label=\"Amount\"          type=\"number\" layout=\"horizontal\" width={W} columns={COLS} placeholder=\"0.00\" />\n          <DatePicker label=\"Closing Date\" required    layout=\"horizontal\" width={W} columns={COLS} />\n          <Input label=\"Probability (%)\" type=\"number\" layout=\"horizontal\" width={W} columns={COLS} placeholder=\"0\" />\n        </FormSection>\n\n        <FormSection title=\"Lead & Assignment\">\n          <Dropdown\n            label=\"Lead Source\"\n            layout=\"horizontal\" width={W} columns={COLS}\n            options={[\n              { value: 'web',       label: 'Web Site' },\n              { value: 'cold_call', label: 'Cold Call' },\n              { value: 'referral',  label: 'Referral' },\n              { value: 'email',     label: 'Email Campaign' },\n              { value: 'social',    label: 'Social Media' },\n              { value: 'partner',   label: 'Partner' },\n              { value: 'event',     label: 'Internal Event' },\n              { value: 'other',     label: 'Other' },\n            ]}\n          />\n          <Dropdown\n            label=\"Deal Owner\"\n            layout=\"horizontal\" width={W} columns={COLS}\n            options={[\n              { value: 'chinnaiya', label: 'Chinnaiya R' },\n              { value: 'priya',     label: 'Priya S' },\n              { value: 'arjun',     label: 'Arjun M' },\n              { value: 'divya',     label: 'Divya K' },\n            ]}\n          />\n          <Dropdown\n            label=\"Deal Type\"\n            layout=\"horizontal\" width={W} columns={COLS}\n            options={[\n              { value: 'new_business',      label: 'New Business' },\n              { value: 'existing_business', label: 'Existing Business' },\n            ]}\n          />\n        </FormSection>\n\n        <FormSection title=\"Additional\">\n          <Textarea label=\"Description\" layout=\"horizontal\" width={W} columns={COLS} placeholder=\"Add a description…\" minHeight={90} />\n        </FormSection>\n      </Modal>\n    </>\n  );\n};"
         }
       ],
-      "import": "import {\n    Button,\n    Checkbox,\n    DatePicker,\n    Dropdown,\n    FormSection,\n    Info,\n    Input,\n    Modal,\n    Textarea,\n    Tooltip,\n} from \"crm-design-system\";"
+      "import": "import {\n    Button,\n    Checkbox,\n    DatePicker,\n    Dropdown,\n    FormSection,\n    Info,\n    Input,\n    Modal,\n    Textarea,\n    Tooltip,\n} from \"@chinnaiya-r-2310/design-system\";"
+    },
+    "design-system-patterns-usage-limit-notification": {
+      "id": "design-system-patterns-usage-limit-notification",
+      "name": "UsageLimitNotification",
+      "path": "./src/design-system/patterns/UsageLimitNotification.stories.tsx",
+      "jsDocTags": {},
+      "error": {
+        "name": "No component found",
+        "message": "We could not detect the component from your story file. Specify meta.component.\n  14 | // ─────────────────────────────────────────────────────────────────────────────\n  15 |\n> 16 | const meta: Meta = {\n     | ^\n  17 |   title: 'Design System/Patterns/Usage Limit Notification',\n  18 |   parameters: {\n  19 |     layout: 'centered',\n\n./src/design-system/patterns/UsageLimitNotification.stories.tsx:\nimport { useState, useRef, useEffect } from 'react';\nimport type { Meta, StoryObj } from '@storybook/react';\nimport { ChevronDownFilled } from '../foundations/icons/Icons';\nimport { Modal } from '../components/Modal/Modal';\nimport { Dropdown } from '../components/Dropdown/Dropdown';\nimport { Tags, type TagItem } from '../components/Tags/Tags';\nimport { Switch } from '../components/Switch/Switch';\nimport { Checkbox } from '../components/Checkbox/Checkbox';\nimport { Button } from '../components/Button/Button';\nimport { Textarea } from '../components/Textarea/Textarea';\n\n// ─────────────────────────────────────────────────────────────────────────────\n// Meta\n// ─────────────────────────────────────────────────────────────────────────────\n\nconst meta: Meta = {\n  title: 'Design System/Patterns/Usage Limit Notification',\n  parameters: {\n    layout: 'centered',\n    docs: {\n      description: {\n        component:\n          'Modal pattern for creating usage limit notifications — ' +\n          'configure thresholds, notification channels, recipients, and message content.',\n      },\n    },\n  },\n};\n\nexport default meta;\ntype Story = StoryObj;\n\n// ─────────────────────────────────────────────────────────────────────────────\n// Option lists\n// ─────────────────────────────────────────────────────────────────────────────\n\nconst METRIC_OPTIONS = [\n  { value: 'api_limits',               label: 'API Limits' },\n  { value: 'email_limits',             label: 'Email Limits' },\n  { value: 'function_execution_limits', label: 'Function Execution Limits' },\n  { value: 'webhook_limits',           label: 'Webhook Limits' },\n  { value: 'storage_limit',            label: 'Storage Limit' },\n];\n\nconst OPERATOR_OPTIONS = [\n  { value: 'exceeds',           label: 'Exceeds' },\n  { value: 'reached',           label: 'Reached' },\n  { value: 'below',             label: 'Below' },\n  { value: 'anomaly_detected',  label: 'Anomaly Detected' },\n];\n\nconst THRESHOLD_OPTIONS = [\n  { value: 'default_limit', label: 'Default Limit' },\n  { value: 'addon_limit',   label: 'Add-on Limit' },\n  { value: 'total_limit',   label: 'Total Limit' },\n];\n\n\nconst NOTIFY_TO_OPTIONS: TagItem[] = [\n  { value: 'users',   label: 'Users',   count: 12 },\n  { value: 'roles',   label: 'Roles',   count: 4  },\n  { value: 'groups',  label: 'Groups',  count: 7  },\n  { value: 'admins',  label: 'Admins',  count: 3  },\n];\n\nconst ZOHO_USER_OPTIONS = [\n  { value: 'alice',  label: 'Alice Johnson' },\n  { value: 'bob',    label: 'Bob Smith' },\n  { value: 'carol',  label: 'Carol Williams' },\n  { value: 'david',  label: 'David Brown' },\n  { value: 'eve',    label: 'Eve Davis' },\n];\n\nconst ZOHO_CHANNEL_OPTIONS = [\n  { value: 'general',     label: '#general' },\n  { value: 'engineering', label: '#engineering' },\n  { value: 'alerts',      label: '#alerts' },\n  { value: 'support',     label: '#support' },\n  { value: 'marketing',   label: '#marketing' },\n];\n\n// Metrics that require an extra number+unit field after the threshold dropdown\nconst METRIC_UNIT_OPTIONS: Record<string, Array<{ value: string; label: string }>> = {\n  api_limits:    [{ value: 'percentage', label: 'Percentage' }, { value: 'credit', label: 'Credit' }],\n  storage_limit: [{ value: 'percentage', label: 'Percentage' }, { value: 'gb',     label: 'GB'     }],\n};\n\nconst FREQUENCY_OPTIONS = [\n  { value: 'only_once',     label: 'Only Once' },\n  { value: 'every_2_hours', label: 'Every 2 hours' },\n  { value: 'every_1_hour',  label: 'Every 1 hour' },\n  { value: 'every_45_min',  label: 'Every 45 min' },\n  { value: 'every_30_min',  label: 'Every 30 min' },\n  { value: 'every_15_min',  label: 'Every 15 min' },\n  { value: 'every_10_min',  label: 'Every 10 min' },\n];\n\n// ─────────────────────────────────────────────────────────────────────────────\n// Shared style constants (all values from design tokens)\n// ─────────────────────────────────────────────────────────────────────────────\n\nconst LABEL_COL = '155px';\n\nconst labelStyle: React.CSSProperties = {\n  fontFamily: 'var(--ds-font-family-base)',\n  fontSize:   'var(--ds-font-size-base)',\n  fontWeight: 'var(--ds-font-weight-regular)',\n  color:      'var(--ds-text-label)',\n  whiteSpace: 'nowrap',\n  textAlign:  'right',\n};\n\nconst sectionHeadingStyle: React.CSSProperties = {\n  margin:     0,\n  fontFamily: 'var(--ds-font-family-base)',\n  fontSize:   'var(--ds-font-size-h2)',\n  fontWeight: 'var(--ds-font-weight-semibold)',\n  lineHeight: 'var(--ds-line-height-h2)',\n  color:      'var(--ds-text-heading)',\n};\n\nconst subHeadingStyle: React.CSSProperties = {\n  fontFamily: 'var(--ds-font-family-base)',\n  fontSize:   'var(--ds-font-size-base)',\n  fontWeight: 'var(--ds-font-weight-semibold)',\n  color:      'var(--ds-text-base)',\n};\n\n// ─────────────────────────────────────────────────────────────────────────────\n// Reusable layout helpers (not exported components — story-local only)\n// ─────────────────────────────────────────────────────────────────────────────\n\nfunction FormRow({\n  label,\n  children,\n  align = 'center',\n  labelOffset,\n}: {\n  label: string;\n  children: React.ReactNode;\n  align?: 'center' | 'start';\n  labelOffset?: number;\n}) {\n  const pt = labelOffset !== undefined ? labelOffset : (align === 'start' ? 2 : 0);\n  return (\n    <div style={{\n      display: 'grid',\n      gridTemplateColumns: `${LABEL_COL} auto`,\n      columnGap: 20,\n      alignItems: align,\n    }}>\n      <span style={{ ...labelStyle, paddingTop: pt }}>{label}</span>\n      <div>{children}</div>\n    </div>\n  );\n}\n\n// TODO: Missing component — TagInput (multi-value token field for Users / Roles)\nfunction TagPlaceholder({ tags }: { tags: Array<{ label: string; count: number }> }) {\n  return (\n    <div style={{\n      display:    'flex',\n      alignItems: 'center',\n      flexWrap:   'wrap',\n      gap:        6,\n      padding:    '4px 10px',\n      minHeight:  34,\n      width:      390,\n      border:     '1px solid var(--ds-border-default)',\n      borderLeft: '3px solid var(--ds-status-negative)',\n      borderRadius: 4,\n      background: 'var(--ds-bg-common-card)',\n      boxSizing:  'border-box',\n    }}>\n      {tags.map((tag) => (\n        <span\n          key={tag.label}\n          style={{\n            display:    'inline-flex',\n            alignItems: 'center',\n            gap:        6,\n            background: 'var(--ds-bg-common-bg)',\n            border:     '1px solid var(--ds-border-subtle)',\n            borderRadius: 12,\n            padding:    '2px 10px',\n            fontFamily: 'var(--ds-font-family-base)',\n            fontSize:   'var(--ds-font-size-md)',\n            color:      'var(--ds-text-base)',\n          }}\n        >\n          {tag.label}\n          <span style={{\n            display:      'inline-flex',\n            alignItems:   'center',\n            justifyContent: 'center',\n            minWidth:     18,\n            padding:      '0 5px',\n            background:   'var(--ds-border-default)',\n            borderRadius: 10,\n            fontSize:     'var(--ds-font-size-sm)',\n            fontWeight:   'var(--ds-font-weight-medium)',\n            color:        'var(--ds-text-base)',\n          }}>\n            {tag.count}\n          </span>\n        </span>\n      ))}\n    </div>\n  );\n}\n\n// TODO: Missing component — RichTextToolbar\nfunction RichTextToolbar() {\n  const toolbarBtnStyle: React.CSSProperties = {\n    display:        'inline-flex',\n    alignItems:     'center',\n    justifyContent: 'center',\n    width:          28,\n    height:         28,\n    padding:        0,\n    background:     'none',\n    border:         '1px solid transparent',\n    borderRadius:   4,\n    cursor:         'pointer',\n    fontFamily:     'var(--ds-font-family-base)',\n    fontSize:       'var(--ds-font-size-base)',\n    fontWeight:     'var(--ds-font-weight-semibold)',\n    color:          'var(--ds-text-base)',\n  };\n\n  const activeBtnStyle: React.CSSProperties = {\n    ...toolbarBtnStyle,\n    background: 'var(--ds-bg-common-card)',\n    border:     '1px solid var(--ds-border-default)',\n    color:      'var(--ds-text-link)',\n  };\n\n  const dividerStyle: React.CSSProperties = {\n    width:      1,\n    height:     18,\n    background: 'var(--ds-border-subtle)',\n    margin:     '0 2px',\n    flexShrink: 0,\n  };\n\n  return (\n    <div style={{\n      display:     'flex',\n      alignItems:  'center',\n      gap:         2,\n      padding:     '6px 10px',\n      borderTop:   '1px solid var(--ds-border-subtle)',\n      background:  'var(--ds-bg-scale-bg3)',\n      borderRadius: '0 0 4px 4px',\n    }}>\n      <button type=\"button\" style={activeBtnStyle} aria-label=\"Normal text\" title=\"Normal text\">T</button>\n      <div style={dividerStyle} />\n      <button type=\"button\" style={toolbarBtnStyle} aria-label=\"Bold\" title=\"Bold\"><strong>B</strong></button>\n      <button type=\"button\" style={{ ...toolbarBtnStyle, fontStyle: 'italic' }} aria-label=\"Italic\" title=\"Italic\"><em>I</em></button>\n      <button type=\"button\" style={{ ...toolbarBtnStyle, textDecoration: 'underline' }} aria-label=\"Underline\" title=\"Underline\">U</button>\n      <button type=\"button\" style={{ ...toolbarBtnStyle, textDecoration: 'line-through' }} aria-label=\"Strikethrough\" title=\"Strikethrough\">S</button>\n      <div style={dividerStyle} />\n      <button type=\"button\" style={toolbarBtnStyle} aria-label=\"Text color\" title=\"Text color\">\n        <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>\n          <span style={{ fontWeight: 700, fontSize: 12 }}>A</span>\n          <span style={{ width: 14, height: 3, background: 'var(--ds-status-negative)', borderRadius: 1 }} />\n        </span>\n      </button>\n      <button type=\"button\" style={toolbarBtnStyle} aria-label=\"Highlight color\" title=\"Highlight color\">\n        <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>\n          <span style={{ fontWeight: 700, fontSize: 12, color: 'var(--ds-icon-primary-label-grey)' }}>A</span>\n          <span style={{ width: 14, height: 3, background: 'var(--ds-icon-primary-label-grey)', borderRadius: 1 }} />\n        </span>\n      </button>\n      <div style={dividerStyle} />\n      <button type=\"button\" style={toolbarBtnStyle} aria-label=\"Bullet list\" title=\"Bullet list\">\n        <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\" aria-hidden=\"true\">\n          <circle cx=\"2\" cy=\"4\" r=\"1.2\" fill=\"currentColor\" />\n          <circle cx=\"2\" cy=\"7\" r=\"1.2\" fill=\"currentColor\" />\n          <circle cx=\"2\" cy=\"10\" r=\"1.2\" fill=\"currentColor\" />\n          <line x1=\"5\" y1=\"4\" x2=\"13\" y2=\"4\" stroke=\"currentColor\" strokeWidth=\"1.5\" strokeLinecap=\"round\" />\n          <line x1=\"5\" y1=\"7\" x2=\"13\" y2=\"7\" stroke=\"currentColor\" strokeWidth=\"1.5\" strokeLinecap=\"round\" />\n          <line x1=\"5\" y1=\"10\" x2=\"13\" y2=\"10\" stroke=\"currentColor\" strokeWidth=\"1.5\" strokeLinecap=\"round\" />\n        </svg>\n      </button>\n      <button type=\"button\" style={toolbarBtnStyle} aria-label=\"Numbered list\" title=\"Numbered list\">\n        <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\" aria-hidden=\"true\">\n          <text x=\"0\" y=\"5\" style={{ fontSize: 5, fill: 'currentColor' }}>1.</text>\n          <text x=\"0\" y=\"8.5\" style={{ fontSize: 5, fill: 'currentColor' }}>2.</text>\n          <text x=\"0\" y=\"12\" style={{ fontSize: 5, fill: 'currentColor' }}>3.</text>\n          <line x1=\"5\" y1=\"4\" x2=\"13\" y2=\"4\" stroke=\"currentColor\" strokeWidth=\"1.5\" strokeLinecap=\"round\" />\n          <line x1=\"5\" y1=\"7\" x2=\"13\" y2=\"7\" stroke=\"currentColor\" strokeWidth=\"1.5\" strokeLinecap=\"round\" />\n          <line x1=\"5\" y1=\"10\" x2=\"13\" y2=\"10\" stroke=\"currentColor\" strokeWidth=\"1.5\" strokeLinecap=\"round\" />\n        </svg>\n      </button>\n      <div style={dividerStyle} />\n      <button type=\"button\" style={toolbarBtnStyle} aria-label=\"More options\" title=\"More options\">\n        <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\">\n          <circle cx=\"4\"  cy=\"8\" r=\"1.2\" fill=\"currentColor\" />\n          <circle cx=\"8\"  cy=\"8\" r=\"1.2\" fill=\"currentColor\" />\n          <circle cx=\"12\" cy=\"8\" r=\"1.2\" fill=\"currentColor\" />\n        </svg>\n      </button>\n    </div>\n  );\n}\n\n\n// Number input + Dropdown merged into a single bordered container — same visual pattern as DateTimeInput\nfunction StorageLimitField({\n  value,\n  unit,\n  unitOptions,\n  onValueChange,\n  onUnitChange,\n}: {\n  value:         string;\n  unit:          string;\n  unitOptions:   Array<{ value: string; label: string }>;\n  onValueChange: (v: string) => void;\n  onUnitChange:  (v: string) => void;\n}) {\n  return (\n    <>\n      <style>{`\n        .ds-unit-merged:hover { border-color: var(--ds-components-input-hover-outline); }\n        .ds-unit-merged:focus-within {\n          border-color: var(--ds-components-input-focus-outline) !important;\n          box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow) !important;\n          outline: none;\n        }\n        .ds-unit-dropdown button {\n          border: none !important;\n          background: transparent !important;\n          box-shadow: none !important;\n          height: 100% !important;\n          border-radius: 0 !important;\n        }\n        .ds-unit-dropdown button:hover,\n        .ds-unit-dropdown button:focus,\n        .ds-unit-dropdown button[data-open] {\n          border: none !important;\n          box-shadow: none !important;\n        }\n      `}</style>\n      <div\n        className=\"ds-unit-merged\"\n        style={{\n          display:    'inline-flex',\n          alignItems: 'stretch',\n          height:     34,\n          border:     '1px solid var(--ds-components-input-default-outline)',\n          borderRadius: 6,\n          background: 'var(--ds-bg-common-card)',\n          boxSizing:  'border-box',\n          overflow:   'hidden',\n          transition: 'border-color 150ms ease, box-shadow 150ms ease',\n        }}\n      >\n        <input\n          type=\"number\"\n          value={value}\n          onChange={(e) => onValueChange(e.target.value)}\n          style={{\n            width:      65,\n            height:     '100%',\n            border:     'none',\n            outline:    'none',\n            padding:    '0 8px',\n            background: 'transparent',\n            fontFamily: 'var(--ds-font-family-base)',\n            fontSize:   'var(--ds-font-size-base)',\n            color:      'var(--ds-text-base)',\n            boxSizing:  'border-box',\n            MozAppearance: 'textfield',\n          } as React.CSSProperties}\n          aria-label=\"Threshold value\"\n        />\n        <span\n          style={{\n            width:      1,\n            flexShrink: 0,\n            background: 'var(--ds-components-input-default-outline)',\n            alignSelf:  'stretch',\n          }}\n          aria-hidden=\"true\"\n        />\n        <div className=\"ds-unit-dropdown\" style={{ display: 'flex', alignItems: 'stretch' }}>\n          <Dropdown\n            layout=\"vertical\"\n            options={unitOptions}\n            value={unit}\n            onChange={onUnitChange}\n            width={110}\n          />\n        </div>\n      </div>\n    </>\n  );\n}\n\n\n// ─────────────────────────────────────────────────────────────────────────────\n// Story\n// ─────────────────────────────────────────────────────────────────────────────\n\nexport const CreateNotification: Story = {\n  name: 'Create Notification',\n  render: () => {\n    const [open, setOpen] = useState(false);\n\n    // Notify when\n    const [metric,           setMetric]          = useState('');\n    const [operator,         setOperator]         = useState('');\n    const [threshold,        setThreshold]        = useState('');\n    const [percentageValue,  setPercentageValue]  = useState('');\n    const [percentageUnit,   setPercentageUnit]   = useState('percentage');\n    const [rollingHours,     setRollingHours]     = useState('');\n\n    // Notification frequency\n    const [frequency, setFrequency] = useState('');\n\n    // Send notification to\n    const [notifyToTags, setNotifyToTags] = useState<TagItem[]>([\n      { value: 'users', label: 'Users', count: 12 },\n      { value: 'roles', label: 'Roles', count: 4  },\n    ]);\n\n    // Notify via toggles\n    const [pushEmailEnabled,    setPushEmailEnabled]    = useState(true);\n    const [externalAppsEnabled, setExternalAppsEnabled] = useState(false);\n\n    // Channel checkboxes\n    const [notifyPush,     setNotifyPush]     = useState(true);\n    const [notifyEmail,    setNotifyEmail]    = useState(true);\n    const [notifyZohoCliq, setNotifyZohoCliq] = useState(true);\n    const [notifySlack,    setNotifySlack]    = useState(false);\n\n    // Message\n    const [message, setMessage] = useState(\n      'Hi ${user.firstname}, API usage exceeds the purchased limit, please check the usage.'\n    );\n\n    // Zoho Cliq Notification sub-modal — draft/committed pattern\n    const [zohoOpen,           setZohoOpen]           = useState(false);\n    const [zohoNotifyUsers,    setZohoNotifyUsers]    = useState(true);\n    const [zohoNotifyChannels, setZohoNotifyChannels] = useState(false);\n    const [zohoDraftUsers,     setZohoDraftUsers]     = useState<TagItem[]>([]);\n    const [zohoDraftChannels,  setZohoDraftChannels]  = useState<TagItem[]>([]);\n    const [zohoCommittedUsers,    setZohoCommittedUsers]    = useState<TagItem[]>([]);\n    const [zohoCommittedChannels, setZohoCommittedChannels] = useState<TagItem[]>([]);\n\n    const openZohoModal = () => {\n      setZohoDraftUsers(zohoCommittedUsers);\n      setZohoDraftChannels(zohoCommittedChannels);\n      setZohoOpen(true);\n    };\n    const handleZohoDone = () => {\n      setZohoCommittedUsers(zohoDraftUsers);\n      setZohoCommittedChannels(zohoDraftChannels);\n      setZohoOpen(false);\n    };\n    const handleZohoCancel = () => setZohoOpen(false);\n\n    // Whether the Message section should be shown.\n    // Hidden only when the ONLY active channel that carries a message is Email\n    // (which has its own template), and no push channels are enabled.\n    const onlyEmailNotify =\n      pushEmailEnabled && notifyEmail && !notifyPush &&\n      (!externalAppsEnabled || (!notifyZohoCliq && !notifySlack));\n    const showMessage = !onlyEmailNotify;\n\n    // Anomaly Detected has no further inputs after the operator\n    const showFurtherInputs  = !!operator && operator !== 'anomaly_detected';\n    // Metrics that need an extra number+unit field after the three cascading dropdowns\n    const showThresholdField = showFurtherInputs && (metric in METRIC_UNIT_OPTIONS);\n    const showRollingHours   = showFurtherInputs && metric === 'api_limits';\n    const currentUnitOptions = METRIC_UNIT_OPTIONS[metric] ?? [];\n    const dropGap    = 10;\n    const metricW    = 200; // always 200px\n    const operatorW  = 200; // always 200px\n    const thresholdW = metric === 'api_limits' ? 110 : showFurtherInputs ? 130 : 200;\n\n    // Modal grows only when the extra inputs are actually visible\n    const modalWidth = showRollingHours ? 1160 : showThresholdField ? 980 : 860;\n\n    return (\n      <>\n        {/* Hide number input spinners globally for this pattern */}\n        <style>{`\n          input[type=number]::-webkit-inner-spin-button,\n          input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }\n        `}</style>\n\n        <Button variant=\"primary\" onClick={() => setOpen(true)}>\n          Create Notification\n        </Button>\n\n        {/* ── Zoho Cliq Notification sub-modal ─────────────────────────── */}\n        <Modal\n          isOpen={zohoOpen}\n          title=\"Zoho Cliq Notification\"\n          onClose={handleZohoCancel}\n          onCancel={handleZohoCancel}\n          onSave={handleZohoDone}\n          cancelLabel=\"Cancel\"\n          saveLabel=\"Done\"\n          width={520}\n        >\n          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingRight: 20 }}>\n            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>\n              <Checkbox\n                label=\"Notify to users\"\n                checked={zohoNotifyUsers}\n                onChange={(e) => setZohoNotifyUsers(e.target.checked)}\n              />\n              {zohoNotifyUsers && (\n                <Tags\n                  value={zohoDraftUsers}\n                  options={ZOHO_USER_OPTIONS}\n                  onChange={setZohoDraftUsers}\n                  placeholder=\"Select users\"\n                  width=\"100%\"\n                />\n              )}\n            </div>\n            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>\n              <Checkbox\n                label=\"Notify in Channels\"\n                checked={zohoNotifyChannels}\n                onChange={(e) => setZohoNotifyChannels(e.target.checked)}\n              />\n              {zohoNotifyChannels && (\n                <Tags\n                  value={zohoDraftChannels}\n                  options={ZOHO_CHANNEL_OPTIONS}\n                  onChange={setZohoDraftChannels}\n                  placeholder=\"Select channels\"\n                  width=\"100%\"\n                />\n              )}\n            </div>\n          </div>\n        </Modal>\n\n        {/* ── Main modal ───────────────────────────────────────────────── */}\n        <Modal\n          isOpen={open}\n          title=\"Configure Usage Limit Notification\"\n          onClose={() => setOpen(false)}\n          onCancel={() => setOpen(false)}\n          onSave={() => setOpen(false)}\n          cancelLabel=\"Cancel\"\n          saveLabel=\"Save\"\n          width={modalWidth}\n        >\n          {/*\n           * The Modal body has margin-right: -28px / padding-right: 8px which\n           * extends the scroll area 20px past the dialog's intended 30px right\n           * padding. This wrapper restores the full 30px gap on the right.\n           */}\n          <div style={{ display: 'flex', flexDirection: 'column', gap: 30, paddingRight: 20 }}>\n\n          {/* ── Notify when + Notification frequency (20px apart) ──────── */}\n          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>\n          <div style={{\n            display: 'grid',\n            gridTemplateColumns: `${LABEL_COL} 1fr`,\n            columnGap: 20,\n            alignItems: 'center',\n          }}>\n            <span style={labelStyle}>Notify when</span>\n            <div style={{ display: 'flex', gap: dropGap, alignItems: 'flex-end' }}>\n              <Dropdown\n                layout=\"vertical\"\n                placeholder=\"Select Feature\"\n                options={METRIC_OPTIONS}\n                width={metricW}\n                value={metric}\n                onChange={(v) => {\n                  setMetric(v);\n                  setOperator('');\n                  setThreshold('');\n                  setRollingHours('');\n                  if (v in METRIC_UNIT_OPTIONS) {\n                    setPercentageValue('80');\n                    setPercentageUnit('percentage');\n                  } else {\n                    setPercentageValue('');\n                  }\n                }}\n              />\n              <Dropdown\n                layout=\"vertical\"\n                placeholder=\"Select Condition\"\n                options={OPERATOR_OPTIONS}\n                width={operatorW}\n                value={operator}\n                onChange={(v) => {\n                  setOperator(v);\n                  setThreshold('');\n                  if (v === 'anomaly_detected') {\n                    setPercentageValue('');\n                    setRollingHours('');\n                  }\n                }}\n                disabled={!metric}\n              />\n              {showFurtherInputs && (\n                <Dropdown\n                  layout=\"vertical\"\n                  placeholder=\"Select Limit\"\n                  options={THRESHOLD_OPTIONS}\n                  width={thresholdW}\n                  value={threshold}\n                  onChange={setThreshold}\n                  disabled={!operator}\n                />\n              )}\n              {showThresholdField && (\n                <StorageLimitField\n                  value={percentageValue}\n                  unit={percentageUnit}\n                  unitOptions={currentUnitOptions}\n                  onValueChange={setPercentageValue}\n                  onUnitChange={setPercentageUnit}\n                />\n              )}\n              {showRollingHours && (\n                <>\n                  <input\n                    type=\"number\"\n                    value={rollingHours}\n                    onChange={(e) => setRollingHours(e.target.value)}\n                    placeholder=\"0\"\n                    style={{\n                      width: 65, height: 34, flexShrink: 0,\n                      border: '1px solid var(--ds-components-input-default-outline)',\n                      borderRadius: 6, outline: 'none', padding: '0 8px',\n                      background: 'var(--ds-bg-common-card)',\n                      fontFamily: 'var(--ds-font-family-base)', fontSize: 'var(--ds-font-size-base)',\n                      color: 'var(--ds-text-base)', boxSizing: 'border-box' as const,\n                      MozAppearance: 'textfield',\n                    } as React.CSSProperties}\n                    aria-label=\"Rolling hours value\"\n                  />\n                  <span style={{\n                    alignSelf: 'center',\n                    fontFamily: 'var(--ds-font-family-base)', fontSize: 'var(--ds-font-size-base)',\n                    color: 'var(--ds-text-base)', whiteSpace: 'nowrap',\n                  }}>\n                    Rolling Hours\n                  </span>\n                </>\n              )}\n            </div>\n          </div>\n\n          {/* ── Notification frequency ───────────────────────────────────── */}\n          <FormRow label=\"Notification frequency\">\n            <Dropdown\n              layout=\"vertical\"\n              placeholder=\"Select\"\n              options={FREQUENCY_OPTIONS}\n              width={390}\n              value={frequency}\n              onChange={setFrequency}\n              required\n            />\n          </FormRow>\n          </div>{/* end first-group */}\n\n          {/* ── Notify via ──────────────────────────────────────────────── */}\n          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>\n            <h2 style={sectionHeadingStyle}>Notify via</h2>\n\n            {/* Push Notification / Email */}\n            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\n                <span style={subHeadingStyle}>Push Notification / Email</span>\n                <Switch\n                  checked={pushEmailEnabled}\n                  onChange={(e) => setPushEmailEnabled(e.target.checked)}\n                  aria-label=\"Toggle push notification and email\"\n                />\n              </div>\n\n              {pushEmailEnabled && (\n                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n                  <FormRow label=\"Send notification to\">\n                    <Tags\n                      value={notifyToTags}\n                      options={NOTIFY_TO_OPTIONS}\n                      onChange={setNotifyToTags}\n                      placeholder=\"Select users or roles\"\n                      width={390}\n                      required\n                    />\n                  </FormRow>\n\n                  <FormRow label=\"Notify Via\" align=\"start\">\n                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\n                      <Checkbox\n                        label=\"Push Notification\"\n                        checked={notifyPush}\n                        onChange={(e) => setNotifyPush(e.target.checked)}\n                      />\n                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n                        <Checkbox\n                          label=\"Email\"\n                          checked={notifyEmail}\n                          onChange={(e) => setNotifyEmail(e.target.checked)}\n                        />\n                        {/* Preview · Edit Template — only visible when Email is checked */}\n                        {notifyEmail && <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>\n                          <button\n                            type=\"button\"\n                            style={{\n                              background: 'none',\n                              border:     'none',\n                              padding:    0,\n                              cursor:     'pointer',\n                              fontFamily: 'var(--ds-font-family-base)',\n                              fontSize:   'var(--ds-font-size-base)',\n                              color:      'var(--ds-text-link)',\n                            }}\n                            aria-label=\"Preview email template\"\n                          >\n                            Preview\n                          </button>\n                          <span style={{\n                            color:      'var(--ds-text-muted)',\n                            fontSize:   'var(--ds-font-size-base)',\n                            lineHeight: 1,\n                          }}>·</span>\n                          <button\n                            type=\"button\"\n                            style={{\n                              background: 'none',\n                              border:     'none',\n                              padding:    0,\n                              cursor:     'pointer',\n                              fontFamily: 'var(--ds-font-family-base)',\n                              fontSize:   'var(--ds-font-size-base)',\n                              color:      'var(--ds-text-link)',\n                            }}\n                            aria-label=\"Edit email template\"\n                          >\n                            Edit Template\n                          </button>\n                        </span>}\n                      </div>\n                    </div>\n                  </FormRow>\n                </div>\n              )}\n            </div>\n\n            {/* External apps */}\n            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\n                <span style={subHeadingStyle}>External apps</span>\n                <Switch\n                  checked={externalAppsEnabled}\n                  onChange={(e) => setExternalAppsEnabled(e.target.checked)}\n                  aria-label=\"Toggle external app notifications\"\n                />\n              </div>\n\n              {externalAppsEnabled && (\n                /*\n                 * labelOffset=7: centers the \"Notify Via\" label text (lineHeight 20px)\n                 * with the Zoho Cliq checkbox which is centered in a 34px-tall row.\n                 * Center of Zoho Cliq row = 17px → paddingTop = 17 − 10 = 7px.\n                 */\n                <FormRow label=\"Notify Via\" align=\"start\" labelOffset={7}>\n                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\n                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\n                      <Checkbox\n                        label=\"Zoho Cliq\"\n                        checked={notifyZohoCliq}\n                        onChange={(e) => setNotifyZohoCliq(e.target.checked)}\n                      />\n                      <div style={{\n                        opacity:       notifyZohoCliq ? 1 : 0,\n                        pointerEvents: notifyZohoCliq ? 'auto' : 'none',\n                      }}>\n                        {/* Show committed values as Tags chips; overlay intercepts clicks to open sub-modal */}\n                        <div style={{ position: 'relative', width: 390 }}>\n                          <Tags\n                            value={[...zohoCommittedUsers, ...zohoCommittedChannels]}\n                            options={[]}\n                            onChange={() => {}}\n                            placeholder=\"Select users or channels\"\n                            width={390}\n                            required\n                          />\n                          <div\n                            style={{ position: 'absolute', inset: 0, cursor: 'pointer' }}\n                            onClick={openZohoModal}\n                          />\n                        </div>\n                      </div>\n                    </div>\n                    <Checkbox\n                      label=\"Slack\"\n                      checked={notifySlack}\n                      onChange={(e) => setNotifySlack(e.target.checked)}\n                    />\n                  </div>\n                </FormRow>\n              )}\n            </div>\n          </div>\n\n          {/* ── Message ─────────────────────────────────────────────────── */}\n          {showMessage && (\n            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\n              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>\n                <h2 style={sectionHeadingStyle}>Message</h2>\n                <span style={{\n                  fontFamily: 'var(--ds-font-family-base)',\n                  fontSize:   'var(--ds-font-size-md)',\n                  color:      'var(--ds-text-muted)',\n                }}>\n                  <strong style={{\n                    fontWeight: 'var(--ds-font-weight-semibold)',\n                    color:      'var(--ds-text-label)',\n                  }}>Hint:</strong>\n                  {' '}Type \"#\" to insert merge field\n                </span>\n              </div>\n\n              {/* TODO: Missing component — RichTextEditor (textarea + formatting toolbar) */}\n              <div style={{\n                border:     '1px solid var(--ds-border-default)',\n                borderRadius: 4,\n                overflow:   'hidden',\n              }}>\n                <Textarea\n                  layout=\"vertical\"\n                  width=\"100%\"\n                  value={message}\n                  onChange={(e) => setMessage(e.target.value)}\n                  minHeight={100}\n                  style={{ border: 'none', borderRadius: 0 }}\n                />\n                <RichTextToolbar />\n              </div>\n            </div>\n          )}\n\n          </div>\n        </Modal>\n      </>\n    );\n  },\n};\n"
+      },
+      "stories": [
+        {
+          "id": "design-system-patterns-usage-limit-notification--create-notification",
+          "name": "Create Notification",
+          "snippet": "const CreateNotification = () => {\n  const [open, setOpen] = useState(false);\n\n  // Notify when\n  const [metric,           setMetric]          = useState('');\n  const [operator,         setOperator]         = useState('');\n  const [threshold,        setThreshold]        = useState('');\n  const [percentageValue,  setPercentageValue]  = useState('');\n  const [percentageUnit,   setPercentageUnit]   = useState('percentage');\n  const [rollingHours,     setRollingHours]     = useState('');\n\n  // Notification frequency\n  const [frequency, setFrequency] = useState('');\n\n  // Send notification to\n  const [notifyToTags, setNotifyToTags] = useState<TagItem[]>([\n    { value: 'users', label: 'Users', count: 12 },\n    { value: 'roles', label: 'Roles', count: 4  },\n  ]);\n\n  // Notify via toggles\n  const [pushEmailEnabled,    setPushEmailEnabled]    = useState(true);\n  const [externalAppsEnabled, setExternalAppsEnabled] = useState(false);\n\n  // Channel checkboxes\n  const [notifyPush,     setNotifyPush]     = useState(true);\n  const [notifyEmail,    setNotifyEmail]    = useState(true);\n  const [notifyZohoCliq, setNotifyZohoCliq] = useState(true);\n  const [notifySlack,    setNotifySlack]    = useState(false);\n\n  // Message\n  const [message, setMessage] = useState(\n    'Hi ${user.firstname}, API usage exceeds the purchased limit, please check the usage.'\n  );\n\n  // Zoho Cliq Notification sub-modal — draft/committed pattern\n  const [zohoOpen,           setZohoOpen]           = useState(false);\n  const [zohoNotifyUsers,    setZohoNotifyUsers]    = useState(true);\n  const [zohoNotifyChannels, setZohoNotifyChannels] = useState(false);\n  const [zohoDraftUsers,     setZohoDraftUsers]     = useState<TagItem[]>([]);\n  const [zohoDraftChannels,  setZohoDraftChannels]  = useState<TagItem[]>([]);\n  const [zohoCommittedUsers,    setZohoCommittedUsers]    = useState<TagItem[]>([]);\n  const [zohoCommittedChannels, setZohoCommittedChannels] = useState<TagItem[]>([]);\n\n  const openZohoModal = () => {\n    setZohoDraftUsers(zohoCommittedUsers);\n    setZohoDraftChannels(zohoCommittedChannels);\n    setZohoOpen(true);\n  };\n  const handleZohoDone = () => {\n    setZohoCommittedUsers(zohoDraftUsers);\n    setZohoCommittedChannels(zohoDraftChannels);\n    setZohoOpen(false);\n  };\n  const handleZohoCancel = () => setZohoOpen(false);\n\n  // Whether the Message section should be shown.\n  // Hidden only when the ONLY active channel that carries a message is Email\n  // (which has its own template), and no push channels are enabled.\n  const onlyEmailNotify =\n    pushEmailEnabled && notifyEmail && !notifyPush &&\n    (!externalAppsEnabled || (!notifyZohoCliq && !notifySlack));\n  const showMessage = !onlyEmailNotify;\n\n  // Anomaly Detected has no further inputs after the operator\n  const showFurtherInputs  = !!operator && operator !== 'anomaly_detected';\n  // Metrics that need an extra number+unit field after the three cascading dropdowns\n  const showThresholdField = showFurtherInputs && (metric in METRIC_UNIT_OPTIONS);\n  const showRollingHours   = showFurtherInputs && metric === 'api_limits';\n  const currentUnitOptions = METRIC_UNIT_OPTIONS[metric] ?? [];\n  const dropGap    = 10;\n  const metricW    = 200; // always 200px\n  const operatorW  = 200; // always 200px\n  const thresholdW = metric === 'api_limits' ? 110 : showFurtherInputs ? 130 : 200;\n\n  // Modal grows only when the extra inputs are actually visible\n  const modalWidth = showRollingHours ? 1160 : showThresholdField ? 980 : 860;\n\n  return (\n    <>\n      {/* Hide number input spinners globally for this pattern */}\n      <style>{`\n        input[type=number]::-webkit-inner-spin-button,\n        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }\n      `}</style>\n      <Button variant=\"primary\" onClick={() => setOpen(true)}>\n        Create Notification\n      </Button>\n      {/* ── Zoho Cliq Notification sub-modal ─────────────────────────── */}\n      <Modal\n        isOpen={zohoOpen}\n        title=\"Zoho Cliq Notification\"\n        onClose={handleZohoCancel}\n        onCancel={handleZohoCancel}\n        onSave={handleZohoDone}\n        cancelLabel=\"Cancel\"\n        saveLabel=\"Done\"\n        width={520}\n      >\n        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingRight: 20 }}>\n          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>\n            <Checkbox\n              label=\"Notify to users\"\n              checked={zohoNotifyUsers}\n              onChange={(e) => setZohoNotifyUsers(e.target.checked)}\n            />\n            {zohoNotifyUsers && (\n              <Tags\n                value={zohoDraftUsers}\n                options={ZOHO_USER_OPTIONS}\n                onChange={setZohoDraftUsers}\n                placeholder=\"Select users\"\n                width=\"100%\"\n              />\n            )}\n          </div>\n          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>\n            <Checkbox\n              label=\"Notify in Channels\"\n              checked={zohoNotifyChannels}\n              onChange={(e) => setZohoNotifyChannels(e.target.checked)}\n            />\n            {zohoNotifyChannels && (\n              <Tags\n                value={zohoDraftChannels}\n                options={ZOHO_CHANNEL_OPTIONS}\n                onChange={setZohoDraftChannels}\n                placeholder=\"Select channels\"\n                width=\"100%\"\n              />\n            )}\n          </div>\n        </div>\n      </Modal>\n      {/* ── Main modal ───────────────────────────────────────────────── */}\n      <Modal\n        isOpen={open}\n        title=\"Configure Usage Limit Notification\"\n        onClose={() => setOpen(false)}\n        onCancel={() => setOpen(false)}\n        onSave={() => setOpen(false)}\n        cancelLabel=\"Cancel\"\n        saveLabel=\"Save\"\n        width={modalWidth}\n      >\n        {/*\n         * The Modal body has margin-right: -28px / padding-right: 8px which\n         * extends the scroll area 20px past the dialog's intended 30px right\n         * padding. This wrapper restores the full 30px gap on the right.\n         */}\n        <div style={{ display: 'flex', flexDirection: 'column', gap: 30, paddingRight: 20 }}>\n\n        {/* ── Notify when + Notification frequency (20px apart) ──────── */}\n        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>\n        <div style={{\n          display: 'grid',\n          gridTemplateColumns: `${LABEL_COL} 1fr`,\n          columnGap: 20,\n          alignItems: 'center',\n        }}>\n          <span style={labelStyle}>Notify when</span>\n          <div style={{ display: 'flex', gap: dropGap, alignItems: 'flex-end' }}>\n            <Dropdown\n              layout=\"vertical\"\n              placeholder=\"Select Feature\"\n              options={METRIC_OPTIONS}\n              width={metricW}\n              value={metric}\n              onChange={(v) => {\n                setMetric(v);\n                setOperator('');\n                setThreshold('');\n                setRollingHours('');\n                if (v in METRIC_UNIT_OPTIONS) {\n                  setPercentageValue('80');\n                  setPercentageUnit('percentage');\n                } else {\n                  setPercentageValue('');\n                }\n              }}\n            />\n            <Dropdown\n              layout=\"vertical\"\n              placeholder=\"Select Condition\"\n              options={OPERATOR_OPTIONS}\n              width={operatorW}\n              value={operator}\n              onChange={(v) => {\n                setOperator(v);\n                setThreshold('');\n                if (v === 'anomaly_detected') {\n                  setPercentageValue('');\n                  setRollingHours('');\n                }\n              }}\n              disabled={!metric}\n            />\n            {showFurtherInputs && (\n              <Dropdown\n                layout=\"vertical\"\n                placeholder=\"Select Limit\"\n                options={THRESHOLD_OPTIONS}\n                width={thresholdW}\n                value={threshold}\n                onChange={setThreshold}\n                disabled={!operator}\n              />\n            )}\n            {showThresholdField && (\n              <StorageLimitField\n                value={percentageValue}\n                unit={percentageUnit}\n                unitOptions={currentUnitOptions}\n                onValueChange={setPercentageValue}\n                onUnitChange={setPercentageUnit}\n              />\n            )}\n            {showRollingHours && (\n              <>\n                <input\n                  type=\"number\"\n                  value={rollingHours}\n                  onChange={(e) => setRollingHours(e.target.value)}\n                  placeholder=\"0\"\n                  style={{\n                    width: 65, height: 34, flexShrink: 0,\n                    border: '1px solid var(--ds-components-input-default-outline)',\n                    borderRadius: 6, outline: 'none', padding: '0 8px',\n                    background: 'var(--ds-bg-common-card)',\n                    fontFamily: 'var(--ds-font-family-base)', fontSize: 'var(--ds-font-size-base)',\n                    color: 'var(--ds-text-base)', boxSizing: 'border-box' as const,\n                    MozAppearance: 'textfield',\n                  } as React.CSSProperties}\n                  aria-label=\"Rolling hours value\"\n                />\n                <span style={{\n                  alignSelf: 'center',\n                  fontFamily: 'var(--ds-font-family-base)', fontSize: 'var(--ds-font-size-base)',\n                  color: 'var(--ds-text-base)', whiteSpace: 'nowrap',\n                }}>\n                  Rolling Hours\n                </span>\n              </>\n            )}\n          </div>\n        </div>\n\n        {/* ── Notification frequency ───────────────────────────────────── */}\n        <FormRow label=\"Notification frequency\">\n          <Dropdown\n            layout=\"vertical\"\n            placeholder=\"Select\"\n            options={FREQUENCY_OPTIONS}\n            width={390}\n            value={frequency}\n            onChange={setFrequency}\n            required\n          />\n        </FormRow>\n        </div>{/* end first-group */}\n\n        {/* ── Notify via ──────────────────────────────────────────────── */}\n        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>\n          <h2 style={sectionHeadingStyle}>Notify via</h2>\n\n          {/* Push Notification / Email */}\n          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\n              <span style={subHeadingStyle}>Push Notification / Email</span>\n              <Switch\n                checked={pushEmailEnabled}\n                onChange={(e) => setPushEmailEnabled(e.target.checked)}\n                aria-label=\"Toggle push notification and email\"\n              />\n            </div>\n\n            {pushEmailEnabled && (\n              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n                <FormRow label=\"Send notification to\">\n                  <Tags\n                    value={notifyToTags}\n                    options={NOTIFY_TO_OPTIONS}\n                    onChange={setNotifyToTags}\n                    placeholder=\"Select users or roles\"\n                    width={390}\n                    required\n                  />\n                </FormRow>\n\n                <FormRow label=\"Notify Via\" align=\"start\">\n                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\n                    <Checkbox\n                      label=\"Push Notification\"\n                      checked={notifyPush}\n                      onChange={(e) => setNotifyPush(e.target.checked)}\n                    />\n                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n                      <Checkbox\n                        label=\"Email\"\n                        checked={notifyEmail}\n                        onChange={(e) => setNotifyEmail(e.target.checked)}\n                      />\n                      {/* Preview · Edit Template — only visible when Email is checked */}\n                      {notifyEmail && <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>\n                        <button\n                          type=\"button\"\n                          style={{\n                            background: 'none',\n                            border:     'none',\n                            padding:    0,\n                            cursor:     'pointer',\n                            fontFamily: 'var(--ds-font-family-base)',\n                            fontSize:   'var(--ds-font-size-base)',\n                            color:      'var(--ds-text-link)',\n                          }}\n                          aria-label=\"Preview email template\"\n                        >\n                          Preview\n                        </button>\n                        <span style={{\n                          color:      'var(--ds-text-muted)',\n                          fontSize:   'var(--ds-font-size-base)',\n                          lineHeight: 1,\n                        }}>·</span>\n                        <button\n                          type=\"button\"\n                          style={{\n                            background: 'none',\n                            border:     'none',\n                            padding:    0,\n                            cursor:     'pointer',\n                            fontFamily: 'var(--ds-font-family-base)',\n                            fontSize:   'var(--ds-font-size-base)',\n                            color:      'var(--ds-text-link)',\n                          }}\n                          aria-label=\"Edit email template\"\n                        >\n                          Edit Template\n                        </button>\n                      </span>}\n                    </div>\n                  </div>\n                </FormRow>\n              </div>\n            )}\n          </div>\n\n          {/* External apps */}\n          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\n              <span style={subHeadingStyle}>External apps</span>\n              <Switch\n                checked={externalAppsEnabled}\n                onChange={(e) => setExternalAppsEnabled(e.target.checked)}\n                aria-label=\"Toggle external app notifications\"\n              />\n            </div>\n\n            {externalAppsEnabled && (\n              /*\n               * labelOffset=7: centers the \"Notify Via\" label text (lineHeight 20px)\n               * with the Zoho Cliq checkbox which is centered in a 34px-tall row.\n               * Center of Zoho Cliq row = 17px → paddingTop = 17 − 10 = 7px.\n               */\n              (<FormRow label=\"Notify Via\" align=\"start\" labelOffset={7}>\n                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\n                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\n                    <Checkbox\n                      label=\"Zoho Cliq\"\n                      checked={notifyZohoCliq}\n                      onChange={(e) => setNotifyZohoCliq(e.target.checked)}\n                    />\n                    <div style={{\n                      opacity:       notifyZohoCliq ? 1 : 0,\n                      pointerEvents: notifyZohoCliq ? 'auto' : 'none',\n                    }}>\n                      {/* Show committed values as Tags chips; overlay intercepts clicks to open sub-modal */}\n                      <div style={{ position: 'relative', width: 390 }}>\n                        <Tags\n                          value={[...zohoCommittedUsers, ...zohoCommittedChannels]}\n                          options={[]}\n                          onChange={() => {}}\n                          placeholder=\"Select users or channels\"\n                          width={390}\n                          required\n                        />\n                        <div\n                          style={{ position: 'absolute', inset: 0, cursor: 'pointer' }}\n                          onClick={openZohoModal}\n                        />\n                      </div>\n                    </div>\n                  </div>\n                  <Checkbox\n                    label=\"Slack\"\n                    checked={notifySlack}\n                    onChange={(e) => setNotifySlack(e.target.checked)}\n                  />\n                </div>\n              </FormRow>)\n            )}\n          </div>\n        </div>\n\n        {/* ── Message ─────────────────────────────────────────────────── */}\n        {showMessage && (\n          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\n            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>\n              <h2 style={sectionHeadingStyle}>Message</h2>\n              <span style={{\n                fontFamily: 'var(--ds-font-family-base)',\n                fontSize:   'var(--ds-font-size-md)',\n                color:      'var(--ds-text-muted)',\n              }}>\n                <strong style={{\n                  fontWeight: 'var(--ds-font-weight-semibold)',\n                  color:      'var(--ds-text-label)',\n                }}>Hint:</strong>\n                {' '}Type \"#\" to insert merge field\n              </span>\n            </div>\n\n            {/* TODO: Missing component — RichTextEditor (textarea + formatting toolbar) */}\n            <div style={{\n              border:     '1px solid var(--ds-border-default)',\n              borderRadius: 4,\n              overflow:   'hidden',\n            }}>\n              <Textarea\n                layout=\"vertical\"\n                width=\"100%\"\n                value={message}\n                onChange={(e) => setMessage(e.target.value)}\n                minHeight={100}\n                style={{ border: 'none', borderRadius: 0 }}\n              />\n              <RichTextToolbar />\n            </div>\n          </div>\n        )}\n\n        </div>\n      </Modal>\n    </>\n  );\n};"
+        }
+      ],
+      "import": "import { Button, Checkbox, Dropdown, Modal, Switch, Tags, Textarea } from \"@chinnaiya-r-2310/design-system\";"
     }
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 1373
+    "durationMs": 1507
   }
 }
