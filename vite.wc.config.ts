@@ -8,18 +8,17 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/wc/index.ts'),
       name: 'CrmDesignSystemWC',
       formats: ['es'],
-      fileName: () => 'index.js',
+      fileName: () => 'index.wc.js',
     },
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) =>
-          assetInfo.name?.endsWith('.css') ? 'wc.css' : (assetInfo.name ?? 'asset'),
+          assetInfo.name?.endsWith('.css') ? 'style.wc.css' : (assetInfo.name ?? 'asset'),
       },
     },
-    outDir: 'dist/wc',
-    emptyOutDir: true,
+    outDir: 'dist',
+    emptyOutDir: false,
     sourcemap: true,
     cssCodeSplit: false,
-    minify: false,
   },
 });

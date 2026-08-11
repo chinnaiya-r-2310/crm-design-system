@@ -14,7 +14,7 @@
     },
     "./style.css": "./dist/style.css",
     "./wc": {
-      "import": "./dist/wc/index.js"
+      "import": "./dist/index.wc.js"
     }
   },
   "files": [
