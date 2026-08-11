@@ -1,0 +1,192 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   SetupTable — CSS Module
+   Figma: Chinnaiya-Style-Sheet node 93640-149179 — "Setup - List"
+
+   DOM anatomy
+   ─────────────
+     .table-root                      rounded card wrapper
+       table.table-table
+         thead
+           tr.table-header-row
+             th.table-th               (+ .table-th-with-sep for all but last)
+             th.table-th.table-checkbox-cell  (first, when selectable)
+             th.table-th.table-actions-cell   (last, when onRowAction provided)
+         tbody
+           tr.table-body-row            [data-selected] [data-alt]
+             td.table-td
+             td.table-td.table-checkbox-cell
+             td.table-td.table-actions-cell
+               button.table-action-btn
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Root card ───────────────────────────────────────────────────────────── */
+
+.table-root {
+  border-radius: 12px;
+  border: 1px solid var(--ds-components-table-header-outline-border, #D9E0EB);
+  background: var(--ds-bg-common-card, #FFFFFF);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ── Table ───────────────────────────────────────────────────────────────── */
+
+.table-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* ── Header row ──────────────────────────────────────────────────────────── */
+
+.table-header-row {
+  height: 36px;
+  background: var(--ds-components-table-header-bg, #F4F7FF);
+  border-bottom: 1px solid var(--ds-components-table-header-outline-border, #D9E0EB);
+}
+
+/* ── Header cell ─────────────────────────────────────────────────────────── */
+
+.table-th {
+  position: relative;
+  padding: 0 12px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  font-weight: var(--ds-font-weight-regular, 400);
+  line-height: var(--ds-line-height-base, 20px);
+  color: var(--ds-text-label, #616E88);
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+/* Thin separator line between header cells */
+.table-th-with-sep::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 16px;
+  width: 1px;
+  background: var(--ds-components-table-header-outline-border, #D9E0EB);
+}
+
+/* ── Sort button in header ───────────────────────────────────────────────── */
+
+.table-sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  white-space: nowrap;
+  outline: none;
+}
+
+.table-sort-btn:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
+  border-radius: 2px;
+}
+
+/* ── Body row ────────────────────────────────────────────────────────────── */
+
+.table-body-row {
+  height: 40px;
+  border-bottom: 1px solid var(--ds-components-table-row-border, #EEF1F7);
+  transition: background 150ms ease;
+}
+
+.table-body-row:last-child {
+  border-bottom: none;
+}
+
+.table-body-row:hover {
+  background: var(--ds-components-table-table-hover, #F7F8FB);
+}
+
+.table-body-row[data-selected] {
+  background: var(--ds-components-table-table-checked, #F5F8FF);
+}
+
+.table-body-row[data-selected]:hover {
+  background: var(--ds-components-table-table-checked, #F5F8FF);
+}
+
+/* Alternate row tint */
+.table-body-row[data-alt] {
+  background: var(--ds-components-table-alter-color, #FAFBFC);
+}
+
+.table-body-row[data-alt]:hover {
+  background: var(--ds-components-table-table-hover, #F7F8FB);
+}
+
+/* ── Body cell ───────────────────────────────────────────────────────────── */
+
+.table-td {
+  padding: 0 12px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  font-weight: var(--ds-font-weight-regular, 400);
+  line-height: var(--ds-line-height-base, 20px);
+  color: var(--ds-text-base, #313949);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+/* ── Checkbox column ─────────────────────────────────────────────────────── */
+
+.table-checkbox-cell {
+  width: 46px;
+  padding: 0 8px 0 12px;
+  text-align: center;
+}
+
+/* ── Actions column (3-dot menu) ─────────────────────────────────────────── */
+
+.table-actions-cell {
+  width: 52px;
+  padding: 0 8px;
+  text-align: center;
+}
+
+.table-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ds-text-label, #616E88);
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.table-action-btn:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+  color: var(--ds-text-base, #313949);
+}
+
+.table-action-btn:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
+}
+
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+
+.table-empty-cell {
+  padding: 48px 24px;
+  text-align: center;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  color: var(--ds-text-muted, #8C9BAB);
+}

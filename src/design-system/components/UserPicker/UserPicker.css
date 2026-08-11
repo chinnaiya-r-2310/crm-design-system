@@ -1,0 +1,401 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   UserPicker — CSS Module
+   Figma: Chinnaiya-Style-Sheet node 93656-149883
+
+   DOM anatomy
+   ────────────
+     .user-picker-root
+       .user-picker-form-row               CSS Grid (horizontal layout)
+         .user-picker-label
+         .user-picker-field-column
+           .user-picker-dropdown-wrapper
+             .user-picker-trigger         <button>
+               .user-picker-trigger-user   (when selected — avatar + name)
+                 .user-picker-avatar
+                 .user-picker-trigger-name
+               .user-picker-trigger-value  (placeholder)
+               .user-picker-chevron
+             panel (portal)
+               .user-picker-search-row
+                 .user-picker-search-box
+               .user-picker-user-list
+                 .user-picker-user-option
+                   .user-picker-check-slot
+                   .user-picker-avatar
+                   .user-picker-user-info
+                     .user-picker-user-name
+                     .user-picker-user-email
+           .user-picker-helper-text
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* ── Root ─────────────────────────────────────────────────────────────────── */
+
+.user-picker-root {
+  display: block;
+}
+
+.user-picker-vertical {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Form row ─────────────────────────────────────────────────────────────── */
+
+.user-picker-form-row {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 20px;
+  align-items: start;
+}
+
+.user-picker-field-column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Label ────────────────────────────────────────────────────────────────── */
+
+.user-picker-label {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-label);
+  word-break: break-word;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.user-picker-form-row .user-picker-label {
+  text-align: right;
+  padding-top: 7px;
+}
+
+/* ── Wrapper ──────────────────────────────────────────────────────────────── */
+
+.user-picker-dropdown-wrapper {
+  position: relative;
+}
+
+/* ── Trigger ──────────────────────────────────────────────────────────────── */
+
+.user-picker-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 34px;
+  padding: 0;
+  background: var(--ds-bg-common-card);
+  border: 1px solid var(--ds-components-input-default-outline);
+  border-radius: 6px;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--ds-font-family-base);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  text-align: left;
+}
+
+.user-picker-trigger:hover {
+  border-color: var(--ds-components-input-hover-outline);
+}
+
+.user-picker-trigger[data-open],
+.user-picker-trigger:focus {
+  border-color: var(--ds-components-input-focus-outline);
+  box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow);
+}
+
+.user-picker-trigger[data-required]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 3px;
+  border-radius: 4px 0 0 4px;
+  border-left: 3px solid var(--ds-components-input-required-accent, #FF5D5A);
+  pointer-events: none;
+}
+
+/* Trigger content when a user is selected */
+.user-picker-trigger-user {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+}
+
+.user-picker-trigger-name {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Placeholder text */
+.user-picker-trigger-value {
+  flex: 1;
+  min-width: 0;
+  padding: 0 10px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-components-input-placeholder-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+/* ── Chevron ──────────────────────────────────────────────────────────────── */
+
+.user-picker-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  color: var(--ds-text-label);
+}
+
+.user-picker-trigger[data-open] .user-picker-chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Avatar circle ────────────────────────────────────────────────────────── */
+
+.user-picker-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: #ffffff;
+  font-family: var(--ds-font-family-base);
+  font-weight: var(--ds-font-weight-medium, 500);
+  line-height: 1;
+  overflow: hidden;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.user-picker-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* ── Panel ────────────────────────────────────────────────────────────────── */
+
+.user-picker-panel {
+  position: fixed;
+  z-index: 1500;
+  background: var(--ds-components-dropdown-option-bg, #ffffff);
+  border: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px 0 var(--ds-shadow-dropdown, rgba(0, 0, 0, 0.15));
+  padding: 6px 0;
+  box-sizing: border-box;
+}
+
+/* ── Search row ───────────────────────────────────────────────────────────── */
+
+.user-picker-search-row {
+  padding: 4px 10px 5px;
+}
+
+.user-picker-search-box {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  gap: 6px;
+  padding: 0 8px;
+  background: var(--ds-bg-common-card, #fff);
+  border: 1px solid var(--ds-components-input-default-outline);
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.user-picker-search-box:focus-within {
+  border-color: var(--ds-components-input-focus-outline);
+  box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow);
+}
+
+.user-picker-search-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--ds-text-muted, #8C9BAB);
+}
+
+.user-picker-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+}
+
+.user-picker-search-input::placeholder {
+  color: var(--ds-components-input-placeholder-text);
+}
+
+.user-picker-clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  padding: 4px;
+  border: none;
+  border-radius: 100px;
+  background: var(--ds-bg-muted, #EAF0F4);
+  color: var(--ds-text-label);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.user-picker-clear-btn:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+/* ── User list ────────────────────────────────────────────────────────────── */
+
+.user-picker-user-list {
+  overflow-y: auto;
+  max-height: 245px;
+}
+
+/* ── User option item ─────────────────────────────────────────────────────── */
+
+.user-picker-user-option {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin: 0 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  gap: 8px;
+  padding-right: 10px;
+}
+
+.user-picker-user-option[data-active] {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+.user-picker-user-option[data-selected] {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+/* Clear selected bg when a different item is being hovered */
+.user-picker-user-list:has([data-active]:not([data-selected])) .user-picker-user-option[data-selected]:not([data-active]) {
+  background: transparent;
+}
+
+/* Checkmark slot — 25px wide, matches Figma paddingLeft indent */
+.user-picker-check-slot {
+  width: 25px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ds-text-base);
+}
+
+/* Name + email column */
+.user-picker-user-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.user-picker-user-name {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  font-weight: var(--ds-font-weight-regular, 400);
+  line-height: var(--ds-line-height-base, 20px);
+  color: var(--ds-text-base, #313949);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-picker-user-email {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-xs, 11px);
+  font-weight: var(--ds-font-weight-regular, 400);
+  line-height: var(--ds-line-height-xs, 15px);
+  color: var(--ds-text-label, #616E88);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── No results ───────────────────────────────────────────────────────────── */
+
+.user-picker-no-results {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-muted, #8C9BAB);
+}
+
+/* ── Helper text ──────────────────────────────────────────────────────────── */
+
+.user-picker-helper-text {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-xs);
+  color: var(--ds-text-base);
+}
+
+/* ── Disabled variant ─────────────────────────────────────────────────────── */
+
+.user-picker-root[data-variant="disabled"] .user-picker-trigger {
+  background: var(--ds-components-input-disable-bg);
+  border-color: var(--ds-components-input-disable-outline);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Error variant ────────────────────────────────────────────────────────── */
+
+.user-picker-root[data-variant="error"] .user-picker-trigger {
+  border-color: var(--ds-components-input-error-outline);
+}
+
+.user-picker-root[data-variant="error"] .user-picker-trigger:hover {
+  border-color: var(--ds-components-input-error-outline);
+}
+
+.user-picker-root[data-variant="error"] .user-picker-helper-text {
+  color: var(--ds-components-input-error-outline);
+}

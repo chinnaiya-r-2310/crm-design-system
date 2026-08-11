@@ -1,0 +1,302 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Tooltip — CSS Module
+   Figma source: Chinnaiya Style Sheet, node 14243:110337
+
+   DOM anatomy
+   ────────────
+     span.tooltip-wrapper                (inline, position:relative)
+       {trigger element}
+       span.tooltip-tooltip.tooltip-{variant}.tooltip-placement-{dir}
+         span.tooltip-arrow              (CSS caret pointing toward trigger)
+         span.tooltip-inner
+           span.tooltip-icon?            (optional warning icon)
+           {content text}
+
+   Variants
+   ────────────
+     .tooltip-black  — dark bg #313949, white text
+     .tooltip-white  — white bg, dark text, border, shadow
+     .tooltip-red    — white bg, red text #FF5D5A, border, shadow
+
+   Placements (arrow position)
+   ────────────
+     .tooltip-placement-top    — arrow at top → tooltip below trigger
+     .tooltip-placement-bottom — arrow at bottom → tooltip above trigger
+     .tooltip-placement-left   — arrow on left → tooltip right of trigger
+     .tooltip-placement-right  — arrow on right → tooltip left of trigger
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Wrapper ─────────────────────────────────────────────────────────────── */
+
+.tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── Tooltip panel ───────────────────────────────────────────────────────── */
+
+.tooltip-tooltip {
+  position: absolute;
+  z-index: 1600;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.tooltip-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: var(--ds-font-family-base);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+/* ── Variants ────────────────────────────────────────────────────────────── */
+
+/* Black — dark bg, white text */
+.tooltip-black .tooltip-inner {
+  background: var(--ds-components-tooltip-black-bg-color, #313949);
+  border: 1px solid var(--ds-components-tooltip-black-border, #313949);
+  color: #ffffff;
+}
+
+/* White — white bg, dark text, border + drop shadow */
+.tooltip-white .tooltip-inner {
+  background: var(--ds-components-tooltip-white-bg-color, #ffffff);
+  border: 1px solid var(--ds-components-dropdown-outline, #D6D6E2);
+  color: var(--ds-text-base, #313949);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.20);
+}
+
+/* Red — white bg, red validation text */
+.tooltip-red .tooltip-inner {
+  background: var(--ds-components-tooltip-white-bg-color, #ffffff);
+  border: 1px solid var(--ds-components-input-default-outline, #C5C4D4);
+  color: var(--ds-status-error, #FF5D5A);
+  box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+}
+
+/* ── Arrow (caret) ───────────────────────────────────────────────────────── */
+
+/* Figma: only the Red (error) variant shows an arrow caret.
+   Black and white tooltips have no arrow. */
+
+/* Hidden for all variants by default */
+.tooltip-arrow {
+  display: none;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Only the red (error) variant shows the caret */
+.tooltip-red .tooltip-arrow {
+  display: block;
+}
+
+/* Double-triangle technique: ::before = outer border triangle, ::after = white fill.
+   The 1px size difference between them creates a visible border edge on the caret.
+   margin-bottom: -1px overlaps the body's top border to eliminate the seam. */
+
+/* ── Top arrow (tooltip below trigger, caret points ⬆) ───────────────────── */
+
+.tooltip-placement-top .tooltip-arrow {
+  order: -1;           /* rendered above the body in flex column */
+  width: 16px;
+  height: 8px;
+  margin-bottom: -1px; /* overlap body top border → no seam */
+}
+
+.tooltip-placement-top .tooltip-arrow::before,
+.tooltip-placement-top .tooltip-arrow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid;
+  border-top: none;
+}
+
+/* Outer (border color) */
+.tooltip-red.tooltip-placement-top .tooltip-arrow::before {
+  border-left-width: 8px;
+  border-right-width: 8px;
+  border-bottom-width: 8px;
+  border-bottom-color: var(--ds-components-input-default-outline, #C5C4D4);
+}
+
+/* Inner (white fill) — 1px smaller, 1px lower → shows 1px border around caret */
+.tooltip-red.tooltip-placement-top .tooltip-arrow::after {
+  top: 1px;
+  border-left-width: 7px;
+  border-right-width: 7px;
+  border-bottom-width: 7px;
+  border-bottom-color: #ffffff;
+}
+
+/* ── Bottom arrow (tooltip above trigger, caret points ⬇) ───────────────── */
+
+.tooltip-placement-bottom .tooltip-arrow {
+  width: 16px;
+  height: 8px;
+  margin-top: -1px;
+}
+
+.tooltip-placement-bottom .tooltip-arrow::before,
+.tooltip-placement-bottom .tooltip-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-top: solid;
+  border-bottom: none;
+}
+
+.tooltip-red.tooltip-placement-bottom .tooltip-arrow::before {
+  border-left-width: 8px;
+  border-right-width: 8px;
+  border-top-width: 8px;
+  border-top-color: var(--ds-components-input-default-outline, #C5C4D4);
+}
+
+.tooltip-red.tooltip-placement-bottom .tooltip-arrow::after {
+  bottom: 1px;
+  border-left-width: 7px;
+  border-right-width: 7px;
+  border-top-width: 7px;
+  border-top-color: #ffffff;
+}
+
+/* ── Left arrow (tooltip right of trigger, caret points ⬅) ─────────────── */
+
+.tooltip-placement-left .tooltip-arrow {
+  order: -1;
+  width: 8px;
+  height: 16px;
+  margin-right: -1px;
+}
+
+.tooltip-placement-left .tooltip-arrow::before,
+.tooltip-placement-left .tooltip-arrow::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: solid transparent;
+  border-bottom: solid transparent;
+  border-right: solid;
+}
+
+.tooltip-red.tooltip-placement-left .tooltip-arrow::before {
+  border-top-width: 8px;
+  border-bottom-width: 8px;
+  border-right-width: 8px;
+  border-right-color: var(--ds-components-input-default-outline, #C5C4D4);
+}
+
+.tooltip-red.tooltip-placement-left .tooltip-arrow::after {
+  left: 1px;
+  border-top-width: 7px;
+  border-bottom-width: 7px;
+  border-right-width: 7px;
+  border-right-color: #ffffff;
+}
+
+/* ── Right arrow (tooltip left of trigger, caret points ➡) ─────────────── */
+
+.tooltip-placement-right .tooltip-arrow {
+  width: 8px;
+  height: 16px;
+  margin-left: -1px;
+}
+
+.tooltip-placement-right .tooltip-arrow::before,
+.tooltip-placement-right .tooltip-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: solid transparent;
+  border-bottom: solid transparent;
+  border-left: solid;
+}
+
+.tooltip-red.tooltip-placement-right .tooltip-arrow::before {
+  border-top-width: 8px;
+  border-bottom-width: 8px;
+  border-left-width: 8px;
+  border-left-color: var(--ds-components-input-default-outline, #C5C4D4);
+}
+
+.tooltip-red.tooltip-placement-right .tooltip-arrow::after {
+  right: 1px;
+  border-top-width: 7px;
+  border-bottom-width: 7px;
+  border-left-width: 7px;
+  border-left-color: #ffffff;
+}
+
+/* ── Placement — position tooltip relative to trigger ────────────────────── */
+
+/* tooltip-placement-top: arrow at top, tooltip below trigger */
+.tooltip-placement-top {
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column;
+}
+
+/* tooltip-placement-bottom: arrow at bottom, tooltip above trigger */
+.tooltip-placement-bottom {
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column-reverse;
+}
+
+/* tooltip-placement-left: arrow on left, tooltip to the right */
+.tooltip-placement-left {
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: row;
+}
+
+/* tooltip-placement-right: arrow on right, tooltip to the left */
+.tooltip-placement-right {
+  right: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: row-reverse;
+}
+
+/* ── Icon ────────────────────────────────────────────────────────────────── */
+
+.tooltip-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}

@@ -1,0 +1,141 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Radio Button — CSS Module
+   Figma source: Chinnaiya Style Sheet, node 31:9080
+
+   DOM anatomy
+   ────────────
+     label.radio-root
+       span.radio-control      (15×15 positioned container)
+         input.radio-native-input   (transparent, full-size, z-index:1)
+         span.radio-circle         (visual ring; sibling after input)
+       span.radio-label-text    (optional label text)
+
+   State hooks
+   ────────────
+     :checked        → blue ring + white inner dot
+     :disabled       → grey bg + muted border
+     :checked:disabled → blue at 50% opacity
+     :focus-visible  → 2px outside circular focus ring
+     [data-force-state="hover"]  → forced hover
+     [data-force-state="focus"]  → forced focus ring
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Root ────────────────────────────────────────────────────────────────── */
+
+.radio-root {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-root[data-disabled] {
+  cursor: not-allowed;
+}
+
+/* ── Control — positioned wrapper ────────────────────────────────────────── */
+
+.radio-control {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* ── Native input — visually hidden, full-size click target ──────────────── */
+
+.radio-native-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.radio-native-input:disabled {
+  cursor: not-allowed;
+}
+
+/* ── Visual circle ───────────────────────────────────────────────────────── */
+
+.radio-circle {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--ds-components-input-default-outline, #C0C8E2);
+  border-radius: 50%;
+  background: var(--ds-bg-common-card, #ffffff);
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+/* Inner dot shown when checked */
+.radio-circle::after {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #ffffff;
+  border-radius: 50%;
+  transition: transform 150ms ease;
+}
+
+/* ── Hover ───────────────────────────────────────────────────────────────── */
+
+.radio-native-input:hover + .radio-circle,
+.radio-root[data-force-state="hover"] .radio-circle {
+  border-color: var(--ds-components-input-hover-outline, #797883);
+}
+
+/* ── Checked ─────────────────────────────────────────────────────────────── */
+
+.radio-native-input:checked + .radio-circle {
+  background: var(--ds-brand-primary, #5464F2);
+  border-color: var(--ds-brand-primary, #5464F2);
+}
+
+.radio-native-input:checked + .radio-circle::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ── Focus ring ──────────────────────────────────────────────────────────── */
+
+/* Circular 2px outside ring at 1px offset — matches Figma Focus variant */
+.radio-native-input:focus-visible + .radio-circle,
+.radio-root[data-force-state="focus"] .radio-circle {
+  outline: 2px solid var(--ds-components-input-focus-ring, #8792F0);
+  outline-offset: 1px;
+}
+
+/* ── Disabled ────────────────────────────────────────────────────────────── */
+
+.radio-native-input:disabled + .radio-circle {
+  background: var(--ds-components-input-disable-bg, #F5F6F8);
+  border-color: var(--ds-components-input-disable-outline, #D2D9F1);
+}
+
+/* Checked + disabled: blue at 50% opacity */
+.radio-native-input:checked:disabled + .radio-circle {
+  background: var(--ds-brand-primary, #5464F2);
+  border-color: var(--ds-brand-primary, #5464F2);
+  opacity: 0.5;
+}
+
+/* ── Label text ──────────────────────────────────────────────────────────── */
+
+.radio-label-text {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-base, #313949);
+}
+
+.radio-root[data-disabled] .radio-label-text {
+  opacity: 0.5;
+}

@@ -1,0 +1,66 @@
+.breadcrumb-nav {
+  display: inline-block;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Shared text styles */
+.breadcrumb-link,
+.breadcrumb-button,
+.breadcrumb-current {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Ancestor links — label color, turn to link color on hover */
+.breadcrumb-link,
+.breadcrumb-button {
+  color: var(--ds-text-label, #616E88);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 100ms ease;
+}
+
+.breadcrumb-link:hover,
+.breadcrumb-button:hover {
+  color: var(--ds-text-link, #5464F2);
+  text-decoration: none;
+}
+
+.breadcrumb-link:focus-visible,
+.breadcrumb-button:focus-visible {
+  outline: 1px solid var(--ds-focus-ring, #8792F0);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Current (last/selected) item */
+.breadcrumb-current {
+  color: var(--ds-text-base, #313949);
+}
+
+/* Separator — inherits label color from the item */
+.breadcrumb-separator {
+  display: block;
+  flex-shrink: 0;
+  color: var(--ds-text-label, #616E88);
+}

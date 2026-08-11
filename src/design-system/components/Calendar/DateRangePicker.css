@@ -1,0 +1,159 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   DateRangePicker — CSS
+   ───────────────────────────────────────────────────────────────────────── */
+
+.calendar-root {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── Trigger button ──────────────────────────────────────────────────────── */
+
+.calendar-trigger {
+  width: 100%;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  background: var(--ds-bg-common-card, #fff);
+  border: 1px solid var(--ds-components-input-default-outline, #D6D6E2);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  color: var(--ds-text-base, #313949);
+  box-sizing: border-box;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  text-align: left;
+}
+
+.calendar-trigger:hover,
+.calendar-trigger[data-open] {
+  border-color: var(--ds-components-input-hover-outline, #A3ABB8);
+}
+
+.calendar-trigger[data-open] {
+  border-color: var(--ds-components-input-focus-outline, #5464F2);
+  box-shadow: 0 0 6px rgba(84, 100, 242, 0.2);
+}
+
+.calendar-trigger:disabled {
+  background: var(--ds-components-input-disable-bg, #F5F6FA);
+  border-color: var(--ds-components-input-disable-outline, #E0E3EB);
+  cursor: not-allowed;
+  color: var(--ds-text-muted, #B0B7C4);
+}
+
+.calendar-trigger-icon {
+  display: flex;
+  align-items: center;
+  color: var(--ds-text-label, #616E88);
+  flex-shrink: 0;
+}
+
+.calendar-trigger-text {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 13px;
+}
+
+.calendar-trigger-text[data-placeholder] {
+  color: var(--ds-components-input-placeholder-text, #B0B7C4);
+}
+
+.calendar-trigger-chev {
+  display: flex;
+  align-items: center;
+  color: var(--ds-text-label, #616E88);
+  flex-shrink: 0;
+}
+
+/* ── Dropdown panel ──────────────────────────────────────────────────────── */
+
+.calendar-panel {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  background: var(--ds-bg-common-card, #fff);
+  border: 1px solid var(--ds-components-input-default-outline, #D6D6E2);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+  overflow: hidden;
+  min-width: 200px;
+}
+
+.calendar-panel-wide {
+  /* extends wide enough for two calendars */
+}
+
+/* ── Preset list ─────────────────────────────────────────────────────────── */
+
+.calendar-preset-list {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+  border-right: 1px solid var(--ds-components-input-default-outline, #D6D6E2);
+  min-width: 188px;
+}
+
+.calendar-preset-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 14px;
+  border: none;
+  background: transparent;
+  font-family: var(--ds-font-family-base);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ds-text-base, #313949);
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  transition: background 80ms ease, color 80ms ease;
+}
+
+.calendar-preset-item:hover {
+  background: rgba(84, 100, 242, 0.06);
+  color: #5464F2;
+}
+
+.calendar-preset-item-active {
+  background: rgba(84, 100, 242, 0.10);
+  color: #5464F2;
+  font-weight: 500;
+}
+
+.calendar-preset-label {
+  flex-shrink: 0;
+}
+
+.calendar-preset-preview {
+  font-size: 11px;
+  color: var(--ds-text-muted, #B0B7C4);
+  font-weight: 400;
+}
+
+.calendar-preset-item-active .calendar-preset-preview {
+  color: rgba(84, 100, 242, 0.6);
+}
+
+/* ── Calendar pane ───────────────────────────────────────────────────────── */
+
+.calendar-calendar-pane {
+  display: flex;
+  gap: 0;
+  padding: 10px;
+}
+
+.calendar-calendar-pane > * + * {
+  border-left: 1px solid var(--ds-components-input-default-outline, #D6D6E2);
+  padding-left: 10px;
+  margin-left: 10px;
+}

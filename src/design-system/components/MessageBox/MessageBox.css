@@ -1,0 +1,154 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   MessageBox — CSS
+   Figma source: Chinnaiya Style Sheet, node 31:9759
+
+   DOM anatomy
+   ────────────
+     div.message-box-root.message-box-{variant}[.message-box-with-title]
+       div.message-box-body
+         span.message-box-icon-slot      22 × 22 alert icon
+         div.message-box-content
+           span.message-box-title?      (withTitle layout only)
+           span.message-box-message
+       button.message-box-close-btn?     (optional ×)
+
+   Variants
+   ────────────
+     .message-box-success — green bg, green border, dark-green text
+     .message-box-error   — pink bg, red border, dark-red text
+     .message-box-warning — amber bg, amber border, dark-amber text
+     .message-box-info    — light-blue bg, teal border, dark-blue text
+
+   Figma specs
+   ────────────
+     Compact:    42px tall, padding 10px top/bottom, 15px sides, gap 58px (icon+text | close)
+     With title: 61px tall, padding 12px top/bottom, 15px sides
+     Border radius: 6px
+     Shadow: 0 2px 6px rgba(0,0,0,0.15)
+     Icon: 22 × 22px, spacing 10px from message
+     Close icon: 8 × 8px, pushed to far right (flex justify-content: space-between)
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Root ────────────────────────────────────────────────────────────────── */
+
+.message-box-root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: 1px solid;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  gap: 12px;
+  min-height: 42px;
+}
+
+.message-box-with-title {
+  padding: 12px 15px;
+  align-items: flex-start;
+}
+
+/* ── Variant colors ──────────────────────────────────────────────────────── */
+
+.message-box-success {
+  background: var(--ds-status-success-bg, #F5FAF5);
+  border-color: var(--ds-status-success-border, #A9D3AB);
+  color: var(--ds-status-success-text, #132C14);
+}
+
+.message-box-error {
+  background: var(--ds-status-error-bg, #FFF7FA);
+  border-color: var(--ds-status-error-border, #FAA9A2);
+  color: var(--ds-status-error-text, #431410);
+}
+
+.message-box-warning {
+  background: var(--ds-status-warning-bg, #FFF6EE);
+  border-color: var(--ds-status-warning-border, #E9C072);
+  color: var(--ds-status-warning-text, #463208);
+}
+
+.message-box-info {
+  background: var(--ds-status-info-bg, #F4FEFF);
+  border-color: var(--ds-status-info-border, #BBD7D9);
+  color: var(--ds-status-info-text, #323D3E);
+}
+
+/* ── Body (icon + content) ───────────────────────────────────────────────── */
+
+.message-box-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.message-box-with-title .message-box-body {
+  align-items: flex-start;
+}
+
+/* ── Icon slot ───────────────────────────────────────────────────────────── */
+
+.message-box-icon-slot {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+
+/* ── Content ─────────────────────────────────────────────────────────────── */
+
+.message-box-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Title (withTitle variant) ───────────────────────────────────────────── */
+
+.message-box-title {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 14px);
+  font-weight: var(--ds-font-weight-semibold, 600);
+  line-height: var(--ds-line-height-base);
+  color: inherit;
+}
+
+/* ── Message text ────────────────────────────────────────────────────────── */
+
+.message-box-message {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 14px);
+  font-weight: var(--ds-font-weight-medium, 500);
+  line-height: var(--ds-line-height-base);
+  color: inherit;
+}
+
+/* ── Close button ────────────────────────────────────────────────────────── */
+
+.message-box-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 150ms ease, background 150ms ease;
+}
+
+.message-box-close-btn:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.06);
+}

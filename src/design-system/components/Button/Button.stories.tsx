@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
-import { ButtonGroup } from './ButtonGroup';
+import { Button, ButtonGroup } from './Button';
 import type { ButtonVariant, ButtonSize } from './Button';
 
 // ─────────────────────────────────────────────────────────────────────────────
