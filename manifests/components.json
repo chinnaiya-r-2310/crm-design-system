@@ -10,60 +10,9 @@
         "description": "",
         "methods": [],
         "displayName": "Breadcrumb",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Breadcrumb/Breadcrumb.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Breadcrumb/Breadcrumb.js",
         "actualName": "Breadcrumb",
-        "exportName": "Breadcrumb",
-        "props": {
-          "items": {
-            "required": true,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "BreadcrumbItem"
-                }
-              ],
-              "raw": "BreadcrumbItem[]"
-            },
-            "description": ""
-          },
-          "selectedIndex": {
-            "required": false,
-            "tsType": {
-              "name": "number"
-            },
-            "description": "Index of the selected (current) item. Controls externally when provided."
-          },
-          "defaultSelectedIndex": {
-            "required": false,
-            "tsType": {
-              "name": "number"
-            },
-            "description": "Default selected index for uncontrolled usage. Defaults to last item."
-          },
-          "onSelect": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(index: number) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "number"
-                    },
-                    "name": "index"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": "Called when the user clicks an ancestor item."
-          }
-        }
+        "exportName": "Breadcrumb"
       },
       "stories": [
         {
@@ -103,229 +52,53 @@
         "description": "",
         "methods": [],
         "displayName": "Button",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Button/Button.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Button/Button.js",
         "actualName": "Button",
         "exportName": "Button",
         "props": {
-          "children": {
-            "required": true,
-            "tsType": {
-              "name": "ReactReactNode",
-              "raw": "React.ReactNode"
-            },
-            "description": "Button label text."
-          },
           "variant": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "| ButtonFilledVariant\n| ButtonOutlineVariant\n| ButtonGhostVariant\n| ButtonLinkVariant",
-              "elements": [
-                {
-                  "name": "union",
-                  "raw": "'primary' | 'default' | 'negative' | 'success' | 'warning'",
-                  "elements": [
-                    {
-                      "name": "literal",
-                      "value": "'primary'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'default'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'negative'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'success'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'warning'"
-                    }
-                  ]
-                },
-                {
-                  "name": "union",
-                  "raw": "| 'outline-blue'\n| 'outline-green'\n| 'outline-red'\n| 'outline-orange'",
-                  "elements": [
-                    {
-                      "name": "literal",
-                      "value": "'outline-blue'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'outline-green'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'outline-red'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'outline-orange'"
-                    }
-                  ]
-                },
-                {
-                  "name": "union",
-                  "raw": "'ghost-blue' | 'ghost-red'",
-                  "elements": [
-                    {
-                      "name": "literal",
-                      "value": "'ghost-blue'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'ghost-red'"
-                    }
-                  ]
-                },
-                {
-                  "name": "union",
-                  "raw": "| 'link-primary'\n| 'link-secondary'\n| 'link-default'\n| 'link-red'",
-                  "elements": [
-                    {
-                      "name": "literal",
-                      "value": "'link-primary'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'link-secondary'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'link-default'"
-                    },
-                    {
-                      "name": "literal",
-                      "value": "'link-red'"
-                    }
-                  ]
-                }
-              ]
-            },
-            "description": "Visual style variant.\n- Filled: primary | default | negative | success | warning\n- Outline: outline-blue | outline-green | outline-red | outline-orange\n- Ghost:   ghost-blue | ghost-red\n- Link:    link-primary | link-secondary | link-default | link-red\n@default 'primary'",
             "defaultValue": {
               "value": "'primary'",
               "computed": false
-            }
+            },
+            "required": false
           },
           "size": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'md' | 'sm' | 'xs'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'md'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'sm'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'xs'"
-                }
-              ]
-            },
-            "description": "Visual size.\n- md: 32px height (standard)\n- sm: 27px height (compact)\n@default 'md'",
             "defaultValue": {
               "value": "'md'",
               "computed": false
-            }
+            },
+            "required": false
           },
           "loading": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Shows a spinning loader and disables interaction.",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
+            },
+            "required": false
           },
           "arrow": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Appends a down-chevron arrow icon to the right of the label.",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
+            },
+            "required": false
           },
           "split": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Show a separator line between label and arrow.\n- `true` (default): Menu Button — arrow sits in a distinct split zone.\n- `false`: More Button — arrow is inline with the label, no separator.\nGhost variants always hide the separator via CSS regardless of this prop.",
             "defaultValue": {
               "value": "true",
               "computed": false
-            }
-          },
-          "frontIcon": {
-            "required": false,
-            "tsType": {
-              "name": "ReactReactNode",
-              "raw": "React.ReactNode"
             },
-            "description": "Icon rendered in the left slot before the label."
+            "required": false
           },
           "isOpen": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Marks the button as the trigger for an open dropdown/popover.\nApplies the active visual state and rotates the arrow 180°.",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
-          },
-          "onArrowClick": {
-            "required": false,
-            "tsType": {
-              "name": "ReactMouseEventHandler",
-              "raw": "React.MouseEventHandler<HTMLButtonElement>",
-              "elements": [
-                {
-                  "name": "HTMLButtonElement"
-                }
-              ]
             },
-            "description": "Click handler for the arrow/dropdown zone of a Menu Button (split=true).\nThe main label zone uses the standard `onClick` prop.\nHas no effect when split=false (More Button)."
-          },
-          "forceState": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'hover' | 'active'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'hover'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'active'"
-                }
-              ]
-            },
-            "description": "Forces a visual state for Storybook stories and visual regression tests.\n@internal not intended for production use"
+            "required": false
           }
-        },
-        "composes": [
-          "Omit"
-        ]
+        }
       },
       "stories": [
         {
@@ -452,232 +225,37 @@
         "description": "",
         "methods": [],
         "displayName": "Calendar",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Calendar/Calendar.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Calendar/Calendar.js",
         "actualName": "Calendar",
         "exportName": "Calendar",
         "props": {
           "mode": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'single' | 'range' | 'multi'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'single'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'range'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'multi'"
-                }
-              ]
-            },
-            "description": "",
             "defaultValue": {
               "value": "'single'",
               "computed": false
-            }
-          },
-          "value": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "Date | null",
-              "elements": [
-                {
-                  "name": "Date"
-                },
-                {
-                  "name": "null"
-                }
-              ]
             },
-            "description": ""
-          },
-          "onChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(date: Date) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "Date"
-                    },
-                    "name": "date"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": ""
-          },
-          "rangeStart": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "Date | null",
-              "elements": [
-                {
-                  "name": "Date"
-                },
-                {
-                  "name": "null"
-                }
-              ]
-            },
-            "description": ""
-          },
-          "rangeEnd": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "Date | null",
-              "elements": [
-                {
-                  "name": "Date"
-                },
-                {
-                  "name": "null"
-                }
-              ]
-            },
-            "description": ""
-          },
-          "onRangeChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(start: Date | null, end: Date | null) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "union",
-                      "raw": "Date | null",
-                      "elements": [
-                        {
-                          "name": "Date"
-                        },
-                        {
-                          "name": "null"
-                        }
-                      ]
-                    },
-                    "name": "start"
-                  },
-                  {
-                    "type": {
-                      "name": "union",
-                      "raw": "Date | null",
-                      "elements": [
-                        {
-                          "name": "Date"
-                        },
-                        {
-                          "name": "null"
-                        }
-                      ]
-                    },
-                    "name": "end"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": ""
-          },
-          "selectedDates": {
-            "required": false,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "Date"
-                }
-              ],
-              "raw": "Date[]"
-            },
-            "description": ""
-          },
-          "onMultiChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(dates: Date[]) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "Array",
-                      "elements": [
-                        {
-                          "name": "Date"
-                        }
-                      ],
-                      "raw": "Date[]"
-                    },
-                    "name": "dates"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": ""
-          },
-          "defaultMonth": {
-            "required": false,
-            "tsType": {
-              "name": "Date"
-            },
-            "description": "Initial month to display. Defaults to current month."
+            "required": false
           },
           "highlightWeekends": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Highlight Saturday and Sunday in orange. @default false",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
+            },
+            "required": false
           },
           "showViewTabs": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Show Day / Week / Month view tabs at the bottom. @default false",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
+            },
+            "required": false
           },
           "width": {
-            "required": false,
-            "tsType": {
-              "name": "number"
-            },
-            "description": "Total width of the calendar widget in px. @default 284",
             "defaultValue": {
               "value": "284",
               "computed": false
-            }
+            },
+            "required": false
           }
         }
       },
@@ -754,120 +332,30 @@
         "description": "",
         "methods": [],
         "displayName": "DateRangePicker",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Calendar/DateRangePicker.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Calendar/DateRangePicker.js",
         "actualName": "DateRangePicker",
         "exportName": "DateRangePicker",
         "props": {
-          "startDate": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "Date | null",
-              "elements": [
-                {
-                  "name": "Date"
-                },
-                {
-                  "name": "null"
-                }
-              ]
-            },
-            "description": "Controlled start date"
-          },
-          "endDate": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "Date | null",
-              "elements": [
-                {
-                  "name": "Date"
-                },
-                {
-                  "name": "null"
-                }
-              ]
-            },
-            "description": "Controlled end date"
-          },
-          "onChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(start: Date | null, end: Date | null) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "union",
-                      "raw": "Date | null",
-                      "elements": [
-                        {
-                          "name": "Date"
-                        },
-                        {
-                          "name": "null"
-                        }
-                      ]
-                    },
-                    "name": "start"
-                  },
-                  {
-                    "type": {
-                      "name": "union",
-                      "raw": "Date | null",
-                      "elements": [
-                        {
-                          "name": "Date"
-                        },
-                        {
-                          "name": "null"
-                        }
-                      ]
-                    },
-                    "name": "end"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": ""
-          },
           "placeholder": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "",
             "defaultValue": {
               "value": "'Select date range'",
               "computed": false
-            }
+            },
+            "required": false
           },
           "disabled": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
+            },
+            "required": false
           },
           "width": {
-            "required": false,
-            "tsType": {
-              "name": "number"
-            },
-            "description": "Total trigger width in px. @default 320",
             "defaultValue": {
               "value": "320",
               "computed": false
-            }
+            },
+            "required": false
           }
         }
       },
@@ -908,51 +396,18 @@
         "description": "",
         "methods": [],
         "displayName": "Checkbox",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Checkbox/Checkbox.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Checkbox/Checkbox.js",
         "actualName": "Checkbox",
         "exportName": "Checkbox",
         "props": {
-          "label": {
-            "required": false,
-            "tsType": {
-              "name": "ReactReactNode",
-              "raw": "React.ReactNode"
-            },
-            "description": "Label text rendered beside the checkbox."
-          },
           "indeterminate": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Sets the indeterminate visual state (–) on the checkbox.\nAlso sets the native element's .indeterminate property.",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
-          },
-          "forceState": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'hover' | 'focus'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'hover'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'focus'"
-                }
-              ]
             },
-            "description": "Forces a visual state for Storybook stories and visual regression tests.\n@internal not for production use"
+            "required": false
           }
-        },
-        "composes": [
-          "Omit"
-        ]
+        }
       },
       "stories": [
         {
@@ -1018,163 +473,23 @@
         "description": "",
         "methods": [],
         "displayName": "CriteriaBuilder",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/CriteriaBuilder/CriteriaBuilder.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/CriteriaBuilder/CriteriaBuilder.js",
         "actualName": "CriteriaBuilder",
         "exportName": "CriteriaBuilder",
         "props": {
-          "rows": {
-            "required": true,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "CriteriaRow"
-                }
-              ],
-              "raw": "CriteriaRow[]"
-            },
-            "description": ""
-          },
-          "pattern": {
-            "required": true,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
           "fieldOptions": {
-            "required": false,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "SelectOption"
-                }
-              ],
-              "raw": "SelectOption[]"
-            },
-            "description": "",
             "defaultValue": {
               "value": "[]",
               "computed": false
-            }
+            },
+            "required": false
           },
           "operatorOptions": {
-            "required": false,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "SelectOption"
-                }
-              ],
-              "raw": "SelectOption[]"
-            },
-            "description": "Fallback operator list when getOperatorOptions is not provided.",
             "defaultValue": {
               "value": "[]",
               "computed": false
-            }
-          },
-          "getOperatorOptions": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(fieldType: string) => SelectOption[]",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "string"
-                    },
-                    "name": "fieldType"
-                  }
-                ],
-                "return": {
-                  "name": "Array",
-                  "elements": [
-                    {
-                      "name": "SelectOption"
-                    }
-                  ],
-                  "raw": "SelectOption[]"
-                }
-              }
             },
-            "description": "Returns the operator list for a given field type. Takes precedence over operatorOptions."
-          },
-          "getDefaultOperator": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(fieldType: string) => string",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "string"
-                    },
-                    "name": "fieldType"
-                  }
-                ],
-                "return": {
-                  "name": "string"
-                }
-              }
-            },
-            "description": "Returns the default operator value for a given field type."
-          },
-          "onChange": {
-            "required": true,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(rows: CriteriaRow[]) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "Array",
-                      "elements": [
-                        {
-                          "name": "CriteriaRow"
-                        }
-                      ],
-                      "raw": "CriteriaRow[]"
-                    },
-                    "name": "rows"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": ""
-          },
-          "onPatternChange": {
-            "required": true,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(pattern: string) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "string"
-                    },
-                    "name": "pattern"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": ""
+            "required": false
           }
         }
       },
@@ -1221,164 +536,30 @@
         "description": "",
         "methods": [],
         "displayName": "DatePicker",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/DatePicker/DatePicker.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/DatePicker/DatePicker.js",
         "actualName": "DatePicker",
         "exportName": "DatePicker",
         "props": {
-          "label": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
-          "helperText": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
           "width": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "number | string",
-              "elements": [
-                {
-                  "name": "number"
-                },
-                {
-                  "name": "string"
-                }
-              ]
-            },
-            "description": "Total component width in px or any CSS string. @default 670",
             "defaultValue": {
               "value": "670",
               "computed": false
-            }
+            },
+            "required": false
           },
           "layout": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'horizontal' | 'vertical'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'horizontal'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'vertical'"
-                }
-              ]
-            },
-            "description": "Form layout. @default 'horizontal'",
             "defaultValue": {
               "value": "'horizontal'",
               "computed": false
-            }
-          },
-          "columns": {
-            "required": false,
-            "tsType": {
-              "name": "string"
             },
-            "description": "Override grid-template-columns for horizontal layout."
-          },
-          "required": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": ""
-          },
-          "disabled": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": ""
-          },
-          "readOnly": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": ""
-          },
-          "error": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": ""
+            "required": false
           },
           "placeholder": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Placeholder shown when no date is selected. @default 'DD/MM/YYYY'",
             "defaultValue": {
               "value": "'DD/MM/YYYY'",
               "computed": false
-            }
-          },
-          "value": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "Date | null",
-              "elements": [
-                {
-                  "name": "Date"
-                },
-                {
-                  "name": "null"
-                }
-              ]
             },
-            "description": "Controlled selected date."
-          },
-          "onChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(date: Date) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "Date"
-                    },
-                    "name": "date"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": "Called when a complete valid date is entered (typed or picked)."
-          },
-          "id": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
-          "style": {
-            "required": false,
-            "tsType": {
-              "name": "ReactCSSProperties",
-              "raw": "React.CSSProperties"
-            },
-            "description": ""
+            "required": false
           }
         }
       },
@@ -1420,239 +601,58 @@
         "description": "",
         "methods": [],
         "displayName": "Dropdown",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Dropdown/Dropdown.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Dropdown/Dropdown.js",
         "actualName": "Dropdown",
         "exportName": "Dropdown",
         "props": {
-          "label": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
           "placeholder": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Text shown when no value is selected. @default 'Select'",
             "defaultValue": {
               "value": "'Select'",
               "computed": false
-            }
-          },
-          "value": {
-            "required": false,
-            "tsType": {
-              "name": "string"
             },
-            "description": "Controlled selected value (single-select)."
+            "required": false
           },
           "selectedValues": {
-            "required": false,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "string"
-                }
-              ],
-              "raw": "string[]"
-            },
-            "description": "Controlled selected values (multi-select). Requires `multiSelect`.",
             "defaultValue": {
               "value": "[]",
               "computed": false
-            }
+            },
+            "required": false
           },
           "options": {
-            "required": false,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "DropdownOption"
-                }
-              ],
-              "raw": "DropdownOption[]"
-            },
-            "description": "",
             "defaultValue": {
               "value": "[]",
               "computed": false
-            }
-          },
-          "helperText": {
-            "required": false,
-            "tsType": {
-              "name": "string"
             },
-            "description": ""
+            "required": false
           },
           "width": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "number | string",
-              "elements": [
-                {
-                  "name": "number"
-                },
-                {
-                  "name": "string"
-                }
-              ]
-            },
-            "description": "Total component width in px. @default 670",
             "defaultValue": {
               "value": "670",
               "computed": false
-            }
+            },
+            "required": false
           },
           "layout": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'horizontal' | 'vertical'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'horizontal'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'vertical'"
-                }
-              ]
-            },
-            "description": "Form layout. @default 'horizontal'",
             "defaultValue": {
               "value": "'horizontal'",
               "computed": false
-            }
-          },
-          "required": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
             },
-            "description": ""
-          },
-          "disabled": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": ""
-          },
-          "error": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": ""
+            "required": false
           },
           "searchable": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Adds a search input at the top of the panel. @default false",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
+            },
+            "required": false
           },
           "multiSelect": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Enables checkbox multi-selection. Use `selectedValues` / `onMultiChange`\nfor controlled state. A Done button appears in the panel footer.",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
-          },
-          "footerAction": {
-            "required": false,
-            "tsType": {
-              "name": "DropdownFooterAction"
             },
-            "description": "Action button rendered at the bottom of the panel (e.g. \"+ Add option\").\nFigma: \"Button\" variant in Option Comp."
-          },
-          "onChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(value: string) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "string"
-                    },
-                    "name": "value"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": ""
-          },
-          "onMultiChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(values: string[]) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "Array",
-                      "elements": [
-                        {
-                          "name": "string"
-                        }
-                      ],
-                      "raw": "string[]"
-                    },
-                    "name": "values"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": ""
-          },
-          "id": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
-          "style": {
-            "required": false,
-            "tsType": {
-              "name": "ReactCSSProperties",
-              "raw": "React.CSSProperties"
-            },
-            "description": ""
-          },
-          "columns": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Override grid-template-columns for horizontal layout.\n@default '3fr 7fr'"
+            "required": false
           }
         }
       },
@@ -1760,69 +760,16 @@
         "description": "Renders a design-system icon from the central registry.\n\nAccessibility\n─────────────\n  Decorative (no aria-label / title):  aria-hidden=\"true\" applied automatically.\n  Meaningful  (aria-label or title):   role=\"img\" + accessible name applied.\n\nColor\n─────\n  Icons use currentColor. Control color with CSS `color` on a parent or via className.\n\nAdding icons\n────────────\n  1. Add the SVG file to src/design-system/foundations/icons/ (PascalCase.svg).\n  2. Import and register it in iconMap.ts.\n  3. The IconName union updates automatically.",
         "methods": [],
         "displayName": "Icon",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Icon/Icon.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Icon/Icon.js",
         "actualName": "Icon",
         "exportName": "Icon",
         "props": {
-          "name": {
-            "required": true,
-            "tsType": {
-              "name": "unknown"
-            },
-            "description": "Icon to render — must be a registered key in iconMap."
-          },
           "size": {
-            "required": false,
-            "tsType": {
-              "name": "number"
-            },
-            "description": "Width and height in pixels. SVG scales proportionally.\n@default 16",
             "defaultValue": {
               "value": "16",
               "computed": false
-            }
-          },
-          "className": {
-            "required": false,
-            "tsType": {
-              "name": "string"
             },
-            "description": "CSS class applied to the SVG root element. Use for color via currentColor."
-          },
-          "aria-label": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Accessible name. Turns the icon into a meaningful image (role=\"img\").\nWhen omitted and no title is provided, the icon is hidden from AT (decorative)."
-          },
-          "title": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Same semantics as aria-label — use when you have a human-readable title for the icon.\nTreated identically to aria-label; applied as aria-label on the SVG element."
-          },
-          "aria-hidden": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "boolean | 'true' | 'false'",
-              "elements": [
-                {
-                  "name": "boolean"
-                },
-                {
-                  "name": "literal",
-                  "value": "'true'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'false'"
-                }
-              ]
-            },
-            "description": "Explicitly override the aria-hidden attribute.\nDefaults to true for decorative icons (no aria-label/title).\nPass false to expose a decorative icon to AT when needed."
+            "required": false
           }
         }
       },
@@ -1888,191 +835,32 @@
         "description": "Base Input component.\n\nLayout\n──────\n  Horizontal (default): CSS Grid — label (40%) | 20px gap | field column (1fr).\n    The label's first text line aligns with the input's vertical centre via\n    padding-top: 7px = (34px − 20px) / 2 (input height − line height).\n    When the label wraps, the input stays fixed at the top of its grid cell.\n\n  Vertical: label stacked above inputWrapper, inline-flex column.\n\nState architecture\n──────────────────\n  CSS handles all visual states via pseudo-classes and data-state attribute:\n    :hover / [data-state=\"hover\"]      → border change\n    :focus-within / [data-state=\"focus\"] → border + shadow\n\n  Future variants (error, disabled, …) plug in via data-variant on .root —\n  see scaffolded comments in Input.module.css.\n\nExtending\n─────────\n  Sizes    → add `size` prop → set data-size on .root → CSS height rules.\n  Variants → add `variant` prop → set data-variant on .root → CSS rules.\n  Icons    → accept `prefix`/`suffix` ReactNode → render inside .inputWrapper.",
         "methods": [],
         "displayName": "Input",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Input/Input.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Input/Input.js",
         "actualName": "Input",
         "exportName": "Input",
         "props": {
-          "label": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Visible label. Required for accessibility — provide at minimum an aria-label if omitted."
-          },
-          "helperText": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Assistive copy rendered below the field. Linked via aria-describedby."
-          },
           "width": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "number | string",
-              "elements": [
-                {
-                  "name": "number"
-                },
-                {
-                  "name": "string"
-                }
-              ]
-            },
-            "description": "Total component width in px or any CSS string.\nIn horizontal layout this spans both the label column and the input column.\nDefaults to 640px (horizontal) which gives ≈384px of input space.",
             "defaultValue": {
               "value": "670",
               "computed": false
-            }
+            },
+            "required": false
           },
           "type": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "| 'text'\n| 'email'\n| 'password'\n| 'search'\n| 'tel'\n| 'url'\n| 'number'\n| 'date'     // renders as text with DD/MM/YYYY placeholder; no browser calendar icon\n| 'datetime' // split date + time field: left half DD/MM/YYYY | right half HH:MM\n| 'lookup'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'text'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'email'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'password'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'search'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'tel'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'url'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'number'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'date'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'datetime'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'lookup'"
-                }
-              ]
-            },
-            "description": "HTML input type. Defaults to \"text\".",
             "defaultValue": {
               "value": "'text'",
               "computed": false
-            }
+            },
+            "required": false
           },
           "layout": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'horizontal' | 'vertical'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'horizontal'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'vertical'"
-                }
-              ]
-            },
-            "description": "Form layout.\n- 'horizontal' — 40% label / 20px gap / 60% input (default)\n- 'vertical'   — label stacked above input",
             "defaultValue": {
               "value": "'horizontal'",
               "computed": false
-            }
-          },
-          "suffix": {
-            "required": false,
-            "tsType": {
-              "name": "ReactReactNode",
-              "raw": "React.ReactNode"
             },
-            "description": "Icon or element rendered on the right side of the input.\nThe slot is 32px wide; the wrapper gains 1px padding (top/right/bottom)\nto give the icon breathing room from the border."
-          },
-          "columns": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Override the CSS grid-template-columns for horizontal layout.\nUseful when a parent container needs exact column widths (e.g. \"99px 390px\" inside a modal).\n@default '3fr 7fr' (30% label / 70% input)"
-          },
-          "timeValue": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "For datetime type: controlled value for the time half of the field."
-          },
-          "onTimeChange": {
-            "required": false,
-            "tsType": {
-              "name": "ReactChangeEventHandler",
-              "raw": "React.ChangeEventHandler<HTMLInputElement>",
-              "elements": [
-                {
-                  "name": "HTMLInputElement"
-                }
-              ]
-            },
-            "description": "For datetime type: change handler for the time half of the field."
-          },
-          "error": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Puts the field in the error visual state.\nBorder turns #FF5D5A and helper text (if provided) renders in the same color.\nDoes not conflict with disabled — disabled takes precedence."
-          },
-          "autoUpdate": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Auto-update / auto-fill visual state.\nBackground turns light yellow (#FFFFEA) with a warm border (#E5DEC5)\nto indicate the value was populated automatically (e.g. from a workflow or import).\nDisabled and error take precedence over autoUpdate."
-          },
-          "forceState": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'hover' | 'focus'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'hover'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'focus'"
-                }
-              ]
-            },
-            "description": "Forces a visual state for Storybook stories and visual regression tests.\n'hover' | 'focus' — sets data-state on the input wrapper so CSS applies\nthe same rules used for real browser pseudo-classes.\n\n@internal not intended for production use"
+            "required": false
           }
-        },
-        "composes": [
-          "Omit"
-        ]
+        }
       },
       "stories": [
         {
@@ -2213,96 +1001,23 @@
         "description": "",
         "methods": [],
         "displayName": "MessageBox",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/MessageBox/MessageBox.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/MessageBox/MessageBox.js",
         "actualName": "MessageBox",
         "exportName": "MessageBox",
         "props": {
           "variant": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'success' | 'error' | 'warning' | 'info'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'success'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'error'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'warning'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'info'"
-                }
-              ]
-            },
-            "description": "Visual type — drives color, icon, and border.",
             "defaultValue": {
               "value": "'info'",
               "computed": false
-            }
-          },
-          "message": {
-            "required": true,
-            "tsType": {
-              "name": "ReactReactNode",
-              "raw": "React.ReactNode"
             },
-            "description": "Main message text.\nFigma: \"You have successfully created the account.\" (example copy)"
-          },
-          "title": {
-            "required": false,
-            "tsType": {
-              "name": "ReactReactNode",
-              "raw": "React.ReactNode"
-            },
-            "description": "Optional title shown above the message (uses the \"with title\" layout).\nWhen omitted the compact single-line layout is used."
+            "required": false
           },
           "closable": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Show the close (×) button. Defaults to true.\nPass false to hide it (e.g. inline banners that are not dismissible).\nFigma: \"Close Icon\" boolean property.",
             "defaultValue": {
               "value": "true",
               "computed": false
-            }
-          },
-          "onClose": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "() => void",
-              "signature": {
-                "arguments": [],
-                "return": {
-                  "name": "void"
-                }
-              }
             },
-            "description": "Called when the close button is clicked.\nWhen omitted the button is still shown (unless closable is false) but clicking\nit is a no-op — the parent component owns visibility state."
-          },
-          "className": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
-          "style": {
-            "required": false,
-            "tsType": {
-              "name": "ReactCSSProperties",
-              "raw": "React.CSSProperties"
-            },
-            "description": ""
+            "required": false
           }
         }
       },
@@ -2357,7 +1072,7 @@
       "jsDocTags": {},
       "error": {
         "name": "No component definition found",
-        "message": "File: /home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Modal/Modal.tsx\nError:\nNo suitable component definition found.\nYou can debug your component file in this playground: https://react-docgen.dev/playground\nCode:\nimport { useEffect, useCallback, useState, useRef, useLayoutEffect } from 'react';\nimport { createPortal } from 'react-dom';\nimport styles from './Modal.module.css';\nimport { Button } from '../Button/Button';\n\n// ─────────────────────────────────────────────────────────────────────────────\n// Types\n// ─────────────────────────────────────────────────────────────────────────────\n\nexport interface ModalProps {\n  /** Controls visibility. */\n  isOpen: boolean;\n\n  /** Dialog title rendered in the header. */\n  title: string;\n\n  /**\n   * Optional icon element shown to the left of the title.\n   * Matches the Figma \"Header Icon\" boolean property.\n   */\n  headerIcon?: React.ReactNode;\n\n  /** Called when the modal should close (backdrop click or Escape key). */\n  onClose: () => void;\n\n  /** Called when the cancel button is clicked (also calls onClose). */\n  onCancel?: () => void;\n\n  /** Called when the save / primary action button is clicked. */\n  onSave?: () => void;\n\n  /** Label for the secondary action button. @default \"Cancel\" */\n  cancelLabel?: string;\n\n  /** Label for the primary action button. @default \"Save\" */\n  saveLabel?: string;\n\n  /**\n   * Optional content rendered below the form fields and above the footer —\n   * typically a Checkbox with helper text (matches Figma Frame 875).\n   */\n  footerNote?: React.ReactNode;\n\n  /** Form fields and content rendered in the body. */\n  children?: React.ReactNode;\n\n  /**\n   * Total modal width in px.\n   * @default 569\n   */\n  width?: number;\n}\n\n// ─────────────────────────────────────────────────────────────────────────────\n// Component\n// ─────────────────────────────────────────────────────────────────────────────\n\nexport function Modal({\n  isOpen,\n  title,\n  headerIcon,\n  onClose,\n  onCancel,\n  onSave,\n  cancelLabel = 'Cancel',\n  saveLabel = 'Save',\n  footerNote,\n  children,\n  width = 569,\n}: ModalProps) {\n  // isVisible stays true during the slide-up closing animation\n  const [isVisible, setIsVisible] = useState(isOpen);\n  const [isClosing, setIsClosing] = useState(false);\n  const dialogRef = useRef<HTMLDivElement>(null);\n  const bodyRef = useRef<HTMLDivElement>(null);\n  const [isBodyScrollable, setIsBodyScrollable] = useState(false);\n\n  useEffect(() => {\n    if (isOpen) {\n      setIsVisible(true);\n      setIsClosing(false);\n    } else if (isVisible) {\n      setIsClosing(true);\n    }\n  }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps\n\n  const handleAnimationEnd = useCallback(() => {\n    if (isClosing) {\n      setIsVisible(false);\n      setIsClosing(false);\n    }\n  }, [isClosing]);\n\n  const handleCancel = useCallback(() => {\n    onCancel?.();\n    onClose();\n  }, [onCancel, onClose]);\n\n  // Auto-focus the first editable form field when the modal opens\n  useEffect(() => {\n    if (isVisible && !isClosing) {\n      const t = setTimeout(() => {\n        const first = dialogRef.current?.querySelector<HTMLElement>(\n          'input:not([disabled]):not([readonly]), textarea:not([disabled])'\n        );\n        first?.focus();\n      }, 50);\n      return () => clearTimeout(t);\n    }\n  }, [isVisible, isClosing]);\n\n  // Close on Escape key\n  useEffect(() => {\n    if (!isVisible) return;\n    const handler = (e: KeyboardEvent) => {\n      if (e.key === 'Escape') onClose();\n    };\n    document.addEventListener('keydown', handler);\n    return () => document.removeEventListener('keydown', handler);\n  }, [isVisible, onClose]);\n\n  // Show footer shadow when there is content below the visible area.\n  // Hides when the user scrolls to the bottom (the trailing 30px becomes visible).\n  useEffect(() => {\n    const el = bodyRef.current;\n    if (!el || !isVisible) return;\n    const check = () => setIsBodyScrollable(el.scrollHeight - el.scrollTop - el.clientHeight > 1);\n    check();\n    el.addEventListener('scroll', check, { passive: true });\n    const ro = new ResizeObserver(check);\n    ro.observe(el);\n    return () => {\n      el.removeEventListener('scroll', check);\n      ro.disconnect();\n    };\n  }, [isVisible]);\n\n  useLayoutEffect(() => {\n    const el = bodyRef.current;\n    if (!el || !isVisible) return;\n    setIsBodyScrollable(el.scrollHeight - el.scrollTop - el.clientHeight > 1);\n  }, [children, isVisible]);\n\n  // Prevent body scroll while modal is visible\n  useEffect(() => {\n    if (isVisible) {\n      document.body.style.overflow = 'hidden';\n    } else {\n      document.body.style.overflow = '';\n    }\n    return () => { document.body.style.overflow = ''; };\n  }, [isVisible]);\n\n  if (!isVisible) return null;\n\n  return createPortal(\n    <div className={styles.backdrop} aria-hidden=\"true\">\n      <div\n        ref={dialogRef}\n        className={styles.dialog}\n        role=\"dialog\"\n        aria-modal=\"true\"\n        aria-labelledby=\"modal-title\"\n        style={{ width }}\n        data-closing={isClosing || undefined}\n        onAnimationEnd={handleAnimationEnd}\n        onClick={(e) => e.stopPropagation()}\n      >\n        {/* ── Header ───────────────────────────────────────────────────── */}\n        <div className={styles.header}>\n          {headerIcon && (\n            <span className={styles.headerIcon} aria-hidden=\"true\">\n              {headerIcon}\n            </span>\n          )}\n          <h2 id=\"modal-title\" className={styles.title}>\n            {title}\n          </h2>\n        </div>\n\n        {/* ── Body ─────────────────────────────────────────────────────── */}\n        <div ref={bodyRef} className={styles.body}>\n          {children}\n        </div>\n\n        {/* ── Footer area (note + buttons) ─────────────────────────────── */}\n        <div className={styles.footerArea} data-shadow={isBodyScrollable || undefined}>\n          {footerNote && (\n            <div className={styles.footerNote}>\n              {footerNote}\n            </div>\n          )}\n          <div className={styles.footer}>\n            <Button variant=\"default\" onClick={handleCancel}>\n              {cancelLabel}\n            </Button>\n            <Button variant=\"primary\" onClick={onSave}>\n              {saveLabel}\n            </Button>\n          </div>\n        </div>\n      </div>\n    </div>,\n    document.body\n  );\n}\n\nexport default Modal;\n"
+        "message": "File: /home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Modal/Modal.js\nError:\nNo suitable component definition found.\nYou can debug your component file in this playground: https://react-docgen.dev/playground\nCode:\nimport { useEffect, useCallback, useState, useRef, useLayoutEffect } from 'react';\nimport { createPortal } from 'react-dom';\nimport './Modal.css';\nimport { Button } from '../Button/Button';\n\n// ─────────────────────────────────────────────────────────────────────────────\n// Component\n// ─────────────────────────────────────────────────────────────────────────────\n\nexport function Modal({\n  isOpen,\n  title,\n  headerIcon,\n  onClose,\n  onCancel,\n  onSave,\n  cancelLabel = 'Cancel',\n  saveLabel = 'Save',\n  footerNote,\n  children,\n  width = 569,\n}) {\n  // isVisible stays true during the slide-up closing animation\n  const [isVisible, setIsVisible] = useState(isOpen);\n  const [isClosing, setIsClosing] = useState(false);\n  const dialogRef = useRef(null);\n  const bodyRef = useRef(null);\n  const [isBodyScrollable, setIsBodyScrollable] = useState(false);\n\n  useEffect(() => {\n    if (isOpen) {\n      setIsVisible(true);\n      setIsClosing(false);\n    } else if (isVisible) {\n      setIsClosing(true);\n    }\n  }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps\n\n  const handleAnimationEnd = useCallback(() => {\n    if (isClosing) {\n      setIsVisible(false);\n      setIsClosing(false);\n    }\n  }, [isClosing]);\n\n  const handleCancel = useCallback(() => {\n    onCancel?.();\n    onClose();\n  }, [onCancel, onClose]);\n\n  // Auto-focus the first editable form field when the modal opens\n  useEffect(() => {\n    if (isVisible && !isClosing) {\n      const t = setTimeout(() => {\n        const first = dialogRef.current?.querySelector(\n          'input:not([disabled]):not([readonly]), textarea:not([disabled])'\n        );\n        first?.focus();\n      }, 50);\n      return () => clearTimeout(t);\n    }\n  }, [isVisible, isClosing]);\n\n  // Close on Escape key\n  useEffect(() => {\n    if (!isVisible) return;\n    const handler = (e) => {\n      if (e.key === 'Escape') onClose();\n    };\n    document.addEventListener('keydown', handler);\n    return () => document.removeEventListener('keydown', handler);\n  }, [isVisible, onClose]);\n\n  // Show footer shadow when there is content below the visible area.\n  // Hides when the user scrolls to the bottom (the trailing 30px becomes visible).\n  useEffect(() => {\n    const el = bodyRef.current;\n    if (!el || !isVisible) return;\n    const check = () => setIsBodyScrollable(el.scrollHeight - el.scrollTop - el.clientHeight > 1);\n    check();\n    el.addEventListener('scroll', check, { passive: true });\n    const ro = new ResizeObserver(check);\n    ro.observe(el);\n    return () => {\n      el.removeEventListener('scroll', check);\n      ro.disconnect();\n    };\n  }, [isVisible]);\n\n  useLayoutEffect(() => {\n    const el = bodyRef.current;\n    if (!el || !isVisible) return;\n    setIsBodyScrollable(el.scrollHeight - el.scrollTop - el.clientHeight > 1);\n  }, [children, isVisible]);\n\n  // Prevent body scroll while modal is visible\n  useEffect(() => {\n    if (isVisible) {\n      document.body.style.overflow = 'hidden';\n    } else {\n      document.body.style.overflow = '';\n    }\n    return () => { document.body.style.overflow = ''; };\n  }, [isVisible]);\n\n  if (!isVisible) return null;\n\n  return createPortal(\n    <div className='modal-backdrop' aria-hidden=\"true\">\n      <div\n        ref={dialogRef}\n        className='modal-dialog'\n        role=\"dialog\"\n        aria-modal=\"true\"\n        aria-labelledby=\"modal-title\"\n        style={{ width }}\n        data-closing={isClosing || undefined}\n        onAnimationEnd={handleAnimationEnd}\n        onClick={(e) => e.stopPropagation()}\n      >\n        {/* ── Header ───────────────────────────────────────────────────── */}\n        <div className='modal-header'>\n          {headerIcon && (\n            <span className='modal-header-icon' aria-hidden=\"true\">\n              {headerIcon}\n            </span>\n          )}\n          <h2 id=\"modal-title\" className='modal-title'>\n            {title}\n          </h2>\n        </div>\n\n        {/* ── Body ─────────────────────────────────────────────────────── */}\n        <div ref={bodyRef} className='modal-body'>\n          {children}\n        </div>\n\n        {/* ── Footer area (note + buttons) ─────────────────────────────── */}\n        <div className='modal-footer-area' data-shadow={isBodyScrollable || undefined}>\n          {footerNote && (\n            <div className='modal-footer-note'>\n              {footerNote}\n            </div>\n          )}\n          <div className='modal-footer'>\n            <Button variant=\"default\" onClick={handleCancel}>\n              {cancelLabel}\n            </Button>\n            <Button variant=\"primary\" onClick={onSave}>\n              {saveLabel}\n            </Button>\n          </div>\n        </div>\n      </div>\n    </div>,\n    document.body\n  );\n}\n\nexport default Modal;\n"
       },
       "stories": [
         {
@@ -2390,40 +1105,9 @@
         "description": "",
         "methods": [],
         "displayName": "Radio",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Radio/Radio.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Radio/Radio.js",
         "actualName": "Radio",
-        "exportName": "Radio",
-        "props": {
-          "label": {
-            "required": false,
-            "tsType": {
-              "name": "ReactReactNode",
-              "raw": "React.ReactNode"
-            },
-            "description": "Label text rendered beside the radio button."
-          },
-          "forceState": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'hover' | 'focus'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'hover'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'focus'"
-                }
-              ]
-            },
-            "description": "Forces a visual state for Storybook stories and visual regression tests.\n@internal not for production use"
-          }
-        },
-        "composes": [
-          "Omit"
-        ]
+        "exportName": "Radio"
       },
       "stories": [
         {
@@ -2485,190 +1169,37 @@
         "description": "",
         "methods": [],
         "displayName": "Select",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Select/Select.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Select/Select.js",
         "actualName": "Select",
         "exportName": "Select",
         "props": {
-          "label": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Label text in the left column (horizontal) or above (vertical)."
-          },
           "placeholder": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Text shown when no value is selected. @default 'Select'",
             "defaultValue": {
               "value": "'Select'",
               "computed": false
-            }
-          },
-          "value": {
-            "required": false,
-            "tsType": {
-              "name": "string"
             },
-            "description": "Currently selected option value."
+            "required": false
           },
           "options": {
-            "required": false,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "SelectOption"
-                }
-              ],
-              "raw": "SelectOption[]"
-            },
-            "description": "Available options to display in the trigger.",
             "defaultValue": {
               "value": "[]",
               "computed": false
-            }
-          },
-          "helperText": {
-            "required": false,
-            "tsType": {
-              "name": "string"
             },
-            "description": "Assistive copy rendered below the trigger."
+            "required": false
           },
           "width": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "number | string",
-              "elements": [
-                {
-                  "name": "number"
-                },
-                {
-                  "name": "string"
-                }
-              ]
-            },
-            "description": "Total component width in px. @default 670",
             "defaultValue": {
               "value": "670",
               "computed": false
-            }
+            },
+            "required": false
           },
           "layout": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'horizontal' | 'vertical'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'horizontal'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'vertical'"
-                }
-              ]
-            },
-            "description": "Form layout. @default 'horizontal'",
             "defaultValue": {
               "value": "'horizontal'",
               "computed": false
-            }
-          },
-          "required": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
             },
-            "description": "Shows the red mandatory indicator on the left edge of the trigger."
-          },
-          "disabled": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Disabled — gray background, no interaction."
-          },
-          "readOnly": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Read-only — displays the value with a lock badge; not interactive."
-          },
-          "error": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Error state — border and helper text turn #FF5D5A."
-          },
-          "forceState": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'hover' | 'focus'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'hover'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'focus'"
-                }
-              ]
-            },
-            "description": "Forces a visual state for Storybook stories and visual regression tests.\n@internal not intended for production use"
-          },
-          "onChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(value: string) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "string"
-                    },
-                    "name": "value"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": "Called when the user selects an option. Placeholder for future dropdown."
-          },
-          "id": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
-          "style": {
-            "required": false,
-            "tsType": {
-              "name": "ReactCSSProperties",
-              "raw": "React.CSSProperties"
-            },
-            "description": ""
-          },
-          "columns": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Override grid-template-columns for horizontal layout.\n@default '3fr 7fr'"
+            "required": false
           }
         }
       },
@@ -2745,44 +1276,18 @@
         "description": "",
         "methods": [],
         "displayName": "Switch",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Switch/Switch.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Switch/Switch.js",
         "actualName": "Switch",
         "exportName": "Switch",
         "props": {
-          "label": {
-            "required": false,
-            "tsType": {
-              "name": "ReactReactNode",
-              "raw": "React.ReactNode"
-            },
-            "description": "Label shown beside the switch."
-          },
           "labelPosition": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'left' | 'right'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'left'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'right'"
-                }
-              ]
-            },
-            "description": "Label position. @default 'right'",
             "defaultValue": {
               "value": "'right'",
               "computed": false
-            }
+            },
+            "required": false
           }
-        },
-        "composes": [
-          "Omit"
-        ]
+        }
       },
       "stories": [
         {
@@ -2837,210 +1342,37 @@
         "description": "",
         "methods": [],
         "displayName": "SetupTable",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Table/Table.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Table/Table.js",
         "actualName": "SetupTable",
         "exportName": "SetupTable",
         "props": {
-          "columns": {
-            "required": true,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "TableColumn"
-                }
-              ],
-              "raw": "TableColumn[]"
-            },
-            "description": ""
-          },
-          "rows": {
-            "required": true,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "SetupTableRow"
-                }
-              ],
-              "raw": "SetupTableRow[]"
-            },
-            "description": ""
-          },
           "selectable": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Adds a checkbox column for bulk selection.",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
+            },
+            "required": false
           },
           "selectedIds": {
-            "required": false,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "string"
-                }
-              ],
-              "raw": "string[]"
-            },
-            "description": "Controlled selected row IDs.",
             "defaultValue": {
               "value": "[]",
               "computed": false
-            }
-          },
-          "onSelectionChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(ids: string[]) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "Array",
-                      "elements": [
-                        {
-                          "name": "string"
-                        }
-                      ],
-                      "raw": "string[]"
-                    },
-                    "name": "ids"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
             },
-            "description": ""
-          },
-          "onRowAction": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(row: SetupTableRow, e: React.MouseEvent<HTMLButtonElement>) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "SetupTableRow"
-                    },
-                    "name": "row"
-                  },
-                  {
-                    "type": {
-                      "name": "ReactMouseEvent",
-                      "raw": "React.MouseEvent<HTMLButtonElement>",
-                      "elements": [
-                        {
-                          "name": "HTMLButtonElement"
-                        }
-                      ]
-                    },
-                    "name": "e"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": "When provided, renders a 3-dot action button on every row."
-          },
-          "sortKey": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Controlled sort column key."
-          },
-          "sortDir": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'asc' | 'desc'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'asc'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'desc'"
-                }
-              ]
-            },
-            "description": "Controlled sort direction."
-          },
-          "onSort": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(key: string) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "string"
-                    },
-                    "name": "key"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": "Called when a sortable column header is clicked. Toggle direction externally."
+            "required": false
           },
           "striped": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Alternating row tint (zebra stripes). @default false",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
-          },
-          "width": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "number | string",
-              "elements": [
-                {
-                  "name": "number"
-                },
-                {
-                  "name": "string"
-                }
-              ]
             },
-            "description": "Total component width in px or CSS string."
+            "required": false
           },
           "emptyMessage": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Message shown when rows is empty. @default 'No data'",
             "defaultValue": {
               "value": "'No data'",
               "computed": false
-            }
+            },
+            "required": false
           }
         }
       },
@@ -3081,106 +1413,30 @@
         "description": "",
         "methods": [],
         "displayName": "Tabs",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Tabs/Tabs.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Tabs/Tabs.js",
         "actualName": "Tabs",
         "exportName": "Tabs",
         "props": {
-          "tabs": {
-            "required": true,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "TabItem"
-                }
-              ],
-              "raw": "TabItem[]"
-            },
-            "description": ""
-          },
-          "activeTab": {
-            "required": true,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
-          "onChange": {
-            "required": true,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(id: string) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "string"
-                    },
-                    "name": "id"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": ""
-          },
           "size": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'md' | 'sm'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'md'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'sm'"
-                }
-              ]
-            },
-            "description": "md = Primary Tab 35px / Secondary Tab 35px outer\nsm = Small Primary Tab 26px / Small Secondary Tab 30px outer",
             "defaultValue": {
               "value": "'md'",
               "computed": false
-            }
+            },
+            "required": false
           },
           "variant": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'primary' | 'secondary'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'primary'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'secondary'"
-                }
-              ]
-            },
-            "description": "primary: flat bar with sliding underline indicator\nsecondary: pill container with sliding filled-pill indicator",
             "defaultValue": {
               "value": "'primary'",
               "computed": false
-            }
+            },
+            "required": false
           },
           "showCount": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "Show count badges. When false (default) no badge is rendered even if a tab has a count value.",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
+            },
+            "required": false
           }
         }
       },
@@ -3215,123 +1471,37 @@
         "description": "",
         "methods": [],
         "displayName": "Tags",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Tags/Tags.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Tags/Tags.js",
         "actualName": "Tags",
         "exportName": "Tags",
         "props": {
           "value": {
-            "required": false,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "TagItem"
-                }
-              ],
-              "raw": "TagItem[]"
-            },
-            "description": "Controlled list of selected tag items.",
             "defaultValue": {
               "value": "[]",
               "computed": false
-            }
+            },
+            "required": false
           },
           "options": {
-            "required": false,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "TagItem"
-                }
-              ],
-              "raw": "TagItem[]"
-            },
-            "description": "Pool of items the user can select from.",
             "defaultValue": {
               "value": "[]",
               "computed": false
-            }
+            },
+            "required": false
           },
           "placeholder": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Placeholder shown when no tags are selected. @default 'Select'",
             "defaultValue": {
               "value": "'Select'",
               "computed": false
-            }
-          },
-          "onChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(items: TagItem[]) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "Array",
-                      "elements": [
-                        {
-                          "name": "TagItem"
-                        }
-                      ],
-                      "raw": "TagItem[]"
-                    },
-                    "name": "items"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
             },
-            "description": "Called whenever the tag list changes (add or remove)."
+            "required": false
           },
           "width": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "number | string",
-              "elements": [
-                {
-                  "name": "number"
-                },
-                {
-                  "name": "string"
-                }
-              ]
-            },
-            "description": "Total width of the container. @default '100%'",
             "defaultValue": {
               "value": "'100%'",
               "computed": false
-            }
-          },
-          "required": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
             },
-            "description": ""
-          },
-          "disabled": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": ""
-          },
-          "error": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": ""
+            "required": false
           }
         }
       },
@@ -3378,121 +1548,32 @@
         "description": "",
         "methods": [],
         "displayName": "Textarea",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Textarea/Textarea.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Textarea/Textarea.js",
         "actualName": "Textarea",
         "exportName": "Textarea",
         "props": {
-          "label": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Visible label."
-          },
-          "helperText": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Assistive copy rendered below the field."
-          },
           "width": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "number | string",
-              "elements": [
-                {
-                  "name": "number"
-                },
-                {
-                  "name": "string"
-                }
-              ]
-            },
-            "description": "Total component width in px or any CSS string. @default 670",
             "defaultValue": {
               "value": "670",
               "computed": false
-            }
+            },
+            "required": false
           },
           "layout": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'horizontal' | 'vertical'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'horizontal'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'vertical'"
-                }
-              ]
-            },
-            "description": "Form layout. @default 'horizontal'",
             "defaultValue": {
               "value": "'horizontal'",
               "computed": false
-            }
+            },
+            "required": false
           },
           "minHeight": {
-            "required": false,
-            "tsType": {
-              "name": "number"
-            },
-            "description": "Minimum height when focused (expanded). The collapsed height is always 34px.\n@default 70",
             "defaultValue": {
               "value": "70",
               "computed": false
-            }
-          },
-          "error": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
             },
-            "description": "Error state — border and helper text turn red."
-          },
-          "columns": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Override grid-template-columns for horizontal layout.\n@default '3fr 7fr'"
-          },
-          "forceState": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'hover' | 'focus'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'hover'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'focus'"
-                }
-              ]
-            },
-            "description": "Forces a visual state for Storybook stories and visual regression tests."
-          },
-          "style": {
-            "required": false,
-            "tsType": {
-              "name": "ReactCSSProperties",
-              "raw": "React.CSSProperties"
-            },
-            "description": ""
+            "required": false
           }
-        },
-        "composes": [
-          "Omit"
-        ]
+        }
       },
       "stories": [
         {
@@ -3552,136 +1633,44 @@
         "description": "",
         "methods": [],
         "displayName": "Tooltip",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Tooltip/Tooltip.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Tooltip/Tooltip.js",
         "actualName": "Tooltip",
         "exportName": "Tooltip",
         "props": {
-          "children": {
-            "required": true,
-            "tsType": {
-              "name": "ReactReactElement",
-              "raw": "React.ReactElement"
-            },
-            "description": ""
-          },
-          "content": {
-            "required": true,
-            "tsType": {
-              "name": "ReactReactNode",
-              "raw": "React.ReactNode"
-            },
-            "description": ""
-          },
           "variant": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'black' | 'white' | 'red'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'black'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'white'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'red'"
-                }
-              ]
-            },
-            "description": "",
             "defaultValue": {
               "value": "'black'",
               "computed": false
-            }
+            },
+            "required": false
           },
           "placement": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'top' | 'bottom' | 'left' | 'right'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'top'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'bottom'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'left'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'right'"
-                }
-              ]
-            },
-            "description": "",
             "defaultValue": {
               "value": "'top'",
               "computed": false
-            }
+            },
+            "required": false
           },
           "showIcon": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
+            },
+            "required": false
           },
           "alwaysVisible": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
-          },
-          "iconLabel": {
-            "required": false,
-            "tsType": {
-              "name": "string"
             },
-            "description": ""
+            "required": false
           },
           "disabled": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": "When true, tooltip never shows. Useful for conditionally disabling without changing tree structure.",
             "defaultValue": {
               "value": "false",
               "computed": false
-            }
-          },
-          "wrapperStyle": {
-            "required": false,
-            "tsType": {
-              "name": "ReactCSSProperties",
-              "raw": "React.CSSProperties"
             },
-            "description": "Style forwarded to the outer wrapper span (e.g. flex layout)."
-          },
-          "wrapperClassName": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Class name forwarded to the outer wrapper span."
+            "required": false
           }
         }
       },
@@ -3730,165 +1719,37 @@
         "description": "",
         "methods": [],
         "displayName": "UserPicker",
-        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/UserPicker/UserPicker.tsx",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/UserPicker/UserPicker.js",
         "actualName": "UserPicker",
         "exportName": "UserPicker",
         "props": {
-          "label": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
           "placeholder": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": "Text shown when no user is selected. @default 'Select user'",
             "defaultValue": {
               "value": "'Select user'",
               "computed": false
-            }
-          },
-          "value": {
-            "required": false,
-            "tsType": {
-              "name": "string"
             },
-            "description": "Controlled selected user id."
+            "required": false
           },
           "users": {
-            "required": false,
-            "tsType": {
-              "name": "Array",
-              "elements": [
-                {
-                  "name": "UserOption"
-                }
-              ],
-              "raw": "UserOption[]"
-            },
-            "description": "",
             "defaultValue": {
               "value": "[]",
               "computed": false
-            }
-          },
-          "helperText": {
-            "required": false,
-            "tsType": {
-              "name": "string"
             },
-            "description": ""
+            "required": false
           },
           "width": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "number | string",
-              "elements": [
-                {
-                  "name": "number"
-                },
-                {
-                  "name": "string"
-                }
-              ]
-            },
-            "description": "Total component width in px or CSS string. @default 390",
             "defaultValue": {
               "value": "390",
               "computed": false
-            }
+            },
+            "required": false
           },
           "layout": {
-            "required": false,
-            "tsType": {
-              "name": "union",
-              "raw": "'horizontal' | 'vertical'",
-              "elements": [
-                {
-                  "name": "literal",
-                  "value": "'horizontal'"
-                },
-                {
-                  "name": "literal",
-                  "value": "'vertical'"
-                }
-              ]
-            },
-            "description": "Form layout. @default 'horizontal'",
             "defaultValue": {
               "value": "'horizontal'",
               "computed": false
-            }
-          },
-          "required": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
             },
-            "description": ""
-          },
-          "disabled": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": ""
-          },
-          "error": {
-            "required": false,
-            "tsType": {
-              "name": "boolean"
-            },
-            "description": ""
-          },
-          "onChange": {
-            "required": false,
-            "tsType": {
-              "name": "signature",
-              "type": "function",
-              "raw": "(userId: string) => void",
-              "signature": {
-                "arguments": [
-                  {
-                    "type": {
-                      "name": "string"
-                    },
-                    "name": "userId"
-                  }
-                ],
-                "return": {
-                  "name": "void"
-                }
-              }
-            },
-            "description": ""
-          },
-          "id": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
-          },
-          "style": {
-            "required": false,
-            "tsType": {
-              "name": "ReactCSSProperties",
-              "raw": "React.CSSProperties"
-            },
-            "description": ""
-          },
-          "columns": {
-            "required": false,
-            "tsType": {
-              "name": "string"
-            },
-            "description": ""
+            "required": false
           }
         }
       },
@@ -4016,6 +1877,6 @@
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 1587
+    "durationMs": 1474
   }
 }

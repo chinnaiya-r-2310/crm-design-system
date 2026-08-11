@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>1.6s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>1.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -616,7 +616,7 @@
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Breadcrumb</h2>
       <div class="badges">
-        <label for="c-0-design-system-components-breadcrumb-props" class="badge ok as-toggle">4 prop types</label>
+        
         <label for="c-0-design-system-components-breadcrumb-info" class="badge info as-toggle">1 info</label>
         <label for="c-0-design-system-components-breadcrumb-stories" class="badge ok as-toggle">5 stories</label>
         
@@ -635,7 +635,7 @@
   <input id="c-0-design-system-components-breadcrumb-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-0-design-system-components-breadcrumb-props" class="tg tg-props" type="checkbox" hidden />
+  
 
   <div class="panels">
     
@@ -648,32 +648,6 @@
     </div>
         </div>
     
-        <div class="panel panel-props">
-          <div class="note ok">
-            <div class="row">
-              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">4 prop types</span>
-            </div>
-            <pre><code>Component: src/design-system/components/Breadcrumb/Breadcrumb.tsx::Breadcrumb</code></pre>
-            <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Default selected index for uncontrolled usage. Defaults to last item.
- */
-defaultSelectedIndex?: number
-
-items: BreadcrumbItem[]
-
-/**
- * Called when the user clicks an ancestor item.
- */
-onSelect?: (index: number) =&gt; void
-
-/**
- * Index of the selected (current) item. Controls externally when provided.
- */
-selectedIndex?: number</code></pre>
-          </div>
-        </div>
     
         <div class="panel panel-stories">
           
@@ -794,7 +768,7 @@ selectedIndex?: number</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Button</h2>
       <div class="badges">
-        <label for="c-1-design-system-components-button-props" class="badge ok as-toggle">10 prop types</label>
+        <label for="c-1-design-system-components-button-props" class="badge ok as-toggle">6 prop types</label>
         <label for="c-1-design-system-components-button-info" class="badge info as-toggle">1 info</label>
         <label for="c-1-design-system-components-button-stories" class="badge ok as-toggle">22 stories</label>
         
@@ -830,77 +804,21 @@ selectedIndex?: number</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">10 prop types</span>
+              <span class="badge ok">6 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Button/Button.tsx::Button</code></pre>
+            <pre><code>Component: src/design-system/components/Button/Button.js::Button</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Appends a down-chevron arrow icon to the right of the label.
- */
-arrow?: boolean = false
+            <pre><code>arrow?: any = false
 
-/**
- * Button label text.
- */
-children: React.ReactNode
+isOpen?: any = false
 
-/**
- * Forces a visual state for Storybook stories and visual regression tests.
- * @internal not intended for production use
- */
-forceState?: &#39;hover&#39; | &#39;active&#39;
+loading?: any = false
 
-/**
- * Icon rendered in the left slot before the label.
- */
-frontIcon?: React.ReactNode
+size?: any = &#39;md&#39;
 
-/**
- * Marks the button as the trigger for an open dropdown/popover.
- * Applies the active visual state and rotates the arrow 180°.
- */
-isOpen?: boolean = false
+split?: any = true
 
-/**
- * Shows a spinning loader and disables interaction.
- */
-loading?: boolean = false
-
-/**
- * Click handler for the arrow/dropdown zone of a Menu Button (split=true).
- * The main label zone uses the standard `onClick` prop.
- * Has no effect when split=false (More Button).
- */
-onArrowClick?: React.MouseEventHandler&lt;HTMLButtonElement&gt;
-
-/**
- * Visual size.
- * - md: 32px height (standard)
- * - sm: 27px height (compact)
- * @default &#39;md&#39;
- */
-size?: &#39;md&#39; | &#39;sm&#39; | &#39;xs&#39; = &#39;md&#39;
-
-/**
- * Show a separator line between label and arrow.
- * - `true` (default): Menu Button — arrow sits in a distinct split zone.
- * - `false`: More Button — arrow is inline with the label, no separator.
- * Ghost variants always hide the separator via CSS regardless of this prop.
- */
-split?: boolean = true
-
-/**
- * Visual style variant.
- * - Filled: primary | default | negative | success | warning
- * - Outline: outline-blue | outline-green | outline-red | outline-orange
- * - Ghost:   ghost-blue | ghost-red
- * - Link:    link-primary | link-secondary | link-default | link-red
- * @default &#39;primary&#39;
- */
-variant?: | ButtonFilledVariant
-| ButtonOutlineVariant
-| ButtonGhostVariant
-| ButtonLinkVariant = &#39;primary&#39;</code></pre>
+variant?: any = &#39;primary&#39;</code></pre>
           </div>
         </div>
     
@@ -1847,7 +1765,7 @@ Figma: node 34442:87663.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Calendar</h2>
       <div class="badges">
-        <label for="c-2-design-system-components-calendar-props" class="badge ok as-toggle">12 prop types</label>
+        <label for="c-2-design-system-components-calendar-props" class="badge ok as-toggle">4 prop types</label>
         <label for="c-2-design-system-components-calendar-info" class="badge info as-toggle">1 info</label>
         <label for="c-2-design-system-components-calendar-stories" class="badge ok as-toggle">10 stories</label>
         
@@ -1883,45 +1801,17 @@ Figma: node 34442:87663.</div>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">12 prop types</span>
+              <span class="badge ok">4 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Calendar/Calendar.tsx::Calendar</code></pre>
+            <pre><code>Component: src/design-system/components/Calendar/Calendar.js::Calendar</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Initial month to display. Defaults to current month.
- */
-defaultMonth?: Date
+            <pre><code>highlightWeekends?: any = false
 
-/**
- * Highlight Saturday and Sunday in orange. @default false
- */
-highlightWeekends?: boolean = false
+mode?: any = &#39;single&#39;
 
-mode?: &#39;single&#39; | &#39;range&#39; | &#39;multi&#39; = &#39;single&#39;
+showViewTabs?: any = false
 
-onChange?: (date: Date) =&gt; void
-
-onMultiChange?: (dates: Date[]) =&gt; void
-
-onRangeChange?: (start: Date | null, end: Date | null) =&gt; void
-
-rangeEnd?: Date | null
-
-rangeStart?: Date | null
-
-selectedDates?: Date[]
-
-/**
- * Show Day / Week / Month view tabs at the bottom. @default false
- */
-showViewTabs?: boolean = false
-
-value?: Date | null
-
-/**
- * Total width of the calendar widget in px. @default 284
- */
-width?: number = 284</code></pre>
+width?: any = 284</code></pre>
           </div>
         </div>
     
@@ -2214,7 +2104,7 @@ width?: number = 284</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Checkbox</h2>
       <div class="badges">
-        <label for="c-3-design-system-components-checkbox-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-3-design-system-components-checkbox-props" class="badge ok as-toggle">1 prop type</label>
         <label for="c-3-design-system-components-checkbox-info" class="badge info as-toggle">1 info</label>
         <label for="c-3-design-system-components-checkbox-stories" class="badge ok as-toggle">10 stories</label>
         
@@ -2250,26 +2140,11 @@ width?: number = 284</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">3 prop types</span>
+              <span class="badge ok">1 prop type</span>
             </div>
-            <pre><code>Component: src/design-system/components/Checkbox/Checkbox.tsx::Checkbox</code></pre>
+            <pre><code>Component: src/design-system/components/Checkbox/Checkbox.js::Checkbox</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Forces a visual state for Storybook stories and visual regression tests.
- * @internal not for production use
- */
-forceState?: &#39;hover&#39; | &#39;focus&#39;
-
-/**
- * Sets the indeterminate visual state (–) on the checkbox.
- * Also sets the native element&#39;s .indeterminate property.
- */
-indeterminate?: boolean = false
-
-/**
- * Label text rendered beside the checkbox.
- */
-label?: React.ReactNode</code></pre>
+            <pre><code>indeterminate?: any = false</code></pre>
           </div>
         </div>
     
@@ -2662,7 +2537,7 @@ export const AllColors: StoryObj = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> CriteriaBuilder</h2>
       <div class="badges">
-        <label for="c-5-design-system-components-criteriabuilder-props" class="badge ok as-toggle">8 prop types</label>
+        <label for="c-5-design-system-components-criteriabuilder-props" class="badge ok as-toggle">2 prop types</label>
         <label for="c-5-design-system-components-criteriabuilder-info" class="badge info as-toggle">1 info</label>
         <label for="c-5-design-system-components-criteriabuilder-stories" class="badge ok as-toggle">5 stories</label>
         
@@ -2698,34 +2573,13 @@ export const AllColors: StoryObj = {
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">8 prop types</span>
+              <span class="badge ok">2 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/CriteriaBuilder/CriteriaBuilder.tsx::CriteriaBuilder</code></pre>
+            <pre><code>Component: src/design-system/components/CriteriaBuilder/CriteriaBuilder.js::CriteriaBuilder</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>fieldOptions?: SelectOption[] = []
+            <pre><code>fieldOptions?: any = []
 
-/**
- * Returns the default operator value for a given field type.
- */
-getDefaultOperator?: (fieldType: string) =&gt; string
-
-/**
- * Returns the operator list for a given field type. Takes precedence over operatorOptions.
- */
-getOperatorOptions?: (fieldType: string) =&gt; SelectOption[]
-
-onChange: (rows: CriteriaRow[]) =&gt; void
-
-onPatternChange: (pattern: string) =&gt; void
-
-/**
- * Fallback operator list when getOperatorOptions is not provided.
- */
-operatorOptions?: SelectOption[] = []
-
-pattern: string
-
-rows: CriteriaRow[]</code></pre>
+operatorOptions?: any = []</code></pre>
           </div>
         </div>
     
@@ -2845,7 +2699,7 @@ rows: CriteriaRow[]</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> DatePicker</h2>
       <div class="badges">
-        <label for="c-6-design-system-components-datepicker-props" class="badge ok as-toggle">14 prop types</label>
+        <label for="c-6-design-system-components-datepicker-props" class="badge ok as-toggle">3 prop types</label>
         <label for="c-6-design-system-components-datepicker-info" class="badge info as-toggle">1 info</label>
         <label for="c-6-design-system-components-datepicker-stories" class="badge ok as-toggle">5 stories</label>
         
@@ -2881,55 +2735,15 @@ rows: CriteriaRow[]</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">14 prop types</span>
+              <span class="badge ok">3 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/DatePicker/DatePicker.tsx::DatePicker</code></pre>
+            <pre><code>Component: src/design-system/components/DatePicker/DatePicker.js::DatePicker</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Override grid-template-columns for horizontal layout.
- */
-columns?: string
+            <pre><code>layout?: any = &#39;horizontal&#39;
 
-disabled?: boolean
+placeholder?: any = &#39;DD/MM/YYYY&#39;
 
-error?: boolean
-
-helperText?: string
-
-id?: string
-
-label?: string
-
-/**
- * Form layout. @default &#39;horizontal&#39;
- */
-layout?: &#39;horizontal&#39; | &#39;vertical&#39; = &#39;horizontal&#39;
-
-/**
- * Called when a complete valid date is entered (typed or picked).
- */
-onChange?: (date: Date) =&gt; void
-
-/**
- * Placeholder shown when no date is selected. @default &#39;DD/MM/YYYY&#39;
- */
-placeholder?: string = &#39;DD/MM/YYYY&#39;
-
-readOnly?: boolean
-
-required?: boolean
-
-style?: React.CSSProperties
-
-/**
- * Controlled selected date.
- */
-value?: Date | null
-
-/**
- * Total component width in px or any CSS string. @default 670
- */
-width?: number | string = 670</code></pre>
+width?: any = 670</code></pre>
           </div>
         </div>
     
@@ -3044,7 +2858,7 @@ width?: number | string = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> DateRangePicker</h2>
       <div class="badges">
-        <label for="c-7-design-system-components-calendar-date-range-picker-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-7-design-system-components-calendar-date-range-picker-props" class="badge ok as-toggle">3 prop types</label>
         <label for="c-7-design-system-components-calendar-date-range-picker-info" class="badge info as-toggle">1 info</label>
         <label for="c-7-design-system-components-calendar-date-range-picker-stories" class="badge ok as-toggle">4 stories</label>
         
@@ -3080,30 +2894,15 @@ width?: number | string = 670</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">6 prop types</span>
+              <span class="badge ok">3 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Calendar/DateRangePicker.tsx::DateRangePicker</code></pre>
+            <pre><code>Component: src/design-system/components/Calendar/DateRangePicker.js::DateRangePicker</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>disabled?: boolean = false
+            <pre><code>disabled?: any = false
 
-/**
- * Controlled end date
- */
-endDate?: Date | null
+placeholder?: any = &#39;Select date range&#39;
 
-onChange?: (start: Date | null, end: Date | null) =&gt; void
-
-placeholder?: string = &#39;Select date range&#39;
-
-/**
- * Controlled start date
- */
-startDate?: Date | null
-
-/**
- * Total trigger width in px. @default 320
- */
-width?: number = 320</code></pre>
+width?: any = 320</code></pre>
           </div>
         </div>
     
@@ -3209,7 +3008,7 @@ width?: number = 320</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Dropdown</h2>
       <div class="badges">
-        <label for="c-8-design-system-components-dropdown-props" class="badge ok as-toggle">19 prop types</label>
+        <label for="c-8-design-system-components-dropdown-props" class="badge ok as-toggle">7 prop types</label>
         <label for="c-8-design-system-components-dropdown-info" class="badge info as-toggle">1 info</label>
         <label for="c-8-design-system-components-dropdown-stories" class="badge ok as-toggle">15 stories</label>
         
@@ -3245,77 +3044,23 @@ width?: number = 320</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">19 prop types</span>
+              <span class="badge ok">7 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Dropdown/Dropdown.tsx::Dropdown</code></pre>
+            <pre><code>Component: src/design-system/components/Dropdown/Dropdown.js::Dropdown</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Override grid-template-columns for horizontal layout.
- * @default &#39;3fr 7fr&#39;
- */
-columns?: string
+            <pre><code>layout?: any = &#39;horizontal&#39;
 
-disabled?: boolean
+multiSelect?: any = false
 
-error?: boolean
+options?: any = []
 
-/**
- * Action button rendered at the bottom of the panel (e.g. &quot;+ Add option&quot;).
- * Figma: &quot;Button&quot; variant in Option Comp.
- */
-footerAction?: DropdownFooterAction
+placeholder?: any = &#39;Select&#39;
 
-helperText?: string
+searchable?: any = false
 
-id?: string
+selectedValues?: any = []
 
-label?: string
-
-/**
- * Form layout. @default &#39;horizontal&#39;
- */
-layout?: &#39;horizontal&#39; | &#39;vertical&#39; = &#39;horizontal&#39;
-
-/**
- * Enables checkbox multi-selection. Use `selectedValues` / `onMultiChange`
- * for controlled state. A Done button appears in the panel footer.
- */
-multiSelect?: boolean = false
-
-onChange?: (value: string) =&gt; void
-
-onMultiChange?: (values: string[]) =&gt; void
-
-options?: DropdownOption[] = []
-
-/**
- * Text shown when no value is selected. @default &#39;Select&#39;
- */
-placeholder?: string = &#39;Select&#39;
-
-required?: boolean
-
-/**
- * Adds a search input at the top of the panel. @default false
- */
-searchable?: boolean = false
-
-/**
- * Controlled selected values (multi-select). Requires `multiSelect`.
- */
-selectedValues?: string[] = []
-
-style?: React.CSSProperties
-
-/**
- * Controlled selected value (single-select).
- */
-value?: string
-
-/**
- * Total component width in px. @default 670
- */
-width?: number | string = 670</code></pre>
+width?: any = 670</code></pre>
           </div>
         </div>
     
@@ -4631,7 +4376,7 @@ export const CreateDeal: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Icon</h2>
       <div class="badges">
-        <label for="c-10-design-system-foundations-icons-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-10-design-system-foundations-icons-props" class="badge ok as-toggle">1 prop type</label>
         
         <label for="c-10-design-system-foundations-icons-stories" class="badge ok as-toggle">8 stories</label>
         
@@ -4675,44 +4420,11 @@ Adding icons
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">6 prop types</span>
+              <span class="badge ok">1 prop type</span>
             </div>
-            <pre><code>Component: src/design-system/components/Icon/Icon.tsx::Icon</code></pre>
+            <pre><code>Component: src/design-system/components/Icon/Icon.js::Icon</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Explicitly override the aria-hidden attribute.
- * Defaults to true for decorative icons (no aria-label/title).
- * Pass false to expose a decorative icon to AT when needed.
- */
-aria-hidden?: boolean | &#39;true&#39; | &#39;false&#39;
-
-/**
- * Accessible name. Turns the icon into a meaningful image (role=&quot;img&quot;).
- * When omitted and no title is provided, the icon is hidden from AT (decorative).
- */
-aria-label?: string
-
-/**
- * CSS class applied to the SVG root element. Use for color via currentColor.
- */
-className?: string
-
-/**
- * Icon to render — must be a registered key in iconMap.
- */
-name: unknown
-
-/**
- * Width and height in pixels. SVG scales proportionally.
- * @default 16
- */
-size?: number = 16
-
-/**
- * Same semantics as aria-label — use when you have a human-readable title for the icon.
- * Treated identically to aria-label; applied as aria-label on the SVG element.
- */
-title?: string</code></pre>
+            <pre><code>size?: any = 16</code></pre>
           </div>
         </div>
     
@@ -4997,7 +4709,7 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Input</h2>
       <div class="badges">
-        <label for="c-11-design-system-components-input-props" class="badge ok as-toggle">12 prop types</label>
+        <label for="c-11-design-system-components-input-props" class="badge ok as-toggle">3 prop types</label>
         
         <label for="c-11-design-system-components-input-stories" class="badge ok as-toggle">21 stories</label>
         
@@ -5050,95 +4762,15 @@ Extending
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">12 prop types</span>
+              <span class="badge ok">3 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Input/Input.tsx::Input</code></pre>
+            <pre><code>Component: src/design-system/components/Input/Input.js::Input</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Auto-update / auto-fill visual state.
- * Background turns light yellow (#FFFFEA) with a warm border (#E5DEC5)
- * to indicate the value was populated automatically (e.g. from a workflow or import).
- * Disabled and error take precedence over autoUpdate.
- */
-autoUpdate?: boolean
+            <pre><code>layout?: any = &#39;horizontal&#39;
 
-/**
- * Override the CSS grid-template-columns for horizontal layout.
- * Useful when a parent container needs exact column widths (e.g. &quot;99px 390px&quot; inside a modal).
- * @default &#39;3fr 7fr&#39; (30% label / 70% input)
- */
-columns?: string
+type?: any = &#39;text&#39;
 
-/**
- * Puts the field in the error visual state.
- * Border turns #FF5D5A and helper text (if provided) renders in the same color.
- * Does not conflict with disabled — disabled takes precedence.
- */
-error?: boolean
-
-/**
- * Forces a visual state for Storybook stories and visual regression tests.
- * &#39;hover&#39; | &#39;focus&#39; — sets data-state on the input wrapper so CSS applies
- * the same rules used for real browser pseudo-classes.
- * 
- * @internal not intended for production use
- */
-forceState?: &#39;hover&#39; | &#39;focus&#39;
-
-/**
- * Assistive copy rendered below the field. Linked via aria-describedby.
- */
-helperText?: string
-
-/**
- * Visible label. Required for accessibility — provide at minimum an aria-label if omitted.
- */
-label?: string
-
-/**
- * Form layout.
- * - &#39;horizontal&#39; — 40% label / 20px gap / 60% input (default)
- * - &#39;vertical&#39;   — label stacked above input
- */
-layout?: &#39;horizontal&#39; | &#39;vertical&#39; = &#39;horizontal&#39;
-
-/**
- * For datetime type: change handler for the time half of the field.
- */
-onTimeChange?: React.ChangeEventHandler&lt;HTMLInputElement&gt;
-
-/**
- * Icon or element rendered on the right side of the input.
- * The slot is 32px wide; the wrapper gains 1px padding (top/right/bottom)
- * to give the icon breathing room from the border.
- */
-suffix?: React.ReactNode
-
-/**
- * For datetime type: controlled value for the time half of the field.
- */
-timeValue?: string
-
-/**
- * HTML input type. Defaults to &quot;text&quot;.
- */
-type?: | &#39;text&#39;
-| &#39;email&#39;
-| &#39;password&#39;
-| &#39;search&#39;
-| &#39;tel&#39;
-| &#39;url&#39;
-| &#39;number&#39;
-| &#39;date&#39;     // renders as text with DD/MM/YYYY placeholder; no browser calendar icon
-| &#39;datetime&#39; // split date + time field: left half DD/MM/YYYY | right half HH:MM
-| &#39;lookup&#39; = &#39;text&#39;
-
-/**
- * Total component width in px or any CSS string.
- * In horizontal layout this spans both the label column and the input column.
- * Defaults to 640px (horizontal) which gives ≈384px of input space.
- */
-width?: number | string = 670</code></pre>
+width?: any = 670</code></pre>
           </div>
         </div>
     
@@ -5494,7 +5126,7 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MessageBox</h2>
       <div class="badges">
-        <label for="c-12-design-system-components-messagebox-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-12-design-system-components-messagebox-props" class="badge ok as-toggle">2 prop types</label>
         <label for="c-12-design-system-components-messagebox-info" class="badge info as-toggle">1 info</label>
         <label for="c-12-design-system-components-messagebox-stories" class="badge ok as-toggle">8 stories</label>
         
@@ -5530,44 +5162,13 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">7 prop types</span>
+              <span class="badge ok">2 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/MessageBox/MessageBox.tsx::MessageBox</code></pre>
+            <pre><code>Component: src/design-system/components/MessageBox/MessageBox.js::MessageBox</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>className?: string
+            <pre><code>closable?: any = true
 
-/**
- * Show the close (×) button. Defaults to true.
- * Pass false to hide it (e.g. inline banners that are not dismissible).
- * Figma: &quot;Close Icon&quot; boolean property.
- */
-closable?: boolean = true
-
-/**
- * Main message text.
- * Figma: &quot;You have successfully created the account.&quot; (example copy)
- */
-message: React.ReactNode
-
-/**
- * Called when the close button is clicked.
- * When omitted the button is still shown (unless closable is false) but clicking
- * it is a no-op — the parent component owns visibility state.
- */
-onClose?: () =&gt; void
-
-style?: React.CSSProperties
-
-/**
- * Optional title shown above the message (uses the &quot;with title&quot; layout).
- * When omitted the compact single-line layout is used.
- */
-title?: React.ReactNode
-
-/**
- * Visual type — drives color, icon, and border.
- */
-variant?: &#39;success&#39; | &#39;error&#39; | &#39;warning&#39; | &#39;info&#39; = &#39;info&#39;</code></pre>
+variant?: any = &#39;info&#39;</code></pre>
           </div>
         </div>
     
@@ -5742,63 +5343,15 @@ variant?: &#39;success&#39; | &#39;error&#39; | &#39;warning&#39; | &#39;info&#3
           
     <div class="note err">
       <div class="note-title">Prop type error</div>
-      <div class="note-body"><pre><code>File: /home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Modal/Modal.tsx
+      <div class="note-body"><pre><code>File: /home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Modal/Modal.js
 Error:
 No suitable component definition found.
 You can debug your component file in this playground: https://react-docgen.dev/playground
 Code:
 import { useEffect, useCallback, useState, useRef, useLayoutEffect } from &#39;react&#39;;
 import { createPortal } from &#39;react-dom&#39;;
-import styles from &#39;./Modal.module.css&#39;;
+import &#39;./Modal.css&#39;;
 import { Button } from &#39;../Button/Button&#39;;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────────────────────────────────────
-
-export interface ModalProps {
-  /** Controls visibility. */
-  isOpen: boolean;
-
-  /** Dialog title rendered in the header. */
-  title: string;
-
-  /**
-   * Optional icon element shown to the left of the title.
-   * Matches the Figma &quot;Header Icon&quot; boolean property.
-   */
-  headerIcon?: React.ReactNode;
-
-  /** Called when the modal should close (backdrop click or Escape key). */
-  onClose: () =&gt; void;
-
-  /** Called when the cancel button is clicked (also calls onClose). */
-  onCancel?: () =&gt; void;
-
-  /** Called when the save / primary action button is clicked. */
-  onSave?: () =&gt; void;
-
-  /** Label for the secondary action button. @default &quot;Cancel&quot; */
-  cancelLabel?: string;
-
-  /** Label for the primary action button. @default &quot;Save&quot; */
-  saveLabel?: string;
-
-  /**
-   * Optional content rendered below the form fields and above the footer —
-   * typically a Checkbox with helper text (matches Figma Frame 875).
-   */
-  footerNote?: React.ReactNode;
-
-  /** Form fields and content rendered in the body. */
-  children?: React.ReactNode;
-
-  /**
-   * Total modal width in px.
-   * @default 569
-   */
-  width?: number;
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Component
@@ -5816,12 +5369,12 @@ export function Modal({
   footerNote,
   children,
   width = 569,
-}: ModalProps) {
+}) {
   // isVisible stays true during the slide-up closing animation
   const [isVisible, setIsVisible] = useState(isOpen);
   const [isClosing, setIsClosing] = useState(false);
-  const dialogRef = useRef&lt;HTMLDivElement&gt;(null);
-  const bodyRef = useRef&lt;HTMLDivElement&gt;(null);
+  const dialogRef = useRef(null);
+  const bodyRef = useRef(null);
   const [isBodyScrollable, setIsBodyScrollable] = useState(false);
 
   useEffect(() =&gt; {
@@ -5849,7 +5402,7 @@ export function Modal({
   useEffect(() =&gt; {
     if (isVisible &amp;&amp; !isClosing) {
       const t = setTimeout(() =&gt; {
-        const first = dialogRef.current?.querySelector&lt;HTMLElement&gt;(
+        const first = dialogRef.current?.querySelector(
           &#39;input:not([disabled]):not([readonly]), textarea:not([disabled])&#39;
         );
         first?.focus();
@@ -5861,7 +5414,7 @@ export function Modal({
   // Close on Escape key
   useEffect(() =&gt; {
     if (!isVisible) return;
-    const handler = (e: KeyboardEvent) =&gt; {
+    const handler = (e) =&gt; {
       if (e.key === &#39;Escape&#39;) onClose();
     };
     document.addEventListener(&#39;keydown&#39;, handler);
@@ -5903,10 +5456,10 @@ export function Modal({
   if (!isVisible) return null;
 
   return createPortal(
-    &lt;div className={styles.backdrop} aria-hidden=&quot;true&quot;&gt;
+    &lt;div className=&#39;modal-backdrop&#39; aria-hidden=&quot;true&quot;&gt;
       &lt;div
         ref={dialogRef}
-        className={styles.dialog}
+        className=&#39;modal-dialog&#39;
         role=&quot;dialog&quot;
         aria-modal=&quot;true&quot;
         aria-labelledby=&quot;modal-title&quot;
@@ -5916,30 +5469,30 @@ export function Modal({
         onClick={(e) =&gt; e.stopPropagation()}
       &gt;
         {/* ── Header ───────────────────────────────────────────────────── */}
-        &lt;div className={styles.header}&gt;
+        &lt;div className=&#39;modal-header&#39;&gt;
           {headerIcon &amp;&amp; (
-            &lt;span className={styles.headerIcon} aria-hidden=&quot;true&quot;&gt;
+            &lt;span className=&#39;modal-header-icon&#39; aria-hidden=&quot;true&quot;&gt;
               {headerIcon}
             &lt;/span&gt;
           )}
-          &lt;h2 id=&quot;modal-title&quot; className={styles.title}&gt;
+          &lt;h2 id=&quot;modal-title&quot; className=&#39;modal-title&#39;&gt;
             {title}
           &lt;/h2&gt;
         &lt;/div&gt;
 
         {/* ── Body ─────────────────────────────────────────────────────── */}
-        &lt;div ref={bodyRef} className={styles.body}&gt;
+        &lt;div ref={bodyRef} className=&#39;modal-body&#39;&gt;
           {children}
         &lt;/div&gt;
 
         {/* ── Footer area (note + buttons) ─────────────────────────────── */}
-        &lt;div className={styles.footerArea} data-shadow={isBodyScrollable || undefined}&gt;
+        &lt;div className=&#39;modal-footer-area&#39; data-shadow={isBodyScrollable || undefined}&gt;
           {footerNote &amp;&amp; (
-            &lt;div className={styles.footerNote}&gt;
+            &lt;div className=&#39;modal-footer-note&#39;&gt;
               {footerNote}
             &lt;/div&gt;
           )}
-          &lt;div className={styles.footer}&gt;
+          &lt;div className=&#39;modal-footer&#39;&gt;
             &lt;Button variant=&quot;default&quot; onClick={handleCancel}&gt;
               {cancelLabel}
             &lt;/Button&gt;
@@ -6150,7 +5703,7 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Radio</h2>
       <div class="badges">
-        <label for="c-14-design-system-components-radio-props" class="badge ok as-toggle">2 prop types</label>
+        
         <label for="c-14-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
         <label for="c-14-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
         
@@ -6169,7 +5722,7 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
   <input id="c-14-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-14-design-system-components-radio-props" class="tg tg-props" type="checkbox" hidden />
+  
 
   <div class="panels">
     
@@ -6182,26 +5735,6 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
     </div>
         </div>
     
-        <div class="panel panel-props">
-          <div class="note ok">
-            <div class="row">
-              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">2 prop types</span>
-            </div>
-            <pre><code>Component: src/design-system/components/Radio/Radio.tsx::Radio</code></pre>
-            <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Forces a visual state for Storybook stories and visual regression tests.
- * @internal not for production use
- */
-forceState?: &#39;hover&#39; | &#39;focus&#39;
-
-/**
- * Label text rendered beside the radio button.
- */
-label?: React.ReactNode</code></pre>
-          </div>
-        </div>
     
         <div class="panel panel-stories">
           
@@ -6330,7 +5863,7 @@ label?: React.ReactNode</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Select</h2>
       <div class="badges">
-        <label for="c-15-design-system-components-select-props" class="badge ok as-toggle">16 prop types</label>
+        <label for="c-15-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
         <label for="c-15-design-system-components-select-info" class="badge info as-toggle">1 info</label>
         <label for="c-15-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
         
@@ -6366,85 +5899,17 @@ label?: React.ReactNode</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">16 prop types</span>
+              <span class="badge ok">4 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Select/Select.tsx::Select</code></pre>
+            <pre><code>Component: src/design-system/components/Select/Select.js::Select</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Override grid-template-columns for horizontal layout.
- * @default &#39;3fr 7fr&#39;
- */
-columns?: string
+            <pre><code>layout?: any = &#39;horizontal&#39;
 
-/**
- * Disabled — gray background, no interaction.
- */
-disabled?: boolean
+options?: any = []
 
-/**
- * Error state — border and helper text turn #FF5D5A.
- */
-error?: boolean
+placeholder?: any = &#39;Select&#39;
 
-/**
- * Forces a visual state for Storybook stories and visual regression tests.
- * @internal not intended for production use
- */
-forceState?: &#39;hover&#39; | &#39;focus&#39;
-
-/**
- * Assistive copy rendered below the trigger.
- */
-helperText?: string
-
-id?: string
-
-/**
- * Label text in the left column (horizontal) or above (vertical).
- */
-label?: string
-
-/**
- * Form layout. @default &#39;horizontal&#39;
- */
-layout?: &#39;horizontal&#39; | &#39;vertical&#39; = &#39;horizontal&#39;
-
-/**
- * Called when the user selects an option. Placeholder for future dropdown.
- */
-onChange?: (value: string) =&gt; void
-
-/**
- * Available options to display in the trigger.
- */
-options?: SelectOption[] = []
-
-/**
- * Text shown when no value is selected. @default &#39;Select&#39;
- */
-placeholder?: string = &#39;Select&#39;
-
-/**
- * Read-only — displays the value with a lock badge; not interactive.
- */
-readOnly?: boolean
-
-/**
- * Shows the red mandatory indicator on the left edge of the trigger.
- */
-required?: boolean
-
-style?: React.CSSProperties
-
-/**
- * Currently selected option value.
- */
-value?: string
-
-/**
- * Total component width in px. @default 670
- */
-width?: number | string = 670</code></pre>
+width?: any = 670</code></pre>
           </div>
         </div>
     
@@ -6620,7 +6085,7 @@ width?: number | string = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SetupTable</h2>
       <div class="badges">
-        <label for="c-16-design-system-components-table-props" class="badge ok as-toggle">12 prop types</label>
+        <label for="c-16-design-system-components-table-props" class="badge ok as-toggle">4 prop types</label>
         <label for="c-16-design-system-components-table-info" class="badge info as-toggle">1 info</label>
         <label for="c-16-design-system-components-table-stories" class="badge ok as-toggle">4 stories</label>
         
@@ -6656,60 +6121,17 @@ width?: number | string = 670</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">12 prop types</span>
+              <span class="badge ok">4 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Table/Table.tsx::SetupTable</code></pre>
+            <pre><code>Component: src/design-system/components/Table/Table.js::SetupTable</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>columns: TableColumn[]
+            <pre><code>emptyMessage?: any = &#39;No data&#39;
 
-/**
- * Message shown when rows is empty. @default &#39;No data&#39;
- */
-emptyMessage?: string = &#39;No data&#39;
+selectable?: any = false
 
-/**
- * When provided, renders a 3-dot action button on every row.
- */
-onRowAction?: (row: SetupTableRow, e: React.MouseEvent&lt;HTMLButtonElement&gt;) =&gt; void
+selectedIds?: any = []
 
-onSelectionChange?: (ids: string[]) =&gt; void
-
-/**
- * Called when a sortable column header is clicked. Toggle direction externally.
- */
-onSort?: (key: string) =&gt; void
-
-rows: SetupTableRow[]
-
-/**
- * Adds a checkbox column for bulk selection.
- */
-selectable?: boolean = false
-
-/**
- * Controlled selected row IDs.
- */
-selectedIds?: string[] = []
-
-/**
- * Controlled sort direction.
- */
-sortDir?: &#39;asc&#39; | &#39;desc&#39;
-
-/**
- * Controlled sort column key.
- */
-sortKey?: string
-
-/**
- * Alternating row tint (zebra stripes). @default false
- */
-striped?: boolean = false
-
-/**
- * Total component width in px or CSS string.
- */
-width?: number | string</code></pre>
+striped?: any = false</code></pre>
           </div>
         </div>
     
@@ -6789,7 +6211,7 @@ width?: number | string</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Switch</h2>
       <div class="badges">
-        <label for="c-17-design-system-components-switch-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-17-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
         <label for="c-17-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
         <label for="c-17-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
         
@@ -6825,19 +6247,11 @@ width?: number | string</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">2 prop types</span>
+              <span class="badge ok">1 prop type</span>
             </div>
-            <pre><code>Component: src/design-system/components/Switch/Switch.tsx::Switch</code></pre>
+            <pre><code>Component: src/design-system/components/Switch/Switch.js::Switch</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Label shown beside the switch.
- */
-label?: React.ReactNode
-
-/**
- * Label position. @default &#39;right&#39;
- */
-labelPosition?: &#39;left&#39; | &#39;right&#39; = &#39;right&#39;</code></pre>
+            <pre><code>labelPosition?: any = &#39;right&#39;</code></pre>
           </div>
         </div>
     
@@ -6960,7 +6374,7 @@ labelPosition?: &#39;left&#39; | &#39;right&#39; = &#39;right&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tabs</h2>
       <div class="badges">
-        <label for="c-18-design-system-components-tabs-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-18-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
         <label for="c-18-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
         <label for="c-18-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
         
@@ -6996,32 +6410,15 @@ labelPosition?: &#39;left&#39; | &#39;right&#39; = &#39;right&#39;</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">6 prop types</span>
+              <span class="badge ok">3 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Tabs/Tabs.tsx::Tabs</code></pre>
+            <pre><code>Component: src/design-system/components/Tabs/Tabs.js::Tabs</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>activeTab: string
+            <pre><code>showCount?: any = false
 
-onChange: (id: string) =&gt; void
+size?: any = &#39;md&#39;
 
-/**
- * Show count badges. When false (default) no badge is rendered even if a tab has a count value.
- */
-showCount?: boolean = false
-
-/**
- * md = Primary Tab 35px / Secondary Tab 35px outer
- * sm = Small Primary Tab 26px / Small Secondary Tab 30px outer
- */
-size?: &#39;md&#39; | &#39;sm&#39; = &#39;md&#39;
-
-tabs: TabItem[]
-
-/**
- * primary: flat bar with sliding underline indicator
- * secondary: pill container with sliding filled-pill indicator
- */
-variant?: &#39;primary&#39; | &#39;secondary&#39; = &#39;primary&#39;</code></pre>
+variant?: any = &#39;primary&#39;</code></pre>
           </div>
         </div>
     
@@ -7138,7 +6535,7 @@ variant?: &#39;primary&#39; | &#39;secondary&#39; = &#39;primary&#39;</code></pr
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tags</h2>
       <div class="badges">
-        <label for="c-19-design-system-components-tags-props" class="badge ok as-toggle">8 prop types</label>
+        <label for="c-19-design-system-components-tags-props" class="badge ok as-toggle">4 prop types</label>
         <label for="c-19-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
         <label for="c-19-design-system-components-tags-stories" class="badge ok as-toggle">6 stories</label>
         
@@ -7174,40 +6571,17 @@ variant?: &#39;primary&#39; | &#39;secondary&#39; = &#39;primary&#39;</code></pr
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">8 prop types</span>
+              <span class="badge ok">4 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Tags/Tags.tsx::Tags</code></pre>
+            <pre><code>Component: src/design-system/components/Tags/Tags.js::Tags</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>disabled?: boolean
+            <pre><code>options?: any = []
 
-error?: boolean
+placeholder?: any = &#39;Select&#39;
 
-/**
- * Called whenever the tag list changes (add or remove).
- */
-onChange?: (items: TagItem[]) =&gt; void
+value?: any = []
 
-/**
- * Pool of items the user can select from.
- */
-options?: TagItem[] = []
-
-/**
- * Placeholder shown when no tags are selected. @default &#39;Select&#39;
- */
-placeholder?: string = &#39;Select&#39;
-
-required?: boolean
-
-/**
- * Controlled list of selected tag items.
- */
-value?: TagItem[] = []
-
-/**
- * Total width of the container. @default &#39;100%&#39;
- */
-width?: number | string = &#39;100%&#39;</code></pre>
+width?: any = &#39;100%&#39;</code></pre>
           </div>
         </div>
     
@@ -7368,7 +6742,7 @@ width?: number | string = &#39;100%&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Textarea</h2>
       <div class="badges">
-        <label for="c-20-design-system-components-textarea-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-20-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
         <label for="c-20-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
         <label for="c-20-design-system-components-textarea-stories" class="badge ok as-toggle">9 stories</label>
         
@@ -7404,53 +6778,15 @@ width?: number | string = &#39;100%&#39;</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">9 prop types</span>
+              <span class="badge ok">3 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Textarea/Textarea.tsx::Textarea</code></pre>
+            <pre><code>Component: src/design-system/components/Textarea/Textarea.js::Textarea</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>/**
- * Override grid-template-columns for horizontal layout.
- * @default &#39;3fr 7fr&#39;
- */
-columns?: string
+            <pre><code>layout?: any = &#39;horizontal&#39;
 
-/**
- * Error state — border and helper text turn red.
- */
-error?: boolean
+minHeight?: any = 70
 
-/**
- * Forces a visual state for Storybook stories and visual regression tests.
- */
-forceState?: &#39;hover&#39; | &#39;focus&#39;
-
-/**
- * Assistive copy rendered below the field.
- */
-helperText?: string
-
-/**
- * Visible label.
- */
-label?: string
-
-/**
- * Form layout. @default &#39;horizontal&#39;
- */
-layout?: &#39;horizontal&#39; | &#39;vertical&#39; = &#39;horizontal&#39;
-
-/**
- * Minimum height when focused (expanded). The collapsed height is always 34px.
- * @default 70
- */
-minHeight?: number = 70
-
-style?: React.CSSProperties
-
-/**
- * Total component width in px or any CSS string. @default 670
- */
-width?: number | string = 670</code></pre>
+width?: any = 670</code></pre>
           </div>
         </div>
     
@@ -7618,7 +6954,7 @@ width?: number | string = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tooltip</h2>
       <div class="badges">
-        <label for="c-21-design-system-components-tooltip-props" class="badge ok as-toggle">10 prop types</label>
+        <label for="c-21-design-system-components-tooltip-props" class="badge ok as-toggle">5 prop types</label>
         <label for="c-21-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
         <label for="c-21-design-system-components-tooltip-stories" class="badge ok as-toggle">6 stories</label>
         
@@ -7654,38 +6990,19 @@ width?: number | string = 670</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">10 prop types</span>
+              <span class="badge ok">5 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/Tooltip/Tooltip.tsx::Tooltip</code></pre>
+            <pre><code>Component: src/design-system/components/Tooltip/Tooltip.js::Tooltip</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>alwaysVisible?: boolean = false
+            <pre><code>alwaysVisible?: any = false
 
-children: React.ReactElement
+disabled?: any = false
 
-content: React.ReactNode
+placement?: any = &#39;top&#39;
 
-/**
- * When true, tooltip never shows. Useful for conditionally disabling without changing tree structure.
- */
-disabled?: boolean = false
+showIcon?: any = false
 
-iconLabel?: string
-
-placement?: &#39;top&#39; | &#39;bottom&#39; | &#39;left&#39; | &#39;right&#39; = &#39;top&#39;
-
-showIcon?: boolean = false
-
-variant?: &#39;black&#39; | &#39;white&#39; | &#39;red&#39; = &#39;black&#39;
-
-/**
- * Class name forwarded to the outer wrapper span.
- */
-wrapperClassName?: string
-
-/**
- * Style forwarded to the outer wrapper span (e.g. flex layout).
- */
-wrapperStyle?: React.CSSProperties</code></pre>
+variant?: any = &#39;black&#39;</code></pre>
           </div>
         </div>
     
@@ -9680,7 +8997,7 @@ export const CreateNotification: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> UserPicker</h2>
       <div class="badges">
-        <label for="c-24-design-system-components-userpicker-props" class="badge ok as-toggle">14 prop types</label>
+        <label for="c-24-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
         <label for="c-24-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
         <label for="c-24-design-system-components-userpicker-stories" class="badge ok as-toggle">5 stories</label>
         
@@ -9716,49 +9033,17 @@ export const CreateNotification: Story = {
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">14 prop types</span>
+              <span class="badge ok">4 prop types</span>
             </div>
-            <pre><code>Component: src/design-system/components/UserPicker/UserPicker.tsx::UserPicker</code></pre>
+            <pre><code>Component: src/design-system/components/UserPicker/UserPicker.js::UserPicker</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>columns?: string
+            <pre><code>layout?: any = &#39;horizontal&#39;
 
-disabled?: boolean
+placeholder?: any = &#39;Select user&#39;
 
-error?: boolean
+users?: any = []
 
-helperText?: string
-
-id?: string
-
-label?: string
-
-/**
- * Form layout. @default &#39;horizontal&#39;
- */
-layout?: &#39;horizontal&#39; | &#39;vertical&#39; = &#39;horizontal&#39;
-
-onChange?: (userId: string) =&gt; void
-
-/**
- * Text shown when no user is selected. @default &#39;Select user&#39;
- */
-placeholder?: string = &#39;Select user&#39;
-
-required?: boolean
-
-style?: React.CSSProperties
-
-users?: UserOption[] = []
-
-/**
- * Controlled selected user id.
- */
-value?: string
-
-/**
- * Total component width in px or CSS string. @default 390
- */
-width?: number | string = 390</code></pre>
+width?: any = 390</code></pre>
           </div>
         </div>
     
@@ -12976,63 +12261,15 @@ export const CreateNotification: Story = {
           
     <div class="note err">
       <div class="note-title">Prop type error</div>
-      <div class="note-body"><pre><code>File: /home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Modal/Modal.tsx
+      <div class="note-body"><pre><code>File: /home/runner/work/crm-design-system/crm-design-system/src/design-system/components/Modal/Modal.js
 Error:
 No suitable component definition found.
 You can debug your component file in this playground: https://react-docgen.dev/playground
 Code:
 import { useEffect, useCallback, useState, useRef, useLayoutEffect } from &#39;react&#39;;
 import { createPortal } from &#39;react-dom&#39;;
-import styles from &#39;./Modal.module.css&#39;;
+import &#39;./Modal.css&#39;;
 import { Button } from &#39;../Button/Button&#39;;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────────────────────────────────────
-
-export interface ModalProps {
-  /** Controls visibility. */
-  isOpen: boolean;
-
-  /** Dialog title rendered in the header. */
-  title: string;
-
-  /**
-   * Optional icon element shown to the left of the title.
-   * Matches the Figma &quot;Header Icon&quot; boolean property.
-   */
-  headerIcon?: React.ReactNode;
-
-  /** Called when the modal should close (backdrop click or Escape key). */
-  onClose: () =&gt; void;
-
-  /** Called when the cancel button is clicked (also calls onClose). */
-  onCancel?: () =&gt; void;
-
-  /** Called when the save / primary action button is clicked. */
-  onSave?: () =&gt; void;
-
-  /** Label for the secondary action button. @default &quot;Cancel&quot; */
-  cancelLabel?: string;
-
-  /** Label for the primary action button. @default &quot;Save&quot; */
-  saveLabel?: string;
-
-  /**
-   * Optional content rendered below the form fields and above the footer —
-   * typically a Checkbox with helper text (matches Figma Frame 875).
-   */
-  footerNote?: React.ReactNode;
-
-  /** Form fields and content rendered in the body. */
-  children?: React.ReactNode;
-
-  /**
-   * Total modal width in px.
-   * @default 569
-   */
-  width?: number;
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Component
@@ -13050,12 +12287,12 @@ export function Modal({
   footerNote,
   children,
   width = 569,
-}: ModalProps) {
+}) {
   // isVisible stays true during the slide-up closing animation
   const [isVisible, setIsVisible] = useState(isOpen);
   const [isClosing, setIsClosing] = useState(false);
-  const dialogRef = useRef&lt;HTMLDivElement&gt;(null);
-  const bodyRef = useRef&lt;HTMLDivElement&gt;(null);
+  const dialogRef = useRef(null);
+  const bodyRef = useRef(null);
   const [isBodyScrollable, setIsBodyScrollable] = useState(false);
 
   useEffect(() =&gt; {
@@ -13083,7 +12320,7 @@ export function Modal({
   useEffect(() =&gt; {
     if (isVisible &amp;&amp; !isClosing) {
       const t = setTimeout(() =&gt; {
-        const first = dialogRef.current?.querySelector&lt;HTMLElement&gt;(
+        const first = dialogRef.current?.querySelector(
           &#39;input:not([disabled]):not([readonly]), textarea:not([disabled])&#39;
         );
         first?.focus();
@@ -13095,7 +12332,7 @@ export function Modal({
   // Close on Escape key
   useEffect(() =&gt; {
     if (!isVisible) return;
-    const handler = (e: KeyboardEvent) =&gt; {
+    const handler = (e) =&gt; {
       if (e.key === &#39;Escape&#39;) onClose();
     };
     document.addEventListener(&#39;keydown&#39;, handler);
@@ -13137,10 +12374,10 @@ export function Modal({
   if (!isVisible) return null;
 
   return createPortal(
-    &lt;div className={styles.backdrop} aria-hidden=&quot;true&quot;&gt;
+    &lt;div className=&#39;modal-backdrop&#39; aria-hidden=&quot;true&quot;&gt;
       &lt;div
         ref={dialogRef}
-        className={styles.dialog}
+        className=&#39;modal-dialog&#39;
         role=&quot;dialog&quot;
         aria-modal=&quot;true&quot;
         aria-labelledby=&quot;modal-title&quot;
@@ -13150,30 +12387,30 @@ export function Modal({
         onClick={(e) =&gt; e.stopPropagation()}
       &gt;
         {/* ── Header ───────────────────────────────────────────────────── */}
-        &lt;div className={styles.header}&gt;
+        &lt;div className=&#39;modal-header&#39;&gt;
           {headerIcon &amp;&amp; (
-            &lt;span className={styles.headerIcon} aria-hidden=&quot;true&quot;&gt;
+            &lt;span className=&#39;modal-header-icon&#39; aria-hidden=&quot;true&quot;&gt;
               {headerIcon}
             &lt;/span&gt;
           )}
-          &lt;h2 id=&quot;modal-title&quot; className={styles.title}&gt;
+          &lt;h2 id=&quot;modal-title&quot; className=&#39;modal-title&#39;&gt;
             {title}
           &lt;/h2&gt;
         &lt;/div&gt;
 
         {/* ── Body ─────────────────────────────────────────────────────── */}
-        &lt;div ref={bodyRef} className={styles.body}&gt;
+        &lt;div ref={bodyRef} className=&#39;modal-body&#39;&gt;
           {children}
         &lt;/div&gt;
 
         {/* ── Footer area (note + buttons) ─────────────────────────────── */}
-        &lt;div className={styles.footerArea} data-shadow={isBodyScrollable || undefined}&gt;
+        &lt;div className=&#39;modal-footer-area&#39; data-shadow={isBodyScrollable || undefined}&gt;
           {footerNote &amp;&amp; (
-            &lt;div className={styles.footerNote}&gt;
+            &lt;div className=&#39;modal-footer-note&#39;&gt;
               {footerNote}
             &lt;/div&gt;
           )}
-          &lt;div className={styles.footer}&gt;
+          &lt;div className=&#39;modal-footer&#39;&gt;
             &lt;Button variant=&quot;default&quot; onClick={handleCancel}&gt;
               {cancelLabel}
             &lt;/Button&gt;
