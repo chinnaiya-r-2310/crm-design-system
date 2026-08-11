@@ -12,7 +12,10 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./wc": {
+      "import": "./dist/wc/index.js"
+    }
   },
   "files": [
     "dist"
@@ -24,6 +27,7 @@
     "dev": "vite",
     "storybook": "storybook dev -p 6006",
     "build": "vite build --config vite.lib.config.ts && tsc -p tsconfig.lib.json",
+    "build:wc": "vite build --config vite.wc.config.ts",
     "build-storybook": "storybook build",
     "build:app": "tsc -b && vite build",
     "lint": "eslint .",
@@ -35,7 +39,9 @@
     "react": ">=18",
     "react-dom": ">=18"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lit": "^3.3.3"
+  },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
     "@eslint/js": "^10.0.1",
