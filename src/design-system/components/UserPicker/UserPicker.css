@@ -121,13 +121,12 @@
   pointer-events: none;
 }
 
-/* Trigger content when a user is selected */
+/* Trigger content when a user is selected — name only, no avatar */
 .user-picker-trigger-user {
   flex: 1;
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
   padding: 0 10px;
 }
 
@@ -211,6 +210,106 @@
   box-shadow: 0 2px 8px 0 var(--ds-shadow-dropdown, rgba(0, 0, 0, 0.15));
   padding: 6px 0;
   box-sizing: border-box;
+}
+
+/* ── Filter bar (above search) ────────────────────────────────────────────── */
+
+.user-picker-filter-bar {
+  display: flex;
+  align-items: stretch;
+  margin: 6px 10px 0;
+  border: 1px solid var(--ds-components-input-default-outline, #C5C4D4);
+  border-radius: 6px;
+  overflow: hidden;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.user-picker-filter-group {
+  display: contents;
+}
+
+.user-picker-filter-divider {
+  width: 1px;
+  background: var(--ds-components-input-default-outline, #C5C4D4);
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.user-picker-filter-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  color: var(--ds-text-base, #313949);
+  gap: 6px;
+  outline: none;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.user-picker-filter-btn:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+.user-picker-filter-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.user-picker-filter-chevron {
+  flex-shrink: 0;
+  color: var(--ds-text-label, #616E88);
+  transition: transform 150ms ease;
+}
+
+.user-picker-filter-btn[data-open] .user-picker-filter-chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Filter option dropdown ───────────────────────────────────────────────── */
+
+.user-picker-filter-dropdown {
+  position: fixed;
+  z-index: 1600;
+  background: var(--ds-components-dropdown-option-bg, #ffffff);
+  border: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.user-picker-filter-option {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  color: var(--ds-text-base, #313949);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.user-picker-filter-option:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+.user-picker-filter-option[data-selected] {
+  color: var(--ds-brand-primary, #5464F2);
+  font-weight: 500;
 }
 
 /* ── Search row ───────────────────────────────────────────────────────────── */
@@ -298,7 +397,7 @@
   user-select: none;
   box-sizing: border-box;
   gap: 8px;
-  padding-right: 10px;
+  padding: 0 10px 0 25px;
 }
 
 .user-picker-user-option[data-active] {
@@ -314,17 +413,7 @@
   background: transparent;
 }
 
-/* Checkmark slot — 25px wide, matches Figma paddingLeft indent */
-.user-picker-check-slot {
-  width: 25px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ds-text-base);
-}
-
-/* Name + email column */
+/* Name + sub-label column */
 .user-picker-user-info {
   flex: 1;
   min-width: 0;
@@ -344,15 +433,26 @@
   text-overflow: ellipsis;
 }
 
-.user-picker-user-email {
+.user-picker-user-sub {
   font-family: var(--ds-font-family-base);
-  font-size: var(--ds-font-size-xs, 11px);
+  font-size: var(--ds-font-size-base, 13px);
   font-weight: var(--ds-font-weight-regular, 400);
-  line-height: var(--ds-line-height-xs, 15px);
-  color: var(--ds-text-label, #616E88);
+  line-height: var(--ds-line-height-base, 20px);
+  color: var(--ds-brand-primary, #5464F2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* ── Checkmark — shown on the right when option is selected ──────────────── */
+
+.user-picker-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  color: var(--ds-brand-primary, #5464F2);
 }
 
 /* ── No results ───────────────────────────────────────────────────────────── */

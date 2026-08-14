@@ -1,22 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────────────
-   SetupTable — CSS Module
-   Figma: Chinnaiya-Style-Sheet node 93640-149179 — "Setup - List"
-
-   DOM anatomy
-   ─────────────
-     .table-root                      rounded card wrapper
-       table.table-table
-         thead
-           tr.table-header-row
-             th.table-th               (+ .table-th-with-sep for all but last)
-             th.table-th.table-checkbox-cell  (first, when selectable)
-             th.table-th.table-actions-cell   (last, when onRowAction provided)
-         tbody
-           tr.table-body-row            [data-selected] [data-alt]
-             td.table-td
-             td.table-td.table-checkbox-cell
-             td.table-td.table-actions-cell
-               button.table-action-btn
+   SetupTable
+   Figma: Chinnaiya-Style-Sheet node 93640-149179
    ───────────────────────────────────────────────────────────────────────────── */
 
 /* ── Root card ───────────────────────────────────────────────────────────── */
@@ -27,6 +11,19 @@
   background: var(--ds-bg-common-card, #FFFFFF);
   overflow: hidden;
   box-sizing: border-box;
+}
+
+/* ── Horizontal scroll — wraps both header and body tables ───────────────── */
+
+.table-h-scroll {
+  overflow-x: auto;
+}
+
+/* ── Body scroll wrapper — vertical only; header is outside this ─────────── */
+
+.table-body-wrap {
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* ── Table ───────────────────────────────────────────────────────────────── */
@@ -40,7 +37,6 @@
 
 .table-header-row {
   height: 36px;
-  background: var(--ds-components-table-header-bg, #F4F7FF);
   border-bottom: 1px solid var(--ds-components-table-header-outline-border, #D9E0EB);
 }
 
@@ -48,33 +44,63 @@
 
 .table-th {
   position: relative;
-  padding: 0 12px;
-  font-family: var(--ds-font-family-base);
-  font-size: var(--ds-font-size-base, 13px);
-  font-weight: var(--ds-font-weight-regular, 400);
-  line-height: var(--ds-line-height-base, 20px);
-  color: var(--ds-text-label, #616E88);
+  padding: 0;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px;
+  color: var(--Primary-Palette-Heading, #202123);
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
   text-align: left;
   box-sizing: border-box;
+  user-select: none;
+  background: var(--ds-bg-common-card, #ffffff);
 }
 
-/* Thin separator line between header cells */
-.table-th-with-sep::after {
-  content: '';
+/* Inner flex row for label + optional chevron */
+.table-th-inner {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px;
+  overflow: hidden;
+}
+
+/* ── Draggable resize handle ─────────────────────────────────────────────── */
+
+.table-resize-handle {
   position: absolute;
+  top: 0;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 16px;
-  width: 1px;
-  background: var(--ds-components-table-header-outline-border, #D9E0EB);
+  bottom: 0;
+  width: 6px;
+  cursor: col-resize;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ── Sort button in header ───────────────────────────────────────────────── */
+.table-resize-handle::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 16px;
+  background: var(--ds-components-table-header-outline-border, #D9E0EB);
+  transition: height 150ms ease, background 150ms ease;
+}
 
-.table-sort-btn {
+.table-resize-handle:hover::after {
+  height: 26px;
+  background: var(--ds-brand-primary, #5464F2);
+}
+
+/* ── Filter button (shows selected value or column label) ────────────────── */
+
+.table-filter-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -86,11 +112,75 @@
   color: inherit;
   white-space: nowrap;
   outline: none;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
-.table-sort-btn:focus-visible {
-  outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
-  border-radius: 2px;
+.table-filter-btn-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-filter-chevron[data-open] {
+  transform: rotate(180deg);
+}
+
+/* ── Filter dropdown panel ───────────────────────────────────────────────── */
+
+.table-filter-panel {
+  position: fixed;
+  z-index: 1500;
+  background: var(--ds-components-dropdown-option-bg, #ffffff);
+  border: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  padding: 6px 0;
+  min-width: 160px;
+  max-height: 240px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.table-filter-option {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 13px);
+  color: var(--ds-text-base, #313949);
+  user-select: none;
+}
+
+.table-filter-option:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+.table-filter-option[data-selected] {
+  color: var(--ds-brand-primary, #5464F2);
+}
+
+/* Spacer that pushes check icon to the right */
+.table-filter-option-label {
+  flex: 1;
+}
+
+/* Check icon slot — only visible when selected */
+.table-filter-check {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 16px;
+  color: var(--ds-brand-primary, #5464F2);
+  opacity: 0;
+}
+
+.table-filter-option[data-selected] .table-filter-check {
+  opacity: 1;
 }
 
 /* ── Body row ────────────────────────────────────────────────────────────── */
@@ -117,7 +207,6 @@
   background: var(--ds-components-table-table-checked, #F5F8FF);
 }
 
-/* Alternate row tint */
 .table-body-row[data-alt] {
   background: var(--ds-components-table-alter-color, #FAFBFC);
 }
@@ -141,6 +230,40 @@
   box-sizing: border-box;
 }
 
+/* ── Avatar cell (created by / modified by) ──────────────────────────────── */
+
+.table-avatar-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.table-avatar-cell img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid #E0E0EC;
+}
+
+/* avatar + date only (no username text) — tooltip shows the name */
+.table-avatar-date-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: default;
+}
+
+.table-avatar-date-cell img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid #E0E0EC;
+}
+
 /* ── Checkbox column ─────────────────────────────────────────────────────── */
 
 .table-checkbox-cell {
@@ -149,11 +272,11 @@
   text-align: center;
 }
 
-/* ── Actions column (3-dot menu) ─────────────────────────────────────────── */
+/* ── Actions column (leftmost — More icon, appears on hover) ─────────────── */
 
 .table-actions-cell {
-  width: 52px;
-  padding: 0 8px;
+  width: 36px;
+  padding: 0 2px;
   text-align: center;
 }
 
@@ -161,23 +284,32 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 27px;
+  height: 27px;
   padding: 0;
-  border: none;
+  border: 1px solid transparent;
   background: none;
-  border-radius: 4px;
+  border-radius: 99px;
   cursor: pointer;
   color: var(--ds-text-label, #616E88);
-  transition: background 150ms ease, color 150ms ease;
+  opacity: 0;
+  transition: opacity 150ms ease, background 150ms ease,
+              border-color 150ms ease, box-shadow 150ms ease;
+  box-sizing: border-box;
+}
+
+.table-body-row:hover .table-action-btn {
+  opacity: 1;
 }
 
 .table-action-btn:hover {
-  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
-  color: var(--ds-text-base, #313949);
+  background: #ffffff;
+  border-color: #C0C6CC;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .table-action-btn:focus-visible {
+  opacity: 1;
   outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
 }
 

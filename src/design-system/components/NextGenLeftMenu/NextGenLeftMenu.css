@@ -1,0 +1,288 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   NextGen Left Menu
+   Figma: Chinnaiya-Style-Sheet node 93673-150972
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Root ────────────────────────────────────────────────────────────────── */
+
+.nglm-root {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  height: 100%;
+  background: #223458;
+  overflow: hidden;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  color: rgba(255, 255, 255, 0.85);
+  box-sizing: border-box;
+  user-select: none;
+}
+
+/* ── App header ──────────────────────────────────────────────────────────── */
+
+.nglm-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 50px;
+  padding: 7px 8px 7px 10px;
+  flex-shrink: 0;
+}
+
+.nglm-app-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #7B6EF6, #9B5CF6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.nglm-app-name {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nglm-header-chevron {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Shared icon button ──────────────────────────────────────────────────── */
+
+.nglm-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+  padding: 0;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.nglm-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── Top nav section ─────────────────────────────────────────────────────── */
+
+.nglm-top-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 10px 10px;
+  border-bottom: 1px solid #505882;
+  flex-shrink: 0;
+}
+
+/* ── Shared menu item ────────────────────────────────────────────────────── */
+
+.nglm-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 30px;
+  padding: 3px 3px 3px 6px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  text-align: left;
+  transition: background 150ms ease, color 150ms ease;
+  box-sizing: border-box;
+}
+
+.nglm-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.nglm-item.nglm-active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.nglm-item.nglm-active .nglm-item-icon {
+  color: #fff;
+}
+
+.nglm-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.nglm-item-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Teamspace row ───────────────────────────────────────────────────────── */
+
+.nglm-teamspace {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 2px 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #505882;
+}
+
+.nglm-ts-badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #3BAD6E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.nglm-ts-name {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nglm-ts-chevron {
+  color: rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+}
+
+.nglm-ts-more {
+  width: 24px;
+  height: 24px;
+}
+
+/* ── Module section ──────────────────────────────────────────────────────── */
+
+.nglm-modules {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 8px 10px 0;
+}
+
+/* ── Search ──────────────────────────────────────────────────────────────── */
+
+.nglm-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 8px;
+  margin-bottom: 6px;
+  background: transparent;
+  border: 1px solid #505882;
+  border-radius: 6px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.nglm-search-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.nglm-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  outline: none;
+}
+
+.nglm-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ── Module list ─────────────────────────────────────────────────────────── */
+
+.nglm-module-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-bottom: 12px;
+}
+
+.nglm-module-list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.nglm-module-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nglm-module-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+
+/* ── Folder ──────────────────────────────────────────────────────────────── */
+
+.nglm-folder-trigger {
+  /* inherits .nglm-item */
+}
+
+.nglm-folder-icon {
+  color: #5B8BFF;
+}
+
+.nglm-folder-chevron {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.nglm-folder-children {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-left: 22px;
+}

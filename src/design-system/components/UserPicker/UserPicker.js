@@ -3,6 +3,36 @@ import { createPortal } from 'react-dom';
 import './UserPicker.css';
 import { ChevronDownFilled, Search as SearchIcon, Check } from '../../foundations/icons/Icons';
 
+// FilterDropdown — small portal dropdown for a filter group
+function FilterDropdown({ options, selected, onSelect, anchorEl }) {
+  const [pos, setPos] = useState(null);
+  useEffect(() => {
+    if (!anchorEl) return;
+    const r = anchorEl.getBoundingClientRect();
+    setPos({ top: r.bottom + 2, left: r.left, width: r.width });
+  }, [anchorEl]);
+  if (!pos) return null;
+  return createPortal(
+    <div
+      className="user-picker-filter-dropdown"
+      style={{ top: pos.top, left: pos.left, minWidth: pos.width }}
+      onMouseDown={e => e.stopPropagation()}
+    >
+      {options.map(opt => (
+        <div
+          key={opt}
+          className="user-picker-filter-option"
+          data-selected={selected === opt || undefined}
+          onClick={() => onSelect(opt)}
+        >
+          {opt}
+        </div>
+      ))}
+    </div>,
+    document.body
+  );
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers
 // ─────────────────────────────────────────────────────────────────────────────
@@ -63,6 +93,8 @@ export function UserPicker({
   disabled,
   error,
   onChange,
+  onFilterChange,
+  filters,        // Array<{ id: string, options: string[] }>
   id: idProp,
   style,
   columns,
@@ -76,6 +108,13 @@ export function UserPicker({
   const [internalValue, setInternalValue] = useState(value);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [panelPos, setPanelPos] = useState(null);
+  const [openFilterId, setOpenFilterId] = useState(null); // id of filter group whose dropdown is open
+  const [activeFilterOpts, setActiveFilterOpts] = useState(() => {
+    const init = {};
+    (filters ?? []).forEach(g => { init[g.id] = g.options[0] ?? ''; });
+    return init;
+  });
+  const filterBtnRefs = useRef({}); // groupId → button DOM element
 
   const rootRef     = useRef(null);
   const triggerRef  = useRef(null);
@@ -91,7 +130,7 @@ export function UserPicker({
   const filtered = search
     ? users.filter(u =>
         u.name.toLowerCase().includes(search.toLowerCase()) ||
-        u.email.toLowerCase().includes(search.toLowerCase())
+        (u.subLabel ?? '').toLowerCase().includes(search.toLowerCase())
       )
     : users;
 
@@ -116,7 +155,13 @@ export function UserPicker({
     setSearch('');
   };
 
-  // Close on outside click
+  const selectFilter = (groupId, opt) => {
+    setActiveFilterOpts(prev => ({ ...prev, [groupId]: opt }));
+    setOpenFilterId(null);
+    onFilterChange?.(groupId, opt);
+  };
+
+  // Close panel on outside click
   useEffect(() => {
     if (!open) return;
     const handler = (e) => {
@@ -126,6 +171,14 @@ export function UserPicker({
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, [open]);
+
+  // Close filter dropdown on outside click
+  useEffect(() => {
+    if (!openFilterId) return;
+    const handler = () => setOpenFilterId(null);
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [openFilterId]);
 
   // Position panel on open
   useEffect(() => {
@@ -211,6 +264,36 @@ export function UserPicker({
       aria-label={label ?? 'Select user'}
       onKeyDown={handleKeyDown}
     >
+      {filters && filters.length > 0 && (
+        <div className={'user-picker-filter-bar'} onMouseDown={e => e.stopPropagation()}>
+          {filters.map((group, idx) => (
+            <span key={group.id} className={'user-picker-filter-group'}>
+              {idx > 0 && <span className={'user-picker-filter-divider'} aria-hidden="true" />}
+              <button
+                ref={el => { filterBtnRefs.current[group.id] = el; }}
+                type="button"
+                className={'user-picker-filter-btn'}
+                data-open={openFilterId === group.id || undefined}
+                onClick={() => setOpenFilterId(prev => prev === group.id ? null : group.id)}
+              >
+                <span className={'user-picker-filter-label'}>
+                  {activeFilterOpts[group.id] ?? group.options[0]}
+                </span>
+                <ChevronDownFilled className={'user-picker-filter-chevron'} />
+              </button>
+              {openFilterId === group.id && (
+                <FilterDropdown
+                  options={group.options}
+                  selected={activeFilterOpts[group.id]}
+                  onSelect={opt => selectFilter(group.id, opt)}
+                  anchorEl={filterBtnRefs.current[group.id]}
+                />
+              )}
+            </span>
+          ))}
+        </div>
+      )}
+
       <div className={'user-picker-search-row'}>
         <div className={'user-picker-search-box'}>
           <span className={'user-picker-search-icon'}><SearchIcon /></span>
@@ -254,14 +337,18 @@ export function UserPicker({
                 onMouseEnter={() => setActiveIndex(idx)}
                 onClick={() => select(user)}
               >
-                <span className={'user-picker-check-slot'}>
-                  {isSelected && <Check aria-hidden="true" />}
-                </span>
                 <Avatar user={user} size={28} />
                 <div className={'user-picker-user-info'}>
                   <span className={'user-picker-user-name'}>{user.name}</span>
-                  <span className={'user-picker-user-email'}>{user.email}</span>
+                  {user.subLabel && (
+                    <span className={'user-picker-user-sub'}>{user.subLabel}</span>
+                  )}
                 </div>
+                {isSelected && (
+                  <span className={'user-picker-check'} aria-hidden="true">
+                    <Check />
+                  </span>
+                )}
               </div>
             );
           })

@@ -6,6 +6,12 @@ import {
   AlertError, AlertInfo, AlertSuccess, AlertWarning,
   Check, ChevronDownFilled, Close, CloseSmall, CompanyAvatar, CriteriaMinus, CriteriaPlus,
   Edit, GroupAvatar, HelpCircle, ImageAvatar, Info, Lock, More, ResizeHandle, Search, UserAvatar,
+  Folder, SidebarCollapse, ChevronUp,
+  ModuleLeads, ModuleContacts, ModuleAccounts, ModuleDeals, ModuleForecasts,
+  ModuleSolutions, ModuleProducts, ModuleCases, ModuleActivities, ModuleMeeting,
+  ModuleReports, ModuleHome, ModuleDocs, ModuleSocial, ModuleCustom, ModuleMyJobs, ModuleAnalytics,
+  Bell, CalendarIcon, Settings, BentoMenu, ZiaAI, AppMarket,
+  Motivator, AlarmClock, Zia, File, Comment, Announcement,
 } from '../../foundations/icons/Icons';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -346,6 +352,174 @@ export const Accessibility: Story = {
         <Icon name="Search" size={16} title="Search records" />
         <span>Meaningful via title — same effect as aria-label</span>
       </div>
+    </div>
+  ),
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Full icon gallery — every icon component, organized by category
+// ─────────────────────────────────────────────────────────────────────────────
+
+const CELL_STYLE: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '10px',
+  padding: '18px 8px 12px',
+  border: '1px solid var(--ds-components-input-default-outline)',
+  borderRadius: '8px',
+  background: 'var(--ds-bg-common-card)',
+  cursor: 'default',
+};
+
+const LABEL_STYLE: React.CSSProperties = {
+  fontSize: '10px',
+  color: 'var(--ds-text-label)',
+  textAlign: 'center',
+  lineHeight: '13px',
+  wordBreak: 'break-word',
+  maxWidth: '80px',
+};
+
+const GRID_STYLE: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(96px, 1fr))',
+  gap: '8px',
+};
+
+const SECTION_LABEL_STYLE: React.CSSProperties = {
+  fontSize: '11px',
+  fontWeight: 600,
+  color: 'var(--ds-text-label)',
+  letterSpacing: '0.06em',
+  textTransform: 'uppercase',
+  marginBottom: '10px',
+  marginTop: '28px',
+};
+
+function IconCell({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div style={CELL_STYLE} title={label}>
+      {children}
+      <span style={LABEL_STYLE}>{label}</span>
+    </div>
+  );
+}
+
+export const AllIcons: Story = {
+  name: 'All Icons',
+  parameters: { controls: { disable: true }, layout: 'padded' },
+  render: () => (
+    <div style={{ fontFamily: 'var(--ds-font-family-base)', maxWidth: '960px', color: 'var(--ds-text-base)' }}>
+
+      {/* ── Utility ── */}
+      <div style={SECTION_LABEL_STYLE}>Utility</div>
+      <div style={GRID_STYLE}>
+        {([
+          ['Info',              <Info key="i" width={18} height={18} />],
+          ['Lock',              <Lock key="l" width={16} height={16} />],
+          ['Search',            <Search key="s" width={14} height={14} />],
+          ['More',              <More key="m" width={16} height={16} />],
+          ['Check',             <Check key="ch" width={11} height={8} />],
+          ['ChevronDownFilled', <ChevronDownFilled key="cdf" width={10} height={5} />],
+          ['ChevronUp',         <ChevronUp key="cu" width={10} height={5} />],
+          ['Edit',              <Edit key="e" width={12} height={12} />],
+          ['Close',             <Close key="cl" width={8} height={8} />],
+          ['CloseSmall',        <CloseSmall key="cs" width={8} height={8} />],
+          ['ResizeHandle',      <ResizeHandle key="r" width={10} height={10} />],
+          ['CriteriaMinus',     <CriteriaMinus key="cm" width={16} height={16} />],
+          ['CriteriaPlus',      <CriteriaPlus key="cp" width={16} height={16} />],
+          ['HelpCircle',        <HelpCircle key="hc" width={16} height={16} />],
+          ['Folder',            <Folder key="fo" width={16} height={14} />],
+          ['SidebarCollapse',   <SidebarCollapse key="sc" width={16} height={16} />],
+        ] as [string, React.ReactNode][]).map(([label, el]) => (
+          <IconCell key={label} label={label}>{el}</IconCell>
+        ))}
+      </div>
+
+      {/* ── Alert ── */}
+      <div style={SECTION_LABEL_STYLE}>Alert</div>
+      <div style={GRID_STYLE}>
+        {([
+          ['AlertSuccess', <AlertSuccess key="as" width={22} height={22} />],
+          ['AlertError',   <AlertError   key="ae" width={22} height={22} />],
+          ['AlertWarning', <AlertWarning key="aw" width={22} height={22} />],
+          ['AlertInfo',    <AlertInfo    key="ai" width={22} height={22} />],
+        ] as [string, React.ReactNode][]).map(([label, el]) => (
+          <IconCell key={label} label={label}>{el}</IconCell>
+        ))}
+      </div>
+
+      {/* ── Avatar ── */}
+      <div style={SECTION_LABEL_STYLE}>Avatar</div>
+      <div style={GRID_STYLE}>
+        {([
+          ['UserAvatar',    <UserAvatar    key="ua" width={40} height={40} />],
+          ['GroupAvatar',   <GroupAvatar   key="ga" width={40} height={40} />],
+          ['CompanyAvatar', <CompanyAvatar key="ca" width={40} height={40} />],
+          ['ImageAvatar',   <ImageAvatar   key="ima" width={40} height={40} />],
+        ] as [string, React.ReactNode][]).map(([label, el]) => (
+          <IconCell key={label} label={label}>{el}</IconCell>
+        ))}
+      </div>
+
+      {/* ── Module ── */}
+      <div style={SECTION_LABEL_STYLE}>Module</div>
+      <div style={GRID_STYLE}>
+        {([
+          ['Home',       <ModuleHome       key="mh"  width={16} height={15} />],
+          ['Analytics',  <ModuleAnalytics  key="man" width={17} height={16} />],
+          ['Reports',    <ModuleReports    key="mr"  width={16} height={16} />],
+          ['Leads',      <ModuleLeads      key="ml"  width={16} height={16} />],
+          ['Contacts',   <ModuleContacts   key="mc"  width={16} height={16} />],
+          ['Accounts',   <ModuleAccounts   key="mac" width={17} height={16} />],
+          ['Deals',      <ModuleDeals      key="md"  width={16} height={16} />],
+          ['Forecasts',  <ModuleForecasts  key="mf"  width={16} height={16} />],
+          ['Products',   <ModuleProducts   key="mp"  width={16} height={16} />],
+          ['Cases',      <ModuleCases      key="mca" width={18} height={16} />],
+          ['Solutions',  <ModuleSolutions  key="ms"  width={17} height={16} />],
+          ['Activities', <ModuleActivities key="ma"  width={16} height={16} />],
+          ['Meeting',    <ModuleMeeting    key="mm"  width={16} height={18} />],
+          ['Docs',       <ModuleDocs       key="mdo" width={16} height={16} />],
+          ['Social',     <ModuleSocial     key="mso" width={16} height={16} />],
+          ['Custom',     <ModuleCustom     key="mcu" width={16} height={16} />],
+          ['My Jobs',    <ModuleMyJobs     key="mmj" width={16} height={16} />],
+        ] as [string, React.ReactNode][]).map(([label, el]) => (
+          <IconCell key={label} label={label}>{el}</IconCell>
+        ))}
+      </div>
+
+      {/* ── Top Bar ── */}
+      <div style={SECTION_LABEL_STYLE}>Top Bar</div>
+      <div style={GRID_STYLE}>
+        {([
+          ['Bell',      <Bell      key="bl"  width={18} height={18} />],
+          ['Calendar',  <CalendarIcon key="cl" width={18} height={18} />],
+          ['Settings',  <Settings  key="sg"  width={18} height={18} />],
+          ['BentoMenu', <BentoMenu key="bm"  width={16} height={16} />],
+          ['ZiaAI',     <ZiaAI     key="za"  width={21} height={20} />],
+          ['AppMarket', <AppMarket key="am"  width={18} height={17} />],
+        ] as [string, React.ReactNode][]).map(([label, el]) => (
+          <IconCell key={label} label={label}>{el}</IconCell>
+        ))}
+      </div>
+
+      {/* ── WMS Bar ── */}
+      <div style={SECTION_LABEL_STYLE}>WMS Bar</div>
+      <div style={GRID_STYLE}>
+        {([
+          ['Motivator',    <Motivator    key="mo" width={14} height={14} />],
+          ['AlarmClock',   <AlarmClock   key="ac" width={16} height={15} />],
+          ['Zia',          <Zia          key="zi" width={17} height={13} />],
+          ['File',         <File         key="fi" width={13} height={15} />],
+          ['Comment',      <Comment      key="co" width={14} height={14} />],
+          ['Announcement', <Announcement key="an" width={13} height={17} />],
+        ] as [string, React.ReactNode][]).map(([label, el]) => (
+          <IconCell key={label} label={label}>{el}</IconCell>
+        ))}
+      </div>
+
     </div>
   ),
 };

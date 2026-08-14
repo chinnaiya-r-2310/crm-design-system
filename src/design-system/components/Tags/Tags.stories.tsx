@@ -10,8 +10,8 @@ const meta: Meta<typeof Tags> = {
     docs: {
       description: {
         component:
-          'Multiselect tag input — click or type to search from available options. ' +
-          'Selected items appear as chips. Backspace removes the last chip.',
+          'Multiselect tag input. First Backspace (empty input) highlights the last tag; second Backspace removes it. ' +
+          'Tags accept an optional imageUrl for a user avatar.',
       },
     },
   },
@@ -20,14 +20,16 @@ const meta: Meta<typeof Tags> = {
 export default meta;
 type Story = StoryObj<typeof Tags>;
 
-const USER_OPTIONS: TagItem[] = [
-  { value: 'alice',   label: 'Alice Johnson' },
-  { value: 'bob',     label: 'Bob Smith' },
-  { value: 'carol',   label: 'Carol Williams' },
-  { value: 'david',   label: 'David Brown' },
-  { value: 'eve',     label: 'Eve Davis' },
-  { value: 'frank',   label: 'Frank Miller' },
-  { value: 'grace',   label: 'Grace Lee' },
+const avatar = (n: number) => `/images/avatars/user_0${n}.jpg`;
+
+const TAG_OPTIONS: TagItem[] = [
+  { value: 'design',     label: 'Design' },
+  { value: 'frontend',   label: 'Frontend' },
+  { value: 'backend',    label: 'Backend' },
+  { value: 'qa',         label: 'QA' },
+  { value: 'devops',     label: 'DevOps' },
+  { value: 'product',    label: 'Product' },
+  { value: 'marketing',  label: 'Marketing' },
 ];
 
 const ROLE_OPTIONS: TagItem[] = [
@@ -45,9 +47,9 @@ export const Default: Story = {
     return (
       <Tags
         value={tags}
-        options={USER_OPTIONS}
+        options={TAG_OPTIONS}
         onChange={setTags}
-        placeholder="Select users"
+        placeholder="Select tags"
         width={390}
       />
     );
@@ -59,15 +61,15 @@ export const Default: Story = {
 export const WithValues: Story = {
   render: () => {
     const [tags, setTags] = useState<TagItem[]>([
-      { value: 'alice', label: 'Alice Johnson' },
-      { value: 'bob',   label: 'Bob Smith' },
+      { value: 'design',   label: 'Design' },
+      { value: 'frontend', label: 'Frontend' },
     ]);
     return (
       <Tags
         value={tags}
-        options={USER_OPTIONS}
+        options={TAG_OPTIONS}
         onChange={setTags}
-        placeholder="Select users"
+        placeholder="Select tags"
         width={390}
       />
     );
@@ -125,7 +127,7 @@ export const ErrorState: Story = {
     return (
       <Tags
         value={tags}
-        options={USER_OPTIONS}
+        options={TAG_OPTIONS}
         onChange={setTags}
         error
         width={390}
@@ -140,9 +142,40 @@ export const ErrorState: Story = {
 export const Disabled: Story = {
   render: () => {
     const tags: TagItem[] = [
-      { value: 'alice', label: 'Alice Johnson' },
-      { value: 'carol', label: 'Carol Williams' },
+      { value: 'design',  label: 'Design' },
+      { value: 'backend', label: 'Backend' },
     ];
-    return <Tags value={tags} options={USER_OPTIONS} disabled width={390} />;
+    return <Tags value={tags} options={TAG_OPTIONS} disabled width={390} />;
+  },
+};
+
+// ── With user avatars ─────────────────────────────────────────────────────────
+
+export const WithUserImage: Story = {
+  name: 'With user image',
+  render: () => {
+    const [tags, setTags] = useState<TagItem[]>([
+      { value: 'alice', label: 'Alice Johnson', imageUrl: avatar(1), email: 'alice.johnson@example.com' },
+      { value: 'bob',   label: 'Bob Smith',     imageUrl: avatar(2), email: 'bob.smith@example.com' },
+    ]);
+    const avatarOptions: TagItem[] = [
+      { value: 'alice', label: 'Alice Johnson',  imageUrl: avatar(1), email: 'alice.johnson@example.com' },
+      { value: 'bob',   label: 'Bob Smith',      imageUrl: avatar(2), email: 'bob.smith@example.com' },
+      { value: 'carol', label: 'Carol Williams', imageUrl: avatar(3), email: 'carol.williams@example.com' },
+      { value: 'david', label: 'David Brown',    imageUrl: avatar(4), email: 'david.brown@example.com' },
+      { value: 'eve',   label: 'Eve Davis',      imageUrl: avatar(5), email: 'eve.davis@example.com' },
+      { value: 'frank', label: 'Frank Miller',   imageUrl: avatar(6), email: 'frank.miller@example.com' },
+      { value: 'grace', label: 'Grace Lee',      imageUrl: avatar(7), email: 'grace.lee@example.com' },
+      { value: 'henry', label: 'Henry Wilson',   imageUrl: avatar(8), email: 'henry.wilson@example.com' },
+    ];
+    return (
+      <Tags
+        value={tags}
+        options={avatarOptions}
+        onChange={setTags}
+        placeholder="Select users"
+        width={390}
+      />
+    );
   },
 };

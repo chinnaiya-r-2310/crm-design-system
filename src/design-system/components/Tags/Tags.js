@@ -13,6 +13,64 @@ const CloseXIcon = () => (
 );
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Avatar helpers (mirrors UserPicker)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const AVATAR_PALETTE = [
+  '#5464F2', '#12AA67', '#F5A623', '#E85D4A', '#9B51E0',
+  '#2D9CDB', '#27AE60', '#EB5757', '#F2994A', '#6FCF97',
+];
+
+function getAvatarColor(name) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
+  return AVATAR_PALETTE[Math.abs(hash) % AVATAR_PALETTE.length];
+}
+
+function getInitials(name) {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function OptionAvatar({ label, imageUrl, size = 28 }) {
+  const bg = getAvatarColor(label);
+  return (
+    <span
+      aria-hidden="true"
+      style={{
+        display:         'inline-flex',
+        alignItems:      'center',
+        justifyContent:  'center',
+        flexShrink:      0,
+        width:           size,
+        height:          size,
+        borderRadius:    '50%',
+        background:      bg,
+        color:           '#fff',
+        fontSize:        size * 0.42,
+        fontFamily:      'var(--ds-font-family-base)',
+        fontWeight:      500,
+        lineHeight:      1,
+        overflow:        'hidden',
+        boxSizing:       'border-box',
+        userSelect:      'none',
+      }}
+    >
+      {imageUrl ? (
+        <img
+          src={imageUrl}
+          alt=""
+          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
+        />
+      ) : (
+        getInitials(label)
+      )}
+    </span>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Component
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -26,9 +84,10 @@ export function Tags({
   disabled,
   error,
 }) {
-  const [search,  setSearch]  = useState('');
-  const [open,    setOpen]    = useState(false);
-  const [panelPos, setPanelPos] = useState(null);
+  const [search,        setSearch]        = useState('');
+  const [open,          setOpen]          = useState(false);
+  const [panelPos,      setPanelPos]      = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(-1); // tag pending removal via Backspace
 
   const containerRef = useRef(null);
   const inputRef     = useRef(null);
@@ -40,6 +99,9 @@ export function Tags({
     o => !selectedValues.has(o.value) &&
          o.label.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Reset pending-removal selection whenever the tag list changes
+  useEffect(() => { setSelectedIndex(-1); }, [value.length]);
 
   const updatePos = () => {
     if (containerRef.current) {
@@ -57,25 +119,40 @@ export function Tags({
   const select = (item) => {
     onChange?.([...value, item]);
     setSearch('');
-    setOpen(true); // keep panel open for multi-select
+    setSelectedIndex(-1);
+    setOpen(true);
     inputRef.current?.focus();
     requestAnimationFrame(updatePos);
   };
 
   const remove = (tagValue) => {
     onChange?.(value.filter(t => t.value !== tagValue));
+    setSelectedIndex(-1);
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Backspace' && !search && value.length > 0) {
-      remove(value[value.length - 1].value);
+    if (e.key === 'Backspace' && !search) {
+      if (selectedIndex >= 0) {
+        // Second Backspace: remove the selected tag
+        remove(value[selectedIndex].value);
+      } else if (value.length > 0) {
+        // First Backspace: select (highlight) the last tag
+        setSelectedIndex(value.length - 1);
+      }
+      return;
     }
-    if (e.key === 'Escape') {
-      setOpen(false);
-    }
+    // Any key other than Backspace clears the pending selection
+    if (selectedIndex >= 0) setSelectedIndex(-1);
+    if (e.key === 'Escape') setOpen(false);
   };
 
-  // Close on outside click
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+    if (selectedIndex >= 0) setSelectedIndex(-1);
+    if (!open) openDropdown();
+  };
+
+  // Close panel on outside click; also clear pending selection
   useEffect(() => {
     if (!open) return;
     const handler = (e) => {
@@ -83,6 +160,7 @@ export function Tags({
       if (!containerRef.current?.contains(t) && !panelRef.current?.contains(t)) {
         setOpen(false);
         setSearch('');
+        setSelectedIndex(-1);
       }
     };
     document.addEventListener('mousedown', handler);
@@ -103,23 +181,44 @@ export function Tags({
         data-error={error || undefined}
         data-disabled={disabled || undefined}
         data-open={open || undefined}
-        onClick={() => { if (!disabled) { inputRef.current?.focus(); openDropdown(); } }}
+        onClick={() => {
+          if (!disabled) {
+            setSelectedIndex(-1);
+            inputRef.current?.focus();
+            openDropdown();
+          }
+        }}
       >
-        {value.map(tag => (
-          <span key={tag.value} className={'tags-tag'}>
+        {value.map((tag, i) => (
+          <span
+            key={tag.value}
+            className={'tags-tag'}
+            data-selected={i === selectedIndex || undefined}
+          >
+            {tag.imageUrl && (
+              <img
+                src={tag.imageUrl}
+                className={'tags-tag-avatar'}
+                alt=""
+                aria-hidden="true"
+              />
+            )}
             <span className={'tags-tag-label'}>{tag.label}</span>
             {tag.count !== undefined && (
               <span className={'tags-tag-count'}>{tag.count}</span>
             )}
             {!disabled && tag.count === undefined && (
-              <button
-                type="button"
-                className={'tags-remove-btn'}
-                onClick={(e) => { e.stopPropagation(); remove(tag.value); }}
-                aria-label={`Remove ${tag.label}`}
-              >
-                <CloseXIcon />
-              </button>
+              <>
+                <span className={'tags-remove-bg'} aria-hidden="true" />
+                <button
+                  type="button"
+                  className={'tags-remove-btn'}
+                  onClick={(e) => { e.stopPropagation(); remove(tag.value); }}
+                  aria-label={`Remove ${tag.label}`}
+                >
+                  <CloseXIcon />
+                </button>
+              </>
             )}
           </span>
         ))}
@@ -131,10 +230,7 @@ export function Tags({
             className={'tags-input'}
             value={search}
             placeholder={value.length === 0 ? placeholder : ''}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              if (!open) openDropdown();
-            }}
+            onChange={handleChange}
             onFocus={openDropdown}
             onKeyDown={handleKeyDown}
             aria-label={placeholder}
@@ -167,41 +263,80 @@ export function Tags({
         >
           {filtered.length === 0 ? (
             <div style={{
-              height:     32,
+              height:     50,
               display:    'flex',
               alignItems: 'center',
-              padding:    '0 16px',
+              padding:    '0 25px',
               fontFamily: 'var(--ds-font-family-base)',
               fontSize:   'var(--ds-font-size-base)',
               color:      'var(--ds-text-muted, #8C9BAB)',
             }}>
               No options found
             </div>
-          ) : filtered.map(opt => (
-            <div
-              key={opt.value}
-              role="option"
-              aria-selected={false}
-              style={{
-                display:      'flex',
-                alignItems:   'center',
-                height:       32,
-                margin:       '0 6px',
-                borderRadius: 5,
-                padding:      '0 10px',
-                cursor:       'pointer',
-                fontFamily:   'var(--ds-font-family-base)',
-                fontSize:     'var(--ds-font-size-base)',
-                color:        'var(--ds-text-base)',
-                userSelect:   'none',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.background = 'var(--ds-components-dropdown-hover-bg, #F2F5FE)')}
-              onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-              onClick={(e) => { e.stopPropagation(); select(opt); }}
-            >
-              {opt.label}
-            </div>
-          ))}
+          ) : filtered.map(opt => {
+            const hasAvatar = Boolean(opt.imageUrl);
+            return (
+              <div
+                key={opt.value}
+                role="option"
+                aria-selected={false}
+                style={{
+                  display:      'flex',
+                  alignItems:   'center',
+                  gap:          '8px',
+                  height:       hasAvatar ? 50 : 32,
+                  margin:       '0 6px',
+                  borderRadius: 5,
+                  padding:      hasAvatar ? '0 10px 0 16px' : '0 10px',
+                  cursor:       'pointer',
+                  fontFamily:   'var(--ds-font-family-base)',
+                  fontSize:     'var(--ds-font-size-base)',
+                  color:        'var(--ds-text-base)',
+                  userSelect:   'none',
+                  boxSizing:    'border-box',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'var(--ds-components-dropdown-hover-bg, #F2F5FE)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                onClick={(e) => { e.stopPropagation(); select(opt); }}
+              >
+                {hasAvatar && <OptionAvatar label={opt.label} imageUrl={opt.imageUrl} size={28} />}
+                <div style={{
+                  flex:      1,
+                  minWidth:  0,
+                  display:   'flex',
+                  flexDirection: 'column',
+                  gap:       1,
+                }}>
+                  <span style={{
+                    fontFamily:   'var(--ds-font-family-base)',
+                    fontSize:     'var(--ds-font-size-base)',
+                    fontWeight:   'var(--ds-font-weight-regular)',
+                    lineHeight:   'var(--ds-line-height-base)',
+                    color:        'var(--ds-text-base)',
+                    overflow:     'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace:   'nowrap',
+                  }}>
+                    {opt.label}
+                  </span>
+                  {opt.email && (
+                    <span style={{
+                      fontFamily:   'var(--ds-font-family-base)',
+                      fontSize:     'var(--ds-font-size-xs, 11px)',
+                      fontWeight:   'var(--ds-font-weight-regular)',
+                      lineHeight:   'var(--ds-line-height-xs, 15px)',
+                      color:        'var(--ds-text-label, #616E88)',
+                      overflow:     'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace:   'nowrap',
+                    }}>
+                      {opt.email}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>,
         document.body
       )}

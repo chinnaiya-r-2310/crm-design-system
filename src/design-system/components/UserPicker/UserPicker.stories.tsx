@@ -38,18 +38,18 @@ type Story = StoryObj<typeof UserPicker>;
 // ─────────────────────────────────────────────────────────────────────────────
 
 const USERS: UserOption[] = [
-  { id: 'u1',  name: 'Saravanan Selvaraj',  email: 'saravanan.s@zohocorp.com',  avatarUrl: '/images/avatars/user_01.jpg' },
-  { id: 'u2',  name: 'Chinnaiya R',         email: 'chinnaiya.r@zohocorp.com',  avatarUrl: '/images/avatars/user_02.jpg' },
-  { id: 'u3',  name: 'Priya Nair',          email: 'priya.nair@zohocorp.com',   avatarUrl: '/images/avatars/user_03.jpg' },
-  { id: 'u4',  name: 'Arjun Sharma',        email: 'arjun.sharma@zohocorp.com', avatarUrl: '/images/avatars/user_04.jpg' },
-  { id: 'u5',  name: 'Divya Krishnan',      email: 'divya.k@zohocorp.com',      avatarUrl: '/images/avatars/user_05.jpg' },
-  { id: 'u6',  name: 'Ranjith Kumar',       email: 'ranjith.k@zohocorp.com',    avatarUrl: '/images/avatars/user_06.jpg' },
-  { id: 'u7',  name: 'Meena Sundaram',      email: 'meena.s@zohocorp.com',      avatarUrl: '/images/avatars/user_07.jpg' },
-  { id: 'u8',  name: 'Vikram Anand',        email: 'vikram.a@zohocorp.com',     avatarUrl: '/images/avatars/user_08.jpg' },
-  { id: 'u9',  name: 'Lakshmi Venkat',      email: 'lakshmi.v@zohocorp.com'    },
-  { id: 'u10', name: 'Suresh Babu',         email: 'suresh.b@zohocorp.com'     },
-  { id: 'u11', name: 'Kavitha Ramesh',      email: 'kavitha.r@zohocorp.com'    },
-  { id: 'u12', name: 'Murugan Selvam',      email: 'murugan.s@zohocorp.com'    },
+  { id: 'u1',  name: 'Saravanan Selvaraj',  subLabel: 'saravanan.s@zohocorp.com',  avatarUrl: '/images/avatars/user_01.jpg' },
+  { id: 'u2',  name: 'Chinnaiya R',         subLabel: 'chinnaiya.r@zohocorp.com',  avatarUrl: '/images/avatars/user_02.jpg' },
+  { id: 'u3',  name: 'Priya Nair',          subLabel: 'priya.nair@zohocorp.com',   avatarUrl: '/images/avatars/user_03.jpg' },
+  { id: 'u4',  name: 'Arjun Sharma',        subLabel: 'arjun.sharma@zohocorp.com', avatarUrl: '/images/avatars/user_04.jpg' },
+  { id: 'u5',  name: 'Divya Krishnan',      subLabel: 'divya.k@zohocorp.com',      avatarUrl: '/images/avatars/user_05.jpg' },
+  { id: 'u6',  name: 'Ranjith Kumar',       subLabel: 'ranjith.k@zohocorp.com',    avatarUrl: '/images/avatars/user_06.jpg' },
+  { id: 'u7',  name: 'Meena Sundaram',      subLabel: 'meena.s@zohocorp.com',      avatarUrl: '/images/avatars/user_07.jpg' },
+  { id: 'u8',  name: 'Vikram Anand',        subLabel: 'vikram.a@zohocorp.com',     avatarUrl: '/images/avatars/user_08.jpg' },
+  { id: 'u9',  name: 'Lakshmi Venkat',      subLabel: 'lakshmi.v@zohocorp.com'    },
+  { id: 'u10', name: 'Suresh Babu',         subLabel: 'suresh.b@zohocorp.com'     },
+  { id: 'u11', name: 'Kavitha Ramesh',      subLabel: 'kavitha.r@zohocorp.com'    },
+  { id: 'u12', name: 'Murugan Selvam',      subLabel: 'murugan.s@zohocorp.com'    },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -165,4 +165,68 @@ export const Disabled: Story = {
       disabled
     />
   ),
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Filter bar stories — single and dual filter
+// ─────────────────────────────────────────────────────────────────────────────
+
+const ROLES_MAP: Record<string, string[]> = {
+  'All Users': USERS.map(u => u.id),
+  'Managers':  ['u1', 'u2', 'u3'],
+  'Admins':    ['u4', 'u5'],
+};
+
+/** Single filter bar above search (e.g. "All Users" dropdown). */
+export const WithFilter: Story = {
+  name: 'With Filter',
+  parameters: { controls: { disable: true } },
+  render: function Render() {
+    const [value, setValue] = useState<string | undefined>();
+    const [visibleIds, setVisibleIds] = useState<string[]>(USERS.map(u => u.id));
+    const handleFilter = (_groupId: string, opt: string) => {
+      setVisibleIds(ROLES_MAP[opt] ?? USERS.map(u => u.id));
+    };
+    return (
+      <div style={{ padding: 24, background: '#fff', minWidth: 500 }}>
+        <UserPicker
+          label="Lead Owner"
+          placeholder="Select user"
+          value={value}
+          users={USERS.filter(u => visibleIds.includes(u.id))}
+          onChange={setValue}
+          layout="horizontal"
+          width={390}
+          filters={[{ id: 'role', options: ['All Users', 'Managers', 'Admins'] }]}
+          onFilterChange={handleFilter}
+        />
+      </div>
+    );
+  },
+};
+
+/** Two filter bars side-by-side (Roles | Managers). */
+export const WithDualFilter: Story = {
+  name: 'With Dual Filter',
+  parameters: { controls: { disable: true } },
+  render: function Render() {
+    const [value, setValue] = useState<string | undefined>();
+    return (
+      <div style={{ padding: 24, background: '#fff', minWidth: 500 }}>
+        <UserPicker
+          label="Lead Owner"
+          placeholder="Select user"
+          value={value}
+          users={USERS}
+          onChange={setValue}
+          layout="horizontal"
+          width={390}
+          filters={[
+            { id: 'type',   options: ['Roles', 'Users', 'Teams'] },
+            { id: 'access', options: ['Managers', 'Admins', 'Members'] },
+          ]}
+        />
+      </div>
+    );
+  },
 };

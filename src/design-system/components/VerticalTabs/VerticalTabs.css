@@ -1,0 +1,238 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   VerticalTabs — Type 1 & 2
+   Figma: Chinnaiya Style Sheet node 93672:150667
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Panel container ─────────────────────────────────────────────────────── */
+
+.vtabs-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: var(--ds-bg-common-card, #ffffff);
+  border: 1px solid var(--ds-border-lighter, #DCDBEE);
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* ── Title ───────────────────────────────────────────────────────────────── */
+
+.vtabs-title {
+  font-family: var(--ds-font-family-base);
+  font-size: 20px;
+  font-weight: var(--ds-font-weight-semibold, 600);
+  line-height: 1.2;
+  color: var(--ds-text-base, #202125);
+}
+
+/* ── Search box ──────────────────────────────────────────────────────────── */
+
+.vtabs-search-box {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  gap: 8px;
+  padding: 0 8px;
+  background: var(--ds-bg-common-card, #ffffff);
+  border: 1px solid var(--ds-components-input-default-outline, #C8CEDE);
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.vtabs-search-box:focus-within {
+  border-color: var(--ds-components-input-focus-outline);
+  box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow);
+}
+
+.vtabs-search-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--ds-text-muted, #8C9BAB);
+}
+
+.vtabs-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+}
+
+.vtabs-search-input::placeholder {
+  color: var(--ds-components-input-placeholder-text);
+}
+
+.vtabs-search-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--ds-bg-muted, #EAF0F4);
+  color: var(--ds-text-label, #616E88);
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 120ms ease;
+}
+
+.vtabs-search-clear:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+/* ── No results ──────────────────────────────────────────────────────────── */
+
+.vtabs-no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-muted, #8C9BAB);
+}
+
+.vtabs-no-results-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--ds-text-muted, #8C9BAB);
+}
+
+/* ── Tab list ────────────────────────────────────────────────────────────── */
+
+.vtabs-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Group ───────────────────────────────────────────────────────────────── */
+
+.vtabs-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.vtabs-group-header {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  gap: 8px;
+  padding: 0 6px 0 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-semibold, 600);
+  color: var(--ds-text-base, #313949);
+  border-radius: 4px;
+  transition: background 120ms ease;
+}
+
+.vtabs-group-header:hover {
+  background: transparent;
+}
+
+/* Chevron arrow — points right when collapsed, down when expanded */
+.vtabs-group-arrow {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--ds-text-base, #313949);
+  transform: rotate(-90deg);
+  transition: transform 220ms ease;
+}
+
+.vtabs-group-arrow[data-open] {
+  transform: rotate(0deg);
+}
+
+/* ── Smooth expand / collapse ────────────────────────────────────────────── */
+
+.vtabs-children-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms ease;
+}
+
+.vtabs-children-wrap[data-open] {
+  grid-template-rows: 1fr;
+}
+
+.vtabs-children {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ── Sub-items ───────────────────────────────────────────────────────────── */
+
+.vtabs-item {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  padding: 0 10px 0 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular, 400);
+  color: var(--ds-text-label, #616E88);
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.vtabs-item:hover:not([data-active]) {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+  color: var(--ds-text-base, #313949);
+}
+
+/* Style 1 — background + blue text, no left border */
+.vtabs-panel[data-variant="1"] .vtabs-item[data-active] {
+  background: var(--ds-components-navigation-tab-active-bg, #EBEDFF);
+  color: var(--ds-brand-primary, #5464F2);
+  font-weight: var(--ds-font-weight-medium, 500);
+  border-radius: 4px;
+}
+
+/* Style 2 — background + blue text + blue left border bar */
+.vtabs-panel[data-variant="2"] .vtabs-item[data-active] {
+  background: var(--ds-components-navigation-tab-active-bg, #EBEDFF);
+  color: var(--ds-brand-primary, #5464F2);
+  font-weight: var(--ds-font-weight-medium, 500);
+  border-left: 3px solid var(--ds-brand-primary, #5464F2);
+  border-radius: 0 4px 4px 0;
+  padding-left: 21px;
+}
+
+/* ── Top-level leaf item (no children) ───────────────────────────────────── */
+
+.vtabs-item--top {
+  padding-left: 0;
+  font-weight: var(--ds-font-weight-semibold, 600);
+  color: var(--ds-text-base, #313949);
+}
+
+.vtabs-item--top[data-active] {
+  padding-left: 0;
+  border-left: none;
+  border-radius: 4px;
+}

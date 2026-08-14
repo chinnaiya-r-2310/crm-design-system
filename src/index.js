@@ -21,9 +21,13 @@ export { Switch } from './design-system/components/Switch';
 export { SetupTable } from './design-system/components/Table';
 export { Tabs } from './design-system/components/Tabs';
 export { Tags } from './design-system/components/Tags';
+export { VerticalTabs } from './design-system/components/VerticalTabs';
 export { Textarea } from './design-system/components/Textarea';
 export { Tooltip } from './design-system/components/Tooltip';
 export { UserPicker } from './design-system/components/UserPicker';
+export { NextGenLeftMenu } from './design-system/components/NextGenLeftMenu';
+export { NextGenTopBand } from './design-system/components/NextGenTopBand';
+export { WMSBar } from './design-system/components/WMSBar';
 
 // ── Foundations / Icons ───────────────────────────────────────────────────────
 export {
@@ -48,6 +52,38 @@ export {
   GroupAvatar,
   CompanyAvatar,
   ImageAvatar,
+  Folder,
+  SidebarCollapse,
+  ChevronUp,
+  ModuleLeads,
+  ModuleContacts,
+  ModuleAccounts,
+  ModuleDeals,
+  ModuleForecasts,
+  ModuleSolutions,
+  ModuleProducts,
+  ModuleCases,
+  ModuleActivities,
+  ModuleMeeting,
+  ModuleReports,
+  ModuleHome,
+  ModuleDocs,
+  ModuleSocial,
+  ModuleCustom,
+  ModuleMyJobs,
+  ModuleAnalytics,
+  Bell,
+  CalendarIcon,
+  Settings,
+  BentoMenu,
+  ZiaAI,
+  AppMarket,
+  Motivator,
+  AlarmClock,
+  Zia,
+  File,
+  Comment,
+  Announcement,
 } from './design-system/foundations/icons/Icons';
 
 // ── Token Engine ──────────────────────────────────────────────────────────────

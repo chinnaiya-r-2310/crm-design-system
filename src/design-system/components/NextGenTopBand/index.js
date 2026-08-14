@@ -1,0 +1,1 @@
+export { NextGenTopBand } from './NextGenTopBand';

@@ -44,7 +44,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   padding: 4px 10px;
   height: 24px;
   background: #F0F3FF;
@@ -56,12 +56,30 @@
   color: var(--ds-text-base);
   line-height: 1;
   max-width: 200px;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+/* Selected state — first Backspace press highlights tag before removal */
+.tags-tag[data-selected] {
+  background: #CFD7FF;
+  border-color: #B9C3FA;
 }
 
 .tags-tag-label {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* ── User avatar ─────────────────────────────────────────────────────────── */
+
+.tags-tag-avatar {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #D6D6E2;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 /* Count badge inside a tag chip */
@@ -82,6 +100,29 @@
 }
 
 /* ── Remove button ───────────────────────────────────────────────────────── */
+
+/* Background circle behind the blue close icon — matches the tag chip color */
+.tags-remove-bg {
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #F0F3FF;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 120ms ease, background 150ms ease;
+  pointer-events: none;
+}
+
+.tags-tag[data-selected] .tags-remove-bg {
+  background: #CFD7FF;
+}
+
+.tags-tag:hover .tags-remove-bg {
+  opacity: 1;
+}
 
 .tags-remove-btn {
   position: absolute;
