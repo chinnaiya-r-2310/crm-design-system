@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">5/25 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">23/25 infos</a><span class="filter-pill ok" aria-disabled="true">183 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">5/29 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">27/29 infos</a><span class="filter-pill ok" aria-disabled="true">199 stories ok</span></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>1.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -4378,7 +4378,7 @@ export const CreateDeal: Story = {
       <div class="badges">
         <label for="c-10-design-system-foundations-icons-props" class="badge ok as-toggle">1 prop type</label>
         
-        <label for="c-10-design-system-foundations-icons-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-10-design-system-foundations-icons-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -4436,7 +4436,62 @@ Adding icons
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { Icon } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import {
+    AlarmClock,
+    AlertError,
+    AlertInfo,
+    AlertSuccess,
+    AlertWarning,
+    Announcement,
+    AppMarket,
+    Bell,
+    BentoMenu,
+    CalendarIcon,
+    Check,
+    ChevronDownFilled,
+    ChevronUp,
+    Close,
+    CloseSmall,
+    Comment,
+    CompanyAvatar,
+    CriteriaMinus,
+    CriteriaPlus,
+    Edit,
+    File,
+    Folder,
+    GroupAvatar,
+    HelpCircle,
+    Icon,
+    ImageAvatar,
+    Info,
+    Lock,
+    ModuleAccounts,
+    ModuleActivities,
+    ModuleAnalytics,
+    ModuleCases,
+    ModuleContacts,
+    ModuleCustom,
+    ModuleDeals,
+    ModuleDocs,
+    ModuleForecasts,
+    ModuleHome,
+    ModuleLeads,
+    ModuleMeeting,
+    ModuleMyJobs,
+    ModuleProducts,
+    ModuleReports,
+    ModuleSocial,
+    ModuleSolutions,
+    More,
+    Motivator,
+    ResizeHandle,
+    Search,
+    Settings,
+    SidebarCollapse,
+    UserAvatar,
+    Zia,
+    ZiaAI,
+} from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
@@ -4689,6 +4744,126 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
       &lt;Icon name=&quot;Search&quot; size={16} title=&quot;Search records&quot; /&gt;
       &lt;span&gt;Meaningful via title — same effect as aria-label&lt;/span&gt;
     &lt;/div&gt;
+  &lt;/div&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All Icons</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AllIcons = () =&gt; (
+  &lt;div style={{ fontFamily: &#39;var(--ds-font-family-base)&#39;, maxWidth: &#39;960px&#39;, color: &#39;var(--ds-text-base)&#39; }}&gt;
+
+    {/* ── Utility ── */}
+    &lt;div style={SECTION_LABEL_STYLE}&gt;Utility&lt;/div&gt;
+    &lt;div style={GRID_STYLE}&gt;
+      {([
+        [&#39;Info&#39;,              &lt;Info key=&quot;i&quot; width={18} height={18} /&gt;],
+        [&#39;Lock&#39;,              &lt;Lock key=&quot;l&quot; width={16} height={16} /&gt;],
+        [&#39;Search&#39;,            &lt;Search key=&quot;s&quot; width={14} height={14} /&gt;],
+        [&#39;More&#39;,              &lt;More key=&quot;m&quot; width={16} height={16} /&gt;],
+        [&#39;Check&#39;,             &lt;Check key=&quot;ch&quot; width={11} height={8} /&gt;],
+        [&#39;ChevronDownFilled&#39;, &lt;ChevronDownFilled key=&quot;cdf&quot; width={10} height={5} /&gt;],
+        [&#39;ChevronUp&#39;,         &lt;ChevronUp key=&quot;cu&quot; width={10} height={5} /&gt;],
+        [&#39;Edit&#39;,              &lt;Edit key=&quot;e&quot; width={12} height={12} /&gt;],
+        [&#39;Close&#39;,             &lt;Close key=&quot;cl&quot; width={8} height={8} /&gt;],
+        [&#39;CloseSmall&#39;,        &lt;CloseSmall key=&quot;cs&quot; width={8} height={8} /&gt;],
+        [&#39;ResizeHandle&#39;,      &lt;ResizeHandle key=&quot;r&quot; width={10} height={10} /&gt;],
+        [&#39;CriteriaMinus&#39;,     &lt;CriteriaMinus key=&quot;cm&quot; width={16} height={16} /&gt;],
+        [&#39;CriteriaPlus&#39;,      &lt;CriteriaPlus key=&quot;cp&quot; width={16} height={16} /&gt;],
+        [&#39;HelpCircle&#39;,        &lt;HelpCircle key=&quot;hc&quot; width={16} height={16} /&gt;],
+        [&#39;Folder&#39;,            &lt;Folder key=&quot;fo&quot; width={16} height={14} /&gt;],
+        [&#39;SidebarCollapse&#39;,   &lt;SidebarCollapse key=&quot;sc&quot; width={16} height={16} /&gt;],
+      ] as [string, React.ReactNode][]).map(([label, el]) =&gt; (
+        &lt;IconCell key={label} label={label}&gt;{el}&lt;/IconCell&gt;
+      ))}
+    &lt;/div&gt;
+
+    {/* ── Alert ── */}
+    &lt;div style={SECTION_LABEL_STYLE}&gt;Alert&lt;/div&gt;
+    &lt;div style={GRID_STYLE}&gt;
+      {([
+        [&#39;AlertSuccess&#39;, &lt;AlertSuccess key=&quot;as&quot; width={22} height={22} /&gt;],
+        [&#39;AlertError&#39;,   &lt;AlertError   key=&quot;ae&quot; width={22} height={22} /&gt;],
+        [&#39;AlertWarning&#39;, &lt;AlertWarning key=&quot;aw&quot; width={22} height={22} /&gt;],
+        [&#39;AlertInfo&#39;,    &lt;AlertInfo    key=&quot;ai&quot; width={22} height={22} /&gt;],
+      ] as [string, React.ReactNode][]).map(([label, el]) =&gt; (
+        &lt;IconCell key={label} label={label}&gt;{el}&lt;/IconCell&gt;
+      ))}
+    &lt;/div&gt;
+
+    {/* ── Avatar ── */}
+    &lt;div style={SECTION_LABEL_STYLE}&gt;Avatar&lt;/div&gt;
+    &lt;div style={GRID_STYLE}&gt;
+      {([
+        [&#39;UserAvatar&#39;,    &lt;UserAvatar    key=&quot;ua&quot; width={40} height={40} /&gt;],
+        [&#39;GroupAvatar&#39;,   &lt;GroupAvatar   key=&quot;ga&quot; width={40} height={40} /&gt;],
+        [&#39;CompanyAvatar&#39;, &lt;CompanyAvatar key=&quot;ca&quot; width={40} height={40} /&gt;],
+        [&#39;ImageAvatar&#39;,   &lt;ImageAvatar   key=&quot;ima&quot; width={40} height={40} /&gt;],
+      ] as [string, React.ReactNode][]).map(([label, el]) =&gt; (
+        &lt;IconCell key={label} label={label}&gt;{el}&lt;/IconCell&gt;
+      ))}
+    &lt;/div&gt;
+
+    {/* ── Module ── */}
+    &lt;div style={SECTION_LABEL_STYLE}&gt;Module&lt;/div&gt;
+    &lt;div style={GRID_STYLE}&gt;
+      {([
+        [&#39;Home&#39;,       &lt;ModuleHome       key=&quot;mh&quot;  width={16} height={15} /&gt;],
+        [&#39;Analytics&#39;,  &lt;ModuleAnalytics  key=&quot;man&quot; width={17} height={16} /&gt;],
+        [&#39;Reports&#39;,    &lt;ModuleReports    key=&quot;mr&quot;  width={16} height={16} /&gt;],
+        [&#39;Leads&#39;,      &lt;ModuleLeads      key=&quot;ml&quot;  width={16} height={16} /&gt;],
+        [&#39;Contacts&#39;,   &lt;ModuleContacts   key=&quot;mc&quot;  width={16} height={16} /&gt;],
+        [&#39;Accounts&#39;,   &lt;ModuleAccounts   key=&quot;mac&quot; width={17} height={16} /&gt;],
+        [&#39;Deals&#39;,      &lt;ModuleDeals      key=&quot;md&quot;  width={16} height={16} /&gt;],
+        [&#39;Forecasts&#39;,  &lt;ModuleForecasts  key=&quot;mf&quot;  width={16} height={16} /&gt;],
+        [&#39;Products&#39;,   &lt;ModuleProducts   key=&quot;mp&quot;  width={16} height={16} /&gt;],
+        [&#39;Cases&#39;,      &lt;ModuleCases      key=&quot;mca&quot; width={18} height={16} /&gt;],
+        [&#39;Solutions&#39;,  &lt;ModuleSolutions  key=&quot;ms&quot;  width={17} height={16} /&gt;],
+        [&#39;Activities&#39;, &lt;ModuleActivities key=&quot;ma&quot;  width={16} height={16} /&gt;],
+        [&#39;Meeting&#39;,    &lt;ModuleMeeting    key=&quot;mm&quot;  width={16} height={18} /&gt;],
+        [&#39;Docs&#39;,       &lt;ModuleDocs       key=&quot;mdo&quot; width={16} height={16} /&gt;],
+        [&#39;Social&#39;,     &lt;ModuleSocial     key=&quot;mso&quot; width={16} height={16} /&gt;],
+        [&#39;Custom&#39;,     &lt;ModuleCustom     key=&quot;mcu&quot; width={16} height={16} /&gt;],
+        [&#39;My Jobs&#39;,    &lt;ModuleMyJobs     key=&quot;mmj&quot; width={16} height={16} /&gt;],
+      ] as [string, React.ReactNode][]).map(([label, el]) =&gt; (
+        &lt;IconCell key={label} label={label}&gt;{el}&lt;/IconCell&gt;
+      ))}
+    &lt;/div&gt;
+
+    {/* ── Top Bar ── */}
+    &lt;div style={SECTION_LABEL_STYLE}&gt;Top Bar&lt;/div&gt;
+    &lt;div style={GRID_STYLE}&gt;
+      {([
+        [&#39;Bell&#39;,      &lt;Bell      key=&quot;bl&quot;  width={18} height={18} /&gt;],
+        [&#39;Calendar&#39;,  &lt;CalendarIcon key=&quot;cl&quot; width={18} height={18} /&gt;],
+        [&#39;Settings&#39;,  &lt;Settings  key=&quot;sg&quot;  width={18} height={18} /&gt;],
+        [&#39;BentoMenu&#39;, &lt;BentoMenu key=&quot;bm&quot;  width={16} height={16} /&gt;],
+        [&#39;ZiaAI&#39;,     &lt;ZiaAI     key=&quot;za&quot;  width={21} height={20} /&gt;],
+        [&#39;AppMarket&#39;, &lt;AppMarket key=&quot;am&quot;  width={18} height={17} /&gt;],
+      ] as [string, React.ReactNode][]).map(([label, el]) =&gt; (
+        &lt;IconCell key={label} label={label}&gt;{el}&lt;/IconCell&gt;
+      ))}
+    &lt;/div&gt;
+
+    {/* ── WMS Bar ── */}
+    &lt;div style={SECTION_LABEL_STYLE}&gt;WMS Bar&lt;/div&gt;
+    &lt;div style={GRID_STYLE}&gt;
+      {([
+        [&#39;Motivator&#39;,    &lt;Motivator    key=&quot;mo&quot; width={14} height={14} /&gt;],
+        [&#39;AlarmClock&#39;,   &lt;AlarmClock   key=&quot;ac&quot; width={16} height={15} /&gt;],
+        [&#39;Zia&#39;,          &lt;Zia          key=&quot;zi&quot; width={17} height={13} /&gt;],
+        [&#39;File&#39;,         &lt;File         key=&quot;fi&quot; width={13} height={15} /&gt;],
+        [&#39;Comment&#39;,      &lt;Comment      key=&quot;co&quot; width={14} height={14} /&gt;],
+        [&#39;Announcement&#39;, &lt;Announcement key=&quot;an&quot; width={13} height={17} /&gt;],
+      ] as [string, React.ReactNode][]).map(([label, el]) =&gt; (
+        &lt;IconCell key={label} label={label}&gt;{el}&lt;/IconCell&gt;
+      ))}
+    &lt;/div&gt;
+
   &lt;/div&gt;
 );</code></pre>
             </div>
@@ -5698,14 +5873,285 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
   no-story-error
   no-doc-error"
   role="listitem"
+  aria-label="NextGenLeftMenu">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> NextGenLeftMenu</h2>
+      <div class="badges">
+        <label for="c-14-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-14-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
+        <label for="c-14-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/components/NextGenLeftMenu/NextGenLeftMenu.stories.tsx">design-system-components-nextgenleftmenu · ./src/design-system/components/NextGenLeftMenu/NextGenLeftMenu.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-14-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-14-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-14-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">5 prop types</span>
+            </div>
+            <pre><code>Component: src/design-system/components/NextGenLeftMenu/NextGenLeftMenu.js::NextGenLeftMenu</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>appName?: any = &#39;Zoho CRM&#39;
+
+defaultOpenFolders?: any = [&#39;activity&#39;]
+
+modules?: any = [
+  { id: &#39;contacts&#39;,   label: &#39;Contacts&#39;,   icon: ModuleContacts },
+  { id: &#39;leads&#39;,      label: &#39;Leads&#39;,      icon: ModuleLeads },
+  { id: &#39;deals&#39;,      label: &#39;Deals&#39;,      icon: ModuleDeals },
+  { id: &#39;accounts&#39;,   label: &#39;Accounts&#39;,   icon: ModuleAccounts },
+  { id: &#39;forecasts&#39;,  label: &#39;Forecasts&#39;,  icon: ModuleForecasts },
+  { id: &#39;solutions&#39;,  label: &#39;Solutions&#39;,  icon: ModuleSolutions },
+  { id: &#39;products&#39;,   label: &#39;Products&#39;,   icon: ModuleProducts },
+  { id: &#39;case-study&#39;, label: &#39;Case Study&#39;, icon: ModuleCases },
+  {
+    id: &#39;activity&#39;, label: &#39;Activity&#39;, type: &#39;folder&#39;,
+    children: [
+      { id: &#39;calls&#39;,    label: &#39;Calls&#39;,    icon: ModuleActivities },
+      { id: &#39;meetings&#39;, label: &#39;Meetings&#39;, icon: ModuleMeeting },
+      { id: &#39;tasks&#39;,    label: &#39;Tasks&#39;,    icon: ModuleMyJobs },
+    ],
+  },
+  { id: &#39;inventory&#39;, label: &#39;Inventory&#39;, type: &#39;folder&#39;, children: [] },
+  { id: &#39;demo-request&#39;,           label: &#39;Demo Request&#39;,           icon: ModuleCustom },
+  { id: &#39;expanse-tracking&#39;,       label: &#39;Expanse Tracking&#39;,       icon: ModuleCustom },
+  { id: &#39;social-media-strategy&#39;,  label: &#39;Social Media Strategy&#39;,  icon: ModuleSocial },
+  { id: &#39;influencer-outreach&#39;,    label: &#39;Influencer Outreach&#39;,    icon: ModuleCustom },
+  { id: &#39;budget-allocation&#39;,      label: &#39;Budget Allocation S...&#39;,  icon: ModuleCustom },
+  { id: &#39;brand-voice&#39;,            label: &#39;Brand Voice and Gui...&#39;, icon: ModuleDocs },
+  { id: &#39;projects&#39;,               label: &#39;Projects&#39;,               type: &#39;folder&#39;, children: [] },
+  { id: &#39;cliq-channels&#39;,          label: &#39;Cliq Channels&#39;,          type: &#39;folder&#39;, children: [] },
+  { id: &#39;bugs-ideas&#39;,             label: &#39;Bugs and Ideas&#39;,         icon: ModuleCustom },
+  { id: &#39;strategy-presentation&#39;,  label: &#39;Strategy Presentation&#39;,  icon: ModuleDocs },
+]
+
+teamspaceName?: any = &#39;CRM Teamspace&#39;
+
+topNavItems?: any = [
+  { id: &#39;home&#39;,        label: &#39;Home&#39;,        icon: ModuleHome },
+  { id: &#39;analytics&#39;,  label: &#39;Analytics&#39;,   icon: ModuleAnalytics },
+  { id: &#39;reports&#39;,    label: &#39;Reports&#39;,     icon: ModuleReports },
+  { id: &#39;my-requests&#39;,label: &#39;My Requests&#39;, icon: ModuleMyJobs },
+]</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { NextGenLeftMenu } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;Shell /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Active Item — Contacts</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithActiveItem = () =&gt; &lt;Shell initialActiveId=&quot;contacts&quot; /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Active Item — Analytics (top nav)</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ActiveTopNav = () =&gt; &lt;Shell initialActiveId=&quot;analytics&quot; /&gt;;</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="NextGenTopBand">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> NextGenTopBand</h2>
+      <div class="badges">
+        <label for="c-15-design-system-components-nextgentopband-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-15-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
+        <label for="c-15-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/components/NextGenTopBand/NextGenTopBand.stories.tsx">design-system-components-nextgentopband · ./src/design-system/components/NextGenTopBand/NextGenTopBand.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-15-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-15-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-15-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">4 prop types</span>
+            </div>
+            <pre><code>Component: src/design-system/components/NextGenTopBand/NextGenTopBand.js::NextGenTopBand</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>moduleLabel?: any = &#39;Leads&#39;
+
+searchPlaceholder?: any = &#39;Search...&#39;
+
+territory?: any = &#39;All Territories&#39;
+
+userInitials?: any = &#39;C&#39;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { NextGenTopBand } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; (
+  &lt;NextGenTopBand
+    moduleLabel=&quot;Leads&quot;
+    moduleCount={1}
+    searchPlaceholder=&quot;Search Leads...&quot;
+    territory=&quot;All Territories&quot;
+    notificationCount={3}
+    userInitials=&quot;C&quot;
+  /&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">No Badge</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const NoCount = () =&gt; (
+  &lt;NextGenTopBand
+    moduleLabel=&quot;Contacts&quot;
+    searchPlaceholder=&quot;Search Contacts...&quot;
+    territory=&quot;All Territories&quot;
+  /&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Long Module Name</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const LongModule = () =&gt; (
+  &lt;NextGenTopBand
+    moduleLabel=&quot;Social Media Strategy&quot;
+    moduleCount={12}
+    searchPlaceholder=&quot;Search...&quot;
+    territory=&quot;North America&quot;
+    notificationCount={99}
+    userInitials=&quot;CR&quot;
+  /&gt;
+);</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
   aria-label="Radio">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Radio</h2>
       <div class="badges">
         
-        <label for="c-14-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
-        <label for="c-14-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-16-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
+        <label for="c-16-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -5718,8 +6164,8 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-14-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-14-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-16-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-16-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -5863,9 +6309,9 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Select</h2>
       <div class="badges">
-        <label for="c-15-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-15-design-system-components-select-info" class="badge info as-toggle">1 info</label>
-        <label for="c-15-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-17-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-17-design-system-components-select-info" class="badge info as-toggle">1 info</label>
+        <label for="c-17-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -5878,11 +6324,11 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-15-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-15-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-17-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-17-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-15-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-17-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6085,9 +6531,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SetupTable</h2>
       <div class="badges">
-        <label for="c-16-design-system-components-table-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-16-design-system-components-table-info" class="badge info as-toggle">1 info</label>
-        <label for="c-16-design-system-components-table-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-18-design-system-components-table-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-18-design-system-components-table-info" class="badge info as-toggle">1 info</label>
+        <label for="c-18-design-system-components-table-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -6100,11 +6546,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-16-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-16-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-18-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-18-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-16-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-18-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6143,7 +6589,7 @@ striped?: any = false</code></pre>
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { SetupTable, Switch } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import { SetupTable, Switch, Tooltip } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
@@ -6153,7 +6599,7 @@ striped?: any = false</code></pre>
                 <span class="badge ok">story ok</span>
               </div>
               
-              <div class="hint">Full setup table — sortable columns, status tags, active switches, 3-dot actions.</div>
+              
               <pre><code>const Default = () =&gt; &lt;Interactive initialRows={SAMPLE_ROWS} selectable /&gt;;</code></pre>
             </div>
             <div class="note ok">
@@ -6162,7 +6608,7 @@ striped?: any = false</code></pre>
                 <span class="badge ok">story ok</span>
               </div>
               
-              <div class="hint">Alternating row tints for denser tables.</div>
+              
               <pre><code>const Striped = () =&gt; &lt;Interactive initialRows={SAMPLE_ROWS} selectable striped /&gt;;</code></pre>
             </div>
             <div class="note ok">
@@ -6171,7 +6617,7 @@ striped?: any = false</code></pre>
                 <span class="badge ok">story ok</span>
               </div>
               
-              <div class="hint">No checkbox column — display-only mode.</div>
+              
               <pre><code>const NonSelectable = () =&gt; &lt;Interactive initialRows={SAMPLE_ROWS} /&gt;;</code></pre>
             </div>
             <div class="note ok">
@@ -6180,7 +6626,7 @@ striped?: any = false</code></pre>
                 <span class="badge ok">story ok</span>
               </div>
               
-              <div class="hint">Empty state — no rows.</div>
+              
               <pre><code>const Empty = () =&gt; (
   &lt;div style={{ padding: 24, background: &#39;#f0f2f7&#39; }}&gt;
     &lt;SetupTable
@@ -6211,9 +6657,9 @@ striped?: any = false</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Switch</h2>
       <div class="badges">
-        <label for="c-17-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-17-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
-        <label for="c-17-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-19-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-19-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
+        <label for="c-19-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -6226,11 +6672,11 @@ striped?: any = false</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-17-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-17-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-19-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-19-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-17-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-19-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6374,9 +6820,9 @@ striped?: any = false</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tabs</h2>
       <div class="badges">
-        <label for="c-18-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-18-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-18-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-20-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-20-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-20-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -6389,11 +6835,11 @@ striped?: any = false</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-18-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-18-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-20-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-20-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-18-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-20-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6535,9 +6981,9 @@ variant?: any = &#39;primary&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tags</h2>
       <div class="badges">
-        <label for="c-19-design-system-components-tags-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-19-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
-        <label for="c-19-design-system-components-tags-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-21-design-system-components-tags-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-21-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
+        <label for="c-21-design-system-components-tags-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -6550,11 +6996,11 @@ variant?: any = &#39;primary&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-19-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-19-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-21-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-21-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-19-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-21-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6609,9 +7055,9 @@ width?: any = &#39;100%&#39;</code></pre>
   return (
     &lt;Tags
       value={tags}
-      options={USER_OPTIONS}
+      options={TAG_OPTIONS}
       onChange={setTags}
-      placeholder=&quot;Select users&quot;
+      placeholder=&quot;Select tags&quot;
       width={390}
     /&gt;
   );
@@ -6626,15 +7072,15 @@ width?: any = &#39;100%&#39;</code></pre>
               
               <pre><code>const WithValues = () =&gt; {
   const [tags, setTags] = useState&lt;TagItem[]&gt;([
-    { value: &#39;alice&#39;, label: &#39;Alice Johnson&#39; },
-    { value: &#39;bob&#39;,   label: &#39;Bob Smith&#39; },
+    { value: &#39;design&#39;,   label: &#39;Design&#39; },
+    { value: &#39;frontend&#39;, label: &#39;Frontend&#39; },
   ]);
   return (
     &lt;Tags
       value={tags}
-      options={USER_OPTIONS}
+      options={TAG_OPTIONS}
       onChange={setTags}
-      placeholder=&quot;Select users&quot;
+      placeholder=&quot;Select tags&quot;
       width={390}
     /&gt;
   );
@@ -6701,7 +7147,7 @@ width?: any = &#39;100%&#39;</code></pre>
   return (
     &lt;Tags
       value={tags}
-      options={USER_OPTIONS}
+      options={TAG_OPTIONS}
       onChange={setTags}
       error
       width={390}
@@ -6719,10 +7165,43 @@ width?: any = &#39;100%&#39;</code></pre>
               
               <pre><code>const Disabled = () =&gt; {
   const tags: TagItem[] = [
-    { value: &#39;alice&#39;, label: &#39;Alice Johnson&#39; },
-    { value: &#39;carol&#39;, label: &#39;Carol Williams&#39; },
+    { value: &#39;design&#39;,  label: &#39;Design&#39; },
+    { value: &#39;backend&#39;, label: &#39;Backend&#39; },
   ];
-  return &lt;Tags value={tags} options={USER_OPTIONS} disabled width={390} /&gt;;
+  return &lt;Tags value={tags} options={TAG_OPTIONS} disabled width={390} /&gt;;
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With user image</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithUserImage = () =&gt; {
+  const [tags, setTags] = useState&lt;TagItem[]&gt;([
+    { value: &#39;alice&#39;, label: &#39;Alice Johnson&#39;, imageUrl: avatar(1), email: &#39;alice.johnson@example.com&#39; },
+    { value: &#39;bob&#39;,   label: &#39;Bob Smith&#39;,     imageUrl: avatar(2), email: &#39;bob.smith@example.com&#39; },
+  ]);
+  const avatarOptions: TagItem[] = [
+    { value: &#39;alice&#39;, label: &#39;Alice Johnson&#39;,  imageUrl: avatar(1), email: &#39;alice.johnson@example.com&#39; },
+    { value: &#39;bob&#39;,   label: &#39;Bob Smith&#39;,      imageUrl: avatar(2), email: &#39;bob.smith@example.com&#39; },
+    { value: &#39;carol&#39;, label: &#39;Carol Williams&#39;, imageUrl: avatar(3), email: &#39;carol.williams@example.com&#39; },
+    { value: &#39;david&#39;, label: &#39;David Brown&#39;,    imageUrl: avatar(4), email: &#39;david.brown@example.com&#39; },
+    { value: &#39;eve&#39;,   label: &#39;Eve Davis&#39;,      imageUrl: avatar(5), email: &#39;eve.davis@example.com&#39; },
+    { value: &#39;frank&#39;, label: &#39;Frank Miller&#39;,   imageUrl: avatar(6), email: &#39;frank.miller@example.com&#39; },
+    { value: &#39;grace&#39;, label: &#39;Grace Lee&#39;,      imageUrl: avatar(7), email: &#39;grace.lee@example.com&#39; },
+    { value: &#39;henry&#39;, label: &#39;Henry Wilson&#39;,   imageUrl: avatar(8), email: &#39;henry.wilson@example.com&#39; },
+  ];
+  return (
+    &lt;Tags
+      value={tags}
+      options={avatarOptions}
+      onChange={setTags}
+      placeholder=&quot;Select users&quot;
+      width={390}
+    /&gt;
+  );
 };</code></pre>
             </div>
         </div>
@@ -6742,9 +7221,9 @@ width?: any = &#39;100%&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Textarea</h2>
       <div class="badges">
-        <label for="c-20-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-20-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
-        <label for="c-20-design-system-components-textarea-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-22-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-22-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
+        <label for="c-22-design-system-components-textarea-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -6757,11 +7236,11 @@ width?: any = &#39;100%&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-20-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-20-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-22-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-22-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-20-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-22-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6954,9 +7433,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tooltip</h2>
       <div class="badges">
-        <label for="c-21-design-system-components-tooltip-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-21-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
-        <label for="c-21-design-system-components-tooltip-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-23-design-system-components-tooltip-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-23-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
+        <label for="c-23-design-system-components-tooltip-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -6969,11 +7448,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-21-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-21-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-23-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-23-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-21-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-23-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -7145,9 +7624,9 @@ variant?: any = &#39;black&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> TypographyPage</h2>
       <div class="badges">
-        <label for="c-22-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-22-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
-        <label for="c-22-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-24-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-24-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
+        <label for="c-24-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -7159,9 +7638,9 @@ variant?: any = &#39;black&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-22-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-22-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-22-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-24-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-24-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-24-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -7606,9 +8085,9 @@ export const AllTypography: StoryObj = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-23-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-23-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-23-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-25-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-25-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-25-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -7620,9 +8099,9 @@ export const AllTypography: StoryObj = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-23-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-23-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-23-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-25-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-25-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-25-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -8997,9 +9476,9 @@ export const CreateNotification: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> UserPicker</h2>
       <div class="badges">
-        <label for="c-24-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-24-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-24-design-system-components-userpicker-stories" class="badge ok as-toggle">5 stories</label>
+        <label for="c-26-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-26-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-26-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -9012,11 +9491,11 @@ export const CreateNotification: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-24-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-24-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-26-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-26-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-24-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-26-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9136,6 +9615,355 @@ width?: any = 390</code></pre>
     disabled
   /&gt;
 );</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Filter</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Single filter bar above search (e.g. &quot;All Users&quot; dropdown).</div>
+              <pre><code>const WithFilter = function Render() {
+  const [value, setValue] = useState&lt;string | undefined&gt;();
+  const [visibleIds, setVisibleIds] = useState&lt;string[]&gt;(USERS.map(u =&gt; u.id));
+  const handleFilter = (_groupId: string, opt: string) =&gt; {
+    setVisibleIds(ROLES_MAP[opt] ?? USERS.map(u =&gt; u.id));
+  };
+  return (
+    &lt;div style={{ padding: 24, background: &#39;#fff&#39;, minWidth: 500 }}&gt;
+      &lt;UserPicker
+        label=&quot;Lead Owner&quot;
+        placeholder=&quot;Select user&quot;
+        value={value}
+        users={USERS.filter(u =&gt; visibleIds.includes(u.id))}
+        onChange={setValue}
+        layout=&quot;horizontal&quot;
+        width={390}
+        filters={[{ id: &#39;role&#39;, options: [&#39;All Users&#39;, &#39;Managers&#39;, &#39;Admins&#39;] }]}
+        onFilterChange={handleFilter}
+      /&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Dual Filter</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Two filter bars side-by-side (Roles | Managers).</div>
+              <pre><code>const WithDualFilter = function Render() {
+  const [value, setValue] = useState&lt;string | undefined&gt;();
+  return (
+    &lt;div style={{ padding: 24, background: &#39;#fff&#39;, minWidth: 500 }}&gt;
+      &lt;UserPicker
+        label=&quot;Lead Owner&quot;
+        placeholder=&quot;Select user&quot;
+        value={value}
+        users={USERS}
+        onChange={setValue}
+        layout=&quot;horizontal&quot;
+        width={390}
+        filters={[
+          { id: &#39;type&#39;,   options: [&#39;Roles&#39;, &#39;Users&#39;, &#39;Teams&#39;] },
+          { id: &#39;access&#39;, options: [&#39;Managers&#39;, &#39;Admins&#39;, &#39;Members&#39;] },
+        ]}
+      /&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="VerticalTabs">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> VerticalTabs</h2>
+      <div class="badges">
+        <label for="c-27-design-system-components-verticaltabs-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-27-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-27-design-system-components-verticaltabs-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/components/VerticalTabs/VerticalTabs.stories.tsx">design-system-components-verticaltabs · ./src/design-system/components/VerticalTabs/VerticalTabs.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-27-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-27-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-27-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">4 prop types</span>
+            </div>
+            <pre><code>Component: src/design-system/components/VerticalTabs/VerticalTabs.js::VerticalTabs</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>items?: any = []
+
+searchable?: any = false
+
+variant?: any = &#39;1&#39;
+
+width?: any = 275</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { VerticalTabs } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Style 1</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Style 1 — active item: indigo background + blue text, no left border</div>
+              <pre><code>const Style1 = () =&gt; {
+  const [active, setActive] = useState(&#39;company-details&#39;);
+  return (
+    &lt;VerticalTabs
+      title=&quot;Setup&quot;
+      searchable
+      variant=&quot;1&quot;
+      items={SETUP_ITEMS}
+      activeId={active}
+      onSelect={setActive}
+      width={275}
+    /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Style 2</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Style 2 — active item: indigo background + blue text + blue left border bar</div>
+              <pre><code>const Style2 = () =&gt; {
+  const [active, setActive] = useState(&#39;company-details&#39;);
+  return (
+    &lt;VerticalTabs
+      title=&quot;Setup&quot;
+      searchable
+      variant=&quot;2&quot;
+      items={SETUP_ITEMS}
+      activeId={active}
+      onSelect={setActive}
+      width={275}
+    /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All Styles</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Both styles side by side</div>
+              <pre><code>const AllStyles = () =&gt; {
+  const [active1, setActive1] = useState(&#39;company-details&#39;);
+  const [active2, setActive2] = useState(&#39;company-details&#39;);
+  return (
+    &lt;div style={{ display: &#39;flex&#39;, gap: 40, alignItems: &#39;flex-start&#39; }}&gt;
+      &lt;div&gt;
+        &lt;p style={{ fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: 13, color: &#39;var(--ds-text-label)&#39;, marginBottom: 8, marginTop: 0 }}&gt;Style 1&lt;/p&gt;
+        &lt;VerticalTabs
+          title=&quot;Setup&quot;
+          searchable
+          variant=&quot;1&quot;
+          items={SETUP_ITEMS}
+          activeId={active1}
+          onSelect={setActive1}
+          width={275}
+        /&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;p style={{ fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: 13, color: &#39;var(--ds-text-label)&#39;, marginBottom: 8, marginTop: 0 }}&gt;Style 2&lt;/p&gt;
+        &lt;VerticalTabs
+          title=&quot;Setup&quot;
+          searchable
+          variant=&quot;2&quot;
+          items={SETUP_ITEMS}
+          activeId={active2}
+          onSelect={setActive2}
+          width={275}
+        /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="WMSBar">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> WMSBar</h2>
+      <div class="badges">
+        <label for="c-28-design-system-components-wmsbar-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-28-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-28-design-system-components-wmsbar-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/components/WMSBar/WMSBar.stories.tsx">design-system-components-wmsbar · ./src/design-system/components/WMSBar/WMSBar.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-28-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-28-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-28-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">2 prop types</span>
+            </div>
+            <pre><code>Component: src/design-system/components/WMSBar/WMSBar.js::WMSBar</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>chatPlaceholder?: any = &#39;Here is your Smart chat&#39;
+
+shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { WMSBar } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;WMSBar /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Custom Prompt</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CustomPrompt = () =&gt; (
+  &lt;WMSBar
+    chatPlaceholder=&quot;Ask Zia anything...&quot;
+    shortcut=&quot;Ctrl+K&quot;
+  /&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With TopBand</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FullPage = () =&gt; {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { NextGenTopBand } = require(&#39;../NextGenTopBand/NextGenTopBand&#39;);
+  return (
+    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, height: &#39;100vh&#39; }}&gt;
+      &lt;NextGenTopBand moduleLabel=&quot;Leads&quot; moduleCount={1} notificationCount={3} /&gt;
+      &lt;WMSBar /&gt;
+      &lt;div style={{
+        flex: 1,
+        background: &#39;#F0F2F7&#39;,
+        display: &#39;flex&#39;,
+        alignItems: &#39;center&#39;,
+        justifyContent: &#39;center&#39;,
+        fontSize: 14,
+        color: &#39;#616E88&#39;,
+        fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
+      }}&gt;
+        Content area
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
             </div>
         </div>
     

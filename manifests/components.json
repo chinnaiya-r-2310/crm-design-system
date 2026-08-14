@@ -821,9 +821,14 @@
           "name": "Accessibility",
           "snippet": "const Accessibility = () => (\n  <div style={{\n    display: 'flex',\n    flexDirection: 'column',\n    gap: '16px',\n    fontFamily: 'var(--ds-font-family-base)',\n    fontSize: '14px',\n    color: 'var(--ds-text-base)',\n  }}>\n    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>\n      <Icon name=\"Info\" size={16} />\n      <span>Decorative — aria-hidden=\"true\" applied automatically (no label needed)</span>\n    </div>\n    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>\n      <Icon name=\"Lock\" size={16} aria-label=\"Locked\" />\n      <span>Meaningful — role=\"img\" aria-label=\"Locked\" (screen readers announce it)</span>\n    </div>\n    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>\n      <Icon name=\"Search\" size={16} title=\"Search records\" />\n      <span>Meaningful via title — same effect as aria-label</span>\n    </div>\n  </div>\n);",
           "description": "Decorative icons get aria-hidden=\"true\" automatically. Meaningful icons need a label."
+        },
+        {
+          "id": "design-system-foundations-icons--all-icons",
+          "name": "All Icons",
+          "snippet": "const AllIcons = () => (\n  <div style={{ fontFamily: 'var(--ds-font-family-base)', maxWidth: '960px', color: 'var(--ds-text-base)' }}>\n\n    {/* ── Utility ── */}\n    <div style={SECTION_LABEL_STYLE}>Utility</div>\n    <div style={GRID_STYLE}>\n      {([\n        ['Info',              <Info key=\"i\" width={18} height={18} />],\n        ['Lock',              <Lock key=\"l\" width={16} height={16} />],\n        ['Search',            <Search key=\"s\" width={14} height={14} />],\n        ['More',              <More key=\"m\" width={16} height={16} />],\n        ['Check',             <Check key=\"ch\" width={11} height={8} />],\n        ['ChevronDownFilled', <ChevronDownFilled key=\"cdf\" width={10} height={5} />],\n        ['ChevronUp',         <ChevronUp key=\"cu\" width={10} height={5} />],\n        ['Edit',              <Edit key=\"e\" width={12} height={12} />],\n        ['Close',             <Close key=\"cl\" width={8} height={8} />],\n        ['CloseSmall',        <CloseSmall key=\"cs\" width={8} height={8} />],\n        ['ResizeHandle',      <ResizeHandle key=\"r\" width={10} height={10} />],\n        ['CriteriaMinus',     <CriteriaMinus key=\"cm\" width={16} height={16} />],\n        ['CriteriaPlus',      <CriteriaPlus key=\"cp\" width={16} height={16} />],\n        ['HelpCircle',        <HelpCircle key=\"hc\" width={16} height={16} />],\n        ['Folder',            <Folder key=\"fo\" width={16} height={14} />],\n        ['SidebarCollapse',   <SidebarCollapse key=\"sc\" width={16} height={16} />],\n      ] as [string, React.ReactNode][]).map(([label, el]) => (\n        <IconCell key={label} label={label}>{el}</IconCell>\n      ))}\n    </div>\n\n    {/* ── Alert ── */}\n    <div style={SECTION_LABEL_STYLE}>Alert</div>\n    <div style={GRID_STYLE}>\n      {([\n        ['AlertSuccess', <AlertSuccess key=\"as\" width={22} height={22} />],\n        ['AlertError',   <AlertError   key=\"ae\" width={22} height={22} />],\n        ['AlertWarning', <AlertWarning key=\"aw\" width={22} height={22} />],\n        ['AlertInfo',    <AlertInfo    key=\"ai\" width={22} height={22} />],\n      ] as [string, React.ReactNode][]).map(([label, el]) => (\n        <IconCell key={label} label={label}>{el}</IconCell>\n      ))}\n    </div>\n\n    {/* ── Avatar ── */}\n    <div style={SECTION_LABEL_STYLE}>Avatar</div>\n    <div style={GRID_STYLE}>\n      {([\n        ['UserAvatar',    <UserAvatar    key=\"ua\" width={40} height={40} />],\n        ['GroupAvatar',   <GroupAvatar   key=\"ga\" width={40} height={40} />],\n        ['CompanyAvatar', <CompanyAvatar key=\"ca\" width={40} height={40} />],\n        ['ImageAvatar',   <ImageAvatar   key=\"ima\" width={40} height={40} />],\n      ] as [string, React.ReactNode][]).map(([label, el]) => (\n        <IconCell key={label} label={label}>{el}</IconCell>\n      ))}\n    </div>\n\n    {/* ── Module ── */}\n    <div style={SECTION_LABEL_STYLE}>Module</div>\n    <div style={GRID_STYLE}>\n      {([\n        ['Home',       <ModuleHome       key=\"mh\"  width={16} height={15} />],\n        ['Analytics',  <ModuleAnalytics  key=\"man\" width={17} height={16} />],\n        ['Reports',    <ModuleReports    key=\"mr\"  width={16} height={16} />],\n        ['Leads',      <ModuleLeads      key=\"ml\"  width={16} height={16} />],\n        ['Contacts',   <ModuleContacts   key=\"mc\"  width={16} height={16} />],\n        ['Accounts',   <ModuleAccounts   key=\"mac\" width={17} height={16} />],\n        ['Deals',      <ModuleDeals      key=\"md\"  width={16} height={16} />],\n        ['Forecasts',  <ModuleForecasts  key=\"mf\"  width={16} height={16} />],\n        ['Products',   <ModuleProducts   key=\"mp\"  width={16} height={16} />],\n        ['Cases',      <ModuleCases      key=\"mca\" width={18} height={16} />],\n        ['Solutions',  <ModuleSolutions  key=\"ms\"  width={17} height={16} />],\n        ['Activities', <ModuleActivities key=\"ma\"  width={16} height={16} />],\n        ['Meeting',    <ModuleMeeting    key=\"mm\"  width={16} height={18} />],\n        ['Docs',       <ModuleDocs       key=\"mdo\" width={16} height={16} />],\n        ['Social',     <ModuleSocial     key=\"mso\" width={16} height={16} />],\n        ['Custom',     <ModuleCustom     key=\"mcu\" width={16} height={16} />],\n        ['My Jobs',    <ModuleMyJobs     key=\"mmj\" width={16} height={16} />],\n      ] as [string, React.ReactNode][]).map(([label, el]) => (\n        <IconCell key={label} label={label}>{el}</IconCell>\n      ))}\n    </div>\n\n    {/* ── Top Bar ── */}\n    <div style={SECTION_LABEL_STYLE}>Top Bar</div>\n    <div style={GRID_STYLE}>\n      {([\n        ['Bell',      <Bell      key=\"bl\"  width={18} height={18} />],\n        ['Calendar',  <CalendarIcon key=\"cl\" width={18} height={18} />],\n        ['Settings',  <Settings  key=\"sg\"  width={18} height={18} />],\n        ['BentoMenu', <BentoMenu key=\"bm\"  width={16} height={16} />],\n        ['ZiaAI',     <ZiaAI     key=\"za\"  width={21} height={20} />],\n        ['AppMarket', <AppMarket key=\"am\"  width={18} height={17} />],\n      ] as [string, React.ReactNode][]).map(([label, el]) => (\n        <IconCell key={label} label={label}>{el}</IconCell>\n      ))}\n    </div>\n\n    {/* ── WMS Bar ── */}\n    <div style={SECTION_LABEL_STYLE}>WMS Bar</div>\n    <div style={GRID_STYLE}>\n      {([\n        ['Motivator',    <Motivator    key=\"mo\" width={14} height={14} />],\n        ['AlarmClock',   <AlarmClock   key=\"ac\" width={16} height={15} />],\n        ['Zia',          <Zia          key=\"zi\" width={17} height={13} />],\n        ['File',         <File         key=\"fi\" width={13} height={15} />],\n        ['Comment',      <Comment      key=\"co\" width={14} height={14} />],\n        ['Announcement', <Announcement key=\"an\" width={13} height={17} />],\n      ] as [string, React.ReactNode][]).map(([label, el]) => (\n        <IconCell key={label} label={label}>{el}</IconCell>\n      ))}\n    </div>\n\n  </div>\n);"
         }
       ],
-      "import": "import { Icon } from \"@chinnaiya-r-2310/design-system\";"
+      "import": "import {\n    AlarmClock,\n    AlertError,\n    AlertInfo,\n    AlertSuccess,\n    AlertWarning,\n    Announcement,\n    AppMarket,\n    Bell,\n    BentoMenu,\n    CalendarIcon,\n    Check,\n    ChevronDownFilled,\n    ChevronUp,\n    Close,\n    CloseSmall,\n    Comment,\n    CompanyAvatar,\n    CriteriaMinus,\n    CriteriaPlus,\n    Edit,\n    File,\n    Folder,\n    GroupAvatar,\n    HelpCircle,\n    Icon,\n    ImageAvatar,\n    Info,\n    Lock,\n    ModuleAccounts,\n    ModuleActivities,\n    ModuleAnalytics,\n    ModuleCases,\n    ModuleContacts,\n    ModuleCustom,\n    ModuleDeals,\n    ModuleDocs,\n    ModuleForecasts,\n    ModuleHome,\n    ModuleLeads,\n    ModuleMeeting,\n    ModuleMyJobs,\n    ModuleProducts,\n    ModuleReports,\n    ModuleSocial,\n    ModuleSolutions,\n    More,\n    Motivator,\n    ResizeHandle,\n    Search,\n    Settings,\n    SidebarCollapse,\n    UserAvatar,\n    Zia,\n    ZiaAI,\n} from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-input": {
       "id": "design-system-components-input",
@@ -1095,6 +1100,137 @@
         }
       ],
       "import": "import { Button, Checkbox, Dropdown, Input, Modal } from \"@chinnaiya-r-2310/design-system\";"
+    },
+    "design-system-components-nextgenleftmenu": {
+      "id": "design-system-components-nextgenleftmenu",
+      "name": "NextGenLeftMenu",
+      "path": "./src/design-system/components/NextGenLeftMenu/NextGenLeftMenu.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "NextGenLeftMenu",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/NextGenLeftMenu/NextGenLeftMenu.js",
+        "actualName": "NextGenLeftMenu",
+        "exportName": "NextGenLeftMenu",
+        "props": {
+          "appName": {
+            "defaultValue": {
+              "value": "'Zoho CRM'",
+              "computed": false
+            },
+            "required": false
+          },
+          "teamspaceName": {
+            "defaultValue": {
+              "value": "'CRM Teamspace'",
+              "computed": false
+            },
+            "required": false
+          },
+          "topNavItems": {
+            "defaultValue": {
+              "value": "[\n  { id: 'home',        label: 'Home',        icon: ModuleHome },\n  { id: 'analytics',  label: 'Analytics',   icon: ModuleAnalytics },\n  { id: 'reports',    label: 'Reports',     icon: ModuleReports },\n  { id: 'my-requests',label: 'My Requests', icon: ModuleMyJobs },\n]",
+              "computed": false
+            },
+            "required": false
+          },
+          "modules": {
+            "defaultValue": {
+              "value": "[\n  { id: 'contacts',   label: 'Contacts',   icon: ModuleContacts },\n  { id: 'leads',      label: 'Leads',      icon: ModuleLeads },\n  { id: 'deals',      label: 'Deals',      icon: ModuleDeals },\n  { id: 'accounts',   label: 'Accounts',   icon: ModuleAccounts },\n  { id: 'forecasts',  label: 'Forecasts',  icon: ModuleForecasts },\n  { id: 'solutions',  label: 'Solutions',  icon: ModuleSolutions },\n  { id: 'products',   label: 'Products',   icon: ModuleProducts },\n  { id: 'case-study', label: 'Case Study', icon: ModuleCases },\n  {\n    id: 'activity', label: 'Activity', type: 'folder',\n    children: [\n      { id: 'calls',    label: 'Calls',    icon: ModuleActivities },\n      { id: 'meetings', label: 'Meetings', icon: ModuleMeeting },\n      { id: 'tasks',    label: 'Tasks',    icon: ModuleMyJobs },\n    ],\n  },\n  { id: 'inventory', label: 'Inventory', type: 'folder', children: [] },\n  { id: 'demo-request',           label: 'Demo Request',           icon: ModuleCustom },\n  { id: 'expanse-tracking',       label: 'Expanse Tracking',       icon: ModuleCustom },\n  { id: 'social-media-strategy',  label: 'Social Media Strategy',  icon: ModuleSocial },\n  { id: 'influencer-outreach',    label: 'Influencer Outreach',    icon: ModuleCustom },\n  { id: 'budget-allocation',      label: 'Budget Allocation S...',  icon: ModuleCustom },\n  { id: 'brand-voice',            label: 'Brand Voice and Gui...', icon: ModuleDocs },\n  { id: 'projects',               label: 'Projects',               type: 'folder', children: [] },\n  { id: 'cliq-channels',          label: 'Cliq Channels',          type: 'folder', children: [] },\n  { id: 'bugs-ideas',             label: 'Bugs and Ideas',         icon: ModuleCustom },\n  { id: 'strategy-presentation',  label: 'Strategy Presentation',  icon: ModuleDocs },\n]",
+              "computed": false
+            },
+            "required": false
+          },
+          "defaultOpenFolders": {
+            "defaultValue": {
+              "value": "['activity']",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-components-nextgenleftmenu--default",
+          "name": "Default",
+          "snippet": "const Default = () => <Shell />;"
+        },
+        {
+          "id": "design-system-components-nextgenleftmenu--with-active-item",
+          "name": "Active Item — Contacts",
+          "snippet": "const WithActiveItem = () => <Shell initialActiveId=\"contacts\" />;"
+        },
+        {
+          "id": "design-system-components-nextgenleftmenu--active-top-nav",
+          "name": "Active Item — Analytics (top nav)",
+          "snippet": "const ActiveTopNav = () => <Shell initialActiveId=\"analytics\" />;"
+        }
+      ],
+      "import": "import { NextGenLeftMenu } from \"@chinnaiya-r-2310/design-system\";"
+    },
+    "design-system-components-nextgentopband": {
+      "id": "design-system-components-nextgentopband",
+      "name": "NextGenTopBand",
+      "path": "./src/design-system/components/NextGenTopBand/NextGenTopBand.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "NextGenTopBand",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/NextGenTopBand/NextGenTopBand.js",
+        "actualName": "NextGenTopBand",
+        "exportName": "NextGenTopBand",
+        "props": {
+          "moduleLabel": {
+            "defaultValue": {
+              "value": "'Leads'",
+              "computed": false
+            },
+            "required": false
+          },
+          "searchPlaceholder": {
+            "defaultValue": {
+              "value": "'Search...'",
+              "computed": false
+            },
+            "required": false
+          },
+          "territory": {
+            "defaultValue": {
+              "value": "'All Territories'",
+              "computed": false
+            },
+            "required": false
+          },
+          "userInitials": {
+            "defaultValue": {
+              "value": "'C'",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-components-nextgentopband--default",
+          "name": "Default",
+          "snippet": "const Default = () => (\n  <NextGenTopBand\n    moduleLabel=\"Leads\"\n    moduleCount={1}\n    searchPlaceholder=\"Search Leads...\"\n    territory=\"All Territories\"\n    notificationCount={3}\n    userInitials=\"C\"\n  />\n);"
+        },
+        {
+          "id": "design-system-components-nextgentopband--no-count",
+          "name": "No Badge",
+          "snippet": "const NoCount = () => (\n  <NextGenTopBand\n    moduleLabel=\"Contacts\"\n    searchPlaceholder=\"Search Contacts...\"\n    territory=\"All Territories\"\n  />\n);"
+        },
+        {
+          "id": "design-system-components-nextgentopband--long-module",
+          "name": "Long Module Name",
+          "snippet": "const LongModule = () => (\n  <NextGenTopBand\n    moduleLabel=\"Social Media Strategy\"\n    moduleCount={12}\n    searchPlaceholder=\"Search...\"\n    territory=\"North America\"\n    notificationCount={99}\n    userInitials=\"CR\"\n  />\n);"
+        }
+      ],
+      "import": "import { NextGenTopBand } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-radio": {
       "id": "design-system-components-radio",
@@ -1380,29 +1516,25 @@
         {
           "id": "design-system-components-table--default",
           "name": "Default",
-          "snippet": "const Default = () => <Interactive initialRows={SAMPLE_ROWS} selectable />;",
-          "description": "Full setup table — sortable columns, status tags, active switches, 3-dot actions."
+          "snippet": "const Default = () => <Interactive initialRows={SAMPLE_ROWS} selectable />;"
         },
         {
           "id": "design-system-components-table--striped",
           "name": "Striped",
-          "snippet": "const Striped = () => <Interactive initialRows={SAMPLE_ROWS} selectable striped />;",
-          "description": "Alternating row tints for denser tables."
+          "snippet": "const Striped = () => <Interactive initialRows={SAMPLE_ROWS} selectable striped />;"
         },
         {
           "id": "design-system-components-table--non-selectable",
           "name": "Non-selectable",
-          "snippet": "const NonSelectable = () => <Interactive initialRows={SAMPLE_ROWS} />;",
-          "description": "No checkbox column — display-only mode."
+          "snippet": "const NonSelectable = () => <Interactive initialRows={SAMPLE_ROWS} />;"
         },
         {
           "id": "design-system-components-table--empty",
           "name": "Empty State",
-          "snippet": "const Empty = () => (\n  <div style={{ padding: 24, background: '#f0f2f7' }}>\n    <SetupTable\n      columns={makeColumns(() => {})}\n      rows={[]}\n      selectable\n      onRowAction={() => {}}\n      emptyMessage=\"No fields found. Add a field to get started.\"\n      width={1200}\n    />\n  </div>\n);",
-          "description": "Empty state — no rows."
+          "snippet": "const Empty = () => (\n  <div style={{ padding: 24, background: '#f0f2f7' }}>\n    <SetupTable\n      columns={makeColumns(() => {})}\n      rows={[]}\n      selectable\n      onRowAction={() => {}}\n      emptyMessage=\"No fields found. Add a field to get started.\"\n      width={1200}\n    />\n  </div>\n);"
         }
       ],
-      "import": "import { SetupTable, Switch } from \"@chinnaiya-r-2310/design-system\";"
+      "import": "import { SetupTable, Switch, Tooltip } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-components-tabs": {
       "id": "design-system-components-tabs",
@@ -1509,12 +1641,12 @@
         {
           "id": "design-system-components-tags--default",
           "name": "Default",
-          "snippet": "const Default = () => {\n  const [tags, setTags] = useState<TagItem[]>([]);\n  return (\n    <Tags\n      value={tags}\n      options={USER_OPTIONS}\n      onChange={setTags}\n      placeholder=\"Select users\"\n      width={390}\n    />\n  );\n};"
+          "snippet": "const Default = () => {\n  const [tags, setTags] = useState<TagItem[]>([]);\n  return (\n    <Tags\n      value={tags}\n      options={TAG_OPTIONS}\n      onChange={setTags}\n      placeholder=\"Select tags\"\n      width={390}\n    />\n  );\n};"
         },
         {
           "id": "design-system-components-tags--with-values",
           "name": "With Values",
-          "snippet": "const WithValues = () => {\n  const [tags, setTags] = useState<TagItem[]>([\n    { value: 'alice', label: 'Alice Johnson' },\n    { value: 'bob',   label: 'Bob Smith' },\n  ]);\n  return (\n    <Tags\n      value={tags}\n      options={USER_OPTIONS}\n      onChange={setTags}\n      placeholder=\"Select users\"\n      width={390}\n    />\n  );\n};"
+          "snippet": "const WithValues = () => {\n  const [tags, setTags] = useState<TagItem[]>([\n    { value: 'design',   label: 'Design' },\n    { value: 'frontend', label: 'Frontend' },\n  ]);\n  return (\n    <Tags\n      value={tags}\n      options={TAG_OPTIONS}\n      onChange={setTags}\n      placeholder=\"Select tags\"\n      width={390}\n    />\n  );\n};"
         },
         {
           "id": "design-system-components-tags--with-count",
@@ -1529,12 +1661,17 @@
         {
           "id": "design-system-components-tags--error-state",
           "name": "Error State",
-          "snippet": "const ErrorState = () => {\n  const [tags, setTags] = useState<TagItem[]>([]);\n  return (\n    <Tags\n      value={tags}\n      options={USER_OPTIONS}\n      onChange={setTags}\n      error\n      width={390}\n      placeholder=\"Required\"\n    />\n  );\n};"
+          "snippet": "const ErrorState = () => {\n  const [tags, setTags] = useState<TagItem[]>([]);\n  return (\n    <Tags\n      value={tags}\n      options={TAG_OPTIONS}\n      onChange={setTags}\n      error\n      width={390}\n      placeholder=\"Required\"\n    />\n  );\n};"
         },
         {
           "id": "design-system-components-tags--disabled",
           "name": "Disabled",
-          "snippet": "const Disabled = () => {\n  const tags: TagItem[] = [\n    { value: 'alice', label: 'Alice Johnson' },\n    { value: 'carol', label: 'Carol Williams' },\n  ];\n  return <Tags value={tags} options={USER_OPTIONS} disabled width={390} />;\n};"
+          "snippet": "const Disabled = () => {\n  const tags: TagItem[] = [\n    { value: 'design',  label: 'Design' },\n    { value: 'backend', label: 'Backend' },\n  ];\n  return <Tags value={tags} options={TAG_OPTIONS} disabled width={390} />;\n};"
+        },
+        {
+          "id": "design-system-components-tags--with-user-image",
+          "name": "With user image",
+          "snippet": "const WithUserImage = () => {\n  const [tags, setTags] = useState<TagItem[]>([\n    { value: 'alice', label: 'Alice Johnson', imageUrl: avatar(1), email: 'alice.johnson@example.com' },\n    { value: 'bob',   label: 'Bob Smith',     imageUrl: avatar(2), email: 'bob.smith@example.com' },\n  ]);\n  const avatarOptions: TagItem[] = [\n    { value: 'alice', label: 'Alice Johnson',  imageUrl: avatar(1), email: 'alice.johnson@example.com' },\n    { value: 'bob',   label: 'Bob Smith',      imageUrl: avatar(2), email: 'bob.smith@example.com' },\n    { value: 'carol', label: 'Carol Williams', imageUrl: avatar(3), email: 'carol.williams@example.com' },\n    { value: 'david', label: 'David Brown',    imageUrl: avatar(4), email: 'david.brown@example.com' },\n    { value: 'eve',   label: 'Eve Davis',      imageUrl: avatar(5), email: 'eve.davis@example.com' },\n    { value: 'frank', label: 'Frank Miller',   imageUrl: avatar(6), email: 'frank.miller@example.com' },\n    { value: 'grace', label: 'Grace Lee',      imageUrl: avatar(7), email: 'grace.lee@example.com' },\n    { value: 'henry', label: 'Henry Wilson',   imageUrl: avatar(8), email: 'henry.wilson@example.com' },\n  ];\n  return (\n    <Tags\n      value={tags}\n      options={avatarOptions}\n      onChange={setTags}\n      placeholder=\"Select users\"\n      width={390}\n    />\n  );\n};"
         }
       ],
       "import": "import { Tags } from \"@chinnaiya-r-2310/design-system\";"
@@ -1783,9 +1920,134 @@
           "name": "Disabled",
           "snippet": "const Disabled = () => (\n  <Interactive\n    label=\"Lead Owner\"\n    layout=\"horizontal\"\n    width={390}\n    initialValue=\"u1\"\n    disabled\n  />\n);",
           "description": "Disabled — trigger is non-interactive."
+        },
+        {
+          "id": "design-system-components-userpicker--with-filter",
+          "name": "With Filter",
+          "snippet": "const WithFilter = function Render() {\n  const [value, setValue] = useState<string | undefined>();\n  const [visibleIds, setVisibleIds] = useState<string[]>(USERS.map(u => u.id));\n  const handleFilter = (_groupId: string, opt: string) => {\n    setVisibleIds(ROLES_MAP[opt] ?? USERS.map(u => u.id));\n  };\n  return (\n    <div style={{ padding: 24, background: '#fff', minWidth: 500 }}>\n      <UserPicker\n        label=\"Lead Owner\"\n        placeholder=\"Select user\"\n        value={value}\n        users={USERS.filter(u => visibleIds.includes(u.id))}\n        onChange={setValue}\n        layout=\"horizontal\"\n        width={390}\n        filters={[{ id: 'role', options: ['All Users', 'Managers', 'Admins'] }]}\n        onFilterChange={handleFilter}\n      />\n    </div>\n  );\n};",
+          "description": "Single filter bar above search (e.g. \"All Users\" dropdown)."
+        },
+        {
+          "id": "design-system-components-userpicker--with-dual-filter",
+          "name": "With Dual Filter",
+          "snippet": "const WithDualFilter = function Render() {\n  const [value, setValue] = useState<string | undefined>();\n  return (\n    <div style={{ padding: 24, background: '#fff', minWidth: 500 }}>\n      <UserPicker\n        label=\"Lead Owner\"\n        placeholder=\"Select user\"\n        value={value}\n        users={USERS}\n        onChange={setValue}\n        layout=\"horizontal\"\n        width={390}\n        filters={[\n          { id: 'type',   options: ['Roles', 'Users', 'Teams'] },\n          { id: 'access', options: ['Managers', 'Admins', 'Members'] },\n        ]}\n      />\n    </div>\n  );\n};",
+          "description": "Two filter bars side-by-side (Roles | Managers)."
         }
       ],
       "import": "import { UserPicker } from \"@chinnaiya-r-2310/design-system\";"
+    },
+    "design-system-components-verticaltabs": {
+      "id": "design-system-components-verticaltabs",
+      "name": "VerticalTabs",
+      "path": "./src/design-system/components/VerticalTabs/VerticalTabs.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "VerticalTabs",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/VerticalTabs/VerticalTabs.js",
+        "actualName": "VerticalTabs",
+        "exportName": "VerticalTabs",
+        "props": {
+          "searchable": {
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            },
+            "required": false
+          },
+          "items": {
+            "defaultValue": {
+              "value": "[]",
+              "computed": false
+            },
+            "required": false
+          },
+          "variant": {
+            "defaultValue": {
+              "value": "'1'",
+              "computed": false
+            },
+            "required": false
+          },
+          "width": {
+            "defaultValue": {
+              "value": "275",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-components-verticaltabs--style-1",
+          "name": "Style 1",
+          "snippet": "const Style1 = () => {\n  const [active, setActive] = useState('company-details');\n  return (\n    <VerticalTabs\n      title=\"Setup\"\n      searchable\n      variant=\"1\"\n      items={SETUP_ITEMS}\n      activeId={active}\n      onSelect={setActive}\n      width={275}\n    />\n  );\n};",
+          "description": "Style 1 — active item: indigo background + blue text, no left border"
+        },
+        {
+          "id": "design-system-components-verticaltabs--style-2",
+          "name": "Style 2",
+          "snippet": "const Style2 = () => {\n  const [active, setActive] = useState('company-details');\n  return (\n    <VerticalTabs\n      title=\"Setup\"\n      searchable\n      variant=\"2\"\n      items={SETUP_ITEMS}\n      activeId={active}\n      onSelect={setActive}\n      width={275}\n    />\n  );\n};",
+          "description": "Style 2 — active item: indigo background + blue text + blue left border bar"
+        },
+        {
+          "id": "design-system-components-verticaltabs--all-styles",
+          "name": "All Styles",
+          "snippet": "const AllStyles = () => {\n  const [active1, setActive1] = useState('company-details');\n  const [active2, setActive2] = useState('company-details');\n  return (\n    <div style={{ display: 'flex', gap: 40, alignItems: 'flex-start' }}>\n      <div>\n        <p style={{ fontFamily: 'var(--ds-font-family-base)', fontSize: 13, color: 'var(--ds-text-label)', marginBottom: 8, marginTop: 0 }}>Style 1</p>\n        <VerticalTabs\n          title=\"Setup\"\n          searchable\n          variant=\"1\"\n          items={SETUP_ITEMS}\n          activeId={active1}\n          onSelect={setActive1}\n          width={275}\n        />\n      </div>\n      <div>\n        <p style={{ fontFamily: 'var(--ds-font-family-base)', fontSize: 13, color: 'var(--ds-text-label)', marginBottom: 8, marginTop: 0 }}>Style 2</p>\n        <VerticalTabs\n          title=\"Setup\"\n          searchable\n          variant=\"2\"\n          items={SETUP_ITEMS}\n          activeId={active2}\n          onSelect={setActive2}\n          width={275}\n        />\n      </div>\n    </div>\n  );\n};",
+          "description": "Both styles side by side"
+        }
+      ],
+      "import": "import { VerticalTabs } from \"@chinnaiya-r-2310/design-system\";"
+    },
+    "design-system-components-wmsbar": {
+      "id": "design-system-components-wmsbar",
+      "name": "WMSBar",
+      "path": "./src/design-system/components/WMSBar/WMSBar.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "WMSBar",
+        "definedInFile": "/home/runner/work/crm-design-system/crm-design-system/src/design-system/components/WMSBar/WMSBar.js",
+        "actualName": "WMSBar",
+        "exportName": "WMSBar",
+        "props": {
+          "chatPlaceholder": {
+            "defaultValue": {
+              "value": "'Here is your Smart chat'",
+              "computed": false
+            },
+            "required": false
+          },
+          "shortcut": {
+            "defaultValue": {
+              "value": "'Ctrl+Space'",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-components-wmsbar--default",
+          "name": "Default",
+          "snippet": "const Default = () => <WMSBar />;"
+        },
+        {
+          "id": "design-system-components-wmsbar--custom-prompt",
+          "name": "Custom Prompt",
+          "snippet": "const CustomPrompt = () => (\n  <WMSBar\n    chatPlaceholder=\"Ask Zia anything...\"\n    shortcut=\"Ctrl+K\"\n  />\n);"
+        },
+        {
+          "id": "design-system-components-wmsbar--full-page",
+          "name": "With TopBand",
+          "snippet": "const FullPage = () => {\n  // eslint-disable-next-line @typescript-eslint/no-var-requires\n  const { NextGenTopBand } = require('../NextGenTopBand/NextGenTopBand');\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>\n      <NextGenTopBand moduleLabel=\"Leads\" moduleCount={1} notificationCount={3} />\n      <WMSBar />\n      <div style={{\n        flex: 1,\n        background: '#F0F2F7',\n        display: 'flex',\n        alignItems: 'center',\n        justifyContent: 'center',\n        fontSize: 14,\n        color: '#616E88',\n        fontFamily: 'var(--ds-font-family-base, sans-serif)',\n      }}>\n        Content area\n      </div>\n    </div>\n  );\n};"
+        }
+      ],
+      "import": "import { WMSBar } from \"@chinnaiya-r-2310/design-system\";"
     },
     "design-system-foundations-colors": {
       "id": "design-system-foundations-colors",
@@ -1877,6 +2139,6 @@
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 1474
+    "durationMs": 2167
   }
 }
