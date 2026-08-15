@@ -1,4 +1,5 @@
 import type { FC, SVGProps } from 'react';
+import { useId } from 'react';
 
 type P = SVGProps<SVGSVGElement>;
 
@@ -394,21 +395,25 @@ export const Motivator: FC<P> = (props) => (
   </svg>
 );
 
-export const AlarmClock: FC<P> = (props) => (
-  <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <g clipPath="url(#clip0_alarm)">
-      <path d="M7.9458 2.05566C11.1919 2.05571 13.8511 4.71483 13.8511 7.96094C13.851 11.207 11.1919 13.8662 7.9458 13.8662C4.69969 13.8662 2.04057 11.207 2.04053 7.96094C2.04053 4.7148 4.69966 2.05566 7.9458 2.05566Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M6.83655 9.07049H11.2733C11.6061 9.07049 11.8279 8.84865 11.8279 8.51589C11.8279 8.18313 11.6061 7.96129 11.2733 7.96129H7.94575V4.6337C7.94575 4.30094 7.72391 4.0791 7.39115 4.0791C7.05839 4.0791 6.83655 4.30094 6.83655 4.6337V9.07049Z" fill="currentColor"/>
-    </g>
-    <path d="M4.63168 0.634323C3.97974 0.0843072 3.00184 -0.135699 2.13259 0.0843071C0.611402 0.52432 -0.257847 1.95436 0.0681213 3.60441C0.176777 4.04442 0.39409 4.48443 0.828714 4.92444C1.48065 3.05439 2.89318 1.51435 4.63168 0.634323Z" fill="currentColor"/>
-    <path d="M11.3683 0.634323C12.0202 0.0843072 12.9981 -0.135699 13.8674 0.0843071C15.3886 0.52432 16.2578 1.95436 15.9318 3.60441C15.8232 4.04442 15.6059 4.48443 15.1713 4.92444C14.5193 3.05439 13.1068 1.51435 11.3683 0.634323Z" fill="currentColor"/>
-    <defs>
-      <clipPath id="clip0_alarm">
-        <rect width="13.3104" height="13.3104" fill="white" transform="translate(1.29053 1.30566)"/>
-      </clipPath>
-    </defs>
-  </svg>
-);
+export const AlarmClock: FC<P> = (props) => {
+  const uid = useId();
+  const clipId = `alarm-clip-${uid}`;
+  return (
+    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <g clipPath={`url(#${clipId})`}>
+        <path d="M7.9458 2.05566C11.1919 2.05571 13.8511 4.71483 13.8511 7.96094C13.851 11.207 11.1919 13.8662 7.9458 13.8662C4.69969 13.8662 2.04057 11.207 2.04053 7.96094C2.04053 4.7148 4.69966 2.05566 7.9458 2.05566Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M6.83655 9.07049H11.2733C11.6061 9.07049 11.8279 8.84865 11.8279 8.51589C11.8279 8.18313 11.6061 7.96129 11.2733 7.96129H7.94575V4.6337C7.94575 4.30094 7.72391 4.0791 7.39115 4.0791C7.05839 4.0791 6.83655 4.30094 6.83655 4.6337V9.07049Z" fill="currentColor"/>
+      </g>
+      <path d="M4.63168 0.634323C3.97974 0.0843072 3.00184 -0.135699 2.13259 0.0843071C0.611402 0.52432 -0.257847 1.95436 0.0681213 3.60441C0.176777 4.04442 0.39409 4.48443 0.828714 4.92444C1.48065 3.05439 2.89318 1.51435 4.63168 0.634323Z" fill="currentColor"/>
+      <path d="M11.3683 0.634323C12.0202 0.0843072 12.9981 -0.135699 13.8674 0.0843071C15.3886 0.52432 16.2578 1.95436 15.9318 3.60441C15.8232 4.04442 15.6059 4.48443 15.1713 4.92444C14.5193 3.05439 13.1068 1.51435 11.3683 0.634323Z" fill="currentColor"/>
+      <defs>
+        <clipPath id={clipId}>
+          <rect width="13.3104" height="13.3104" fill="white" transform="translate(1.29053 1.30566)"/>
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
 
 export const Zia: FC<P> = (props) => (
   <svg width="17" height="13" viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>

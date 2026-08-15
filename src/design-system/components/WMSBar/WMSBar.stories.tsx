@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { WMSBar } from './WMSBar';
+import { NextGenTopBand } from '../NextGenTopBand/NextGenTopBand';
 
 const meta: Meta<typeof WMSBar> = {
   title: 'Design System/Components/WMSBar',
@@ -38,8 +39,6 @@ export const CustomPrompt: Story = {
 export const FullPage: Story = {
   name: 'With TopBand',
   render: () => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { NextGenTopBand } = require('../NextGenTopBand/NextGenTopBand');
     return (
       <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <NextGenTopBand moduleLabel="Leads" moduleCount={1} notificationCount={3} />
