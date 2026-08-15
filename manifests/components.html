@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">5/29 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">27/29 infos</a><span class="filter-pill ok" aria-disabled="true">199 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">6/30 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">28/30 infos</a><span class="filter-pill ok" aria-disabled="true">200 stories ok</span></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.3s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -604,6 +604,477 @@
     <h2 class="section-title">Components</h2>
     <div class="grid" role="list">
       
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="AuditLogDuration">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> AuditLogDuration</h2>
+      <div class="badges">
+        <label for="c-0-patterns-audit-log-duration-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-0-patterns-audit-log-duration-info" class="badge info as-toggle">1 info</label>
+        <label for="c-0-patterns-audit-log-duration-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/patterns/AuditLogDuration.stories.tsx">patterns-audit-log-duration · ./src/design-system/patterns/AuditLogDuration.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-0-patterns-audit-log-duration-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-0-patterns-audit-log-duration-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-0-patterns-audit-log-duration-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  59 | // ─────────────────────────────────────────────────────────────────────────────
+  60 |
+&gt; 61 | const meta: Meta = {
+     | ^
+  62 |   title: &#39;Patterns/Audit Log Duration&#39;,
+  63 |   parameters: {
+  64 |     layout: &#39;fullscreen&#39;,
+
+./src/design-system/patterns/AuditLogDuration.stories.tsx:
+import { useState } from &#39;react&#39;;
+import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
+import { Modal } from &#39;../components/Modal&#39;;
+import { Tags } from &#39;../components/Tags&#39;;
+import { MessageBox } from &#39;../components/MessageBox&#39;;
+import { FormSection } from &#39;../components/FormSection&#39;;
+import { Select } from &#39;../components/Select&#39;;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Static data
+// ─────────────────────────────────────────────────────────────────────────────
+
+const DURATION_OPTIONS = [
+  { value: &#39;3m&#39;, label: &#39;3 Months&#39; },
+  { value: &#39;6m&#39;, label: &#39;6 Months&#39; },
+  { value: &#39;1y&#39;, label: &#39;1 Year&#39; },
+  { value: &#39;2y&#39;, label: &#39;2 Years&#39; },
+  { value: &#39;3y&#39;, label: &#39;3 Years&#39; },
+  { value: &#39;5y&#39;, label: &#39;5 Years&#39; },
+  { value: &#39;7y&#39;, label: &#39;7 Years&#39; },
+];
+
+const AFTER_OPTIONS = [
+  { value: &#39;archive&#39;, label: &#39;Archive&#39; },
+  { value: &#39;delete&#39;,  label: &#39;Delete&#39;  },
+];
+
+const MODULE_OPTIONS = [
+  { value: &#39;leads&#39;,          label: &#39;Leads&#39; },
+  { value: &#39;contacts&#39;,       label: &#39;Contacts&#39; },
+  { value: &#39;accounts&#39;,       label: &#39;Accounts&#39; },
+  { value: &#39;deals&#39;,          label: &#39;Deals&#39; },
+  { value: &#39;activities&#39;,     label: &#39;Activities&#39; },
+  { value: &#39;cases&#39;,          label: &#39;Cases&#39; },
+  { value: &#39;solutions&#39;,      label: &#39;Solutions&#39; },
+  { value: &#39;products&#39;,       label: &#39;Products&#39; },
+  { value: &#39;forecasts&#39;,      label: &#39;Forecasts&#39; },
+  { value: &#39;reports&#39;,        label: &#39;Reports&#39; },
+  { value: &#39;campaigns&#39;,      label: &#39;Campaigns&#39; },
+  { value: &#39;quotes&#39;,         label: &#39;Quotes&#39; },
+  { value: &#39;sales-orders&#39;,   label: &#39;Sales Orders&#39; },
+  { value: &#39;purchase-orders&#39;,label: &#39;Purchase Orders&#39; },
+  { value: &#39;invoices&#39;,       label: &#39;Invoices&#39; },
+];
+
+const SUBFORM_OPTIONS = [
+  { value: &#39;contact-roles&#39;,    label: &#39;Contact Roles&#39; },
+  { value: &#39;product-details&#39;,  label: &#39;Product Details&#39; },
+  { value: &#39;invited-guests&#39;,   label: &#39;Invited Guests&#39; },
+  { value: &#39;expense-details&#39;,  label: &#39;Expense Details&#39; },
+  { value: &#39;participants&#39;,     label: &#39;Participants&#39; },
+  { value: &#39;stage-history&#39;,    label: &#39;Stage History&#39; },
+];
+
+type TagItem = { value: string; label: string };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Meta
+// ─────────────────────────────────────────────────────────────────────────────
+
+const meta: Meta = {
+  title: &#39;Patterns/Audit Log Duration&#39;,
+  parameters: {
+    layout: &#39;fullscreen&#39;,
+    docs: {
+      description: {
+        story:
+          &#39;Manage Audit Log Duration modal. &#39; +
+          &#39;Composed from Modal + FormSection + Select + Tags + MessageBox. &#39; +
+          &#39;Reference: https://auditlog-basic.onslate.in/&#39;,
+      },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Pattern
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const Default: Story = {
+  name: &#39;Audit Log Duration&#39;,
+  parameters: { controls: { disable: true } },
+  render: () =&gt; {
+    const [open, setOpen]           = useState(false);
+    const [confirm, setConfirm]     = useState(false);
+    const [visibleDur, setVisibleDur]   = useState(&#39;1y&#39;);
+    const [afterVisible, setAfterVisible] = useState(&#39;archive&#39;);
+    const [archiveDur, setArchiveDur]   = useState(&#39;1y&#39;);
+    const [modules, setModules]     = useState&lt;TagItem[]&gt;([]);
+    const [subforms, setSubforms]   = useState&lt;TagItem[]&gt;([]);
+
+    const hasExemptions = modules.length &gt; 0 || subforms.length &gt; 0;
+
+    return (
+      &lt;div style={{
+        height: &#39;100vh&#39;,
+        display: &#39;flex&#39;,
+        alignItems: &#39;center&#39;,
+        justifyContent: &#39;center&#39;,
+        background: &#39;#F0F2F7&#39;,
+        fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
+      }}&gt;
+        &lt;button
+          type=&quot;button&quot;
+          onClick={() =&gt; setOpen(true)}
+          style={{
+            padding: &#39;8px 20px&#39;,
+            background: &#39;#5464F2&#39;,
+            color: &#39;#fff&#39;,
+            border: &#39;none&#39;,
+            borderRadius: &#39;6px&#39;,
+            fontSize: &#39;13px&#39;,
+            fontWeight: 500,
+            cursor: &#39;pointer&#39;,
+            fontFamily: &#39;inherit&#39;,
+          }}
+        &gt;
+          Manage Audit Log Duration
+        &lt;/button&gt;
+
+        {/* ── Main modal ── */}
+        &lt;Modal
+          isOpen={open}
+          title=&quot;Manage Audit Log Duration&quot;
+          onClose={() =&gt; setOpen(false)}
+          onSave={() =&gt; setConfirm(true)}
+          cancelLabel=&quot;Cancel&quot;
+          saveLabel=&quot;Save&quot;
+          footerNote=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
+          width={600}
+        &gt;
+          {/* Info panel */}
+          &lt;MessageBox
+            variant=&quot;info&quot;
+            closable={false}
+            message={
+              &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
+                &lt;li&gt;You can choose how long logs stay visible on the Audit Log page.&lt;/li&gt;
+                &lt;li&gt;Remaining logs can be archived or deleted to free up space.&lt;/li&gt;
+                &lt;li&gt;Audit Logs (including Timeline and Interaction data) count toward your Data Storage.&lt;/li&gt;
+                &lt;li&gt;Archived logs use significantly less storage than visible logs.&lt;/li&gt;
+              &lt;/ul&gt;
+            }
+          /&gt;
+
+          {/* Duration settings */}
+          &lt;FormSection title=&quot;Duration Settings&quot;&gt;
+            &lt;Select
+              label=&quot;Visible Logs Duration&quot;
+              value={visibleDur}
+              options={DURATION_OPTIONS}
+              layout=&quot;horizontal&quot;
+              width=&quot;100%&quot;
+            /&gt;
+            &lt;Select
+              label=&quot;After Visible Period&quot;
+              value={afterVisible}
+              options={AFTER_OPTIONS}
+              layout=&quot;horizontal&quot;
+              width=&quot;100%&quot;
+            /&gt;
+            {afterVisible === &#39;archive&#39; &amp;&amp; (
+              &lt;Select
+                label=&quot;Archive Duration&quot;
+                value={archiveDur}
+                options={DURATION_OPTIONS}
+                layout=&quot;horizontal&quot;
+                width=&quot;100%&quot;
+              /&gt;
+            )}
+          &lt;/FormSection&gt;
+
+          {/* Modules exempt */}
+          &lt;FormSection title=&quot;Modules Exempt from Standard Duration&quot;&gt;
+            &lt;p style={{ margin: &#39;0 0 12px&#39;, fontSize: 12, color: &#39;var(--ds-text-secondary, #616E88)&#39;, lineHeight: 1.55 }}&gt;
+              Apply a restricted retention period — 6 months for visible logs and 6 months
+              for archived logs — to selected modules and subforms.
+            &lt;/p&gt;
+            &lt;Tags
+              value={modules}
+              options={MODULE_OPTIONS}
+              placeholder=&quot;Select modules...&quot;
+              onChange={setModules}
+              width=&quot;100%&quot;
+            /&gt;
+            &lt;div style={{ marginTop: 10 }}&gt;
+              &lt;Tags
+                value={subforms}
+                options={SUBFORM_OPTIONS}
+                placeholder=&quot;Select subforms...&quot;
+                onChange={setSubforms}
+                width=&quot;100%&quot;
+              /&gt;
+            &lt;/div&gt;
+            {hasExemptions &amp;&amp; (
+              &lt;div style={{ marginTop: 10 }}&gt;
+                &lt;MessageBox
+                  variant=&quot;warning&quot;
+                  closable={false}
+                  message=&quot;Selected logs are retained for 6 months only, after which they are deleted.&quot;
+                /&gt;
+              &lt;/div&gt;
+            )}
+          &lt;/FormSection&gt;
+        &lt;/Modal&gt;
+
+        {/* ── Confirmation modal ── */}
+        &lt;Modal
+          isOpen={confirm}
+          title=&quot;Save audit log duration changes?&quot;
+          onClose={() =&gt; setConfirm(false)}
+          onSave={() =&gt; { setConfirm(false); setOpen(false); }}
+          cancelLabel=&quot;Cancel&quot;
+          saveLabel=&quot;Okay, Proceed&quot;
+          width={440}
+        &gt;
+          &lt;MessageBox
+            variant=&quot;warning&quot;
+            closable={false}
+            message={
+              &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
+                &lt;li&gt;Logs beyond the retention period will be permanently deleted.&lt;/li&gt;
+                &lt;li&gt;Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/li&gt;
+                &lt;li&gt;Deleted logs cannot be recovered.&lt;/li&gt;
+              &lt;/ul&gt;
+            }
+          /&gt;
+        &lt;/Modal&gt;
+      &lt;/div&gt;
+    );
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { FormSection, MessageBox, Modal, Select, Tags } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Audit Log Duration</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; {
+  const [open, setOpen]           = useState(false);
+  const [confirm, setConfirm]     = useState(false);
+  const [visibleDur, setVisibleDur]   = useState(&#39;1y&#39;);
+  const [afterVisible, setAfterVisible] = useState(&#39;archive&#39;);
+  const [archiveDur, setArchiveDur]   = useState(&#39;1y&#39;);
+  const [modules, setModules]     = useState&lt;TagItem[]&gt;([]);
+  const [subforms, setSubforms]   = useState&lt;TagItem[]&gt;([]);
+
+  const hasExemptions = modules.length &gt; 0 || subforms.length &gt; 0;
+
+  return (
+    &lt;div style={{
+      height: &#39;100vh&#39;,
+      display: &#39;flex&#39;,
+      alignItems: &#39;center&#39;,
+      justifyContent: &#39;center&#39;,
+      background: &#39;#F0F2F7&#39;,
+      fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
+    }}&gt;
+      &lt;button
+        type=&quot;button&quot;
+        onClick={() =&gt; setOpen(true)}
+        style={{
+          padding: &#39;8px 20px&#39;,
+          background: &#39;#5464F2&#39;,
+          color: &#39;#fff&#39;,
+          border: &#39;none&#39;,
+          borderRadius: &#39;6px&#39;,
+          fontSize: &#39;13px&#39;,
+          fontWeight: 500,
+          cursor: &#39;pointer&#39;,
+          fontFamily: &#39;inherit&#39;,
+        }}
+      &gt;
+        Manage Audit Log Duration
+      &lt;/button&gt;
+
+      {/* ── Main modal ── */}
+      &lt;Modal
+        isOpen={open}
+        title=&quot;Manage Audit Log Duration&quot;
+        onClose={() =&gt; setOpen(false)}
+        onSave={() =&gt; setConfirm(true)}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Save&quot;
+        footerNote=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
+        width={600}
+      &gt;
+        {/* Info panel */}
+        &lt;MessageBox
+          variant=&quot;info&quot;
+          closable={false}
+          message={
+            &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
+              &lt;li&gt;You can choose how long logs stay visible on the Audit Log page.&lt;/li&gt;
+              &lt;li&gt;Remaining logs can be archived or deleted to free up space.&lt;/li&gt;
+              &lt;li&gt;Audit Logs (including Timeline and Interaction data) count toward your Data Storage.&lt;/li&gt;
+              &lt;li&gt;Archived logs use significantly less storage than visible logs.&lt;/li&gt;
+            &lt;/ul&gt;
+          }
+        /&gt;
+
+        {/* Duration settings */}
+        &lt;FormSection title=&quot;Duration Settings&quot;&gt;
+          &lt;Select
+            label=&quot;Visible Logs Duration&quot;
+            value={visibleDur}
+            options={DURATION_OPTIONS}
+            layout=&quot;horizontal&quot;
+            width=&quot;100%&quot;
+          /&gt;
+          &lt;Select
+            label=&quot;After Visible Period&quot;
+            value={afterVisible}
+            options={AFTER_OPTIONS}
+            layout=&quot;horizontal&quot;
+            width=&quot;100%&quot;
+          /&gt;
+          {afterVisible === &#39;archive&#39; &amp;&amp; (
+            &lt;Select
+              label=&quot;Archive Duration&quot;
+              value={archiveDur}
+              options={DURATION_OPTIONS}
+              layout=&quot;horizontal&quot;
+              width=&quot;100%&quot;
+            /&gt;
+          )}
+        &lt;/FormSection&gt;
+
+        {/* Modules exempt */}
+        &lt;FormSection title=&quot;Modules Exempt from Standard Duration&quot;&gt;
+          &lt;p style={{ margin: &#39;0 0 12px&#39;, fontSize: 12, color: &#39;var(--ds-text-secondary, #616E88)&#39;, lineHeight: 1.55 }}&gt;
+            Apply a restricted retention period — 6 months for visible logs and 6 months
+            for archived logs — to selected modules and subforms.
+          &lt;/p&gt;
+          &lt;Tags
+            value={modules}
+            options={MODULE_OPTIONS}
+            placeholder=&quot;Select modules...&quot;
+            onChange={setModules}
+            width=&quot;100%&quot;
+          /&gt;
+          &lt;div style={{ marginTop: 10 }}&gt;
+            &lt;Tags
+              value={subforms}
+              options={SUBFORM_OPTIONS}
+              placeholder=&quot;Select subforms...&quot;
+              onChange={setSubforms}
+              width=&quot;100%&quot;
+            /&gt;
+          &lt;/div&gt;
+          {hasExemptions &amp;&amp; (
+            &lt;div style={{ marginTop: 10 }}&gt;
+              &lt;MessageBox
+                variant=&quot;warning&quot;
+                closable={false}
+                message=&quot;Selected logs are retained for 6 months only, after which they are deleted.&quot;
+              /&gt;
+            &lt;/div&gt;
+          )}
+        &lt;/FormSection&gt;
+      &lt;/Modal&gt;
+
+      {/* ── Confirmation modal ── */}
+      &lt;Modal
+        isOpen={confirm}
+        title=&quot;Save audit log duration changes?&quot;
+        onClose={() =&gt; setConfirm(false)}
+        onSave={() =&gt; { setConfirm(false); setOpen(false); }}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Okay, Proceed&quot;
+        width={440}
+      &gt;
+        &lt;MessageBox
+          variant=&quot;warning&quot;
+          closable={false}
+          message={
+            &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
+              &lt;li&gt;Logs beyond the retention period will be permanently deleted.&lt;/li&gt;
+              &lt;li&gt;Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/li&gt;
+              &lt;li&gt;Deleted logs cannot be recovered.&lt;/li&gt;
+            &lt;/ul&gt;
+          }
+        /&gt;
+      &lt;/Modal&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
 <article
   class="card 
   no-error 
@@ -617,8 +1088,8 @@
       <h2><span class="status-dot dot-ok"></span> Breadcrumb</h2>
       <div class="badges">
         
-        <label for="c-0-design-system-components-breadcrumb-info" class="badge info as-toggle">1 info</label>
-        <label for="c-0-design-system-components-breadcrumb-stories" class="badge ok as-toggle">5 stories</label>
+        <label for="c-1-design-system-components-breadcrumb-info" class="badge info as-toggle">1 info</label>
+        <label for="c-1-design-system-components-breadcrumb-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
@@ -631,8 +1102,8 @@
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-0-design-system-components-breadcrumb-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-0-design-system-components-breadcrumb-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-1-design-system-components-breadcrumb-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-1-design-system-components-breadcrumb-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -768,9 +1239,9 @@
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Button</h2>
       <div class="badges">
-        <label for="c-1-design-system-components-button-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-1-design-system-components-button-info" class="badge info as-toggle">1 info</label>
-        <label for="c-1-design-system-components-button-stories" class="badge ok as-toggle">22 stories</label>
+        <label for="c-2-design-system-components-button-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-2-design-system-components-button-info" class="badge info as-toggle">1 info</label>
+        <label for="c-2-design-system-components-button-stories" class="badge ok as-toggle">22 stories</label>
         
         
       </div>
@@ -783,11 +1254,11 @@
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-1-design-system-components-button-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-1-design-system-components-button-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-2-design-system-components-button-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-2-design-system-components-button-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-1-design-system-components-button-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-2-design-system-components-button-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -1765,9 +2236,9 @@ Figma: node 34442:87663.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Calendar</h2>
       <div class="badges">
-        <label for="c-2-design-system-components-calendar-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-2-design-system-components-calendar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-2-design-system-components-calendar-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-3-design-system-components-calendar-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-3-design-system-components-calendar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-3-design-system-components-calendar-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -1780,11 +2251,11 @@ Figma: node 34442:87663.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-2-design-system-components-calendar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-2-design-system-components-calendar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-3-design-system-components-calendar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-3-design-system-components-calendar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-2-design-system-components-calendar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-3-design-system-components-calendar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -2104,9 +2575,9 @@ width?: any = 284</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Checkbox</h2>
       <div class="badges">
-        <label for="c-3-design-system-components-checkbox-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-3-design-system-components-checkbox-info" class="badge info as-toggle">1 info</label>
-        <label for="c-3-design-system-components-checkbox-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-4-design-system-components-checkbox-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-4-design-system-components-checkbox-info" class="badge info as-toggle">1 info</label>
+        <label for="c-4-design-system-components-checkbox-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -2119,11 +2590,11 @@ width?: any = 284</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-3-design-system-components-checkbox-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-3-design-system-components-checkbox-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-4-design-system-components-checkbox-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-4-design-system-components-checkbox-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-3-design-system-components-checkbox-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-4-design-system-components-checkbox-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -2278,9 +2749,9 @@ width?: any = 284</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> ColorFoundationsPage</h2>
       <div class="badges">
-        <label for="c-4-design-system-foundations-colors-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-4-design-system-foundations-colors-info" class="badge info as-toggle">1 info</label>
-        <label for="c-4-design-system-foundations-colors-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-5-design-system-foundations-colors-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-5-design-system-foundations-colors-info" class="badge info as-toggle">1 info</label>
+        <label for="c-5-design-system-foundations-colors-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -2292,9 +2763,9 @@ width?: any = 284</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-4-design-system-foundations-colors-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-4-design-system-foundations-colors-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-4-design-system-foundations-colors-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-5-design-system-foundations-colors-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-5-design-system-foundations-colors-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-5-design-system-foundations-colors-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -2537,9 +3008,9 @@ export const AllColors: StoryObj = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> CriteriaBuilder</h2>
       <div class="badges">
-        <label for="c-5-design-system-components-criteriabuilder-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-5-design-system-components-criteriabuilder-info" class="badge info as-toggle">1 info</label>
-        <label for="c-5-design-system-components-criteriabuilder-stories" class="badge ok as-toggle">5 stories</label>
+        <label for="c-6-design-system-components-criteriabuilder-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-6-design-system-components-criteriabuilder-info" class="badge info as-toggle">1 info</label>
+        <label for="c-6-design-system-components-criteriabuilder-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
@@ -2552,11 +3023,11 @@ export const AllColors: StoryObj = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-5-design-system-components-criteriabuilder-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-5-design-system-components-criteriabuilder-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-6-design-system-components-criteriabuilder-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-6-design-system-components-criteriabuilder-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-5-design-system-components-criteriabuilder-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-6-design-system-components-criteriabuilder-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -2699,9 +3170,9 @@ operatorOptions?: any = []</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> DatePicker</h2>
       <div class="badges">
-        <label for="c-6-design-system-components-datepicker-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-6-design-system-components-datepicker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-6-design-system-components-datepicker-stories" class="badge ok as-toggle">5 stories</label>
+        <label for="c-7-design-system-components-datepicker-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-7-design-system-components-datepicker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-7-design-system-components-datepicker-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
@@ -2714,11 +3185,11 @@ operatorOptions?: any = []</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-6-design-system-components-datepicker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-6-design-system-components-datepicker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-7-design-system-components-datepicker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-7-design-system-components-datepicker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-6-design-system-components-datepicker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-7-design-system-components-datepicker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -2858,9 +3329,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> DateRangePicker</h2>
       <div class="badges">
-        <label for="c-7-design-system-components-calendar-date-range-picker-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-7-design-system-components-calendar-date-range-picker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-7-design-system-components-calendar-date-range-picker-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-8-design-system-components-calendar-date-range-picker-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-8-design-system-components-calendar-date-range-picker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-8-design-system-components-calendar-date-range-picker-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -2873,11 +3344,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-7-design-system-components-calendar-date-range-picker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-7-design-system-components-calendar-date-range-picker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-8-design-system-components-calendar-date-range-picker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-8-design-system-components-calendar-date-range-picker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-7-design-system-components-calendar-date-range-picker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-8-design-system-components-calendar-date-range-picker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -3008,9 +3479,9 @@ width?: any = 320</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Dropdown</h2>
       <div class="badges">
-        <label for="c-8-design-system-components-dropdown-props" class="badge ok as-toggle">7 prop types</label>
-        <label for="c-8-design-system-components-dropdown-info" class="badge info as-toggle">1 info</label>
-        <label for="c-8-design-system-components-dropdown-stories" class="badge ok as-toggle">15 stories</label>
+        <label for="c-9-design-system-components-dropdown-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-9-design-system-components-dropdown-info" class="badge info as-toggle">1 info</label>
+        <label for="c-9-design-system-components-dropdown-stories" class="badge ok as-toggle">15 stories</label>
         
         
       </div>
@@ -3023,11 +3494,11 @@ width?: any = 320</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-8-design-system-components-dropdown-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-8-design-system-components-dropdown-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-9-design-system-components-dropdown-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-9-design-system-components-dropdown-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-8-design-system-components-dropdown-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-9-design-system-components-dropdown-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -3437,9 +3908,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Forms</h2>
       <div class="badges">
-        <label for="c-9-design-system-patterns-forms-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-9-design-system-patterns-forms-info" class="badge info as-toggle">1 info</label>
-        <label for="c-9-design-system-patterns-forms-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-10-design-system-patterns-forms-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-10-design-system-patterns-forms-info" class="badge info as-toggle">1 info</label>
+        <label for="c-10-design-system-patterns-forms-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -3451,9 +3922,9 @@ width?: any = 670</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-9-design-system-patterns-forms-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-9-design-system-patterns-forms-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-9-design-system-patterns-forms-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-10-design-system-patterns-forms-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-10-design-system-patterns-forms-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-10-design-system-patterns-forms-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -4376,9 +4847,9 @@ export const CreateDeal: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Icon</h2>
       <div class="badges">
-        <label for="c-10-design-system-foundations-icons-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-11-design-system-foundations-icons-props" class="badge ok as-toggle">1 prop type</label>
         
-        <label for="c-10-design-system-foundations-icons-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-11-design-system-foundations-icons-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -4407,10 +4878,10 @@ Adding icons
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
   
-  <input id="c-10-design-system-foundations-icons-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-11-design-system-foundations-icons-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-10-design-system-foundations-icons-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-11-design-system-foundations-icons-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -4884,9 +5355,9 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Input</h2>
       <div class="badges">
-        <label for="c-11-design-system-components-input-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-12-design-system-components-input-props" class="badge ok as-toggle">3 prop types</label>
         
-        <label for="c-11-design-system-components-input-stories" class="badge ok as-toggle">21 stories</label>
+        <label for="c-12-design-system-components-input-stories" class="badge ok as-toggle">21 stories</label>
         
         
       </div>
@@ -4924,10 +5395,10 @@ Extending
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
   
-  <input id="c-11-design-system-components-input-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-12-design-system-components-input-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-11-design-system-components-input-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-12-design-system-components-input-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -5301,9 +5772,9 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MessageBox</h2>
       <div class="badges">
-        <label for="c-12-design-system-components-messagebox-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-12-design-system-components-messagebox-info" class="badge info as-toggle">1 info</label>
-        <label for="c-12-design-system-components-messagebox-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-13-design-system-components-messagebox-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-13-design-system-components-messagebox-info" class="badge info as-toggle">1 info</label>
+        <label for="c-13-design-system-components-messagebox-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -5316,11 +5787,11 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-12-design-system-components-messagebox-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-12-design-system-components-messagebox-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-13-design-system-components-messagebox-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-13-design-system-components-messagebox-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-12-design-system-components-messagebox-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-13-design-system-components-messagebox-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -5491,9 +5962,9 @@ variant?: any = &#39;info&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Modal</h2>
       <div class="badges">
-        <label for="c-13-design-system-components-modal-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-13-design-system-components-modal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-13-design-system-components-modal-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-14-design-system-components-modal-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-14-design-system-components-modal-info" class="badge info as-toggle">1 info</label>
+        <label for="c-14-design-system-components-modal-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -5505,9 +5976,9 @@ variant?: any = &#39;info&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-13-design-system-components-modal-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-13-design-system-components-modal-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-13-design-system-components-modal-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-14-design-system-components-modal-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-14-design-system-components-modal-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-14-design-system-components-modal-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -5878,9 +6349,9 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> NextGenLeftMenu</h2>
       <div class="badges">
-        <label for="c-14-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-14-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
-        <label for="c-14-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-15-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-15-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
+        <label for="c-15-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -5893,11 +6364,11 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-14-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-14-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-15-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-15-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-14-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-15-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6019,9 +6490,9 @@ topNavItems?: any = [
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> NextGenTopBand</h2>
       <div class="badges">
-        <label for="c-15-design-system-components-nextgentopband-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-15-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
-        <label for="c-15-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-16-design-system-components-nextgentopband-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-16-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
+        <label for="c-16-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -6034,11 +6505,11 @@ topNavItems?: any = [
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-15-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-15-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-16-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-16-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-15-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-16-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6150,8 +6621,8 @@ userInitials?: any = &#39;C&#39;</code></pre>
       <h2><span class="status-dot dot-ok"></span> Radio</h2>
       <div class="badges">
         
-        <label for="c-16-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
-        <label for="c-16-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-17-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
+        <label for="c-17-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -6164,8 +6635,8 @@ userInitials?: any = &#39;C&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-16-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-16-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-17-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-17-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -6309,9 +6780,9 @@ userInitials?: any = &#39;C&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Select</h2>
       <div class="badges">
-        <label for="c-17-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-17-design-system-components-select-info" class="badge info as-toggle">1 info</label>
-        <label for="c-17-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-18-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-18-design-system-components-select-info" class="badge info as-toggle">1 info</label>
+        <label for="c-18-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -6324,11 +6795,11 @@ userInitials?: any = &#39;C&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-17-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-17-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-18-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-18-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-17-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-18-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6531,9 +7002,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SetupTable</h2>
       <div class="badges">
-        <label for="c-18-design-system-components-table-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-18-design-system-components-table-info" class="badge info as-toggle">1 info</label>
-        <label for="c-18-design-system-components-table-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-19-design-system-components-table-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-19-design-system-components-table-info" class="badge info as-toggle">1 info</label>
+        <label for="c-19-design-system-components-table-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -6546,11 +7017,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-18-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-18-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-19-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-19-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-18-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-19-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6657,9 +7128,9 @@ striped?: any = false</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Switch</h2>
       <div class="badges">
-        <label for="c-19-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-19-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
-        <label for="c-19-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-20-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-20-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
+        <label for="c-20-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -6672,11 +7143,11 @@ striped?: any = false</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-19-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-19-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-20-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-20-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-19-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-20-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6820,9 +7291,9 @@ striped?: any = false</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tabs</h2>
       <div class="badges">
-        <label for="c-20-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-20-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-20-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-21-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-21-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-21-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -6835,11 +7306,11 @@ striped?: any = false</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-20-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-20-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-21-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-21-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-20-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-21-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6981,9 +7452,9 @@ variant?: any = &#39;primary&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tags</h2>
       <div class="badges">
-        <label for="c-21-design-system-components-tags-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-21-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
-        <label for="c-21-design-system-components-tags-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-22-design-system-components-tags-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-22-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
+        <label for="c-22-design-system-components-tags-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -6996,11 +7467,11 @@ variant?: any = &#39;primary&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-21-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-21-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-22-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-22-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-21-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-22-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -7221,9 +7692,9 @@ width?: any = &#39;100%&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Textarea</h2>
       <div class="badges">
-        <label for="c-22-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-22-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
-        <label for="c-22-design-system-components-textarea-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-23-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-23-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
+        <label for="c-23-design-system-components-textarea-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -7236,11 +7707,11 @@ width?: any = &#39;100%&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-22-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-22-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-23-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-23-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-22-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-23-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -7433,9 +7904,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tooltip</h2>
       <div class="badges">
-        <label for="c-23-design-system-components-tooltip-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-23-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
-        <label for="c-23-design-system-components-tooltip-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-24-design-system-components-tooltip-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-24-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
+        <label for="c-24-design-system-components-tooltip-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -7448,11 +7919,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-23-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-23-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-24-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-24-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-23-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-24-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -7624,9 +8095,9 @@ variant?: any = &#39;black&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> TypographyPage</h2>
       <div class="badges">
-        <label for="c-24-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-24-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
-        <label for="c-24-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-25-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-25-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
+        <label for="c-25-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -7638,9 +8109,9 @@ variant?: any = &#39;black&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-24-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-24-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-24-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-25-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-25-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-25-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -8085,9 +8556,9 @@ export const AllTypography: StoryObj = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-25-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-25-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-25-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-26-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-26-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-26-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -8099,9 +8570,9 @@ export const AllTypography: StoryObj = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-25-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-25-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-25-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-26-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-26-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-26-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -9476,9 +9947,9 @@ export const CreateNotification: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> UserPicker</h2>
       <div class="badges">
-        <label for="c-26-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-26-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-26-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-27-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-27-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-27-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -9491,11 +9962,11 @@ export const CreateNotification: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-26-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-26-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-27-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-27-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-26-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-27-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9691,9 +10162,9 @@ width?: any = 390</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> VerticalTabs</h2>
       <div class="badges">
-        <label for="c-27-design-system-components-verticaltabs-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-27-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-27-design-system-components-verticaltabs-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-28-design-system-components-verticaltabs-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-28-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-28-design-system-components-verticaltabs-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -9706,11 +10177,11 @@ width?: any = 390</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-27-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-27-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-28-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-28-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-27-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-28-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9854,9 +10325,9 @@ width?: any = 275</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> WMSBar</h2>
       <div class="badges">
-        <label for="c-28-design-system-components-wmsbar-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-28-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-28-design-system-components-wmsbar-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-29-design-system-components-wmsbar-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-29-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-29-design-system-components-wmsbar-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -9869,11 +10340,11 @@ width?: any = 275</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-28-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-28-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-29-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-29-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-28-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-29-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9908,7 +10379,7 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { WMSBar } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import { NextGenTopBand, WMSBar } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
@@ -9943,8 +10414,6 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
               
               
               <pre><code>const FullPage = () =&gt; {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { NextGenTopBand } = require(&#39;../NextGenTopBand/NextGenTopBand&#39;);
   return (
     &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, height: &#39;100vh&#39; }}&gt;
       &lt;NextGenTopBand moduleLabel=&quot;Leads&quot; moduleCount={1} notificationCount={3} /&gt;
@@ -9973,11 +10442,11 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
     </div>
     <div class="error-groups" role="region" aria-label="Prop type error groups">
         <section class="group">
-          <input id="no-component-import-found-toggle" class="group-tg" type="checkbox" hidden />
-          <label for="no-component-import-found-toggle" class="group-header">
+          <input id="no-component-found-toggle" class="group-tg" type="checkbox" hidden />
+          <label for="no-component-found-toggle" class="group-header">
             <span class="caret">▸</span>
-            <span class="group-title">No component import found</span>
-            <span class="group-count">2</span>
+            <span class="group-title">No component found</span>
+            <span class="group-count">3</span>
           </label>
           <div class="group-cards">
 <article
@@ -9987,28 +10456,28 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
   no-story-error
   no-doc-error"
   role="listitem"
-  aria-label="ColorFoundationsPage">
+  aria-label="AuditLogDuration">
   <div class="head">
     <div class="title">
-      <h2><span class="status-dot dot-err"></span> ColorFoundationsPage</h2>
+      <h2><span class="status-dot dot-err"></span> AuditLogDuration</h2>
       <div class="badges">
-        <label for="c-error-0-design-system-foundations-colors-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-0-design-system-foundations-colors-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-0-design-system-foundations-colors-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-error-0-patterns-audit-log-duration-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-0-patterns-audit-log-duration-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-0-patterns-audit-log-duration-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/design-system/foundations/Colors.stories.tsx">design-system-foundations-colors · ./src/design-system/foundations/Colors.stories.tsx</div>
+    <div class="meta" title="./src/design-system/patterns/AuditLogDuration.stories.tsx">patterns-audit-log-duration · ./src/design-system/patterns/AuditLogDuration.stories.tsx</div>
     
     
     
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-0-design-system-foundations-colors-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-0-design-system-foundations-colors-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-0-design-system-foundations-colors-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-0-patterns-audit-log-duration-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-0-patterns-audit-log-duration-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-0-patterns-audit-log-duration-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -10019,186 +10488,250 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
           
     <div class="note err">
       <div class="note-title">Prop type error</div>
-      <div class="note-body"><pre><code>No component file found for the &quot;ColorFoundationsPage&quot; component.
-  151 | }
-  152 |
-&gt; 153 | const meta: Meta = {
-      | ^
-  154 |   title: &#39;Design System/Foundations/Colors&#39;,
-  155 |   component: ColorFoundationsPage,
-  156 |   parameters: {
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  59 | // ─────────────────────────────────────────────────────────────────────────────
+  60 |
+&gt; 61 | const meta: Meta = {
+     | ^
+  62 |   title: &#39;Patterns/Audit Log Duration&#39;,
+  63 |   parameters: {
+  64 |     layout: &#39;fullscreen&#39;,
 
-./src/design-system/foundations/Colors.stories.tsx:
+./src/design-system/patterns/AuditLogDuration.stories.tsx:
+import { useState } from &#39;react&#39;;
 import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
-import colorTokens from &#39;./tokens/color.json&#39;;
+import { Modal } from &#39;../components/Modal&#39;;
+import { Tags } from &#39;../components/Tags&#39;;
+import { MessageBox } from &#39;../components/MessageBox&#39;;
+import { FormSection } from &#39;../components/FormSection&#39;;
+import { Select } from &#39;../components/Select&#39;;
 
-interface ColorToken {
-  path: string;
-  hex: string;
-  alpha: number;
-  isAlias: boolean;
-}
+// ─────────────────────────────────────────────────────────────────────────────
+// Static data
+// ─────────────────────────────────────────────────────────────────────────────
 
-interface TokenGroup {
-  group: string;
-  tokens: ColorToken[];
-}
+const DURATION_OPTIONS = [
+  { value: &#39;3m&#39;, label: &#39;3 Months&#39; },
+  { value: &#39;6m&#39;, label: &#39;6 Months&#39; },
+  { value: &#39;1y&#39;, label: &#39;1 Year&#39; },
+  { value: &#39;2y&#39;, label: &#39;2 Years&#39; },
+  { value: &#39;3y&#39;, label: &#39;3 Years&#39; },
+  { value: &#39;5y&#39;, label: &#39;5 Years&#39; },
+  { value: &#39;7y&#39;, label: &#39;7 Years&#39; },
+];
 
-type TokenNode = {
-  $type?: string;
-  $value?: { hex: string; alpha: number } | string;
-  [key: string]: unknown;
-};
+const AFTER_OPTIONS = [
+  { value: &#39;archive&#39;, label: &#39;Archive&#39; },
+  { value: &#39;delete&#39;,  label: &#39;Delete&#39;  },
+];
 
-function collectTokens(node: TokenNode, pathParts: string[]): ColorToken[] {
-  if (node.$type === &#39;color&#39;) {
-    const val = node.$value;
-    if (typeof val === &#39;string&#39;) {
-      return [{ path: pathParts.join(&#39;.&#39;), hex: &#39;#888888&#39;, alpha: 1, isAlias: true }];
-    }
-    if (val &amp;&amp; typeof val === &#39;object&#39; &amp;&amp; &#39;hex&#39; in val) {
-      return [{ path: pathParts.join(&#39;.&#39;), hex: val.hex as string, alpha: (val.alpha as number) ?? 1, isAlias: false }];
-    }
-    return [];
-  }
+const MODULE_OPTIONS = [
+  { value: &#39;leads&#39;,          label: &#39;Leads&#39; },
+  { value: &#39;contacts&#39;,       label: &#39;Contacts&#39; },
+  { value: &#39;accounts&#39;,       label: &#39;Accounts&#39; },
+  { value: &#39;deals&#39;,          label: &#39;Deals&#39; },
+  { value: &#39;activities&#39;,     label: &#39;Activities&#39; },
+  { value: &#39;cases&#39;,          label: &#39;Cases&#39; },
+  { value: &#39;solutions&#39;,      label: &#39;Solutions&#39; },
+  { value: &#39;products&#39;,       label: &#39;Products&#39; },
+  { value: &#39;forecasts&#39;,      label: &#39;Forecasts&#39; },
+  { value: &#39;reports&#39;,        label: &#39;Reports&#39; },
+  { value: &#39;campaigns&#39;,      label: &#39;Campaigns&#39; },
+  { value: &#39;quotes&#39;,         label: &#39;Quotes&#39; },
+  { value: &#39;sales-orders&#39;,   label: &#39;Sales Orders&#39; },
+  { value: &#39;purchase-orders&#39;,label: &#39;Purchase Orders&#39; },
+  { value: &#39;invoices&#39;,       label: &#39;Invoices&#39; },
+];
 
-  const results: ColorToken[] = [];
-  for (const [key, value] of Object.entries(node)) {
-    if (key.startsWith(&#39;$&#39;)) continue;
-    if (value &amp;&amp; typeof value === &#39;object&#39;) {
-      results.push(...collectTokens(value as TokenNode, [...pathParts, key]));
-    }
-  }
-  return results;
-}
+const SUBFORM_OPTIONS = [
+  { value: &#39;contact-roles&#39;,    label: &#39;Contact Roles&#39; },
+  { value: &#39;product-details&#39;,  label: &#39;Product Details&#39; },
+  { value: &#39;invited-guests&#39;,   label: &#39;Invited Guests&#39; },
+  { value: &#39;expense-details&#39;,  label: &#39;Expense Details&#39; },
+  { value: &#39;participants&#39;,     label: &#39;Participants&#39; },
+  { value: &#39;stage-history&#39;,    label: &#39;Stage History&#39; },
+];
 
-function buildGroups(): TokenGroup[] {
-  const groups: TokenGroup[] = [];
-  for (const [groupKey, groupValue] of Object.entries(colorTokens)) {
-    if (groupKey.startsWith(&#39;$&#39;)) continue;
-    const tokens = collectTokens(groupValue as TokenNode, [groupKey]);
-    if (tokens.length &gt; 0) {
-      groups.push({ group: groupKey, tokens });
-    }
-  }
-  return groups;
-}
+type TagItem = { value: string; label: string };
 
-const groups = buildGroups();
-
-function hexToRgba(hex: string, alpha: number): string {
-  const clean = hex.replace(&#39;#&#39;, &#39;&#39;);
-  const r = parseInt(clean.substring(0, 2), 16);
-  const g = parseInt(clean.substring(2, 4), 16);
-  const b = parseInt(clean.substring(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha.toFixed(2)})`;
-}
-
-function getLuminance(hex: string): number {
-  const clean = hex.replace(&#39;#&#39;, &#39;&#39;);
-  const r = parseInt(clean.substring(0, 2), 16) / 255;
-  const g = parseInt(clean.substring(2, 4), 16) / 255;
-  const b = parseInt(clean.substring(4, 6), 16) / 255;
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-
-function SwatchCard({ token }: { token: ColorToken }) {
-  const bg = token.isAlias ? &#39;#888888&#39; : hexToRgba(token.hex, token.alpha);
-  const textColor = getLuminance(token.isAlias ? &#39;#888888&#39; : token.hex) &gt; 0.4 ? &#39;#1a1a2e&#39; : &#39;#ffffff&#39;;
-  const shortPath = token.path.split(&#39;.&#39;).slice(1).join(&#39;.&#39;);
-
-  return (
-    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, width: 160 }}&gt;
-      &lt;div
-        title={token.path}
-        style={{
-          height: 72,
-          borderRadius: 8,
-          background: bg,
-          border: &#39;1px solid rgba(0,0,0,0.08)&#39;,
-          display: &#39;flex&#39;,
-          alignItems: &#39;flex-end&#39;,
-          padding: &#39;6px 8px&#39;,
-          boxSizing: &#39;border-box&#39;,
-        }}
-      &gt;
-        {token.isAlias &amp;&amp; (
-          &lt;span style={{ fontSize: 10, color: textColor, opacity: 0.8 }}&gt;alias&lt;/span&gt;
-        )}
-      &lt;/div&gt;
-      &lt;div style={{ marginTop: 6 }}&gt;
-        &lt;div style={{ fontSize: 11, fontWeight: 600, color: &#39;#1a1a2e&#39;, lineHeight: 1.3, wordBreak: &#39;break-all&#39; }}&gt;
-          {shortPath || token.path}
-        &lt;/div&gt;
-        &lt;div style={{ fontSize: 11, color: &#39;#6b7280&#39;, marginTop: 2, fontFamily: &#39;monospace&#39; }}&gt;
-          {token.isAlias ? &#39;alias&#39; : token.hex.toUpperCase()}
-          {!token.isAlias &amp;&amp; token.alpha &lt; 1 &amp;&amp; ` / ${Math.round(token.alpha * 100)}%`}
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}
-
-const GROUP_LABELS: Record&lt;string, string&gt; = {
-  bg: &#39;Background&#39;,
-  text: &#39;Text&#39;,
-  border: &#39;Border&#39;,
-  neutral: &#39;Neutral&#39;,
-  icon: &#39;Icon&#39;,
-  status: &#39;Status&#39;,
-  shadow: &#39;Shadow&#39;,
-  focus: &#39;Focus&#39;,
-  components: &#39;Components&#39;,
-  products: &#39;Products&#39;,
-};
-
-function ColorFoundationsPage() {
-  return (
-    &lt;div style={{ fontFamily: &#39;system-ui, -apple-system, sans-serif&#39;, padding: 32, background: &#39;#f8f9fb&#39;, minHeight: &#39;100vh&#39; }}&gt;
-      &lt;div style={{ marginBottom: 40 }}&gt;
-        &lt;h1 style={{ margin: 0, fontSize: 28, fontWeight: 700, color: &#39;#111827&#39; }}&gt;Color Foundations&lt;/h1&gt;
-        &lt;p style={{ margin: &#39;8px 0 0&#39;, color: &#39;#6b7280&#39;, fontSize: 15 }}&gt;
-          {groups.reduce((n, g) =&gt; n + g.tokens.length, 0)} tokens across {groups.length} groups — Day Mode NXT GEN
-        &lt;/p&gt;
-      &lt;/div&gt;
-
-      {groups.map(({ group, tokens }) =&gt; (
-        &lt;section key={group} style={{ marginBottom: 48 }}&gt;
-          &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;baseline&#39;, gap: 10, marginBottom: 20 }}&gt;
-            &lt;h2 style={{ margin: 0, fontSize: 18, fontWeight: 600, color: &#39;#1f2937&#39;, textTransform: &#39;capitalize&#39; }}&gt;
-              {GROUP_LABELS[group] ?? group}
-            &lt;/h2&gt;
-            &lt;span style={{ fontSize: 13, color: &#39;#9ca3af&#39; }}&gt;{tokens.length} tokens&lt;/span&gt;
-          &lt;/div&gt;
-          &lt;div style={{ display: &#39;flex&#39;, flexWrap: &#39;wrap&#39;, gap: 20 }}&gt;
-            {tokens.map((token) =&gt; (
-              &lt;SwatchCard key={token.path} token={token} /&gt;
-            ))}
-          &lt;/div&gt;
-        &lt;/section&gt;
-      ))}
-    &lt;/div&gt;
-  );
-}
+// ─────────────────────────────────────────────────────────────────────────────
+// Meta
+// ─────────────────────────────────────────────────────────────────────────────
 
 const meta: Meta = {
-  title: &#39;Design System/Foundations/Colors&#39;,
-  component: ColorFoundationsPage,
+  title: &#39;Patterns/Audit Log Duration&#39;,
   parameters: {
     layout: &#39;fullscreen&#39;,
     docs: {
       description: {
-        component: &#39;All color design tokens from the Day Mode NXT GEN token set, grouped by category.&#39;,
+        story:
+          &#39;Manage Audit Log Duration modal. &#39; +
+          &#39;Composed from Modal + FormSection + Select + Tags + MessageBox. &#39; +
+          &#39;Reference: https://auditlog-basic.onslate.in/&#39;,
       },
     },
   },
 };
 
 export default meta;
+type Story = StoryObj;
 
-export const AllColors: StoryObj = {
-  name: &#39;All Colors&#39;,
-  render: () =&gt; &lt;ColorFoundationsPage /&gt;,
+// ─────────────────────────────────────────────────────────────────────────────
+// Pattern
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const Default: Story = {
+  name: &#39;Audit Log Duration&#39;,
+  parameters: { controls: { disable: true } },
+  render: () =&gt; {
+    const [open, setOpen]           = useState(false);
+    const [confirm, setConfirm]     = useState(false);
+    const [visibleDur, setVisibleDur]   = useState(&#39;1y&#39;);
+    const [afterVisible, setAfterVisible] = useState(&#39;archive&#39;);
+    const [archiveDur, setArchiveDur]   = useState(&#39;1y&#39;);
+    const [modules, setModules]     = useState&lt;TagItem[]&gt;([]);
+    const [subforms, setSubforms]   = useState&lt;TagItem[]&gt;([]);
+
+    const hasExemptions = modules.length &gt; 0 || subforms.length &gt; 0;
+
+    return (
+      &lt;div style={{
+        height: &#39;100vh&#39;,
+        display: &#39;flex&#39;,
+        alignItems: &#39;center&#39;,
+        justifyContent: &#39;center&#39;,
+        background: &#39;#F0F2F7&#39;,
+        fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
+      }}&gt;
+        &lt;button
+          type=&quot;button&quot;
+          onClick={() =&gt; setOpen(true)}
+          style={{
+            padding: &#39;8px 20px&#39;,
+            background: &#39;#5464F2&#39;,
+            color: &#39;#fff&#39;,
+            border: &#39;none&#39;,
+            borderRadius: &#39;6px&#39;,
+            fontSize: &#39;13px&#39;,
+            fontWeight: 500,
+            cursor: &#39;pointer&#39;,
+            fontFamily: &#39;inherit&#39;,
+          }}
+        &gt;
+          Manage Audit Log Duration
+        &lt;/button&gt;
+
+        {/* ── Main modal ── */}
+        &lt;Modal
+          isOpen={open}
+          title=&quot;Manage Audit Log Duration&quot;
+          onClose={() =&gt; setOpen(false)}
+          onSave={() =&gt; setConfirm(true)}
+          cancelLabel=&quot;Cancel&quot;
+          saveLabel=&quot;Save&quot;
+          footerNote=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
+          width={600}
+        &gt;
+          {/* Info panel */}
+          &lt;MessageBox
+            variant=&quot;info&quot;
+            closable={false}
+            message={
+              &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
+                &lt;li&gt;You can choose how long logs stay visible on the Audit Log page.&lt;/li&gt;
+                &lt;li&gt;Remaining logs can be archived or deleted to free up space.&lt;/li&gt;
+                &lt;li&gt;Audit Logs (including Timeline and Interaction data) count toward your Data Storage.&lt;/li&gt;
+                &lt;li&gt;Archived logs use significantly less storage than visible logs.&lt;/li&gt;
+              &lt;/ul&gt;
+            }
+          /&gt;
+
+          {/* Duration settings */}
+          &lt;FormSection title=&quot;Duration Settings&quot;&gt;
+            &lt;Select
+              label=&quot;Visible Logs Duration&quot;
+              value={visibleDur}
+              options={DURATION_OPTIONS}
+              layout=&quot;horizontal&quot;
+              width=&quot;100%&quot;
+            /&gt;
+            &lt;Select
+              label=&quot;After Visible Period&quot;
+              value={afterVisible}
+              options={AFTER_OPTIONS}
+              layout=&quot;horizontal&quot;
+              width=&quot;100%&quot;
+            /&gt;
+            {afterVisible === &#39;archive&#39; &amp;&amp; (
+              &lt;Select
+                label=&quot;Archive Duration&quot;
+                value={archiveDur}
+                options={DURATION_OPTIONS}
+                layout=&quot;horizontal&quot;
+                width=&quot;100%&quot;
+              /&gt;
+            )}
+          &lt;/FormSection&gt;
+
+          {/* Modules exempt */}
+          &lt;FormSection title=&quot;Modules Exempt from Standard Duration&quot;&gt;
+            &lt;p style={{ margin: &#39;0 0 12px&#39;, fontSize: 12, color: &#39;var(--ds-text-secondary, #616E88)&#39;, lineHeight: 1.55 }}&gt;
+              Apply a restricted retention period — 6 months for visible logs and 6 months
+              for archived logs — to selected modules and subforms.
+            &lt;/p&gt;
+            &lt;Tags
+              value={modules}
+              options={MODULE_OPTIONS}
+              placeholder=&quot;Select modules...&quot;
+              onChange={setModules}
+              width=&quot;100%&quot;
+            /&gt;
+            &lt;div style={{ marginTop: 10 }}&gt;
+              &lt;Tags
+                value={subforms}
+                options={SUBFORM_OPTIONS}
+                placeholder=&quot;Select subforms...&quot;
+                onChange={setSubforms}
+                width=&quot;100%&quot;
+              /&gt;
+            &lt;/div&gt;
+            {hasExemptions &amp;&amp; (
+              &lt;div style={{ marginTop: 10 }}&gt;
+                &lt;MessageBox
+                  variant=&quot;warning&quot;
+                  closable={false}
+                  message=&quot;Selected logs are retained for 6 months only, after which they are deleted.&quot;
+                /&gt;
+              &lt;/div&gt;
+            )}
+          &lt;/FormSection&gt;
+        &lt;/Modal&gt;
+
+        {/* ── Confirmation modal ── */}
+        &lt;Modal
+          isOpen={confirm}
+          title=&quot;Save audit log duration changes?&quot;
+          onClose={() =&gt; setConfirm(false)}
+          onSave={() =&gt; { setConfirm(false); setOpen(false); }}
+          cancelLabel=&quot;Cancel&quot;
+          saveLabel=&quot;Okay, Proceed&quot;
+          width={440}
+        &gt;
+          &lt;MessageBox
+            variant=&quot;warning&quot;
+            closable={false}
+            message={
+              &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
+                &lt;li&gt;Logs beyond the retention period will be permanently deleted.&lt;/li&gt;
+                &lt;li&gt;Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/li&gt;
+                &lt;li&gt;Deleted logs cannot be recovered.&lt;/li&gt;
+              &lt;/ul&gt;
+            }
+          /&gt;
+        &lt;/Modal&gt;
+      &lt;/div&gt;
+    );
+  },
 };
 </code></pre></div>
     </div>
@@ -10221,18 +10754,166 @@ export const AllColors: StoryObj = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { ColorFoundationsPage } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import { FormSection, MessageBox, Modal, Select, Tags } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">All Colors</span>
+                <span class="ex-name">Audit Log Duration</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const AllColors = () =&gt; &lt;ColorFoundationsPage /&gt;;</code></pre>
+              <pre><code>const Default = () =&gt; {
+  const [open, setOpen]           = useState(false);
+  const [confirm, setConfirm]     = useState(false);
+  const [visibleDur, setVisibleDur]   = useState(&#39;1y&#39;);
+  const [afterVisible, setAfterVisible] = useState(&#39;archive&#39;);
+  const [archiveDur, setArchiveDur]   = useState(&#39;1y&#39;);
+  const [modules, setModules]     = useState&lt;TagItem[]&gt;([]);
+  const [subforms, setSubforms]   = useState&lt;TagItem[]&gt;([]);
+
+  const hasExemptions = modules.length &gt; 0 || subforms.length &gt; 0;
+
+  return (
+    &lt;div style={{
+      height: &#39;100vh&#39;,
+      display: &#39;flex&#39;,
+      alignItems: &#39;center&#39;,
+      justifyContent: &#39;center&#39;,
+      background: &#39;#F0F2F7&#39;,
+      fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
+    }}&gt;
+      &lt;button
+        type=&quot;button&quot;
+        onClick={() =&gt; setOpen(true)}
+        style={{
+          padding: &#39;8px 20px&#39;,
+          background: &#39;#5464F2&#39;,
+          color: &#39;#fff&#39;,
+          border: &#39;none&#39;,
+          borderRadius: &#39;6px&#39;,
+          fontSize: &#39;13px&#39;,
+          fontWeight: 500,
+          cursor: &#39;pointer&#39;,
+          fontFamily: &#39;inherit&#39;,
+        }}
+      &gt;
+        Manage Audit Log Duration
+      &lt;/button&gt;
+
+      {/* ── Main modal ── */}
+      &lt;Modal
+        isOpen={open}
+        title=&quot;Manage Audit Log Duration&quot;
+        onClose={() =&gt; setOpen(false)}
+        onSave={() =&gt; setConfirm(true)}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Save&quot;
+        footerNote=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
+        width={600}
+      &gt;
+        {/* Info panel */}
+        &lt;MessageBox
+          variant=&quot;info&quot;
+          closable={false}
+          message={
+            &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
+              &lt;li&gt;You can choose how long logs stay visible on the Audit Log page.&lt;/li&gt;
+              &lt;li&gt;Remaining logs can be archived or deleted to free up space.&lt;/li&gt;
+              &lt;li&gt;Audit Logs (including Timeline and Interaction data) count toward your Data Storage.&lt;/li&gt;
+              &lt;li&gt;Archived logs use significantly less storage than visible logs.&lt;/li&gt;
+            &lt;/ul&gt;
+          }
+        /&gt;
+
+        {/* Duration settings */}
+        &lt;FormSection title=&quot;Duration Settings&quot;&gt;
+          &lt;Select
+            label=&quot;Visible Logs Duration&quot;
+            value={visibleDur}
+            options={DURATION_OPTIONS}
+            layout=&quot;horizontal&quot;
+            width=&quot;100%&quot;
+          /&gt;
+          &lt;Select
+            label=&quot;After Visible Period&quot;
+            value={afterVisible}
+            options={AFTER_OPTIONS}
+            layout=&quot;horizontal&quot;
+            width=&quot;100%&quot;
+          /&gt;
+          {afterVisible === &#39;archive&#39; &amp;&amp; (
+            &lt;Select
+              label=&quot;Archive Duration&quot;
+              value={archiveDur}
+              options={DURATION_OPTIONS}
+              layout=&quot;horizontal&quot;
+              width=&quot;100%&quot;
+            /&gt;
+          )}
+        &lt;/FormSection&gt;
+
+        {/* Modules exempt */}
+        &lt;FormSection title=&quot;Modules Exempt from Standard Duration&quot;&gt;
+          &lt;p style={{ margin: &#39;0 0 12px&#39;, fontSize: 12, color: &#39;var(--ds-text-secondary, #616E88)&#39;, lineHeight: 1.55 }}&gt;
+            Apply a restricted retention period — 6 months for visible logs and 6 months
+            for archived logs — to selected modules and subforms.
+          &lt;/p&gt;
+          &lt;Tags
+            value={modules}
+            options={MODULE_OPTIONS}
+            placeholder=&quot;Select modules...&quot;
+            onChange={setModules}
+            width=&quot;100%&quot;
+          /&gt;
+          &lt;div style={{ marginTop: 10 }}&gt;
+            &lt;Tags
+              value={subforms}
+              options={SUBFORM_OPTIONS}
+              placeholder=&quot;Select subforms...&quot;
+              onChange={setSubforms}
+              width=&quot;100%&quot;
+            /&gt;
+          &lt;/div&gt;
+          {hasExemptions &amp;&amp; (
+            &lt;div style={{ marginTop: 10 }}&gt;
+              &lt;MessageBox
+                variant=&quot;warning&quot;
+                closable={false}
+                message=&quot;Selected logs are retained for 6 months only, after which they are deleted.&quot;
+              /&gt;
+            &lt;/div&gt;
+          )}
+        &lt;/FormSection&gt;
+      &lt;/Modal&gt;
+
+      {/* ── Confirmation modal ── */}
+      &lt;Modal
+        isOpen={confirm}
+        title=&quot;Save audit log duration changes?&quot;
+        onClose={() =&gt; setConfirm(false)}
+        onSave={() =&gt; { setConfirm(false); setOpen(false); }}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Okay, Proceed&quot;
+        width={440}
+      &gt;
+        &lt;MessageBox
+          variant=&quot;warning&quot;
+          closable={false}
+          message={
+            &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
+              &lt;li&gt;Logs beyond the retention period will be permanently deleted.&lt;/li&gt;
+              &lt;li&gt;Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/li&gt;
+              &lt;li&gt;Deleted logs cannot be recovered.&lt;/li&gt;
+            &lt;/ul&gt;
+          }
+        /&gt;
+      &lt;/Modal&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
             </div>
         </div>
     
@@ -10246,485 +10927,14 @@ export const AllColors: StoryObj = {
   no-story-error
   no-doc-error"
   role="listitem"
-  aria-label="TypographyPage">
-  <div class="head">
-    <div class="title">
-      <h2><span class="status-dot dot-err"></span> TypographyPage</h2>
-      <div class="badges">
-        <label for="c-error-1-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-1-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-1-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
-        
-        
-      </div>
-    </div>
-    <div class="meta" title="./src/design-system/foundations/Typography.stories.tsx">design-system-foundations-typography · ./src/design-system/foundations/Typography.stories.tsx</div>
-    
-    
-    
-  </div>
-
-  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-1-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-1-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-1-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
-  
-  
-  
-
-  <div class="panels">
-    
-        <div class="panel panel-err">
-          
-    <div class="note err">
-      <div class="note-title">Prop type error</div>
-      <div class="note-body"><pre><code>No component file found for the &quot;TypographyPage&quot; component.
-  349 | // ─────────────────────────────────────────────────────────────────────────────
-  350 |
-&gt; 351 | const meta: Meta = {
-      | ^
-  352 |   title: &#39;Design System/Foundations/Typography&#39;,
-  353 |   component: TypographyPage,
-  354 |   parameters: {
-
-./src/design-system/foundations/Typography.stories.tsx:
-import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
-import typographyTokens from &#39;./tokens/typography.json&#39;;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Token shapes
-// ─────────────────────────────────────────────────────────────────────────────
-
-interface PrimitiveToken {
-  name: string;
-  path: string;
-  value: number | string;
-  figmaId?: string;
-}
-
-interface ScaleEntry {
-  name: string;
-  label: string;
-  usage: string;
-  fontSize: number;
-  lineHeight: number;
-  fontWeight: number;
-  fontFamily: string;
-}
-
-type TokenNode = { $type?: string; $value?: unknown; [key: string]: unknown };
-
-function collectPrimitives(node: TokenNode, pathParts: string[]): PrimitiveToken[] {
-  if (node.$type &amp;&amp; &#39;$value&#39; in node &amp;&amp; typeof node.$value !== &#39;object&#39;) {
-    return [{
-      name: pathParts[pathParts.length - 1],
-      path: pathParts.join(&#39;.&#39;),
-      value: node.$value as number | string,
-      figmaId: (node.$extensions as Record&lt;string, unknown&gt; | undefined)
-        ?.[&#39;com.figma.variableId&#39;] as string | undefined,
-    }];
-  }
-  const results: PrimitiveToken[] = [];
-  for (const [key, child] of Object.entries(node)) {
-    if (key.startsWith(&#39;$&#39;) || typeof child !== &#39;object&#39; || child === null) continue;
-    results.push(...collectPrimitives(child as TokenNode, [...pathParts, key]));
-  }
-  return results;
-}
-
-function resolveAlias(alias: string): number | string {
-  const inner = alias.slice(1, -1);
-  const parts = inner.split(&#39;.&#39;);
-  let node: unknown = typographyTokens;
-  for (const part of parts) {
-    if (typeof node !== &#39;object&#39; || node === null) return alias;
-    node = (node as Record&lt;string, unknown&gt;)[part];
-  }
-  return (node as TokenNode)?.$value as number | string ?? alias;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Build data
-// ─────────────────────────────────────────────────────────────────────────────
-
-const tokens = typographyTokens as unknown as Record&lt;string, TokenNode&gt;;
-
-const fontSizeTokens   = collectPrimitives(tokens.fontSize,   [&#39;fontSize&#39;]);
-const lineHeightTokens = collectPrimitives(tokens.lineHeight,  [&#39;lineHeight&#39;]);
-const fontWeightTokens = collectPrimitives(tokens.fontWeight,  [&#39;fontWeight&#39;]);
-const fontFamilyTokens = collectPrimitives(tokens.fontFamily,  [&#39;fontFamily&#39;]);
-
-const SCALE_META: Record&lt;string, { label: string; usage: string }&gt; = {
-  xs:   { label: &#39;XS — 11px&#39;,       usage: &#39;Helper text, badges, timestamps&#39; },
-  sm:   { label: &#39;SM — 12px&#39;,       usage: &#39;Captions, secondary labels, tags&#39; },
-  md:   { label: &#39;MD — 13px&#39;,       usage: &#39;Button labels (sm), compact UI&#39; },
-  base: { label: &#39;Base — 14px&#39;,     usage: &#39;Body text, form fields, table rows&#39; },
-  h3:   { label: &#39;H3 — 15px&#39;,       usage: &#39;Small headings, section labels&#39; },
-  h2:   { label: &#39;H2 — 18px&#39;,       usage: &#39;Card titles, section headings&#39; },
-  h1:   { label: &#39;H1 — 20px&#39;,       usage: &#39;Page headings, module titles&#39; },
-};
-
-const SAMPLE: Record&lt;string, string&gt; = {
-  xs:   &#39;Mailbox: bharathi.s@zohocorp.com · Account Type: Private&#39;,
-  sm:   &#39;Transform your business with the gold standard in customer relationship management software.&#39;,
-  md:   &#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ  abcdefghijklmnopqrstuvwxyz  0123456789&#39;,
-  base: &#39;Bharathithasan Shanmugam · bharathi.s@zohocorp.com · +91 98400 00000&#39;,
-  h3:   &#39;Example for Small Font&#39;,
-  h2:   &#39;CRM Design System — Typography&#39;,
-  h1:   &#39;CRM Design System&#39;,
-};
-
-const scaleEntries: ScaleEntry[] = Object.entries(tokens.scale)
-  .filter(([k]) =&gt; !k.startsWith(&#39;$&#39;))
-  .map(([name, node]) =&gt; {
-    const v = (node as TokenNode).$value as Record&lt;string, string&gt;;
-    return {
-      name,
-      label:      SCALE_META[name]?.label  ?? name,
-      usage:      SCALE_META[name]?.usage  ?? &#39;&#39;,
-      fontSize:   resolveAlias(v.fontSize)   as number,
-      lineHeight: resolveAlias(v.lineHeight)  as number,
-      fontWeight: resolveAlias(v.fontWeight)  as number,
-      fontFamily: resolveAlias(v.fontFamily)  as string,
-    };
-  });
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Sub-components
-// ─────────────────────────────────────────────────────────────────────────────
-
-function Pill({ children }: { children: React.ReactNode }) {
-  return (
-    &lt;span style={{
-      display: &#39;inline-block&#39;,
-      padding: &#39;2px 7px&#39;,
-      borderRadius: 4,
-      background: &#39;#EEF1F9&#39;,
-      color: &#39;#374151&#39;,
-      fontSize: 11,
-      fontFamily: &#39;monospace&#39;,
-      whiteSpace: &#39;nowrap&#39;,
-    }}&gt;
-      {children}
-    &lt;/span&gt;
-  );
-}
-
-function ScaleRow({ entry }: { entry: ScaleEntry }) {
-  return (
-    &lt;div style={{
-      display: &#39;grid&#39;,
-      gridTemplateColumns: &#39;180px 1fr 200px&#39;,
-      alignItems: &#39;center&#39;,
-      gap: 24,
-      padding: &#39;18px 24px&#39;,
-      borderBottom: &#39;1px solid #E5E7EB&#39;,
-    }}&gt;
-      {/* meta */}
-      &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 6 }}&gt;
-        &lt;span style={{
-          fontFamily: &#39;monospace&#39;,
-          fontSize: 11,
-          fontWeight: 700,
-          color: &#39;#6366F1&#39;,
-          textTransform: &#39;uppercase&#39;,
-          letterSpacing: &#39;0.05em&#39;,
-        }}&gt;
-          {entry.name}
-        &lt;/span&gt;
-        &lt;div style={{ display: &#39;flex&#39;, flexWrap: &#39;wrap&#39;, gap: 4 }}&gt;
-          &lt;Pill&gt;{entry.fontSize}px&lt;/Pill&gt;
-          &lt;Pill&gt;lh {entry.lineHeight}px&lt;/Pill&gt;
-          &lt;Pill&gt;w{entry.fontWeight}&lt;/Pill&gt;
-        &lt;/div&gt;
-        &lt;span style={{ fontSize: 11, color: &#39;#9CA3AF&#39;, lineHeight: 1.4 }}&gt;{entry.label}&lt;/span&gt;
-      &lt;/div&gt;
-
-      {/* rendered specimen */}
-      &lt;div style={{
-        fontSize: entry.fontSize,
-        lineHeight: `${entry.lineHeight}px`,
-        fontWeight: entry.fontWeight,
-        fontFamily: entry.fontFamily,
-        color: &#39;#31394A&#39;,
-        minWidth: 0,
-        wordBreak: &#39;break-word&#39;,
-      }}&gt;
-        {SAMPLE[entry.name]}
-      &lt;/div&gt;
-
-      {/* usage */}
-      &lt;div style={{ fontSize: 12, color: &#39;#9CA3AF&#39;, lineHeight: 1.5 }}&gt;
-        {entry.usage}
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}
-
-function WeightRow({ token }: { token: PrimitiveToken }) {
-  const label: Record&lt;string, string&gt; = { regular: &#39;400&#39;, medium: &#39;500&#39;, semibold: &#39;600&#39;, bold: &#39;700&#39; };
-  return (
-    &lt;div style={{
-      display: &#39;grid&#39;,
-      gridTemplateColumns: &#39;120px 1fr&#39;,
-      alignItems: &#39;center&#39;,
-      gap: 24,
-      padding: &#39;14px 24px&#39;,
-      borderBottom: &#39;1px solid #E5E7EB&#39;,
-    }}&gt;
-      &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
-        &lt;Pill&gt;fontWeight.{token.name}&lt;/Pill&gt;
-        &lt;span style={{ fontSize: 11, color: &#39;#9CA3AF&#39; }}&gt;{label[token.name] ?? token.value}&lt;/span&gt;
-      &lt;/div&gt;
-      &lt;div style={{
-        fontSize: 18,
-        fontWeight: token.value as number,
-        fontFamily: &#39;Zoho Puvi, -apple-system, sans-serif&#39;,
-        color: &#39;#31394A&#39;,
-        lineHeight: 1.3,
-      }}&gt;
-        ABCDEFGHIJKLMNOPQRSTUVWXYZ  abcdefghijklmnopqrstuvwxyz  0123456789
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}
-
-function FamilyCard({ token }: { token: PrimitiveToken }) {
-  return (
-    &lt;div style={{
-      flex: &#39;1 1 340px&#39;,
-      padding: &#39;20px 24px&#39;,
-      background: &#39;#fff&#39;,
-      border: &#39;1px solid #E5E7EB&#39;,
-      borderRadius: 10,
-    }}&gt;
-      &lt;div style={{ fontFamily: &#39;monospace&#39;, fontSize: 12, color: &#39;#6B7280&#39;, marginBottom: 4 }}&gt;
-        fontFamily.{token.name}
-      &lt;/div&gt;
-      &lt;div style={{ fontFamily: &#39;monospace&#39;, fontSize: 11, color: &#39;#9CA3AF&#39;, marginBottom: 16, wordBreak: &#39;break-all&#39;, lineHeight: 1.5 }}&gt;
-        {token.value as string}
-      &lt;/div&gt;
-      &lt;div style={{ fontSize: 24, fontFamily: token.value as string, color: &#39;#31394A&#39;, lineHeight: 1.3, marginBottom: 8 }}&gt;
-        AaBbCcDd 0123456789
-      &lt;/div&gt;
-      &lt;div style={{ fontSize: 13, fontFamily: token.value as string, color: &#39;#616E88&#39;, lineHeight: 1.5 }}&gt;
-        ABCDEFGHIJKLMNOPQRSTUVWXYZ&lt;br /&gt;
-        abcdefghijklmnopqrstuvwxyz&lt;br /&gt;
-        @#$%&amp;amp;!?  0123456789
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}
-
-function PrimitiveTable({ tokens: rows, unit }: { tokens: PrimitiveToken[]; unit: string }) {
-  return (
-    &lt;table style={{ width: &#39;100%&#39;, borderCollapse: &#39;collapse&#39;, fontSize: 13 }}&gt;
-      &lt;thead&gt;
-        &lt;tr style={{ background: &#39;#F9FAFB&#39;, borderBottom: &#39;2px solid #E5E7EB&#39; }}&gt;
-          {[&#39;Token&#39;, &#39;Value&#39;, &#39;Figma Variable ID&#39;].map(h =&gt; (
-            &lt;th key={h} style={{ textAlign: &#39;left&#39;, padding: &#39;10px 16px&#39;, color: &#39;#6B7280&#39;, fontWeight: 600, fontSize: 12 }}&gt;{h}&lt;/th&gt;
-          ))}
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        {rows.map((token, i) =&gt; (
-          &lt;tr key={token.path} style={{ background: i % 2 === 0 ? &#39;#fff&#39; : &#39;#FAFAFA&#39;, borderBottom: &#39;1px solid #E5E7EB&#39; }}&gt;
-            &lt;td style={{ padding: &#39;10px 16px&#39;, fontFamily: &#39;monospace&#39;, color: &#39;#374151&#39;, fontSize: 12 }}&gt;
-              {token.path}
-            &lt;/td&gt;
-            &lt;td style={{ padding: &#39;10px 16px&#39;, fontFamily: &#39;monospace&#39;, color: &#39;#111827&#39;, fontWeight: 700, fontSize: 13 }}&gt;
-              {token.value}{unit}
-            &lt;/td&gt;
-            &lt;td style={{ padding: &#39;10px 16px&#39;, fontFamily: &#39;monospace&#39;, color: &#39;#9CA3AF&#39;, fontSize: 11 }}&gt;
-              {token.figmaId ?? &#39;—&#39;}
-            &lt;/td&gt;
-          &lt;/tr&gt;
-        ))}
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  );
-}
-
-function SectionHead({ title, count }: { title: string; count?: number }) {
-  return (
-    &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;baseline&#39;, gap: 10, marginBottom: 16 }}&gt;
-      &lt;h2 style={{ margin: 0, fontSize: 18, fontWeight: 600, color: &#39;#1F2937&#39;, fontFamily: &#39;system-ui, sans-serif&#39; }}&gt;{title}&lt;/h2&gt;
-      {count !== undefined &amp;&amp; (
-        &lt;span style={{ fontSize: 13, color: &#39;#9CA3AF&#39;, fontFamily: &#39;system-ui, sans-serif&#39; }}&gt;{count} token{count !== 1 ? &#39;s&#39; : &#39;&#39;}&lt;/span&gt;
-      )}
-    &lt;/div&gt;
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Page
-// ─────────────────────────────────────────────────────────────────────────────
-
-function TypographyPage() {
-  return (
-    &lt;div style={{ fontFamily: &#39;system-ui, -apple-system, sans-serif&#39;, padding: &#39;40px 48px&#39;, background: &#39;#F8F9FB&#39;, minHeight: &#39;100vh&#39; }}&gt;
-
-      {/* header */}
-      &lt;div style={{ marginBottom: 56 }}&gt;
-        &lt;h1 style={{ margin: 0, fontSize: 28, fontWeight: 700, color: &#39;#111827&#39; }}&gt;Typography&lt;/h1&gt;
-        &lt;p style={{ margin: &#39;8px 0 0&#39;, color: &#39;#6B7280&#39;, fontSize: 15 }}&gt;
-          Zoho Puvi · {scaleEntries.length} scale steps · {fontSizeTokens.length} size tokens · {fontWeightTokens.length} weight tokens
-        &lt;/p&gt;
-        &lt;p style={{ margin: &#39;4px 0 0&#39;, color: &#39;#9CA3AF&#39;, fontSize: 13 }}&gt;
-          Based on Chinnaiya Style Sheet — Typography-Puvi (node 325-57142)
-        &lt;/p&gt;
-      &lt;/div&gt;
-
-      {/* type scale */}
-      &lt;section style={{ marginBottom: 56 }}&gt;
-        &lt;SectionHead title=&quot;Type Scale&quot; count={scaleEntries.length} /&gt;
-        &lt;p style={{ margin: &#39;0 0 16px&#39;, color: &#39;#9CA3AF&#39;, fontSize: 13 }}&gt;
-          Each step composites fontSize + lineHeight + fontWeight. Sizes from the Figma font size scale: 11 · 12 · 13 · 14 · 15 · 18 · 20px.
-        &lt;/p&gt;
-        &lt;div style={{ background: &#39;#fff&#39;, border: &#39;1px solid #E5E7EB&#39;, borderRadius: 10, overflow: &#39;hidden&#39; }}&gt;
-          &lt;div style={{
-            display: &#39;grid&#39;,
-            gridTemplateColumns: &#39;180px 1fr 200px&#39;,
-            gap: 24,
-            padding: &#39;10px 24px&#39;,
-            background: &#39;#F9FAFB&#39;,
-            borderBottom: &#39;2px solid #E5E7EB&#39;,
-          }}&gt;
-            {[&#39;Token&#39;, &#39;Specimen&#39;, &#39;Usage&#39;].map(h =&gt; (
-              &lt;span key={h} style={{ fontSize: 12, fontWeight: 600, color: &#39;#6B7280&#39;, textTransform: &#39;uppercase&#39;, letterSpacing: &#39;0.05em&#39; }}&gt;{h}&lt;/span&gt;
-            ))}
-          &lt;/div&gt;
-          {scaleEntries.map(entry =&gt; &lt;ScaleRow key={entry.name} entry={entry} /&gt;)}
-        &lt;/div&gt;
-      &lt;/section&gt;
-
-      {/* font family */}
-      &lt;section style={{ marginBottom: 56 }}&gt;
-        &lt;SectionHead title=&quot;Font Family&quot; count={fontFamilyTokens.length} /&gt;
-        &lt;div style={{ display: &#39;flex&#39;, flexWrap: &#39;wrap&#39;, gap: 16 }}&gt;
-          {fontFamilyTokens.map(token =&gt; &lt;FamilyCard key={token.path} token={token} /&gt;)}
-        &lt;/div&gt;
-      &lt;/section&gt;
-
-      {/* font weight */}
-      &lt;section style={{ marginBottom: 56 }}&gt;
-        &lt;SectionHead title=&quot;Font Weight&quot; count={fontWeightTokens.length} /&gt;
-        &lt;div style={{ background: &#39;#fff&#39;, border: &#39;1px solid #E5E7EB&#39;, borderRadius: 10, overflow: &#39;hidden&#39; }}&gt;
-          {fontWeightTokens.map(token =&gt; &lt;WeightRow key={token.path} token={token} /&gt;)}
-        &lt;/div&gt;
-      &lt;/section&gt;
-
-      {/* font size primitives */}
-      &lt;section style={{ marginBottom: 48 }}&gt;
-        &lt;SectionHead title=&quot;Font Size Primitives&quot; count={fontSizeTokens.length} /&gt;
-        &lt;div style={{ background: &#39;#fff&#39;, border: &#39;1px solid #E5E7EB&#39;, borderRadius: 10, overflow: &#39;hidden&#39; }}&gt;
-          &lt;PrimitiveTable tokens={fontSizeTokens} unit=&quot;px&quot; /&gt;
-        &lt;/div&gt;
-      &lt;/section&gt;
-
-      {/* line height primitives */}
-      &lt;section style={{ marginBottom: 48 }}&gt;
-        &lt;SectionHead title=&quot;Line Height Primitives&quot; count={lineHeightTokens.length} /&gt;
-        &lt;div style={{ background: &#39;#fff&#39;, border: &#39;1px solid #E5E7EB&#39;, borderRadius: 10, overflow: &#39;hidden&#39; }}&gt;
-          &lt;PrimitiveTable tokens={lineHeightTokens} unit=&quot;px&quot; /&gt;
-        &lt;/div&gt;
-      &lt;/section&gt;
-
-    &lt;/div&gt;
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Story
-// ─────────────────────────────────────────────────────────────────────────────
-
-const meta: Meta = {
-  title: &#39;Design System/Foundations/Typography&#39;,
-  component: TypographyPage,
-  parameters: {
-    layout: &#39;fullscreen&#39;,
-    docs: {
-      description: {
-        component:
-          &#39;All typography design tokens sourced from the Chinnaiya Style Sheet — &#39; +
-          &#39;Typography-Puvi frame (node 325-57142). Font: Zoho Puvi. &#39; +
-          &#39;Sizes: 11 · 12 · 13 · 14 · 15 · 18 · 20px. &#39; +
-          &#39;Weights: 400 (regular) · 500 (medium) · 600 (semibold) · 700 (bold).&#39;,
-      },
-    },
-  },
-};
-
-export default meta;
-
-export const AllTypography: StoryObj = {
-  name: &#39;All Typography&#39;,
-  render: () =&gt; &lt;TypographyPage /&gt;,
-};
-</code></pre></div>
-    </div>
-        </div>
-    
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
-    
-    
-        <div class="panel panel-stories">
-          
-          
-          
-          <div class="note ok">
-                <div class="row">
-                  <span class="ex-name">Imports</span>
-                </div>
-                <pre><code>import { TypographyPage } from "@chinnaiya-r-2310/design-system";</code></pre>
-              </div>
-          
-          
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">All Typography</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const AllTypography = () =&gt; &lt;TypographyPage /&gt;;</code></pre>
-            </div>
-        </div>
-    
-    
-  </div>
-</article></div>
-        </section>
-      
-        <section class="group">
-          <input id="no-component-found-toggle" class="group-tg" type="checkbox" hidden />
-          <label for="no-component-found-toggle" class="group-header">
-            <span class="caret">▸</span>
-            <span class="group-title">No component found</span>
-            <span class="group-count">2</span>
-          </label>
-          <div class="group-cards">
-<article
-  class="card 
-  has-error 
-  has-info 
-  no-story-error
-  no-doc-error"
-  role="listitem"
   aria-label="Forms">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Forms</h2>
       <div class="badges">
-        <label for="c-error-0-design-system-patterns-forms-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-0-design-system-patterns-forms-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-0-design-system-patterns-forms-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-error-1-design-system-patterns-forms-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-1-design-system-patterns-forms-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-1-design-system-patterns-forms-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -10736,9 +10946,9 @@ export const AllTypography: StoryObj = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-0-design-system-patterns-forms-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-0-design-system-patterns-forms-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-0-design-system-patterns-forms-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-1-design-system-patterns-forms-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-1-design-system-patterns-forms-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-1-design-system-patterns-forms-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -11661,9 +11871,9 @@ export const CreateDeal: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-error-1-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-1-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-1-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-error-2-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-2-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-2-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -11675,9 +11885,9 @@ export const CreateDeal: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-1-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-1-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-1-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-2-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-2-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-2-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -13034,6 +13244,736 @@ export const CreateNotification: Story = {
     &lt;/&gt;
   );
 };</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article></div>
+        </section>
+      
+        <section class="group">
+          <input id="no-component-import-found-toggle" class="group-tg" type="checkbox" hidden />
+          <label for="no-component-import-found-toggle" class="group-header">
+            <span class="caret">▸</span>
+            <span class="group-title">No component import found</span>
+            <span class="group-count">2</span>
+          </label>
+          <div class="group-cards">
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="ColorFoundationsPage">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> ColorFoundationsPage</h2>
+      <div class="badges">
+        <label for="c-error-0-design-system-foundations-colors-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-0-design-system-foundations-colors-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-0-design-system-foundations-colors-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/foundations/Colors.stories.tsx">design-system-foundations-colors · ./src/design-system/foundations/Colors.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-0-design-system-foundations-colors-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-0-design-system-foundations-colors-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-0-design-system-foundations-colors-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;ColorFoundationsPage&quot; component.
+  151 | }
+  152 |
+&gt; 153 | const meta: Meta = {
+      | ^
+  154 |   title: &#39;Design System/Foundations/Colors&#39;,
+  155 |   component: ColorFoundationsPage,
+  156 |   parameters: {
+
+./src/design-system/foundations/Colors.stories.tsx:
+import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
+import colorTokens from &#39;./tokens/color.json&#39;;
+
+interface ColorToken {
+  path: string;
+  hex: string;
+  alpha: number;
+  isAlias: boolean;
+}
+
+interface TokenGroup {
+  group: string;
+  tokens: ColorToken[];
+}
+
+type TokenNode = {
+  $type?: string;
+  $value?: { hex: string; alpha: number } | string;
+  [key: string]: unknown;
+};
+
+function collectTokens(node: TokenNode, pathParts: string[]): ColorToken[] {
+  if (node.$type === &#39;color&#39;) {
+    const val = node.$value;
+    if (typeof val === &#39;string&#39;) {
+      return [{ path: pathParts.join(&#39;.&#39;), hex: &#39;#888888&#39;, alpha: 1, isAlias: true }];
+    }
+    if (val &amp;&amp; typeof val === &#39;object&#39; &amp;&amp; &#39;hex&#39; in val) {
+      return [{ path: pathParts.join(&#39;.&#39;), hex: val.hex as string, alpha: (val.alpha as number) ?? 1, isAlias: false }];
+    }
+    return [];
+  }
+
+  const results: ColorToken[] = [];
+  for (const [key, value] of Object.entries(node)) {
+    if (key.startsWith(&#39;$&#39;)) continue;
+    if (value &amp;&amp; typeof value === &#39;object&#39;) {
+      results.push(...collectTokens(value as TokenNode, [...pathParts, key]));
+    }
+  }
+  return results;
+}
+
+function buildGroups(): TokenGroup[] {
+  const groups: TokenGroup[] = [];
+  for (const [groupKey, groupValue] of Object.entries(colorTokens)) {
+    if (groupKey.startsWith(&#39;$&#39;)) continue;
+    const tokens = collectTokens(groupValue as TokenNode, [groupKey]);
+    if (tokens.length &gt; 0) {
+      groups.push({ group: groupKey, tokens });
+    }
+  }
+  return groups;
+}
+
+const groups = buildGroups();
+
+function hexToRgba(hex: string, alpha: number): string {
+  const clean = hex.replace(&#39;#&#39;, &#39;&#39;);
+  const r = parseInt(clean.substring(0, 2), 16);
+  const g = parseInt(clean.substring(2, 4), 16);
+  const b = parseInt(clean.substring(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha.toFixed(2)})`;
+}
+
+function getLuminance(hex: string): number {
+  const clean = hex.replace(&#39;#&#39;, &#39;&#39;);
+  const r = parseInt(clean.substring(0, 2), 16) / 255;
+  const g = parseInt(clean.substring(2, 4), 16) / 255;
+  const b = parseInt(clean.substring(4, 6), 16) / 255;
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function SwatchCard({ token }: { token: ColorToken }) {
+  const bg = token.isAlias ? &#39;#888888&#39; : hexToRgba(token.hex, token.alpha);
+  const textColor = getLuminance(token.isAlias ? &#39;#888888&#39; : token.hex) &gt; 0.4 ? &#39;#1a1a2e&#39; : &#39;#ffffff&#39;;
+  const shortPath = token.path.split(&#39;.&#39;).slice(1).join(&#39;.&#39;);
+
+  return (
+    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, width: 160 }}&gt;
+      &lt;div
+        title={token.path}
+        style={{
+          height: 72,
+          borderRadius: 8,
+          background: bg,
+          border: &#39;1px solid rgba(0,0,0,0.08)&#39;,
+          display: &#39;flex&#39;,
+          alignItems: &#39;flex-end&#39;,
+          padding: &#39;6px 8px&#39;,
+          boxSizing: &#39;border-box&#39;,
+        }}
+      &gt;
+        {token.isAlias &amp;&amp; (
+          &lt;span style={{ fontSize: 10, color: textColor, opacity: 0.8 }}&gt;alias&lt;/span&gt;
+        )}
+      &lt;/div&gt;
+      &lt;div style={{ marginTop: 6 }}&gt;
+        &lt;div style={{ fontSize: 11, fontWeight: 600, color: &#39;#1a1a2e&#39;, lineHeight: 1.3, wordBreak: &#39;break-all&#39; }}&gt;
+          {shortPath || token.path}
+        &lt;/div&gt;
+        &lt;div style={{ fontSize: 11, color: &#39;#6b7280&#39;, marginTop: 2, fontFamily: &#39;monospace&#39; }}&gt;
+          {token.isAlias ? &#39;alias&#39; : token.hex.toUpperCase()}
+          {!token.isAlias &amp;&amp; token.alpha &lt; 1 &amp;&amp; ` / ${Math.round(token.alpha * 100)}%`}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+const GROUP_LABELS: Record&lt;string, string&gt; = {
+  bg: &#39;Background&#39;,
+  text: &#39;Text&#39;,
+  border: &#39;Border&#39;,
+  neutral: &#39;Neutral&#39;,
+  icon: &#39;Icon&#39;,
+  status: &#39;Status&#39;,
+  shadow: &#39;Shadow&#39;,
+  focus: &#39;Focus&#39;,
+  components: &#39;Components&#39;,
+  products: &#39;Products&#39;,
+};
+
+function ColorFoundationsPage() {
+  return (
+    &lt;div style={{ fontFamily: &#39;system-ui, -apple-system, sans-serif&#39;, padding: 32, background: &#39;#f8f9fb&#39;, minHeight: &#39;100vh&#39; }}&gt;
+      &lt;div style={{ marginBottom: 40 }}&gt;
+        &lt;h1 style={{ margin: 0, fontSize: 28, fontWeight: 700, color: &#39;#111827&#39; }}&gt;Color Foundations&lt;/h1&gt;
+        &lt;p style={{ margin: &#39;8px 0 0&#39;, color: &#39;#6b7280&#39;, fontSize: 15 }}&gt;
+          {groups.reduce((n, g) =&gt; n + g.tokens.length, 0)} tokens across {groups.length} groups — Day Mode NXT GEN
+        &lt;/p&gt;
+      &lt;/div&gt;
+
+      {groups.map(({ group, tokens }) =&gt; (
+        &lt;section key={group} style={{ marginBottom: 48 }}&gt;
+          &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;baseline&#39;, gap: 10, marginBottom: 20 }}&gt;
+            &lt;h2 style={{ margin: 0, fontSize: 18, fontWeight: 600, color: &#39;#1f2937&#39;, textTransform: &#39;capitalize&#39; }}&gt;
+              {GROUP_LABELS[group] ?? group}
+            &lt;/h2&gt;
+            &lt;span style={{ fontSize: 13, color: &#39;#9ca3af&#39; }}&gt;{tokens.length} tokens&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div style={{ display: &#39;flex&#39;, flexWrap: &#39;wrap&#39;, gap: 20 }}&gt;
+            {tokens.map((token) =&gt; (
+              &lt;SwatchCard key={token.path} token={token} /&gt;
+            ))}
+          &lt;/div&gt;
+        &lt;/section&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}
+
+const meta: Meta = {
+  title: &#39;Design System/Foundations/Colors&#39;,
+  component: ColorFoundationsPage,
+  parameters: {
+    layout: &#39;fullscreen&#39;,
+    docs: {
+      description: {
+        component: &#39;All color design tokens from the Day Mode NXT GEN token set, grouped by category.&#39;,
+      },
+    },
+  },
+};
+
+export default meta;
+
+export const AllColors: StoryObj = {
+  name: &#39;All Colors&#39;,
+  render: () =&gt; &lt;ColorFoundationsPage /&gt;,
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { ColorFoundationsPage } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All Colors</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AllColors = () =&gt; &lt;ColorFoundationsPage /&gt;;</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="TypographyPage">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> TypographyPage</h2>
+      <div class="badges">
+        <label for="c-error-1-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-1-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-1-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/foundations/Typography.stories.tsx">design-system-foundations-typography · ./src/design-system/foundations/Typography.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-1-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-1-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-1-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>No component file found for the &quot;TypographyPage&quot; component.
+  349 | // ─────────────────────────────────────────────────────────────────────────────
+  350 |
+&gt; 351 | const meta: Meta = {
+      | ^
+  352 |   title: &#39;Design System/Foundations/Typography&#39;,
+  353 |   component: TypographyPage,
+  354 |   parameters: {
+
+./src/design-system/foundations/Typography.stories.tsx:
+import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
+import typographyTokens from &#39;./tokens/typography.json&#39;;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Token shapes
+// ─────────────────────────────────────────────────────────────────────────────
+
+interface PrimitiveToken {
+  name: string;
+  path: string;
+  value: number | string;
+  figmaId?: string;
+}
+
+interface ScaleEntry {
+  name: string;
+  label: string;
+  usage: string;
+  fontSize: number;
+  lineHeight: number;
+  fontWeight: number;
+  fontFamily: string;
+}
+
+type TokenNode = { $type?: string; $value?: unknown; [key: string]: unknown };
+
+function collectPrimitives(node: TokenNode, pathParts: string[]): PrimitiveToken[] {
+  if (node.$type &amp;&amp; &#39;$value&#39; in node &amp;&amp; typeof node.$value !== &#39;object&#39;) {
+    return [{
+      name: pathParts[pathParts.length - 1],
+      path: pathParts.join(&#39;.&#39;),
+      value: node.$value as number | string,
+      figmaId: (node.$extensions as Record&lt;string, unknown&gt; | undefined)
+        ?.[&#39;com.figma.variableId&#39;] as string | undefined,
+    }];
+  }
+  const results: PrimitiveToken[] = [];
+  for (const [key, child] of Object.entries(node)) {
+    if (key.startsWith(&#39;$&#39;) || typeof child !== &#39;object&#39; || child === null) continue;
+    results.push(...collectPrimitives(child as TokenNode, [...pathParts, key]));
+  }
+  return results;
+}
+
+function resolveAlias(alias: string): number | string {
+  const inner = alias.slice(1, -1);
+  const parts = inner.split(&#39;.&#39;);
+  let node: unknown = typographyTokens;
+  for (const part of parts) {
+    if (typeof node !== &#39;object&#39; || node === null) return alias;
+    node = (node as Record&lt;string, unknown&gt;)[part];
+  }
+  return (node as TokenNode)?.$value as number | string ?? alias;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Build data
+// ─────────────────────────────────────────────────────────────────────────────
+
+const tokens = typographyTokens as unknown as Record&lt;string, TokenNode&gt;;
+
+const fontSizeTokens   = collectPrimitives(tokens.fontSize,   [&#39;fontSize&#39;]);
+const lineHeightTokens = collectPrimitives(tokens.lineHeight,  [&#39;lineHeight&#39;]);
+const fontWeightTokens = collectPrimitives(tokens.fontWeight,  [&#39;fontWeight&#39;]);
+const fontFamilyTokens = collectPrimitives(tokens.fontFamily,  [&#39;fontFamily&#39;]);
+
+const SCALE_META: Record&lt;string, { label: string; usage: string }&gt; = {
+  xs:   { label: &#39;XS — 11px&#39;,       usage: &#39;Helper text, badges, timestamps&#39; },
+  sm:   { label: &#39;SM — 12px&#39;,       usage: &#39;Captions, secondary labels, tags&#39; },
+  md:   { label: &#39;MD — 13px&#39;,       usage: &#39;Button labels (sm), compact UI&#39; },
+  base: { label: &#39;Base — 14px&#39;,     usage: &#39;Body text, form fields, table rows&#39; },
+  h3:   { label: &#39;H3 — 15px&#39;,       usage: &#39;Small headings, section labels&#39; },
+  h2:   { label: &#39;H2 — 18px&#39;,       usage: &#39;Card titles, section headings&#39; },
+  h1:   { label: &#39;H1 — 20px&#39;,       usage: &#39;Page headings, module titles&#39; },
+};
+
+const SAMPLE: Record&lt;string, string&gt; = {
+  xs:   &#39;Mailbox: bharathi.s@zohocorp.com · Account Type: Private&#39;,
+  sm:   &#39;Transform your business with the gold standard in customer relationship management software.&#39;,
+  md:   &#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ  abcdefghijklmnopqrstuvwxyz  0123456789&#39;,
+  base: &#39;Bharathithasan Shanmugam · bharathi.s@zohocorp.com · +91 98400 00000&#39;,
+  h3:   &#39;Example for Small Font&#39;,
+  h2:   &#39;CRM Design System — Typography&#39;,
+  h1:   &#39;CRM Design System&#39;,
+};
+
+const scaleEntries: ScaleEntry[] = Object.entries(tokens.scale)
+  .filter(([k]) =&gt; !k.startsWith(&#39;$&#39;))
+  .map(([name, node]) =&gt; {
+    const v = (node as TokenNode).$value as Record&lt;string, string&gt;;
+    return {
+      name,
+      label:      SCALE_META[name]?.label  ?? name,
+      usage:      SCALE_META[name]?.usage  ?? &#39;&#39;,
+      fontSize:   resolveAlias(v.fontSize)   as number,
+      lineHeight: resolveAlias(v.lineHeight)  as number,
+      fontWeight: resolveAlias(v.fontWeight)  as number,
+      fontFamily: resolveAlias(v.fontFamily)  as string,
+    };
+  });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Sub-components
+// ─────────────────────────────────────────────────────────────────────────────
+
+function Pill({ children }: { children: React.ReactNode }) {
+  return (
+    &lt;span style={{
+      display: &#39;inline-block&#39;,
+      padding: &#39;2px 7px&#39;,
+      borderRadius: 4,
+      background: &#39;#EEF1F9&#39;,
+      color: &#39;#374151&#39;,
+      fontSize: 11,
+      fontFamily: &#39;monospace&#39;,
+      whiteSpace: &#39;nowrap&#39;,
+    }}&gt;
+      {children}
+    &lt;/span&gt;
+  );
+}
+
+function ScaleRow({ entry }: { entry: ScaleEntry }) {
+  return (
+    &lt;div style={{
+      display: &#39;grid&#39;,
+      gridTemplateColumns: &#39;180px 1fr 200px&#39;,
+      alignItems: &#39;center&#39;,
+      gap: 24,
+      padding: &#39;18px 24px&#39;,
+      borderBottom: &#39;1px solid #E5E7EB&#39;,
+    }}&gt;
+      {/* meta */}
+      &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 6 }}&gt;
+        &lt;span style={{
+          fontFamily: &#39;monospace&#39;,
+          fontSize: 11,
+          fontWeight: 700,
+          color: &#39;#6366F1&#39;,
+          textTransform: &#39;uppercase&#39;,
+          letterSpacing: &#39;0.05em&#39;,
+        }}&gt;
+          {entry.name}
+        &lt;/span&gt;
+        &lt;div style={{ display: &#39;flex&#39;, flexWrap: &#39;wrap&#39;, gap: 4 }}&gt;
+          &lt;Pill&gt;{entry.fontSize}px&lt;/Pill&gt;
+          &lt;Pill&gt;lh {entry.lineHeight}px&lt;/Pill&gt;
+          &lt;Pill&gt;w{entry.fontWeight}&lt;/Pill&gt;
+        &lt;/div&gt;
+        &lt;span style={{ fontSize: 11, color: &#39;#9CA3AF&#39;, lineHeight: 1.4 }}&gt;{entry.label}&lt;/span&gt;
+      &lt;/div&gt;
+
+      {/* rendered specimen */}
+      &lt;div style={{
+        fontSize: entry.fontSize,
+        lineHeight: `${entry.lineHeight}px`,
+        fontWeight: entry.fontWeight,
+        fontFamily: entry.fontFamily,
+        color: &#39;#31394A&#39;,
+        minWidth: 0,
+        wordBreak: &#39;break-word&#39;,
+      }}&gt;
+        {SAMPLE[entry.name]}
+      &lt;/div&gt;
+
+      {/* usage */}
+      &lt;div style={{ fontSize: 12, color: &#39;#9CA3AF&#39;, lineHeight: 1.5 }}&gt;
+        {entry.usage}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+function WeightRow({ token }: { token: PrimitiveToken }) {
+  const label: Record&lt;string, string&gt; = { regular: &#39;400&#39;, medium: &#39;500&#39;, semibold: &#39;600&#39;, bold: &#39;700&#39; };
+  return (
+    &lt;div style={{
+      display: &#39;grid&#39;,
+      gridTemplateColumns: &#39;120px 1fr&#39;,
+      alignItems: &#39;center&#39;,
+      gap: 24,
+      padding: &#39;14px 24px&#39;,
+      borderBottom: &#39;1px solid #E5E7EB&#39;,
+    }}&gt;
+      &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
+        &lt;Pill&gt;fontWeight.{token.name}&lt;/Pill&gt;
+        &lt;span style={{ fontSize: 11, color: &#39;#9CA3AF&#39; }}&gt;{label[token.name] ?? token.value}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div style={{
+        fontSize: 18,
+        fontWeight: token.value as number,
+        fontFamily: &#39;Zoho Puvi, -apple-system, sans-serif&#39;,
+        color: &#39;#31394A&#39;,
+        lineHeight: 1.3,
+      }}&gt;
+        ABCDEFGHIJKLMNOPQRSTUVWXYZ  abcdefghijklmnopqrstuvwxyz  0123456789
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+function FamilyCard({ token }: { token: PrimitiveToken }) {
+  return (
+    &lt;div style={{
+      flex: &#39;1 1 340px&#39;,
+      padding: &#39;20px 24px&#39;,
+      background: &#39;#fff&#39;,
+      border: &#39;1px solid #E5E7EB&#39;,
+      borderRadius: 10,
+    }}&gt;
+      &lt;div style={{ fontFamily: &#39;monospace&#39;, fontSize: 12, color: &#39;#6B7280&#39;, marginBottom: 4 }}&gt;
+        fontFamily.{token.name}
+      &lt;/div&gt;
+      &lt;div style={{ fontFamily: &#39;monospace&#39;, fontSize: 11, color: &#39;#9CA3AF&#39;, marginBottom: 16, wordBreak: &#39;break-all&#39;, lineHeight: 1.5 }}&gt;
+        {token.value as string}
+      &lt;/div&gt;
+      &lt;div style={{ fontSize: 24, fontFamily: token.value as string, color: &#39;#31394A&#39;, lineHeight: 1.3, marginBottom: 8 }}&gt;
+        AaBbCcDd 0123456789
+      &lt;/div&gt;
+      &lt;div style={{ fontSize: 13, fontFamily: token.value as string, color: &#39;#616E88&#39;, lineHeight: 1.5 }}&gt;
+        ABCDEFGHIJKLMNOPQRSTUVWXYZ&lt;br /&gt;
+        abcdefghijklmnopqrstuvwxyz&lt;br /&gt;
+        @#$%&amp;amp;!?  0123456789
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+function PrimitiveTable({ tokens: rows, unit }: { tokens: PrimitiveToken[]; unit: string }) {
+  return (
+    &lt;table style={{ width: &#39;100%&#39;, borderCollapse: &#39;collapse&#39;, fontSize: 13 }}&gt;
+      &lt;thead&gt;
+        &lt;tr style={{ background: &#39;#F9FAFB&#39;, borderBottom: &#39;2px solid #E5E7EB&#39; }}&gt;
+          {[&#39;Token&#39;, &#39;Value&#39;, &#39;Figma Variable ID&#39;].map(h =&gt; (
+            &lt;th key={h} style={{ textAlign: &#39;left&#39;, padding: &#39;10px 16px&#39;, color: &#39;#6B7280&#39;, fontWeight: 600, fontSize: 12 }}&gt;{h}&lt;/th&gt;
+          ))}
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        {rows.map((token, i) =&gt; (
+          &lt;tr key={token.path} style={{ background: i % 2 === 0 ? &#39;#fff&#39; : &#39;#FAFAFA&#39;, borderBottom: &#39;1px solid #E5E7EB&#39; }}&gt;
+            &lt;td style={{ padding: &#39;10px 16px&#39;, fontFamily: &#39;monospace&#39;, color: &#39;#374151&#39;, fontSize: 12 }}&gt;
+              {token.path}
+            &lt;/td&gt;
+            &lt;td style={{ padding: &#39;10px 16px&#39;, fontFamily: &#39;monospace&#39;, color: &#39;#111827&#39;, fontWeight: 700, fontSize: 13 }}&gt;
+              {token.value}{unit}
+            &lt;/td&gt;
+            &lt;td style={{ padding: &#39;10px 16px&#39;, fontFamily: &#39;monospace&#39;, color: &#39;#9CA3AF&#39;, fontSize: 11 }}&gt;
+              {token.figmaId ?? &#39;—&#39;}
+            &lt;/td&gt;
+          &lt;/tr&gt;
+        ))}
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  );
+}
+
+function SectionHead({ title, count }: { title: string; count?: number }) {
+  return (
+    &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;baseline&#39;, gap: 10, marginBottom: 16 }}&gt;
+      &lt;h2 style={{ margin: 0, fontSize: 18, fontWeight: 600, color: &#39;#1F2937&#39;, fontFamily: &#39;system-ui, sans-serif&#39; }}&gt;{title}&lt;/h2&gt;
+      {count !== undefined &amp;&amp; (
+        &lt;span style={{ fontSize: 13, color: &#39;#9CA3AF&#39;, fontFamily: &#39;system-ui, sans-serif&#39; }}&gt;{count} token{count !== 1 ? &#39;s&#39; : &#39;&#39;}&lt;/span&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Page
+// ─────────────────────────────────────────────────────────────────────────────
+
+function TypographyPage() {
+  return (
+    &lt;div style={{ fontFamily: &#39;system-ui, -apple-system, sans-serif&#39;, padding: &#39;40px 48px&#39;, background: &#39;#F8F9FB&#39;, minHeight: &#39;100vh&#39; }}&gt;
+
+      {/* header */}
+      &lt;div style={{ marginBottom: 56 }}&gt;
+        &lt;h1 style={{ margin: 0, fontSize: 28, fontWeight: 700, color: &#39;#111827&#39; }}&gt;Typography&lt;/h1&gt;
+        &lt;p style={{ margin: &#39;8px 0 0&#39;, color: &#39;#6B7280&#39;, fontSize: 15 }}&gt;
+          Zoho Puvi · {scaleEntries.length} scale steps · {fontSizeTokens.length} size tokens · {fontWeightTokens.length} weight tokens
+        &lt;/p&gt;
+        &lt;p style={{ margin: &#39;4px 0 0&#39;, color: &#39;#9CA3AF&#39;, fontSize: 13 }}&gt;
+          Based on Chinnaiya Style Sheet — Typography-Puvi (node 325-57142)
+        &lt;/p&gt;
+      &lt;/div&gt;
+
+      {/* type scale */}
+      &lt;section style={{ marginBottom: 56 }}&gt;
+        &lt;SectionHead title=&quot;Type Scale&quot; count={scaleEntries.length} /&gt;
+        &lt;p style={{ margin: &#39;0 0 16px&#39;, color: &#39;#9CA3AF&#39;, fontSize: 13 }}&gt;
+          Each step composites fontSize + lineHeight + fontWeight. Sizes from the Figma font size scale: 11 · 12 · 13 · 14 · 15 · 18 · 20px.
+        &lt;/p&gt;
+        &lt;div style={{ background: &#39;#fff&#39;, border: &#39;1px solid #E5E7EB&#39;, borderRadius: 10, overflow: &#39;hidden&#39; }}&gt;
+          &lt;div style={{
+            display: &#39;grid&#39;,
+            gridTemplateColumns: &#39;180px 1fr 200px&#39;,
+            gap: 24,
+            padding: &#39;10px 24px&#39;,
+            background: &#39;#F9FAFB&#39;,
+            borderBottom: &#39;2px solid #E5E7EB&#39;,
+          }}&gt;
+            {[&#39;Token&#39;, &#39;Specimen&#39;, &#39;Usage&#39;].map(h =&gt; (
+              &lt;span key={h} style={{ fontSize: 12, fontWeight: 600, color: &#39;#6B7280&#39;, textTransform: &#39;uppercase&#39;, letterSpacing: &#39;0.05em&#39; }}&gt;{h}&lt;/span&gt;
+            ))}
+          &lt;/div&gt;
+          {scaleEntries.map(entry =&gt; &lt;ScaleRow key={entry.name} entry={entry} /&gt;)}
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* font family */}
+      &lt;section style={{ marginBottom: 56 }}&gt;
+        &lt;SectionHead title=&quot;Font Family&quot; count={fontFamilyTokens.length} /&gt;
+        &lt;div style={{ display: &#39;flex&#39;, flexWrap: &#39;wrap&#39;, gap: 16 }}&gt;
+          {fontFamilyTokens.map(token =&gt; &lt;FamilyCard key={token.path} token={token} /&gt;)}
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* font weight */}
+      &lt;section style={{ marginBottom: 56 }}&gt;
+        &lt;SectionHead title=&quot;Font Weight&quot; count={fontWeightTokens.length} /&gt;
+        &lt;div style={{ background: &#39;#fff&#39;, border: &#39;1px solid #E5E7EB&#39;, borderRadius: 10, overflow: &#39;hidden&#39; }}&gt;
+          {fontWeightTokens.map(token =&gt; &lt;WeightRow key={token.path} token={token} /&gt;)}
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* font size primitives */}
+      &lt;section style={{ marginBottom: 48 }}&gt;
+        &lt;SectionHead title=&quot;Font Size Primitives&quot; count={fontSizeTokens.length} /&gt;
+        &lt;div style={{ background: &#39;#fff&#39;, border: &#39;1px solid #E5E7EB&#39;, borderRadius: 10, overflow: &#39;hidden&#39; }}&gt;
+          &lt;PrimitiveTable tokens={fontSizeTokens} unit=&quot;px&quot; /&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* line height primitives */}
+      &lt;section style={{ marginBottom: 48 }}&gt;
+        &lt;SectionHead title=&quot;Line Height Primitives&quot; count={lineHeightTokens.length} /&gt;
+        &lt;div style={{ background: &#39;#fff&#39;, border: &#39;1px solid #E5E7EB&#39;, borderRadius: 10, overflow: &#39;hidden&#39; }}&gt;
+          &lt;PrimitiveTable tokens={lineHeightTokens} unit=&quot;px&quot; /&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+    &lt;/div&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Story
+// ─────────────────────────────────────────────────────────────────────────────
+
+const meta: Meta = {
+  title: &#39;Design System/Foundations/Typography&#39;,
+  component: TypographyPage,
+  parameters: {
+    layout: &#39;fullscreen&#39;,
+    docs: {
+      description: {
+        component:
+          &#39;All typography design tokens sourced from the Chinnaiya Style Sheet — &#39; +
+          &#39;Typography-Puvi frame (node 325-57142). Font: Zoho Puvi. &#39; +
+          &#39;Sizes: 11 · 12 · 13 · 14 · 15 · 18 · 20px. &#39; +
+          &#39;Weights: 400 (regular) · 500 (medium) · 600 (semibold) · 700 (bold).&#39;,
+      },
+    },
+  },
+};
+
+export default meta;
+
+export const AllTypography: StoryObj = {
+  name: &#39;All Typography&#39;,
+  render: () =&gt; &lt;TypographyPage /&gt;,
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { TypographyPage } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All Typography</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AllTypography = () =&gt; &lt;TypographyPage /&gt;;</code></pre>
             </div>
         </div>
     
