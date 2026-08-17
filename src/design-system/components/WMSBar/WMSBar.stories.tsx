@@ -42,7 +42,6 @@ export const FullPage: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <NextGenTopBand moduleLabel="Leads" moduleCount={1} notificationCount={3} />
-        <WMSBar />
         <div style={{
           flex: 1,
           background: '#F0F2F7',
@@ -52,9 +51,11 @@ export const FullPage: Story = {
           fontSize: 14,
           color: '#616E88',
           fontFamily: 'var(--ds-font-family-base, sans-serif)',
+          paddingBottom: 28,
         }}>
           Content area
         </div>
+        <WMSBar />
       </div>
     );
   },

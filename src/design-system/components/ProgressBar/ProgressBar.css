@@ -1,0 +1,65 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   ProgressBar — Figma: Chinnaiya-Style-Sheet, Progress Bar page 91534:167968
+   Colors: blue (#5464F2) · red (#FF5D5A) · green (#12AA67)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.pb-root {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  box-sizing: border-box;
+}
+
+/* ── Bar area (label + track stacked, gap 10) ── */
+.pb-bar-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Label ── */
+.pb-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #313949;
+  line-height: 1;
+}
+
+/* ── Track ── */
+.pb-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 36px;
+  background: #EDF0F9;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* ── Fill ── */
+.pb-fill {
+  height: 100%;
+  border-radius: 36px;
+  transition: width 300ms ease;
+  min-width: 0;
+}
+
+/* ── Footer labels ── */
+.pb-footer {
+  display: flex;
+  gap: 30px;
+}
+
+.pb-footer-left,
+.pb-footer-right {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 400;
+  color: #616E88;
+  line-height: 1;
+  min-width: 0;
+}
+
+.pb-footer-left  { text-align: left; }
+.pb-footer-right { text-align: right; }

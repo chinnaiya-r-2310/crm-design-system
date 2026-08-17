@@ -187,7 +187,7 @@ export function SetupTable({
                           />
                         </button>
                       ) : (
-                        col.label
+                        <span className="table-th-label">{col.label}</span>
                       )}
                     </div>
                     <div

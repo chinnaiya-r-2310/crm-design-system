@@ -1,0 +1,357 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Slider — Figma: Chinnaiya-Style-Sheet node 93673-150972
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Root ── */
+.sld-root {
+  display: block;
+  width: 100%;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  font-size: 12px;
+  color: var(--ds-text-primary, #313949);
+  user-select: none;
+  box-sizing: border-box;
+}
+
+/* ── Value row (top-right label) ── */
+.sld-value-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 4px;
+}
+
+.sld-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: #313949;
+  line-height: 1;
+}
+
+.sld-disabled .sld-value {
+  opacity: 0.5;
+}
+
+/* ── Track area ── */
+.sld-track-wrap {
+  position: relative;
+  height: 19px;
+  cursor: pointer;
+}
+
+.sld-track-bg {
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 9px;
+  border-radius: 4.5px;
+  background: #E5EAF2;
+}
+
+.sld-track-fill {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 9px;
+  border-radius: 4.5px;
+  background: #5464F2;
+  pointer-events: none;
+}
+
+/* ── Thumb ── */
+.sld-thumb {
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #9C9CA6;
+  box-shadow: 0 3px 12px rgba(49, 57, 73, 0.15);
+  box-sizing: border-box;
+  cursor: grab;
+  outline: none;
+  transition: border-color 120ms, box-shadow 120ms;
+  z-index: 1;
+}
+
+.sld-thumb:hover      { border-color: #5464F2; }
+.sld-thumb:active     { cursor: grabbing; }
+.sld-thumb:focus-visible {
+  box-shadow: 0 3px 12px rgba(49, 57, 73, 0.15), 0 0 0 3px rgba(84, 100, 242, 0.25);
+}
+
+/* ── Drag tooltip ── */
+.sld-tooltip {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  white-space: nowrap;
+  background: #313949;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 100ms;
+  z-index: 2;
+}
+
+.sld-tooltip.sld-tt-above {
+  bottom: calc(100% + 10px);
+}
+
+.sld-tooltip.sld-tt-above::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: #313949;
+}
+
+.sld-tooltip.sld-tt-below {
+  top: calc(100% + 10px);
+}
+
+.sld-tooltip.sld-tt-below::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-bottom-color: #313949;
+}
+
+.sld-tooltip.sld-tt-visible { opacity: 1; }
+
+/* ── Marks ── */
+.sld-marks-row {
+  position: relative;
+  height: 20px;
+  margin-top: 4px;
+}
+
+.sld-mark {
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.sld-mark-tick {
+  width: 1px;
+  height: 4px;
+  background: #C8D0E5;
+  flex-shrink: 0;
+}
+
+.sld-mark-label {
+  font-size: 11px;
+  color: #616E88;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ── Disabled ── */
+.sld-disabled {
+  pointer-events: none;
+}
+
+.sld-disabled .sld-track-bg   { background: #F2F5F9; }
+.sld-disabled .sld-track-fill { background: #ADB5F9; }
+.sld-disabled .sld-thumb {
+  border-color: #D1D8E5;
+  box-shadow: 0 2px 6px rgba(49, 57, 73, 0.08);
+  cursor: not-allowed;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Multi-segment slider
+   ───────────────────────────────────────────────────────────────────────────── */
+.sld-multi-root {
+  display: block;
+  width: 100%;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  font-size: 12px;
+  color: var(--ds-text-primary, #313949);
+  user-select: none;
+}
+
+.sld-multi-labels {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.sld-multi-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #313949;
+  text-align: center;
+  line-height: 1;
+  overflow: hidden;
+}
+
+.sld-multi-track {
+  position: relative;
+  height: 9px;
+  display: flex;
+  border-radius: 4.5px;
+  overflow: visible;
+}
+
+.sld-multi-seg {
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.sld-multi-seg:first-child { border-radius: 4.5px 0 0 4.5px; }
+
+.sld-multi-seg:last-child,
+.sld-multi-seg-last {
+  border-radius: 0 4.5px 4.5px 0;
+  flex: 1;
+}
+
+.sld-multi-sep {
+  width: 2px;
+  height: 100%;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.sld-multi-thumb {
+  position: absolute;
+  width: 10px;
+  height: 16px;
+  top: 100%;
+  transform: translateX(-50%);
+  background: #8B9BB8;
+  clip-path: polygon(0 37.5%, 50% 0%, 100% 37.5%, 100% 100%, 0 100%);
+  cursor: grab;
+  z-index: 2;
+  border-radius: 0 0 2px 2px;
+}
+
+.sld-multi-thumb:active {
+  cursor: grabbing;
+  background: #5C6E87;
+}
+
+.sld-multi-track-wrap {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Step Slider — Figma: font-size slider variant
+   Discrete steps with dot markers + labels above
+   ───────────────────────────────────────────────────────────────────────────── */
+.sld-step-root {
+  display: block;
+  width: 100%;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.sld-step-label-row {
+  position: relative;
+  height: 14px;
+  margin-bottom: 6px;
+}
+
+.sld-step-label {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #616E88;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.sld-step-label.sld-step-label-active {
+  color: #313949;
+  font-weight: 600;
+}
+
+.sld-step-track-wrap {
+  position: relative;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Background track (full width) */
+.sld-step-track-wrap::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 6px;
+  background: #E5EAF2;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+/* Fill track (from left to active step) */
+.sld-step-fill {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 6px;
+  background: #5464F2;
+  border-radius: 3px;
+  pointer-events: none;
+  transition: width 150ms;
+}
+
+/* Step dots */
+.sld-step-dot {
+  position: relative;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  cursor: pointer;
+  z-index: 1;
+  transition: transform 120ms;
+}
+
+.sld-step-dot:hover { transform: scale(1.15); }
+
+.sld-step-dot-passed {
+  background: #5464F2;
+  border: 2px solid #fff;
+}
+
+.sld-step-dot-active {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border: 2px solid #5464F2;
+  box-shadow: 0 2px 8px rgba(49, 57, 73, 0.15);
+}
+
+.sld-step-dot-future {
+  background: #E5EAF2;
+  border: 2px solid #fff;
+}
+
+.sld-step-root.sld-disabled .sld-step-dot { cursor: not-allowed; }
+.sld-step-root.sld-disabled .sld-step-dot-passed  { background: #ADB5F9; }
+.sld-step-root.sld-disabled .sld-step-dot-active  { border-color: #ADB5F9; }
+.sld-step-root.sld-disabled .sld-step-fill        { background: #ADB5F9; }

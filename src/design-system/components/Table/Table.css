@@ -118,6 +118,20 @@
 }
 
 .table-filter-btn-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-filter-chevron {
+  flex-shrink: 0;
+}
+
+.table-th-label {
+  flex: 1;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -276,14 +290,15 @@
 
 .table-actions-cell {
   width: 36px;
-  padding: 0 2px;
-  text-align: center;
+  padding: 0;
+  vertical-align: middle;
 }
 
 .table-action-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
   width: 27px;
   height: 27px;
   padding: 0;

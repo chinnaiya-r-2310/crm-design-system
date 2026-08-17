@@ -1,0 +1,61 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   MessageInfo
+   Figma: Chinnaiya-Style-Sheet node 93673-150972
+   Compact inline notification strip — Note / Warning / Success / Error / Info
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.msg-info-root {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 34px;
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--ds-text-primary, #313949);
+  vertical-align: top;
+}
+
+/* ── Variants ── */
+.msg-info-note    { background: #FFFFEA; border-color: #E5DEC5; }
+.msg-info-warning { background: #FFF6EE; border-color: #E9C072; }
+.msg-info-success { background: #F5FAF5; border-color: #A9D3AB; }
+.msg-info-error   { background: #FFF7FA; border-color: #FAA9A2; }
+.msg-info-info    { background: #F9FAFF; border-color: #DCDBEE; }
+
+/* ── Single-point: label flows inline as paragraph text ── */
+.msg-info-label {
+  font-weight: 600;
+}
+
+.msg-info-text {
+  font-weight: 400;
+}
+
+/* ── Multi-point ── */
+.msg-info-root.msg-info-multi {
+  min-height: unset;
+  padding: 10px 15px;
+}
+
+.msg-info-multi .msg-info-label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.msg-info-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.msg-info-point {
+  font-weight: 400;
+  line-height: 18px;
+}

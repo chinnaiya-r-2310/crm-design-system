@@ -1,0 +1,100 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   CodeSnippet — Figma: Chinnaiya-Style-Sheet node 93672-150667
+   Variants: single · multi · inline
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.cs-root {
+  display: flex;
+  align-items: flex-start;
+  background: #F8FAFF;
+  border: 1px dashed #C5C4D3;
+  border-radius: 8px;
+  padding: 8px 10px 8px 16px;
+  gap: 10px;
+  box-sizing: border-box;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  width: 100%;
+}
+
+/* ── Single-line: fixed height, horizontal scroll ── */
+.cs-single {
+  height: 40px;
+  align-items: center;
+}
+
+.cs-single .cs-code-wrap {
+  overflow-x: auto;
+  flex: 1;
+  min-width: 0;
+  scrollbar-width: none;
+}
+
+.cs-single .cs-code-wrap::-webkit-scrollbar { display: none; }
+
+/* ── Multi-line: auto height, wraps ── */
+.cs-multi {
+  align-items: flex-start;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.cs-multi .cs-code-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Inline: hug content width ── */
+.cs-inline {
+  display: inline-flex;
+  width: fit-content;
+  height: 40px;
+  align-items: center;
+}
+
+.cs-inline .cs-code-wrap {
+  white-space: nowrap;
+}
+
+/* ── Code text ── */
+.cs-code {
+  display: block;
+  font-size: var(--ds-font-size-base, 13px);
+  font-weight: 400;
+  line-height: 18px;
+  color: #313949;
+  font-family: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  white-space: pre;
+}
+
+.cs-multi .cs-code {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ── Copy button ── */
+.cs-copy-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #C5C4D3;
+  cursor: pointer;
+  padding: 0;
+  transition: background 120ms, border-color 120ms;
+  outline: none;
+}
+
+.cs-copy-btn:hover { background: #F0F2F7; }
+.cs-copy-btn:focus-visible { box-shadow: 0 0 0 2px rgba(84, 100, 242, 0.3); }
+
+.cs-copy-btn.cs-copied { border-color: #39C995; }
+

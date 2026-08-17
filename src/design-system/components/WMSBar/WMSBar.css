@@ -1,15 +1,18 @@
 .wmsb-root {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
-  width: 100%;
   height: 28px;
   background: #F0F2F7;
-  border-bottom: 1px solid #E5E8F0;
+  border-top: 1px solid #E5E8F0;
   padding: 0 10px;
   box-sizing: border-box;
   font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
   user-select: none;
-  flex-shrink: 0;
   gap: 8px;
 }
 
