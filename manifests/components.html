@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.4s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -616,23 +616,23 @@
     <div class="title">
       <h2><span class="status-dot dot-err"></span> AuditLogDuration</h2>
       <div class="badges">
-        <label for="c-0-patterns-audit-log-duration-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-0-patterns-audit-log-duration-info" class="badge info as-toggle">1 info</label>
-        <label for="c-0-patterns-audit-log-duration-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-0-design-system-patterns-audit-log-duration-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-0-design-system-patterns-audit-log-duration-info" class="badge info as-toggle">1 info</label>
+        <label for="c-0-design-system-patterns-audit-log-duration-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/design-system/patterns/AuditLogDuration.stories.tsx">patterns-audit-log-duration · ./src/design-system/patterns/AuditLogDuration.stories.tsx</div>
+    <div class="meta" title="./src/design-system/patterns/AuditLogDuration.stories.tsx">design-system-patterns-audit-log-duration · ./src/design-system/patterns/AuditLogDuration.stories.tsx</div>
     
     
     
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-0-patterns-audit-log-duration-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-0-patterns-audit-log-duration-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-0-patterns-audit-log-duration-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-0-design-system-patterns-audit-log-duration-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-0-design-system-patterns-audit-log-duration-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-0-design-system-patterns-audit-log-duration-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -644,85 +644,40 @@
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  59 | // ─────────────────────────────────────────────────────────────────────────────
-  60 |
-&gt; 61 | const meta: Meta = {
+  14 | // ─────────────────────────────────────────────────────────────────────────────
+  15 |
+&gt; 16 | const meta: Meta = {
      | ^
-  62 |   title: &#39;Patterns/Audit Log Duration&#39;,
-  63 |   parameters: {
-  64 |     layout: &#39;fullscreen&#39;,
+  17 |   title: &#39;Design System/Patterns/Audit Log Duration&#39;,
+  18 |   parameters: {
+  19 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/AuditLogDuration.stories.tsx:
-import { useState } from &#39;react&#39;;
+import React, { useState, useRef, useCallback } from &#39;react&#39;;
 import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
-import { Modal } from &#39;../components/Modal&#39;;
-import { Tags } from &#39;../components/Tags&#39;;
-import { MessageBox } from &#39;../components/MessageBox&#39;;
-import { FormSection } from &#39;../components/FormSection&#39;;
-import { Select } from &#39;../components/Select&#39;;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Static data
-// ─────────────────────────────────────────────────────────────────────────────
-
-const DURATION_OPTIONS = [
-  { value: &#39;3m&#39;, label: &#39;3 Months&#39; },
-  { value: &#39;6m&#39;, label: &#39;6 Months&#39; },
-  { value: &#39;1y&#39;, label: &#39;1 Year&#39; },
-  { value: &#39;2y&#39;, label: &#39;2 Years&#39; },
-  { value: &#39;3y&#39;, label: &#39;3 Years&#39; },
-  { value: &#39;5y&#39;, label: &#39;5 Years&#39; },
-  { value: &#39;7y&#39;, label: &#39;7 Years&#39; },
-];
-
-const AFTER_OPTIONS = [
-  { value: &#39;archive&#39;, label: &#39;Archive&#39; },
-  { value: &#39;delete&#39;,  label: &#39;Delete&#39;  },
-];
-
-const MODULE_OPTIONS = [
-  { value: &#39;leads&#39;,          label: &#39;Leads&#39; },
-  { value: &#39;contacts&#39;,       label: &#39;Contacts&#39; },
-  { value: &#39;accounts&#39;,       label: &#39;Accounts&#39; },
-  { value: &#39;deals&#39;,          label: &#39;Deals&#39; },
-  { value: &#39;activities&#39;,     label: &#39;Activities&#39; },
-  { value: &#39;cases&#39;,          label: &#39;Cases&#39; },
-  { value: &#39;solutions&#39;,      label: &#39;Solutions&#39; },
-  { value: &#39;products&#39;,       label: &#39;Products&#39; },
-  { value: &#39;forecasts&#39;,      label: &#39;Forecasts&#39; },
-  { value: &#39;reports&#39;,        label: &#39;Reports&#39; },
-  { value: &#39;campaigns&#39;,      label: &#39;Campaigns&#39; },
-  { value: &#39;quotes&#39;,         label: &#39;Quotes&#39; },
-  { value: &#39;sales-orders&#39;,   label: &#39;Sales Orders&#39; },
-  { value: &#39;purchase-orders&#39;,label: &#39;Purchase Orders&#39; },
-  { value: &#39;invoices&#39;,       label: &#39;Invoices&#39; },
-];
-
-const SUBFORM_OPTIONS = [
-  { value: &#39;contact-roles&#39;,    label: &#39;Contact Roles&#39; },
-  { value: &#39;product-details&#39;,  label: &#39;Product Details&#39; },
-  { value: &#39;invited-guests&#39;,   label: &#39;Invited Guests&#39; },
-  { value: &#39;expense-details&#39;,  label: &#39;Expense Details&#39; },
-  { value: &#39;participants&#39;,     label: &#39;Participants&#39; },
-  { value: &#39;stage-history&#39;,    label: &#39;Stage History&#39; },
-];
-
-type TagItem = { value: string; label: string };
+import { Modal } from &#39;../components/Modal/Modal&#39;;
+import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
+import { Button } from &#39;../components/Button/Button&#39;;
+import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
+import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
+import { Tags } from &#39;../components/Tags/Tags&#39;;
+import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
+import { Info as InfoIcon } from &#39;../foundations/icons/Icons&#39;;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
 // ─────────────────────────────────────────────────────────────────────────────
 
 const meta: Meta = {
-  title: &#39;Patterns/Audit Log Duration&#39;,
+  title: &#39;Design System/Patterns/Audit Log Duration&#39;,
   parameters: {
-    layout: &#39;fullscreen&#39;,
+    layout: &#39;centered&#39;,
     docs: {
       description: {
-        story:
-          &#39;Manage Audit Log Duration modal. &#39; +
-          &#39;Composed from Modal + FormSection + Select + Tags + MessageBox. &#39; +
-          &#39;Reference: https://auditlog-basic.onslate.in/&#39;,
+        component:
+          &#39;Modal pattern for managing audit log retention settings — &#39; +
+          &#39;set visible log history and archived log retention durations &#39; +
+          &#39;using a dual-range slider.&#39;,
       },
     },
   },
@@ -732,159 +687,591 @@ export default meta;
 type Story = StoryObj;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Pattern
+// Date helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const Default: Story = {
-  name: &#39;Audit Log Duration&#39;,
-  parameters: { controls: { disable: true } },
-  render: () =&gt; {
-    const [open, setOpen]           = useState(false);
-    const [confirm, setConfirm]     = useState(false);
-    const [visibleDur, setVisibleDur]   = useState(&#39;1y&#39;);
-    const [afterVisible, setAfterVisible] = useState(&#39;archive&#39;);
-    const [archiveDur, setArchiveDur]   = useState(&#39;1y&#39;);
-    const [modules, setModules]     = useState&lt;TagItem[]&gt;([]);
-    const [subforms, setSubforms]   = useState&lt;TagItem[]&gt;([]);
+const MONTHS = [&#39;Jan&#39;,&#39;Feb&#39;,&#39;Mar&#39;,&#39;Apr&#39;,&#39;May&#39;,&#39;Jun&#39;,&#39;Jul&#39;,&#39;Aug&#39;,&#39;Sep&#39;,&#39;Oct&#39;,&#39;Nov&#39;,&#39;Dec&#39;];
 
-    const hasExemptions = modules.length &gt; 0 || subforms.length &gt; 0;
+function subtractYears(date: Date, years: number): Date {
+  const d = new Date(date);
+  d.setFullYear(d.getFullYear() - years);
+  return d;
+}
+
+function subtractDays(date: Date, days: number): Date {
+  const d = new Date(date);
+  d.setDate(d.getDate() - days);
+  return d;
+}
+
+function fmtDate(d: Date): string {
+  return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Dual Range Slider
+// ─────────────────────────────────────────────────────────────────────────────
+
+function DualRangeSlider({
+  min = 0,
+  max = 10,
+  maxA = max,
+  valueA,
+  valueB,
+  onChangeA,
+  onChangeB,
+  showThumbB = true,
+}: {
+  min?: number;
+  max?: number;
+  maxA?: number;
+  valueA: number;
+  valueB: number;
+  onChangeA: (v: number) =&gt; void;
+  onChangeB: (v: number) =&gt; void;
+  showThumbB?: boolean;
+}) {
+  const trackRef = useRef&lt;HTMLDivElement&gt;(null);
+  const steps    = Array.from({ length: max - min + 1 }, (_, i) =&gt; i + min);
+  const count    = steps.length;
+
+  const pctA = ((valueA - min) / (max - min)) * 100;
+  const pctB = ((valueB - min) / (max - min)) * 100;
+
+  const pickValue = useCallback((clientX: number) =&gt; {
+    const rect  = trackRef.current!.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    return Math.round(min + ratio * (max - min));
+  }, [min, max]);
+
+  const startDrag = (thumb: &#39;a&#39; | &#39;b&#39;) =&gt; (e: React.MouseEvent) =&gt; {
+    e.preventDefault();
+    const move = (ev: MouseEvent) =&gt; {
+      const v = pickValue(ev.clientX);
+      if (thumb === &#39;a&#39;) onChangeA(Math.min(Math.max(v, 1), Math.min(valueB, maxA)));
+      else               onChangeB(Math.max(v, valueA, 2));
+    };
+    const up = () =&gt; {
+      document.removeEventListener(&#39;mousemove&#39;, move);
+      document.removeEventListener(&#39;mouseup&#39;, up);
+    };
+    document.addEventListener(&#39;mousemove&#39;, move);
+    document.addEventListener(&#39;mouseup&#39;, up);
+  };
+
+  const thumbStyle: React.CSSProperties = {
+    position: &#39;absolute&#39;,
+    width: 19, height: 19,
+    top: &#39;50%&#39;,
+    transform: &#39;translate(-50%, -50%)&#39;,
+    borderRadius: &#39;50%&#39;,
+    background: &#39;#fff&#39;,
+    border: &#39;2px solid #9C9CA6&#39;,
+    boxShadow: &#39;0 3px 12px rgba(49,57,73,0.15)&#39;,
+    boxSizing: &#39;border-box&#39;,
+    cursor: &#39;grab&#39;,
+    outline: &#39;none&#39;,
+    transition: &#39;left 80ms ease, border-color 120ms, box-shadow 120ms&#39;,
+    zIndex: 1,
+  };
+
+  return (
+    &lt;div style={{ userSelect: &#39;none&#39;, width: &#39;100%&#39;, fontFamily: &#39;var(--ds-font-family-base)&#39; }}&gt;
+      &lt;style&gt;{`
+        .ds-thumb-dot:hover {
+          border-color: var(--ds-components-slider-active-bg-fill-color, #5464F2) !important;
+        }
+        .ds-thumb-dot:focus-visible {
+          outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
+          outline-offset: 2px;
+          border-color: var(--ds-components-slider-active-bg-fill-color, #5464F2) !important;
+        }
+      `}&lt;/style&gt;
+
+      {/* ── Track + 2 thumbs ──────────────────────────────────────────────── */}
+      &lt;div ref={trackRef} style={{ position: &#39;relative&#39;, height: 16 }}&gt;
+
+        {/* Grey base track */}
+        &lt;div style={{
+          position: &#39;absolute&#39;, left: 0, right: 0,
+          top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
+          height: 9, borderRadius: 4.5,
+          background: &#39;var(--ds-components-slider-slider-bg-grey, #E5EAF2)&#39;,
+          pointerEvents: &#39;none&#39;,
+        }} /&gt;
+
+        {/* Blue fill — visible range (left → thumb A) */}
+        &lt;div style={{
+          position: &#39;absolute&#39;, left: 0, width: `${pctA}%`,
+          top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
+          height: 9, borderRadius: 4.5,
+          background: &#39;var(--ds-components-slider-active-bg-fill-color, #5464F2)&#39;,
+          pointerEvents: &#39;none&#39;,
+        }} /&gt;
+
+        {/* Orange fill — archive range (thumb A → thumb B) */}
+        {showThumbB &amp;&amp; pctB &gt; pctA &amp;&amp; (
+          &lt;div style={{
+            position: &#39;absolute&#39;, left: `${pctA}%`, width: `${pctB - pctA}%`,
+            top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
+            height: 9, borderRadius: 4.5,
+            background: &#39;var(--ds-icon-primary-orange, #F18E0A)&#39;,
+            pointerEvents: &#39;none&#39;,
+          }} /&gt;
+        )}
+
+        {/* Thumb A — visible end */}
+        &lt;div
+          className=&quot;ds-thumb-dot&quot;
+          onMouseDown={startDrag(&#39;a&#39;)}
+          style={{ ...thumbStyle, left: `${pctA}%` }}
+          role=&quot;slider&quot;
+          tabIndex={0}
+          aria-valuemin={min} aria-valuemax={valueB} aria-valuenow={valueA}
+          aria-label=&quot;Visible log history end&quot;
+        /&gt;
+
+        {/* Thumb B — archive end */}
+        {showThumbB &amp;&amp; (
+          &lt;div
+            className=&quot;ds-thumb-dot&quot;
+            onMouseDown={startDrag(&#39;b&#39;)}
+            style={{ ...thumbStyle, left: `${pctB}%`, zIndex: 2 }}
+            role=&quot;slider&quot;
+            tabIndex={0}
+            aria-valuemin={valueA} aria-valuemax={max} aria-valuenow={valueB}
+            aria-label=&quot;Archive log end&quot;
+          /&gt;
+        )}
+      &lt;/div&gt;
+
+      {/* ── Numbers below — centered on each thumb&#39;s percentage position ──── */}
+      &lt;div style={{ position: &#39;relative&#39;, height: 14, marginTop: 6 }}&gt;
+        {steps.map((s, i) =&gt; {
+          const pct = count &gt; 1 ? (i / (count - 1)) * 100 : 50;
+          return (
+            &lt;span key={s} style={{
+              position: &#39;absolute&#39;,
+              left: `${pct}%`,
+              transform: &#39;translateX(-50%)&#39;,
+              fontSize: 11,
+              color: &#39;var(--ds-text-muted, #8B9BB8)&#39;,
+              lineHeight: 1,
+              whiteSpace: &#39;nowrap&#39;,
+            }}&gt;
+              {s}
+            &lt;/span&gt;
+          );
+        })}
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Retention summary row
+// ─────────────────────────────────────────────────────────────────────────────
+
+function RetentionRow({
+  dotColor,
+  showDot = true,
+  label,
+  years,
+  availableFrom,
+  availableTo,
+}: {
+  dotColor: string;
+  showDot?: boolean;
+  label: string;
+  years: number;
+  availableFrom: string;
+  availableTo: string;
+}) {
+  const text: React.CSSProperties = {
+    fontFamily: &#39;var(--ds-font-family-base)&#39;,
+    fontSize: &#39;var(--ds-font-size-base)&#39;,
+    color: &#39;var(--ds-text-label)&#39;,
+    lineHeight: &#39;1.6&#39;,
+  };
+
+  return (
+    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 1 }}&gt;
+      &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, flexWrap: &#39;wrap&#39;, gap: 6 }}&gt;
+        {showDot &amp;&amp; &lt;div style={{
+          width: 8, height: 8,
+          borderRadius: &#39;50%&#39;,
+          background: dotColor,
+          flexShrink: 0,
+        }} /&gt;}
+        &lt;span style={{ ...text, color: &#39;var(--ds-text-base)&#39;, fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+          {label}
+        &lt;/span&gt;
+        &lt;span style={{ ...text, color: &#39;var(--ds-text-base)&#39; }}&gt;
+          : &lt;strong style={{ fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+            {years} {years === 1 ? &#39;year&#39; : &#39;years&#39;}
+          &lt;/strong&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
+      &lt;span style={{ ...text, paddingLeft: showDot ? 14 : 0 }}&gt;
+        Available Data:{&#39; &#39;}
+        &lt;span style={{ color: &#39;var(--ds-text-base)&#39; }}&gt;{availableFrom} - {availableTo}&lt;/span&gt;
+      &lt;/span&gt;
+      &lt;span style={{ ...text, paddingLeft: showDot ? 14 : 0 }}&gt;
+        Estimated Data Storage:{&#39; &#39;}
+        &lt;span style={{ color: &#39;var(--ds-text-base)&#39; }}&gt;~ 0&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// More Menu (··· trigger → action list)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const menuItemStyle: React.CSSProperties = {
+  display: &#39;block&#39;,
+  width: &#39;100%&#39;,
+  padding: &#39;10px 16px&#39;,
+  textAlign: &#39;left&#39;,
+  background: &#39;none&#39;,
+  border: &#39;none&#39;,
+  cursor: &#39;pointer&#39;,
+  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+  fontSize: &#39;var(--ds-font-size-base)&#39;,
+  color: &#39;var(--ds-text-base)&#39;,
+  whiteSpace: &#39;nowrap&#39;,
+};
+
+function MoreMenu({ onManageRetention }: { onManageRetention: () =&gt; void }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const ref = useRef&lt;HTMLDivElement&gt;(null);
+
+  useCallback(() =&gt; {}, []); // keep hook order stable
+
+  React.useEffect(() =&gt; {
+    if (!menuOpen) return;
+    const close = (e: MouseEvent) =&gt; {
+      if (ref.current &amp;&amp; !ref.current.contains(e.target as Node)) setMenuOpen(false);
+    };
+    document.addEventListener(&#39;mousedown&#39;, close);
+    return () =&gt; document.removeEventListener(&#39;mousedown&#39;, close);
+  }, [menuOpen]);
+
+  return (
+    &lt;div ref={ref} style={{ position: &#39;relative&#39;, display: &#39;inline-block&#39; }}&gt;
+      &lt;button
+        onClick={() =&gt; setMenuOpen(o =&gt; !o)}
+        style={{
+          display: &#39;flex&#39;, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39;,
+          width: 36, height: 36,
+          border: &#39;1px solid var(--ds-border-default, #D8DFF0)&#39;,
+          borderRadius: 6,
+          background: &#39;#fff&#39;,
+          cursor: &#39;pointer&#39;,
+          fontSize: 20,
+          letterSpacing: 1,
+          color: &#39;var(--ds-text-base)&#39;,
+          lineHeight: 1,
+        }}
+        aria-label=&quot;More options&quot;
+        aria-haspopup=&quot;true&quot;
+        aria-expanded={menuOpen}
+      &gt;
+        ···
+      &lt;/button&gt;
+
+      {menuOpen &amp;&amp; (
+        &lt;div style={{
+          position: &#39;absolute&#39;,
+          top: &#39;calc(100% + 4px)&#39;,
+          right: 0,
+          background: &#39;#fff&#39;,
+          border: &#39;1px solid var(--ds-border-default, #E2E8F5)&#39;,
+          borderRadius: 8,
+          boxShadow: &#39;0 4px 16px rgba(49,57,73,0.14)&#39;,
+          minWidth: 220,
+          zIndex: 200,
+          overflow: &#39;hidden&#39;,
+        }}&gt;
+          &lt;button
+            style={menuItemStyle}
+            onMouseEnter={e =&gt; (e.currentTarget.style.background = &#39;var(--ds-bg-surface-hover, #F5F7FA)&#39;)}
+            onMouseLeave={e =&gt; (e.currentTarget.style.background = &#39;none&#39;)}
+            onClick={() =&gt; { onManageRetention(); setMenuOpen(false); }}
+          &gt;
+            Manage Log Retention Settings
+          &lt;/button&gt;
+          &lt;button
+            style={menuItemStyle}
+            onMouseEnter={e =&gt; (e.currentTarget.style.background = &#39;var(--ds-bg-surface-hover, #F5F7FA)&#39;)}
+            onMouseLeave={e =&gt; (e.currentTarget.style.background = &#39;none&#39;)}
+            onClick={() =&gt; setMenuOpen(false)}
+          &gt;
+            Exported Log History
+          &lt;/button&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Story
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const ManageLogRetentionSettings: Story = {
+  name: &#39;Manage Log Retention Settings&#39;,
+  decorators: [
+    (Story) =&gt; (
+      &lt;div style={{
+        position: &#39;fixed&#39;,
+        inset: 0,
+        backgroundImage: &#39;url(/crm-design-system/images/audit-log-bg.png)&#39;,
+        backgroundSize: &#39;cover&#39;,
+        backgroundPosition: &#39;top left&#39;,
+        display: &#39;flex&#39;,
+        alignItems: &#39;flex-start&#39;,
+        justifyContent: &#39;center&#39;,
+      }}&gt;
+        &lt;Story /&gt;
+      &lt;/div&gt;
+    ),
+  ],
+  render: () =&gt; {
+    const [open, setOpen] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [saved, setSaved] = useState(false);
+    const [visibleYears, setVisibleYears] = useState(3);
+    const [totalYears, setTotalYears]     = useState(7);
+    const [archiveEnabled, setArchiveEnabled] = useState(true);
+
+    const [exemptEnabled, setExemptEnabled] = useState(false);
+    const [modulesTags, setModulesTags] = useState([]);
+    const [subformsTags, setSubformsTags] = useState([]);
+    const modulesOptions = [
+      { value: &#39;leads&#39;,          label: &#39;Leads&#39;           },
+      { value: &#39;contacts&#39;,       label: &#39;Contacts&#39;        },
+      { value: &#39;accounts&#39;,       label: &#39;Accounts&#39;        },
+      { value: &#39;deals&#39;,          label: &#39;Deals&#39;           },
+      { value: &#39;campaigns&#39;,      label: &#39;Campaigns&#39;       },
+      { value: &#39;tasks&#39;,          label: &#39;Tasks&#39;           },
+      { value: &#39;meetings&#39;,       label: &#39;Meetings&#39;        },
+      { value: &#39;calls&#39;,          label: &#39;Calls&#39;           },
+      { value: &#39;reports&#39;,        label: &#39;Reports&#39;         },
+      { value: &#39;quotes&#39;,         label: &#39;Quotes&#39;          },
+      { value: &#39;products&#39;,       label: &#39;Products&#39;        },
+      { value: &#39;invoices&#39;,       label: &#39;Invoices&#39;        },
+      { value: &#39;purchase-orders&#39;,label: &#39;Purchase Orders&#39; },
+      { value: &#39;sales-orders&#39;,   label: &#39;Sales Orders&#39;   },
+      { value: &#39;price-books&#39;,    label: &#39;Price Books&#39;     },
+      { value: &#39;cases&#39;,          label: &#39;Cases&#39;           },
+      { value: &#39;solutions&#39;,      label: &#39;Solutions&#39;       },
+      { value: &#39;documents&#39;,      label: &#39;Documents&#39;       },
+      { value: &#39;vendors&#39;,        label: &#39;Vendors&#39;         },
+      { value: &#39;activities&#39;,     label: &#39;Activities&#39;      },
+    ];
+    const subformsOptions = [
+      { value: &#39;line-items-deals&#39;,    label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Deals)&#39;,        group: &#39;Deals&#39; },
+      { value: &#39;tax-details-deals&#39;,   label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Deals)&#39;,       group: &#39;Deals&#39; },
+      { value: &#39;discount-deals&#39;,      label: &#39;Discount Details&#39;,  tagLabel: &#39;Discount Details (Deals)&#39;,  group: &#39;Deals&#39; },
+      { value: &#39;line-items-quotes&#39;,   label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Quotes)&#39;,       group: &#39;Quotes&#39; },
+      { value: &#39;tax-details-quotes&#39;,  label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Quotes)&#39;,      group: &#39;Quotes&#39; },
+      { value: &#39;shipping-quotes&#39;,     label: &#39;Shipping Charges&#39;,  tagLabel: &#39;Shipping Charges (Quotes)&#39;, group: &#39;Quotes&#39; },
+      { value: &#39;line-items-invoices&#39;, label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Invoices)&#39;,     group: &#39;Invoices&#39; },
+      { value: &#39;tax-details-invoices&#39;,label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Invoices)&#39;,    group: &#39;Invoices&#39; },
+      { value: &#39;line-items-po&#39;,       label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Purchase Orders)&#39;, group: &#39;Purchase Orders&#39; },
+      { value: &#39;vendor-details-po&#39;,   label: &#39;Vendor Details&#39;,    tagLabel: &#39;Vendor Details (Purchase Orders)&#39;, group: &#39;Purchase Orders&#39; },
+    ];
+
+    const archiveYears = totalYears - visibleYears;
+
+    const today        = new Date(&#39;2026-08-18&#39;);
+    const visibleStart = subtractYears(today, visibleYears);
+    const archiveEnd   = subtractDays(visibleStart, 1);
+    const archiveStart = subtractYears(archiveEnd, archiveYears);
 
     return (
-      &lt;div style={{
-        height: &#39;100vh&#39;,
-        display: &#39;flex&#39;,
-        alignItems: &#39;center&#39;,
-        justifyContent: &#39;center&#39;,
-        background: &#39;#F0F2F7&#39;,
-        fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
-      }}&gt;
-        &lt;button
-          type=&quot;button&quot;
-          onClick={() =&gt; setOpen(true)}
-          style={{
-            padding: &#39;8px 20px&#39;,
-            background: &#39;#5464F2&#39;,
-            color: &#39;#fff&#39;,
-            border: &#39;none&#39;,
-            borderRadius: &#39;6px&#39;,
-            fontSize: &#39;13px&#39;,
-            fontWeight: 500,
-            cursor: &#39;pointer&#39;,
-            fontFamily: &#39;inherit&#39;,
-          }}
-        &gt;
-          Manage Audit Log Duration
-        &lt;/button&gt;
-
-        {/* ── Main modal ── */}
+      &lt;&gt;
         &lt;Modal
           isOpen={open}
-          title=&quot;Manage Audit Log Duration&quot;
+          title=&quot;Manage Log Retention Settings&quot;
+          description=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
           onClose={() =&gt; setOpen(false)}
-          onSave={() =&gt; setConfirm(true)}
+          onCancel={() =&gt; setOpen(false)}
+          onSave={() =&gt; {
+            setSaving(true);
+            setTimeout(() =&gt; {
+              setSaving(false);
+              setOpen(false);
+              setSaved(true);
+              setTimeout(() =&gt; setSaved(false), 4000);
+            }, 500);
+          }}
+          saveLoading={saving}
           cancelLabel=&quot;Cancel&quot;
           saveLabel=&quot;Save&quot;
-          footerNote=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
-          width={600}
+          width={640}
         &gt;
-          {/* Info panel */}
-          &lt;MessageBox
-            variant=&quot;info&quot;
-            closable={false}
-            message={
-              &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
-                &lt;li&gt;You can choose how long logs stay visible on the Audit Log page.&lt;/li&gt;
-                &lt;li&gt;Remaining logs can be archived or deleted to free up space.&lt;/li&gt;
-                &lt;li&gt;Audit Logs (including Timeline and Interaction data) count toward your Data Storage.&lt;/li&gt;
-                &lt;li&gt;Archived logs use significantly less storage than visible logs.&lt;/li&gt;
-              &lt;/ul&gt;
-            }
-          /&gt;
+          &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20, paddingRight: 20 }}&gt;
 
-          {/* Duration settings */}
-          &lt;FormSection title=&quot;Duration Settings&quot;&gt;
-            &lt;Select
-              label=&quot;Visible Logs Duration&quot;
-              value={visibleDur}
-              options={DURATION_OPTIONS}
-              layout=&quot;horizontal&quot;
-              width=&quot;100%&quot;
-            /&gt;
-            &lt;Select
-              label=&quot;After Visible Period&quot;
-              value={afterVisible}
-              options={AFTER_OPTIONS}
-              layout=&quot;horizontal&quot;
-              width=&quot;100%&quot;
-            /&gt;
-            {afterVisible === &#39;archive&#39; &amp;&amp; (
-              &lt;Select
-                label=&quot;Archive Duration&quot;
-                value={archiveDur}
-                options={DURATION_OPTIONS}
-                layout=&quot;horizontal&quot;
-                width=&quot;100%&quot;
-              /&gt;
-            )}
-          &lt;/FormSection&gt;
-
-          {/* Modules exempt */}
-          &lt;FormSection title=&quot;Modules Exempt from Standard Duration&quot;&gt;
-            &lt;p style={{ margin: &#39;0 0 12px&#39;, fontSize: 12, color: &#39;var(--ds-text-secondary, #616E88)&#39;, lineHeight: 1.55 }}&gt;
-              Apply a restricted retention period — 6 months for visible logs and 6 months
-              for archived logs — to selected modules and subforms.
-            &lt;/p&gt;
-            &lt;Tags
-              value={modules}
-              options={MODULE_OPTIONS}
-              placeholder=&quot;Select modules...&quot;
-              onChange={setModules}
-              width=&quot;100%&quot;
-            /&gt;
-            &lt;div style={{ marginTop: 10 }}&gt;
-              &lt;Tags
-                value={subforms}
-                options={SUBFORM_OPTIONS}
-                placeholder=&quot;Select subforms...&quot;
-                onChange={setSubforms}
-                width=&quot;100%&quot;
+            {/* ── Dual range slider ───────────────────────────────────────── */}
+            &lt;div style={{ paddingTop: 4 }}&gt;
+              &lt;DualRangeSlider
+                min={0}
+                max={10}
+                maxA={3}
+                valueA={visibleYears}
+                valueB={totalYears}
+                onChangeA={setVisibleYears}
+                onChangeB={setTotalYears}
+                showThumbB={archiveEnabled}
               /&gt;
             &lt;/div&gt;
-            {hasExemptions &amp;&amp; (
-              &lt;div style={{ marginTop: 10 }}&gt;
-                &lt;MessageBox
-                  variant=&quot;warning&quot;
-                  closable={false}
-                  message=&quot;Selected logs are retained for 6 months only, after which they are deleted.&quot;
+
+            {/* ── Archive checkbox ─────────────────────────────────────────── */}
+            &lt;Checkbox
+              label=&quot;Archive&quot;
+              checked={archiveEnabled}
+              onChange={(e) =&gt; setArchiveEnabled(e.target.checked)}
+            /&gt;
+
+            {/* ── Retention summary rows ───────────────────────────────────── */}
+            &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
+              &lt;RetentionRow
+                dotColor=&quot;var(--ds-components-slider-active-bg-fill-color, #5464F2)&quot;
+                showDot={archiveEnabled}
+                label=&quot;Visible Log History&quot;
+                years={visibleYears}
+                availableFrom={fmtDate(visibleStart)}
+                availableTo=&quot;Now&quot;
+              /&gt;
+
+              {archiveEnabled &amp;&amp; archiveYears &gt; 0 &amp;&amp; (
+                &lt;RetentionRow
+                  dotColor=&quot;var(--ds-icon-primary-orange, #F18E0A)&quot;
+                  label=&quot;Archived Logs Retention&quot;
+                  years={archiveYears}
+                  availableFrom={fmtDate(archiveStart)}
+                  availableTo={fmtDate(archiveEnd)}
                 /&gt;
+              )}
+            &lt;/div&gt;
+
+            {/* ── Modules Exempt from Standard Duration ───────────────────── */}
+            &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                &lt;Checkbox
+                  label=&quot;Modules Exempt from Standard Duration&quot;
+                  checked={exemptEnabled}
+                  onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
+                /&gt;
+                &lt;Tooltip
+                  content=&quot;Logs for selected modules will not follow the standard duration and will be retained for 6 months only.&quot;
+                  placement=&quot;top&quot;
+                  variant=&quot;white&quot;
+                &gt;
+                  &lt;span style={{ display: &#39;inline-flex&#39;, color: &#39;var(--ds-text-label)&#39; }}&gt;
+                    &lt;InfoIcon width={14} height={14} /&gt;
+                  &lt;/span&gt;
+                &lt;/Tooltip&gt;
               &lt;/div&gt;
-            )}
-          &lt;/FormSection&gt;
+
+              {exemptEnabled &amp;&amp; (
+                &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
+                  {/* Modules */}
+                  &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 12 }}&gt;
+                    &lt;span style={{
+                      fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                      fontSize: &#39;var(--ds-font-size-base)&#39;,
+                      fontWeight: &#39;var(--ds-font-weight-regular)&#39; as any,
+                      color: &#39;var(--ds-text-label)&#39;,
+                      flexShrink: 0,
+                      width: 140,
+                      paddingTop: 7,
+                      textAlign: &#39;right&#39;,
+                    }}&gt;
+                      Modules
+                    &lt;/span&gt;
+                    &lt;Tags
+                      value={modulesTags}
+                      options={modulesOptions}
+                      onChange={setModulesTags}
+                      width={390}
+                    /&gt;
+                  &lt;/div&gt;
+
+                  {/* Subforms */}
+                  &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 12 }}&gt;
+                    &lt;span style={{
+                      fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                      fontSize: &#39;var(--ds-font-size-base)&#39;,
+                      fontWeight: &#39;var(--ds-font-weight-regular)&#39; as any,
+                      color: &#39;var(--ds-text-label)&#39;,
+                      flexShrink: 0,
+                      width: 140,
+                      paddingTop: 7,
+                      textAlign: &#39;right&#39;,
+                    }}&gt;
+                      Subforms
+                    &lt;/span&gt;
+                    &lt;Tags
+                      value={subformsTags}
+                      options={subformsOptions}
+                      onChange={setSubformsTags}
+                      width={390}
+                    /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              )}
+            &lt;/div&gt;
+
+            {/* ── Notes callout ────────────────────────────────────────────── */}
+            &lt;MessageInfo
+              variant=&quot;note&quot;
+              points={[
+                &#39;Choose how long logs remain visible on the Audit Log page.&#39;,
+                &#39;Logs exceeding the visible limit are either archived or permanently deleted to free up storage space.&#39;,
+                &#39;Audit Logs (including Timeline and Interaction data) count towards your Data Storage.&#39;,
+                &#39;Archived logs use significantly less storage than active (visible) logs.&#39;,
+              ]}
+            /&gt;
+
+            {/* ── Last updated ─────────────────────────────────────────────── */}
+            &lt;span style={{
+              fontFamily: &#39;var(--ds-font-family-base)&#39;,
+              fontSize: &#39;var(--ds-font-size-base)&#39;,
+              color: &#39;var(--ds-text-label)&#39;,
+            }}&gt;
+              Last updated : Aug 10, 2026 12:32 pm by Chinnaiya Raja
+            &lt;/span&gt;
+
+          &lt;/div&gt;
         &lt;/Modal&gt;
 
-        {/* ── Confirmation modal ── */}
-        &lt;Modal
-          isOpen={confirm}
-          title=&quot;Save audit log duration changes?&quot;
-          onClose={() =&gt; setConfirm(false)}
-          onSave={() =&gt; { setConfirm(false); setOpen(false); }}
-          cancelLabel=&quot;Cancel&quot;
-          saveLabel=&quot;Okay, Proceed&quot;
-          width={440}
-        &gt;
-          &lt;MessageBox
-            variant=&quot;warning&quot;
-            closable={false}
-            message={
-              &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
-                &lt;li&gt;Logs beyond the retention period will be permanently deleted.&lt;/li&gt;
-                &lt;li&gt;Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/li&gt;
-                &lt;li&gt;Deleted logs cannot be recovered.&lt;/li&gt;
-              &lt;/ul&gt;
-            }
-          /&gt;
-        &lt;/Modal&gt;
-      &lt;/div&gt;
+        {saved &amp;&amp; (
+          &lt;&gt;
+            &lt;style&gt;{`
+              @keyframes msgbox-slide-down {
+                from { opacity: 0; top: 80px; }
+                to   { opacity: 1; top: 100px; }
+              }
+            `}&lt;/style&gt;
+            &lt;div style={{
+              position: &#39;fixed&#39;, left: &#39;50%&#39;,
+              transform: &#39;translateX(-50%)&#39;,
+              zIndex: 2000, minWidth: 320,
+              animation: &#39;msgbox-slide-down 260ms cubic-bezier(0.2, 0, 0.2, 1) both&#39;,
+            }}&gt;
+              &lt;MessageBox
+                variant=&quot;success&quot;
+                message=&quot;Log retention settings saved successfully.&quot;
+                onClose={() =&gt; setSaved(false)}
+              /&gt;
+            &lt;/div&gt;
+          &lt;/&gt;
+        )}
+      &lt;/&gt;
     );
   },
 };
@@ -909,164 +1296,251 @@ export const Default: Story = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { FormSection, MessageBox, Modal, Select, Tags } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import { Checkbox, Info as InfoIcon, MessageBox, MessageInfo, Modal, Tags, Tooltip } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Audit Log Duration</span>
+                <span class="ex-name">Manage Log Retention Settings</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const Default = () =&gt; {
-  const [open, setOpen]           = useState(false);
-  const [confirm, setConfirm]     = useState(false);
-  const [visibleDur, setVisibleDur]   = useState(&#39;1y&#39;);
-  const [afterVisible, setAfterVisible] = useState(&#39;archive&#39;);
-  const [archiveDur, setArchiveDur]   = useState(&#39;1y&#39;);
-  const [modules, setModules]     = useState&lt;TagItem[]&gt;([]);
-  const [subforms, setSubforms]   = useState&lt;TagItem[]&gt;([]);
+              <pre><code>const ManageLogRetentionSettings = () =&gt; {
+  const [open, setOpen] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [visibleYears, setVisibleYears] = useState(3);
+  const [totalYears, setTotalYears]     = useState(7);
+  const [archiveEnabled, setArchiveEnabled] = useState(true);
 
-  const hasExemptions = modules.length &gt; 0 || subforms.length &gt; 0;
+  const [exemptEnabled, setExemptEnabled] = useState(false);
+  const [modulesTags, setModulesTags] = useState([]);
+  const [subformsTags, setSubformsTags] = useState([]);
+  const modulesOptions = [
+    { value: &#39;leads&#39;,          label: &#39;Leads&#39;           },
+    { value: &#39;contacts&#39;,       label: &#39;Contacts&#39;        },
+    { value: &#39;accounts&#39;,       label: &#39;Accounts&#39;        },
+    { value: &#39;deals&#39;,          label: &#39;Deals&#39;           },
+    { value: &#39;campaigns&#39;,      label: &#39;Campaigns&#39;       },
+    { value: &#39;tasks&#39;,          label: &#39;Tasks&#39;           },
+    { value: &#39;meetings&#39;,       label: &#39;Meetings&#39;        },
+    { value: &#39;calls&#39;,          label: &#39;Calls&#39;           },
+    { value: &#39;reports&#39;,        label: &#39;Reports&#39;         },
+    { value: &#39;quotes&#39;,         label: &#39;Quotes&#39;          },
+    { value: &#39;products&#39;,       label: &#39;Products&#39;        },
+    { value: &#39;invoices&#39;,       label: &#39;Invoices&#39;        },
+    { value: &#39;purchase-orders&#39;,label: &#39;Purchase Orders&#39; },
+    { value: &#39;sales-orders&#39;,   label: &#39;Sales Orders&#39;   },
+    { value: &#39;price-books&#39;,    label: &#39;Price Books&#39;     },
+    { value: &#39;cases&#39;,          label: &#39;Cases&#39;           },
+    { value: &#39;solutions&#39;,      label: &#39;Solutions&#39;       },
+    { value: &#39;documents&#39;,      label: &#39;Documents&#39;       },
+    { value: &#39;vendors&#39;,        label: &#39;Vendors&#39;         },
+    { value: &#39;activities&#39;,     label: &#39;Activities&#39;      },
+  ];
+  const subformsOptions = [
+    { value: &#39;line-items-deals&#39;,    label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Deals)&#39;,        group: &#39;Deals&#39; },
+    { value: &#39;tax-details-deals&#39;,   label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Deals)&#39;,       group: &#39;Deals&#39; },
+    { value: &#39;discount-deals&#39;,      label: &#39;Discount Details&#39;,  tagLabel: &#39;Discount Details (Deals)&#39;,  group: &#39;Deals&#39; },
+    { value: &#39;line-items-quotes&#39;,   label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Quotes)&#39;,       group: &#39;Quotes&#39; },
+    { value: &#39;tax-details-quotes&#39;,  label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Quotes)&#39;,      group: &#39;Quotes&#39; },
+    { value: &#39;shipping-quotes&#39;,     label: &#39;Shipping Charges&#39;,  tagLabel: &#39;Shipping Charges (Quotes)&#39;, group: &#39;Quotes&#39; },
+    { value: &#39;line-items-invoices&#39;, label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Invoices)&#39;,     group: &#39;Invoices&#39; },
+    { value: &#39;tax-details-invoices&#39;,label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Invoices)&#39;,    group: &#39;Invoices&#39; },
+    { value: &#39;line-items-po&#39;,       label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Purchase Orders)&#39;, group: &#39;Purchase Orders&#39; },
+    { value: &#39;vendor-details-po&#39;,   label: &#39;Vendor Details&#39;,    tagLabel: &#39;Vendor Details (Purchase Orders)&#39;, group: &#39;Purchase Orders&#39; },
+  ];
+
+  const archiveYears = totalYears - visibleYears;
+
+  const today        = new Date(&#39;2026-08-18&#39;);
+  const visibleStart = subtractYears(today, visibleYears);
+  const archiveEnd   = subtractDays(visibleStart, 1);
+  const archiveStart = subtractYears(archiveEnd, archiveYears);
 
   return (
-    &lt;div style={{
-      height: &#39;100vh&#39;,
-      display: &#39;flex&#39;,
-      alignItems: &#39;center&#39;,
-      justifyContent: &#39;center&#39;,
-      background: &#39;#F0F2F7&#39;,
-      fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
-    }}&gt;
-      &lt;button
-        type=&quot;button&quot;
-        onClick={() =&gt; setOpen(true)}
-        style={{
-          padding: &#39;8px 20px&#39;,
-          background: &#39;#5464F2&#39;,
-          color: &#39;#fff&#39;,
-          border: &#39;none&#39;,
-          borderRadius: &#39;6px&#39;,
-          fontSize: &#39;13px&#39;,
-          fontWeight: 500,
-          cursor: &#39;pointer&#39;,
-          fontFamily: &#39;inherit&#39;,
-        }}
-      &gt;
-        Manage Audit Log Duration
-      &lt;/button&gt;
-
-      {/* ── Main modal ── */}
+    &lt;&gt;
       &lt;Modal
         isOpen={open}
-        title=&quot;Manage Audit Log Duration&quot;
+        title=&quot;Manage Log Retention Settings&quot;
+        description=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
         onClose={() =&gt; setOpen(false)}
-        onSave={() =&gt; setConfirm(true)}
+        onCancel={() =&gt; setOpen(false)}
+        onSave={() =&gt; {
+          setSaving(true);
+          setTimeout(() =&gt; {
+            setSaving(false);
+            setOpen(false);
+            setSaved(true);
+            setTimeout(() =&gt; setSaved(false), 4000);
+          }, 500);
+        }}
+        saveLoading={saving}
         cancelLabel=&quot;Cancel&quot;
         saveLabel=&quot;Save&quot;
-        footerNote=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
-        width={600}
+        width={640}
       &gt;
-        {/* Info panel */}
-        &lt;MessageBox
-          variant=&quot;info&quot;
-          closable={false}
-          message={
-            &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
-              &lt;li&gt;You can choose how long logs stay visible on the Audit Log page.&lt;/li&gt;
-              &lt;li&gt;Remaining logs can be archived or deleted to free up space.&lt;/li&gt;
-              &lt;li&gt;Audit Logs (including Timeline and Interaction data) count toward your Data Storage.&lt;/li&gt;
-              &lt;li&gt;Archived logs use significantly less storage than visible logs.&lt;/li&gt;
-            &lt;/ul&gt;
-          }
-        /&gt;
+        &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20, paddingRight: 20 }}&gt;
 
-        {/* Duration settings */}
-        &lt;FormSection title=&quot;Duration Settings&quot;&gt;
-          &lt;Select
-            label=&quot;Visible Logs Duration&quot;
-            value={visibleDur}
-            options={DURATION_OPTIONS}
-            layout=&quot;horizontal&quot;
-            width=&quot;100%&quot;
-          /&gt;
-          &lt;Select
-            label=&quot;After Visible Period&quot;
-            value={afterVisible}
-            options={AFTER_OPTIONS}
-            layout=&quot;horizontal&quot;
-            width=&quot;100%&quot;
-          /&gt;
-          {afterVisible === &#39;archive&#39; &amp;&amp; (
-            &lt;Select
-              label=&quot;Archive Duration&quot;
-              value={archiveDur}
-              options={DURATION_OPTIONS}
-              layout=&quot;horizontal&quot;
-              width=&quot;100%&quot;
-            /&gt;
-          )}
-        &lt;/FormSection&gt;
-
-        {/* Modules exempt */}
-        &lt;FormSection title=&quot;Modules Exempt from Standard Duration&quot;&gt;
-          &lt;p style={{ margin: &#39;0 0 12px&#39;, fontSize: 12, color: &#39;var(--ds-text-secondary, #616E88)&#39;, lineHeight: 1.55 }}&gt;
-            Apply a restricted retention period — 6 months for visible logs and 6 months
-            for archived logs — to selected modules and subforms.
-          &lt;/p&gt;
-          &lt;Tags
-            value={modules}
-            options={MODULE_OPTIONS}
-            placeholder=&quot;Select modules...&quot;
-            onChange={setModules}
-            width=&quot;100%&quot;
-          /&gt;
-          &lt;div style={{ marginTop: 10 }}&gt;
-            &lt;Tags
-              value={subforms}
-              options={SUBFORM_OPTIONS}
-              placeholder=&quot;Select subforms...&quot;
-              onChange={setSubforms}
-              width=&quot;100%&quot;
+          {/* ── Dual range slider ───────────────────────────────────────── */}
+          &lt;div style={{ paddingTop: 4 }}&gt;
+            &lt;DualRangeSlider
+              min={0}
+              max={10}
+              maxA={3}
+              valueA={visibleYears}
+              valueB={totalYears}
+              onChangeA={setVisibleYears}
+              onChangeB={setTotalYears}
+              showThumbB={archiveEnabled}
             /&gt;
           &lt;/div&gt;
-          {hasExemptions &amp;&amp; (
-            &lt;div style={{ marginTop: 10 }}&gt;
-              &lt;MessageBox
-                variant=&quot;warning&quot;
-                closable={false}
-                message=&quot;Selected logs are retained for 6 months only, after which they are deleted.&quot;
+
+          {/* ── Archive checkbox ─────────────────────────────────────────── */}
+          &lt;Checkbox
+            label=&quot;Archive&quot;
+            checked={archiveEnabled}
+            onChange={(e) =&gt; setArchiveEnabled(e.target.checked)}
+          /&gt;
+
+          {/* ── Retention summary rows ───────────────────────────────────── */}
+          &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
+            &lt;RetentionRow
+              dotColor=&quot;var(--ds-components-slider-active-bg-fill-color, #5464F2)&quot;
+              showDot={archiveEnabled}
+              label=&quot;Visible Log History&quot;
+              years={visibleYears}
+              availableFrom={fmtDate(visibleStart)}
+              availableTo=&quot;Now&quot;
+            /&gt;
+
+            {archiveEnabled &amp;&amp; archiveYears &gt; 0 &amp;&amp; (
+              &lt;RetentionRow
+                dotColor=&quot;var(--ds-icon-primary-orange, #F18E0A)&quot;
+                label=&quot;Archived Logs Retention&quot;
+                years={archiveYears}
+                availableFrom={fmtDate(archiveStart)}
+                availableTo={fmtDate(archiveEnd)}
               /&gt;
+            )}
+          &lt;/div&gt;
+
+          {/* ── Modules Exempt from Standard Duration ───────────────────── */}
+          &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+              &lt;Checkbox
+                label=&quot;Modules Exempt from Standard Duration&quot;
+                checked={exemptEnabled}
+                onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
+              /&gt;
+              &lt;Tooltip
+                content=&quot;Logs for selected modules will not follow the standard duration and will be retained for 6 months only.&quot;
+                placement=&quot;top&quot;
+                variant=&quot;white&quot;
+              &gt;
+                &lt;span style={{ display: &#39;inline-flex&#39;, color: &#39;var(--ds-text-label)&#39; }}&gt;
+                  &lt;InfoIcon width={14} height={14} /&gt;
+                &lt;/span&gt;
+              &lt;/Tooltip&gt;
             &lt;/div&gt;
-          )}
-        &lt;/FormSection&gt;
+
+            {exemptEnabled &amp;&amp; (
+              &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
+                {/* Modules */}
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 12 }}&gt;
+                  &lt;span style={{
+                    fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                    fontSize: &#39;var(--ds-font-size-base)&#39;,
+                    fontWeight: &#39;var(--ds-font-weight-regular)&#39; as any,
+                    color: &#39;var(--ds-text-label)&#39;,
+                    flexShrink: 0,
+                    width: 140,
+                    paddingTop: 7,
+                    textAlign: &#39;right&#39;,
+                  }}&gt;
+                    Modules
+                  &lt;/span&gt;
+                  &lt;Tags
+                    value={modulesTags}
+                    options={modulesOptions}
+                    onChange={setModulesTags}
+                    width={390}
+                  /&gt;
+                &lt;/div&gt;
+
+                {/* Subforms */}
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 12 }}&gt;
+                  &lt;span style={{
+                    fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                    fontSize: &#39;var(--ds-font-size-base)&#39;,
+                    fontWeight: &#39;var(--ds-font-weight-regular)&#39; as any,
+                    color: &#39;var(--ds-text-label)&#39;,
+                    flexShrink: 0,
+                    width: 140,
+                    paddingTop: 7,
+                    textAlign: &#39;right&#39;,
+                  }}&gt;
+                    Subforms
+                  &lt;/span&gt;
+                  &lt;Tags
+                    value={subformsTags}
+                    options={subformsOptions}
+                    onChange={setSubformsTags}
+                    width={390}
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            )}
+          &lt;/div&gt;
+
+          {/* ── Notes callout ────────────────────────────────────────────── */}
+          &lt;MessageInfo
+            variant=&quot;note&quot;
+            points={[
+              &#39;Choose how long logs remain visible on the Audit Log page.&#39;,
+              &#39;Logs exceeding the visible limit are either archived or permanently deleted to free up storage space.&#39;,
+              &#39;Audit Logs (including Timeline and Interaction data) count towards your Data Storage.&#39;,
+              &#39;Archived logs use significantly less storage than active (visible) logs.&#39;,
+            ]}
+          /&gt;
+
+          {/* ── Last updated ─────────────────────────────────────────────── */}
+          &lt;span style={{
+            fontFamily: &#39;var(--ds-font-family-base)&#39;,
+            fontSize: &#39;var(--ds-font-size-base)&#39;,
+            color: &#39;var(--ds-text-label)&#39;,
+          }}&gt;
+            Last updated : Aug 10, 2026 12:32 pm by Chinnaiya Raja
+          &lt;/span&gt;
+
+        &lt;/div&gt;
       &lt;/Modal&gt;
 
-      {/* ── Confirmation modal ── */}
-      &lt;Modal
-        isOpen={confirm}
-        title=&quot;Save audit log duration changes?&quot;
-        onClose={() =&gt; setConfirm(false)}
-        onSave={() =&gt; { setConfirm(false); setOpen(false); }}
-        cancelLabel=&quot;Cancel&quot;
-        saveLabel=&quot;Okay, Proceed&quot;
-        width={440}
-      &gt;
-        &lt;MessageBox
-          variant=&quot;warning&quot;
-          closable={false}
-          message={
-            &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
-              &lt;li&gt;Logs beyond the retention period will be permanently deleted.&lt;/li&gt;
-              &lt;li&gt;Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/li&gt;
-              &lt;li&gt;Deleted logs cannot be recovered.&lt;/li&gt;
-            &lt;/ul&gt;
-          }
-        /&gt;
-      &lt;/Modal&gt;
-    &lt;/div&gt;
+      {saved &amp;&amp; (
+        &lt;&gt;
+          &lt;style&gt;{`
+            @keyframes msgbox-slide-down {
+              from { opacity: 0; top: 80px; }
+              to   { opacity: 1; top: 100px; }
+            }
+          `}&lt;/style&gt;
+          &lt;div style={{
+            position: &#39;fixed&#39;, left: &#39;50%&#39;,
+            transform: &#39;translateX(-50%)&#39;,
+            zIndex: 2000, minWidth: 320,
+            animation: &#39;msgbox-slide-down 260ms cubic-bezier(0.2, 0, 0.2, 1) both&#39;,
+          }}&gt;
+            &lt;MessageBox
+              variant=&quot;success&quot;
+              message=&quot;Log retention settings saved successfully.&quot;
+              onClose={() =&gt; setSaved(false)}
+            /&gt;
+          &lt;/div&gt;
+        &lt;/&gt;
+      )}
+    &lt;/&gt;
   );
 };</code></pre>
             </div>
@@ -6363,10 +6837,12 @@ import { Button } from &#39;../Button/Button&#39;;
 export function Modal({
   isOpen,
   title,
+  description,
   headerIcon,
   onClose,
   onCancel,
   onSave,
+  saveLoading = false,
   cancelLabel = &#39;Cancel&#39;,
   saveLabel = &#39;Save&#39;,
   footerNote,
@@ -6406,7 +6882,7 @@ export function Modal({
     if (isVisible &amp;&amp; !isClosing) {
       const t = setTimeout(() =&gt; {
         const first = dialogRef.current?.querySelector(
-          &#39;input:not([disabled]):not([readonly]), textarea:not([disabled])&#39;
+          &#39;input[type=&quot;text&quot;]:not([disabled]):not([readonly]):not(.tags-input):not(.dropdown-search-input), input[type=&quot;email&quot;]:not([disabled]), input[type=&quot;tel&quot;]:not([disabled]), input[type=&quot;number&quot;]:not([disabled]), input[type=&quot;search&quot;]:not([disabled]), input:not([type]):not([disabled]):not([readonly]):not(.tags-input), textarea:not([disabled])&#39;
         );
         first?.focus();
       }, 50);
@@ -6473,14 +6949,19 @@ export function Modal({
       &gt;
         {/* ── Header ───────────────────────────────────────────────────── */}
         &lt;div className=&#39;modal-header&#39;&gt;
-          {headerIcon &amp;&amp; (
-            &lt;span className=&#39;modal-header-icon&#39; aria-hidden=&quot;true&quot;&gt;
-              {headerIcon}
-            &lt;/span&gt;
+          &lt;div className=&#39;modal-header-title-row&#39;&gt;
+            {headerIcon &amp;&amp; (
+              &lt;span className=&#39;modal-header-icon&#39; aria-hidden=&quot;true&quot;&gt;
+                {headerIcon}
+              &lt;/span&gt;
+            )}
+            &lt;h2 id=&quot;modal-title&quot; className=&#39;modal-title&#39;&gt;
+              {title}
+            &lt;/h2&gt;
+          &lt;/div&gt;
+          {description &amp;&amp; (
+            &lt;p className=&#39;modal-description&#39;&gt;{description}&lt;/p&gt;
           )}
-          &lt;h2 id=&quot;modal-title&quot; className=&#39;modal-title&#39;&gt;
-            {title}
-          &lt;/h2&gt;
         &lt;/div&gt;
 
         {/* ── Body ─────────────────────────────────────────────────────── */}
@@ -6499,7 +6980,7 @@ export function Modal({
             &lt;Button variant=&quot;default&quot; onClick={handleCancel}&gt;
               {cancelLabel}
             &lt;/Button&gt;
-            &lt;Button variant=&quot;primary&quot; onClick={onSave}&gt;
+            &lt;Button variant=&quot;primary&quot; onClick={onSave} loading={saveLoading}&gt;
               {saveLabel}
             &lt;/Button&gt;
           &lt;/div&gt;
@@ -11358,23 +11839,23 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> AuditLogDuration</h2>
       <div class="badges">
-        <label for="c-error-0-patterns-audit-log-duration-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-0-patterns-audit-log-duration-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-0-patterns-audit-log-duration-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-error-0-design-system-patterns-audit-log-duration-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-0-design-system-patterns-audit-log-duration-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-0-design-system-patterns-audit-log-duration-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/design-system/patterns/AuditLogDuration.stories.tsx">patterns-audit-log-duration · ./src/design-system/patterns/AuditLogDuration.stories.tsx</div>
+    <div class="meta" title="./src/design-system/patterns/AuditLogDuration.stories.tsx">design-system-patterns-audit-log-duration · ./src/design-system/patterns/AuditLogDuration.stories.tsx</div>
     
     
     
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-0-patterns-audit-log-duration-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-0-patterns-audit-log-duration-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-0-patterns-audit-log-duration-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-0-design-system-patterns-audit-log-duration-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-0-design-system-patterns-audit-log-duration-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-0-design-system-patterns-audit-log-duration-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -11386,85 +11867,40 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  59 | // ─────────────────────────────────────────────────────────────────────────────
-  60 |
-&gt; 61 | const meta: Meta = {
+  14 | // ─────────────────────────────────────────────────────────────────────────────
+  15 |
+&gt; 16 | const meta: Meta = {
      | ^
-  62 |   title: &#39;Patterns/Audit Log Duration&#39;,
-  63 |   parameters: {
-  64 |     layout: &#39;fullscreen&#39;,
+  17 |   title: &#39;Design System/Patterns/Audit Log Duration&#39;,
+  18 |   parameters: {
+  19 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/AuditLogDuration.stories.tsx:
-import { useState } from &#39;react&#39;;
+import React, { useState, useRef, useCallback } from &#39;react&#39;;
 import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
-import { Modal } from &#39;../components/Modal&#39;;
-import { Tags } from &#39;../components/Tags&#39;;
-import { MessageBox } from &#39;../components/MessageBox&#39;;
-import { FormSection } from &#39;../components/FormSection&#39;;
-import { Select } from &#39;../components/Select&#39;;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Static data
-// ─────────────────────────────────────────────────────────────────────────────
-
-const DURATION_OPTIONS = [
-  { value: &#39;3m&#39;, label: &#39;3 Months&#39; },
-  { value: &#39;6m&#39;, label: &#39;6 Months&#39; },
-  { value: &#39;1y&#39;, label: &#39;1 Year&#39; },
-  { value: &#39;2y&#39;, label: &#39;2 Years&#39; },
-  { value: &#39;3y&#39;, label: &#39;3 Years&#39; },
-  { value: &#39;5y&#39;, label: &#39;5 Years&#39; },
-  { value: &#39;7y&#39;, label: &#39;7 Years&#39; },
-];
-
-const AFTER_OPTIONS = [
-  { value: &#39;archive&#39;, label: &#39;Archive&#39; },
-  { value: &#39;delete&#39;,  label: &#39;Delete&#39;  },
-];
-
-const MODULE_OPTIONS = [
-  { value: &#39;leads&#39;,          label: &#39;Leads&#39; },
-  { value: &#39;contacts&#39;,       label: &#39;Contacts&#39; },
-  { value: &#39;accounts&#39;,       label: &#39;Accounts&#39; },
-  { value: &#39;deals&#39;,          label: &#39;Deals&#39; },
-  { value: &#39;activities&#39;,     label: &#39;Activities&#39; },
-  { value: &#39;cases&#39;,          label: &#39;Cases&#39; },
-  { value: &#39;solutions&#39;,      label: &#39;Solutions&#39; },
-  { value: &#39;products&#39;,       label: &#39;Products&#39; },
-  { value: &#39;forecasts&#39;,      label: &#39;Forecasts&#39; },
-  { value: &#39;reports&#39;,        label: &#39;Reports&#39; },
-  { value: &#39;campaigns&#39;,      label: &#39;Campaigns&#39; },
-  { value: &#39;quotes&#39;,         label: &#39;Quotes&#39; },
-  { value: &#39;sales-orders&#39;,   label: &#39;Sales Orders&#39; },
-  { value: &#39;purchase-orders&#39;,label: &#39;Purchase Orders&#39; },
-  { value: &#39;invoices&#39;,       label: &#39;Invoices&#39; },
-];
-
-const SUBFORM_OPTIONS = [
-  { value: &#39;contact-roles&#39;,    label: &#39;Contact Roles&#39; },
-  { value: &#39;product-details&#39;,  label: &#39;Product Details&#39; },
-  { value: &#39;invited-guests&#39;,   label: &#39;Invited Guests&#39; },
-  { value: &#39;expense-details&#39;,  label: &#39;Expense Details&#39; },
-  { value: &#39;participants&#39;,     label: &#39;Participants&#39; },
-  { value: &#39;stage-history&#39;,    label: &#39;Stage History&#39; },
-];
-
-type TagItem = { value: string; label: string };
+import { Modal } from &#39;../components/Modal/Modal&#39;;
+import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
+import { Button } from &#39;../components/Button/Button&#39;;
+import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
+import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
+import { Tags } from &#39;../components/Tags/Tags&#39;;
+import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
+import { Info as InfoIcon } from &#39;../foundations/icons/Icons&#39;;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
 // ─────────────────────────────────────────────────────────────────────────────
 
 const meta: Meta = {
-  title: &#39;Patterns/Audit Log Duration&#39;,
+  title: &#39;Design System/Patterns/Audit Log Duration&#39;,
   parameters: {
-    layout: &#39;fullscreen&#39;,
+    layout: &#39;centered&#39;,
     docs: {
       description: {
-        story:
-          &#39;Manage Audit Log Duration modal. &#39; +
-          &#39;Composed from Modal + FormSection + Select + Tags + MessageBox. &#39; +
-          &#39;Reference: https://auditlog-basic.onslate.in/&#39;,
+        component:
+          &#39;Modal pattern for managing audit log retention settings — &#39; +
+          &#39;set visible log history and archived log retention durations &#39; +
+          &#39;using a dual-range slider.&#39;,
       },
     },
   },
@@ -11474,159 +11910,591 @@ export default meta;
 type Story = StoryObj;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Pattern
+// Date helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const Default: Story = {
-  name: &#39;Audit Log Duration&#39;,
-  parameters: { controls: { disable: true } },
-  render: () =&gt; {
-    const [open, setOpen]           = useState(false);
-    const [confirm, setConfirm]     = useState(false);
-    const [visibleDur, setVisibleDur]   = useState(&#39;1y&#39;);
-    const [afterVisible, setAfterVisible] = useState(&#39;archive&#39;);
-    const [archiveDur, setArchiveDur]   = useState(&#39;1y&#39;);
-    const [modules, setModules]     = useState&lt;TagItem[]&gt;([]);
-    const [subforms, setSubforms]   = useState&lt;TagItem[]&gt;([]);
+const MONTHS = [&#39;Jan&#39;,&#39;Feb&#39;,&#39;Mar&#39;,&#39;Apr&#39;,&#39;May&#39;,&#39;Jun&#39;,&#39;Jul&#39;,&#39;Aug&#39;,&#39;Sep&#39;,&#39;Oct&#39;,&#39;Nov&#39;,&#39;Dec&#39;];
 
-    const hasExemptions = modules.length &gt; 0 || subforms.length &gt; 0;
+function subtractYears(date: Date, years: number): Date {
+  const d = new Date(date);
+  d.setFullYear(d.getFullYear() - years);
+  return d;
+}
+
+function subtractDays(date: Date, days: number): Date {
+  const d = new Date(date);
+  d.setDate(d.getDate() - days);
+  return d;
+}
+
+function fmtDate(d: Date): string {
+  return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Dual Range Slider
+// ─────────────────────────────────────────────────────────────────────────────
+
+function DualRangeSlider({
+  min = 0,
+  max = 10,
+  maxA = max,
+  valueA,
+  valueB,
+  onChangeA,
+  onChangeB,
+  showThumbB = true,
+}: {
+  min?: number;
+  max?: number;
+  maxA?: number;
+  valueA: number;
+  valueB: number;
+  onChangeA: (v: number) =&gt; void;
+  onChangeB: (v: number) =&gt; void;
+  showThumbB?: boolean;
+}) {
+  const trackRef = useRef&lt;HTMLDivElement&gt;(null);
+  const steps    = Array.from({ length: max - min + 1 }, (_, i) =&gt; i + min);
+  const count    = steps.length;
+
+  const pctA = ((valueA - min) / (max - min)) * 100;
+  const pctB = ((valueB - min) / (max - min)) * 100;
+
+  const pickValue = useCallback((clientX: number) =&gt; {
+    const rect  = trackRef.current!.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    return Math.round(min + ratio * (max - min));
+  }, [min, max]);
+
+  const startDrag = (thumb: &#39;a&#39; | &#39;b&#39;) =&gt; (e: React.MouseEvent) =&gt; {
+    e.preventDefault();
+    const move = (ev: MouseEvent) =&gt; {
+      const v = pickValue(ev.clientX);
+      if (thumb === &#39;a&#39;) onChangeA(Math.min(Math.max(v, 1), Math.min(valueB, maxA)));
+      else               onChangeB(Math.max(v, valueA, 2));
+    };
+    const up = () =&gt; {
+      document.removeEventListener(&#39;mousemove&#39;, move);
+      document.removeEventListener(&#39;mouseup&#39;, up);
+    };
+    document.addEventListener(&#39;mousemove&#39;, move);
+    document.addEventListener(&#39;mouseup&#39;, up);
+  };
+
+  const thumbStyle: React.CSSProperties = {
+    position: &#39;absolute&#39;,
+    width: 19, height: 19,
+    top: &#39;50%&#39;,
+    transform: &#39;translate(-50%, -50%)&#39;,
+    borderRadius: &#39;50%&#39;,
+    background: &#39;#fff&#39;,
+    border: &#39;2px solid #9C9CA6&#39;,
+    boxShadow: &#39;0 3px 12px rgba(49,57,73,0.15)&#39;,
+    boxSizing: &#39;border-box&#39;,
+    cursor: &#39;grab&#39;,
+    outline: &#39;none&#39;,
+    transition: &#39;left 80ms ease, border-color 120ms, box-shadow 120ms&#39;,
+    zIndex: 1,
+  };
+
+  return (
+    &lt;div style={{ userSelect: &#39;none&#39;, width: &#39;100%&#39;, fontFamily: &#39;var(--ds-font-family-base)&#39; }}&gt;
+      &lt;style&gt;{`
+        .ds-thumb-dot:hover {
+          border-color: var(--ds-components-slider-active-bg-fill-color, #5464F2) !important;
+        }
+        .ds-thumb-dot:focus-visible {
+          outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
+          outline-offset: 2px;
+          border-color: var(--ds-components-slider-active-bg-fill-color, #5464F2) !important;
+        }
+      `}&lt;/style&gt;
+
+      {/* ── Track + 2 thumbs ──────────────────────────────────────────────── */}
+      &lt;div ref={trackRef} style={{ position: &#39;relative&#39;, height: 16 }}&gt;
+
+        {/* Grey base track */}
+        &lt;div style={{
+          position: &#39;absolute&#39;, left: 0, right: 0,
+          top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
+          height: 9, borderRadius: 4.5,
+          background: &#39;var(--ds-components-slider-slider-bg-grey, #E5EAF2)&#39;,
+          pointerEvents: &#39;none&#39;,
+        }} /&gt;
+
+        {/* Blue fill — visible range (left → thumb A) */}
+        &lt;div style={{
+          position: &#39;absolute&#39;, left: 0, width: `${pctA}%`,
+          top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
+          height: 9, borderRadius: 4.5,
+          background: &#39;var(--ds-components-slider-active-bg-fill-color, #5464F2)&#39;,
+          pointerEvents: &#39;none&#39;,
+        }} /&gt;
+
+        {/* Orange fill — archive range (thumb A → thumb B) */}
+        {showThumbB &amp;&amp; pctB &gt; pctA &amp;&amp; (
+          &lt;div style={{
+            position: &#39;absolute&#39;, left: `${pctA}%`, width: `${pctB - pctA}%`,
+            top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
+            height: 9, borderRadius: 4.5,
+            background: &#39;var(--ds-icon-primary-orange, #F18E0A)&#39;,
+            pointerEvents: &#39;none&#39;,
+          }} /&gt;
+        )}
+
+        {/* Thumb A — visible end */}
+        &lt;div
+          className=&quot;ds-thumb-dot&quot;
+          onMouseDown={startDrag(&#39;a&#39;)}
+          style={{ ...thumbStyle, left: `${pctA}%` }}
+          role=&quot;slider&quot;
+          tabIndex={0}
+          aria-valuemin={min} aria-valuemax={valueB} aria-valuenow={valueA}
+          aria-label=&quot;Visible log history end&quot;
+        /&gt;
+
+        {/* Thumb B — archive end */}
+        {showThumbB &amp;&amp; (
+          &lt;div
+            className=&quot;ds-thumb-dot&quot;
+            onMouseDown={startDrag(&#39;b&#39;)}
+            style={{ ...thumbStyle, left: `${pctB}%`, zIndex: 2 }}
+            role=&quot;slider&quot;
+            tabIndex={0}
+            aria-valuemin={valueA} aria-valuemax={max} aria-valuenow={valueB}
+            aria-label=&quot;Archive log end&quot;
+          /&gt;
+        )}
+      &lt;/div&gt;
+
+      {/* ── Numbers below — centered on each thumb&#39;s percentage position ──── */}
+      &lt;div style={{ position: &#39;relative&#39;, height: 14, marginTop: 6 }}&gt;
+        {steps.map((s, i) =&gt; {
+          const pct = count &gt; 1 ? (i / (count - 1)) * 100 : 50;
+          return (
+            &lt;span key={s} style={{
+              position: &#39;absolute&#39;,
+              left: `${pct}%`,
+              transform: &#39;translateX(-50%)&#39;,
+              fontSize: 11,
+              color: &#39;var(--ds-text-muted, #8B9BB8)&#39;,
+              lineHeight: 1,
+              whiteSpace: &#39;nowrap&#39;,
+            }}&gt;
+              {s}
+            &lt;/span&gt;
+          );
+        })}
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Retention summary row
+// ─────────────────────────────────────────────────────────────────────────────
+
+function RetentionRow({
+  dotColor,
+  showDot = true,
+  label,
+  years,
+  availableFrom,
+  availableTo,
+}: {
+  dotColor: string;
+  showDot?: boolean;
+  label: string;
+  years: number;
+  availableFrom: string;
+  availableTo: string;
+}) {
+  const text: React.CSSProperties = {
+    fontFamily: &#39;var(--ds-font-family-base)&#39;,
+    fontSize: &#39;var(--ds-font-size-base)&#39;,
+    color: &#39;var(--ds-text-label)&#39;,
+    lineHeight: &#39;1.6&#39;,
+  };
+
+  return (
+    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 1 }}&gt;
+      &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, flexWrap: &#39;wrap&#39;, gap: 6 }}&gt;
+        {showDot &amp;&amp; &lt;div style={{
+          width: 8, height: 8,
+          borderRadius: &#39;50%&#39;,
+          background: dotColor,
+          flexShrink: 0,
+        }} /&gt;}
+        &lt;span style={{ ...text, color: &#39;var(--ds-text-base)&#39;, fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+          {label}
+        &lt;/span&gt;
+        &lt;span style={{ ...text, color: &#39;var(--ds-text-base)&#39; }}&gt;
+          : &lt;strong style={{ fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+            {years} {years === 1 ? &#39;year&#39; : &#39;years&#39;}
+          &lt;/strong&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
+      &lt;span style={{ ...text, paddingLeft: showDot ? 14 : 0 }}&gt;
+        Available Data:{&#39; &#39;}
+        &lt;span style={{ color: &#39;var(--ds-text-base)&#39; }}&gt;{availableFrom} - {availableTo}&lt;/span&gt;
+      &lt;/span&gt;
+      &lt;span style={{ ...text, paddingLeft: showDot ? 14 : 0 }}&gt;
+        Estimated Data Storage:{&#39; &#39;}
+        &lt;span style={{ color: &#39;var(--ds-text-base)&#39; }}&gt;~ 0&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// More Menu (··· trigger → action list)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const menuItemStyle: React.CSSProperties = {
+  display: &#39;block&#39;,
+  width: &#39;100%&#39;,
+  padding: &#39;10px 16px&#39;,
+  textAlign: &#39;left&#39;,
+  background: &#39;none&#39;,
+  border: &#39;none&#39;,
+  cursor: &#39;pointer&#39;,
+  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+  fontSize: &#39;var(--ds-font-size-base)&#39;,
+  color: &#39;var(--ds-text-base)&#39;,
+  whiteSpace: &#39;nowrap&#39;,
+};
+
+function MoreMenu({ onManageRetention }: { onManageRetention: () =&gt; void }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const ref = useRef&lt;HTMLDivElement&gt;(null);
+
+  useCallback(() =&gt; {}, []); // keep hook order stable
+
+  React.useEffect(() =&gt; {
+    if (!menuOpen) return;
+    const close = (e: MouseEvent) =&gt; {
+      if (ref.current &amp;&amp; !ref.current.contains(e.target as Node)) setMenuOpen(false);
+    };
+    document.addEventListener(&#39;mousedown&#39;, close);
+    return () =&gt; document.removeEventListener(&#39;mousedown&#39;, close);
+  }, [menuOpen]);
+
+  return (
+    &lt;div ref={ref} style={{ position: &#39;relative&#39;, display: &#39;inline-block&#39; }}&gt;
+      &lt;button
+        onClick={() =&gt; setMenuOpen(o =&gt; !o)}
+        style={{
+          display: &#39;flex&#39;, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39;,
+          width: 36, height: 36,
+          border: &#39;1px solid var(--ds-border-default, #D8DFF0)&#39;,
+          borderRadius: 6,
+          background: &#39;#fff&#39;,
+          cursor: &#39;pointer&#39;,
+          fontSize: 20,
+          letterSpacing: 1,
+          color: &#39;var(--ds-text-base)&#39;,
+          lineHeight: 1,
+        }}
+        aria-label=&quot;More options&quot;
+        aria-haspopup=&quot;true&quot;
+        aria-expanded={menuOpen}
+      &gt;
+        ···
+      &lt;/button&gt;
+
+      {menuOpen &amp;&amp; (
+        &lt;div style={{
+          position: &#39;absolute&#39;,
+          top: &#39;calc(100% + 4px)&#39;,
+          right: 0,
+          background: &#39;#fff&#39;,
+          border: &#39;1px solid var(--ds-border-default, #E2E8F5)&#39;,
+          borderRadius: 8,
+          boxShadow: &#39;0 4px 16px rgba(49,57,73,0.14)&#39;,
+          minWidth: 220,
+          zIndex: 200,
+          overflow: &#39;hidden&#39;,
+        }}&gt;
+          &lt;button
+            style={menuItemStyle}
+            onMouseEnter={e =&gt; (e.currentTarget.style.background = &#39;var(--ds-bg-surface-hover, #F5F7FA)&#39;)}
+            onMouseLeave={e =&gt; (e.currentTarget.style.background = &#39;none&#39;)}
+            onClick={() =&gt; { onManageRetention(); setMenuOpen(false); }}
+          &gt;
+            Manage Log Retention Settings
+          &lt;/button&gt;
+          &lt;button
+            style={menuItemStyle}
+            onMouseEnter={e =&gt; (e.currentTarget.style.background = &#39;var(--ds-bg-surface-hover, #F5F7FA)&#39;)}
+            onMouseLeave={e =&gt; (e.currentTarget.style.background = &#39;none&#39;)}
+            onClick={() =&gt; setMenuOpen(false)}
+          &gt;
+            Exported Log History
+          &lt;/button&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Story
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const ManageLogRetentionSettings: Story = {
+  name: &#39;Manage Log Retention Settings&#39;,
+  decorators: [
+    (Story) =&gt; (
+      &lt;div style={{
+        position: &#39;fixed&#39;,
+        inset: 0,
+        backgroundImage: &#39;url(/crm-design-system/images/audit-log-bg.png)&#39;,
+        backgroundSize: &#39;cover&#39;,
+        backgroundPosition: &#39;top left&#39;,
+        display: &#39;flex&#39;,
+        alignItems: &#39;flex-start&#39;,
+        justifyContent: &#39;center&#39;,
+      }}&gt;
+        &lt;Story /&gt;
+      &lt;/div&gt;
+    ),
+  ],
+  render: () =&gt; {
+    const [open, setOpen] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [saved, setSaved] = useState(false);
+    const [visibleYears, setVisibleYears] = useState(3);
+    const [totalYears, setTotalYears]     = useState(7);
+    const [archiveEnabled, setArchiveEnabled] = useState(true);
+
+    const [exemptEnabled, setExemptEnabled] = useState(false);
+    const [modulesTags, setModulesTags] = useState([]);
+    const [subformsTags, setSubformsTags] = useState([]);
+    const modulesOptions = [
+      { value: &#39;leads&#39;,          label: &#39;Leads&#39;           },
+      { value: &#39;contacts&#39;,       label: &#39;Contacts&#39;        },
+      { value: &#39;accounts&#39;,       label: &#39;Accounts&#39;        },
+      { value: &#39;deals&#39;,          label: &#39;Deals&#39;           },
+      { value: &#39;campaigns&#39;,      label: &#39;Campaigns&#39;       },
+      { value: &#39;tasks&#39;,          label: &#39;Tasks&#39;           },
+      { value: &#39;meetings&#39;,       label: &#39;Meetings&#39;        },
+      { value: &#39;calls&#39;,          label: &#39;Calls&#39;           },
+      { value: &#39;reports&#39;,        label: &#39;Reports&#39;         },
+      { value: &#39;quotes&#39;,         label: &#39;Quotes&#39;          },
+      { value: &#39;products&#39;,       label: &#39;Products&#39;        },
+      { value: &#39;invoices&#39;,       label: &#39;Invoices&#39;        },
+      { value: &#39;purchase-orders&#39;,label: &#39;Purchase Orders&#39; },
+      { value: &#39;sales-orders&#39;,   label: &#39;Sales Orders&#39;   },
+      { value: &#39;price-books&#39;,    label: &#39;Price Books&#39;     },
+      { value: &#39;cases&#39;,          label: &#39;Cases&#39;           },
+      { value: &#39;solutions&#39;,      label: &#39;Solutions&#39;       },
+      { value: &#39;documents&#39;,      label: &#39;Documents&#39;       },
+      { value: &#39;vendors&#39;,        label: &#39;Vendors&#39;         },
+      { value: &#39;activities&#39;,     label: &#39;Activities&#39;      },
+    ];
+    const subformsOptions = [
+      { value: &#39;line-items-deals&#39;,    label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Deals)&#39;,        group: &#39;Deals&#39; },
+      { value: &#39;tax-details-deals&#39;,   label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Deals)&#39;,       group: &#39;Deals&#39; },
+      { value: &#39;discount-deals&#39;,      label: &#39;Discount Details&#39;,  tagLabel: &#39;Discount Details (Deals)&#39;,  group: &#39;Deals&#39; },
+      { value: &#39;line-items-quotes&#39;,   label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Quotes)&#39;,       group: &#39;Quotes&#39; },
+      { value: &#39;tax-details-quotes&#39;,  label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Quotes)&#39;,      group: &#39;Quotes&#39; },
+      { value: &#39;shipping-quotes&#39;,     label: &#39;Shipping Charges&#39;,  tagLabel: &#39;Shipping Charges (Quotes)&#39;, group: &#39;Quotes&#39; },
+      { value: &#39;line-items-invoices&#39;, label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Invoices)&#39;,     group: &#39;Invoices&#39; },
+      { value: &#39;tax-details-invoices&#39;,label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Invoices)&#39;,    group: &#39;Invoices&#39; },
+      { value: &#39;line-items-po&#39;,       label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Purchase Orders)&#39;, group: &#39;Purchase Orders&#39; },
+      { value: &#39;vendor-details-po&#39;,   label: &#39;Vendor Details&#39;,    tagLabel: &#39;Vendor Details (Purchase Orders)&#39;, group: &#39;Purchase Orders&#39; },
+    ];
+
+    const archiveYears = totalYears - visibleYears;
+
+    const today        = new Date(&#39;2026-08-18&#39;);
+    const visibleStart = subtractYears(today, visibleYears);
+    const archiveEnd   = subtractDays(visibleStart, 1);
+    const archiveStart = subtractYears(archiveEnd, archiveYears);
 
     return (
-      &lt;div style={{
-        height: &#39;100vh&#39;,
-        display: &#39;flex&#39;,
-        alignItems: &#39;center&#39;,
-        justifyContent: &#39;center&#39;,
-        background: &#39;#F0F2F7&#39;,
-        fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
-      }}&gt;
-        &lt;button
-          type=&quot;button&quot;
-          onClick={() =&gt; setOpen(true)}
-          style={{
-            padding: &#39;8px 20px&#39;,
-            background: &#39;#5464F2&#39;,
-            color: &#39;#fff&#39;,
-            border: &#39;none&#39;,
-            borderRadius: &#39;6px&#39;,
-            fontSize: &#39;13px&#39;,
-            fontWeight: 500,
-            cursor: &#39;pointer&#39;,
-            fontFamily: &#39;inherit&#39;,
-          }}
-        &gt;
-          Manage Audit Log Duration
-        &lt;/button&gt;
-
-        {/* ── Main modal ── */}
+      &lt;&gt;
         &lt;Modal
           isOpen={open}
-          title=&quot;Manage Audit Log Duration&quot;
+          title=&quot;Manage Log Retention Settings&quot;
+          description=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
           onClose={() =&gt; setOpen(false)}
-          onSave={() =&gt; setConfirm(true)}
+          onCancel={() =&gt; setOpen(false)}
+          onSave={() =&gt; {
+            setSaving(true);
+            setTimeout(() =&gt; {
+              setSaving(false);
+              setOpen(false);
+              setSaved(true);
+              setTimeout(() =&gt; setSaved(false), 4000);
+            }, 500);
+          }}
+          saveLoading={saving}
           cancelLabel=&quot;Cancel&quot;
           saveLabel=&quot;Save&quot;
-          footerNote=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
-          width={600}
+          width={640}
         &gt;
-          {/* Info panel */}
-          &lt;MessageBox
-            variant=&quot;info&quot;
-            closable={false}
-            message={
-              &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
-                &lt;li&gt;You can choose how long logs stay visible on the Audit Log page.&lt;/li&gt;
-                &lt;li&gt;Remaining logs can be archived or deleted to free up space.&lt;/li&gt;
-                &lt;li&gt;Audit Logs (including Timeline and Interaction data) count toward your Data Storage.&lt;/li&gt;
-                &lt;li&gt;Archived logs use significantly less storage than visible logs.&lt;/li&gt;
-              &lt;/ul&gt;
-            }
-          /&gt;
+          &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20, paddingRight: 20 }}&gt;
 
-          {/* Duration settings */}
-          &lt;FormSection title=&quot;Duration Settings&quot;&gt;
-            &lt;Select
-              label=&quot;Visible Logs Duration&quot;
-              value={visibleDur}
-              options={DURATION_OPTIONS}
-              layout=&quot;horizontal&quot;
-              width=&quot;100%&quot;
-            /&gt;
-            &lt;Select
-              label=&quot;After Visible Period&quot;
-              value={afterVisible}
-              options={AFTER_OPTIONS}
-              layout=&quot;horizontal&quot;
-              width=&quot;100%&quot;
-            /&gt;
-            {afterVisible === &#39;archive&#39; &amp;&amp; (
-              &lt;Select
-                label=&quot;Archive Duration&quot;
-                value={archiveDur}
-                options={DURATION_OPTIONS}
-                layout=&quot;horizontal&quot;
-                width=&quot;100%&quot;
-              /&gt;
-            )}
-          &lt;/FormSection&gt;
-
-          {/* Modules exempt */}
-          &lt;FormSection title=&quot;Modules Exempt from Standard Duration&quot;&gt;
-            &lt;p style={{ margin: &#39;0 0 12px&#39;, fontSize: 12, color: &#39;var(--ds-text-secondary, #616E88)&#39;, lineHeight: 1.55 }}&gt;
-              Apply a restricted retention period — 6 months for visible logs and 6 months
-              for archived logs — to selected modules and subforms.
-            &lt;/p&gt;
-            &lt;Tags
-              value={modules}
-              options={MODULE_OPTIONS}
-              placeholder=&quot;Select modules...&quot;
-              onChange={setModules}
-              width=&quot;100%&quot;
-            /&gt;
-            &lt;div style={{ marginTop: 10 }}&gt;
-              &lt;Tags
-                value={subforms}
-                options={SUBFORM_OPTIONS}
-                placeholder=&quot;Select subforms...&quot;
-                onChange={setSubforms}
-                width=&quot;100%&quot;
+            {/* ── Dual range slider ───────────────────────────────────────── */}
+            &lt;div style={{ paddingTop: 4 }}&gt;
+              &lt;DualRangeSlider
+                min={0}
+                max={10}
+                maxA={3}
+                valueA={visibleYears}
+                valueB={totalYears}
+                onChangeA={setVisibleYears}
+                onChangeB={setTotalYears}
+                showThumbB={archiveEnabled}
               /&gt;
             &lt;/div&gt;
-            {hasExemptions &amp;&amp; (
-              &lt;div style={{ marginTop: 10 }}&gt;
-                &lt;MessageBox
-                  variant=&quot;warning&quot;
-                  closable={false}
-                  message=&quot;Selected logs are retained for 6 months only, after which they are deleted.&quot;
+
+            {/* ── Archive checkbox ─────────────────────────────────────────── */}
+            &lt;Checkbox
+              label=&quot;Archive&quot;
+              checked={archiveEnabled}
+              onChange={(e) =&gt; setArchiveEnabled(e.target.checked)}
+            /&gt;
+
+            {/* ── Retention summary rows ───────────────────────────────────── */}
+            &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
+              &lt;RetentionRow
+                dotColor=&quot;var(--ds-components-slider-active-bg-fill-color, #5464F2)&quot;
+                showDot={archiveEnabled}
+                label=&quot;Visible Log History&quot;
+                years={visibleYears}
+                availableFrom={fmtDate(visibleStart)}
+                availableTo=&quot;Now&quot;
+              /&gt;
+
+              {archiveEnabled &amp;&amp; archiveYears &gt; 0 &amp;&amp; (
+                &lt;RetentionRow
+                  dotColor=&quot;var(--ds-icon-primary-orange, #F18E0A)&quot;
+                  label=&quot;Archived Logs Retention&quot;
+                  years={archiveYears}
+                  availableFrom={fmtDate(archiveStart)}
+                  availableTo={fmtDate(archiveEnd)}
                 /&gt;
+              )}
+            &lt;/div&gt;
+
+            {/* ── Modules Exempt from Standard Duration ───────────────────── */}
+            &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                &lt;Checkbox
+                  label=&quot;Modules Exempt from Standard Duration&quot;
+                  checked={exemptEnabled}
+                  onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
+                /&gt;
+                &lt;Tooltip
+                  content=&quot;Logs for selected modules will not follow the standard duration and will be retained for 6 months only.&quot;
+                  placement=&quot;top&quot;
+                  variant=&quot;white&quot;
+                &gt;
+                  &lt;span style={{ display: &#39;inline-flex&#39;, color: &#39;var(--ds-text-label)&#39; }}&gt;
+                    &lt;InfoIcon width={14} height={14} /&gt;
+                  &lt;/span&gt;
+                &lt;/Tooltip&gt;
               &lt;/div&gt;
-            )}
-          &lt;/FormSection&gt;
+
+              {exemptEnabled &amp;&amp; (
+                &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
+                  {/* Modules */}
+                  &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 12 }}&gt;
+                    &lt;span style={{
+                      fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                      fontSize: &#39;var(--ds-font-size-base)&#39;,
+                      fontWeight: &#39;var(--ds-font-weight-regular)&#39; as any,
+                      color: &#39;var(--ds-text-label)&#39;,
+                      flexShrink: 0,
+                      width: 140,
+                      paddingTop: 7,
+                      textAlign: &#39;right&#39;,
+                    }}&gt;
+                      Modules
+                    &lt;/span&gt;
+                    &lt;Tags
+                      value={modulesTags}
+                      options={modulesOptions}
+                      onChange={setModulesTags}
+                      width={390}
+                    /&gt;
+                  &lt;/div&gt;
+
+                  {/* Subforms */}
+                  &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 12 }}&gt;
+                    &lt;span style={{
+                      fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                      fontSize: &#39;var(--ds-font-size-base)&#39;,
+                      fontWeight: &#39;var(--ds-font-weight-regular)&#39; as any,
+                      color: &#39;var(--ds-text-label)&#39;,
+                      flexShrink: 0,
+                      width: 140,
+                      paddingTop: 7,
+                      textAlign: &#39;right&#39;,
+                    }}&gt;
+                      Subforms
+                    &lt;/span&gt;
+                    &lt;Tags
+                      value={subformsTags}
+                      options={subformsOptions}
+                      onChange={setSubformsTags}
+                      width={390}
+                    /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              )}
+            &lt;/div&gt;
+
+            {/* ── Notes callout ────────────────────────────────────────────── */}
+            &lt;MessageInfo
+              variant=&quot;note&quot;
+              points={[
+                &#39;Choose how long logs remain visible on the Audit Log page.&#39;,
+                &#39;Logs exceeding the visible limit are either archived or permanently deleted to free up storage space.&#39;,
+                &#39;Audit Logs (including Timeline and Interaction data) count towards your Data Storage.&#39;,
+                &#39;Archived logs use significantly less storage than active (visible) logs.&#39;,
+              ]}
+            /&gt;
+
+            {/* ── Last updated ─────────────────────────────────────────────── */}
+            &lt;span style={{
+              fontFamily: &#39;var(--ds-font-family-base)&#39;,
+              fontSize: &#39;var(--ds-font-size-base)&#39;,
+              color: &#39;var(--ds-text-label)&#39;,
+            }}&gt;
+              Last updated : Aug 10, 2026 12:32 pm by Chinnaiya Raja
+            &lt;/span&gt;
+
+          &lt;/div&gt;
         &lt;/Modal&gt;
 
-        {/* ── Confirmation modal ── */}
-        &lt;Modal
-          isOpen={confirm}
-          title=&quot;Save audit log duration changes?&quot;
-          onClose={() =&gt; setConfirm(false)}
-          onSave={() =&gt; { setConfirm(false); setOpen(false); }}
-          cancelLabel=&quot;Cancel&quot;
-          saveLabel=&quot;Okay, Proceed&quot;
-          width={440}
-        &gt;
-          &lt;MessageBox
-            variant=&quot;warning&quot;
-            closable={false}
-            message={
-              &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
-                &lt;li&gt;Logs beyond the retention period will be permanently deleted.&lt;/li&gt;
-                &lt;li&gt;Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/li&gt;
-                &lt;li&gt;Deleted logs cannot be recovered.&lt;/li&gt;
-              &lt;/ul&gt;
-            }
-          /&gt;
-        &lt;/Modal&gt;
-      &lt;/div&gt;
+        {saved &amp;&amp; (
+          &lt;&gt;
+            &lt;style&gt;{`
+              @keyframes msgbox-slide-down {
+                from { opacity: 0; top: 80px; }
+                to   { opacity: 1; top: 100px; }
+              }
+            `}&lt;/style&gt;
+            &lt;div style={{
+              position: &#39;fixed&#39;, left: &#39;50%&#39;,
+              transform: &#39;translateX(-50%)&#39;,
+              zIndex: 2000, minWidth: 320,
+              animation: &#39;msgbox-slide-down 260ms cubic-bezier(0.2, 0, 0.2, 1) both&#39;,
+            }}&gt;
+              &lt;MessageBox
+                variant=&quot;success&quot;
+                message=&quot;Log retention settings saved successfully.&quot;
+                onClose={() =&gt; setSaved(false)}
+              /&gt;
+            &lt;/div&gt;
+          &lt;/&gt;
+        )}
+      &lt;/&gt;
     );
   },
 };
@@ -11651,164 +12519,251 @@ export const Default: Story = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { FormSection, MessageBox, Modal, Select, Tags } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import { Checkbox, Info as InfoIcon, MessageBox, MessageInfo, Modal, Tags, Tooltip } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Audit Log Duration</span>
+                <span class="ex-name">Manage Log Retention Settings</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const Default = () =&gt; {
-  const [open, setOpen]           = useState(false);
-  const [confirm, setConfirm]     = useState(false);
-  const [visibleDur, setVisibleDur]   = useState(&#39;1y&#39;);
-  const [afterVisible, setAfterVisible] = useState(&#39;archive&#39;);
-  const [archiveDur, setArchiveDur]   = useState(&#39;1y&#39;);
-  const [modules, setModules]     = useState&lt;TagItem[]&gt;([]);
-  const [subforms, setSubforms]   = useState&lt;TagItem[]&gt;([]);
+              <pre><code>const ManageLogRetentionSettings = () =&gt; {
+  const [open, setOpen] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [visibleYears, setVisibleYears] = useState(3);
+  const [totalYears, setTotalYears]     = useState(7);
+  const [archiveEnabled, setArchiveEnabled] = useState(true);
 
-  const hasExemptions = modules.length &gt; 0 || subforms.length &gt; 0;
+  const [exemptEnabled, setExemptEnabled] = useState(false);
+  const [modulesTags, setModulesTags] = useState([]);
+  const [subformsTags, setSubformsTags] = useState([]);
+  const modulesOptions = [
+    { value: &#39;leads&#39;,          label: &#39;Leads&#39;           },
+    { value: &#39;contacts&#39;,       label: &#39;Contacts&#39;        },
+    { value: &#39;accounts&#39;,       label: &#39;Accounts&#39;        },
+    { value: &#39;deals&#39;,          label: &#39;Deals&#39;           },
+    { value: &#39;campaigns&#39;,      label: &#39;Campaigns&#39;       },
+    { value: &#39;tasks&#39;,          label: &#39;Tasks&#39;           },
+    { value: &#39;meetings&#39;,       label: &#39;Meetings&#39;        },
+    { value: &#39;calls&#39;,          label: &#39;Calls&#39;           },
+    { value: &#39;reports&#39;,        label: &#39;Reports&#39;         },
+    { value: &#39;quotes&#39;,         label: &#39;Quotes&#39;          },
+    { value: &#39;products&#39;,       label: &#39;Products&#39;        },
+    { value: &#39;invoices&#39;,       label: &#39;Invoices&#39;        },
+    { value: &#39;purchase-orders&#39;,label: &#39;Purchase Orders&#39; },
+    { value: &#39;sales-orders&#39;,   label: &#39;Sales Orders&#39;   },
+    { value: &#39;price-books&#39;,    label: &#39;Price Books&#39;     },
+    { value: &#39;cases&#39;,          label: &#39;Cases&#39;           },
+    { value: &#39;solutions&#39;,      label: &#39;Solutions&#39;       },
+    { value: &#39;documents&#39;,      label: &#39;Documents&#39;       },
+    { value: &#39;vendors&#39;,        label: &#39;Vendors&#39;         },
+    { value: &#39;activities&#39;,     label: &#39;Activities&#39;      },
+  ];
+  const subformsOptions = [
+    { value: &#39;line-items-deals&#39;,    label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Deals)&#39;,        group: &#39;Deals&#39; },
+    { value: &#39;tax-details-deals&#39;,   label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Deals)&#39;,       group: &#39;Deals&#39; },
+    { value: &#39;discount-deals&#39;,      label: &#39;Discount Details&#39;,  tagLabel: &#39;Discount Details (Deals)&#39;,  group: &#39;Deals&#39; },
+    { value: &#39;line-items-quotes&#39;,   label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Quotes)&#39;,       group: &#39;Quotes&#39; },
+    { value: &#39;tax-details-quotes&#39;,  label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Quotes)&#39;,      group: &#39;Quotes&#39; },
+    { value: &#39;shipping-quotes&#39;,     label: &#39;Shipping Charges&#39;,  tagLabel: &#39;Shipping Charges (Quotes)&#39;, group: &#39;Quotes&#39; },
+    { value: &#39;line-items-invoices&#39;, label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Invoices)&#39;,     group: &#39;Invoices&#39; },
+    { value: &#39;tax-details-invoices&#39;,label: &#39;Tax Details&#39;,       tagLabel: &#39;Tax Details (Invoices)&#39;,    group: &#39;Invoices&#39; },
+    { value: &#39;line-items-po&#39;,       label: &#39;Line Items&#39;,        tagLabel: &#39;Line Items (Purchase Orders)&#39;, group: &#39;Purchase Orders&#39; },
+    { value: &#39;vendor-details-po&#39;,   label: &#39;Vendor Details&#39;,    tagLabel: &#39;Vendor Details (Purchase Orders)&#39;, group: &#39;Purchase Orders&#39; },
+  ];
+
+  const archiveYears = totalYears - visibleYears;
+
+  const today        = new Date(&#39;2026-08-18&#39;);
+  const visibleStart = subtractYears(today, visibleYears);
+  const archiveEnd   = subtractDays(visibleStart, 1);
+  const archiveStart = subtractYears(archiveEnd, archiveYears);
 
   return (
-    &lt;div style={{
-      height: &#39;100vh&#39;,
-      display: &#39;flex&#39;,
-      alignItems: &#39;center&#39;,
-      justifyContent: &#39;center&#39;,
-      background: &#39;#F0F2F7&#39;,
-      fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
-    }}&gt;
-      &lt;button
-        type=&quot;button&quot;
-        onClick={() =&gt; setOpen(true)}
-        style={{
-          padding: &#39;8px 20px&#39;,
-          background: &#39;#5464F2&#39;,
-          color: &#39;#fff&#39;,
-          border: &#39;none&#39;,
-          borderRadius: &#39;6px&#39;,
-          fontSize: &#39;13px&#39;,
-          fontWeight: 500,
-          cursor: &#39;pointer&#39;,
-          fontFamily: &#39;inherit&#39;,
-        }}
-      &gt;
-        Manage Audit Log Duration
-      &lt;/button&gt;
-
-      {/* ── Main modal ── */}
+    &lt;&gt;
       &lt;Modal
         isOpen={open}
-        title=&quot;Manage Audit Log Duration&quot;
+        title=&quot;Manage Log Retention Settings&quot;
+        description=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
         onClose={() =&gt; setOpen(false)}
-        onSave={() =&gt; setConfirm(true)}
+        onCancel={() =&gt; setOpen(false)}
+        onSave={() =&gt; {
+          setSaving(true);
+          setTimeout(() =&gt; {
+            setSaving(false);
+            setOpen(false);
+            setSaved(true);
+            setTimeout(() =&gt; setSaved(false), 4000);
+          }, 500);
+        }}
+        saveLoading={saving}
         cancelLabel=&quot;Cancel&quot;
         saveLabel=&quot;Save&quot;
-        footerNote=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
-        width={600}
+        width={640}
       &gt;
-        {/* Info panel */}
-        &lt;MessageBox
-          variant=&quot;info&quot;
-          closable={false}
-          message={
-            &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
-              &lt;li&gt;You can choose how long logs stay visible on the Audit Log page.&lt;/li&gt;
-              &lt;li&gt;Remaining logs can be archived or deleted to free up space.&lt;/li&gt;
-              &lt;li&gt;Audit Logs (including Timeline and Interaction data) count toward your Data Storage.&lt;/li&gt;
-              &lt;li&gt;Archived logs use significantly less storage than visible logs.&lt;/li&gt;
-            &lt;/ul&gt;
-          }
-        /&gt;
+        &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20, paddingRight: 20 }}&gt;
 
-        {/* Duration settings */}
-        &lt;FormSection title=&quot;Duration Settings&quot;&gt;
-          &lt;Select
-            label=&quot;Visible Logs Duration&quot;
-            value={visibleDur}
-            options={DURATION_OPTIONS}
-            layout=&quot;horizontal&quot;
-            width=&quot;100%&quot;
-          /&gt;
-          &lt;Select
-            label=&quot;After Visible Period&quot;
-            value={afterVisible}
-            options={AFTER_OPTIONS}
-            layout=&quot;horizontal&quot;
-            width=&quot;100%&quot;
-          /&gt;
-          {afterVisible === &#39;archive&#39; &amp;&amp; (
-            &lt;Select
-              label=&quot;Archive Duration&quot;
-              value={archiveDur}
-              options={DURATION_OPTIONS}
-              layout=&quot;horizontal&quot;
-              width=&quot;100%&quot;
-            /&gt;
-          )}
-        &lt;/FormSection&gt;
-
-        {/* Modules exempt */}
-        &lt;FormSection title=&quot;Modules Exempt from Standard Duration&quot;&gt;
-          &lt;p style={{ margin: &#39;0 0 12px&#39;, fontSize: 12, color: &#39;var(--ds-text-secondary, #616E88)&#39;, lineHeight: 1.55 }}&gt;
-            Apply a restricted retention period — 6 months for visible logs and 6 months
-            for archived logs — to selected modules and subforms.
-          &lt;/p&gt;
-          &lt;Tags
-            value={modules}
-            options={MODULE_OPTIONS}
-            placeholder=&quot;Select modules...&quot;
-            onChange={setModules}
-            width=&quot;100%&quot;
-          /&gt;
-          &lt;div style={{ marginTop: 10 }}&gt;
-            &lt;Tags
-              value={subforms}
-              options={SUBFORM_OPTIONS}
-              placeholder=&quot;Select subforms...&quot;
-              onChange={setSubforms}
-              width=&quot;100%&quot;
+          {/* ── Dual range slider ───────────────────────────────────────── */}
+          &lt;div style={{ paddingTop: 4 }}&gt;
+            &lt;DualRangeSlider
+              min={0}
+              max={10}
+              maxA={3}
+              valueA={visibleYears}
+              valueB={totalYears}
+              onChangeA={setVisibleYears}
+              onChangeB={setTotalYears}
+              showThumbB={archiveEnabled}
             /&gt;
           &lt;/div&gt;
-          {hasExemptions &amp;&amp; (
-            &lt;div style={{ marginTop: 10 }}&gt;
-              &lt;MessageBox
-                variant=&quot;warning&quot;
-                closable={false}
-                message=&quot;Selected logs are retained for 6 months only, after which they are deleted.&quot;
+
+          {/* ── Archive checkbox ─────────────────────────────────────────── */}
+          &lt;Checkbox
+            label=&quot;Archive&quot;
+            checked={archiveEnabled}
+            onChange={(e) =&gt; setArchiveEnabled(e.target.checked)}
+          /&gt;
+
+          {/* ── Retention summary rows ───────────────────────────────────── */}
+          &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
+            &lt;RetentionRow
+              dotColor=&quot;var(--ds-components-slider-active-bg-fill-color, #5464F2)&quot;
+              showDot={archiveEnabled}
+              label=&quot;Visible Log History&quot;
+              years={visibleYears}
+              availableFrom={fmtDate(visibleStart)}
+              availableTo=&quot;Now&quot;
+            /&gt;
+
+            {archiveEnabled &amp;&amp; archiveYears &gt; 0 &amp;&amp; (
+              &lt;RetentionRow
+                dotColor=&quot;var(--ds-icon-primary-orange, #F18E0A)&quot;
+                label=&quot;Archived Logs Retention&quot;
+                years={archiveYears}
+                availableFrom={fmtDate(archiveStart)}
+                availableTo={fmtDate(archiveEnd)}
               /&gt;
+            )}
+          &lt;/div&gt;
+
+          {/* ── Modules Exempt from Standard Duration ───────────────────── */}
+          &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+              &lt;Checkbox
+                label=&quot;Modules Exempt from Standard Duration&quot;
+                checked={exemptEnabled}
+                onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
+              /&gt;
+              &lt;Tooltip
+                content=&quot;Logs for selected modules will not follow the standard duration and will be retained for 6 months only.&quot;
+                placement=&quot;top&quot;
+                variant=&quot;white&quot;
+              &gt;
+                &lt;span style={{ display: &#39;inline-flex&#39;, color: &#39;var(--ds-text-label)&#39; }}&gt;
+                  &lt;InfoIcon width={14} height={14} /&gt;
+                &lt;/span&gt;
+              &lt;/Tooltip&gt;
             &lt;/div&gt;
-          )}
-        &lt;/FormSection&gt;
+
+            {exemptEnabled &amp;&amp; (
+              &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
+                {/* Modules */}
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 12 }}&gt;
+                  &lt;span style={{
+                    fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                    fontSize: &#39;var(--ds-font-size-base)&#39;,
+                    fontWeight: &#39;var(--ds-font-weight-regular)&#39; as any,
+                    color: &#39;var(--ds-text-label)&#39;,
+                    flexShrink: 0,
+                    width: 140,
+                    paddingTop: 7,
+                    textAlign: &#39;right&#39;,
+                  }}&gt;
+                    Modules
+                  &lt;/span&gt;
+                  &lt;Tags
+                    value={modulesTags}
+                    options={modulesOptions}
+                    onChange={setModulesTags}
+                    width={390}
+                  /&gt;
+                &lt;/div&gt;
+
+                {/* Subforms */}
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 12 }}&gt;
+                  &lt;span style={{
+                    fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                    fontSize: &#39;var(--ds-font-size-base)&#39;,
+                    fontWeight: &#39;var(--ds-font-weight-regular)&#39; as any,
+                    color: &#39;var(--ds-text-label)&#39;,
+                    flexShrink: 0,
+                    width: 140,
+                    paddingTop: 7,
+                    textAlign: &#39;right&#39;,
+                  }}&gt;
+                    Subforms
+                  &lt;/span&gt;
+                  &lt;Tags
+                    value={subformsTags}
+                    options={subformsOptions}
+                    onChange={setSubformsTags}
+                    width={390}
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            )}
+          &lt;/div&gt;
+
+          {/* ── Notes callout ────────────────────────────────────────────── */}
+          &lt;MessageInfo
+            variant=&quot;note&quot;
+            points={[
+              &#39;Choose how long logs remain visible on the Audit Log page.&#39;,
+              &#39;Logs exceeding the visible limit are either archived or permanently deleted to free up storage space.&#39;,
+              &#39;Audit Logs (including Timeline and Interaction data) count towards your Data Storage.&#39;,
+              &#39;Archived logs use significantly less storage than active (visible) logs.&#39;,
+            ]}
+          /&gt;
+
+          {/* ── Last updated ─────────────────────────────────────────────── */}
+          &lt;span style={{
+            fontFamily: &#39;var(--ds-font-family-base)&#39;,
+            fontSize: &#39;var(--ds-font-size-base)&#39;,
+            color: &#39;var(--ds-text-label)&#39;,
+          }}&gt;
+            Last updated : Aug 10, 2026 12:32 pm by Chinnaiya Raja
+          &lt;/span&gt;
+
+        &lt;/div&gt;
       &lt;/Modal&gt;
 
-      {/* ── Confirmation modal ── */}
-      &lt;Modal
-        isOpen={confirm}
-        title=&quot;Save audit log duration changes?&quot;
-        onClose={() =&gt; setConfirm(false)}
-        onSave={() =&gt; { setConfirm(false); setOpen(false); }}
-        cancelLabel=&quot;Cancel&quot;
-        saveLabel=&quot;Okay, Proceed&quot;
-        width={440}
-      &gt;
-        &lt;MessageBox
-          variant=&quot;warning&quot;
-          closable={false}
-          message={
-            &lt;ul style={{ margin: 0, paddingLeft: 16, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 4 }}&gt;
-              &lt;li&gt;Logs beyond the retention period will be permanently deleted.&lt;/li&gt;
-              &lt;li&gt;Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/li&gt;
-              &lt;li&gt;Deleted logs cannot be recovered.&lt;/li&gt;
-            &lt;/ul&gt;
-          }
-        /&gt;
-      &lt;/Modal&gt;
-    &lt;/div&gt;
+      {saved &amp;&amp; (
+        &lt;&gt;
+          &lt;style&gt;{`
+            @keyframes msgbox-slide-down {
+              from { opacity: 0; top: 80px; }
+              to   { opacity: 1; top: 100px; }
+            }
+          `}&lt;/style&gt;
+          &lt;div style={{
+            position: &#39;fixed&#39;, left: &#39;50%&#39;,
+            transform: &#39;translateX(-50%)&#39;,
+            zIndex: 2000, minWidth: 320,
+            animation: &#39;msgbox-slide-down 260ms cubic-bezier(0.2, 0, 0.2, 1) both&#39;,
+          }}&gt;
+            &lt;MessageBox
+              variant=&quot;success&quot;
+              message=&quot;Log retention settings saved successfully.&quot;
+              onClose={() =&gt; setSaved(false)}
+            /&gt;
+          &lt;/div&gt;
+        &lt;/&gt;
+      )}
+    &lt;/&gt;
   );
 };</code></pre>
             </div>
@@ -14943,10 +15898,12 @@ import { Button } from &#39;../Button/Button&#39;;
 export function Modal({
   isOpen,
   title,
+  description,
   headerIcon,
   onClose,
   onCancel,
   onSave,
+  saveLoading = false,
   cancelLabel = &#39;Cancel&#39;,
   saveLabel = &#39;Save&#39;,
   footerNote,
@@ -14986,7 +15943,7 @@ export function Modal({
     if (isVisible &amp;&amp; !isClosing) {
       const t = setTimeout(() =&gt; {
         const first = dialogRef.current?.querySelector(
-          &#39;input:not([disabled]):not([readonly]), textarea:not([disabled])&#39;
+          &#39;input[type=&quot;text&quot;]:not([disabled]):not([readonly]):not(.tags-input):not(.dropdown-search-input), input[type=&quot;email&quot;]:not([disabled]), input[type=&quot;tel&quot;]:not([disabled]), input[type=&quot;number&quot;]:not([disabled]), input[type=&quot;search&quot;]:not([disabled]), input:not([type]):not([disabled]):not([readonly]):not(.tags-input), textarea:not([disabled])&#39;
         );
         first?.focus();
       }, 50);
@@ -15053,14 +16010,19 @@ export function Modal({
       &gt;
         {/* ── Header ───────────────────────────────────────────────────── */}
         &lt;div className=&#39;modal-header&#39;&gt;
-          {headerIcon &amp;&amp; (
-            &lt;span className=&#39;modal-header-icon&#39; aria-hidden=&quot;true&quot;&gt;
-              {headerIcon}
-            &lt;/span&gt;
+          &lt;div className=&#39;modal-header-title-row&#39;&gt;
+            {headerIcon &amp;&amp; (
+              &lt;span className=&#39;modal-header-icon&#39; aria-hidden=&quot;true&quot;&gt;
+                {headerIcon}
+              &lt;/span&gt;
+            )}
+            &lt;h2 id=&quot;modal-title&quot; className=&#39;modal-title&#39;&gt;
+              {title}
+            &lt;/h2&gt;
+          &lt;/div&gt;
+          {description &amp;&amp; (
+            &lt;p className=&#39;modal-description&#39;&gt;{description}&lt;/p&gt;
           )}
-          &lt;h2 id=&quot;modal-title&quot; className=&#39;modal-title&#39;&gt;
-            {title}
-          &lt;/h2&gt;
         &lt;/div&gt;
 
         {/* ── Body ─────────────────────────────────────────────────────── */}
@@ -15079,7 +16041,7 @@ export function Modal({
             &lt;Button variant=&quot;default&quot; onClick={handleCancel}&gt;
               {cancelLabel}
             &lt;/Button&gt;
-            &lt;Button variant=&quot;primary&quot; onClick={onSave}&gt;
+            &lt;Button variant=&quot;primary&quot; onClick={onSave} loading={saveLoading}&gt;
               {saveLabel}
             &lt;/Button&gt;
           &lt;/div&gt;
