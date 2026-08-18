@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { Tooltip } from '../Tooltip/Tooltip.js';
 import './Tags.css';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -70,6 +71,24 @@ function OptionAvatar({ label, imageUrl, size = 28 }) {
   );
 }
 
+function TruncatedLabel({ text, style, className, children }) {
+  const ref = useRef(null);
+  const [isTruncated, setIsTruncated] = useState(false);
+
+  // Measure after every render so disabled is already correct before the user hovers
+  useLayoutEffect(() => {
+    if (ref.current) {
+      setIsTruncated(ref.current.scrollWidth > ref.current.clientWidth);
+    }
+  });
+
+  return (
+    <Tooltip content={text} variant="black" placement="top" disabled={!isTruncated}>
+      <span ref={ref} style={style} className={className}>{children ?? text}</span>
+    </Tooltip>
+  );
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Component
 // ─────────────────────────────────────────────────────────────────────────────
@@ -83,11 +102,13 @@ export function Tags({
   required,
   disabled,
   error,
+  noBorder,
 }) {
   const [search,        setSearch]        = useState('');
   const [open,          setOpen]          = useState(false);
   const [panelPos,      setPanelPos]      = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(-1); // tag pending removal via Backspace
+  const [activeIndex,   setActiveIndex]   = useState(0);  // highlighted option in dropdown
 
   const containerRef = useRef(null);
   const inputRef     = useRef(null);
@@ -102,6 +123,18 @@ export function Tags({
 
   // Reset pending-removal selection whenever the tag list changes
   useEffect(() => { setSelectedIndex(-1); }, [value.length]);
+
+  // Keep first option highlighted when search changes or dropdown opens
+  useEffect(() => { setActiveIndex(0); }, [search, open]);
+
+  // Keep panel anchored to input bottom when container height changes (tags added/removed)
+  useEffect(() => {
+    if (!open || !containerRef.current) return;
+    const ro = new ResizeObserver(updatePos);
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, [open]);
+
 
   const updatePos = () => {
     if (containerRef.current) {
@@ -181,6 +214,7 @@ export function Tags({
         data-error={error || undefined}
         data-disabled={disabled || undefined}
         data-open={open || undefined}
+        data-no-border={noBorder || undefined}
         onClick={() => {
           if (!disabled) {
             setSelectedIndex(-1);
@@ -203,7 +237,14 @@ export function Tags({
                 aria-hidden="true"
               />
             )}
-            <span className={'tags-tag-label'}>{tag.label}</span>
+            <TruncatedLabel text={tag.tagLabel || tag.label} className={'tags-tag-label'}>
+              {(tag.tagLabel || tag.label).replace(/(\s*\([^)]*\))$/, '')}
+              {/(\s*\([^)]*\))$/.test(tag.tagLabel || tag.label) && (
+                <span style={{ color: 'var(--ds-text-label, #616E88)' }}>
+                  {(tag.tagLabel || tag.label).match(/(\s*\([^)]*\))$/)[1]}
+                </span>
+              )}
+            </TruncatedLabel>
             {tag.count !== undefined && (
               <span className={'tags-tag-count'}>{tag.count}</span>
             )}
@@ -255,88 +296,137 @@ export function Tags({
             border:       '1px solid var(--ds-components-dropdown-outline, #CED0E1)',
             borderRadius: 6,
             boxShadow:    '0 2px 8px 0 rgba(0,0,0,0.15)',
-            padding:      '6px 0',
             boxSizing:    'border-box',
-            maxHeight:    220,
-            overflowY:    'auto',
+            display:      'flex',
+            flexDirection:'column',
+            padding:      '6px 0',
+            maxHeight:    260,
+            overflow:     'hidden',
           }}
         >
-          {filtered.length === 0 ? (
-            <div style={{
-              height:     50,
-              display:    'flex',
-              alignItems: 'center',
-              padding:    '0 25px',
-              fontFamily: 'var(--ds-font-family-base)',
-              fontSize:   'var(--ds-font-size-base)',
-              color:      'var(--ds-text-muted, #8C9BAB)',
-            }}>
-              No options found
-            </div>
-          ) : filtered.map(opt => {
-            const hasAvatar = Boolean(opt.imageUrl);
-            return (
-              <div
-                key={opt.value}
-                role="option"
-                aria-selected={false}
-                style={{
-                  display:      'flex',
-                  alignItems:   'center',
-                  gap:          '8px',
-                  height:       hasAvatar ? 50 : 32,
-                  margin:       '0 6px',
-                  borderRadius: 5,
-                  padding:      hasAvatar ? '0 10px 0 16px' : '0 10px',
-                  cursor:       'pointer',
-                  fontFamily:   'var(--ds-font-family-base)',
-                  fontSize:     'var(--ds-font-size-base)',
-                  color:        'var(--ds-text-base)',
-                  userSelect:   'none',
-                  boxSizing:    'border-box',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.background = 'var(--ds-components-dropdown-hover-bg, #F2F5FE)')}
-                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-                onClick={(e) => { e.stopPropagation(); select(opt); }}
-              >
-                {hasAvatar && <OptionAvatar label={opt.label} imageUrl={opt.imageUrl} size={28} />}
+          <div style={{ overflowY: 'auto', padding: '6px 0', flex: 1 }}>
+          {(() => {
+            if (filtered.length === 0) {
+              return (
                 <div style={{
-                  flex:      1,
-                  minWidth:  0,
-                  display:   'flex',
-                  flexDirection: 'column',
-                  gap:       1,
+                  height:     50,
+                  display:    'flex',
+                  alignItems: 'center',
+                  padding:    '0 25px',
+                  fontFamily: 'var(--ds-font-family-base)',
+                  fontSize:   'var(--ds-font-size-base)',
+                  color:      'var(--ds-text-muted, #8C9BAB)',
                 }}>
-                  <span style={{
+                  No options found
+                </div>
+              );
+            }
+
+            // Build ordered group list preserving insertion order
+            const groupMap = new Map();
+            filtered.forEach(opt => {
+              const g = opt.group || '';
+              if (!groupMap.has(g)) groupMap.set(g, []);
+              groupMap.get(g).push(opt);
+            });
+            const hasGroups = [...groupMap.keys()].some(g => g !== '');
+
+            let flatIdx = 0;
+            const renderOption = (opt) => {
+              const idx = flatIdx++;
+              const isActive = idx === activeIndex;
+              const hasAvatar = Boolean(opt.imageUrl);
+              return (
+                <div
+                  key={opt.value}
+                  role="option"
+                  aria-selected={false}
+                  style={{
+                    display:      'flex',
+                    alignItems:   'center',
+                    gap:          '8px',
+                    height:       hasAvatar ? 50 : 32,
+                    margin:       '0 6px',
+                    borderRadius: 5,
+                    padding:      hasAvatar ? '0 10px 0 16px' : '0 10px',
+                    cursor:       'pointer',
                     fontFamily:   'var(--ds-font-family-base)',
                     fontSize:     'var(--ds-font-size-base)',
-                    fontWeight:   'var(--ds-font-weight-regular)',
-                    lineHeight:   'var(--ds-line-height-base)',
                     color:        'var(--ds-text-base)',
-                    overflow:     'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace:   'nowrap',
+                    userSelect:   'none',
+                    boxSizing:    'border-box',
+                    background:   isActive ? 'var(--ds-components-dropdown-hover-bg, #F2F5FE)' : 'transparent',
+                  }}
+                  onMouseEnter={() => setActiveIndex(idx)}
+                  onMouseLeave={() => setActiveIndex(-1)}
+                  onClick={(e) => { e.stopPropagation(); select(opt); }}
+                >
+                  {hasAvatar && <OptionAvatar label={opt.label} imageUrl={opt.imageUrl} size={28} />}
+                  <div style={{
+                    flex:      1,
+                    minWidth:  0,
+                    display:   'flex',
+                    flexDirection: 'column',
+                    gap:       1,
                   }}>
-                    {opt.label}
-                  </span>
-                  {opt.email && (
-                    <span style={{
+                    <TruncatedLabel text={opt.label} style={{
                       fontFamily:   'var(--ds-font-family-base)',
-                      fontSize:     'var(--ds-font-size-xs, 11px)',
+                      fontSize:     'var(--ds-font-size-base)',
                       fontWeight:   'var(--ds-font-weight-regular)',
-                      lineHeight:   'var(--ds-line-height-xs, 15px)',
-                      color:        'var(--ds-text-label, #616E88)',
+                      lineHeight:   'var(--ds-line-height-base)',
+                      color:        'var(--ds-text-base)',
                       overflow:     'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace:   'nowrap',
-                    }}>
-                      {opt.email}
-                    </span>
-                  )}
+                      display:      'block',
+                    }} />
+                    {opt.email && (
+                      <span style={{
+                        fontFamily:   'var(--ds-font-family-base)',
+                        fontSize:     'var(--ds-font-size-xs, 11px)',
+                        fontWeight:   'var(--ds-font-weight-regular)',
+                        lineHeight:   'var(--ds-line-height-xs, 15px)',
+                        color:        'var(--ds-text-label, #616E88)',
+                        overflow:     'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace:   'nowrap',
+                      }}>
+                        {opt.email}
+                      </span>
+                    )}
+                  </div>
                 </div>
+              );
+            };
+
+            if (!hasGroups) { flatIdx = 0; return filtered.map(renderOption); }
+
+            return [...groupMap.entries()].map(([group, opts]) => (
+              <div key={group || '__ungrouped__'}>
+                {group && (
+                  <div style={{
+                    position:   'sticky',
+                    top:        0,
+                    zIndex:     1,
+                    background: 'var(--ds-components-dropdown-option-bg, #fff)',
+                    height:     32,
+                    display:    'flex',
+                    alignItems: 'center',
+                    padding:    '0 10px',
+                    fontFamily: 'var(--ds-font-family-base)',
+                    fontSize:   'var(--ds-font-size-base)',
+                    fontWeight: 'var(--ds-font-weight-semibold)',
+                    color:      'var(--ds-text-base, #313949)',
+                    userSelect: 'none',
+                  }}>
+                    {group}
+                  </div>
+                )}
+                {opts.map(renderOption)}
               </div>
-            );
-          })}
+            ));
+          })()}
+          </div>
         </div>,
         document.body
       )}

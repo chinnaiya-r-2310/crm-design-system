@@ -10,10 +10,12 @@ import { Button } from '../Button/Button';
 export function Modal({
   isOpen,
   title,
+  description,
   headerIcon,
   onClose,
   onCancel,
   onSave,
+  saveLoading = false,
   cancelLabel = 'Cancel',
   saveLabel = 'Save',
   footerNote,
@@ -53,7 +55,7 @@ export function Modal({
     if (isVisible && !isClosing) {
       const t = setTimeout(() => {
         const first = dialogRef.current?.querySelector(
-          'input:not([disabled]):not([readonly]), textarea:not([disabled])'
+          'input[type="text"]:not([disabled]):not([readonly]):not(.tags-input):not(.dropdown-search-input), input[type="email"]:not([disabled]), input[type="tel"]:not([disabled]), input[type="number"]:not([disabled]), input[type="search"]:not([disabled]), input:not([type]):not([disabled]):not([readonly]):not(.tags-input), textarea:not([disabled])'
         );
         first?.focus();
       }, 50);
@@ -120,14 +122,19 @@ export function Modal({
       >
         {/* ── Header ───────────────────────────────────────────────────── */}
         <div className='modal-header'>
-          {headerIcon && (
-            <span className='modal-header-icon' aria-hidden="true">
-              {headerIcon}
-            </span>
+          <div className='modal-header-title-row'>
+            {headerIcon && (
+              <span className='modal-header-icon' aria-hidden="true">
+                {headerIcon}
+              </span>
+            )}
+            <h2 id="modal-title" className='modal-title'>
+              {title}
+            </h2>
+          </div>
+          {description && (
+            <p className='modal-description'>{description}</p>
           )}
-          <h2 id="modal-title" className='modal-title'>
-            {title}
-          </h2>
         </div>
 
         {/* ── Body ─────────────────────────────────────────────────────── */}
@@ -146,7 +153,7 @@ export function Modal({
             <Button variant="default" onClick={handleCancel}>
               {cancelLabel}
             </Button>
-            <Button variant="primary" onClick={onSave}>
+            <Button variant="primary" onClick={onSave} loading={saveLoading}>
               {saveLabel}
             </Button>
           </div>

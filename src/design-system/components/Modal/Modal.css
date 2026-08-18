@@ -90,6 +90,12 @@
 
 .modal-header {
   display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modal-header-title-row {
+  display: flex;
   align-items: center;
   gap: 10px;
 }
@@ -101,6 +107,15 @@
   width: 25px;
   height: 25px;
   flex-shrink: 0;
+}
+
+.modal-description {
+  margin: 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-paragraph);
 }
 
 .modal-title {
@@ -123,7 +138,7 @@
   overflow-y: auto;
   scrollbar-gutter: stable;
   /* Prevent scroll container from clipping focus box-shadows on right edge */
-  padding: 4px 8px 30px 4px;
+  padding: 4px 8px 0 4px;
   margin: -4px -28px 0 -4px;
 }
 

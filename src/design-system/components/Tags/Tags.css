@@ -6,10 +6,12 @@
 .tags-container {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   gap: 6px;
   min-height: 34px;
+  max-height: 92px;
   padding: 4px 8px;
+  overflow-y: auto;
   border: 1px solid var(--ds-components-input-default-outline);
   border-radius: 6px;
   background: var(--ds-bg-common-card);
@@ -36,6 +38,17 @@
   background: var(--ds-components-input-disable-bg);
   border-color: var(--ds-components-input-disable-outline);
   cursor: not-allowed;
+}
+
+.tags-container[data-no-border] {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.tags-container[data-no-border]:focus-within,
+.tags-container[data-no-border][data-open] {
+  border-color: transparent;
+  box-shadow: none;
 }
 
 /* ── Tag chip ────────────────────────────────────────────────────────────── */
@@ -65,7 +78,13 @@
   border-color: #B9C3FA;
 }
 
+.tags-tag .tooltip-wrapper {
+  min-width: 0;
+  overflow: hidden;
+}
+
 .tags-tag-label {
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -157,7 +176,7 @@
 
 .tags-input {
   flex: 1;
-  min-width: 80px;
+  min-width: 60px;
   height: 24px;
   border: none;
   outline: none;
@@ -169,5 +188,56 @@
 }
 
 .tags-input::placeholder {
+  color: var(--ds-components-input-placeholder-text);
+}
+
+/* ── Panel search (mirrors .dropdown-search-*) ───────────────────────────── */
+
+.tags-panel-search-row {
+  padding: 4px 10px 5px;
+  flex-shrink: 0;
+}
+
+.tags-panel-search-box {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  gap: 6px;
+  padding: 0 8px;
+  background: var(--ds-bg-common-card, #fff);
+  border: 1px solid var(--ds-components-input-default-outline);
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.tags-panel-search-box:hover {
+  border-color: var(--ds-components-input-hover-outline);
+}
+
+.tags-panel-search-box:focus-within {
+  border-color: var(--ds-components-input-focus-outline);
+  box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow);
+}
+
+.tags-panel-search-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--ds-text-muted, #8C9BAB);
+}
+
+.tags-panel-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+}
+
+.tags-panel-search-input::placeholder {
   color: var(--ds-components-input-placeholder-text);
 }
