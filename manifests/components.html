@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.4s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -748,8 +748,8 @@ function DualRangeSlider({
     e.preventDefault();
     const move = (ev: MouseEvent) =&gt; {
       const v = pickValue(ev.clientX);
-      if (thumb === &#39;a&#39;) onChangeA(Math.min(Math.max(v, 1), Math.min(valueB, maxA)));
-      else               onChangeB(Math.max(v, valueA, 2));
+      if (thumb === &#39;a&#39;) onChangeA(Math.min(Math.max(v, 1), Math.min(valueB - 1, maxA)));
+      else               onChangeB(Math.max(v, valueA + 1, 2));
     };
     const up = () =&gt; {
       document.removeEventListener(&#39;mousemove&#39;, move);
@@ -1040,7 +1040,7 @@ export const ManageLogRetentionSettings: Story = {
   ],
   render: () =&gt; {
     const [open, setOpen] = useState(true);
-    const [saving, setSaving] = useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
     const [saved, setSaved] = useState(false);
     const [visibleYears, setVisibleYears] = useState(3);
     const [totalYears, setTotalYears]     = useState(7);
@@ -1099,16 +1099,7 @@ export const ManageLogRetentionSettings: Story = {
           description=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
           onClose={() =&gt; setOpen(false)}
           onCancel={() =&gt; setOpen(false)}
-          onSave={() =&gt; {
-            setSaving(true);
-            setTimeout(() =&gt; {
-              setSaving(false);
-              setOpen(false);
-              setSaved(true);
-              setTimeout(() =&gt; setSaved(false), 4000);
-            }, 500);
-          }}
-          saveLoading={saving}
+          onSave={() =&gt; setConfirmOpen(true)}
           cancelLabel=&quot;Cancel&quot;
           saveLabel=&quot;Save&quot;
           width={640}
@@ -1140,7 +1131,7 @@ export const ManageLogRetentionSettings: Story = {
             &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
               &lt;RetentionRow
                 dotColor=&quot;var(--ds-components-slider-active-bg-fill-color, #5464F2)&quot;
-                showDot={archiveEnabled}
+                showDot={true}
                 label=&quot;Visible Log History&quot;
                 years={visibleYears}
                 availableFrom={fmtDate(visibleStart)}
@@ -1156,13 +1147,42 @@ export const ManageLogRetentionSettings: Story = {
                   availableTo={fmtDate(archiveEnd)}
                 /&gt;
               )}
+
+              {/* Cleanup Period */}
+              {(() =&gt; {
+                const cleanupDate = archiveEnabled &amp;&amp; archiveYears &gt; 0 ? archiveStart : visibleStart;
+                const rowText: React.CSSProperties = {
+                  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                  fontSize: &#39;var(--ds-font-size-base)&#39;,
+                  color: &#39;var(--ds-text-base)&#39;,
+                  lineHeight: &#39;1.6&#39;,
+                };
+                return (
+                  &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, flexWrap: &#39;wrap&#39;, gap: 6 }}&gt;
+                    &lt;div style={{
+                      width: 8, height: 8,
+                      borderRadius: &#39;50%&#39;,
+                      background: &#39;var(--ds-text-muted, #8C9BAB)&#39;,
+                      flexShrink: 0,
+                    }} /&gt;
+                    &lt;span style={{ ...rowText, fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+                      Cleanup Period
+                    &lt;/span&gt;
+                    &lt;span style={rowText}&gt;
+                      : &lt;strong style={{ fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+                        Beyond {fmtDate(cleanupDate)}
+                      &lt;/strong&gt;
+                    &lt;/span&gt;
+                  &lt;/div&gt;
+                );
+              })()}
             &lt;/div&gt;
 
-            {/* ── Modules Exempt from Standard Duration ───────────────────── */}
+            {/* ── Select Modules to exempt from Standard Duration ─────────── */}
             &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
               &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
                 &lt;Checkbox
-                  label=&quot;Modules Exempt from Standard Duration&quot;
+                  label=&quot;Select Modules to exempt from Standard Duration&quot;
                   checked={exemptEnabled}
                   onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
                 /&gt;
@@ -1249,6 +1269,32 @@ export const ManageLogRetentionSettings: Story = {
           &lt;/div&gt;
         &lt;/Modal&gt;
 
+        &lt;Modal
+          type=&quot;alert&quot;
+          variant=&quot;warning&quot;
+          isOpen={confirmOpen}
+          title=&quot;Save audit log duration changes&quot;
+          description={
+            &lt;&gt;
+              &lt;p&gt;Logs beyond the retention period will be permanently deleted. Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/p&gt;
+              &lt;div style={{ marginTop: 20 }}&gt;
+                &lt;MessageInfo variant=&quot;note&quot; message=&quot;Deleted logs cannot be recovered.&quot; /&gt;
+              &lt;/div&gt;
+            &lt;/&gt;
+          }
+          confirmLabel=&quot;Proceed&quot;
+          cancelLabel=&quot;Cancel&quot;
+          onClose={() =&gt; setConfirmOpen(false)}
+          onCancel={() =&gt; setConfirmOpen(false)}
+          onSave={() =&gt; {
+            setConfirmOpen(false);
+            setOpen(false);
+            setSaved(true);
+            setTimeout(() =&gt; setSaved(false), 4000);
+          }}
+          width={640}
+        /&gt;
+
         {saved &amp;&amp; (
           &lt;&gt;
             &lt;style&gt;{`
@@ -1309,7 +1355,7 @@ export const ManageLogRetentionSettings: Story = {
               
               <pre><code>const ManageLogRetentionSettings = () =&gt; {
   const [open, setOpen] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [saved, setSaved] = useState(false);
   const [visibleYears, setVisibleYears] = useState(3);
   const [totalYears, setTotalYears]     = useState(7);
@@ -1368,16 +1414,7 @@ export const ManageLogRetentionSettings: Story = {
         description=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
         onClose={() =&gt; setOpen(false)}
         onCancel={() =&gt; setOpen(false)}
-        onSave={() =&gt; {
-          setSaving(true);
-          setTimeout(() =&gt; {
-            setSaving(false);
-            setOpen(false);
-            setSaved(true);
-            setTimeout(() =&gt; setSaved(false), 4000);
-          }, 500);
-        }}
-        saveLoading={saving}
+        onSave={() =&gt; setConfirmOpen(true)}
         cancelLabel=&quot;Cancel&quot;
         saveLabel=&quot;Save&quot;
         width={640}
@@ -1409,7 +1446,7 @@ export const ManageLogRetentionSettings: Story = {
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
             &lt;RetentionRow
               dotColor=&quot;var(--ds-components-slider-active-bg-fill-color, #5464F2)&quot;
-              showDot={archiveEnabled}
+              showDot={true}
               label=&quot;Visible Log History&quot;
               years={visibleYears}
               availableFrom={fmtDate(visibleStart)}
@@ -1425,13 +1462,42 @@ export const ManageLogRetentionSettings: Story = {
                 availableTo={fmtDate(archiveEnd)}
               /&gt;
             )}
+
+            {/* Cleanup Period */}
+            {(() =&gt; {
+              const cleanupDate = archiveEnabled &amp;&amp; archiveYears &gt; 0 ? archiveStart : visibleStart;
+              const rowText: React.CSSProperties = {
+                fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                fontSize: &#39;var(--ds-font-size-base)&#39;,
+                color: &#39;var(--ds-text-base)&#39;,
+                lineHeight: &#39;1.6&#39;,
+              };
+              return (
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, flexWrap: &#39;wrap&#39;, gap: 6 }}&gt;
+                  &lt;div style={{
+                    width: 8, height: 8,
+                    borderRadius: &#39;50%&#39;,
+                    background: &#39;var(--ds-text-muted, #8C9BAB)&#39;,
+                    flexShrink: 0,
+                  }} /&gt;
+                  &lt;span style={{ ...rowText, fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+                    Cleanup Period
+                  &lt;/span&gt;
+                  &lt;span style={rowText}&gt;
+                    : &lt;strong style={{ fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+                      Beyond {fmtDate(cleanupDate)}
+                    &lt;/strong&gt;
+                  &lt;/span&gt;
+                &lt;/div&gt;
+              );
+            })()}
           &lt;/div&gt;
 
-          {/* ── Modules Exempt from Standard Duration ───────────────────── */}
+          {/* ── Select Modules to exempt from Standard Duration ─────────── */}
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
             &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
               &lt;Checkbox
-                label=&quot;Modules Exempt from Standard Duration&quot;
+                label=&quot;Select Modules to exempt from Standard Duration&quot;
                 checked={exemptEnabled}
                 onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
               /&gt;
@@ -1517,6 +1583,32 @@ export const ManageLogRetentionSettings: Story = {
 
         &lt;/div&gt;
       &lt;/Modal&gt;
+
+      &lt;Modal
+        type=&quot;alert&quot;
+        variant=&quot;warning&quot;
+        isOpen={confirmOpen}
+        title=&quot;Save audit log duration changes&quot;
+        description={
+          &lt;&gt;
+            &lt;p&gt;Logs beyond the retention period will be permanently deleted. Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/p&gt;
+            &lt;div style={{ marginTop: 20 }}&gt;
+              &lt;MessageInfo variant=&quot;note&quot; message=&quot;Deleted logs cannot be recovered.&quot; /&gt;
+            &lt;/div&gt;
+          &lt;/&gt;
+        }
+        confirmLabel=&quot;Proceed&quot;
+        cancelLabel=&quot;Cancel&quot;
+        onClose={() =&gt; setConfirmOpen(false)}
+        onCancel={() =&gt; setConfirmOpen(false)}
+        onSave={() =&gt; {
+          setConfirmOpen(false);
+          setOpen(false);
+          setSaved(true);
+          setTimeout(() =&gt; setSaved(false), 4000);
+        }}
+        width={640}
+      /&gt;
 
       {saved &amp;&amp; (
         &lt;&gt;
@@ -6829,6 +6921,28 @@ import { useEffect, useCallback, useState, useRef, useLayoutEffect } from &#39;r
 import { createPortal } from &#39;react-dom&#39;;
 import &#39;./Modal.css&#39;;
 import { Button } from &#39;../Button/Button&#39;;
+import {
+  CrmAlertSuccess,
+  CrmAlertInfo,
+  CrmAlertWarning,
+  CrmAlertError,
+  CrmAlertStop,
+} from &#39;../../foundations/icons/Icons&#39;;
+
+const ALERT_ICONS = {
+  success: CrmAlertSuccess,
+  info:    CrmAlertInfo,
+  warning: CrmAlertWarning,
+  error:   CrmAlertError,
+  denial:  CrmAlertStop,
+};
+
+// success, info, denial show a single &quot;Ok, Got it&quot; button — no Cancel
+const SINGLE_BTN_VARIANTS = new Set([&#39;success&#39;, &#39;info&#39;, &#39;denial&#39;]);
+
+function alertConfirmVariant(variant) {
+  return variant === &#39;error&#39; ? &#39;negative&#39; : &#39;primary&#39;;
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Component
@@ -6848,6 +6962,10 @@ export function Modal({
   footerNote,
   children,
   width = 569,
+  // Alert-specific props
+  type = &#39;modal&#39;,
+  variant = &#39;info&#39;,
+  confirmLabel,
 }) {
   // isVisible stays true during the slide-up closing animation
   const [isVisible, setIsVisible] = useState(isOpen);
@@ -6934,6 +7052,51 @@ export function Modal({
 
   if (!isVisible) return null;
 
+  // ── Alert modal ────────────────────────────────────────────────────────────
+  if (type === &#39;alert&#39;) {
+    const IconComp = ALERT_ICONS[variant];
+    const btnVariant = alertConfirmVariant(variant);
+    const singleBtn = SINGLE_BTN_VARIANTS.has(variant);
+    const actionLabel = confirmLabel ?? (singleBtn ? &#39;Ok, Got it&#39; : saveLabel);
+
+    return createPortal(
+      &lt;div className=&#39;modal-backdrop&#39; aria-hidden=&quot;true&quot;&gt;
+        &lt;div
+          ref={dialogRef}
+          className=&#39;modal-dialog&#39;
+          role=&quot;alertdialog&quot;
+          aria-modal=&quot;true&quot;
+          aria-labelledby=&quot;modal-title&quot;
+          style={{ width }}
+          data-closing={isClosing || undefined}
+          onAnimationEnd={handleAnimationEnd}
+          onClick={(e) =&gt; e.stopPropagation()}
+        &gt;
+          &lt;div className=&quot;modal-alert-content&quot; data-heading-only={!description || undefined}&gt;
+            &lt;div className=&quot;modal-header-title-row&quot;&gt;
+              {IconComp &amp;&amp; (
+                &lt;span className=&quot;modal-header-icon&quot; aria-hidden=&quot;true&quot;&gt;
+                  &lt;IconComp width={25} height={25} /&gt;
+                &lt;/span&gt;
+              )}
+              &lt;h2 id=&quot;modal-title&quot; className=&quot;modal-title&quot;&gt;{title}&lt;/h2&gt;
+            &lt;/div&gt;
+            {description &amp;&amp; &lt;div className=&quot;modal-description&quot;&gt;{description}&lt;/div&gt;}
+          &lt;/div&gt;
+          &lt;div className=&quot;modal-footer&quot;&gt;
+            {!singleBtn &amp;&amp; (
+              &lt;Button variant=&quot;default&quot; onClick={handleCancel}&gt;{cancelLabel}&lt;/Button&gt;
+            )}
+            &lt;Button variant={btnVariant} onClick={onSave} loading={saveLoading}&gt;
+              {actionLabel}
+            &lt;/Button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;,
+      document.body
+    );
+  }
+
   return createPortal(
     &lt;div className=&#39;modal-backdrop&#39; aria-hidden=&quot;true&quot;&gt;
       &lt;div
@@ -7013,86 +7176,10 @@ export default Modal;
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { Button, Checkbox, Dropdown, Input, Modal } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import { Button, Input, Modal } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Locale Information</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              <div class="hint">Locale Information form — matches the Figma design exactly.
-Use the &quot;Open Modal&quot; button to trigger it.</div>
-              <pre><code>const LocaleInformation = () =&gt; {
-    const [open, setOpen] = useState(false);
-
-    return (
-        &lt;&gt;
-            &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;Open Modal
-                        &lt;/Button&gt;
-            &lt;Modal
-                width={569}
-                cancelLabel=&quot;Cancel&quot;
-                saveLabel=&quot;Save&quot;
-                isOpen={open}
-                title=&quot;Locale Information&quot;
-                onClose={() =&gt; setOpen(false)}
-                onCancel={() =&gt; setOpen(false)}
-                onSave={() =&gt; setOpen(false)}
-                footerNote={
-                  &lt;&gt;
-                    &lt;Checkbox id=&quot;recommend&quot; /&gt;
-                    &lt;label htmlFor=&quot;recommend&quot; style={{ fontSize: 14, color: &#39;#313949&#39;, cursor: &#39;pointer&#39; }}&gt;
-                      Use recommended variant
-                    &lt;/label&gt;
-                    &lt;a href=&quot;#&quot; style={{ fontSize: 14, color: &#39;#5464F2&#39;, textDecoration: &#39;none&#39;, marginLeft: 8 }}&gt;
-                      Preview
-                    &lt;/a&gt;
-                  &lt;/&gt;
-                }&gt;
-                &lt;Dropdown
-                    label=&quot;Country&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={COUNTRIES} /&gt;
-                &lt;Dropdown
-                    label=&quot;Language&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={LANGUAGES} /&gt;
-                &lt;Dropdown
-                    label=&quot;Date Format&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={DATE_FORMATS} /&gt;
-                &lt;Dropdown
-                    label=&quot;Time Format&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={TIME_FORMATS} /&gt;
-                &lt;Dropdown
-                    label=&quot;Number Format&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={NUMBER_FORMATS} /&gt;
-                &lt;Dropdown
-                    label=&quot;Currency&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={CURRENCIES} /&gt;
-            &lt;/Modal&gt;
-        &lt;/&gt;
-    );
-};</code></pre>
-            </div>
             <div class="note ok">
               <div class="row">
                 <span class="ex-name">Default</span>
@@ -7130,44 +7217,94 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Wide (590px)</span>
+                <span class="ex-name">Alert Modal</span>
                 <span class="badge ok">story ok</span>
               </div>
               
-              <div class="hint">Wide modal — 590px, 120px label + 390px input.</div>
-              <pre><code>const Wide = () =&gt; {
-    const [open, setOpen] = useState(false);
+              <div class="hint">Alert Modal — compact dialog with icon, title, optional description, and
+right-aligned action buttons. Variants: success, info (single &quot;Ok, Got it&quot;),
+warning, error (Cancel + action), denial (single &quot;Ok, Got it&quot;).
+Figma: Chinnaiya Style Sheet node 93672:150667.</div>
+              <pre><code>const AlertModal = () =&gt; {
+  const [activeKey, setActiveKey] = useState&lt;string | null&gt;(null);
+  const active = ALERT_VARIANTS.find((v) =&gt; v.key === activeKey);
 
-    const W    = 530;
-    const COLS = &#39;120px 390px&#39;;
+  return (
+    &lt;&gt;
+      &lt;div style={{ display: &#39;flex&#39;, gap: 12, flexWrap: &#39;wrap&#39; }}&gt;
+        {ALERT_VARIANTS.map((v) =&gt; (
+          &lt;Button key={v.key} variant={v.triggerVariant as any} onClick={() =&gt; setActiveKey(v.key)}&gt;
+            {v.label}
+          &lt;/Button&gt;
+        ))}
+      &lt;/div&gt;
 
-    return (
-        &lt;&gt;
-            &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;Open Wide Modal
-                        &lt;/Button&gt;
-            &lt;Modal
-                title=&quot;Add Contact&quot;
-                width={590}
-                cancelLabel=&quot;Cancel&quot;
-                saveLabel=&quot;Create&quot;
-                isOpen={open}
-                onClose={() =&gt; setOpen(false)}
-                onCancel={() =&gt; setOpen(false)}
-                onSave={() =&gt; setOpen(false)}&gt;
-                &lt;Input label=&quot;First Name&quot; layout=&quot;horizontal&quot; width={W} columns={COLS} /&gt;
-                &lt;Input label=&quot;Last Name&quot; layout=&quot;horizontal&quot; width={W} columns={COLS} /&gt;
-                &lt;Input label=&quot;Email&quot; layout=&quot;horizontal&quot; width={W} columns={COLS} type=&quot;email&quot; /&gt;
-                &lt;Input
-                    label=&quot;Phone&quot;
-                    layout=&quot;horizontal&quot;
-                    width={W}
-                    columns={COLS}
-                    type=&quot;tel&quot;
-                    required /&gt;
-                &lt;Dropdown label=&quot;Account&quot; layout=&quot;horizontal&quot; width={W} columns={COLS} options={[]} /&gt;
-            &lt;/Modal&gt;
-        &lt;/&gt;
-    );
+      {active &amp;&amp; (
+        &lt;Modal
+          type=&quot;alert&quot;
+          variant={activeKey as any}
+          isOpen
+          title={active.title}
+          description={active.description}
+          onClose={() =&gt; setActiveKey(null)}
+          onCancel={() =&gt; setActiveKey(null)}
+          onSave={() =&gt; setActiveKey(null)}
+          confirmLabel={active.confirmLabel}
+          cancelLabel=&quot;Cancel&quot;
+          width={480}
+        /&gt;
+      )}
+    &lt;/&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Alert Only Heading</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Alert only heading — same alert modal but with title only, no description paragraph.
+Used when the message is short and self-explanatory.</div>
+              <pre><code>const AlertOnlyHeading = () =&gt; {
+  const [activeKey, setActiveKey] = useState&lt;string | null&gt;(null);
+
+  const headingVariants = [
+    { key: &#39;success&#39;, label: &#39;Success&#39;, triggerVariant: &#39;outline-green&#39;, title: &#39;Record saved successfully.&#39; },
+    { key: &#39;info&#39;,    label: &#39;Info&#39;,    triggerVariant: &#39;outline-blue&#39;,  title: &#39;This action will apply to all users.&#39; },
+    { key: &#39;warning&#39;, label: &#39;Warning&#39;, triggerVariant: &#39;outline-orange&#39;, title: &#39;Are you sure you want to continue?&#39;, confirmLabel: &#39;Continue&#39; },
+    { key: &#39;error&#39;,   label: &#39;Error&#39;,   triggerVariant: &#39;outline-red&#39;,   title: &#39;Delete &quot;Sales Pipeline Q3&quot;&#39;, confirmLabel: &#39;Delete&#39; },
+    { key: &#39;denial&#39;,  label: &#39;Denial&#39;,  triggerVariant: &#39;default&#39;,       title: &#39;Permission Denied&#39; },
+  ];
+
+  const active = headingVariants.find((v) =&gt; v.key === activeKey);
+
+  return (
+    &lt;&gt;
+      &lt;div style={{ display: &#39;flex&#39;, gap: 12, flexWrap: &#39;wrap&#39; }}&gt;
+        {headingVariants.map((v) =&gt; (
+          &lt;Button key={v.key} variant={v.triggerVariant as any} onClick={() =&gt; setActiveKey(v.key)}&gt;
+            {v.label}
+          &lt;/Button&gt;
+        ))}
+      &lt;/div&gt;
+
+      {active &amp;&amp; (
+        &lt;Modal
+          type=&quot;alert&quot;
+          variant={activeKey as any}
+          isOpen
+          title={active.title}
+          onClose={() =&gt; setActiveKey(null)}
+          onCancel={() =&gt; setActiveKey(null)}
+          onSave={() =&gt; setActiveKey(null)}
+          confirmLabel={(active as any).confirmLabel}
+          cancelLabel=&quot;Cancel&quot;
+          width={480}
+        /&gt;
+      )}
+    &lt;/&gt;
+  );
 };</code></pre>
             </div>
         </div>
@@ -11971,8 +12108,8 @@ function DualRangeSlider({
     e.preventDefault();
     const move = (ev: MouseEvent) =&gt; {
       const v = pickValue(ev.clientX);
-      if (thumb === &#39;a&#39;) onChangeA(Math.min(Math.max(v, 1), Math.min(valueB, maxA)));
-      else               onChangeB(Math.max(v, valueA, 2));
+      if (thumb === &#39;a&#39;) onChangeA(Math.min(Math.max(v, 1), Math.min(valueB - 1, maxA)));
+      else               onChangeB(Math.max(v, valueA + 1, 2));
     };
     const up = () =&gt; {
       document.removeEventListener(&#39;mousemove&#39;, move);
@@ -12263,7 +12400,7 @@ export const ManageLogRetentionSettings: Story = {
   ],
   render: () =&gt; {
     const [open, setOpen] = useState(true);
-    const [saving, setSaving] = useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
     const [saved, setSaved] = useState(false);
     const [visibleYears, setVisibleYears] = useState(3);
     const [totalYears, setTotalYears]     = useState(7);
@@ -12322,16 +12459,7 @@ export const ManageLogRetentionSettings: Story = {
           description=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
           onClose={() =&gt; setOpen(false)}
           onCancel={() =&gt; setOpen(false)}
-          onSave={() =&gt; {
-            setSaving(true);
-            setTimeout(() =&gt; {
-              setSaving(false);
-              setOpen(false);
-              setSaved(true);
-              setTimeout(() =&gt; setSaved(false), 4000);
-            }, 500);
-          }}
-          saveLoading={saving}
+          onSave={() =&gt; setConfirmOpen(true)}
           cancelLabel=&quot;Cancel&quot;
           saveLabel=&quot;Save&quot;
           width={640}
@@ -12363,7 +12491,7 @@ export const ManageLogRetentionSettings: Story = {
             &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
               &lt;RetentionRow
                 dotColor=&quot;var(--ds-components-slider-active-bg-fill-color, #5464F2)&quot;
-                showDot={archiveEnabled}
+                showDot={true}
                 label=&quot;Visible Log History&quot;
                 years={visibleYears}
                 availableFrom={fmtDate(visibleStart)}
@@ -12379,13 +12507,42 @@ export const ManageLogRetentionSettings: Story = {
                   availableTo={fmtDate(archiveEnd)}
                 /&gt;
               )}
+
+              {/* Cleanup Period */}
+              {(() =&gt; {
+                const cleanupDate = archiveEnabled &amp;&amp; archiveYears &gt; 0 ? archiveStart : visibleStart;
+                const rowText: React.CSSProperties = {
+                  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                  fontSize: &#39;var(--ds-font-size-base)&#39;,
+                  color: &#39;var(--ds-text-base)&#39;,
+                  lineHeight: &#39;1.6&#39;,
+                };
+                return (
+                  &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, flexWrap: &#39;wrap&#39;, gap: 6 }}&gt;
+                    &lt;div style={{
+                      width: 8, height: 8,
+                      borderRadius: &#39;50%&#39;,
+                      background: &#39;var(--ds-text-muted, #8C9BAB)&#39;,
+                      flexShrink: 0,
+                    }} /&gt;
+                    &lt;span style={{ ...rowText, fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+                      Cleanup Period
+                    &lt;/span&gt;
+                    &lt;span style={rowText}&gt;
+                      : &lt;strong style={{ fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+                        Beyond {fmtDate(cleanupDate)}
+                      &lt;/strong&gt;
+                    &lt;/span&gt;
+                  &lt;/div&gt;
+                );
+              })()}
             &lt;/div&gt;
 
-            {/* ── Modules Exempt from Standard Duration ───────────────────── */}
+            {/* ── Select Modules to exempt from Standard Duration ─────────── */}
             &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
               &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
                 &lt;Checkbox
-                  label=&quot;Modules Exempt from Standard Duration&quot;
+                  label=&quot;Select Modules to exempt from Standard Duration&quot;
                   checked={exemptEnabled}
                   onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
                 /&gt;
@@ -12472,6 +12629,32 @@ export const ManageLogRetentionSettings: Story = {
           &lt;/div&gt;
         &lt;/Modal&gt;
 
+        &lt;Modal
+          type=&quot;alert&quot;
+          variant=&quot;warning&quot;
+          isOpen={confirmOpen}
+          title=&quot;Save audit log duration changes&quot;
+          description={
+            &lt;&gt;
+              &lt;p&gt;Logs beyond the retention period will be permanently deleted. Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/p&gt;
+              &lt;div style={{ marginTop: 20 }}&gt;
+                &lt;MessageInfo variant=&quot;note&quot; message=&quot;Deleted logs cannot be recovered.&quot; /&gt;
+              &lt;/div&gt;
+            &lt;/&gt;
+          }
+          confirmLabel=&quot;Proceed&quot;
+          cancelLabel=&quot;Cancel&quot;
+          onClose={() =&gt; setConfirmOpen(false)}
+          onCancel={() =&gt; setConfirmOpen(false)}
+          onSave={() =&gt; {
+            setConfirmOpen(false);
+            setOpen(false);
+            setSaved(true);
+            setTimeout(() =&gt; setSaved(false), 4000);
+          }}
+          width={640}
+        /&gt;
+
         {saved &amp;&amp; (
           &lt;&gt;
             &lt;style&gt;{`
@@ -12532,7 +12715,7 @@ export const ManageLogRetentionSettings: Story = {
               
               <pre><code>const ManageLogRetentionSettings = () =&gt; {
   const [open, setOpen] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [saved, setSaved] = useState(false);
   const [visibleYears, setVisibleYears] = useState(3);
   const [totalYears, setTotalYears]     = useState(7);
@@ -12591,16 +12774,7 @@ export const ManageLogRetentionSettings: Story = {
         description=&quot;Choose how long the logs should stay visible and archived in the Audit Log.&quot;
         onClose={() =&gt; setOpen(false)}
         onCancel={() =&gt; setOpen(false)}
-        onSave={() =&gt; {
-          setSaving(true);
-          setTimeout(() =&gt; {
-            setSaving(false);
-            setOpen(false);
-            setSaved(true);
-            setTimeout(() =&gt; setSaved(false), 4000);
-          }, 500);
-        }}
-        saveLoading={saving}
+        onSave={() =&gt; setConfirmOpen(true)}
         cancelLabel=&quot;Cancel&quot;
         saveLabel=&quot;Save&quot;
         width={640}
@@ -12632,7 +12806,7 @@ export const ManageLogRetentionSettings: Story = {
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
             &lt;RetentionRow
               dotColor=&quot;var(--ds-components-slider-active-bg-fill-color, #5464F2)&quot;
-              showDot={archiveEnabled}
+              showDot={true}
               label=&quot;Visible Log History&quot;
               years={visibleYears}
               availableFrom={fmtDate(visibleStart)}
@@ -12648,13 +12822,42 @@ export const ManageLogRetentionSettings: Story = {
                 availableTo={fmtDate(archiveEnd)}
               /&gt;
             )}
+
+            {/* Cleanup Period */}
+            {(() =&gt; {
+              const cleanupDate = archiveEnabled &amp;&amp; archiveYears &gt; 0 ? archiveStart : visibleStart;
+              const rowText: React.CSSProperties = {
+                fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                fontSize: &#39;var(--ds-font-size-base)&#39;,
+                color: &#39;var(--ds-text-base)&#39;,
+                lineHeight: &#39;1.6&#39;,
+              };
+              return (
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, flexWrap: &#39;wrap&#39;, gap: 6 }}&gt;
+                  &lt;div style={{
+                    width: 8, height: 8,
+                    borderRadius: &#39;50%&#39;,
+                    background: &#39;var(--ds-text-muted, #8C9BAB)&#39;,
+                    flexShrink: 0,
+                  }} /&gt;
+                  &lt;span style={{ ...rowText, fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+                    Cleanup Period
+                  &lt;/span&gt;
+                  &lt;span style={rowText}&gt;
+                    : &lt;strong style={{ fontWeight: &#39;var(--ds-font-weight-semibold)&#39; as any }}&gt;
+                      Beyond {fmtDate(cleanupDate)}
+                    &lt;/strong&gt;
+                  &lt;/span&gt;
+                &lt;/div&gt;
+              );
+            })()}
           &lt;/div&gt;
 
-          {/* ── Modules Exempt from Standard Duration ───────────────────── */}
+          {/* ── Select Modules to exempt from Standard Duration ─────────── */}
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
             &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
               &lt;Checkbox
-                label=&quot;Modules Exempt from Standard Duration&quot;
+                label=&quot;Select Modules to exempt from Standard Duration&quot;
                 checked={exemptEnabled}
                 onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
               /&gt;
@@ -12740,6 +12943,32 @@ export const ManageLogRetentionSettings: Story = {
 
         &lt;/div&gt;
       &lt;/Modal&gt;
+
+      &lt;Modal
+        type=&quot;alert&quot;
+        variant=&quot;warning&quot;
+        isOpen={confirmOpen}
+        title=&quot;Save audit log duration changes&quot;
+        description={
+          &lt;&gt;
+            &lt;p&gt;Logs beyond the retention period will be permanently deleted. Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/p&gt;
+            &lt;div style={{ marginTop: 20 }}&gt;
+              &lt;MessageInfo variant=&quot;note&quot; message=&quot;Deleted logs cannot be recovered.&quot; /&gt;
+            &lt;/div&gt;
+          &lt;/&gt;
+        }
+        confirmLabel=&quot;Proceed&quot;
+        cancelLabel=&quot;Cancel&quot;
+        onClose={() =&gt; setConfirmOpen(false)}
+        onCancel={() =&gt; setConfirmOpen(false)}
+        onSave={() =&gt; {
+          setConfirmOpen(false);
+          setOpen(false);
+          setSaved(true);
+          setTimeout(() =&gt; setSaved(false), 4000);
+        }}
+        width={640}
+      /&gt;
 
       {saved &amp;&amp; (
         &lt;&gt;
@@ -15890,6 +16119,28 @@ import { useEffect, useCallback, useState, useRef, useLayoutEffect } from &#39;r
 import { createPortal } from &#39;react-dom&#39;;
 import &#39;./Modal.css&#39;;
 import { Button } from &#39;../Button/Button&#39;;
+import {
+  CrmAlertSuccess,
+  CrmAlertInfo,
+  CrmAlertWarning,
+  CrmAlertError,
+  CrmAlertStop,
+} from &#39;../../foundations/icons/Icons&#39;;
+
+const ALERT_ICONS = {
+  success: CrmAlertSuccess,
+  info:    CrmAlertInfo,
+  warning: CrmAlertWarning,
+  error:   CrmAlertError,
+  denial:  CrmAlertStop,
+};
+
+// success, info, denial show a single &quot;Ok, Got it&quot; button — no Cancel
+const SINGLE_BTN_VARIANTS = new Set([&#39;success&#39;, &#39;info&#39;, &#39;denial&#39;]);
+
+function alertConfirmVariant(variant) {
+  return variant === &#39;error&#39; ? &#39;negative&#39; : &#39;primary&#39;;
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Component
@@ -15909,6 +16160,10 @@ export function Modal({
   footerNote,
   children,
   width = 569,
+  // Alert-specific props
+  type = &#39;modal&#39;,
+  variant = &#39;info&#39;,
+  confirmLabel,
 }) {
   // isVisible stays true during the slide-up closing animation
   const [isVisible, setIsVisible] = useState(isOpen);
@@ -15995,6 +16250,51 @@ export function Modal({
 
   if (!isVisible) return null;
 
+  // ── Alert modal ────────────────────────────────────────────────────────────
+  if (type === &#39;alert&#39;) {
+    const IconComp = ALERT_ICONS[variant];
+    const btnVariant = alertConfirmVariant(variant);
+    const singleBtn = SINGLE_BTN_VARIANTS.has(variant);
+    const actionLabel = confirmLabel ?? (singleBtn ? &#39;Ok, Got it&#39; : saveLabel);
+
+    return createPortal(
+      &lt;div className=&#39;modal-backdrop&#39; aria-hidden=&quot;true&quot;&gt;
+        &lt;div
+          ref={dialogRef}
+          className=&#39;modal-dialog&#39;
+          role=&quot;alertdialog&quot;
+          aria-modal=&quot;true&quot;
+          aria-labelledby=&quot;modal-title&quot;
+          style={{ width }}
+          data-closing={isClosing || undefined}
+          onAnimationEnd={handleAnimationEnd}
+          onClick={(e) =&gt; e.stopPropagation()}
+        &gt;
+          &lt;div className=&quot;modal-alert-content&quot; data-heading-only={!description || undefined}&gt;
+            &lt;div className=&quot;modal-header-title-row&quot;&gt;
+              {IconComp &amp;&amp; (
+                &lt;span className=&quot;modal-header-icon&quot; aria-hidden=&quot;true&quot;&gt;
+                  &lt;IconComp width={25} height={25} /&gt;
+                &lt;/span&gt;
+              )}
+              &lt;h2 id=&quot;modal-title&quot; className=&quot;modal-title&quot;&gt;{title}&lt;/h2&gt;
+            &lt;/div&gt;
+            {description &amp;&amp; &lt;div className=&quot;modal-description&quot;&gt;{description}&lt;/div&gt;}
+          &lt;/div&gt;
+          &lt;div className=&quot;modal-footer&quot;&gt;
+            {!singleBtn &amp;&amp; (
+              &lt;Button variant=&quot;default&quot; onClick={handleCancel}&gt;{cancelLabel}&lt;/Button&gt;
+            )}
+            &lt;Button variant={btnVariant} onClick={onSave} loading={saveLoading}&gt;
+              {actionLabel}
+            &lt;/Button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;,
+      document.body
+    );
+  }
+
   return createPortal(
     &lt;div className=&#39;modal-backdrop&#39; aria-hidden=&quot;true&quot;&gt;
       &lt;div
@@ -16074,86 +16374,10 @@ export default Modal;
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { Button, Checkbox, Dropdown, Input, Modal } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import { Button, Input, Modal } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Locale Information</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              <div class="hint">Locale Information form — matches the Figma design exactly.
-Use the &quot;Open Modal&quot; button to trigger it.</div>
-              <pre><code>const LocaleInformation = () =&gt; {
-    const [open, setOpen] = useState(false);
-
-    return (
-        &lt;&gt;
-            &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;Open Modal
-                        &lt;/Button&gt;
-            &lt;Modal
-                width={569}
-                cancelLabel=&quot;Cancel&quot;
-                saveLabel=&quot;Save&quot;
-                isOpen={open}
-                title=&quot;Locale Information&quot;
-                onClose={() =&gt; setOpen(false)}
-                onCancel={() =&gt; setOpen(false)}
-                onSave={() =&gt; setOpen(false)}
-                footerNote={
-                  &lt;&gt;
-                    &lt;Checkbox id=&quot;recommend&quot; /&gt;
-                    &lt;label htmlFor=&quot;recommend&quot; style={{ fontSize: 14, color: &#39;#313949&#39;, cursor: &#39;pointer&#39; }}&gt;
-                      Use recommended variant
-                    &lt;/label&gt;
-                    &lt;a href=&quot;#&quot; style={{ fontSize: 14, color: &#39;#5464F2&#39;, textDecoration: &#39;none&#39;, marginLeft: 8 }}&gt;
-                      Preview
-                    &lt;/a&gt;
-                  &lt;/&gt;
-                }&gt;
-                &lt;Dropdown
-                    label=&quot;Country&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={COUNTRIES} /&gt;
-                &lt;Dropdown
-                    label=&quot;Language&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={LANGUAGES} /&gt;
-                &lt;Dropdown
-                    label=&quot;Date Format&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={DATE_FORMATS} /&gt;
-                &lt;Dropdown
-                    label=&quot;Time Format&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={TIME_FORMATS} /&gt;
-                &lt;Dropdown
-                    label=&quot;Number Format&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={NUMBER_FORMATS} /&gt;
-                &lt;Dropdown
-                    label=&quot;Currency&quot;
-                    layout=&quot;horizontal&quot;
-                    width={509}
-                    columns=&quot;99px 390px&quot;
-                    options={CURRENCIES} /&gt;
-            &lt;/Modal&gt;
-        &lt;/&gt;
-    );
-};</code></pre>
-            </div>
             <div class="note ok">
               <div class="row">
                 <span class="ex-name">Default</span>
@@ -16191,44 +16415,94 @@ Use the &quot;Open Modal&quot; button to trigger it.</div>
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Wide (590px)</span>
+                <span class="ex-name">Alert Modal</span>
                 <span class="badge ok">story ok</span>
               </div>
               
-              <div class="hint">Wide modal — 590px, 120px label + 390px input.</div>
-              <pre><code>const Wide = () =&gt; {
-    const [open, setOpen] = useState(false);
+              <div class="hint">Alert Modal — compact dialog with icon, title, optional description, and
+right-aligned action buttons. Variants: success, info (single &quot;Ok, Got it&quot;),
+warning, error (Cancel + action), denial (single &quot;Ok, Got it&quot;).
+Figma: Chinnaiya Style Sheet node 93672:150667.</div>
+              <pre><code>const AlertModal = () =&gt; {
+  const [activeKey, setActiveKey] = useState&lt;string | null&gt;(null);
+  const active = ALERT_VARIANTS.find((v) =&gt; v.key === activeKey);
 
-    const W    = 530;
-    const COLS = &#39;120px 390px&#39;;
+  return (
+    &lt;&gt;
+      &lt;div style={{ display: &#39;flex&#39;, gap: 12, flexWrap: &#39;wrap&#39; }}&gt;
+        {ALERT_VARIANTS.map((v) =&gt; (
+          &lt;Button key={v.key} variant={v.triggerVariant as any} onClick={() =&gt; setActiveKey(v.key)}&gt;
+            {v.label}
+          &lt;/Button&gt;
+        ))}
+      &lt;/div&gt;
 
-    return (
-        &lt;&gt;
-            &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;Open Wide Modal
-                        &lt;/Button&gt;
-            &lt;Modal
-                title=&quot;Add Contact&quot;
-                width={590}
-                cancelLabel=&quot;Cancel&quot;
-                saveLabel=&quot;Create&quot;
-                isOpen={open}
-                onClose={() =&gt; setOpen(false)}
-                onCancel={() =&gt; setOpen(false)}
-                onSave={() =&gt; setOpen(false)}&gt;
-                &lt;Input label=&quot;First Name&quot; layout=&quot;horizontal&quot; width={W} columns={COLS} /&gt;
-                &lt;Input label=&quot;Last Name&quot; layout=&quot;horizontal&quot; width={W} columns={COLS} /&gt;
-                &lt;Input label=&quot;Email&quot; layout=&quot;horizontal&quot; width={W} columns={COLS} type=&quot;email&quot; /&gt;
-                &lt;Input
-                    label=&quot;Phone&quot;
-                    layout=&quot;horizontal&quot;
-                    width={W}
-                    columns={COLS}
-                    type=&quot;tel&quot;
-                    required /&gt;
-                &lt;Dropdown label=&quot;Account&quot; layout=&quot;horizontal&quot; width={W} columns={COLS} options={[]} /&gt;
-            &lt;/Modal&gt;
-        &lt;/&gt;
-    );
+      {active &amp;&amp; (
+        &lt;Modal
+          type=&quot;alert&quot;
+          variant={activeKey as any}
+          isOpen
+          title={active.title}
+          description={active.description}
+          onClose={() =&gt; setActiveKey(null)}
+          onCancel={() =&gt; setActiveKey(null)}
+          onSave={() =&gt; setActiveKey(null)}
+          confirmLabel={active.confirmLabel}
+          cancelLabel=&quot;Cancel&quot;
+          width={480}
+        /&gt;
+      )}
+    &lt;/&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Alert Only Heading</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Alert only heading — same alert modal but with title only, no description paragraph.
+Used when the message is short and self-explanatory.</div>
+              <pre><code>const AlertOnlyHeading = () =&gt; {
+  const [activeKey, setActiveKey] = useState&lt;string | null&gt;(null);
+
+  const headingVariants = [
+    { key: &#39;success&#39;, label: &#39;Success&#39;, triggerVariant: &#39;outline-green&#39;, title: &#39;Record saved successfully.&#39; },
+    { key: &#39;info&#39;,    label: &#39;Info&#39;,    triggerVariant: &#39;outline-blue&#39;,  title: &#39;This action will apply to all users.&#39; },
+    { key: &#39;warning&#39;, label: &#39;Warning&#39;, triggerVariant: &#39;outline-orange&#39;, title: &#39;Are you sure you want to continue?&#39;, confirmLabel: &#39;Continue&#39; },
+    { key: &#39;error&#39;,   label: &#39;Error&#39;,   triggerVariant: &#39;outline-red&#39;,   title: &#39;Delete &quot;Sales Pipeline Q3&quot;&#39;, confirmLabel: &#39;Delete&#39; },
+    { key: &#39;denial&#39;,  label: &#39;Denial&#39;,  triggerVariant: &#39;default&#39;,       title: &#39;Permission Denied&#39; },
+  ];
+
+  const active = headingVariants.find((v) =&gt; v.key === activeKey);
+
+  return (
+    &lt;&gt;
+      &lt;div style={{ display: &#39;flex&#39;, gap: 12, flexWrap: &#39;wrap&#39; }}&gt;
+        {headingVariants.map((v) =&gt; (
+          &lt;Button key={v.key} variant={v.triggerVariant as any} onClick={() =&gt; setActiveKey(v.key)}&gt;
+            {v.label}
+          &lt;/Button&gt;
+        ))}
+      &lt;/div&gt;
+
+      {active &amp;&amp; (
+        &lt;Modal
+          type=&quot;alert&quot;
+          variant={activeKey as any}
+          isOpen
+          title={active.title}
+          onClose={() =&gt; setActiveKey(null)}
+          onCancel={() =&gt; setActiveKey(null)}
+          onSave={() =&gt; setActiveKey(null)}
+          confirmLabel={(active as any).confirmLabel}
+          cancelLabel=&quot;Cancel&quot;
+          width={480}
+        /&gt;
+      )}
+    &lt;/&gt;
+  );
 };</code></pre>
             </div>
         </div>
