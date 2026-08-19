@@ -1,0 +1,10 @@
+import{i as e}from"./preload-helper-BTXe9M7S.js";import{t}from"./jsx-runtime-D-I7Lrue.js";import{n,t as r}from"./NextGenTopBand-D-PzlMMA.js";var i,a,o,s,c,l;e((()=>{n(),i=t(),a={title:`Design System/Components/NextGenTopBand`,component:r,parameters:{layout:`fullscreen`,docs:{description:{component:`Next-generation top navigation band for Zoho CRM. White bar with module selector, search, territory filter on the left; action icons and user avatar on the right. Figma: Chinnaiya-Style-Sheet node 70396:190911.`}}}},o={name:`Default`,render:()=>(0,i.jsx)(r,{moduleLabel:`Leads`,moduleCount:1,searchPlaceholder:`Search Leads...`,territory:`All Territories`,notificationCount:3,userInitials:`C`})},s={name:`No Badge`,render:()=>(0,i.jsx)(r,{moduleLabel:`Contacts`,searchPlaceholder:`Search Contacts...`,territory:`All Territories`})},c={name:`Long Module Name`,render:()=>(0,i.jsx)(r,{moduleLabel:`Social Media Strategy`,moduleCount:12,searchPlaceholder:`Search...`,territory:`North America`,notificationCount:99,userInitials:`CR`})},o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+  name: 'Default',
+  render: () => <NextGenTopBand moduleLabel="Leads" moduleCount={1} searchPlaceholder="Search Leads..." territory="All Territories" notificationCount={3} userInitials="C" />
+}`,...o.parameters?.docs?.source}}},s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+  name: 'No Badge',
+  render: () => <NextGenTopBand moduleLabel="Contacts" searchPlaceholder="Search Contacts..." territory="All Territories" />
+}`,...s.parameters?.docs?.source}}},c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
+  name: 'Long Module Name',
+  render: () => <NextGenTopBand moduleLabel="Social Media Strategy" moduleCount={12} searchPlaceholder="Search..." territory="North America" notificationCount={99} userInitials="CR" />
+}`,...c.parameters?.docs?.source}}},l=[`Default`,`NoCount`,`LongModule`]}))();export{o as Default,c as LongModule,s as NoCount,l as __namedExportsOrder,a as default};
