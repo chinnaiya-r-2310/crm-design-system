@@ -77,6 +77,48 @@ export const AlertInfo: FC<P> = (props) => (
   </svg>
 );
 
+// ─────────────────────────────────────────────────────────────────────────────
+// CRM alert icons — used by Alert Modal (crm-icon-library node 91:19)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const CrmAlertSuccess: FC<P> = (props) => (
+  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <circle cx="12.5" cy="12.5" r="11.5" fill="#12AA67"/>
+    <path d="M8 13.6465L10.3232 15.9697L17.2929 9" stroke="white" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const CrmAlertInfo: FC<P> = (props) => (
+  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <circle cx="12.5" cy="12.5" r="11.5" fill="#226DB4"/>
+    <path d="M10.1526 12.7991C11.4598 11.7616 11.8622 11.1082 12.7128 11.4069C13.7761 11.7804 9.83746 18.2542 10.9008 18.6276C11.7514 18.9264 12.8513 18.1788 13.8622 17.2244" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <circle cx="12.5" cy="6.5" r="1.5" fill="white"/>
+  </svg>
+);
+
+export const CrmAlertWarning: FC<P> = (props) => (
+  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M23.394 20.045L14.2572 3.23334C13.5 1.84004 11.5 1.84004 10.7428 3.23333L1.60599 20.045C0.881713 21.3776 1.84647 23 3.36324 23H21.6368C23.1535 23 24.1183 21.3777 23.394 20.045Z" fill="#F18E0A"/>
+    <circle cx="1.5" cy="1.5" r="1.5" transform="matrix(1 0 0 -1 11 20)" fill="white"/>
+    <path d="M11 9.28571L12.2055 15.4855C12.2684 15.8092 12.7316 15.8092 12.7945 15.4855L14 9.28571C14 8.85714 13.7 8 12.5 8C11.3 8 11 8.85714 11 9.28571Z" fill="white"/>
+  </svg>
+);
+
+export const CrmAlertError: FC<P> = (props) => (
+  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M23.394 20.045L14.2572 3.23334C13.5 1.84004 11.5 1.84004 10.7428 3.23333L1.60599 20.045C0.881713 21.3776 1.84647 23 3.36324 23H21.6368C23.1535 23 24.1183 21.3777 23.394 20.045Z" fill="#FF5D5A"/>
+    <circle cx="1.5" cy="1.5" r="1.5" transform="matrix(1 0 0 -1 11 20)" fill="white"/>
+    <path d="M11 9.28571L12.2055 15.4855C12.2684 15.8092 12.7316 15.8092 12.7945 15.4855L14 9.28571C14 8.85714 13.7 8 12.5 8C11.3 8 11 8.85714 11 9.28571Z" fill="white"/>
+  </svg>
+);
+
+export const CrmAlertStop: FC<P> = (props) => (
+  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <circle cx="12.5" cy="12.5" r="10" stroke="#FF5D5A" strokeWidth="3"/>
+    <path d="M5 5L19 19" stroke="#FF5D5A" strokeWidth="3"/>
+  </svg>
+);
+
 export const CloseSmall: FC<P> = (props) => (
   <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path d="M0.5 0.5L7.5 7.5M7.5 0.5L0.5 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>

@@ -183,3 +183,25 @@
   justify-content: flex-end;
   gap: 10px;
 }
+
+/* ── Alert Modal ─────────────────────────────────────────────────────────── */
+
+.modal-alert-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-alert-content[data-heading-only] .modal-title {
+  font-size: 15px;
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.modal-description p {
+  margin: 0;
+}
+
+.modal-description p + p {
+  margin-top: 10px;
+}
+

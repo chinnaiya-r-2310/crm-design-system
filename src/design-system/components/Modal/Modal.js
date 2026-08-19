@@ -2,6 +2,28 @@ import { useEffect, useCallback, useState, useRef, useLayoutEffect } from 'react
 import { createPortal } from 'react-dom';
 import './Modal.css';
 import { Button } from '../Button/Button';
+import {
+  CrmAlertSuccess,
+  CrmAlertInfo,
+  CrmAlertWarning,
+  CrmAlertError,
+  CrmAlertStop,
+} from '../../foundations/icons/Icons';
+
+const ALERT_ICONS = {
+  success: CrmAlertSuccess,
+  info:    CrmAlertInfo,
+  warning: CrmAlertWarning,
+  error:   CrmAlertError,
+  denial:  CrmAlertStop,
+};
+
+// success, info, denial show a single "Ok, Got it" button — no Cancel
+const SINGLE_BTN_VARIANTS = new Set(['success', 'info', 'denial']);
+
+function alertConfirmVariant(variant) {
+  return variant === 'error' ? 'negative' : 'primary';
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Component
@@ -21,6 +43,10 @@ export function Modal({
   footerNote,
   children,
   width = 569,
+  // Alert-specific props
+  type = 'modal',
+  variant = 'info',
+  confirmLabel,
 }) {
   // isVisible stays true during the slide-up closing animation
   const [isVisible, setIsVisible] = useState(isOpen);
@@ -106,6 +132,51 @@ export function Modal({
   }, [isVisible]);
 
   if (!isVisible) return null;
+
+  // ── Alert modal ────────────────────────────────────────────────────────────
+  if (type === 'alert') {
+    const IconComp = ALERT_ICONS[variant];
+    const btnVariant = alertConfirmVariant(variant);
+    const singleBtn = SINGLE_BTN_VARIANTS.has(variant);
+    const actionLabel = confirmLabel ?? (singleBtn ? 'Ok, Got it' : saveLabel);
+
+    return createPortal(
+      <div className='modal-backdrop' aria-hidden="true">
+        <div
+          ref={dialogRef}
+          className='modal-dialog'
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+          style={{ width }}
+          data-closing={isClosing || undefined}
+          onAnimationEnd={handleAnimationEnd}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="modal-alert-content" data-heading-only={!description || undefined}>
+            <div className="modal-header-title-row">
+              {IconComp && (
+                <span className="modal-header-icon" aria-hidden="true">
+                  <IconComp width={25} height={25} />
+                </span>
+              )}
+              <h2 id="modal-title" className="modal-title">{title}</h2>
+            </div>
+            {description && <div className="modal-description">{description}</div>}
+          </div>
+          <div className="modal-footer">
+            {!singleBtn && (
+              <Button variant="default" onClick={handleCancel}>{cancelLabel}</Button>
+            )}
+            <Button variant={btnVariant} onClick={onSave} loading={saveLoading}>
+              {actionLabel}
+            </Button>
+          </div>
+        </div>
+      </div>,
+      document.body
+    );
+  }
 
   return createPortal(
     <div className='modal-backdrop' aria-hidden="true">

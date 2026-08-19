@@ -93,8 +93,8 @@ function DualRangeSlider({
     e.preventDefault();
     const move = (ev: MouseEvent) => {
       const v = pickValue(ev.clientX);
-      if (thumb === 'a') onChangeA(Math.min(Math.max(v, 1), Math.min(valueB, maxA)));
-      else               onChangeB(Math.max(v, valueA, 2));
+      if (thumb === 'a') onChangeA(Math.min(Math.max(v, 1), Math.min(valueB - 1, maxA)));
+      else               onChangeB(Math.max(v, valueA + 1, 2));
     };
     const up = () => {
       document.removeEventListener('mousemove', move);
@@ -385,7 +385,7 @@ export const ManageLogRetentionSettings: Story = {
   ],
   render: () => {
     const [open, setOpen] = useState(true);
-    const [saving, setSaving] = useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
     const [saved, setSaved] = useState(false);
     const [visibleYears, setVisibleYears] = useState(3);
     const [totalYears, setTotalYears]     = useState(7);
@@ -444,16 +444,7 @@ export const ManageLogRetentionSettings: Story = {
           description="Choose how long the logs should stay visible and archived in the Audit Log."
           onClose={() => setOpen(false)}
           onCancel={() => setOpen(false)}
-          onSave={() => {
-            setSaving(true);
-            setTimeout(() => {
-              setSaving(false);
-              setOpen(false);
-              setSaved(true);
-              setTimeout(() => setSaved(false), 4000);
-            }, 500);
-          }}
-          saveLoading={saving}
+          onSave={() => setConfirmOpen(true)}
           cancelLabel="Cancel"
           saveLabel="Save"
           width={640}
@@ -485,7 +476,7 @@ export const ManageLogRetentionSettings: Story = {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               <RetentionRow
                 dotColor="var(--ds-components-slider-active-bg-fill-color, #5464F2)"
-                showDot={archiveEnabled}
+                showDot={true}
                 label="Visible Log History"
                 years={visibleYears}
                 availableFrom={fmtDate(visibleStart)}
@@ -501,13 +492,42 @@ export const ManageLogRetentionSettings: Story = {
                   availableTo={fmtDate(archiveEnd)}
                 />
               )}
+
+              {/* Cleanup Period */}
+              {(() => {
+                const cleanupDate = archiveEnabled && archiveYears > 0 ? archiveStart : visibleStart;
+                const rowText: React.CSSProperties = {
+                  fontFamily: 'var(--ds-font-family-base)',
+                  fontSize: 'var(--ds-font-size-base)',
+                  color: 'var(--ds-text-base)',
+                  lineHeight: '1.6',
+                };
+                return (
+                  <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 6 }}>
+                    <div style={{
+                      width: 8, height: 8,
+                      borderRadius: '50%',
+                      background: 'var(--ds-text-muted, #8C9BAB)',
+                      flexShrink: 0,
+                    }} />
+                    <span style={{ ...rowText, fontWeight: 'var(--ds-font-weight-semibold)' as any }}>
+                      Cleanup Period
+                    </span>
+                    <span style={rowText}>
+                      : <strong style={{ fontWeight: 'var(--ds-font-weight-semibold)' as any }}>
+                        Beyond {fmtDate(cleanupDate)}
+                      </strong>
+                    </span>
+                  </div>
+                );
+              })()}
             </div>
 
-            {/* ── Modules Exempt from Standard Duration ───────────────────── */}
+            {/* ── Select Modules to exempt from Standard Duration ─────────── */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Checkbox
-                  label="Modules Exempt from Standard Duration"
+                  label="Select Modules to exempt from Standard Duration"
                   checked={exemptEnabled}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExemptEnabled(e.target.checked)}
                 />
@@ -593,6 +613,32 @@ export const ManageLogRetentionSettings: Story = {
 
           </div>
         </Modal>
+
+        <Modal
+          type="alert"
+          variant="warning"
+          isOpen={confirmOpen}
+          title="Save audit log duration changes"
+          description={
+            <>
+              <p>Logs beyond the retention period will be permanently deleted. Exempted modules will be retained for 6 months only, then permanently deleted.</p>
+              <div style={{ marginTop: 20 }}>
+                <MessageInfo variant="note" message="Deleted logs cannot be recovered." />
+              </div>
+            </>
+          }
+          confirmLabel="Proceed"
+          cancelLabel="Cancel"
+          onClose={() => setConfirmOpen(false)}
+          onCancel={() => setConfirmOpen(false)}
+          onSave={() => {
+            setConfirmOpen(false);
+            setOpen(false);
+            setSaved(true);
+            setTimeout(() => setSaved(false), 4000);
+          }}
+          width={640}
+        />
 
         {saved && (
           <>

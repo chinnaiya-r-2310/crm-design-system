@@ -237,14 +237,26 @@ export function Tags({
                 aria-hidden="true"
               />
             )}
-            <TruncatedLabel text={tag.tagLabel || tag.label} className={'tags-tag-label'}>
-              {(tag.tagLabel || tag.label).replace(/(\s*\([^)]*\))$/, '')}
-              {/(\s*\([^)]*\))$/.test(tag.tagLabel || tag.label) && (
-                <span style={{ color: 'var(--ds-text-label, #616E88)' }}>
-                  {(tag.tagLabel || tag.label).match(/(\s*\([^)]*\))$/)[1]}
-                </span>
-              )}
-            </TruncatedLabel>
+            {(() => {
+              const fullLabel = tag.tagLabel || tag.label;
+              const bracesMatch = fullLabel.match(/(\s*\([^)]*\))$/);
+              const mainText = bracesMatch ? fullLabel.slice(0, fullLabel.length - bracesMatch[1].length) : fullLabel;
+              const bracesText = bracesMatch ? bracesMatch[1] : null;
+              return (
+                <TruncatedLabel
+                  text={fullLabel}
+                  className={'tags-tag-label'}
+                  style={bracesText ? { color: 'var(--ds-text-label, #616E88)' } : undefined}
+                >
+                  {bracesText
+                    ? <span style={{ color: 'var(--ds-text-base, #313949)' }}>{mainText}</span>
+                    : mainText}
+                  {bracesText && (
+                    <span style={{ color: 'var(--ds-text-label, #616E88)' }}>{bracesText}</span>
+                  )}
+                </TruncatedLabel>
+              );
+            })()}
             {tag.count !== undefined && (
               <span className={'tags-tag-count'}>{tag.count}</span>
             )}
