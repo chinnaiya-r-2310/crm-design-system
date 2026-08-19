@@ -45,6 +45,19 @@
   min-width: 0;
 }
 
+/* ── In-progress (indeterminate) — sweeping green gradient ── */
+.pb-fill-indeterminate {
+  width: 100%;
+  background: linear-gradient(90deg, #58CC55 0%, #58CC55 30%, #BFFFBF 50%, #58CC55 70%, #58CC55 100%);
+  background-size: 200% 100%;
+  animation: pb-in-progress 2.5s linear infinite;
+}
+
+@keyframes pb-in-progress {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* ── Footer labels ── */
 .pb-footer {
   display: flex;

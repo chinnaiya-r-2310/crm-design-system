@@ -3,6 +3,7 @@ export * from './components/ds-icon.js';
 export * from './components/ds-checkbox.js';
 export * from './components/ds-radio.js';
 export * from './components/ds-switch.js';
+export * from './components/ds-slider.js';
 export * from './components/ds-message-box.js';
 export * from './components/ds-form-section.js';
 export * from './components/ds-breadcrumb.js';

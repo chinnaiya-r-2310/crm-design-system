@@ -195,6 +195,92 @@ export function MultiSlider({
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   PercentSlider — 10 heat-map segments, threshold thumb
+   Figma: Chinnaiya Style Sheet node 93720:230555
+   Props:
+     value    — threshold 0–100 (snaps to multiples of 10)
+     disabled
+     onChange(value)
+   Segments left of the thumb are grayed out; at/right are colored.
+   ───────────────────────────────────────────────────────────────────────────── */
+const PCT_SEGMENT_COLORS = [
+  '#EDECD1', '#E1E0A6', '#CECC84', '#DAC072', '#EBB05F',
+  '#F7A553', '#FB934E', '#FB734C', '#FA624C', '#F9504C',
+];
+
+export function PercentSlider({
+  value = 0,
+  disabled = false,
+  onChange,
+}) {
+  const trackRef = useRef(null);
+  const clamped = Math.min(100, Math.max(0, Math.round(value / 10) * 10));
+
+  const pickValue = useCallback((clientX) => {
+    const rect = trackRef.current.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    return Math.round(ratio * 10) * 10;
+  }, []);
+
+  const startDrag = useCallback((e) => {
+    if (disabled) return;
+    e.preventDefault();
+    const cx = (ev) => ev.touches ? ev.touches[0].clientX : ev.clientX;
+    const move = (ev) => onChange?.(pickValue(cx(ev)));
+    const up = () => {
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', up);
+      document.removeEventListener('touchmove', move);
+      document.removeEventListener('touchend', up);
+    };
+    move(e.nativeEvent ?? e);
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+    document.addEventListener('touchmove', move, { passive: true });
+    document.addEventListener('touchend', up);
+  }, [disabled, pickValue, onChange]);
+
+  const onKeyDown = (e) => {
+    if (disabled) return;
+    const delta = (e.key === 'ArrowRight' || e.key === 'ArrowUp') ? 10
+                : (e.key === 'ArrowLeft'  || e.key === 'ArrowDown') ? -10 : 0;
+    if (!delta) return;
+    e.preventDefault();
+    onChange?.(Math.min(100, Math.max(0, clamped + delta)));
+  };
+
+  return (
+    <div className={`sld-pct-root${disabled ? ' sld-disabled' : ''}`}>
+      <div className="sld-pct-header">
+        <span className="sld-pct-label">{clamped}-100%</span>
+      </div>
+      <div className="sld-pct-wrap" ref={trackRef} onMouseDown={startDrag} onTouchStart={startDrag}>
+        <div className="sld-pct-segs">
+          {PCT_SEGMENT_COLORS.map((color, i) => (
+            <div
+              key={i}
+              className="sld-pct-seg"
+              style={{ background: i >= clamped / 10 ? color : '#E5EAF2' }}
+            />
+          ))}
+        </div>
+        <div
+          className="sld-pct-thumb"
+          style={{ left: `${clamped}%` }}
+          role="slider"
+          tabIndex={disabled ? -1 : 0}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={clamped}
+          aria-disabled={disabled || undefined}
+          onKeyDown={onKeyDown}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
    StepSlider — discrete step dots + labels
    Figma: font-size slider variant
    Props:

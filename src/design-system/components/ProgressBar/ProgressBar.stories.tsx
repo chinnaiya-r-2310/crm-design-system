@@ -21,6 +21,7 @@ const meta: Meta<typeof ProgressBar> = {
     label: { control: 'text' },
     leftLabel: { control: 'text' },
     rightLabel: { control: 'text' },
+    indeterminate: { control: 'boolean' },
   },
   args: {
     value: 80,
@@ -28,6 +29,7 @@ const meta: Meta<typeof ProgressBar> = {
     label: 'File Storage',
     leftLabel: '10000 (80%)',
     rightLabel: '2500 (20%)',
+    indeterminate: false,
   },
 };
 export default meta;
@@ -45,6 +47,11 @@ export const Red: Story = {
 
 export const Green: Story = {
   args: { color: 'green', value: 80, label: 'File Storage', leftLabel: '10000 (80%)', rightLabel: '2500 (20%)' },
+};
+
+export const InProgress: Story = {
+  name: 'In Progress (shimmer)',
+  args: { value: 80, label: 'File Storage', leftLabel: '10000 (80%)', rightLabel: '2500 (20%)', indeterminate: true },
 };
 
 export const TitleOnly: Story = {
@@ -68,10 +75,11 @@ export const AllVariants: Story = {
         { label: 'Green — Full',color: 'green'as const, value: 80, leftLabel: '10000 (80%)', rightLabel: '2500 (20%)', title: 'File Storage' },
         { label: 'Title Only',  color: 'blue' as const, value: 65, title: 'CRM Progress' },
         { label: 'Bar Only',    color: 'blue' as const, value: 45 },
-      ].map(({ label, color, value, leftLabel, rightLabel, title }) => (
+        { label: 'In Progress', color: 'blue' as const, value: 70, title: 'File Storage', leftLabel: '7000 (70%)', rightLabel: '3000 (30%)', indeterminate: true },
+      ].map(({ label, color, value, leftLabel, rightLabel, title, indeterminate }) => (
         <div key={label}>
           <p style={{ margin: '0 0 6px', fontSize: 11, fontWeight: 600, color: '#616E88', textTransform: 'uppercase', letterSpacing: '0.6px' }}>{label}</p>
-          <ProgressBar value={value} color={color} label={title} leftLabel={leftLabel} rightLabel={rightLabel} />
+          <ProgressBar value={value} color={color} label={title} leftLabel={leftLabel} rightLabel={rightLabel} indeterminate={indeterminate} />
         </div>
       ))}
     </div>

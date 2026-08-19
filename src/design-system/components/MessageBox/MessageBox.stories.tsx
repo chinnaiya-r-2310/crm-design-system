@@ -71,8 +71,7 @@ export const Warning: Story = {
   },
 };
 
-export const InfoVariant: Story = {
-  name: 'Info',
+export const Info: Story = {
   args: {
     variant: 'info',
     message: 'This record was last modified 3 days ago.',

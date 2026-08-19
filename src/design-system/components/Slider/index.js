@@ -1,1 +1,1 @@
-export { Slider, MultiSlider, StepSlider } from './Slider';
+export { Slider, MultiSlider, StepSlider, PercentSlider } from './Slider';

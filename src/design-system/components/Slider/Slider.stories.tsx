@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Slider, MultiSlider, StepSlider } from './Slider';
+import { Slider, MultiSlider, StepSlider, PercentSlider } from './Slider';
 
 const meta: Meta = {
   title: 'Design System/Components/Slider',
@@ -189,6 +189,7 @@ export const AllVariants: Story = {
     const [marks, setM]   = useState(400000);
     const [multi, setMul] = useState<[number, number]>([33, 66]);
     const [step, setStep] = useState(2);
+    const [pct, setPct]   = useState(0);
 
     const sectionLabel = (text: string) => (
       <p style={{ margin: '0 0 8px', fontSize: 11, fontWeight: 600, color: '#616E88', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
@@ -236,6 +237,21 @@ export const AllVariants: Story = {
             onChange={setStep}
           />
         </div>
+        <div>{sectionLabel('Percent Slider')}
+          <PercentSlider value={pct} onChange={setPct} />
+        </div>
+      </div>
+    );
+  },
+};
+
+export const PercentSliderStory: Story = {
+  name: 'Percent Slider',
+  render: () => {
+    const [value, setValue] = useState(0);
+    return (
+      <div style={{ width: 400, fontFamily: 'var(--ds-font-family-base, sans-serif)' }}>
+        <PercentSlider value={value} onChange={setValue} />
       </div>
     );
   },

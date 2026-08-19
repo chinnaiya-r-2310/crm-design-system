@@ -1,0 +1,85 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Stepper — Figma: Chinnaiya-Style-Sheet node 93672-150667
+   Two variants: 'multi' (green/orange/gray) and 'single' (blue)
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+.stp-root {
+  display: flex;
+  align-items: stretch;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  user-select: none;
+}
+
+/* ── Outer step (border color layer + chevron clip) ── */
+.stp-step {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: var(--stp-border, transparent);
+  /* non-first steps: notch on left + arrow on right */
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 50%,
+    calc(100% - 14px) 100%,
+    0 100%,
+    14px 50%
+  );
+  /* pull next step left so arrow + notch align */
+  margin-right: -14px;
+  flex-shrink: 0;
+}
+
+/* First step: no notch on left */
+.stp-step.stp-first {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 50%,
+    calc(100% - 14px) 100%,
+    0 100%
+  );
+}
+
+/* Last step: restore margin */
+.stp-step.stp-last {
+  margin-right: 0;
+}
+
+/* ── Inner content layer (fill color) ── */
+.stp-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* right pad covers the 14px arrow zone + breathing room */
+  padding: 0 22px 0 22px;
+  background: var(--stp-bg, #F2F3FA);
+  min-height: 30px;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* First step: no notch so less left padding needed */
+.stp-first .stp-inner {
+  padding-left: 12px;
+}
+
+/* ── Icon ── */
+.stp-icon-wrap {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+/* ── Label ── */
+.stp-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: #313949;
+  line-height: 1;
+}
+
+.stp-label-bold {
+  font-weight: 600;
+}
