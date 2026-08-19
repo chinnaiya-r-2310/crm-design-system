@@ -15,7 +15,7 @@
   position: relative;
   display: flex;
   align-items: stretch;
-  background: var(--stp-border, transparent);
+  /* background set inline in JS: border color for bordered states, fill color otherwise */
   /* non-first steps: notch on left + arrow on right */
   clip-path: polygon(
     0 0,

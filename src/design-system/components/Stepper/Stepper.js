@@ -21,7 +21,7 @@ const MULTI_COLORS = {
 const SINGLE_COLORS = {
   completed: { bg: '#E9EBFE', border: '#5464F2' },
   active:    { bg: '#E9EBFE', border: '#5464F2' },
-  pending:   { bg: '#F2F3FA', border: null },
+  pending:   { bg: '#F2F3FA', border: '#DCDBEE' },
 };
 
 function MultiIcon({ state }) {
@@ -88,11 +88,13 @@ export function Stepper({ variant = 'multi', steps = [], currentStep }) {
         const { bg, border } = colorMap[step.state];
         const hasBorder = !!border;
 
+        // Always pad 1.5px so all steps share the same height.
+        // For no-border states, outer bg === inner bg → no visible border.
         const outerStyle = {
+          background: hasBorder ? border : bg,
           '--stp-bg': bg,
-          '--stp-border': border || 'transparent',
           zIndex: i + 1,
-          padding: hasBorder ? '1.5px' : '0',
+          padding: '1.5px',
         };
 
         return (
