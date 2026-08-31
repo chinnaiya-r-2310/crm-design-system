@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">6/35 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">33/35 infos</a><span class="filter-pill ok" aria-disabled="true">247 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">7/37 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">34/37 infos</a><span class="filter-pill ok" aria-disabled="true">253 stories ok</span></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.8s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.7s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -3028,57 +3028,20 @@ width?: any = 284</code></pre>
                 <span class="badge ok">story ok</span>
               </div>
               
-              <div class="hint">Date of Month picker — a 1–31 number grid for recurring monthly schedules
-(no week-day headers; individual dates toggled).</div>
+              <div class="hint">Date of Month picker — a 1–31 number grid for recurring monthly schedules.
+No month/year header or navigation. Toggle individual day numbers.</div>
               <pre><code>const DateOfMonthPicker = () =&gt; {
   const [selected, setSelected] = useState&lt;number[]&gt;([2, 5, 16, 23]);
-  const toggle = (n: number) =&gt;
-    setSelected(prev =&gt; prev.includes(n) ? prev.filter(x =&gt; x !== n) : [...prev, n]);
-
   return (
-    &lt;div style={{
-      background: &#39;#fff&#39;,
-      border: &#39;1px solid #D6D6E2&#39;,
-      borderRadius: 8,
-      boxShadow: &#39;0 4px 16px rgba(0,0,0,0.08)&#39;,
-      padding: &#39;14px&#39;,
-      width: 284,
-      boxSizing: &#39;border-box&#39;,
-      fontFamily: &#39;var(--ds-font-family-base)&#39;,
-    }}&gt;
-      &lt;p style={{ margin: &#39;0 0 10px&#39;, fontSize: 12, fontWeight: 600, color: &#39;#616E88&#39; }}&gt;
-        Select Dates
-      &lt;/p&gt;
-      &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: &#39;repeat(7, 1fr)&#39;, gap: 2 }}&gt;
-        {Array.from({ length: 31 }, (_, i) =&gt; i + 1).map(n =&gt; {
-          const active = selected.includes(n);
-          return (
-            &lt;button
-              key={n}
-              type=&quot;button&quot;
-              onClick={() =&gt; toggle(n)}
-              style={{
-                height: 32,
-                border: &#39;none&#39;,
-                borderRadius: &#39;50%&#39;,
-                background: active ? &#39;#5464F2&#39; : &#39;transparent&#39;,
-                color: active ? &#39;#fff&#39; : &#39;#313949&#39;,
-                fontFamily: &#39;var(--ds-font-family-base)&#39;,
-                fontSize: 12,
-                fontWeight: active ? 500 : 400,
-                cursor: &#39;pointer&#39;,
-                display: &#39;flex&#39;,
-                alignItems: &#39;center&#39;,
-                justifyContent: &#39;center&#39;,
-              }}
-            &gt;
-              {n}
-            &lt;/button&gt;
-          );
-        })}
-      &lt;/div&gt;
-      &lt;p style={{ margin: &#39;10px 0 0&#39;, fontSize: 11, color: &#39;#B0B7C4&#39; }}&gt;
-        {selected.sort((a, b) =&gt; a - b).join(&#39;, &#39;) || &#39;—&#39;}
+    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12, alignItems: &#39;center&#39; }}&gt;
+      &lt;Calendar
+        mode=&quot;date-of-month&quot;
+        selectedDayNumbers={selected}
+        onDayNumbersChange={setSelected}
+        width={284}
+      /&gt;
+      &lt;p style={{ fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: 12, color: &#39;#616E88&#39;, margin: 0 }}&gt;
+        {selected.slice().sort((a, b) =&gt; a - b).join(&#39;, &#39;) || &#39;—&#39;}
       &lt;/p&gt;
     &lt;/div&gt;
   );
@@ -5565,14 +5528,197 @@ export const CreateDeal: Story = {
   no-story-error
   no-doc-error"
   role="listitem"
+  aria-label="GroupButton">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> GroupButton</h2>
+      <div class="badges">
+        <label for="c-12-design-system-components-groupbutton-props" class="badge ok as-toggle">7 prop types</label>
+        
+        <label for="c-12-design-system-components-groupbutton-stories" class="badge ok as-toggle">5 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/components/GroupButton/GroupButton.stories.tsx">design-system-components-groupbutton · ./src/design-system/components/GroupButton/GroupButton.stories.tsx</div>
+    
+    <div class="hint">GroupButton — a row of labelled toggle buttons.
+
+Single-select: pass `value: string` + `onChange: (value) =&gt; void`.
+Multi-select:  pass `value: string[]` + `onChange: (values) =&gt; void`.</div>
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  
+  <input id="c-12-design-system-components-groupbutton-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-12-design-system-components-groupbutton-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">7 prop types</span>
+            </div>
+            <pre><code>Component: src/design-system/components/GroupButton/GroupButton.js::GroupButton</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>disabled?: any = false
+
+gap?: any = 6
+
+itemHeight?: any = 34
+
+itemWidth?: any = 52
+
+multiSelect?: any = true
+
+options?: any = []
+
+showBadge?: any = true</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { GroupButton } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Multi-select (Day Picker)</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const DayPicker = () =&gt; {
+  const [selected, setSelected] = useState&lt;string[]&gt;([&#39;Mon&#39;, &#39;Wed&#39;]);
+  return (
+    &lt;GroupButton
+      options={DAYS}
+      value={selected}
+      onChange={(v) =&gt; setSelected(v as string[])}
+      multiSelect
+      showBadge
+    /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Single-select</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SingleSelect = () =&gt; {
+  const [selected, setSelected] = useState(&#39;Tue&#39;);
+  return (
+    &lt;GroupButton
+      options={DAYS}
+      value={selected}
+      onChange={(v) =&gt; setSelected(v as string)}
+      multiSelect={false}
+      showBadge={false}
+    /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Multi-select, no badge</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const NoBadge = () =&gt; {
+  const [selected, setSelected] = useState&lt;string[]&gt;([&#39;Fri&#39;, &#39;Sat&#39;, &#39;Sun&#39;]);
+  return (
+    &lt;GroupButton
+      options={DAYS}
+      value={selected}
+      onChange={(v) =&gt; setSelected(v as string[])}
+      multiSelect
+      showBadge={false}
+    /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Disabled</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Disabled = () =&gt; (
+  &lt;GroupButton
+    options={DAYS}
+    value={[&#39;Mon&#39;, &#39;Fri&#39;]}
+    multiSelect
+    disabled
+  /&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Custom options</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CustomOptions = () =&gt; {
+  const opts = [
+    { value: &#39;q1&#39;, label: &#39;Q1&#39; },
+    { value: &#39;q2&#39;, label: &#39;Q2&#39; },
+    { value: &#39;q3&#39;, label: &#39;Q3&#39; },
+    { value: &#39;q4&#39;, label: &#39;Q4&#39; },
+  ];
+  const [selected, setSelected] = useState&lt;string[]&gt;([&#39;q1&#39;]);
+  return (
+    &lt;GroupButton
+      options={opts}
+      value={selected}
+      onChange={(v) =&gt; setSelected(v as string[])}
+      multiSelect
+      itemWidth={60}
+    /&gt;
+  );
+};</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
+  no-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
   aria-label="Icon">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Icon</h2>
       <div class="badges">
-        <label for="c-12-design-system-foundations-icons-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-13-design-system-foundations-icons-props" class="badge ok as-toggle">1 prop type</label>
         
-        <label for="c-12-design-system-foundations-icons-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-13-design-system-foundations-icons-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -5601,10 +5747,10 @@ Adding icons
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
   
-  <input id="c-12-design-system-foundations-icons-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-13-design-system-foundations-icons-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-12-design-system-foundations-icons-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-13-design-system-foundations-icons-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6078,9 +6224,9 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Input</h2>
       <div class="badges">
-        <label for="c-13-design-system-components-input-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-14-design-system-components-input-props" class="badge ok as-toggle">3 prop types</label>
         
-        <label for="c-13-design-system-components-input-stories" class="badge ok as-toggle">21 stories</label>
+        <label for="c-14-design-system-components-input-stories" class="badge ok as-toggle">21 stories</label>
         
         
       </div>
@@ -6118,10 +6264,10 @@ Extending
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
   
-  <input id="c-13-design-system-components-input-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-14-design-system-components-input-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-13-design-system-components-input-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-14-design-system-components-input-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6495,9 +6641,9 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MessageBox</h2>
       <div class="badges">
-        <label for="c-14-design-system-components-messagebox-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-14-design-system-components-messagebox-info" class="badge info as-toggle">1 info</label>
-        <label for="c-14-design-system-components-messagebox-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-15-design-system-components-messagebox-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-15-design-system-components-messagebox-info" class="badge info as-toggle">1 info</label>
+        <label for="c-15-design-system-components-messagebox-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -6510,11 +6656,11 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-14-design-system-components-messagebox-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-14-design-system-components-messagebox-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-15-design-system-components-messagebox-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-15-design-system-components-messagebox-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-14-design-system-components-messagebox-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-15-design-system-components-messagebox-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6685,9 +6831,9 @@ variant?: any = &#39;info&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MessageInfo</h2>
       <div class="badges">
-        <label for="c-15-design-system-components-messageinfo-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-15-design-system-components-messageinfo-info" class="badge info as-toggle">1 info</label>
-        <label for="c-15-design-system-components-messageinfo-stories" class="badge ok as-toggle">12 stories</label>
+        <label for="c-16-design-system-components-messageinfo-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-16-design-system-components-messageinfo-info" class="badge info as-toggle">1 info</label>
+        <label for="c-16-design-system-components-messageinfo-stories" class="badge ok as-toggle">12 stories</label>
         
         
       </div>
@@ -6700,11 +6846,11 @@ variant?: any = &#39;info&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-15-design-system-components-messageinfo-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-15-design-system-components-messageinfo-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-16-design-system-components-messageinfo-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-16-design-system-components-messageinfo-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-15-design-system-components-messageinfo-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-16-design-system-components-messageinfo-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6885,9 +7031,9 @@ variant?: any = &#39;info&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Modal</h2>
       <div class="badges">
-        <label for="c-16-design-system-components-modal-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-16-design-system-components-modal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-16-design-system-components-modal-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-17-design-system-components-modal-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-17-design-system-components-modal-info" class="badge info as-toggle">1 info</label>
+        <label for="c-17-design-system-components-modal-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -6899,9 +7045,9 @@ variant?: any = &#39;info&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-16-design-system-components-modal-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-16-design-system-components-modal-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-16-design-system-components-modal-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-17-design-system-components-modal-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-17-design-system-components-modal-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-17-design-system-components-modal-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -6962,6 +7108,7 @@ export function Modal({
   footerNote,
   children,
   width = 569,
+  disableAutoFocus = false,
   // Alert-specific props
   type = &#39;modal&#39;,
   variant = &#39;info&#39;,
@@ -6997,7 +7144,7 @@ export function Modal({
 
   // Auto-focus the first editable form field when the modal opens
   useEffect(() =&gt; {
-    if (isVisible &amp;&amp; !isClosing) {
+    if (isVisible &amp;&amp; !isClosing &amp;&amp; !disableAutoFocus) {
       const t = setTimeout(() =&gt; {
         const first = dialogRef.current?.querySelector(
           &#39;input[type=&quot;text&quot;]:not([disabled]):not([readonly]):not(.tags-input):not(.dropdown-search-input), input[type=&quot;email&quot;]:not([disabled]), input[type=&quot;tel&quot;]:not([disabled]), input[type=&quot;number&quot;]:not([disabled]), input[type=&quot;search&quot;]:not([disabled]), input:not([type]):not([disabled]):not([readonly]):not(.tags-input), textarea:not([disabled])&#39;
@@ -7006,7 +7153,7 @@ export function Modal({
       }, 50);
       return () =&gt; clearTimeout(t);
     }
-  }, [isVisible, isClosing]);
+  }, [isVisible, isClosing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Close on Escape key
   useEffect(() =&gt; {
@@ -7324,9 +7471,9 @@ Used when the message is short and self-explanatory.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> NextGenLeftMenu</h2>
       <div class="badges">
-        <label for="c-17-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-17-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
-        <label for="c-17-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-18-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-18-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
+        <label for="c-18-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -7339,11 +7486,11 @@ Used when the message is short and self-explanatory.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-17-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-17-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-18-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-18-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-17-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-18-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -7465,9 +7612,9 @@ topNavItems?: any = [
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> NextGenTopBand</h2>
       <div class="badges">
-        <label for="c-18-design-system-components-nextgentopband-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-18-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
-        <label for="c-18-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-19-design-system-components-nextgentopband-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-19-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
+        <label for="c-19-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -7480,11 +7627,11 @@ topNavItems?: any = [
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-18-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-18-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-19-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-19-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-18-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-19-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -7595,9 +7742,9 @@ userInitials?: any = &#39;C&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> ProgressBar</h2>
       <div class="badges">
-        <label for="c-19-design-system-components-progressbar-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-19-design-system-components-progressbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-19-design-system-components-progressbar-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-20-design-system-components-progressbar-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-20-design-system-components-progressbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-20-design-system-components-progressbar-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -7610,11 +7757,11 @@ userInitials?: any = &#39;C&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-19-design-system-components-progressbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-19-design-system-components-progressbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-20-design-system-components-progressbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-20-design-system-components-progressbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-19-design-system-components-progressbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-20-design-system-components-progressbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -7803,8 +7950,8 @@ value?: any = 0</code></pre>
       <h2><span class="status-dot dot-ok"></span> Radio</h2>
       <div class="badges">
         
-        <label for="c-20-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
-        <label for="c-20-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-21-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
+        <label for="c-21-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -7817,8 +7964,8 @@ value?: any = 0</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-20-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-20-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-21-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-21-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -7962,9 +8109,9 @@ value?: any = 0</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Select</h2>
       <div class="badges">
-        <label for="c-21-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-21-design-system-components-select-info" class="badge info as-toggle">1 info</label>
-        <label for="c-21-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-22-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-22-design-system-components-select-info" class="badge info as-toggle">1 info</label>
+        <label for="c-22-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -7977,11 +8124,11 @@ value?: any = 0</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-21-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-21-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-22-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-22-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-21-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-22-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -8174,6 +8321,1158 @@ width?: any = 670</code></pre>
 </article>
 <article
   class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="SendDashboardScheduler">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> SendDashboardScheduler</h2>
+      <div class="badges">
+        <label for="c-23-design-system-patterns-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-23-design-system-patterns-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
+        <label for="c-23-design-system-patterns-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/patterns/SendDashboardScheduler.stories.tsx">design-system-patterns-send-dashboard-scheduler · ./src/design-system/patterns/SendDashboardScheduler.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-23-design-system-patterns-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-23-design-system-patterns-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-23-design-system-patterns-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  20 | // ─────────────────────────────────────────────────────────────────────────────
+  21 |
+&gt; 22 | const meta: Meta = {
+     | ^
+  23 |   title: &#39;Design System/Patterns/Send Dashboard Scheduler&#39;,
+  24 |   parameters: {
+  25 |     layout: &#39;centered&#39;,
+
+./src/design-system/patterns/SendDashboardScheduler.stories.tsx:
+import { useState } from &#39;react&#39;;
+import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
+import { Modal } from &#39;../components/Modal/Modal&#39;;
+import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
+import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
+import { Button } from &#39;../components/Button/Button&#39;;
+import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
+import { FormSection } from &#39;../components/FormSection/FormSection&#39;;
+import { DateTimeInput } from &#39;../components/Input/DateTimeInput&#39;;
+import { Input } from &#39;../components/Input/Input&#39;;
+import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
+import { Tags } from &#39;../components/Tags/Tags&#39;;
+import { Radio } from &#39;../components/Radio/Radio&#39;;
+import { Calendar } from &#39;../components/Calendar/Calendar&#39;;
+import { GroupButton } from &#39;../components/GroupButton/GroupButton&#39;;
+import { Info } from &#39;../foundations/icons/Icons&#39;;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Meta
+// ─────────────────────────────────────────────────────────────────────────────
+
+const meta: Meta = {
+  title: &#39;Design System/Patterns/Send Dashboard Scheduler&#39;,
+  parameters: {
+    layout: &#39;centered&#39;,
+    docs: {
+      description: {
+        component:
+          &#39;Modal pattern for scheduling a dashboard email report — &#39; +
+          &#39;configure send options, frequency, start date/time, and delivery preferences.&#39;,
+      },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────────────────────
+
+function todayDDMMYYYY(): string {
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2, &#39;0&#39;);
+  const mm = String(d.getMonth() + 1).padStart(2, &#39;0&#39;);
+  return `${dd}/${mm}/${d.getFullYear()}`;
+}
+
+function formatEnds(ends: string, endsAfterN: number, endsOnDate: string): string {
+  if (ends === &#39;after_n&#39;) return `, ends after ${endsAfterN} ${endsAfterN === 1 ? &#39;time&#39; : &#39;times&#39;}`;
+  if (ends === &#39;on_date&#39; &amp;&amp; endsOnDate) return `, ends on ${endsOnDate}`;
+  return &#39;&#39;;
+}
+
+function formatScheduleSummary(
+  dateStr: string, timeStr: string,
+  frequency: string, everyN: number,
+  ends: string, endsAfterN: number, endsOnDate: string,
+  selectedDays: string[],
+  monthlyMode: string, selectedMonthDays: number[],
+  monthlyPos: string, monthlyWeekDay: string,
+  quarterMonthPos: string, quarterDay: string,
+  yearlyMonths: string[], yearlyOn: string,
+): string {
+  if (!dateStr || !timeStr) return &#39;&#39;;
+  const tail = formatEnds(ends, endsAfterN, endsOnDate);
+
+  if (frequency === &#39;daily&#39;) {
+    const unit = everyN === 1 ? &#39;day&#39; : &#39;days&#39;;
+    return `Email will be sent every ${everyN} ${unit} from ${dateStr}, at ${timeStr} IST${tail}`;
+  }
+  if (frequency === &#39;weekly&#39;) {
+    const unit = everyN === 1 ? &#39;week&#39; : &#39;weeks&#39;;
+    const dayList = selectedDays.length &gt; 0 ? ` on ${selectedDays.join(&#39;, &#39;)}` : &#39;&#39;;
+    return `Email will be sent every ${everyN} ${unit}${dayList} from ${dateStr}, at ${timeStr} IST${tail}`;
+  }
+  if (frequency === &#39;monthly&#39;) {
+    const unit = everyN === 1 ? &#39;month&#39; : &#39;months&#39;;
+    if (monthlyMode === &#39;days_of_month&#39;) {
+      const dayList = selectedMonthDays.length &gt; 0
+        ? selectedMonthDays.slice().sort((a, b) =&gt; a - b).join(&#39;, &#39;)
+        : &#39;no days selected&#39;;
+      return `Email will be sent every ${everyN} ${unit} on the ${dayList} from ${dateStr}, at ${timeStr} IST${tail}`;
+    }
+    const pos = monthlyPos.charAt(0).toUpperCase() + monthlyPos.slice(1);
+    const wd  = monthlyWeekDay.charAt(0).toUpperCase() + monthlyWeekDay.slice(1);
+    return `Email will be sent every ${everyN} ${unit} on the ${pos} ${wd} from ${dateStr}, at ${timeStr} IST${tail}`;
+  }
+  if (frequency === &#39;quarterly&#39;) {
+    const unit = everyN === 1 ? &#39;quarter&#39; : &#39;quarters&#39;;
+    const mp  = quarterMonthPos.charAt(0).toUpperCase() + quarterMonthPos.slice(1);
+    const qd  = quarterDay === &#39;15th&#39; ? &#39;15th&#39; : quarterDay.charAt(0).toUpperCase() + quarterDay.slice(1);
+    return `Email will be sent every ${everyN} ${unit}, in the ${mp} month on the ${qd} day, from ${dateStr}, at ${timeStr} IST${tail}`;
+  }
+  if (frequency === &#39;yearly&#39;) {
+    const unit   = everyN === 1 ? &#39;year&#39; : &#39;years&#39;;
+    const months = yearlyMonths.length &gt; 0 ? yearlyMonths.join(&#39;, &#39;) : &#39;no months selected&#39;;
+    const on     = yearlyOn === &#39;15th&#39; ? &#39;15th&#39; : yearlyOn.charAt(0).toUpperCase() + yearlyOn.slice(1);
+    return `Email will be sent every ${everyN} ${unit} in ${months}, on the ${on} day, from ${dateStr}, at ${timeStr} IST${tail}`;
+  }
+  return `Scheduler will run on ${dateStr}, at ${timeStr} IST`;
+}
+
+const FREQ_UNIT: Record&lt;string, string&gt; = {
+  daily: &#39;Days&#39;, weekly: &#39;Weeks&#39;, monthly: &#39;Months&#39;, quarterly: &#39;Quarter&#39;, yearly: &#39;Years&#39;,
+};
+
+const ALL_MONTHS = [
+  &#39;January&#39;,&#39;February&#39;,&#39;March&#39;,&#39;April&#39;,&#39;May&#39;,&#39;June&#39;,
+  &#39;July&#39;,&#39;August&#39;,&#39;September&#39;,&#39;October&#39;,&#39;November&#39;,&#39;December&#39;,
+];
+
+const ORDINAL_OPTS = [
+  { value: &#39;first&#39;,  label: &#39;First&#39; },
+  { value: &#39;second&#39;, label: &#39;Second&#39; },
+  { value: &#39;third&#39;,  label: &#39;Third&#39; },
+  { value: &#39;fourth&#39;, label: &#39;Fourth&#39; },
+  { value: &#39;last&#39;,   label: &#39;Last&#39; },
+];
+
+
+const FIELD_LABEL_STYLE: React.CSSProperties = {
+  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+  fontSize: &#39;var(--ds-font-size-base)&#39;,
+  fontWeight: &#39;var(--ds-font-weight-regular)&#39;,
+  color: &#39;var(--ds-text-label)&#39;,
+  lineHeight: &#39;var(--ds-line-height-base)&#39;,
+  textAlign: &#39;right&#39;,
+  paddingTop: 7,
+};
+
+const INLINE_TEXT_STYLE: React.CSSProperties = {
+  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+  fontSize: &#39;var(--ds-font-size-base)&#39;,
+  color: &#39;var(--ds-text-base)&#39;,
+  whiteSpace: &#39;nowrap&#39;,
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Send Dashboard Scheduler
+// ─────────────────────────────────────────────────────────────────────────────
+
+// label col 130px + 20px gap + field col 390px = 540px total
+const W    = 540;
+const COLS = &#39;130px 390px&#39;;
+// field starts at label col + gap = 150px from left edge
+const FIELD_OFFSET = 150;
+
+export const SendDashboardScheduler: Story = {
+  name: &#39;Send Dashboard Scheduler&#39;,
+  render: () =&gt; {
+    const [open, setOpen] = useState(false);
+
+    const [sendOption, setSendOption]   = useState(&#39;send_later&#39;);
+    const [frequency, setFrequency]     = useState(&#39;once&#39;);
+    const [date, setDate]               = useState(todayDDMMYYYY);
+    const [time, setTime]               = useState(&#39;12:20 PM&#39;);
+    const [skipNoData, setSkipNoData]   = useState(true);
+    const [workingOnly, setWorkingOnly] = useState(false);
+    const [startOnError, setStartOnError] = useState(false);
+    const [everyN, setEveryN]             = useState(2);
+    const [ends, setEnds]                 = useState(&#39;never&#39;);
+    const [endsAfterN, setEndsAfterN]     = useState(1);
+    const [endsOnDate, setEndsOnDate]     = useState(&#39;&#39;);
+    const [tzOpen, setTzOpen] = useState(false);
+    const [timezone, setTimezone] = useState(&#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39;);
+    const [tzDraft, setTzDraft] = useState(timezone);
+
+    const [selectedDays, setSelectedDays]           = useState&lt;string[]&gt;([]);
+    const [monthlyMode, setMonthlyMode]             = useState&lt;&#39;days_of_month&#39; | &#39;specific_days&#39;&gt;(&#39;days_of_month&#39;);
+    const [selectedMonthDays, setSelectedMonthDays] = useState&lt;number[]&gt;([]);
+    const [monthlyPos, setMonthlyPos]               = useState(&#39;first&#39;);
+    const [monthlyWeekDay, setMonthlyWeekDay]       = useState(&#39;monday&#39;);
+    const [quarterMonthPos, setQuarterMonthPos]     = useState(&#39;first&#39;);
+    const [quarterDay, setQuarterDay]               = useState(&#39;first&#39;);
+    const [yearlyMonths, setYearlyMonths]           = useState&lt;string[]&gt;([&#39;January&#39;]);
+    const [yearlyOn, setYearlyOn]                   = useState(&#39;first&#39;);
+
+    const showSchedule = sendOption === &#39;send_later&#39;;
+    const summary = showSchedule
+      ? formatScheduleSummary(
+          date, time, frequency, everyN, ends, endsAfterN, endsOnDate, selectedDays,
+          monthlyMode, selectedMonthDays, monthlyPos, monthlyWeekDay,
+          quarterMonthPos, quarterDay, yearlyMonths, yearlyOn,
+        )
+      : &#39;&#39;;
+
+    const handleSave = () =&gt; {
+      if (showSchedule &amp;&amp; !date.trim()) {
+        setStartOnError(true);
+        return;
+      }
+      setOpen(false);
+    };
+
+    return (
+      &lt;&gt;
+        &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;
+          Send Email
+        &lt;/Button&gt;
+
+        &lt;Modal
+          isOpen={open}
+          title=&quot;Send Email&quot;
+          onClose={() =&gt; setOpen(false)}
+          onCancel={() =&gt; setOpen(false)}
+          onSave={handleSave}
+          cancelLabel=&quot;Cancel&quot;
+          saveLabel=&quot;Save&quot;
+          width={600}
+          disableAutoFocus
+        &gt;
+          &lt;FormSection title=&quot;Scheduling Details&quot; /&gt;
+
+          {/* Send Options */}
+          &lt;Dropdown
+            label=&quot;Send Options&quot;
+            layout=&quot;horizontal&quot;
+            width={W}
+            columns={COLS}
+            value={sendOption}
+            onChange={(val: string) =&gt; setSendOption(val)}
+            options={[
+              { value: &#39;send_immediately&#39;, label: &#39;Send Immediately&#39; },
+              { value: &#39;send_later&#39;,       label: &#39;Send Later&#39; },
+            ]}
+          /&gt;
+
+          {/* Frequency + Every N [Unit] (same row for repeating frequencies) */}
+          {showSchedule &amp;&amp; (
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, alignItems: &#39;start&#39;, width: W }}&gt;
+              &lt;span style={FIELD_LABEL_STYLE}&gt;Frequency&lt;/span&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 10 }}&gt;
+                &lt;div style={{ flex: 1, minWidth: 0 }}&gt;
+                  &lt;Dropdown
+                    layout=&quot;vertical&quot;
+                    width=&quot;100%&quot;
+                    value={frequency}
+                    onChange={(val: string) =&gt; { setFrequency(val); setEnds(&#39;never&#39;); }}
+                    options={[
+                      { value: &#39;once&#39;,      label: &#39;Once&#39; },
+                      { value: &#39;daily&#39;,     label: &#39;Daily&#39; },
+                      { value: &#39;weekly&#39;,    label: &#39;Weekly&#39; },
+                      { value: &#39;monthly&#39;,   label: &#39;Monthly&#39; },
+                      { value: &#39;quarterly&#39;, label: &#39;Quarterly&#39; },
+                      { value: &#39;yearly&#39;,    label: &#39;Yearly&#39; },
+                    ]}
+                  /&gt;
+                &lt;/div&gt;
+                {frequency !== &#39;once&#39; &amp;&amp; (
+                  &lt;&gt;
+                    &lt;span style={INLINE_TEXT_STYLE}&gt;Every&lt;/span&gt;
+                    &lt;Input layout=&quot;vertical&quot; type=&quot;number&quot; width={70} value={String(everyN)} min={1}
+                      onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setEveryN(Math.max(1, Number(e.target.value)))}
+                    /&gt;
+                    &lt;span style={INLINE_TEXT_STYLE}&gt;{FREQ_UNIT[frequency]}&lt;/span&gt;
+                  &lt;/&gt;
+                )}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          )}
+
+          {/* Weekly — day-of-week picker */}
+          {showSchedule &amp;&amp; frequency === &#39;weekly&#39; &amp;&amp; (
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+              &lt;span /&gt;
+              &lt;GroupButton
+                options={[
+                  { value: &#39;Mon&#39;, label: &#39;Mon&#39; },
+                  { value: &#39;Tue&#39;, label: &#39;Tue&#39; },
+                  { value: &#39;Wed&#39;, label: &#39;Wed&#39; },
+                  { value: &#39;Thu&#39;, label: &#39;Thu&#39; },
+                  { value: &#39;Fri&#39;, label: &#39;Fri&#39; },
+                  { value: &#39;Sat&#39;, label: &#39;Sat&#39; },
+                  { value: &#39;Sun&#39;, label: &#39;Sun&#39; },
+                ]}
+                value={selectedDays}
+                onChange={(v) =&gt; setSelectedDays(v as string[])}
+                multiSelect
+                showBadge
+              /&gt;
+            &lt;/div&gt;
+          )}
+
+          {/* Monthly — mode radio + date grid or specific-day dropdowns */}
+          {showSchedule &amp;&amp; frequency === &#39;monthly&#39; &amp;&amp; (
+            &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
+              &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+                &lt;span /&gt;
+                &lt;div style={{ display: &#39;flex&#39;, gap: 20 }}&gt;
+                  &lt;Radio
+                    label=&quot;Days of the month&quot;
+                    name=&quot;monthly-mode&quot;
+                    value=&quot;days_of_month&quot;
+                    checked={monthlyMode === &#39;days_of_month&#39;}
+                    onChange={() =&gt; setMonthlyMode(&#39;days_of_month&#39;)}
+                  /&gt;
+                  &lt;Radio
+                    label=&quot;On Specific Days&quot;
+                    name=&quot;monthly-mode&quot;
+                    value=&quot;specific_days&quot;
+                    checked={monthlyMode === &#39;specific_days&#39;}
+                    onChange={() =&gt; setMonthlyMode(&#39;specific_days&#39;)}
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              {monthlyMode === &#39;days_of_month&#39; &amp;&amp; (
+                &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+                  &lt;span /&gt;
+                  &lt;Calendar
+                    mode=&quot;date-of-month&quot;
+                    selectedDayNumbers={selectedMonthDays}
+                    onDayNumbersChange={(nums: number[]) =&gt; setSelectedMonthDays(nums)}
+                    width={282}
+                  /&gt;
+                &lt;/div&gt;
+              )}
+
+              {monthlyMode === &#39;specific_days&#39; &amp;&amp; (
+                &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &#39;start&#39; }}&gt;
+                  &lt;span /&gt;
+                  &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                    &lt;span style={INLINE_TEXT_STYLE}&gt;Every&lt;/span&gt;
+                    &lt;Dropdown layout=&quot;vertical&quot; width={120}
+                      value={monthlyPos} onChange={(val: string) =&gt; setMonthlyPos(val)}
+                      options={[
+                        { value: &#39;first&#39;, label: &#39;First&#39; },
+                        { value: &#39;15th&#39;,  label: &#39;15th&#39; },
+                        { value: &#39;last&#39;,  label: &#39;Last&#39; },
+                      ]}
+                    /&gt;
+                    &lt;Dropdown layout=&quot;vertical&quot; width={152}
+                      value={monthlyWeekDay} onChange={(val: string) =&gt; setMonthlyWeekDay(val)}
+                      options={[
+                        { value: &#39;monday&#39;,    label: &#39;Monday&#39; },
+                        { value: &#39;tuesday&#39;,   label: &#39;Tuesday&#39; },
+                        { value: &#39;wednesday&#39;, label: &#39;Wednesday&#39; },
+                        { value: &#39;thursday&#39;,  label: &#39;Thursday&#39; },
+                        { value: &#39;friday&#39;,    label: &#39;Friday&#39; },
+                        { value: &#39;saturday&#39;,  label: &#39;Saturday&#39; },
+                        { value: &#39;sunday&#39;,    label: &#39;Sunday&#39; },
+                      ]}
+                    /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              )}
+            &lt;/div&gt;
+          )}
+
+          {/* Quarterly — month of quarter + day */}
+          {showSchedule &amp;&amp; frequency === &#39;quarterly&#39; &amp;&amp; (
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+              &lt;span /&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8, flexWrap: &#39;wrap&#39; }}&gt;
+                &lt;span style={INLINE_TEXT_STYLE}&gt;In the&lt;/span&gt;
+                &lt;Dropdown layout=&quot;vertical&quot; width={100}
+                  value={quarterMonthPos} onChange={(val: string) =&gt; setQuarterMonthPos(val)}
+                  options={[
+                    { value: &#39;first&#39;,  label: &#39;First&#39; },
+                    { value: &#39;second&#39;, label: &#39;Second&#39; },
+                    { value: &#39;third&#39;,  label: &#39;Third&#39; },
+                    { value: &#39;last&#39;,   label: &#39;Last&#39; },
+                  ]}
+                /&gt;
+                &lt;span style={INLINE_TEXT_STYLE}&gt;Month of Quarter on&lt;/span&gt;
+                &lt;Dropdown layout=&quot;vertical&quot; width={90}
+                  value={quarterDay} onChange={(val: string) =&gt; setQuarterDay(val)}
+                  options={[
+                    { value: &#39;first&#39;, label: &#39;First&#39; },
+                    { value: &#39;15th&#39;,  label: &#39;15th&#39; },
+                    { value: &#39;last&#39;,  label: &#39;Last&#39; },
+                  ]}
+                /&gt;
+                &lt;span style={INLINE_TEXT_STYLE}&gt;day&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          )}
+
+          {/* Yearly — month tags + ordinal day */}
+          {showSchedule &amp;&amp; frequency === &#39;yearly&#39; &amp;&amp; (
+            &lt;&gt;
+              &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &#39;start&#39; }}&gt;
+                &lt;span /&gt;
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 8 }}&gt;
+                  &lt;span style={{ ...INLINE_TEXT_STYLE, paddingTop: 7 }}&gt;In&lt;/span&gt;
+                  &lt;div style={{ flex: 1 }}&gt;
+                    &lt;Tags
+                      value={yearlyMonths.map(m =&gt; ({ value: m, label: m }))}
+                      options={ALL_MONTHS.map(m =&gt; ({ value: m, label: m }))}
+                      onChange={(tags: { value: string; label: string }[]) =&gt; setYearlyMonths(tags.map(t =&gt; t.value))}
+                      width=&quot;100%&quot;
+                      placeholder=&quot;Add month&quot;
+                    /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+                &lt;span /&gt;
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;On&lt;/span&gt;
+                  &lt;Dropdown layout=&quot;vertical&quot; width={120}
+                    value={yearlyOn} onChange={(val: string) =&gt; setYearlyOn(val)}
+                    options={ORDINAL_OPTS}
+                  /&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;day&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/&gt;
+          )}
+
+          {/* Start On — date + time picker */}
+          {showSchedule &amp;&amp; (
+            &lt;DateTimeInput
+              label=&quot;Start On&quot;
+              layout=&quot;horizontal&quot;
+              width={W}
+              columns={COLS}
+              dateValue={date}
+              timeValue={time}
+              error={startOnError}
+              helperText={startOnError ? &#39;Please enter a start date.&#39; : undefined}
+              onDateChange={(val: string) =&gt; { setDate(val); setStartOnError(false); }}
+              onTimeChange={(val: string) =&gt; setTime(val)}
+            /&gt;
+          )}
+
+          {/* Timezone note — always below Start On */}
+          {showSchedule &amp;&amp; (
+            &lt;p
+              style={{
+                margin: 0,
+                marginTop: -15,
+                paddingLeft: FIELD_OFFSET,
+                fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                fontSize: &#39;var(--ds-font-size-sm)&#39;,
+                color: &#39;var(--ds-text-muted)&#39;,
+                lineHeight: &#39;var(--ds-line-height-base)&#39;,
+              }}
+            &gt;
+              &lt;span style={{ color: &#39;var(--ds-text-label)&#39; }}&gt;Time Zone: &lt;/span&gt;
+              {timezone}
+              &lt;button type=&quot;button&quot; className=&quot;input-link-btn&quot; style={{ marginLeft: 4 }} onClick={() =&gt; { setTzDraft(timezone); setTzOpen(true); }}&gt;
+                Change
+              &lt;/button&gt;
+            &lt;/p&gt;
+          )}
+
+          {/* Ends — shown for all repeating frequencies */}
+          {showSchedule &amp;&amp; frequency !== &#39;once&#39; &amp;&amp; (
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, alignItems: &#39;start&#39;, width: W }}&gt;
+              &lt;span style={FIELD_LABEL_STYLE}&gt;Ends&lt;/span&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                &lt;div style={{ flex: 1, minWidth: 0 }}&gt;
+                  &lt;Dropdown
+                    layout=&quot;vertical&quot;
+                    width=&quot;100%&quot;
+                    value={ends}
+                    onChange={(val: string) =&gt; setEnds(val)}
+                    options={[
+                      { value: &#39;never&#39;,   label: &#39;Never&#39; },
+                      { value: &#39;after_n&#39;, label: &#39;After N times&#39;, triggerLabel: &#39;After&#39; },
+                      { value: &#39;on_date&#39;, label: &#39;On Specific Date&#39; },
+                    ]}
+                  /&gt;
+                &lt;/div&gt;
+                {ends === &#39;after_n&#39; &amp;&amp; (
+                  &lt;&gt;
+                    &lt;Input layout=&quot;vertical&quot; type=&quot;number&quot; width={70} value={String(endsAfterN)} min={1}
+                      onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setEndsAfterN(Math.max(1, Number(e.target.value)))}
+                    /&gt;
+                    &lt;span style={INLINE_TEXT_STYLE}&gt;times&lt;/span&gt;
+                  &lt;/&gt;
+                )}
+                {ends === &#39;on_date&#39; &amp;&amp; (
+                  &lt;DateTimeInput
+                    layout=&quot;vertical&quot;
+                    width={160}
+                    dateOnly
+                    dateValue={endsOnDate}
+                    onDateChange={(val: string) =&gt; setEndsOnDate(val)}
+                  /&gt;
+                )}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          )}
+
+          {/* Scheduler run summary */}
+          {showSchedule &amp;&amp; summary &amp;&amp; (
+            &lt;div className=&quot;sds-summary-note&quot; style={{ paddingLeft: FIELD_OFFSET }}&gt;
+              &lt;style&gt;{`.sds-summary-note .msg-info-label { display: none; }`}&lt;/style&gt;
+              &lt;MessageInfo variant=&quot;info&quot; message={summary} /&gt;
+            &lt;/div&gt;
+          )}
+
+          {/* Delivery preferences */}
+          &lt;div
+            style={{
+              display: &#39;flex&#39;,
+              flexDirection: &#39;column&#39;,
+              gap: &#39;15px&#39;,
+            }}
+          &gt;
+            &lt;Checkbox
+              id=&quot;skip-no-data&quot;
+              label=&quot;Do not send Email when there is no data in the chart.&quot;
+              checked={skipNoData}
+              onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt;
+                setSkipNoData(e.target.checked)
+              }
+            /&gt;
+
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 10 }}&gt;
+              &lt;Checkbox
+                id=&quot;working-days-only&quot;
+                label=&quot;Send Email only on working days&quot;
+                checked={workingOnly}
+                onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt;
+                  setWorkingOnly(e.target.checked)
+                }
+              /&gt;
+              &lt;Tooltip
+                content=&quot;Email will only be dispatched on business days, skipping weekends and public holidays.&quot;
+                variant=&quot;white&quot;
+                placement=&quot;top&quot;
+              &gt;
+                &lt;span
+                  style={{
+                    display: &#39;inline-flex&#39;,
+                    alignItems: &#39;center&#39;,
+                    color: &#39;var(--ds-text-label)&#39;,
+                    cursor: &#39;pointer&#39;,
+                    lineHeight: 0,
+                  }}
+                &gt;
+                  &lt;Info /&gt;
+                &lt;/span&gt;
+              &lt;/Tooltip&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/Modal&gt;
+
+        &lt;Modal
+          isOpen={tzOpen}
+          title=&quot;Change Timezone&quot;
+          onClose={() =&gt; setTzOpen(false)}
+          onCancel={() =&gt; setTzOpen(false)}
+          onSave={() =&gt; { setTimezone(tzDraft); setTzOpen(false); }}
+          cancelLabel=&quot;Cancel&quot;
+          saveLabel=&quot;Done&quot;
+          width={574}
+        &gt;
+          &lt;Dropdown
+            label=&quot;Timezone&quot;
+            layout=&quot;horizontal&quot;
+            width=&quot;fit-content&quot;
+            columns=&quot;100px 390px&quot;
+            value={tzDraft}
+            onChange={(val: string) =&gt; setTzDraft(val)}
+            options={[
+              { value: &#39;(GMT -12:00) International Date Line West&#39;,           label: &#39;(GMT -12:00) International Date Line West&#39; },
+              { value: &#39;(GMT -11:00) Coordinated Universal Time-11&#39;,          label: &#39;(GMT -11:00) Coordinated Universal Time-11&#39; },
+              { value: &#39;(GMT -10:00) Hawaii&#39;,                                 label: &#39;(GMT -10:00) Hawaii&#39; },
+              { value: &#39;(GMT -09:00) Alaska&#39;,                                 label: &#39;(GMT -09:00) Alaska&#39; },
+              { value: &#39;(GMT -08:00) Pacific Time (US &amp; Canada)&#39;,             label: &#39;(GMT -08:00) Pacific Time (US &amp; Canada)&#39; },
+              { value: &#39;(GMT -07:00) Mountain Time (US &amp; Canada)&#39;,            label: &#39;(GMT -07:00) Mountain Time (US &amp; Canada)&#39; },
+              { value: &#39;(GMT -06:00) Central Time (US &amp; Canada)&#39;,             label: &#39;(GMT -06:00) Central Time (US &amp; Canada)&#39; },
+              { value: &#39;(GMT -05:00) Eastern Time (US &amp; Canada)&#39;,             label: &#39;(GMT -05:00) Eastern Time (US &amp; Canada)&#39; },
+              { value: &#39;(GMT -04:00) Atlantic Time (Canada)&#39;,                 label: &#39;(GMT -04:00) Atlantic Time (Canada)&#39; },
+              { value: &#39;(GMT -03:30) Newfoundland&#39;,                           label: &#39;(GMT -03:30) Newfoundland&#39; },
+              { value: &#39;(GMT -03:00) Brasilia&#39;,                               label: &#39;(GMT -03:00) Brasilia&#39; },
+              { value: &#39;(GMT -02:00) Coordinated Universal Time-02&#39;,          label: &#39;(GMT -02:00) Coordinated Universal Time-02&#39; },
+              { value: &#39;(GMT -01:00) Azores&#39;,                                 label: &#39;(GMT -01:00) Azores&#39; },
+              { value: &#39;(GMT +00:00) Dublin / Edinburgh / Lisbon / London&#39;,   label: &#39;(GMT +00:00) Dublin / Edinburgh / Lisbon / London&#39; },
+              { value: &#39;(GMT +01:00) Amsterdam / Berlin / Rome / Paris&#39;,      label: &#39;(GMT +01:00) Amsterdam / Berlin / Rome / Paris&#39; },
+              { value: &#39;(GMT +02:00) Athens / Bucharest&#39;,                     label: &#39;(GMT +02:00) Athens / Bucharest&#39; },
+              { value: &#39;(GMT +03:00) Moscow / St. Petersburg&#39;,                label: &#39;(GMT +03:00) Moscow / St. Petersburg&#39; },
+              { value: &#39;(GMT +03:30) Tehran&#39;,                                 label: &#39;(GMT +03:30) Tehran&#39; },
+              { value: &#39;(GMT +04:00) Abu Dhabi / Muscat&#39;,                     label: &#39;(GMT +04:00) Abu Dhabi / Muscat&#39; },
+              { value: &#39;(GMT +04:30) Kabul&#39;,                                  label: &#39;(GMT +04:30) Kabul&#39; },
+              { value: &#39;(GMT +05:00) Islamabad / Karachi&#39;,                    label: &#39;(GMT +05:00) Islamabad / Karachi&#39; },
+              { value: &#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39;,        label: &#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39; },
+              { value: &#39;(GMT +05:45) Kathmandu&#39;,                              label: &#39;(GMT +05:45) Kathmandu&#39; },
+              { value: &#39;(GMT +06:00) Dhaka&#39;,                                  label: &#39;(GMT +06:00) Dhaka&#39; },
+              { value: &#39;(GMT +06:30) Yangon (Rangoon)&#39;,                       label: &#39;(GMT +06:30) Yangon (Rangoon)&#39; },
+              { value: &#39;(GMT +07:00) Bangkok / Hanoi / Jakarta&#39;,              label: &#39;(GMT +07:00) Bangkok / Hanoi / Jakarta&#39; },
+              { value: &#39;(GMT +08:00) Beijing / Chongqing / Hong Kong&#39;,        label: &#39;(GMT +08:00) Beijing / Chongqing / Hong Kong&#39; },
+              { value: &#39;(GMT +09:00) Osaka / Sapporo / Tokyo&#39;,                label: &#39;(GMT +09:00) Osaka / Sapporo / Tokyo&#39; },
+              { value: &#39;(GMT +09:30) Adelaide&#39;,                               label: &#39;(GMT +09:30) Adelaide&#39; },
+              { value: &#39;(GMT +10:00) Canberra / Melbourne / Sydney&#39;,          label: &#39;(GMT +10:00) Canberra / Melbourne / Sydney&#39; },
+              { value: &#39;(GMT +11:00) Solomon Islands / New Caledonia&#39;,        label: &#39;(GMT +11:00) Solomon Islands / New Caledonia&#39; },
+              { value: &#39;(GMT +12:00) Auckland / Wellington&#39;,                  label: &#39;(GMT +12:00) Auckland / Wellington&#39; },
+            ]}
+          /&gt;
+        &lt;/Modal&gt;
+      &lt;/&gt;
+    );
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import {
+    Button,
+    Calendar,
+    Checkbox,
+    DateTimeInput,
+    Dropdown,
+    FormSection,
+    GroupButton,
+    Info,
+    Input,
+    MessageInfo,
+    Modal,
+    Radio,
+    Tags,
+    Tooltip,
+} from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Send Dashboard Scheduler</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SendDashboardScheduler = () =&gt; {
+  const [open, setOpen] = useState(false);
+
+  const [sendOption, setSendOption]   = useState(&#39;send_later&#39;);
+  const [frequency, setFrequency]     = useState(&#39;once&#39;);
+  const [date, setDate]               = useState(todayDDMMYYYY);
+  const [time, setTime]               = useState(&#39;12:20 PM&#39;);
+  const [skipNoData, setSkipNoData]   = useState(true);
+  const [workingOnly, setWorkingOnly] = useState(false);
+  const [startOnError, setStartOnError] = useState(false);
+  const [everyN, setEveryN]             = useState(2);
+  const [ends, setEnds]                 = useState(&#39;never&#39;);
+  const [endsAfterN, setEndsAfterN]     = useState(1);
+  const [endsOnDate, setEndsOnDate]     = useState(&#39;&#39;);
+  const [tzOpen, setTzOpen] = useState(false);
+  const [timezone, setTimezone] = useState(&#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39;);
+  const [tzDraft, setTzDraft] = useState(timezone);
+
+  const [selectedDays, setSelectedDays]           = useState&lt;string[]&gt;([]);
+  const [monthlyMode, setMonthlyMode]             = useState&lt;&#39;days_of_month&#39; | &#39;specific_days&#39;&gt;(&#39;days_of_month&#39;);
+  const [selectedMonthDays, setSelectedMonthDays] = useState&lt;number[]&gt;([]);
+  const [monthlyPos, setMonthlyPos]               = useState(&#39;first&#39;);
+  const [monthlyWeekDay, setMonthlyWeekDay]       = useState(&#39;monday&#39;);
+  const [quarterMonthPos, setQuarterMonthPos]     = useState(&#39;first&#39;);
+  const [quarterDay, setQuarterDay]               = useState(&#39;first&#39;);
+  const [yearlyMonths, setYearlyMonths]           = useState&lt;string[]&gt;([&#39;January&#39;]);
+  const [yearlyOn, setYearlyOn]                   = useState(&#39;first&#39;);
+
+  const showSchedule = sendOption === &#39;send_later&#39;;
+  const summary = showSchedule
+    ? formatScheduleSummary(
+        date, time, frequency, everyN, ends, endsAfterN, endsOnDate, selectedDays,
+        monthlyMode, selectedMonthDays, monthlyPos, monthlyWeekDay,
+        quarterMonthPos, quarterDay, yearlyMonths, yearlyOn,
+      )
+    : &#39;&#39;;
+
+  const handleSave = () =&gt; {
+    if (showSchedule &amp;&amp; !date.trim()) {
+      setStartOnError(true);
+      return;
+    }
+    setOpen(false);
+  };
+
+  return (
+    &lt;&gt;
+      &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;
+        Send Email
+      &lt;/Button&gt;
+
+      &lt;Modal
+        isOpen={open}
+        title=&quot;Send Email&quot;
+        onClose={() =&gt; setOpen(false)}
+        onCancel={() =&gt; setOpen(false)}
+        onSave={handleSave}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Save&quot;
+        width={600}
+        disableAutoFocus
+      &gt;
+        &lt;FormSection title=&quot;Scheduling Details&quot; /&gt;
+
+        {/* Send Options */}
+        &lt;Dropdown
+          label=&quot;Send Options&quot;
+          layout=&quot;horizontal&quot;
+          width={W}
+          columns={COLS}
+          value={sendOption}
+          onChange={(val: string) =&gt; setSendOption(val)}
+          options={[
+            { value: &#39;send_immediately&#39;, label: &#39;Send Immediately&#39; },
+            { value: &#39;send_later&#39;,       label: &#39;Send Later&#39; },
+          ]}
+        /&gt;
+
+        {/* Frequency + Every N [Unit] (same row for repeating frequencies) */}
+        {showSchedule &amp;&amp; (
+          &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, alignItems: &#39;start&#39;, width: W }}&gt;
+            &lt;span style={FIELD_LABEL_STYLE}&gt;Frequency&lt;/span&gt;
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 10 }}&gt;
+              &lt;div style={{ flex: 1, minWidth: 0 }}&gt;
+                &lt;Dropdown
+                  layout=&quot;vertical&quot;
+                  width=&quot;100%&quot;
+                  value={frequency}
+                  onChange={(val: string) =&gt; { setFrequency(val); setEnds(&#39;never&#39;); }}
+                  options={[
+                    { value: &#39;once&#39;,      label: &#39;Once&#39; },
+                    { value: &#39;daily&#39;,     label: &#39;Daily&#39; },
+                    { value: &#39;weekly&#39;,    label: &#39;Weekly&#39; },
+                    { value: &#39;monthly&#39;,   label: &#39;Monthly&#39; },
+                    { value: &#39;quarterly&#39;, label: &#39;Quarterly&#39; },
+                    { value: &#39;yearly&#39;,    label: &#39;Yearly&#39; },
+                  ]}
+                /&gt;
+              &lt;/div&gt;
+              {frequency !== &#39;once&#39; &amp;&amp; (
+                &lt;&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;Every&lt;/span&gt;
+                  &lt;Input layout=&quot;vertical&quot; type=&quot;number&quot; width={70} value={String(everyN)} min={1}
+                    onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setEveryN(Math.max(1, Number(e.target.value)))}
+                  /&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;{FREQ_UNIT[frequency]}&lt;/span&gt;
+                &lt;/&gt;
+              )}
+            &lt;/div&gt;
+          &lt;/div&gt;
+        )}
+
+        {/* Weekly — day-of-week picker */}
+        {showSchedule &amp;&amp; frequency === &#39;weekly&#39; &amp;&amp; (
+          &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+            &lt;span /&gt;
+            &lt;GroupButton
+              options={[
+                { value: &#39;Mon&#39;, label: &#39;Mon&#39; },
+                { value: &#39;Tue&#39;, label: &#39;Tue&#39; },
+                { value: &#39;Wed&#39;, label: &#39;Wed&#39; },
+                { value: &#39;Thu&#39;, label: &#39;Thu&#39; },
+                { value: &#39;Fri&#39;, label: &#39;Fri&#39; },
+                { value: &#39;Sat&#39;, label: &#39;Sat&#39; },
+                { value: &#39;Sun&#39;, label: &#39;Sun&#39; },
+              ]}
+              value={selectedDays}
+              onChange={(v) =&gt; setSelectedDays(v as string[])}
+              multiSelect
+              showBadge
+            /&gt;
+          &lt;/div&gt;
+        )}
+
+        {/* Monthly — mode radio + date grid or specific-day dropdowns */}
+        {showSchedule &amp;&amp; frequency === &#39;monthly&#39; &amp;&amp; (
+          &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+              &lt;span /&gt;
+              &lt;div style={{ display: &#39;flex&#39;, gap: 20 }}&gt;
+                &lt;Radio
+                  label=&quot;Days of the month&quot;
+                  name=&quot;monthly-mode&quot;
+                  value=&quot;days_of_month&quot;
+                  checked={monthlyMode === &#39;days_of_month&#39;}
+                  onChange={() =&gt; setMonthlyMode(&#39;days_of_month&#39;)}
+                /&gt;
+                &lt;Radio
+                  label=&quot;On Specific Days&quot;
+                  name=&quot;monthly-mode&quot;
+                  value=&quot;specific_days&quot;
+                  checked={monthlyMode === &#39;specific_days&#39;}
+                  onChange={() =&gt; setMonthlyMode(&#39;specific_days&#39;)}
+                /&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            {monthlyMode === &#39;days_of_month&#39; &amp;&amp; (
+              &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+                &lt;span /&gt;
+                &lt;Calendar
+                  mode=&quot;date-of-month&quot;
+                  selectedDayNumbers={selectedMonthDays}
+                  onDayNumbersChange={(nums: number[]) =&gt; setSelectedMonthDays(nums)}
+                  width={282}
+                /&gt;
+              &lt;/div&gt;
+            )}
+
+            {monthlyMode === &#39;specific_days&#39; &amp;&amp; (
+              &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &#39;start&#39; }}&gt;
+                &lt;span /&gt;
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;Every&lt;/span&gt;
+                  &lt;Dropdown layout=&quot;vertical&quot; width={120}
+                    value={monthlyPos} onChange={(val: string) =&gt; setMonthlyPos(val)}
+                    options={[
+                      { value: &#39;first&#39;, label: &#39;First&#39; },
+                      { value: &#39;15th&#39;,  label: &#39;15th&#39; },
+                      { value: &#39;last&#39;,  label: &#39;Last&#39; },
+                    ]}
+                  /&gt;
+                  &lt;Dropdown layout=&quot;vertical&quot; width={152}
+                    value={monthlyWeekDay} onChange={(val: string) =&gt; setMonthlyWeekDay(val)}
+                    options={[
+                      { value: &#39;monday&#39;,    label: &#39;Monday&#39; },
+                      { value: &#39;tuesday&#39;,   label: &#39;Tuesday&#39; },
+                      { value: &#39;wednesday&#39;, label: &#39;Wednesday&#39; },
+                      { value: &#39;thursday&#39;,  label: &#39;Thursday&#39; },
+                      { value: &#39;friday&#39;,    label: &#39;Friday&#39; },
+                      { value: &#39;saturday&#39;,  label: &#39;Saturday&#39; },
+                      { value: &#39;sunday&#39;,    label: &#39;Sunday&#39; },
+                    ]}
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            )}
+          &lt;/div&gt;
+        )}
+
+        {/* Quarterly — month of quarter + day */}
+        {showSchedule &amp;&amp; frequency === &#39;quarterly&#39; &amp;&amp; (
+          &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+            &lt;span /&gt;
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8, flexWrap: &#39;wrap&#39; }}&gt;
+              &lt;span style={INLINE_TEXT_STYLE}&gt;In the&lt;/span&gt;
+              &lt;Dropdown layout=&quot;vertical&quot; width={100}
+                value={quarterMonthPos} onChange={(val: string) =&gt; setQuarterMonthPos(val)}
+                options={[
+                  { value: &#39;first&#39;,  label: &#39;First&#39; },
+                  { value: &#39;second&#39;, label: &#39;Second&#39; },
+                  { value: &#39;third&#39;,  label: &#39;Third&#39; },
+                  { value: &#39;last&#39;,   label: &#39;Last&#39; },
+                ]}
+              /&gt;
+              &lt;span style={INLINE_TEXT_STYLE}&gt;Month of Quarter on&lt;/span&gt;
+              &lt;Dropdown layout=&quot;vertical&quot; width={90}
+                value={quarterDay} onChange={(val: string) =&gt; setQuarterDay(val)}
+                options={[
+                  { value: &#39;first&#39;, label: &#39;First&#39; },
+                  { value: &#39;15th&#39;,  label: &#39;15th&#39; },
+                  { value: &#39;last&#39;,  label: &#39;Last&#39; },
+                ]}
+              /&gt;
+              &lt;span style={INLINE_TEXT_STYLE}&gt;day&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        )}
+
+        {/* Yearly — month tags + ordinal day */}
+        {showSchedule &amp;&amp; frequency === &#39;yearly&#39; &amp;&amp; (
+          &lt;&gt;
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &#39;start&#39; }}&gt;
+              &lt;span /&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 8 }}&gt;
+                &lt;span style={{ ...INLINE_TEXT_STYLE, paddingTop: 7 }}&gt;In&lt;/span&gt;
+                &lt;div style={{ flex: 1 }}&gt;
+                  &lt;Tags
+                    value={yearlyMonths.map(m =&gt; ({ value: m, label: m }))}
+                    options={ALL_MONTHS.map(m =&gt; ({ value: m, label: m }))}
+                    onChange={(tags: { value: string; label: string }[]) =&gt; setYearlyMonths(tags.map(t =&gt; t.value))}
+                    width=&quot;100%&quot;
+                    placeholder=&quot;Add month&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+              &lt;span /&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                &lt;span style={INLINE_TEXT_STYLE}&gt;On&lt;/span&gt;
+                &lt;Dropdown layout=&quot;vertical&quot; width={120}
+                  value={yearlyOn} onChange={(val: string) =&gt; setYearlyOn(val)}
+                  options={ORDINAL_OPTS}
+                /&gt;
+                &lt;span style={INLINE_TEXT_STYLE}&gt;day&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/&gt;
+        )}
+
+        {/* Start On — date + time picker */}
+        {showSchedule &amp;&amp; (
+          &lt;DateTimeInput
+            label=&quot;Start On&quot;
+            layout=&quot;horizontal&quot;
+            width={W}
+            columns={COLS}
+            dateValue={date}
+            timeValue={time}
+            error={startOnError}
+            helperText={startOnError ? &#39;Please enter a start date.&#39; : undefined}
+            onDateChange={(val: string) =&gt; { setDate(val); setStartOnError(false); }}
+            onTimeChange={(val: string) =&gt; setTime(val)}
+          /&gt;
+        )}
+
+        {/* Timezone note — always below Start On */}
+        {showSchedule &amp;&amp; (
+          &lt;p
+            style={{
+              margin: 0,
+              marginTop: -15,
+              paddingLeft: FIELD_OFFSET,
+              fontFamily: &#39;var(--ds-font-family-base)&#39;,
+              fontSize: &#39;var(--ds-font-size-sm)&#39;,
+              color: &#39;var(--ds-text-muted)&#39;,
+              lineHeight: &#39;var(--ds-line-height-base)&#39;,
+            }}
+          &gt;
+            &lt;span style={{ color: &#39;var(--ds-text-label)&#39; }}&gt;Time Zone: &lt;/span&gt;
+            {timezone}
+            &lt;button type=&quot;button&quot; className=&quot;input-link-btn&quot; style={{ marginLeft: 4 }} onClick={() =&gt; { setTzDraft(timezone); setTzOpen(true); }}&gt;
+              Change
+            &lt;/button&gt;
+          &lt;/p&gt;
+        )}
+
+        {/* Ends — shown for all repeating frequencies */}
+        {showSchedule &amp;&amp; frequency !== &#39;once&#39; &amp;&amp; (
+          &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, alignItems: &#39;start&#39;, width: W }}&gt;
+            &lt;span style={FIELD_LABEL_STYLE}&gt;Ends&lt;/span&gt;
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+              &lt;div style={{ flex: 1, minWidth: 0 }}&gt;
+                &lt;Dropdown
+                  layout=&quot;vertical&quot;
+                  width=&quot;100%&quot;
+                  value={ends}
+                  onChange={(val: string) =&gt; setEnds(val)}
+                  options={[
+                    { value: &#39;never&#39;,   label: &#39;Never&#39; },
+                    { value: &#39;after_n&#39;, label: &#39;After N times&#39;, triggerLabel: &#39;After&#39; },
+                    { value: &#39;on_date&#39;, label: &#39;On Specific Date&#39; },
+                  ]}
+                /&gt;
+              &lt;/div&gt;
+              {ends === &#39;after_n&#39; &amp;&amp; (
+                &lt;&gt;
+                  &lt;Input layout=&quot;vertical&quot; type=&quot;number&quot; width={70} value={String(endsAfterN)} min={1}
+                    onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setEndsAfterN(Math.max(1, Number(e.target.value)))}
+                  /&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;times&lt;/span&gt;
+                &lt;/&gt;
+              )}
+              {ends === &#39;on_date&#39; &amp;&amp; (
+                &lt;DateTimeInput
+                  layout=&quot;vertical&quot;
+                  width={160}
+                  dateOnly
+                  dateValue={endsOnDate}
+                  onDateChange={(val: string) =&gt; setEndsOnDate(val)}
+                /&gt;
+              )}
+            &lt;/div&gt;
+          &lt;/div&gt;
+        )}
+
+        {/* Scheduler run summary */}
+        {showSchedule &amp;&amp; summary &amp;&amp; (
+          &lt;div className=&quot;sds-summary-note&quot; style={{ paddingLeft: FIELD_OFFSET }}&gt;
+            &lt;style&gt;{`.sds-summary-note .msg-info-label { display: none; }`}&lt;/style&gt;
+            &lt;MessageInfo variant=&quot;info&quot; message={summary} /&gt;
+          &lt;/div&gt;
+        )}
+
+        {/* Delivery preferences */}
+        &lt;div
+          style={{
+            display: &#39;flex&#39;,
+            flexDirection: &#39;column&#39;,
+            gap: &#39;15px&#39;,
+          }}
+        &gt;
+          &lt;Checkbox
+            id=&quot;skip-no-data&quot;
+            label=&quot;Do not send Email when there is no data in the chart.&quot;
+            checked={skipNoData}
+            onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt;
+              setSkipNoData(e.target.checked)
+            }
+          /&gt;
+
+          &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 10 }}&gt;
+            &lt;Checkbox
+              id=&quot;working-days-only&quot;
+              label=&quot;Send Email only on working days&quot;
+              checked={workingOnly}
+              onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt;
+                setWorkingOnly(e.target.checked)
+              }
+            /&gt;
+            &lt;Tooltip
+              content=&quot;Email will only be dispatched on business days, skipping weekends and public holidays.&quot;
+              variant=&quot;white&quot;
+              placement=&quot;top&quot;
+            &gt;
+              &lt;span
+                style={{
+                  display: &#39;inline-flex&#39;,
+                  alignItems: &#39;center&#39;,
+                  color: &#39;var(--ds-text-label)&#39;,
+                  cursor: &#39;pointer&#39;,
+                  lineHeight: 0,
+                }}
+              &gt;
+                &lt;Info /&gt;
+              &lt;/span&gt;
+            &lt;/Tooltip&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/Modal&gt;
+
+      &lt;Modal
+        isOpen={tzOpen}
+        title=&quot;Change Timezone&quot;
+        onClose={() =&gt; setTzOpen(false)}
+        onCancel={() =&gt; setTzOpen(false)}
+        onSave={() =&gt; { setTimezone(tzDraft); setTzOpen(false); }}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Done&quot;
+        width={574}
+      &gt;
+        &lt;Dropdown
+          label=&quot;Timezone&quot;
+          layout=&quot;horizontal&quot;
+          width=&quot;fit-content&quot;
+          columns=&quot;100px 390px&quot;
+          value={tzDraft}
+          onChange={(val: string) =&gt; setTzDraft(val)}
+          options={[
+            { value: &#39;(GMT -12:00) International Date Line West&#39;,           label: &#39;(GMT -12:00) International Date Line West&#39; },
+            { value: &#39;(GMT -11:00) Coordinated Universal Time-11&#39;,          label: &#39;(GMT -11:00) Coordinated Universal Time-11&#39; },
+            { value: &#39;(GMT -10:00) Hawaii&#39;,                                 label: &#39;(GMT -10:00) Hawaii&#39; },
+            { value: &#39;(GMT -09:00) Alaska&#39;,                                 label: &#39;(GMT -09:00) Alaska&#39; },
+            { value: &#39;(GMT -08:00) Pacific Time (US &amp; Canada)&#39;,             label: &#39;(GMT -08:00) Pacific Time (US &amp; Canada)&#39; },
+            { value: &#39;(GMT -07:00) Mountain Time (US &amp; Canada)&#39;,            label: &#39;(GMT -07:00) Mountain Time (US &amp; Canada)&#39; },
+            { value: &#39;(GMT -06:00) Central Time (US &amp; Canada)&#39;,             label: &#39;(GMT -06:00) Central Time (US &amp; Canada)&#39; },
+            { value: &#39;(GMT -05:00) Eastern Time (US &amp; Canada)&#39;,             label: &#39;(GMT -05:00) Eastern Time (US &amp; Canada)&#39; },
+            { value: &#39;(GMT -04:00) Atlantic Time (Canada)&#39;,                 label: &#39;(GMT -04:00) Atlantic Time (Canada)&#39; },
+            { value: &#39;(GMT -03:30) Newfoundland&#39;,                           label: &#39;(GMT -03:30) Newfoundland&#39; },
+            { value: &#39;(GMT -03:00) Brasilia&#39;,                               label: &#39;(GMT -03:00) Brasilia&#39; },
+            { value: &#39;(GMT -02:00) Coordinated Universal Time-02&#39;,          label: &#39;(GMT -02:00) Coordinated Universal Time-02&#39; },
+            { value: &#39;(GMT -01:00) Azores&#39;,                                 label: &#39;(GMT -01:00) Azores&#39; },
+            { value: &#39;(GMT +00:00) Dublin / Edinburgh / Lisbon / London&#39;,   label: &#39;(GMT +00:00) Dublin / Edinburgh / Lisbon / London&#39; },
+            { value: &#39;(GMT +01:00) Amsterdam / Berlin / Rome / Paris&#39;,      label: &#39;(GMT +01:00) Amsterdam / Berlin / Rome / Paris&#39; },
+            { value: &#39;(GMT +02:00) Athens / Bucharest&#39;,                     label: &#39;(GMT +02:00) Athens / Bucharest&#39; },
+            { value: &#39;(GMT +03:00) Moscow / St. Petersburg&#39;,                label: &#39;(GMT +03:00) Moscow / St. Petersburg&#39; },
+            { value: &#39;(GMT +03:30) Tehran&#39;,                                 label: &#39;(GMT +03:30) Tehran&#39; },
+            { value: &#39;(GMT +04:00) Abu Dhabi / Muscat&#39;,                     label: &#39;(GMT +04:00) Abu Dhabi / Muscat&#39; },
+            { value: &#39;(GMT +04:30) Kabul&#39;,                                  label: &#39;(GMT +04:30) Kabul&#39; },
+            { value: &#39;(GMT +05:00) Islamabad / Karachi&#39;,                    label: &#39;(GMT +05:00) Islamabad / Karachi&#39; },
+            { value: &#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39;,        label: &#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39; },
+            { value: &#39;(GMT +05:45) Kathmandu&#39;,                              label: &#39;(GMT +05:45) Kathmandu&#39; },
+            { value: &#39;(GMT +06:00) Dhaka&#39;,                                  label: &#39;(GMT +06:00) Dhaka&#39; },
+            { value: &#39;(GMT +06:30) Yangon (Rangoon)&#39;,                       label: &#39;(GMT +06:30) Yangon (Rangoon)&#39; },
+            { value: &#39;(GMT +07:00) Bangkok / Hanoi / Jakarta&#39;,              label: &#39;(GMT +07:00) Bangkok / Hanoi / Jakarta&#39; },
+            { value: &#39;(GMT +08:00) Beijing / Chongqing / Hong Kong&#39;,        label: &#39;(GMT +08:00) Beijing / Chongqing / Hong Kong&#39; },
+            { value: &#39;(GMT +09:00) Osaka / Sapporo / Tokyo&#39;,                label: &#39;(GMT +09:00) Osaka / Sapporo / Tokyo&#39; },
+            { value: &#39;(GMT +09:30) Adelaide&#39;,                               label: &#39;(GMT +09:30) Adelaide&#39; },
+            { value: &#39;(GMT +10:00) Canberra / Melbourne / Sydney&#39;,          label: &#39;(GMT +10:00) Canberra / Melbourne / Sydney&#39; },
+            { value: &#39;(GMT +11:00) Solomon Islands / New Caledonia&#39;,        label: &#39;(GMT +11:00) Solomon Islands / New Caledonia&#39; },
+            { value: &#39;(GMT +12:00) Auckland / Wellington&#39;,                  label: &#39;(GMT +12:00) Auckland / Wellington&#39; },
+          ]}
+        /&gt;
+      &lt;/Modal&gt;
+    &lt;/&gt;
+  );
+};</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
   no-error 
   has-info 
   no-story-error
@@ -8184,9 +9483,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SetupTable</h2>
       <div class="badges">
-        <label for="c-22-design-system-components-table-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-22-design-system-components-table-info" class="badge info as-toggle">1 info</label>
-        <label for="c-22-design-system-components-table-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-24-design-system-components-table-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-24-design-system-components-table-info" class="badge info as-toggle">1 info</label>
+        <label for="c-24-design-system-components-table-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -8199,11 +9498,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-22-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-22-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-24-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-24-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-22-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-24-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -8310,9 +9609,9 @@ striped?: any = false</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Slider</h2>
       <div class="badges">
-        <label for="c-23-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
-        <label for="c-23-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
-        <label for="c-23-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
+        <label for="c-25-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-25-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
+        <label for="c-25-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
         
         
       </div>
@@ -8325,11 +9624,11 @@ striped?: any = false</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-23-design-system-components-slider-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-23-design-system-components-slider-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-25-design-system-components-slider-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-25-design-system-components-slider-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-23-design-system-components-slider-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-25-design-system-components-slider-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -8686,9 +9985,9 @@ value?: any = 50</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Stepper</h2>
       <div class="badges">
-        <label for="c-24-design-system-components-stepper-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-24-design-system-components-stepper-info" class="badge info as-toggle">1 info</label>
-        <label for="c-24-design-system-components-stepper-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-26-design-system-components-stepper-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-26-design-system-components-stepper-info" class="badge info as-toggle">1 info</label>
+        <label for="c-26-design-system-components-stepper-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -8701,11 +10000,11 @@ value?: any = 50</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-24-design-system-components-stepper-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-24-design-system-components-stepper-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-26-design-system-components-stepper-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-26-design-system-components-stepper-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-24-design-system-components-stepper-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-26-design-system-components-stepper-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -8899,9 +10198,9 @@ variant?: any = &#39;multi&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Switch</h2>
       <div class="badges">
-        <label for="c-25-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-25-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
-        <label for="c-25-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-27-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-27-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
+        <label for="c-27-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -8914,11 +10213,11 @@ variant?: any = &#39;multi&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-25-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-25-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-27-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-27-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-25-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-27-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9062,9 +10361,9 @@ variant?: any = &#39;multi&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tabs</h2>
       <div class="badges">
-        <label for="c-26-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-26-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-26-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-28-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-28-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-28-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -9077,11 +10376,11 @@ variant?: any = &#39;multi&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-26-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-26-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-28-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-28-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-26-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-28-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9223,9 +10522,9 @@ variant?: any = &#39;primary&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tags</h2>
       <div class="badges">
-        <label for="c-27-design-system-components-tags-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-27-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
-        <label for="c-27-design-system-components-tags-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-29-design-system-components-tags-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-29-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
+        <label for="c-29-design-system-components-tags-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -9238,11 +10537,11 @@ variant?: any = &#39;primary&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-27-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-27-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-29-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-29-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-27-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-29-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9463,9 +10762,9 @@ width?: any = &#39;100%&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Textarea</h2>
       <div class="badges">
-        <label for="c-28-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-28-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
-        <label for="c-28-design-system-components-textarea-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-30-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-30-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
+        <label for="c-30-design-system-components-textarea-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -9478,11 +10777,11 @@ width?: any = &#39;100%&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-28-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-28-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-30-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-30-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-28-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-30-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9675,9 +10974,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tooltip</h2>
       <div class="badges">
-        <label for="c-29-design-system-components-tooltip-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-29-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
-        <label for="c-29-design-system-components-tooltip-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-31-design-system-components-tooltip-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-31-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
+        <label for="c-31-design-system-components-tooltip-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -9690,11 +10989,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-29-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-29-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-31-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-31-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-29-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-31-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9866,9 +11165,9 @@ variant?: any = &#39;black&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> TypographyPage</h2>
       <div class="badges">
-        <label for="c-30-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-30-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
-        <label for="c-30-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-32-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-32-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
+        <label for="c-32-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -9880,9 +11179,9 @@ variant?: any = &#39;black&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-30-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-30-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-30-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-32-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-32-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-32-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -10327,9 +11626,9 @@ export const AllTypography: StoryObj = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-31-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-31-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-31-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-33-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-33-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-33-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -10341,9 +11640,9 @@ export const AllTypography: StoryObj = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-31-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-31-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-31-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-33-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-33-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-33-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -11718,9 +13017,9 @@ export const CreateNotification: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> UserPicker</h2>
       <div class="badges">
-        <label for="c-32-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-32-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-32-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-34-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-34-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-34-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -11733,11 +13032,11 @@ export const CreateNotification: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-32-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-32-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-34-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-34-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-32-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-34-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -11933,9 +13232,9 @@ width?: any = 390</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> VerticalTabs</h2>
       <div class="badges">
-        <label for="c-33-design-system-components-verticaltabs-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-33-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-33-design-system-components-verticaltabs-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-35-design-system-components-verticaltabs-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-35-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-35-design-system-components-verticaltabs-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -11948,11 +13247,11 @@ width?: any = 390</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-33-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-33-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-35-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-35-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-33-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-35-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -12096,9 +13395,9 @@ width?: any = 275</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> WMSBar</h2>
       <div class="badges">
-        <label for="c-34-design-system-components-wmsbar-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-34-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-34-design-system-components-wmsbar-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-36-design-system-components-wmsbar-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-36-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-36-design-system-components-wmsbar-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -12111,11 +13410,11 @@ width?: any = 275</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-34-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-34-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-36-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-36-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-34-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-36-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -12218,7 +13517,7 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
           <label for="no-component-found-toggle" class="group-header">
             <span class="caret">▸</span>
             <span class="group-title">No component found</span>
-            <span class="group-count">3</span>
+            <span class="group-count">4</span>
           </label>
           <div class="group-cards">
 <article
@@ -14204,14 +15503,1166 @@ export const CreateDeal: Story = {
   no-story-error
   no-doc-error"
   role="listitem"
+  aria-label="SendDashboardScheduler">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> SendDashboardScheduler</h2>
+      <div class="badges">
+        <label for="c-error-2-design-system-patterns-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-2-design-system-patterns-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-2-design-system-patterns-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/patterns/SendDashboardScheduler.stories.tsx">design-system-patterns-send-dashboard-scheduler · ./src/design-system/patterns/SendDashboardScheduler.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-2-design-system-patterns-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-2-design-system-patterns-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-2-design-system-patterns-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  20 | // ─────────────────────────────────────────────────────────────────────────────
+  21 |
+&gt; 22 | const meta: Meta = {
+     | ^
+  23 |   title: &#39;Design System/Patterns/Send Dashboard Scheduler&#39;,
+  24 |   parameters: {
+  25 |     layout: &#39;centered&#39;,
+
+./src/design-system/patterns/SendDashboardScheduler.stories.tsx:
+import { useState } from &#39;react&#39;;
+import type { Meta, StoryObj } from &#39;@storybook/react&#39;;
+import { Modal } from &#39;../components/Modal/Modal&#39;;
+import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
+import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
+import { Button } from &#39;../components/Button/Button&#39;;
+import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
+import { FormSection } from &#39;../components/FormSection/FormSection&#39;;
+import { DateTimeInput } from &#39;../components/Input/DateTimeInput&#39;;
+import { Input } from &#39;../components/Input/Input&#39;;
+import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
+import { Tags } from &#39;../components/Tags/Tags&#39;;
+import { Radio } from &#39;../components/Radio/Radio&#39;;
+import { Calendar } from &#39;../components/Calendar/Calendar&#39;;
+import { GroupButton } from &#39;../components/GroupButton/GroupButton&#39;;
+import { Info } from &#39;../foundations/icons/Icons&#39;;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Meta
+// ─────────────────────────────────────────────────────────────────────────────
+
+const meta: Meta = {
+  title: &#39;Design System/Patterns/Send Dashboard Scheduler&#39;,
+  parameters: {
+    layout: &#39;centered&#39;,
+    docs: {
+      description: {
+        component:
+          &#39;Modal pattern for scheduling a dashboard email report — &#39; +
+          &#39;configure send options, frequency, start date/time, and delivery preferences.&#39;,
+      },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────────────────────
+
+function todayDDMMYYYY(): string {
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2, &#39;0&#39;);
+  const mm = String(d.getMonth() + 1).padStart(2, &#39;0&#39;);
+  return `${dd}/${mm}/${d.getFullYear()}`;
+}
+
+function formatEnds(ends: string, endsAfterN: number, endsOnDate: string): string {
+  if (ends === &#39;after_n&#39;) return `, ends after ${endsAfterN} ${endsAfterN === 1 ? &#39;time&#39; : &#39;times&#39;}`;
+  if (ends === &#39;on_date&#39; &amp;&amp; endsOnDate) return `, ends on ${endsOnDate}`;
+  return &#39;&#39;;
+}
+
+function formatScheduleSummary(
+  dateStr: string, timeStr: string,
+  frequency: string, everyN: number,
+  ends: string, endsAfterN: number, endsOnDate: string,
+  selectedDays: string[],
+  monthlyMode: string, selectedMonthDays: number[],
+  monthlyPos: string, monthlyWeekDay: string,
+  quarterMonthPos: string, quarterDay: string,
+  yearlyMonths: string[], yearlyOn: string,
+): string {
+  if (!dateStr || !timeStr) return &#39;&#39;;
+  const tail = formatEnds(ends, endsAfterN, endsOnDate);
+
+  if (frequency === &#39;daily&#39;) {
+    const unit = everyN === 1 ? &#39;day&#39; : &#39;days&#39;;
+    return `Email will be sent every ${everyN} ${unit} from ${dateStr}, at ${timeStr} IST${tail}`;
+  }
+  if (frequency === &#39;weekly&#39;) {
+    const unit = everyN === 1 ? &#39;week&#39; : &#39;weeks&#39;;
+    const dayList = selectedDays.length &gt; 0 ? ` on ${selectedDays.join(&#39;, &#39;)}` : &#39;&#39;;
+    return `Email will be sent every ${everyN} ${unit}${dayList} from ${dateStr}, at ${timeStr} IST${tail}`;
+  }
+  if (frequency === &#39;monthly&#39;) {
+    const unit = everyN === 1 ? &#39;month&#39; : &#39;months&#39;;
+    if (monthlyMode === &#39;days_of_month&#39;) {
+      const dayList = selectedMonthDays.length &gt; 0
+        ? selectedMonthDays.slice().sort((a, b) =&gt; a - b).join(&#39;, &#39;)
+        : &#39;no days selected&#39;;
+      return `Email will be sent every ${everyN} ${unit} on the ${dayList} from ${dateStr}, at ${timeStr} IST${tail}`;
+    }
+    const pos = monthlyPos.charAt(0).toUpperCase() + monthlyPos.slice(1);
+    const wd  = monthlyWeekDay.charAt(0).toUpperCase() + monthlyWeekDay.slice(1);
+    return `Email will be sent every ${everyN} ${unit} on the ${pos} ${wd} from ${dateStr}, at ${timeStr} IST${tail}`;
+  }
+  if (frequency === &#39;quarterly&#39;) {
+    const unit = everyN === 1 ? &#39;quarter&#39; : &#39;quarters&#39;;
+    const mp  = quarterMonthPos.charAt(0).toUpperCase() + quarterMonthPos.slice(1);
+    const qd  = quarterDay === &#39;15th&#39; ? &#39;15th&#39; : quarterDay.charAt(0).toUpperCase() + quarterDay.slice(1);
+    return `Email will be sent every ${everyN} ${unit}, in the ${mp} month on the ${qd} day, from ${dateStr}, at ${timeStr} IST${tail}`;
+  }
+  if (frequency === &#39;yearly&#39;) {
+    const unit   = everyN === 1 ? &#39;year&#39; : &#39;years&#39;;
+    const months = yearlyMonths.length &gt; 0 ? yearlyMonths.join(&#39;, &#39;) : &#39;no months selected&#39;;
+    const on     = yearlyOn === &#39;15th&#39; ? &#39;15th&#39; : yearlyOn.charAt(0).toUpperCase() + yearlyOn.slice(1);
+    return `Email will be sent every ${everyN} ${unit} in ${months}, on the ${on} day, from ${dateStr}, at ${timeStr} IST${tail}`;
+  }
+  return `Scheduler will run on ${dateStr}, at ${timeStr} IST`;
+}
+
+const FREQ_UNIT: Record&lt;string, string&gt; = {
+  daily: &#39;Days&#39;, weekly: &#39;Weeks&#39;, monthly: &#39;Months&#39;, quarterly: &#39;Quarter&#39;, yearly: &#39;Years&#39;,
+};
+
+const ALL_MONTHS = [
+  &#39;January&#39;,&#39;February&#39;,&#39;March&#39;,&#39;April&#39;,&#39;May&#39;,&#39;June&#39;,
+  &#39;July&#39;,&#39;August&#39;,&#39;September&#39;,&#39;October&#39;,&#39;November&#39;,&#39;December&#39;,
+];
+
+const ORDINAL_OPTS = [
+  { value: &#39;first&#39;,  label: &#39;First&#39; },
+  { value: &#39;second&#39;, label: &#39;Second&#39; },
+  { value: &#39;third&#39;,  label: &#39;Third&#39; },
+  { value: &#39;fourth&#39;, label: &#39;Fourth&#39; },
+  { value: &#39;last&#39;,   label: &#39;Last&#39; },
+];
+
+
+const FIELD_LABEL_STYLE: React.CSSProperties = {
+  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+  fontSize: &#39;var(--ds-font-size-base)&#39;,
+  fontWeight: &#39;var(--ds-font-weight-regular)&#39;,
+  color: &#39;var(--ds-text-label)&#39;,
+  lineHeight: &#39;var(--ds-line-height-base)&#39;,
+  textAlign: &#39;right&#39;,
+  paddingTop: 7,
+};
+
+const INLINE_TEXT_STYLE: React.CSSProperties = {
+  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+  fontSize: &#39;var(--ds-font-size-base)&#39;,
+  color: &#39;var(--ds-text-base)&#39;,
+  whiteSpace: &#39;nowrap&#39;,
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Send Dashboard Scheduler
+// ─────────────────────────────────────────────────────────────────────────────
+
+// label col 130px + 20px gap + field col 390px = 540px total
+const W    = 540;
+const COLS = &#39;130px 390px&#39;;
+// field starts at label col + gap = 150px from left edge
+const FIELD_OFFSET = 150;
+
+export const SendDashboardScheduler: Story = {
+  name: &#39;Send Dashboard Scheduler&#39;,
+  render: () =&gt; {
+    const [open, setOpen] = useState(false);
+
+    const [sendOption, setSendOption]   = useState(&#39;send_later&#39;);
+    const [frequency, setFrequency]     = useState(&#39;once&#39;);
+    const [date, setDate]               = useState(todayDDMMYYYY);
+    const [time, setTime]               = useState(&#39;12:20 PM&#39;);
+    const [skipNoData, setSkipNoData]   = useState(true);
+    const [workingOnly, setWorkingOnly] = useState(false);
+    const [startOnError, setStartOnError] = useState(false);
+    const [everyN, setEveryN]             = useState(2);
+    const [ends, setEnds]                 = useState(&#39;never&#39;);
+    const [endsAfterN, setEndsAfterN]     = useState(1);
+    const [endsOnDate, setEndsOnDate]     = useState(&#39;&#39;);
+    const [tzOpen, setTzOpen] = useState(false);
+    const [timezone, setTimezone] = useState(&#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39;);
+    const [tzDraft, setTzDraft] = useState(timezone);
+
+    const [selectedDays, setSelectedDays]           = useState&lt;string[]&gt;([]);
+    const [monthlyMode, setMonthlyMode]             = useState&lt;&#39;days_of_month&#39; | &#39;specific_days&#39;&gt;(&#39;days_of_month&#39;);
+    const [selectedMonthDays, setSelectedMonthDays] = useState&lt;number[]&gt;([]);
+    const [monthlyPos, setMonthlyPos]               = useState(&#39;first&#39;);
+    const [monthlyWeekDay, setMonthlyWeekDay]       = useState(&#39;monday&#39;);
+    const [quarterMonthPos, setQuarterMonthPos]     = useState(&#39;first&#39;);
+    const [quarterDay, setQuarterDay]               = useState(&#39;first&#39;);
+    const [yearlyMonths, setYearlyMonths]           = useState&lt;string[]&gt;([&#39;January&#39;]);
+    const [yearlyOn, setYearlyOn]                   = useState(&#39;first&#39;);
+
+    const showSchedule = sendOption === &#39;send_later&#39;;
+    const summary = showSchedule
+      ? formatScheduleSummary(
+          date, time, frequency, everyN, ends, endsAfterN, endsOnDate, selectedDays,
+          monthlyMode, selectedMonthDays, monthlyPos, monthlyWeekDay,
+          quarterMonthPos, quarterDay, yearlyMonths, yearlyOn,
+        )
+      : &#39;&#39;;
+
+    const handleSave = () =&gt; {
+      if (showSchedule &amp;&amp; !date.trim()) {
+        setStartOnError(true);
+        return;
+      }
+      setOpen(false);
+    };
+
+    return (
+      &lt;&gt;
+        &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;
+          Send Email
+        &lt;/Button&gt;
+
+        &lt;Modal
+          isOpen={open}
+          title=&quot;Send Email&quot;
+          onClose={() =&gt; setOpen(false)}
+          onCancel={() =&gt; setOpen(false)}
+          onSave={handleSave}
+          cancelLabel=&quot;Cancel&quot;
+          saveLabel=&quot;Save&quot;
+          width={600}
+          disableAutoFocus
+        &gt;
+          &lt;FormSection title=&quot;Scheduling Details&quot; /&gt;
+
+          {/* Send Options */}
+          &lt;Dropdown
+            label=&quot;Send Options&quot;
+            layout=&quot;horizontal&quot;
+            width={W}
+            columns={COLS}
+            value={sendOption}
+            onChange={(val: string) =&gt; setSendOption(val)}
+            options={[
+              { value: &#39;send_immediately&#39;, label: &#39;Send Immediately&#39; },
+              { value: &#39;send_later&#39;,       label: &#39;Send Later&#39; },
+            ]}
+          /&gt;
+
+          {/* Frequency + Every N [Unit] (same row for repeating frequencies) */}
+          {showSchedule &amp;&amp; (
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, alignItems: &#39;start&#39;, width: W }}&gt;
+              &lt;span style={FIELD_LABEL_STYLE}&gt;Frequency&lt;/span&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 10 }}&gt;
+                &lt;div style={{ flex: 1, minWidth: 0 }}&gt;
+                  &lt;Dropdown
+                    layout=&quot;vertical&quot;
+                    width=&quot;100%&quot;
+                    value={frequency}
+                    onChange={(val: string) =&gt; { setFrequency(val); setEnds(&#39;never&#39;); }}
+                    options={[
+                      { value: &#39;once&#39;,      label: &#39;Once&#39; },
+                      { value: &#39;daily&#39;,     label: &#39;Daily&#39; },
+                      { value: &#39;weekly&#39;,    label: &#39;Weekly&#39; },
+                      { value: &#39;monthly&#39;,   label: &#39;Monthly&#39; },
+                      { value: &#39;quarterly&#39;, label: &#39;Quarterly&#39; },
+                      { value: &#39;yearly&#39;,    label: &#39;Yearly&#39; },
+                    ]}
+                  /&gt;
+                &lt;/div&gt;
+                {frequency !== &#39;once&#39; &amp;&amp; (
+                  &lt;&gt;
+                    &lt;span style={INLINE_TEXT_STYLE}&gt;Every&lt;/span&gt;
+                    &lt;Input layout=&quot;vertical&quot; type=&quot;number&quot; width={70} value={String(everyN)} min={1}
+                      onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setEveryN(Math.max(1, Number(e.target.value)))}
+                    /&gt;
+                    &lt;span style={INLINE_TEXT_STYLE}&gt;{FREQ_UNIT[frequency]}&lt;/span&gt;
+                  &lt;/&gt;
+                )}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          )}
+
+          {/* Weekly — day-of-week picker */}
+          {showSchedule &amp;&amp; frequency === &#39;weekly&#39; &amp;&amp; (
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+              &lt;span /&gt;
+              &lt;GroupButton
+                options={[
+                  { value: &#39;Mon&#39;, label: &#39;Mon&#39; },
+                  { value: &#39;Tue&#39;, label: &#39;Tue&#39; },
+                  { value: &#39;Wed&#39;, label: &#39;Wed&#39; },
+                  { value: &#39;Thu&#39;, label: &#39;Thu&#39; },
+                  { value: &#39;Fri&#39;, label: &#39;Fri&#39; },
+                  { value: &#39;Sat&#39;, label: &#39;Sat&#39; },
+                  { value: &#39;Sun&#39;, label: &#39;Sun&#39; },
+                ]}
+                value={selectedDays}
+                onChange={(v) =&gt; setSelectedDays(v as string[])}
+                multiSelect
+                showBadge
+              /&gt;
+            &lt;/div&gt;
+          )}
+
+          {/* Monthly — mode radio + date grid or specific-day dropdowns */}
+          {showSchedule &amp;&amp; frequency === &#39;monthly&#39; &amp;&amp; (
+            &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
+              &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+                &lt;span /&gt;
+                &lt;div style={{ display: &#39;flex&#39;, gap: 20 }}&gt;
+                  &lt;Radio
+                    label=&quot;Days of the month&quot;
+                    name=&quot;monthly-mode&quot;
+                    value=&quot;days_of_month&quot;
+                    checked={monthlyMode === &#39;days_of_month&#39;}
+                    onChange={() =&gt; setMonthlyMode(&#39;days_of_month&#39;)}
+                  /&gt;
+                  &lt;Radio
+                    label=&quot;On Specific Days&quot;
+                    name=&quot;monthly-mode&quot;
+                    value=&quot;specific_days&quot;
+                    checked={monthlyMode === &#39;specific_days&#39;}
+                    onChange={() =&gt; setMonthlyMode(&#39;specific_days&#39;)}
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              {monthlyMode === &#39;days_of_month&#39; &amp;&amp; (
+                &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+                  &lt;span /&gt;
+                  &lt;Calendar
+                    mode=&quot;date-of-month&quot;
+                    selectedDayNumbers={selectedMonthDays}
+                    onDayNumbersChange={(nums: number[]) =&gt; setSelectedMonthDays(nums)}
+                    width={282}
+                  /&gt;
+                &lt;/div&gt;
+              )}
+
+              {monthlyMode === &#39;specific_days&#39; &amp;&amp; (
+                &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &#39;start&#39; }}&gt;
+                  &lt;span /&gt;
+                  &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                    &lt;span style={INLINE_TEXT_STYLE}&gt;Every&lt;/span&gt;
+                    &lt;Dropdown layout=&quot;vertical&quot; width={120}
+                      value={monthlyPos} onChange={(val: string) =&gt; setMonthlyPos(val)}
+                      options={[
+                        { value: &#39;first&#39;, label: &#39;First&#39; },
+                        { value: &#39;15th&#39;,  label: &#39;15th&#39; },
+                        { value: &#39;last&#39;,  label: &#39;Last&#39; },
+                      ]}
+                    /&gt;
+                    &lt;Dropdown layout=&quot;vertical&quot; width={152}
+                      value={monthlyWeekDay} onChange={(val: string) =&gt; setMonthlyWeekDay(val)}
+                      options={[
+                        { value: &#39;monday&#39;,    label: &#39;Monday&#39; },
+                        { value: &#39;tuesday&#39;,   label: &#39;Tuesday&#39; },
+                        { value: &#39;wednesday&#39;, label: &#39;Wednesday&#39; },
+                        { value: &#39;thursday&#39;,  label: &#39;Thursday&#39; },
+                        { value: &#39;friday&#39;,    label: &#39;Friday&#39; },
+                        { value: &#39;saturday&#39;,  label: &#39;Saturday&#39; },
+                        { value: &#39;sunday&#39;,    label: &#39;Sunday&#39; },
+                      ]}
+                    /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              )}
+            &lt;/div&gt;
+          )}
+
+          {/* Quarterly — month of quarter + day */}
+          {showSchedule &amp;&amp; frequency === &#39;quarterly&#39; &amp;&amp; (
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+              &lt;span /&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8, flexWrap: &#39;wrap&#39; }}&gt;
+                &lt;span style={INLINE_TEXT_STYLE}&gt;In the&lt;/span&gt;
+                &lt;Dropdown layout=&quot;vertical&quot; width={100}
+                  value={quarterMonthPos} onChange={(val: string) =&gt; setQuarterMonthPos(val)}
+                  options={[
+                    { value: &#39;first&#39;,  label: &#39;First&#39; },
+                    { value: &#39;second&#39;, label: &#39;Second&#39; },
+                    { value: &#39;third&#39;,  label: &#39;Third&#39; },
+                    { value: &#39;last&#39;,   label: &#39;Last&#39; },
+                  ]}
+                /&gt;
+                &lt;span style={INLINE_TEXT_STYLE}&gt;Month of Quarter on&lt;/span&gt;
+                &lt;Dropdown layout=&quot;vertical&quot; width={90}
+                  value={quarterDay} onChange={(val: string) =&gt; setQuarterDay(val)}
+                  options={[
+                    { value: &#39;first&#39;, label: &#39;First&#39; },
+                    { value: &#39;15th&#39;,  label: &#39;15th&#39; },
+                    { value: &#39;last&#39;,  label: &#39;Last&#39; },
+                  ]}
+                /&gt;
+                &lt;span style={INLINE_TEXT_STYLE}&gt;day&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          )}
+
+          {/* Yearly — month tags + ordinal day */}
+          {showSchedule &amp;&amp; frequency === &#39;yearly&#39; &amp;&amp; (
+            &lt;&gt;
+              &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &#39;start&#39; }}&gt;
+                &lt;span /&gt;
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 8 }}&gt;
+                  &lt;span style={{ ...INLINE_TEXT_STYLE, paddingTop: 7 }}&gt;In&lt;/span&gt;
+                  &lt;div style={{ flex: 1 }}&gt;
+                    &lt;Tags
+                      value={yearlyMonths.map(m =&gt; ({ value: m, label: m }))}
+                      options={ALL_MONTHS.map(m =&gt; ({ value: m, label: m }))}
+                      onChange={(tags: { value: string; label: string }[]) =&gt; setYearlyMonths(tags.map(t =&gt; t.value))}
+                      width=&quot;100%&quot;
+                      placeholder=&quot;Add month&quot;
+                    /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+                &lt;span /&gt;
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;On&lt;/span&gt;
+                  &lt;Dropdown layout=&quot;vertical&quot; width={120}
+                    value={yearlyOn} onChange={(val: string) =&gt; setYearlyOn(val)}
+                    options={ORDINAL_OPTS}
+                  /&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;day&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/&gt;
+          )}
+
+          {/* Start On — date + time picker */}
+          {showSchedule &amp;&amp; (
+            &lt;DateTimeInput
+              label=&quot;Start On&quot;
+              layout=&quot;horizontal&quot;
+              width={W}
+              columns={COLS}
+              dateValue={date}
+              timeValue={time}
+              error={startOnError}
+              helperText={startOnError ? &#39;Please enter a start date.&#39; : undefined}
+              onDateChange={(val: string) =&gt; { setDate(val); setStartOnError(false); }}
+              onTimeChange={(val: string) =&gt; setTime(val)}
+            /&gt;
+          )}
+
+          {/* Timezone note — always below Start On */}
+          {showSchedule &amp;&amp; (
+            &lt;p
+              style={{
+                margin: 0,
+                marginTop: -15,
+                paddingLeft: FIELD_OFFSET,
+                fontFamily: &#39;var(--ds-font-family-base)&#39;,
+                fontSize: &#39;var(--ds-font-size-sm)&#39;,
+                color: &#39;var(--ds-text-muted)&#39;,
+                lineHeight: &#39;var(--ds-line-height-base)&#39;,
+              }}
+            &gt;
+              &lt;span style={{ color: &#39;var(--ds-text-label)&#39; }}&gt;Time Zone: &lt;/span&gt;
+              {timezone}
+              &lt;button type=&quot;button&quot; className=&quot;input-link-btn&quot; style={{ marginLeft: 4 }} onClick={() =&gt; { setTzDraft(timezone); setTzOpen(true); }}&gt;
+                Change
+              &lt;/button&gt;
+            &lt;/p&gt;
+          )}
+
+          {/* Ends — shown for all repeating frequencies */}
+          {showSchedule &amp;&amp; frequency !== &#39;once&#39; &amp;&amp; (
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, alignItems: &#39;start&#39;, width: W }}&gt;
+              &lt;span style={FIELD_LABEL_STYLE}&gt;Ends&lt;/span&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                &lt;div style={{ flex: 1, minWidth: 0 }}&gt;
+                  &lt;Dropdown
+                    layout=&quot;vertical&quot;
+                    width=&quot;100%&quot;
+                    value={ends}
+                    onChange={(val: string) =&gt; setEnds(val)}
+                    options={[
+                      { value: &#39;never&#39;,   label: &#39;Never&#39; },
+                      { value: &#39;after_n&#39;, label: &#39;After N times&#39;, triggerLabel: &#39;After&#39; },
+                      { value: &#39;on_date&#39;, label: &#39;On Specific Date&#39; },
+                    ]}
+                  /&gt;
+                &lt;/div&gt;
+                {ends === &#39;after_n&#39; &amp;&amp; (
+                  &lt;&gt;
+                    &lt;Input layout=&quot;vertical&quot; type=&quot;number&quot; width={70} value={String(endsAfterN)} min={1}
+                      onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setEndsAfterN(Math.max(1, Number(e.target.value)))}
+                    /&gt;
+                    &lt;span style={INLINE_TEXT_STYLE}&gt;times&lt;/span&gt;
+                  &lt;/&gt;
+                )}
+                {ends === &#39;on_date&#39; &amp;&amp; (
+                  &lt;DateTimeInput
+                    layout=&quot;vertical&quot;
+                    width={160}
+                    dateOnly
+                    dateValue={endsOnDate}
+                    onDateChange={(val: string) =&gt; setEndsOnDate(val)}
+                  /&gt;
+                )}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          )}
+
+          {/* Scheduler run summary */}
+          {showSchedule &amp;&amp; summary &amp;&amp; (
+            &lt;div className=&quot;sds-summary-note&quot; style={{ paddingLeft: FIELD_OFFSET }}&gt;
+              &lt;style&gt;{`.sds-summary-note .msg-info-label { display: none; }`}&lt;/style&gt;
+              &lt;MessageInfo variant=&quot;info&quot; message={summary} /&gt;
+            &lt;/div&gt;
+          )}
+
+          {/* Delivery preferences */}
+          &lt;div
+            style={{
+              display: &#39;flex&#39;,
+              flexDirection: &#39;column&#39;,
+              gap: &#39;15px&#39;,
+            }}
+          &gt;
+            &lt;Checkbox
+              id=&quot;skip-no-data&quot;
+              label=&quot;Do not send Email when there is no data in the chart.&quot;
+              checked={skipNoData}
+              onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt;
+                setSkipNoData(e.target.checked)
+              }
+            /&gt;
+
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 10 }}&gt;
+              &lt;Checkbox
+                id=&quot;working-days-only&quot;
+                label=&quot;Send Email only on working days&quot;
+                checked={workingOnly}
+                onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt;
+                  setWorkingOnly(e.target.checked)
+                }
+              /&gt;
+              &lt;Tooltip
+                content=&quot;Email will only be dispatched on business days, skipping weekends and public holidays.&quot;
+                variant=&quot;white&quot;
+                placement=&quot;top&quot;
+              &gt;
+                &lt;span
+                  style={{
+                    display: &#39;inline-flex&#39;,
+                    alignItems: &#39;center&#39;,
+                    color: &#39;var(--ds-text-label)&#39;,
+                    cursor: &#39;pointer&#39;,
+                    lineHeight: 0,
+                  }}
+                &gt;
+                  &lt;Info /&gt;
+                &lt;/span&gt;
+              &lt;/Tooltip&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/Modal&gt;
+
+        &lt;Modal
+          isOpen={tzOpen}
+          title=&quot;Change Timezone&quot;
+          onClose={() =&gt; setTzOpen(false)}
+          onCancel={() =&gt; setTzOpen(false)}
+          onSave={() =&gt; { setTimezone(tzDraft); setTzOpen(false); }}
+          cancelLabel=&quot;Cancel&quot;
+          saveLabel=&quot;Done&quot;
+          width={574}
+        &gt;
+          &lt;Dropdown
+            label=&quot;Timezone&quot;
+            layout=&quot;horizontal&quot;
+            width=&quot;fit-content&quot;
+            columns=&quot;100px 390px&quot;
+            value={tzDraft}
+            onChange={(val: string) =&gt; setTzDraft(val)}
+            options={[
+              { value: &#39;(GMT -12:00) International Date Line West&#39;,           label: &#39;(GMT -12:00) International Date Line West&#39; },
+              { value: &#39;(GMT -11:00) Coordinated Universal Time-11&#39;,          label: &#39;(GMT -11:00) Coordinated Universal Time-11&#39; },
+              { value: &#39;(GMT -10:00) Hawaii&#39;,                                 label: &#39;(GMT -10:00) Hawaii&#39; },
+              { value: &#39;(GMT -09:00) Alaska&#39;,                                 label: &#39;(GMT -09:00) Alaska&#39; },
+              { value: &#39;(GMT -08:00) Pacific Time (US &amp; Canada)&#39;,             label: &#39;(GMT -08:00) Pacific Time (US &amp; Canada)&#39; },
+              { value: &#39;(GMT -07:00) Mountain Time (US &amp; Canada)&#39;,            label: &#39;(GMT -07:00) Mountain Time (US &amp; Canada)&#39; },
+              { value: &#39;(GMT -06:00) Central Time (US &amp; Canada)&#39;,             label: &#39;(GMT -06:00) Central Time (US &amp; Canada)&#39; },
+              { value: &#39;(GMT -05:00) Eastern Time (US &amp; Canada)&#39;,             label: &#39;(GMT -05:00) Eastern Time (US &amp; Canada)&#39; },
+              { value: &#39;(GMT -04:00) Atlantic Time (Canada)&#39;,                 label: &#39;(GMT -04:00) Atlantic Time (Canada)&#39; },
+              { value: &#39;(GMT -03:30) Newfoundland&#39;,                           label: &#39;(GMT -03:30) Newfoundland&#39; },
+              { value: &#39;(GMT -03:00) Brasilia&#39;,                               label: &#39;(GMT -03:00) Brasilia&#39; },
+              { value: &#39;(GMT -02:00) Coordinated Universal Time-02&#39;,          label: &#39;(GMT -02:00) Coordinated Universal Time-02&#39; },
+              { value: &#39;(GMT -01:00) Azores&#39;,                                 label: &#39;(GMT -01:00) Azores&#39; },
+              { value: &#39;(GMT +00:00) Dublin / Edinburgh / Lisbon / London&#39;,   label: &#39;(GMT +00:00) Dublin / Edinburgh / Lisbon / London&#39; },
+              { value: &#39;(GMT +01:00) Amsterdam / Berlin / Rome / Paris&#39;,      label: &#39;(GMT +01:00) Amsterdam / Berlin / Rome / Paris&#39; },
+              { value: &#39;(GMT +02:00) Athens / Bucharest&#39;,                     label: &#39;(GMT +02:00) Athens / Bucharest&#39; },
+              { value: &#39;(GMT +03:00) Moscow / St. Petersburg&#39;,                label: &#39;(GMT +03:00) Moscow / St. Petersburg&#39; },
+              { value: &#39;(GMT +03:30) Tehran&#39;,                                 label: &#39;(GMT +03:30) Tehran&#39; },
+              { value: &#39;(GMT +04:00) Abu Dhabi / Muscat&#39;,                     label: &#39;(GMT +04:00) Abu Dhabi / Muscat&#39; },
+              { value: &#39;(GMT +04:30) Kabul&#39;,                                  label: &#39;(GMT +04:30) Kabul&#39; },
+              { value: &#39;(GMT +05:00) Islamabad / Karachi&#39;,                    label: &#39;(GMT +05:00) Islamabad / Karachi&#39; },
+              { value: &#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39;,        label: &#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39; },
+              { value: &#39;(GMT +05:45) Kathmandu&#39;,                              label: &#39;(GMT +05:45) Kathmandu&#39; },
+              { value: &#39;(GMT +06:00) Dhaka&#39;,                                  label: &#39;(GMT +06:00) Dhaka&#39; },
+              { value: &#39;(GMT +06:30) Yangon (Rangoon)&#39;,                       label: &#39;(GMT +06:30) Yangon (Rangoon)&#39; },
+              { value: &#39;(GMT +07:00) Bangkok / Hanoi / Jakarta&#39;,              label: &#39;(GMT +07:00) Bangkok / Hanoi / Jakarta&#39; },
+              { value: &#39;(GMT +08:00) Beijing / Chongqing / Hong Kong&#39;,        label: &#39;(GMT +08:00) Beijing / Chongqing / Hong Kong&#39; },
+              { value: &#39;(GMT +09:00) Osaka / Sapporo / Tokyo&#39;,                label: &#39;(GMT +09:00) Osaka / Sapporo / Tokyo&#39; },
+              { value: &#39;(GMT +09:30) Adelaide&#39;,                               label: &#39;(GMT +09:30) Adelaide&#39; },
+              { value: &#39;(GMT +10:00) Canberra / Melbourne / Sydney&#39;,          label: &#39;(GMT +10:00) Canberra / Melbourne / Sydney&#39; },
+              { value: &#39;(GMT +11:00) Solomon Islands / New Caledonia&#39;,        label: &#39;(GMT +11:00) Solomon Islands / New Caledonia&#39; },
+              { value: &#39;(GMT +12:00) Auckland / Wellington&#39;,                  label: &#39;(GMT +12:00) Auckland / Wellington&#39; },
+            ]}
+          /&gt;
+        &lt;/Modal&gt;
+      &lt;/&gt;
+    );
+  },
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import {
+    Button,
+    Calendar,
+    Checkbox,
+    DateTimeInput,
+    Dropdown,
+    FormSection,
+    GroupButton,
+    Info,
+    Input,
+    MessageInfo,
+    Modal,
+    Radio,
+    Tags,
+    Tooltip,
+} from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Send Dashboard Scheduler</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SendDashboardScheduler = () =&gt; {
+  const [open, setOpen] = useState(false);
+
+  const [sendOption, setSendOption]   = useState(&#39;send_later&#39;);
+  const [frequency, setFrequency]     = useState(&#39;once&#39;);
+  const [date, setDate]               = useState(todayDDMMYYYY);
+  const [time, setTime]               = useState(&#39;12:20 PM&#39;);
+  const [skipNoData, setSkipNoData]   = useState(true);
+  const [workingOnly, setWorkingOnly] = useState(false);
+  const [startOnError, setStartOnError] = useState(false);
+  const [everyN, setEveryN]             = useState(2);
+  const [ends, setEnds]                 = useState(&#39;never&#39;);
+  const [endsAfterN, setEndsAfterN]     = useState(1);
+  const [endsOnDate, setEndsOnDate]     = useState(&#39;&#39;);
+  const [tzOpen, setTzOpen] = useState(false);
+  const [timezone, setTimezone] = useState(&#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39;);
+  const [tzDraft, setTzDraft] = useState(timezone);
+
+  const [selectedDays, setSelectedDays]           = useState&lt;string[]&gt;([]);
+  const [monthlyMode, setMonthlyMode]             = useState&lt;&#39;days_of_month&#39; | &#39;specific_days&#39;&gt;(&#39;days_of_month&#39;);
+  const [selectedMonthDays, setSelectedMonthDays] = useState&lt;number[]&gt;([]);
+  const [monthlyPos, setMonthlyPos]               = useState(&#39;first&#39;);
+  const [monthlyWeekDay, setMonthlyWeekDay]       = useState(&#39;monday&#39;);
+  const [quarterMonthPos, setQuarterMonthPos]     = useState(&#39;first&#39;);
+  const [quarterDay, setQuarterDay]               = useState(&#39;first&#39;);
+  const [yearlyMonths, setYearlyMonths]           = useState&lt;string[]&gt;([&#39;January&#39;]);
+  const [yearlyOn, setYearlyOn]                   = useState(&#39;first&#39;);
+
+  const showSchedule = sendOption === &#39;send_later&#39;;
+  const summary = showSchedule
+    ? formatScheduleSummary(
+        date, time, frequency, everyN, ends, endsAfterN, endsOnDate, selectedDays,
+        monthlyMode, selectedMonthDays, monthlyPos, monthlyWeekDay,
+        quarterMonthPos, quarterDay, yearlyMonths, yearlyOn,
+      )
+    : &#39;&#39;;
+
+  const handleSave = () =&gt; {
+    if (showSchedule &amp;&amp; !date.trim()) {
+      setStartOnError(true);
+      return;
+    }
+    setOpen(false);
+  };
+
+  return (
+    &lt;&gt;
+      &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;
+        Send Email
+      &lt;/Button&gt;
+
+      &lt;Modal
+        isOpen={open}
+        title=&quot;Send Email&quot;
+        onClose={() =&gt; setOpen(false)}
+        onCancel={() =&gt; setOpen(false)}
+        onSave={handleSave}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Save&quot;
+        width={600}
+        disableAutoFocus
+      &gt;
+        &lt;FormSection title=&quot;Scheduling Details&quot; /&gt;
+
+        {/* Send Options */}
+        &lt;Dropdown
+          label=&quot;Send Options&quot;
+          layout=&quot;horizontal&quot;
+          width={W}
+          columns={COLS}
+          value={sendOption}
+          onChange={(val: string) =&gt; setSendOption(val)}
+          options={[
+            { value: &#39;send_immediately&#39;, label: &#39;Send Immediately&#39; },
+            { value: &#39;send_later&#39;,       label: &#39;Send Later&#39; },
+          ]}
+        /&gt;
+
+        {/* Frequency + Every N [Unit] (same row for repeating frequencies) */}
+        {showSchedule &amp;&amp; (
+          &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, alignItems: &#39;start&#39;, width: W }}&gt;
+            &lt;span style={FIELD_LABEL_STYLE}&gt;Frequency&lt;/span&gt;
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 10 }}&gt;
+              &lt;div style={{ flex: 1, minWidth: 0 }}&gt;
+                &lt;Dropdown
+                  layout=&quot;vertical&quot;
+                  width=&quot;100%&quot;
+                  value={frequency}
+                  onChange={(val: string) =&gt; { setFrequency(val); setEnds(&#39;never&#39;); }}
+                  options={[
+                    { value: &#39;once&#39;,      label: &#39;Once&#39; },
+                    { value: &#39;daily&#39;,     label: &#39;Daily&#39; },
+                    { value: &#39;weekly&#39;,    label: &#39;Weekly&#39; },
+                    { value: &#39;monthly&#39;,   label: &#39;Monthly&#39; },
+                    { value: &#39;quarterly&#39;, label: &#39;Quarterly&#39; },
+                    { value: &#39;yearly&#39;,    label: &#39;Yearly&#39; },
+                  ]}
+                /&gt;
+              &lt;/div&gt;
+              {frequency !== &#39;once&#39; &amp;&amp; (
+                &lt;&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;Every&lt;/span&gt;
+                  &lt;Input layout=&quot;vertical&quot; type=&quot;number&quot; width={70} value={String(everyN)} min={1}
+                    onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setEveryN(Math.max(1, Number(e.target.value)))}
+                  /&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;{FREQ_UNIT[frequency]}&lt;/span&gt;
+                &lt;/&gt;
+              )}
+            &lt;/div&gt;
+          &lt;/div&gt;
+        )}
+
+        {/* Weekly — day-of-week picker */}
+        {showSchedule &amp;&amp; frequency === &#39;weekly&#39; &amp;&amp; (
+          &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+            &lt;span /&gt;
+            &lt;GroupButton
+              options={[
+                { value: &#39;Mon&#39;, label: &#39;Mon&#39; },
+                { value: &#39;Tue&#39;, label: &#39;Tue&#39; },
+                { value: &#39;Wed&#39;, label: &#39;Wed&#39; },
+                { value: &#39;Thu&#39;, label: &#39;Thu&#39; },
+                { value: &#39;Fri&#39;, label: &#39;Fri&#39; },
+                { value: &#39;Sat&#39;, label: &#39;Sat&#39; },
+                { value: &#39;Sun&#39;, label: &#39;Sun&#39; },
+              ]}
+              value={selectedDays}
+              onChange={(v) =&gt; setSelectedDays(v as string[])}
+              multiSelect
+              showBadge
+            /&gt;
+          &lt;/div&gt;
+        )}
+
+        {/* Monthly — mode radio + date grid or specific-day dropdowns */}
+        {showSchedule &amp;&amp; frequency === &#39;monthly&#39; &amp;&amp; (
+          &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+              &lt;span /&gt;
+              &lt;div style={{ display: &#39;flex&#39;, gap: 20 }}&gt;
+                &lt;Radio
+                  label=&quot;Days of the month&quot;
+                  name=&quot;monthly-mode&quot;
+                  value=&quot;days_of_month&quot;
+                  checked={monthlyMode === &#39;days_of_month&#39;}
+                  onChange={() =&gt; setMonthlyMode(&#39;days_of_month&#39;)}
+                /&gt;
+                &lt;Radio
+                  label=&quot;On Specific Days&quot;
+                  name=&quot;monthly-mode&quot;
+                  value=&quot;specific_days&quot;
+                  checked={monthlyMode === &#39;specific_days&#39;}
+                  onChange={() =&gt; setMonthlyMode(&#39;specific_days&#39;)}
+                /&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            {monthlyMode === &#39;days_of_month&#39; &amp;&amp; (
+              &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+                &lt;span /&gt;
+                &lt;Calendar
+                  mode=&quot;date-of-month&quot;
+                  selectedDayNumbers={selectedMonthDays}
+                  onDayNumbersChange={(nums: number[]) =&gt; setSelectedMonthDays(nums)}
+                  width={282}
+                /&gt;
+              &lt;/div&gt;
+            )}
+
+            {monthlyMode === &#39;specific_days&#39; &amp;&amp; (
+              &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &#39;start&#39; }}&gt;
+                &lt;span /&gt;
+                &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;Every&lt;/span&gt;
+                  &lt;Dropdown layout=&quot;vertical&quot; width={120}
+                    value={monthlyPos} onChange={(val: string) =&gt; setMonthlyPos(val)}
+                    options={[
+                      { value: &#39;first&#39;, label: &#39;First&#39; },
+                      { value: &#39;15th&#39;,  label: &#39;15th&#39; },
+                      { value: &#39;last&#39;,  label: &#39;Last&#39; },
+                    ]}
+                  /&gt;
+                  &lt;Dropdown layout=&quot;vertical&quot; width={152}
+                    value={monthlyWeekDay} onChange={(val: string) =&gt; setMonthlyWeekDay(val)}
+                    options={[
+                      { value: &#39;monday&#39;,    label: &#39;Monday&#39; },
+                      { value: &#39;tuesday&#39;,   label: &#39;Tuesday&#39; },
+                      { value: &#39;wednesday&#39;, label: &#39;Wednesday&#39; },
+                      { value: &#39;thursday&#39;,  label: &#39;Thursday&#39; },
+                      { value: &#39;friday&#39;,    label: &#39;Friday&#39; },
+                      { value: &#39;saturday&#39;,  label: &#39;Saturday&#39; },
+                      { value: &#39;sunday&#39;,    label: &#39;Sunday&#39; },
+                    ]}
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            )}
+          &lt;/div&gt;
+        )}
+
+        {/* Quarterly — month of quarter + day */}
+        {showSchedule &amp;&amp; frequency === &#39;quarterly&#39; &amp;&amp; (
+          &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+            &lt;span /&gt;
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8, flexWrap: &#39;wrap&#39; }}&gt;
+              &lt;span style={INLINE_TEXT_STYLE}&gt;In the&lt;/span&gt;
+              &lt;Dropdown layout=&quot;vertical&quot; width={100}
+                value={quarterMonthPos} onChange={(val: string) =&gt; setQuarterMonthPos(val)}
+                options={[
+                  { value: &#39;first&#39;,  label: &#39;First&#39; },
+                  { value: &#39;second&#39;, label: &#39;Second&#39; },
+                  { value: &#39;third&#39;,  label: &#39;Third&#39; },
+                  { value: &#39;last&#39;,   label: &#39;Last&#39; },
+                ]}
+              /&gt;
+              &lt;span style={INLINE_TEXT_STYLE}&gt;Month of Quarter on&lt;/span&gt;
+              &lt;Dropdown layout=&quot;vertical&quot; width={90}
+                value={quarterDay} onChange={(val: string) =&gt; setQuarterDay(val)}
+                options={[
+                  { value: &#39;first&#39;, label: &#39;First&#39; },
+                  { value: &#39;15th&#39;,  label: &#39;15th&#39; },
+                  { value: &#39;last&#39;,  label: &#39;Last&#39; },
+                ]}
+              /&gt;
+              &lt;span style={INLINE_TEXT_STYLE}&gt;day&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        )}
+
+        {/* Yearly — month tags + ordinal day */}
+        {showSchedule &amp;&amp; frequency === &#39;yearly&#39; &amp;&amp; (
+          &lt;&gt;
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &#39;start&#39; }}&gt;
+              &lt;span /&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;flex-start&#39;, gap: 8 }}&gt;
+                &lt;span style={{ ...INLINE_TEXT_STYLE, paddingTop: 7 }}&gt;In&lt;/span&gt;
+                &lt;div style={{ flex: 1 }}&gt;
+                  &lt;Tags
+                    value={yearlyMonths.map(m =&gt; ({ value: m, label: m }))}
+                    options={ALL_MONTHS.map(m =&gt; ({ value: m, label: m }))}
+                    onChange={(tags: { value: string; label: string }[]) =&gt; setYearlyMonths(tags.map(t =&gt; t.value))}
+                    width=&quot;100%&quot;
+                    placeholder=&quot;Add month&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
+              &lt;span /&gt;
+              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                &lt;span style={INLINE_TEXT_STYLE}&gt;On&lt;/span&gt;
+                &lt;Dropdown layout=&quot;vertical&quot; width={120}
+                  value={yearlyOn} onChange={(val: string) =&gt; setYearlyOn(val)}
+                  options={ORDINAL_OPTS}
+                /&gt;
+                &lt;span style={INLINE_TEXT_STYLE}&gt;day&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/&gt;
+        )}
+
+        {/* Start On — date + time picker */}
+        {showSchedule &amp;&amp; (
+          &lt;DateTimeInput
+            label=&quot;Start On&quot;
+            layout=&quot;horizontal&quot;
+            width={W}
+            columns={COLS}
+            dateValue={date}
+            timeValue={time}
+            error={startOnError}
+            helperText={startOnError ? &#39;Please enter a start date.&#39; : undefined}
+            onDateChange={(val: string) =&gt; { setDate(val); setStartOnError(false); }}
+            onTimeChange={(val: string) =&gt; setTime(val)}
+          /&gt;
+        )}
+
+        {/* Timezone note — always below Start On */}
+        {showSchedule &amp;&amp; (
+          &lt;p
+            style={{
+              margin: 0,
+              marginTop: -15,
+              paddingLeft: FIELD_OFFSET,
+              fontFamily: &#39;var(--ds-font-family-base)&#39;,
+              fontSize: &#39;var(--ds-font-size-sm)&#39;,
+              color: &#39;var(--ds-text-muted)&#39;,
+              lineHeight: &#39;var(--ds-line-height-base)&#39;,
+            }}
+          &gt;
+            &lt;span style={{ color: &#39;var(--ds-text-label)&#39; }}&gt;Time Zone: &lt;/span&gt;
+            {timezone}
+            &lt;button type=&quot;button&quot; className=&quot;input-link-btn&quot; style={{ marginLeft: 4 }} onClick={() =&gt; { setTzDraft(timezone); setTzOpen(true); }}&gt;
+              Change
+            &lt;/button&gt;
+          &lt;/p&gt;
+        )}
+
+        {/* Ends — shown for all repeating frequencies */}
+        {showSchedule &amp;&amp; frequency !== &#39;once&#39; &amp;&amp; (
+          &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, alignItems: &#39;start&#39;, width: W }}&gt;
+            &lt;span style={FIELD_LABEL_STYLE}&gt;Ends&lt;/span&gt;
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+              &lt;div style={{ flex: 1, minWidth: 0 }}&gt;
+                &lt;Dropdown
+                  layout=&quot;vertical&quot;
+                  width=&quot;100%&quot;
+                  value={ends}
+                  onChange={(val: string) =&gt; setEnds(val)}
+                  options={[
+                    { value: &#39;never&#39;,   label: &#39;Never&#39; },
+                    { value: &#39;after_n&#39;, label: &#39;After N times&#39;, triggerLabel: &#39;After&#39; },
+                    { value: &#39;on_date&#39;, label: &#39;On Specific Date&#39; },
+                  ]}
+                /&gt;
+              &lt;/div&gt;
+              {ends === &#39;after_n&#39; &amp;&amp; (
+                &lt;&gt;
+                  &lt;Input layout=&quot;vertical&quot; type=&quot;number&quot; width={70} value={String(endsAfterN)} min={1}
+                    onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setEndsAfterN(Math.max(1, Number(e.target.value)))}
+                  /&gt;
+                  &lt;span style={INLINE_TEXT_STYLE}&gt;times&lt;/span&gt;
+                &lt;/&gt;
+              )}
+              {ends === &#39;on_date&#39; &amp;&amp; (
+                &lt;DateTimeInput
+                  layout=&quot;vertical&quot;
+                  width={160}
+                  dateOnly
+                  dateValue={endsOnDate}
+                  onDateChange={(val: string) =&gt; setEndsOnDate(val)}
+                /&gt;
+              )}
+            &lt;/div&gt;
+          &lt;/div&gt;
+        )}
+
+        {/* Scheduler run summary */}
+        {showSchedule &amp;&amp; summary &amp;&amp; (
+          &lt;div className=&quot;sds-summary-note&quot; style={{ paddingLeft: FIELD_OFFSET }}&gt;
+            &lt;style&gt;{`.sds-summary-note .msg-info-label { display: none; }`}&lt;/style&gt;
+            &lt;MessageInfo variant=&quot;info&quot; message={summary} /&gt;
+          &lt;/div&gt;
+        )}
+
+        {/* Delivery preferences */}
+        &lt;div
+          style={{
+            display: &#39;flex&#39;,
+            flexDirection: &#39;column&#39;,
+            gap: &#39;15px&#39;,
+          }}
+        &gt;
+          &lt;Checkbox
+            id=&quot;skip-no-data&quot;
+            label=&quot;Do not send Email when there is no data in the chart.&quot;
+            checked={skipNoData}
+            onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt;
+              setSkipNoData(e.target.checked)
+            }
+          /&gt;
+
+          &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 10 }}&gt;
+            &lt;Checkbox
+              id=&quot;working-days-only&quot;
+              label=&quot;Send Email only on working days&quot;
+              checked={workingOnly}
+              onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt;
+                setWorkingOnly(e.target.checked)
+              }
+            /&gt;
+            &lt;Tooltip
+              content=&quot;Email will only be dispatched on business days, skipping weekends and public holidays.&quot;
+              variant=&quot;white&quot;
+              placement=&quot;top&quot;
+            &gt;
+              &lt;span
+                style={{
+                  display: &#39;inline-flex&#39;,
+                  alignItems: &#39;center&#39;,
+                  color: &#39;var(--ds-text-label)&#39;,
+                  cursor: &#39;pointer&#39;,
+                  lineHeight: 0,
+                }}
+              &gt;
+                &lt;Info /&gt;
+              &lt;/span&gt;
+            &lt;/Tooltip&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/Modal&gt;
+
+      &lt;Modal
+        isOpen={tzOpen}
+        title=&quot;Change Timezone&quot;
+        onClose={() =&gt; setTzOpen(false)}
+        onCancel={() =&gt; setTzOpen(false)}
+        onSave={() =&gt; { setTimezone(tzDraft); setTzOpen(false); }}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Done&quot;
+        width={574}
+      &gt;
+        &lt;Dropdown
+          label=&quot;Timezone&quot;
+          layout=&quot;horizontal&quot;
+          width=&quot;fit-content&quot;
+          columns=&quot;100px 390px&quot;
+          value={tzDraft}
+          onChange={(val: string) =&gt; setTzDraft(val)}
+          options={[
+            { value: &#39;(GMT -12:00) International Date Line West&#39;,           label: &#39;(GMT -12:00) International Date Line West&#39; },
+            { value: &#39;(GMT -11:00) Coordinated Universal Time-11&#39;,          label: &#39;(GMT -11:00) Coordinated Universal Time-11&#39; },
+            { value: &#39;(GMT -10:00) Hawaii&#39;,                                 label: &#39;(GMT -10:00) Hawaii&#39; },
+            { value: &#39;(GMT -09:00) Alaska&#39;,                                 label: &#39;(GMT -09:00) Alaska&#39; },
+            { value: &#39;(GMT -08:00) Pacific Time (US &amp; Canada)&#39;,             label: &#39;(GMT -08:00) Pacific Time (US &amp; Canada)&#39; },
+            { value: &#39;(GMT -07:00) Mountain Time (US &amp; Canada)&#39;,            label: &#39;(GMT -07:00) Mountain Time (US &amp; Canada)&#39; },
+            { value: &#39;(GMT -06:00) Central Time (US &amp; Canada)&#39;,             label: &#39;(GMT -06:00) Central Time (US &amp; Canada)&#39; },
+            { value: &#39;(GMT -05:00) Eastern Time (US &amp; Canada)&#39;,             label: &#39;(GMT -05:00) Eastern Time (US &amp; Canada)&#39; },
+            { value: &#39;(GMT -04:00) Atlantic Time (Canada)&#39;,                 label: &#39;(GMT -04:00) Atlantic Time (Canada)&#39; },
+            { value: &#39;(GMT -03:30) Newfoundland&#39;,                           label: &#39;(GMT -03:30) Newfoundland&#39; },
+            { value: &#39;(GMT -03:00) Brasilia&#39;,                               label: &#39;(GMT -03:00) Brasilia&#39; },
+            { value: &#39;(GMT -02:00) Coordinated Universal Time-02&#39;,          label: &#39;(GMT -02:00) Coordinated Universal Time-02&#39; },
+            { value: &#39;(GMT -01:00) Azores&#39;,                                 label: &#39;(GMT -01:00) Azores&#39; },
+            { value: &#39;(GMT +00:00) Dublin / Edinburgh / Lisbon / London&#39;,   label: &#39;(GMT +00:00) Dublin / Edinburgh / Lisbon / London&#39; },
+            { value: &#39;(GMT +01:00) Amsterdam / Berlin / Rome / Paris&#39;,      label: &#39;(GMT +01:00) Amsterdam / Berlin / Rome / Paris&#39; },
+            { value: &#39;(GMT +02:00) Athens / Bucharest&#39;,                     label: &#39;(GMT +02:00) Athens / Bucharest&#39; },
+            { value: &#39;(GMT +03:00) Moscow / St. Petersburg&#39;,                label: &#39;(GMT +03:00) Moscow / St. Petersburg&#39; },
+            { value: &#39;(GMT +03:30) Tehran&#39;,                                 label: &#39;(GMT +03:30) Tehran&#39; },
+            { value: &#39;(GMT +04:00) Abu Dhabi / Muscat&#39;,                     label: &#39;(GMT +04:00) Abu Dhabi / Muscat&#39; },
+            { value: &#39;(GMT +04:30) Kabul&#39;,                                  label: &#39;(GMT +04:30) Kabul&#39; },
+            { value: &#39;(GMT +05:00) Islamabad / Karachi&#39;,                    label: &#39;(GMT +05:00) Islamabad / Karachi&#39; },
+            { value: &#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39;,        label: &#39;(GMT 5:30) India Standard Time (Asia/Kolkata)&#39; },
+            { value: &#39;(GMT +05:45) Kathmandu&#39;,                              label: &#39;(GMT +05:45) Kathmandu&#39; },
+            { value: &#39;(GMT +06:00) Dhaka&#39;,                                  label: &#39;(GMT +06:00) Dhaka&#39; },
+            { value: &#39;(GMT +06:30) Yangon (Rangoon)&#39;,                       label: &#39;(GMT +06:30) Yangon (Rangoon)&#39; },
+            { value: &#39;(GMT +07:00) Bangkok / Hanoi / Jakarta&#39;,              label: &#39;(GMT +07:00) Bangkok / Hanoi / Jakarta&#39; },
+            { value: &#39;(GMT +08:00) Beijing / Chongqing / Hong Kong&#39;,        label: &#39;(GMT +08:00) Beijing / Chongqing / Hong Kong&#39; },
+            { value: &#39;(GMT +09:00) Osaka / Sapporo / Tokyo&#39;,                label: &#39;(GMT +09:00) Osaka / Sapporo / Tokyo&#39; },
+            { value: &#39;(GMT +09:30) Adelaide&#39;,                               label: &#39;(GMT +09:30) Adelaide&#39; },
+            { value: &#39;(GMT +10:00) Canberra / Melbourne / Sydney&#39;,          label: &#39;(GMT +10:00) Canberra / Melbourne / Sydney&#39; },
+            { value: &#39;(GMT +11:00) Solomon Islands / New Caledonia&#39;,        label: &#39;(GMT +11:00) Solomon Islands / New Caledonia&#39; },
+            { value: &#39;(GMT +12:00) Auckland / Wellington&#39;,                  label: &#39;(GMT +12:00) Auckland / Wellington&#39; },
+          ]}
+        /&gt;
+      &lt;/Modal&gt;
+    &lt;/&gt;
+  );
+};</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
   aria-label="UsageLimitNotification">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-error-2-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-2-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-2-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-error-3-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-3-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-3-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -14223,9 +16674,9 @@ export const CreateDeal: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-2-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-2-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-2-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-3-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-3-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-3-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -16417,6 +18868,7 @@ export function Modal({
   footerNote,
   children,
   width = 569,
+  disableAutoFocus = false,
   // Alert-specific props
   type = &#39;modal&#39;,
   variant = &#39;info&#39;,
@@ -16452,7 +18904,7 @@ export function Modal({
 
   // Auto-focus the first editable form field when the modal opens
   useEffect(() =&gt; {
-    if (isVisible &amp;&amp; !isClosing) {
+    if (isVisible &amp;&amp; !isClosing &amp;&amp; !disableAutoFocus) {
       const t = setTimeout(() =&gt; {
         const first = dialogRef.current?.querySelector(
           &#39;input[type=&quot;text&quot;]:not([disabled]):not([readonly]):not(.tags-input):not(.dropdown-search-input), input[type=&quot;email&quot;]:not([disabled]), input[type=&quot;tel&quot;]:not([disabled]), input[type=&quot;number&quot;]:not([disabled]), input[type=&quot;search&quot;]:not([disabled]), input:not([type]):not([disabled]):not([readonly]):not(.tags-input), textarea:not([disabled])&#39;
@@ -16461,7 +18913,7 @@ export function Modal({
       }, 50);
       return () =&gt; clearTimeout(t);
     }
-  }, [isVisible, isClosing]);
+  }, [isVisible, isClosing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Close on Escape key
   useEffect(() =&gt; {
