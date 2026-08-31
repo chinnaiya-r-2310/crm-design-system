@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.7s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.8s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -8649,6 +8649,7 @@ export const SendDashboardScheduler: Story = {
                 onChange={(v) =&gt; setSelectedDays(v as string[])}
                 multiSelect
                 showBadge
+                itemWidth={50}
               /&gt;
             &lt;/div&gt;
           )}
@@ -8679,12 +8680,41 @@ export const SendDashboardScheduler: Story = {
               {monthlyMode === &#39;days_of_month&#39; &amp;&amp; (
                 &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
                   &lt;span /&gt;
-                  &lt;Calendar
-                    mode=&quot;date-of-month&quot;
-                    selectedDayNumbers={selectedMonthDays}
-                    onDayNumbersChange={(nums: number[]) =&gt; setSelectedMonthDays(nums)}
-                    width={282}
-                  /&gt;
+                  &lt;div style={{
+                    display: &#39;inline-flex&#39;, flexDirection: &#39;column&#39;, gap: 10,
+                    border: &#39;1px solid var(--ds-components-input-default-outline)&#39;,
+                    borderRadius: 6, padding: &#39;15px 10px&#39;, width: &#39;fit-content&#39;,
+                  }}&gt;
+                    &lt;style&gt;{`
+                      .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
+                      .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
+                      .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                      .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                    `}&lt;/style&gt;
+                    &lt;span style={{
+                      fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-sm)&#39;,
+                      fontWeight: 600, color: &#39;var(--ds-text-base)&#39;,
+                    }}&gt;Select Dates&lt;/span&gt;
+                    &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: &#39;repeat(7, 34px)&#39;, gap: 4 }}&gt;
+                      {Array.from({ length: 31 }, (_, i) =&gt; i + 1).map(day =&gt; {
+                        const sel = selectedMonthDays.includes(day);
+                        return (
+                          &lt;button key={day} type=&quot;button&quot;
+                            className=&quot;sds-cal-day&quot;
+                            data-sel={sel || undefined}
+                            onClick={() =&gt; setSelectedMonthDays(p =&gt; p.includes(day) ? p.filter(d =&gt; d !== day) : [...p, day])}
+                            style={{
+                              width: 34, height: 34, borderRadius: &#39;50%&#39;, cursor: &#39;pointer&#39;,
+                              fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-sm)&#39;,
+                              display: &#39;flex&#39;, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39;,
+                            }}
+                          &gt;
+                            {day}
+                          &lt;/button&gt;
+                        );
+                      })}
+                    &lt;/div&gt;
+                  &lt;/div&gt;
                 &lt;/div&gt;
               )}
 
@@ -8992,7 +9022,6 @@ export const SendDashboardScheduler: Story = {
                 </div>
                 <pre><code>import {
     Button,
-    Calendar,
     Checkbox,
     DateTimeInput,
     Dropdown,
@@ -9146,6 +9175,7 @@ export const SendDashboardScheduler: Story = {
               onChange={(v) =&gt; setSelectedDays(v as string[])}
               multiSelect
               showBadge
+              itemWidth={50}
             /&gt;
           &lt;/div&gt;
         )}
@@ -9176,12 +9206,41 @@ export const SendDashboardScheduler: Story = {
             {monthlyMode === &#39;days_of_month&#39; &amp;&amp; (
               &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
                 &lt;span /&gt;
-                &lt;Calendar
-                  mode=&quot;date-of-month&quot;
-                  selectedDayNumbers={selectedMonthDays}
-                  onDayNumbersChange={(nums: number[]) =&gt; setSelectedMonthDays(nums)}
-                  width={282}
-                /&gt;
+                &lt;div style={{
+                  display: &#39;inline-flex&#39;, flexDirection: &#39;column&#39;, gap: 10,
+                  border: &#39;1px solid var(--ds-components-input-default-outline)&#39;,
+                  borderRadius: 6, padding: &#39;15px 10px&#39;, width: &#39;fit-content&#39;,
+                }}&gt;
+                  &lt;style&gt;{`
+                    .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
+                    .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
+                    .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                    .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                  `}&lt;/style&gt;
+                  &lt;span style={{
+                    fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-sm)&#39;,
+                    fontWeight: 600, color: &#39;var(--ds-text-base)&#39;,
+                  }}&gt;Select Dates&lt;/span&gt;
+                  &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: &#39;repeat(7, 34px)&#39;, gap: 4 }}&gt;
+                    {Array.from({ length: 31 }, (_, i) =&gt; i + 1).map(day =&gt; {
+                      const sel = selectedMonthDays.includes(day);
+                      return (
+                        &lt;button key={day} type=&quot;button&quot;
+                          className=&quot;sds-cal-day&quot;
+                          data-sel={sel || undefined}
+                          onClick={() =&gt; setSelectedMonthDays(p =&gt; p.includes(day) ? p.filter(d =&gt; d !== day) : [...p, day])}
+                          style={{
+                            width: 34, height: 34, borderRadius: &#39;50%&#39;, cursor: &#39;pointer&#39;,
+                            fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-sm)&#39;,
+                            display: &#39;flex&#39;, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39;,
+                          }}
+                        &gt;
+                          {day}
+                        &lt;/button&gt;
+                      );
+                    })}
+                  &lt;/div&gt;
+                &lt;/div&gt;
               &lt;/div&gt;
             )}
 
@@ -15826,6 +15885,7 @@ export const SendDashboardScheduler: Story = {
                 onChange={(v) =&gt; setSelectedDays(v as string[])}
                 multiSelect
                 showBadge
+                itemWidth={50}
               /&gt;
             &lt;/div&gt;
           )}
@@ -15856,12 +15916,41 @@ export const SendDashboardScheduler: Story = {
               {monthlyMode === &#39;days_of_month&#39; &amp;&amp; (
                 &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
                   &lt;span /&gt;
-                  &lt;Calendar
-                    mode=&quot;date-of-month&quot;
-                    selectedDayNumbers={selectedMonthDays}
-                    onDayNumbersChange={(nums: number[]) =&gt; setSelectedMonthDays(nums)}
-                    width={282}
-                  /&gt;
+                  &lt;div style={{
+                    display: &#39;inline-flex&#39;, flexDirection: &#39;column&#39;, gap: 10,
+                    border: &#39;1px solid var(--ds-components-input-default-outline)&#39;,
+                    borderRadius: 6, padding: &#39;15px 10px&#39;, width: &#39;fit-content&#39;,
+                  }}&gt;
+                    &lt;style&gt;{`
+                      .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
+                      .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
+                      .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                      .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                    `}&lt;/style&gt;
+                    &lt;span style={{
+                      fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-sm)&#39;,
+                      fontWeight: 600, color: &#39;var(--ds-text-base)&#39;,
+                    }}&gt;Select Dates&lt;/span&gt;
+                    &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: &#39;repeat(7, 34px)&#39;, gap: 4 }}&gt;
+                      {Array.from({ length: 31 }, (_, i) =&gt; i + 1).map(day =&gt; {
+                        const sel = selectedMonthDays.includes(day);
+                        return (
+                          &lt;button key={day} type=&quot;button&quot;
+                            className=&quot;sds-cal-day&quot;
+                            data-sel={sel || undefined}
+                            onClick={() =&gt; setSelectedMonthDays(p =&gt; p.includes(day) ? p.filter(d =&gt; d !== day) : [...p, day])}
+                            style={{
+                              width: 34, height: 34, borderRadius: &#39;50%&#39;, cursor: &#39;pointer&#39;,
+                              fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-sm)&#39;,
+                              display: &#39;flex&#39;, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39;,
+                            }}
+                          &gt;
+                            {day}
+                          &lt;/button&gt;
+                        );
+                      })}
+                    &lt;/div&gt;
+                  &lt;/div&gt;
                 &lt;/div&gt;
               )}
 
@@ -16169,7 +16258,6 @@ export const SendDashboardScheduler: Story = {
                 </div>
                 <pre><code>import {
     Button,
-    Calendar,
     Checkbox,
     DateTimeInput,
     Dropdown,
@@ -16323,6 +16411,7 @@ export const SendDashboardScheduler: Story = {
               onChange={(v) =&gt; setSelectedDays(v as string[])}
               multiSelect
               showBadge
+              itemWidth={50}
             /&gt;
           &lt;/div&gt;
         )}
@@ -16353,12 +16442,41 @@ export const SendDashboardScheduler: Story = {
             {monthlyMode === &#39;days_of_month&#39; &amp;&amp; (
               &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
                 &lt;span /&gt;
-                &lt;Calendar
-                  mode=&quot;date-of-month&quot;
-                  selectedDayNumbers={selectedMonthDays}
-                  onDayNumbersChange={(nums: number[]) =&gt; setSelectedMonthDays(nums)}
-                  width={282}
-                /&gt;
+                &lt;div style={{
+                  display: &#39;inline-flex&#39;, flexDirection: &#39;column&#39;, gap: 10,
+                  border: &#39;1px solid var(--ds-components-input-default-outline)&#39;,
+                  borderRadius: 6, padding: &#39;15px 10px&#39;, width: &#39;fit-content&#39;,
+                }}&gt;
+                  &lt;style&gt;{`
+                    .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
+                    .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
+                    .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                    .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                  `}&lt;/style&gt;
+                  &lt;span style={{
+                    fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-sm)&#39;,
+                    fontWeight: 600, color: &#39;var(--ds-text-base)&#39;,
+                  }}&gt;Select Dates&lt;/span&gt;
+                  &lt;div style={{ display: &#39;grid&#39;, gridTemplateColumns: &#39;repeat(7, 34px)&#39;, gap: 4 }}&gt;
+                    {Array.from({ length: 31 }, (_, i) =&gt; i + 1).map(day =&gt; {
+                      const sel = selectedMonthDays.includes(day);
+                      return (
+                        &lt;button key={day} type=&quot;button&quot;
+                          className=&quot;sds-cal-day&quot;
+                          data-sel={sel || undefined}
+                          onClick={() =&gt; setSelectedMonthDays(p =&gt; p.includes(day) ? p.filter(d =&gt; d !== day) : [...p, day])}
+                          style={{
+                            width: 34, height: 34, borderRadius: &#39;50%&#39;, cursor: &#39;pointer&#39;,
+                            fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-sm)&#39;,
+                            display: &#39;flex&#39;, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39;,
+                          }}
+                        &gt;
+                          {day}
+                        &lt;/button&gt;
+                      );
+                    })}
+                  &lt;/div&gt;
+                &lt;/div&gt;
               &lt;/div&gt;
             )}
 
