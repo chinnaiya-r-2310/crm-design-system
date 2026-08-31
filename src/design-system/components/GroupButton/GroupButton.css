@@ -1,0 +1,66 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   GroupButton — CSS
+   A row of toggle buttons (e.g. Mon / Tue / Wed day picker).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.group-button-root {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+/* ── Item ────────────────────────────────────────────────────────────────── */
+
+.group-button-item {
+  position: relative;
+  cursor: pointer;
+  border: 1px solid var(--ds-components-input-default-outline);
+  border-radius: 5px;
+  background: #fff;
+  color: var(--ds-text-base);
+  font-family: var(--ds-font-family-base);
+  font-size: 12px;
+  font-weight: var(--ds-font-weight-regular);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 100ms, border-color 100ms, color 100ms;
+  padding: 0;
+  outline: none;
+}
+
+.group-button-item:hover {
+  border-color: var(--ds-components-input-hover-outline);
+}
+
+.group-button-item[data-selected] {
+  background: var(--ds-bg-scale-bg1);
+  border-color: var(--ds-components-input-focus-outline);
+  color: var(--ds-components-input-focus-outline);
+}
+
+.group-button-item[data-selected]:hover {
+  border-color: var(--ds-components-input-focus-outline);
+}
+
+.group-button-item:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* ── Checkmark badge ─────────────────────────────────────────────────────── */
+
+.group-button-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ds-components-input-focus-outline);
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}

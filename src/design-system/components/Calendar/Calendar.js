@@ -82,6 +82,9 @@ export function Calendar({
   onRangeChange,
   selectedDates: ctrlMulti,
   onMultiChange,
+  // date-of-month mode
+  selectedDayNumbers: ctrlDom,
+  onDayNumbersChange,
   defaultMonth,
   highlightWeekends = false,
   showViewTabs = false,
@@ -101,11 +104,13 @@ export function Calendar({
   const [intStart,  setIntStart]  = useState(ctrlStart ?? null);
   const [intEnd,    setIntEnd]    = useState(ctrlEnd ?? null);
   const [intMulti,  setIntMulti]  = useState(ctrlMulti ?? []);
+  const [intDom,    setIntDom]    = useState(ctrlDom ?? []);
 
-  const resolvedValue = onChange      ? value     : intValue;
-  const resolvedStart = onRangeChange ? ctrlStart : intStart;
-  const resolvedEnd   = onRangeChange ? ctrlEnd   : intEnd;
-  const resolvedMulti = onMultiChange ? (ctrlMulti ?? []) : intMulti;
+  const resolvedValue  = onChange          ? value          : intValue;
+  const resolvedStart  = onRangeChange     ? ctrlStart      : intStart;
+  const resolvedEnd    = onRangeChange     ? ctrlEnd        : intEnd;
+  const resolvedMulti  = onMultiChange     ? (ctrlMulti ?? []) : intMulti;
+  const resolvedDom    = onDayNumbersChange ? (ctrlDom ?? [])  : intDom;
 
   // ── Navigation ─────────────────────────────────────────────────────────────
 
@@ -176,6 +181,40 @@ export function Calendar({
     }
     return cls.join(' ');
   };
+
+  // ── date-of-month render ───────────────────────────────────────────────────
+
+  if (mode === 'date-of-month') {
+    const handleDomClick = (n) => {
+      const next = resolvedDom.includes(n)
+        ? resolvedDom.filter(d => d !== n)
+        : [...resolvedDom, n];
+      if (onDayNumbersChange) onDayNumbersChange(next);
+      else setIntDom(next);
+    };
+
+    return (
+      <div className="calendar-calendar calendar-dom" style={{ width }}>
+        <span className="calendar-dom-title">Select Dates</span>
+        <div className="calendar-dom-grid">
+          {Array.from({ length: 31 }, (_, i) => i + 1).map(n => {
+            const sel = resolvedDom.includes(n);
+            return (
+              <button
+                key={n}
+                type="button"
+                className={`calendar-cell${sel ? ' calendar-selected' : ''}`}
+                onClick={() => handleDomClick(n)}
+                aria-pressed={sel}
+              >
+                <span className="calendar-day-num">{n}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   // ── Render ─────────────────────────────────────────────────────────────────
 

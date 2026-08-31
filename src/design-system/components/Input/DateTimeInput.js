@@ -51,7 +51,9 @@ export function DateTimeInput({
   timeValue,
   onDateChange,
   onTimeChange,
+  dateOnly = false,
   width = 390,
+  columns,
   layout = 'vertical',
   label,
   helperText,
@@ -77,7 +79,7 @@ export function DateTimeInput({
 
   // Auto-initialise time to next rounded hour on first render when empty
   useEffect(() => {
-    if (!timeValue && onTimeChange) onTimeChange(nextRoundedHour());
+    if (!dateOnly && !timeValue && onTimeChange) onTimeChange(nextRoundedHour());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Calendar positioning ─────────────────────────────────────────────────
@@ -180,20 +182,24 @@ export function DateTimeInput({
         onClick={() => { if (!readOnly && !disabled) setCalOpen(true); }}
       />
 
-      {/* Vertical divider */}
-      <span className="input-divider" aria-hidden="true" />
+      {!dateOnly && (
+        <>
+          {/* Vertical divider */}
+          <span className="input-divider" aria-hidden="true" />
 
-      {/* Time half */}
-      <input
-        type="text"
-        className="input-input"
-        placeholder="12:00 AM"
-        aria-label="Time"
-        value={timeValue ?? ''}
-        disabled={disabled}
-        readOnly={readOnly}
-        onChange={e => onTimeChange?.(e.target.value)}
-      />
+          {/* Time half */}
+          <input
+            type="text"
+            className="input-input"
+            placeholder="12:00 AM"
+            aria-label="Time"
+            value={timeValue ?? ''}
+            disabled={disabled}
+            readOnly={readOnly}
+            onChange={e => onTimeChange?.(e.target.value)}
+          />
+        </>
+      )}
 
       {calendarPortal}
     </div>
@@ -208,9 +214,10 @@ export function DateTimeInput({
   ) : null;
 
   if (layout === 'horizontal' && label) {
+    const formRowStyle = columns ? { gridTemplateColumns: columns } : undefined;
     return (
       <div className="input-root" style={rootStyle} data-variant={rootVariant}>
-        <div className="input-form-row">
+        <div className="input-form-row" style={formRowStyle}>
           {labelEl}
           <div className="input-field-column">
             {triggerEl}

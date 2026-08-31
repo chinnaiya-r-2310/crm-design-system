@@ -43,6 +43,7 @@ export function Modal({
   footerNote,
   children,
   width = 569,
+  disableAutoFocus = false,
   // Alert-specific props
   type = 'modal',
   variant = 'info',
@@ -78,7 +79,7 @@ export function Modal({
 
   // Auto-focus the first editable form field when the modal opens
   useEffect(() => {
-    if (isVisible && !isClosing) {
+    if (isVisible && !isClosing && !disableAutoFocus) {
       const t = setTimeout(() => {
         const first = dialogRef.current?.querySelector(
           'input[type="text"]:not([disabled]):not([readonly]):not(.tags-input):not(.dropdown-search-input), input[type="email"]:not([disabled]), input[type="tel"]:not([disabled]), input[type="number"]:not([disabled]), input[type="search"]:not([disabled]), input:not([type]):not([disabled]):not([readonly]):not(.tags-input), textarea:not([disabled])'
@@ -87,7 +88,7 @@ export function Modal({
       }, 50);
       return () => clearTimeout(t);
     }
-  }, [isVisible, isClosing]);
+  }, [isVisible, isClosing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Close on Escape key
   useEffect(() => {

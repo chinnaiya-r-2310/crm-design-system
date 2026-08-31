@@ -20,7 +20,7 @@ const meta: Meta<typeof Calendar> = {
   argTypes: {
     mode: {
       control: 'radio',
-      options: ['single', 'range', 'multi'],
+      options: ['single', 'range', 'multi', 'date-of-month'],
       table: { category: 'Behaviour', defaultValue: { summary: 'single' } },
     },
     highlightWeekends: { control: 'boolean', table: { category: 'Appearance' } },
@@ -185,60 +185,23 @@ export const DualCalendarRange: Story = {
 };
 
 /**
- * Date of Month picker — a 1–31 number grid for recurring monthly schedules
- * (no week-day headers; individual dates toggled).
+ * Date of Month picker — a 1–31 number grid for recurring monthly schedules.
+ * No month/year header or navigation. Toggle individual day numbers.
  */
 export const DateOfMonthPicker: Story = {
   name: 'Date of Month (1–31)',
   render: () => {
     const [selected, setSelected] = useState<number[]>([2, 5, 16, 23]);
-    const toggle = (n: number) =>
-      setSelected(prev => prev.includes(n) ? prev.filter(x => x !== n) : [...prev, n]);
-
     return (
-      <div style={{
-        background: '#fff',
-        border: '1px solid #D6D6E2',
-        borderRadius: 8,
-        boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
-        padding: '14px',
-        width: 284,
-        boxSizing: 'border-box',
-        fontFamily: 'var(--ds-font-family-base)',
-      }}>
-        <p style={{ margin: '0 0 10px', fontSize: 12, fontWeight: 600, color: '#616E88' }}>
-          Select Dates
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 2 }}>
-          {Array.from({ length: 31 }, (_, i) => i + 1).map(n => {
-            const active = selected.includes(n);
-            return (
-              <button
-                key={n}
-                type="button"
-                onClick={() => toggle(n)}
-                style={{
-                  height: 32,
-                  border: 'none',
-                  borderRadius: '50%',
-                  background: active ? '#5464F2' : 'transparent',
-                  color: active ? '#fff' : '#313949',
-                  fontFamily: 'var(--ds-font-family-base)',
-                  fontSize: 12,
-                  fontWeight: active ? 500 : 400,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                {n}
-              </button>
-            );
-          })}
-        </div>
-        <p style={{ margin: '10px 0 0', fontSize: 11, color: '#B0B7C4' }}>
-          {selected.sort((a, b) => a - b).join(', ') || '—'}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
+        <Calendar
+          mode="date-of-month"
+          selectedDayNumbers={selected}
+          onDayNumbersChange={setSelected}
+          width={284}
+        />
+        <p style={{ fontFamily: 'var(--ds-font-family-base)', fontSize: 12, color: '#616E88', margin: 0 }}>
+          {selected.slice().sort((a, b) => a - b).join(', ') || '—'}
         </p>
       </div>
     );

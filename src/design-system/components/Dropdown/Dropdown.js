@@ -110,8 +110,9 @@ export function Dropdown({
   const [activeIndex, setActiveIndex] = useState(-1);
   const PANEL_MAX_WIDTH = 390;
   const [panelPos, setPanelPos] = useState(null);
-  const justOpenedRef = useRef(false); // true only on the render cycle when panel first appears
-  const isKeyNavRef   = useRef(false); // true when activeIndex changed via keyboard — gates scrollIntoView
+  const justOpenedRef  = useRef(false); // true only on the render cycle when panel first appears
+  const isKeyNavRef    = useRef(false); // true when activeIndex changed via keyboard — gates scrollIntoView
+  const scrollInitRef  = useRef(false); // gates the scroll-to-selected on open to run only once per open
 
   const updatePanelPos = () => {
     if (!triggerRef.current) return;
@@ -126,7 +127,7 @@ export function Dropdown({
   const selectedOption = options.find(o => o.value === resolvedValue);
   const displayValue = multiSelect
     ? (activeValues.length === 0 ? placeholder : `${activeValues.length} selected`)
-    : (selectedOption?.label ?? placeholder);
+    : (selectedOption?.triggerLabel ?? selectedOption?.label ?? placeholder);
   const isPlaceholder = multiSelect ? activeValues.length === 0 : !selectedOption;
 
   // Auto-enable search when there are 10 or more options
@@ -193,6 +194,7 @@ export function Dropdown({
   useEffect(() => {
     if (open) {
       justOpenedRef.current = isSearchable; // signal: focus search on next panelPos render
+      scrollInitRef.current = false;        // reset so scroll-to-selected runs on next panelPos render
       updatePanelPos();
     } else {
       setPanelPos(null);
@@ -223,11 +225,20 @@ export function Dropdown({
     return () => { target.style.overflowY = prev; };
   }, [open]);
 
-  // Focus search input after the portal panel first renders (panelPos is set)
+  // Focus search input + scroll selected option to display position 2 on first render
   useEffect(() => {
-    if (panelPos && justOpenedRef.current) {
+    if (!panelPos) return;
+    if (justOpenedRef.current) {
       justOpenedRef.current = false;
       searchRef.current?.focus();
+    }
+    if (!scrollInitRef.current && listRef.current) {
+      scrollInitRef.current = true;
+      const selectedEl = listRef.current.querySelector('[data-selected]');
+      if (selectedEl) {
+        const itemHeight = selectedEl.offsetHeight;
+        listRef.current.scrollTop = Math.max(0, selectedEl.offsetTop - itemHeight * 3);
+      }
     }
   }, [panelPos]);
 
@@ -355,9 +366,7 @@ export function Dropdown({
       style={{
           top: panelPos.top,
           left: panelPos.left,
-          ...(panelPos.width >= PANEL_MAX_WIDTH
-            ? { width: PANEL_MAX_WIDTH }
-            : { width: 'max-content', maxWidth: PANEL_MAX_WIDTH }),
+          width: panelPos.width,
         }}
       role="listbox"
       aria-label={label}
