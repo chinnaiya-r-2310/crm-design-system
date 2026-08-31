@@ -333,7 +333,44 @@
 
 .calendar-dom-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, 34px);
+  gap: 4px;
+}
+
+/* Override default cell/bubble styles for DOM mode */
+.calendar-dom .calendar-cell {
+  height: 34px;
+  width: 34px;
+}
+
+.calendar-dom .calendar-cell::before {
+  display: none;
+}
+
+.calendar-dom .calendar-day-num {
+  width: 34px;
+  height: 34px;
+  border: 1px solid transparent;
+  color: var(--ds-text-base, #313949);
+}
+
+.calendar-dom .calendar-cell:hover .calendar-day-num {
+  background: var(--ds-components-button-outline-blue-default-bg, #F0F1FF);
+  border-color: var(--ds-components-button-outline-blue-default-border, #5464F2);
+  color: var(--ds-text-link, #5464F2);
+}
+
+.calendar-dom .calendar-selected .calendar-day-num {
+  background: var(--ds-components-input-focus-outline, #5464F2);
+  border-color: var(--ds-components-input-focus-outline, #5464F2);
+  color: #fff;
+  font-weight: 500;
+}
+
+.calendar-dom .calendar-selected:hover .calendar-day-num {
+  background: var(--ds-components-input-focus-outline, #5464F2);
+  border-color: var(--ds-components-input-focus-outline, #5464F2);
+  color: #fff;
 }
 
 /* ── View tabs ───────────────────────────────────────────────────────────── */
