@@ -10,9 +10,9 @@ const meta: Meta<typeof WMSBar> = {
     docs: {
       description: {
         component:
-          'WMS (Workplace Management System) bar for Zoho CRM. ' +
-          'Thin 28px bar with AI chat prompt on the left and quick-access icon buttons on the right. ' +
-          'Figma: Chinnaiya-Style-Sheet node 70415:192244.',
+          'WMS bar for Zoho CRM — thin 34px bar with Chats/Channels/Contacts tabs on the left, ' +
+          'a smart chat input in the center, and quick-access icon buttons on the right. ' +
+          'Figma: Chinnaiya-Style-Sheet node 93756-151835.',
       },
     },
   },
@@ -26,37 +26,40 @@ export const Default: Story = {
   render: () => <WMSBar />,
 };
 
-export const CustomPrompt: Story = {
-  name: 'Custom Prompt',
-  render: () => (
-    <WMSBar
-      chatPlaceholder="Ask Zia anything..."
-      shortcut="Ctrl+K"
-    />
-  ),
+export const WithBadge: Story = {
+  name: 'With Chat Badge',
+  render: () => <WMSBar chatBadge />,
+};
+
+export const ChannelsActive: Story = {
+  name: 'Channels Active',
+  render: () => <WMSBar defaultTab="channels" />,
+};
+
+export const ContactsActive: Story = {
+  name: 'Contacts Active',
+  render: () => <WMSBar defaultTab="contacts" />,
 };
 
 export const FullPage: Story = {
   name: 'With TopBand',
-  render: () => {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-        <NextGenTopBand moduleLabel="Leads" moduleCount={1} notificationCount={3} />
-        <div style={{
-          flex: 1,
-          background: '#F0F2F7',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: 14,
-          color: '#616E88',
-          fontFamily: 'var(--ds-font-family-base, sans-serif)',
-          paddingBottom: 28,
-        }}>
-          Content area
-        </div>
-        <WMSBar />
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <NextGenTopBand moduleLabel="Leads" moduleCount={1} notificationCount={3} />
+      <div style={{
+        flex: 1,
+        background: '#F0F2F7',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 14,
+        color: '#616E88',
+        fontFamily: 'var(--ds-font-family-base, sans-serif)',
+        paddingBottom: 34,
+      }}>
+        Content area
       </div>
-    );
-  },
+      <WMSBar chatBadge />
+    </div>
+  ),
 };
