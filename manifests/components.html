@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">7/37 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">34/37 infos</a><span class="filter-pill ok" aria-disabled="true">253 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">7/37 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">34/37 infos</a><span class="filter-pill ok" aria-disabled="true">255 stories ok</span></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>3.0s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.9s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -13480,9 +13480,9 @@ width?: any = 275</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> WMSBar</h2>
       <div class="badges">
-        <label for="c-36-design-system-components-wmsbar-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-36-design-system-components-wmsbar-props" class="badge ok as-toggle">4 prop types</label>
         <label for="c-36-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-36-design-system-components-wmsbar-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-36-design-system-components-wmsbar-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
@@ -13516,11 +13516,15 @@ width?: any = 275</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">2 prop types</span>
+              <span class="badge ok">4 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/WMSBar/WMSBar.js::WMSBar</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>chatPlaceholder?: any = &#39;Here is your Smart chat&#39;
+            <pre><code>chatBadge?: any = false
+
+chatPlaceholder?: any = &#39;Here is your Smart chat&#39;
+
+defaultTab?: any = &#39;chats&#39;
 
 shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
           </div>
@@ -13549,17 +13553,30 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Custom Prompt</span>
+                <span class="ex-name">With Chat Badge</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const CustomPrompt = () =&gt; (
-  &lt;WMSBar
-    chatPlaceholder=&quot;Ask Zia anything...&quot;
-    shortcut=&quot;Ctrl+K&quot;
-  /&gt;
-);</code></pre>
+              <pre><code>const WithBadge = () =&gt; &lt;WMSBar chatBadge /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Channels Active</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ChannelsActive = () =&gt; &lt;WMSBar defaultTab=&quot;channels&quot; /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Contacts Active</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ContactsActive = () =&gt; &lt;WMSBar defaultTab=&quot;contacts&quot; /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -13568,27 +13585,25 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
               </div>
               
               
-              <pre><code>const FullPage = () =&gt; {
-  return (
-    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, height: &#39;100vh&#39; }}&gt;
-      &lt;NextGenTopBand moduleLabel=&quot;Leads&quot; moduleCount={1} notificationCount={3} /&gt;
-      &lt;div style={{
-        flex: 1,
-        background: &#39;#F0F2F7&#39;,
-        display: &#39;flex&#39;,
-        alignItems: &#39;center&#39;,
-        justifyContent: &#39;center&#39;,
-        fontSize: 14,
-        color: &#39;#616E88&#39;,
-        fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
-        paddingBottom: 28,
-      }}&gt;
-        Content area
-      &lt;/div&gt;
-      &lt;WMSBar /&gt;
+              <pre><code>const FullPage = () =&gt; (
+  &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, height: &#39;100vh&#39; }}&gt;
+    &lt;NextGenTopBand moduleLabel=&quot;Leads&quot; moduleCount={1} notificationCount={3} /&gt;
+    &lt;div style={{
+      flex: 1,
+      background: &#39;#F0F2F7&#39;,
+      display: &#39;flex&#39;,
+      alignItems: &#39;center&#39;,
+      justifyContent: &#39;center&#39;,
+      fontSize: 14,
+      color: &#39;#616E88&#39;,
+      fontFamily: &#39;var(--ds-font-family-base, sans-serif)&#39;,
+      paddingBottom: 34,
+    }}&gt;
+      Content area
     &lt;/div&gt;
-  );
-};</code></pre>
+    &lt;WMSBar chatBadge /&gt;
+  &lt;/div&gt;
+);</code></pre>
             </div>
         </div>
     

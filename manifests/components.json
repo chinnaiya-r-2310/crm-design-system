@@ -2570,6 +2570,20 @@
               "computed": false
             },
             "required": false
+          },
+          "defaultTab": {
+            "defaultValue": {
+              "value": "'chats'",
+              "computed": false
+            },
+            "required": false
+          },
+          "chatBadge": {
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            },
+            "required": false
           }
         }
       },
@@ -2580,14 +2594,24 @@
           "snippet": "const Default = () => <WMSBar />;"
         },
         {
-          "id": "design-system-components-wmsbar--custom-prompt",
-          "name": "Custom Prompt",
-          "snippet": "const CustomPrompt = () => (\n  <WMSBar\n    chatPlaceholder=\"Ask Zia anything...\"\n    shortcut=\"Ctrl+K\"\n  />\n);"
+          "id": "design-system-components-wmsbar--with-badge",
+          "name": "With Chat Badge",
+          "snippet": "const WithBadge = () => <WMSBar chatBadge />;"
+        },
+        {
+          "id": "design-system-components-wmsbar--channels-active",
+          "name": "Channels Active",
+          "snippet": "const ChannelsActive = () => <WMSBar defaultTab=\"channels\" />;"
+        },
+        {
+          "id": "design-system-components-wmsbar--contacts-active",
+          "name": "Contacts Active",
+          "snippet": "const ContactsActive = () => <WMSBar defaultTab=\"contacts\" />;"
         },
         {
           "id": "design-system-components-wmsbar--full-page",
           "name": "With TopBand",
-          "snippet": "const FullPage = () => {\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>\n      <NextGenTopBand moduleLabel=\"Leads\" moduleCount={1} notificationCount={3} />\n      <div style={{\n        flex: 1,\n        background: '#F0F2F7',\n        display: 'flex',\n        alignItems: 'center',\n        justifyContent: 'center',\n        fontSize: 14,\n        color: '#616E88',\n        fontFamily: 'var(--ds-font-family-base, sans-serif)',\n        paddingBottom: 28,\n      }}>\n        Content area\n      </div>\n      <WMSBar />\n    </div>\n  );\n};"
+          "snippet": "const FullPage = () => (\n  <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>\n    <NextGenTopBand moduleLabel=\"Leads\" moduleCount={1} notificationCount={3} />\n    <div style={{\n      flex: 1,\n      background: '#F0F2F7',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n      fontSize: 14,\n      color: '#616E88',\n      fontFamily: 'var(--ds-font-family-base, sans-serif)',\n      paddingBottom: 34,\n    }}>\n      Content area\n    </div>\n    <WMSBar chatBadge />\n  </div>\n);"
         }
       ],
       "import": "import { NextGenTopBand, WMSBar } from \"@chinnaiya-r-2310/design-system\";"
@@ -2718,6 +2742,6 @@
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 3007
+    "durationMs": 2939
   }
 }
