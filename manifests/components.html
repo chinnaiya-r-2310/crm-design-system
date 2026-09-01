@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>2.8s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>3.0s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -5794,15 +5794,18 @@ Adding icons
     CloseSmall,
     Comment,
     CompanyAvatar,
+    CompanyAvatarDark,
     CriteriaMinus,
     CriteriaPlus,
     Edit,
     File,
     Folder,
     GroupAvatar,
+    GroupAvatarDark,
     HelpCircle,
     Icon,
     ImageAvatar,
+    ImageAvatarDark,
     Info,
     Lock,
     ModuleAccounts,
@@ -5829,6 +5832,11 @@ Adding icons
     Settings,
     SidebarCollapse,
     UserAvatar,
+    UserAvatarDark,
+    WmsChannel,
+    WmsChat,
+    WmsNotes,
+    WmsUsers,
     Zia,
     ZiaAI,
 } from "@chinnaiya-r-2310/design-system";</code></pre>
@@ -6036,23 +6044,33 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
               
               <div class="hint">Avatar placeholder icons — fixed Figma colors, not recolorable via currentColor.</div>
               <pre><code>const AvatarIcons = () =&gt; (
-  &lt;div style={{
-    display: &#39;flex&#39;,
-    alignItems: &#39;center&#39;,
-    gap: &#39;24px&#39;,
-    fontFamily: &#39;var(--ds-font-family-base)&#39;,
-  }}&gt;
-    {([
-      [UserAvatar,    &#39;UserAvatar&#39;],
-      [GroupAvatar,   &#39;GroupAvatar&#39;],
-      [CompanyAvatar, &#39;CompanyAvatar&#39;],
-      [ImageAvatar,   &#39;ImageAvatar&#39;],
-    ] as const).map(([Comp, label]) =&gt; (
-      &lt;div key={label} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, alignItems: &#39;center&#39;, gap: &#39;8px&#39; }}&gt;
-        &lt;Comp width={48} height={48} /&gt;
-        &lt;span style={{ fontSize: &#39;11px&#39;, color: &#39;var(--ds-text-label)&#39;, textAlign: &#39;center&#39; }}&gt;{label}&lt;/span&gt;
-      &lt;/div&gt;
-    ))}
+  &lt;div style={{ fontFamily: &#39;var(--ds-font-family-base)&#39;, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: &#39;20px&#39; }}&gt;
+    &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: &#39;24px&#39; }}&gt;
+      {([
+        [UserAvatar,    &#39;UserAvatar&#39;],
+        [GroupAvatar,   &#39;GroupAvatar&#39;],
+        [CompanyAvatar, &#39;CompanyAvatar&#39;],
+        [ImageAvatar,   &#39;ImageAvatar&#39;],
+      ] as const).map(([Comp, label]) =&gt; (
+        &lt;div key={label} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, alignItems: &#39;center&#39;, gap: &#39;8px&#39; }}&gt;
+          &lt;Comp width={48} height={48} /&gt;
+          &lt;span style={{ fontSize: &#39;11px&#39;, color: &#39;var(--ds-text-label)&#39;, textAlign: &#39;center&#39; }}&gt;{label}&lt;/span&gt;
+        &lt;/div&gt;
+      ))}
+    &lt;/div&gt;
+    &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: &#39;24px&#39; }}&gt;
+      {([
+        [UserAvatarDark,    &#39;UserAvatarDark&#39;],
+        [GroupAvatarDark,   &#39;GroupAvatarDark&#39;],
+        [CompanyAvatarDark, &#39;CompanyAvatarDark&#39;],
+        [ImageAvatarDark,   &#39;ImageAvatarDark&#39;],
+      ] as const).map(([Comp, label]) =&gt; (
+        &lt;div key={label} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, alignItems: &#39;center&#39;, gap: &#39;8px&#39; }}&gt;
+          &lt;Comp width={48} height={48} /&gt;
+          &lt;span style={{ fontSize: &#39;11px&#39;, color: &#39;var(--ds-text-label)&#39;, textAlign: &#39;center&#39; }}&gt;{label}&lt;/span&gt;
+        &lt;/div&gt;
+      ))}
+    &lt;/div&gt;
   &lt;/div&gt;
 );</code></pre>
             </div>
@@ -6139,10 +6157,14 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
     &lt;div style={SECTION_LABEL_STYLE}&gt;Avatar&lt;/div&gt;
     &lt;div style={GRID_STYLE}&gt;
       {([
-        [&#39;UserAvatar&#39;,    &lt;UserAvatar    key=&quot;ua&quot; width={40} height={40} /&gt;],
-        [&#39;GroupAvatar&#39;,   &lt;GroupAvatar   key=&quot;ga&quot; width={40} height={40} /&gt;],
-        [&#39;CompanyAvatar&#39;, &lt;CompanyAvatar key=&quot;ca&quot; width={40} height={40} /&gt;],
-        [&#39;ImageAvatar&#39;,   &lt;ImageAvatar   key=&quot;ima&quot; width={40} height={40} /&gt;],
+        [&#39;UserAvatar&#39;,        &lt;UserAvatar        key=&quot;ua&quot;  width={40} height={40} /&gt;],
+        [&#39;GroupAvatar&#39;,       &lt;GroupAvatar       key=&quot;ga&quot;  width={40} height={40} /&gt;],
+        [&#39;CompanyAvatar&#39;,     &lt;CompanyAvatar     key=&quot;ca&quot;  width={40} height={40} /&gt;],
+        [&#39;ImageAvatar&#39;,       &lt;ImageAvatar       key=&quot;ima&quot; width={40} height={40} /&gt;],
+        [&#39;UserAvatarDark&#39;,    &lt;UserAvatarDark    key=&quot;uad&quot; width={40} height={40} /&gt;],
+        [&#39;GroupAvatarDark&#39;,   &lt;GroupAvatarDark   key=&quot;gad&quot; width={40} height={40} /&gt;],
+        [&#39;CompanyAvatarDark&#39;, &lt;CompanyAvatarDark key=&quot;cad&quot; width={40} height={40} /&gt;],
+        [&#39;ImageAvatarDark&#39;,   &lt;ImageAvatarDark   key=&quot;iad&quot; width={40} height={40} /&gt;],
       ] as [string, React.ReactNode][]).map(([label, el]) =&gt; (
         &lt;IconCell key={label} label={label}&gt;{el}&lt;/IconCell&gt;
       ))}
@@ -6193,12 +6215,16 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
     &lt;div style={SECTION_LABEL_STYLE}&gt;WMS Bar&lt;/div&gt;
     &lt;div style={GRID_STYLE}&gt;
       {([
-        [&#39;Motivator&#39;,    &lt;Motivator    key=&quot;mo&quot; width={14} height={14} /&gt;],
-        [&#39;AlarmClock&#39;,   &lt;AlarmClock   key=&quot;ac&quot; width={16} height={15} /&gt;],
-        [&#39;Zia&#39;,          &lt;Zia          key=&quot;zi&quot; width={17} height={13} /&gt;],
-        [&#39;File&#39;,         &lt;File         key=&quot;fi&quot; width={13} height={15} /&gt;],
-        [&#39;Comment&#39;,      &lt;Comment      key=&quot;co&quot; width={14} height={14} /&gt;],
-        [&#39;Announcement&#39;, &lt;Announcement key=&quot;an&quot; width={13} height={17} /&gt;],
+        [&#39;Motivator&#39;,    &lt;Motivator    key=&quot;mo&quot;  width={14} height={14} /&gt;],
+        [&#39;AlarmClock&#39;,   &lt;AlarmClock   key=&quot;ac&quot;  width={16} height={15} /&gt;],
+        [&#39;Zia&#39;,          &lt;Zia          key=&quot;zi&quot;  width={17} height={13} /&gt;],
+        [&#39;File&#39;,         &lt;File         key=&quot;fi&quot;  width={13} height={15} /&gt;],
+        [&#39;Comment&#39;,      &lt;Comment      key=&quot;co&quot;  width={14} height={14} /&gt;],
+        [&#39;Announcement&#39;, &lt;Announcement key=&quot;an&quot;  width={13} height={17} /&gt;],
+        [&#39;WmsChat&#39;,      &lt;WmsChat      key=&quot;wc&quot;  width={14} height={14} /&gt;],
+        [&#39;WmsChannel&#39;,   &lt;WmsChannel   key=&quot;wch&quot; width={14} height={14} /&gt;],
+        [&#39;WmsNotes&#39;,     &lt;WmsNotes     key=&quot;wn&quot;  width={13} height={15} /&gt;],
+        [&#39;WmsUsers&#39;,     &lt;WmsUsers     key=&quot;wu&quot;  width={14} height={14} /&gt;],
       ] as [string, React.ReactNode][]).map(([label, el]) =&gt; (
         &lt;IconCell key={label} label={label}&gt;{el}&lt;/IconCell&gt;
       ))}
