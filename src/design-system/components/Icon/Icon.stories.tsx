@@ -6,12 +6,14 @@ import {
   AlertError, AlertInfo, AlertSuccess, AlertWarning,
   Check, ChevronDownFilled, Close, CloseSmall, CompanyAvatar, CriteriaMinus, CriteriaPlus,
   Edit, GroupAvatar, HelpCircle, ImageAvatar, Info, Lock, More, ResizeHandle, Search, UserAvatar,
+  UserAvatarDark, GroupAvatarDark, CompanyAvatarDark, ImageAvatarDark,
   Folder, SidebarCollapse, ChevronUp,
   ModuleLeads, ModuleContacts, ModuleAccounts, ModuleDeals, ModuleForecasts,
   ModuleSolutions, ModuleProducts, ModuleCases, ModuleActivities, ModuleMeeting,
   ModuleReports, ModuleHome, ModuleDocs, ModuleSocial, ModuleCustom, ModuleMyJobs, ModuleAnalytics,
   Bell, CalendarIcon, Settings, BentoMenu, ZiaAI, AppMarket,
   Motivator, AlarmClock, Zia, File, Comment, Announcement,
+  WmsChat, WmsChannel, WmsNotes, WmsUsers,
 } from '../../foundations/icons/Icons';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -302,23 +304,33 @@ export const AvatarIcons: Story = {
   name: 'Avatar Icons',
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: '24px',
-      fontFamily: 'var(--ds-font-family-base)',
-    }}>
-      {([
-        [UserAvatar,    'UserAvatar'],
-        [GroupAvatar,   'GroupAvatar'],
-        [CompanyAvatar, 'CompanyAvatar'],
-        [ImageAvatar,   'ImageAvatar'],
-      ] as const).map(([Comp, label]) => (
-        <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <Comp width={48} height={48} />
-          <span style={{ fontSize: '11px', color: 'var(--ds-text-label)', textAlign: 'center' }}>{label}</span>
-        </div>
-      ))}
+    <div style={{ fontFamily: 'var(--ds-font-family-base)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+        {([
+          [UserAvatar,    'UserAvatar'],
+          [GroupAvatar,   'GroupAvatar'],
+          [CompanyAvatar, 'CompanyAvatar'],
+          [ImageAvatar,   'ImageAvatar'],
+        ] as const).map(([Comp, label]) => (
+          <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+            <Comp width={48} height={48} />
+            <span style={{ fontSize: '11px', color: 'var(--ds-text-label)', textAlign: 'center' }}>{label}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+        {([
+          [UserAvatarDark,    'UserAvatarDark'],
+          [GroupAvatarDark,   'GroupAvatarDark'],
+          [CompanyAvatarDark, 'CompanyAvatarDark'],
+          [ImageAvatarDark,   'ImageAvatarDark'],
+        ] as const).map(([Comp, label]) => (
+          <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+            <Comp width={48} height={48} />
+            <span style={{ fontSize: '11px', color: 'var(--ds-text-label)', textAlign: 'center' }}>{label}</span>
+          </div>
+        ))}
+      </div>
     </div>
   ),
 };
@@ -455,10 +467,14 @@ export const AllIcons: Story = {
       <div style={SECTION_LABEL_STYLE}>Avatar</div>
       <div style={GRID_STYLE}>
         {([
-          ['UserAvatar',    <UserAvatar    key="ua" width={40} height={40} />],
-          ['GroupAvatar',   <GroupAvatar   key="ga" width={40} height={40} />],
-          ['CompanyAvatar', <CompanyAvatar key="ca" width={40} height={40} />],
-          ['ImageAvatar',   <ImageAvatar   key="ima" width={40} height={40} />],
+          ['UserAvatar',        <UserAvatar        key="ua"  width={40} height={40} />],
+          ['GroupAvatar',       <GroupAvatar       key="ga"  width={40} height={40} />],
+          ['CompanyAvatar',     <CompanyAvatar     key="ca"  width={40} height={40} />],
+          ['ImageAvatar',       <ImageAvatar       key="ima" width={40} height={40} />],
+          ['UserAvatarDark',    <UserAvatarDark    key="uad" width={40} height={40} />],
+          ['GroupAvatarDark',   <GroupAvatarDark   key="gad" width={40} height={40} />],
+          ['CompanyAvatarDark', <CompanyAvatarDark key="cad" width={40} height={40} />],
+          ['ImageAvatarDark',   <ImageAvatarDark   key="iad" width={40} height={40} />],
         ] as [string, React.ReactNode][]).map(([label, el]) => (
           <IconCell key={label} label={label}>{el}</IconCell>
         ))}
@@ -509,12 +525,16 @@ export const AllIcons: Story = {
       <div style={SECTION_LABEL_STYLE}>WMS Bar</div>
       <div style={GRID_STYLE}>
         {([
-          ['Motivator',    <Motivator    key="mo" width={14} height={14} />],
-          ['AlarmClock',   <AlarmClock   key="ac" width={16} height={15} />],
-          ['Zia',          <Zia          key="zi" width={17} height={13} />],
-          ['File',         <File         key="fi" width={13} height={15} />],
-          ['Comment',      <Comment      key="co" width={14} height={14} />],
-          ['Announcement', <Announcement key="an" width={13} height={17} />],
+          ['Motivator',    <Motivator    key="mo"  width={14} height={14} />],
+          ['AlarmClock',   <AlarmClock   key="ac"  width={16} height={15} />],
+          ['Zia',          <Zia          key="zi"  width={17} height={13} />],
+          ['File',         <File         key="fi"  width={13} height={15} />],
+          ['Comment',      <Comment      key="co"  width={14} height={14} />],
+          ['Announcement', <Announcement key="an"  width={13} height={17} />],
+          ['WmsChat',      <WmsChat      key="wc"  width={14} height={14} />],
+          ['WmsChannel',   <WmsChannel   key="wch" width={14} height={14} />],
+          ['WmsNotes',     <WmsNotes     key="wn"  width={13} height={15} />],
+          ['WmsUsers',     <WmsUsers     key="wu"  width={14} height={14} />],
         ] as [string, React.ReactNode][]).map(([label, el]) => (
           <IconCell key={label} label={label}>{el}</IconCell>
         ))}
