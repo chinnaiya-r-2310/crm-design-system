@@ -1,0 +1,338 @@
+.rte-root {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+}
+
+.rte-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ds-text-base, #313949);
+  line-height: 1.2;
+}
+
+.rte-required {
+  color: #FF4657;
+}
+
+/* ── Field container ─────────────────────────────────────────────────────── */
+
+.rte-field {
+  position: relative;
+  border: 1px solid var(--ds-components-input-default-outline, #D6DAEA);
+  border-radius: 6px;
+  background: var(--ds-bg-common-card, #fff);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  overflow: hidden;
+}
+
+/* hover — real + Storybook forced state */
+.rte-field:hover,
+.rte-field[data-state="hover"] {
+  border-color: var(--ds-components-input-hover-outline);
+}
+
+/* focus — real + Storybook forced state */
+.rte-field--focused,
+.rte-field[data-state="focus"] {
+  border-color: var(--ds-components-input-focus-outline);
+  box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow);
+  outline: none;
+}
+
+/* focus always wins over hover */
+.rte-field--focused:hover,
+.rte-field[data-state="focus"]:hover {
+  border-color: var(--ds-components-input-focus-outline);
+}
+
+.rte-field--error {
+  border-color: var(--ds-components-input-error-outline);
+}
+
+.rte-field--error:hover,
+.rte-field--error[data-state="hover"] {
+  border-color: var(--ds-components-input-error-outline);
+}
+
+.rte-field--error.rte-field--focused,
+.rte-field--error[data-state="focus"] {
+  border-color: var(--ds-components-input-error-outline);
+  box-shadow: 0 0 6px 0 rgba(255, 70, 87, 0.35);
+}
+
+/* disabled — cancel hover/focus border changes */
+.rte-field--disabled {
+  background: var(--ds-bg-common-bg, #EEF1F9);
+  border-color: var(--ds-components-input-disable-outline);
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.rte-field--disabled:hover,
+.rte-field--disabled[data-state="hover"],
+.rte-field--disabled.rte-field--focused {
+  border-color: var(--ds-components-input-disable-outline);
+  box-shadow: none;
+}
+
+/* ── Editor area ─────────────────────────────────────────────────────────── */
+
+.rte-editor-wrap {
+  position: relative;
+  transition: min-height 200ms ease;
+}
+
+.rte-editor {
+  display: block;
+  min-height: inherit;
+  padding: 7px 48px 7px 10px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ds-text-base, #313949);
+  line-height: 1.5;
+  outline: none;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.rte-editor:empty:not(:focus)::before {
+  content: attr(data-placeholder);
+  color: var(--ds-text-muted, #8B9BB8);
+  pointer-events: none;
+}
+
+/* ── Ajax Edit buttons ───────────────────────────────────────────────────── */
+
+.rte-ajax {
+  position: absolute;
+  top: 7px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rte-ajax-btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 120ms;
+}
+
+.rte-ajax-save {
+  background: var(--ds-components-input-focus-outline, #5464F2);
+  color: #fff;
+}
+
+.rte-ajax-save:hover {
+  background: #4050E0;
+}
+
+.rte-ajax-cancel {
+  background: var(--ds-bg-common-card, #fff);
+  color: var(--ds-text-label, #616E88);
+  border: 1px solid var(--ds-components-input-default-outline, #D6DAEA);
+}
+
+.rte-ajax-cancel:hover {
+  background: var(--ds-bg-common-bg, #EEF1F9);
+}
+
+/* ── Resize handle ───────────────────────────────────────────────────────── */
+
+.rte-resize {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  color: var(--ds-text-muted, #8B9BB8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────────────────────── */
+
+.rte-toolbar {
+  display: flex;
+  align-items: center;
+  background: var(--ds-bg-scale-bg2, #F4F7FF);
+  border-top: 1px solid var(--ds-components-input-focus-outline, #5464F2);
+  padding: 5px;
+  gap: 0;
+  overflow: hidden;
+}
+
+.rte-tb-row {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 0;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* ── Toolbar buttons ─────────────────────────────────────────────────────── */
+
+.rte-tb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ds-text-base, #313949);
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 100ms, color 100ms;
+  font-family: inherit;
+}
+
+.rte-tb-btn:hover {
+  background: rgba(84, 100, 242, 0.08);
+}
+
+.rte-tb-btn--active {
+  background: rgba(84, 100, 242, 0.1);
+}
+
+.rte-tb-btn--arrow {
+  width: auto;
+  padding: 0 5px 0 6px;
+  gap: 3px;
+}
+
+.rte-tb-fontsize {
+  min-width: 38px;
+}
+
+.rte-tb-fontsize-val {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ds-text-base, #313949);
+  line-height: 1;
+  min-width: 14px;
+  text-align: center;
+}
+
+.rte-tb-chevron {
+  color: var(--ds-text-muted, #8B9BB8);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.rte-tb-sep {
+  display: block;
+  width: 1px;
+  height: 18px;
+  background: rgba(214, 214, 227, 1);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ── Expand button ───────────────────────────────────────────────────────── */
+
+.rte-expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border: none;
+  background: rgba(246, 250, 255, 1);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ds-text-label, #616E88);
+  margin-left: 4px;
+  transition: background 100ms, color 100ms;
+}
+
+.rte-expand-btn:hover {
+  background: rgba(84, 100, 242, 0.1);
+  color: var(--ds-components-input-focus-outline, #5464F2);
+}
+
+/* ── Helper text ─────────────────────────────────────────────────────────── */
+
+.rte-helper {
+  font-size: 12px;
+  color: var(--ds-text-muted, #8B9BB8);
+}
+
+.rte-helper--error {
+  color: #FF4657;
+}
+
+/* ── Toolbar dropdown trigger (open state) ───────────────────────────────── */
+
+.rte-tb-btn--open {
+  background: rgba(84, 100, 242, 0.08);
+}
+
+/* ── Dropdown panel (portaled) ───────────────────────────────────────────── */
+
+.rte-dd-panel {
+  background: var(--ds-bg-common-card, #fff);
+  border: 1px solid var(--ds-components-input-default-outline, #D6DAEA);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  padding: 4px;
+  min-width: 148px;
+  z-index: 9999;
+}
+
+.rte-dd-panel--compact {
+  min-width: 72px;
+}
+
+.rte-dd-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 5px 8px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  font-size: 13px;
+  color: var(--ds-text-base, #313949);
+  text-align: left;
+  transition: background 100ms;
+  white-space: nowrap;
+}
+
+.rte-dd-panel--compact .rte-dd-item {
+  justify-content: center;
+  padding: 4px 8px;
+}
+
+.rte-dd-item:hover {
+  background: var(--ds-bg-scale-bg2, #F4F7FF);
+}
+
+.rte-dd-item--active {
+  color: var(--ds-components-input-focus-outline, #5464F2);
+}
+
+.rte-dd-item--active:hover {
+  background: rgba(84, 100, 242, 0.08);
+}

@@ -17,6 +17,21 @@ const WarningIcon = () => (
 // Component
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Approx tooltip height (inner padding 12px + line 18px + border 2px) + gap 6px
+const TOOLTIP_CLEARANCE = 44;
+
+function flipPlacement(preferred, r) {
+  if (preferred === 'bottom') {
+    // 'bottom' places tooltip above — flip to 'top' (below) if clipped
+    return r.top < TOOLTIP_CLEARANCE ? 'top' : 'bottom';
+  }
+  if (preferred === 'top') {
+    // 'top' places tooltip below — flip to 'bottom' (above) if clipped
+    return window.innerHeight - r.bottom < TOOLTIP_CLEARANCE ? 'bottom' : 'top';
+  }
+  return preferred;
+}
+
 export function Tooltip({
   children,
   content,
@@ -31,28 +46,35 @@ export function Tooltip({
 }) {
   const [visible, setVisible] = useState(false);
   const [rect, setRect] = useState(null);
+  const [effectivePlacement, setEffectivePlacement] = useState(placement);
   const wrapperRef = useRef(null);
 
   const show = useCallback(() => {
-    if (wrapperRef.current) setRect(wrapperRef.current.getBoundingClientRect());
+    if (wrapperRef.current) {
+      const r = wrapperRef.current.getBoundingClientRect();
+      setRect(r);
+      setEffectivePlacement(flipPlacement(placement, r));
+    }
     setVisible(true);
-  }, []);
+  }, [placement]);
 
   const hide = useCallback(() => setVisible(false), []);
 
   // For alwaysVisible (Storybook stories), compute rect after mount
   useEffect(() => {
     if (alwaysVisible && wrapperRef.current) {
-      setRect(wrapperRef.current.getBoundingClientRect());
+      const r = wrapperRef.current.getBoundingClientRect();
+      setRect(r);
+      setEffectivePlacement(flipPlacement(placement, r));
     }
-  }, [alwaysVisible]);
+  }, [alwaysVisible, placement]);
 
   const isVisible = !disabled && (alwaysVisible || visible);
 
   const tooltipEl = (
     <span
       role="tooltip"
-      className={`tooltip-tooltip tooltip-${variant} tooltip-placement-${placement}`}
+      className={`tooltip-tooltip tooltip-${variant} tooltip-placement-${effectivePlacement}`}
     >
       <span className="tooltip-arrow" aria-hidden="true" />
       <span className="tooltip-inner">

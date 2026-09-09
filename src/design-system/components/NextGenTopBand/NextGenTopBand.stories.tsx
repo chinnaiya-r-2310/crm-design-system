@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { NextGenTopBand } from './NextGenTopBand';
 
+const userAvatar = '/images/avatars/user_01.jpg';
+
 const meta: Meta<typeof NextGenTopBand> = {
   title: 'Design System/Components/NextGenTopBand',
   component: NextGenTopBand,
@@ -10,8 +12,6 @@ const meta: Meta<typeof NextGenTopBand> = {
       description: {
         component:
           'Next-generation top navigation band for Zoho CRM. ' +
-          'White bar with module selector, search, territory filter on the left; ' +
-          'action icons and user avatar on the right. ' +
           'Figma: Chinnaiya-Style-Sheet node 70396:190911.',
       },
     },
@@ -26,22 +26,22 @@ export const Default: Story = {
   render: () => (
     <NextGenTopBand
       moduleLabel="Leads"
-      moduleCount={1}
       searchPlaceholder="Search Leads..."
       territory="All Territories"
       notificationCount={3}
-      userInitials="C"
+      userAvatarSrc={userAvatar}
     />
   ),
 };
 
-export const NoCount: Story = {
-  name: 'No Badge',
+export const NoNotification: Story = {
+  name: 'No Notification',
   render: () => (
     <NextGenTopBand
       moduleLabel="Contacts"
       searchPlaceholder="Search Contacts..."
       territory="All Territories"
+      userAvatarSrc={userAvatar}
     />
   ),
 };
@@ -51,11 +51,10 @@ export const LongModule: Story = {
   render: () => (
     <NextGenTopBand
       moduleLabel="Social Media Strategy"
-      moduleCount={12}
       searchPlaceholder="Search..."
       territory="North America"
       notificationCount={99}
-      userInitials="CR"
+      userAvatarSrc={userAvatar}
     />
   ),
 };

@@ -551,9 +551,10 @@ export const ManageLogRetentionSettings: Story = {
                       fontSize: 'var(--ds-font-size-base)',
                       fontWeight: 'var(--ds-font-weight-regular)' as any,
                       color: 'var(--ds-text-label)',
+                      lineHeight: 'var(--ds-line-height-base)',
                       flexShrink: 0,
                       width: 140,
-                      paddingTop: 7,
+                      paddingTop: 8,
                       textAlign: 'right',
                     }}>
                       Modules
@@ -573,9 +574,10 @@ export const ManageLogRetentionSettings: Story = {
                       fontSize: 'var(--ds-font-size-base)',
                       fontWeight: 'var(--ds-font-weight-regular)' as any,
                       color: 'var(--ds-text-label)',
+                      lineHeight: 'var(--ds-line-height-base)',
                       flexShrink: 0,
                       width: 140,
-                      paddingTop: 7,
+                      paddingTop: 8,
                       textAlign: 'right',
                     }}>
                       Subforms

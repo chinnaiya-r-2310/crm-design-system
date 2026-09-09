@@ -26,10 +26,6 @@ export const Default: Story = {
   render: () => <WMSBar />,
 };
 
-export const WithBadge: Story = {
-  name: 'With Chat Badge',
-  render: () => <WMSBar chatBadge />,
-};
 
 export const ChannelsActive: Story = {
   name: 'Channels Active',
@@ -59,7 +55,7 @@ export const FullPage: Story = {
       }}>
         Content area
       </div>
-      <WMSBar chatBadge />
+      <WMSBar />
     </div>
   ),
 };

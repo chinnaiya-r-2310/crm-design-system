@@ -439,16 +439,16 @@ export const Settings: FC<P> = (props) => (
 );
 
 export const BentoMenu: FC<P> = (props) => (
-  <svg width="16" height="16" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M9.6 8C8.72 8 8 8.72 8 9.6C8 10.48 8.72 11.2 9.6 11.2C10.48 11.2 11.2 10.48 11.2 9.6C11.2 8.72 10.48 8 9.6 8Z" fill="currentColor"/>
-    <path d="M16 11.2C16.8837 11.2 17.6 10.4837 17.6 9.6C17.6 8.71634 16.8837 8 16 8C15.1163 8 14.4 8.71634 14.4 9.6C14.4 10.4837 15.1163 11.2 16 11.2Z" fill="currentColor"/>
-    <path d="M22.4 11.2C23.28 11.2 24 10.48 24 9.6C24 8.72 23.28 8 22.4 8C21.52 8 20.8 8.72 20.8 9.6C20.8 10.48 21.52 11.2 22.4 11.2Z" fill="currentColor"/>
-    <path d="M9.6 14.4C8.72 14.4 8 15.12 8 16C8 16.88 8.72 17.6 9.6 17.6C10.48 17.6 11.2 16.88 11.2 16C11.2 15.12 10.48 14.4 9.6 14.4Z" fill="currentColor"/>
-    <path d="M16 14.4C15.12 14.4 14.4 15.12 14.4 16C14.4 16.88 15.12 17.6 16 17.6C16.88 17.6 17.6 16.88 17.6 16C17.6 15.12 16.88 14.4 16 14.4Z" fill="currentColor"/>
-    <path d="M22.4 14.4C21.52 14.4 20.8 15.12 20.8 16C20.8 16.88 21.52 17.6 22.4 17.6C23.28 17.6 24 16.88 24 16C24 15.12 23.28 14.4 22.4 14.4Z" fill="currentColor"/>
-    <path d="M9.6 20.8C8.72 20.8 8 21.52 8 22.4C8 23.28 8.72 24 9.6 24C10.48 24 11.2 23.28 11.2 22.4C11.2 21.52 10.48 20.8 9.6 20.8Z" fill="currentColor"/>
-    <path d="M16 20.8C15.12 20.8 14.4 21.52 14.4 22.4C14.4 23.28 15.12 24 16 24C16.88 24 17.6 23.28 17.6 22.4C17.6 21.52 16.88 20.8 16 20.8Z" fill="currentColor"/>
-    <path d="M22.4 20.8C21.52 20.8 20.8 21.52 20.8 22.4C20.8 23.28 21.52 24 22.4 24C23.28 24 24 23.28 24 22.4C24 21.52 23.28 20.8 22.4 20.8Z" fill="currentColor"/>
+  <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M6.4 0C2.88 0 0 2.88 0 6.4C0 9.92 2.88 12.8 6.4 12.8C9.92 12.8 12.8 9.92 12.8 6.4C12.8 2.88 9.92 0 6.4 0Z" fill="currentColor"/>
+    <path d="M32 12.8C35.5346 12.8 38.4 9.93462 38.4 6.4C38.4 2.86538 35.5346 0 32 0C28.4654 0 25.6 2.86538 25.6 6.4C25.6 9.93462 28.4654 12.8 32 12.8Z" fill="currentColor"/>
+    <path d="M57.6 12.8C61.12 12.8 64 9.92 64 6.4C64 2.88 61.12 0 57.6 0C54.08 0 51.2 2.88 51.2 6.4C51.2 9.92 54.08 12.8 57.6 12.8Z" fill="currentColor"/>
+    <path d="M6.4 25.6C2.88 25.6 0 28.48 0 32C0 35.52 2.88 38.4 6.4 38.4C9.92 38.4 12.8 35.52 12.8 32C12.8 28.48 9.92 25.6 6.4 25.6Z" fill="currentColor"/>
+    <path d="M32 25.6C28.48 25.6 25.6 28.48 25.6 32C25.6 35.52 28.48 38.4 32 38.4C35.52 38.4 38.4 35.52 38.4 32C38.4 28.48 35.52 25.6 32 25.6Z" fill="currentColor"/>
+    <path d="M57.6 25.6C54.08 25.6 51.2 28.48 51.2 32C51.2 35.52 54.08 38.4 57.6 38.4C61.12 38.4 64 35.52 64 32C64 28.48 61.12 25.6 57.6 25.6Z" fill="currentColor"/>
+    <path d="M6.4 51.2C2.88 51.2 0 54.08 0 57.6C0 61.12 2.88 64 6.4 64C9.92 64 12.8 61.12 12.8 57.6C12.8 54.08 9.92 51.2 6.4 51.2Z" fill="currentColor"/>
+    <path d="M32 51.2C28.48 51.2 25.6 54.08 25.6 57.6C25.6 61.12 28.48 64 32 64C35.52 64 38.4 61.12 38.4 57.6C38.4 54.08 35.52 51.2 32 51.2Z" fill="currentColor"/>
+    <path d="M57.6 51.2C54.08 51.2 51.2 54.08 51.2 57.6C51.2 61.12 54.08 64 57.6 64C61.12 64 64 61.12 64 57.6C64 54.08 61.12 51.2 57.6 51.2Z" fill="currentColor"/>
   </svg>
 );
 
@@ -465,20 +465,21 @@ export const AppMarket: FC<P> = (props) => (
   </svg>
 );
 
+
 // ─────────────────────────────────────────────────────────────────────────────
-// WMS bar icons — from Chinnaiya-Style-Sheet (node 70415:192244)
+// WMS bar icons — from crm-icon-library (node 91-19, wms/ components)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const Motivator: FC<P> = (props) => (
+export const WmsMotivator: FC<P> = (props) => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path d="M12.75 6V10C12.75 11.6569 11.4069 13 9.75 13H3.75C2.09315 13 0.75 11.6569 0.75 10V4C0.75 2.34315 2.09315 1 3.75 1H6.75H7.75M3.25 9L5.75 6L7.75 8L9.75 5.5" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
     <circle cx="12.25" cy="1.5" r="1.5" fill="#FA6400"/>
   </svg>
 );
 
-export const AlarmClock: FC<P> = (props) => {
+export const WmsReminder: FC<P> = (props) => {
   const uid = useId();
-  const clipId = `alarm-clip-${uid}`;
+  const clipId = `wms-reminder-clip-${uid}`;
   return (
     <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <g clipPath={`url(#${clipId})`}>
@@ -496,30 +497,20 @@ export const AlarmClock: FC<P> = (props) => {
   );
 };
 
-export const Zia: FC<P> = (props) => (
+export const WmsZia: FC<P> = (props) => (
   <svg width="17" height="13" viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <circle cx="10" cy="1" r="1" fill="currentColor"/>
     <path d="M0.969697 3.05264H3.98095C4.77327 3.05264 5.2509 3.93015 4.82075 4.59553L0.997431 10.5097C0.567284 11.1751 1.04491 12.0526 1.83723 12.0526H7.23644C7.5797 12.0526 7.89897 11.8766 8.08215 11.5863L12.2926 4.91343C12.7561 4.17898 13.8711 4.34376 14.1023 5.18087L15.4792 10.1668C15.6964 10.9533 14.9311 11.6548 14.1665 11.3702L7.01546 8.70877C6.40671 8.4822 6.17214 7.74445 6.53826 7.20792L8.72727 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-export const File: FC<P> = (props) => (
-  <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M3.22314 6.44531H5.52194" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round"/>
-    <path d="M3.22314 9.74414H7.82074" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round"/>
-    <path d="M10.4736 13.2889H2.0183C1.34187 13.2889 0.75 12.7037 0.75 12.035V2.83981V2.00389C0.75 1.33515 1.34187 0.75 2.0183 0.75H8.61347L11.7419 3.59215V12.035C11.8265 12.7037 11.2346 13.2889 10.4736 13.2889Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M8.78259 0.916992V3.75914H11.5729" fill="currentColor"/>
-    <path d="M8.78259 0.916992V3.75914H11.5729" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-export const Comment: FC<P> = (props) => (
+export const WmsComment: FC<P> = (props) => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path d="M3.41225 0.75C1.94205 0.75 0.75 1.97658 0.75 3.48935V7.23041C0.75 8.60009 1.74338 9.76533 3.05464 9.92888C3.39238 9.96976 3.65066 10.2764 3.65066 10.6239V12.75L6.39238 10.2968C6.65066 10.072 6.98841 9.92888 7.32616 9.92888H10.0877C11.5579 9.92888 12.75 8.7023 12.75 7.18952V3.48935C12.75 1.97658 11.5579 0.75 10.0877 0.75H3.41225Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-export const Announcement: FC<P> = (props) => (
+export const WmsAnnouncements: FC<P> = (props) => (
   <svg width="13" height="17" viewBox="12.5 5.5 13 17" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path d="M13 13.1111C13 14.7613 13.6556 16.344 14.8224 17.5109C15.9893 18.6778 17.572 19.3333 19.2222 19.3333C20.8725 19.3333 22.4551 18.6778 23.622 17.5109C24.7889 16.344 25.4444 14.7613 25.4444 13.1111M19.2222 22V20.2222M19.2222 15.7778C17.7495 15.7778 16.5556 14.5839 16.5556 13.1111V8.66667C16.5556 7.19391 17.7495 6 19.2222 6C20.695 6 21.8889 7.19391 21.8889 8.66667V13.1111C21.8889 14.5839 20.695 15.7778 19.2222 15.7778Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
@@ -538,12 +529,12 @@ export const WmsChannel: FC<P> = (props) => (
 );
 
 export const WmsNotes: FC<P> = (props) => (
-  <svg width="13" height="15" viewBox="0 0 26 29" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M6.65802 13.3137H11.4066" stroke="currentColor" strokeWidth="3.09854" strokeMiterlimit="10" strokeLinecap="round"/>
-    <path d="M6.65802 20.1279H16.1552" stroke="currentColor" strokeWidth="3.09854" strokeMiterlimit="10" strokeLinecap="round"/>
-    <path d="M21.6353 27.4507H4.16919C2.7719 27.4507 1.54927 26.242 1.54927 24.8606V5.86618V4.13942C1.54927 2.758 2.7719 1.54927 4.16919 1.54927H17.7928L24.2552 7.42027V24.8606C24.4299 26.242 23.2073 27.4507 21.6353 27.4507Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M18.1421 1.8946V7.7656H23.906" fill="currentColor"/>
-    <path d="M18.1421 1.8946V7.7656H23.906" stroke="currentColor" strokeWidth="3.09854" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M3.35181 6.70238H5.74237" stroke="currentColor" strokeWidth="1.55988" strokeMiterlimit="10" strokeLinecap="round"/>
+    <path d="M3.35181 10.1329H8.13293" stroke="currentColor" strokeWidth="1.55988" strokeMiterlimit="10" strokeLinecap="round"/>
+    <path d="M10.8917 13.8194H2.09887C1.39544 13.8194 0.779939 13.2109 0.779939 12.5154V2.95318V2.08388C0.779939 1.38845 1.39544 0.779939 2.09887 0.779939H8.95731L12.2107 3.73554V12.5154C12.2986 13.2109 11.6831 13.8194 10.8917 13.8194Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9.13318 0.953788V3.90939H12.0348" fill="currentColor"/>
+    <path d="M9.13318 0.953788V3.90939H12.0348" stroke="currentColor" strokeWidth="1.55988" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -553,5 +544,245 @@ export const WmsUsers: FC<P> = (props) => (
     <path d="M16.4266 16.5084C13.1716 14.3384 7.86329 14.3384 4.58495 16.5084C3.10329 17.5 2.28662 18.8417 2.28662 20.2767C2.28662 21.7117 3.10329 23.0417 4.57329 24.0217C6.20662 25.1184 8.35329 25.6667 10.5 25.6667C12.6466 25.6667 14.7933 25.1184 16.4266 24.0217C17.8966 23.03 18.7133 21.7 18.7133 20.2534C18.7016 18.8184 17.8966 17.4884 16.4266 16.5084Z" fill="currentColor"/>
     <path d="M23.3217 8.56331C23.5083 10.8266 21.8983 12.81 19.67 13.0783C19.6583 13.0783 19.6583 13.0783 19.6467 13.0783H19.6117C19.5417 13.0783 19.4717 13.0783 19.4133 13.1016C18.2817 13.16 17.2433 12.7983 16.4617 12.1333C17.6633 11.06 18.3517 9.44997 18.2117 7.69997C18.13 6.75497 17.8033 5.89164 17.3133 5.15664C17.7567 4.93497 18.27 4.79497 18.795 4.74831C21.0817 4.54997 23.1233 6.25331 23.3217 8.56331Z" fill="currentColor"/>
     <path d="M25.655 19.355C25.5617 20.4867 24.8383 21.4667 23.625 22.1317C22.4583 22.7733 20.9883 23.0767 19.53 23.0417C20.37 22.2833 20.86 21.3383 20.9533 20.335C21.07 18.8883 20.3817 17.5 19.005 16.3917C18.2233 15.7733 17.3133 15.2833 16.3217 14.9217C18.9 14.175 22.1433 14.6767 24.1383 16.2867C25.2117 17.15 25.76 18.235 25.655 19.355Z" fill="currentColor"/>
+  </svg>
+);
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Rich Text Editor icons (16×16)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const RtBold: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M5 3H9.5C10.8807 3 12 4.11929 12 5.5C12 6.88071 10.8807 8 9.5 8H5V3Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5 8H9.5C10.8807 8 12 9.11929 12 10.5C12 11.8807 10.8807 13 9.5 13H5V8Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtItalic: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M12 3H7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9.5 13H5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M10 3L7 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtUnderline: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M4 13.5H12.1053" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    <path d="M4.5 3V7.5C4.5 9.433 6.067 11 8 11C9.933 11 11.5 9.433 11.5 7.5V3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+
+export const RtStrikethrough: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M3 7.80957H12.6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M10.5 4.30962C10.5 2.30956 7.00001 0.809614 5.5 3.30956C5.0481 4.06271 5.00587 4.71937 5.213 5.28868C5.30551 5.54294 5.44775 5.77978 5.62545 6M4.5 11.3096C8 16.3096 13.5 10.3096 9.5 8.30953C9.26243 8.19074 8.8093 8.0173 8.28085 7.78123" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+
+export const RtSubscript: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M3 5L9 11" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9 5L3 11" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M11 11.0015C11 10.5016 12.3338 9.33528 13.5 10.5015C14.5 11.5015 12.3333 12.9345 11 14.1012H14" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtSuperscript: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M3 5L9 11" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9 5L3 11" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M11 2.0015C11 1.5016 12.3338 0.335279 13.5 1.50149C14.5 2.50149 12.3333 3.93449 11 5.10122H14" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtFontColor: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M4 15.0137H12.6345" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M4.20679 11.5L7.20679 3H9.20679L12.2068 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M6.20679 8L10.2068 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtBgColor: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M2 3C2 2.44772 2.44772 2 3 2H13C13.5523 2 14 2.44772 14 3V15H2V3Z" fill="currentColor"/>
+    <path d="M4 13.5L7 5H9L12 13.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M6 10L10 10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtAlignLeft: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M3 3H13" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 9H13" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 6L9 6" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 12L9 12" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtBulletList: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M6.11108 4H13.1111" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="bevel"/>
+    <path d="M6.11108 8H13.1111" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="bevel"/>
+    <path d="M6.11111 12H13.1111" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="bevel"/>
+    <circle cx="3" cy="4" r="1" fill="currentColor"/>
+    <circle cx="3" cy="8" r="1" fill="currentColor"/>
+    <circle cx="3" cy="12" r="1" fill="currentColor"/>
+  </svg>
+);
+
+export const RtIndentRight: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M3 7L4 8.5L3 10" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 4H13" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M8 10H13" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M8 7L13 7" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 13L13 13" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtIndentLeft: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M13 7L12 8.5L13 10" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 4H13" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 10H8" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 7L8 7" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 13L13 13" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtLineHeight: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M4.5 4.5L4.5 12.5" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M6 11.5L4.5 13L3 11.5" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 4.5L4.5 3L6 4.5" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9 4H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="bevel"/>
+    <path d="M9 8H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="bevel"/>
+    <path d="M9.00001 12H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="bevel"/>
+  </svg>
+);
+
+export const RtImage: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M8.75 13.5L6.01616 10.5636C5.61137 10.1289 4.91907 10.1408 4.52943 10.5891L2 13.5H8.75Z" fill="currentColor"/>
+    <path d="M13.0184 13.5H3.04937C2.44973 13.5 2 13.1316 2 12.6404V4.47368V3.85965C2 3.36842 2.44973 3 3.04937 3H12.9434C13.5431 3 13.9928 3.36842 13.9928 3.85965V12.5789C14.0678 13.0702 13.5431 13.5 13.0184 13.5Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M14 13.5L10.2078 9.13112C9.80584 8.66798 9.08549 8.67248 8.68932 9.14062L5 13.5H14Z" fill="currentColor"/>
+    <path d="M6.64996 7.27499C7.27128 7.27499 7.77496 6.77131 7.77496 6.14999C7.77496 5.52867 7.27128 5.02499 6.64996 5.02499C6.02864 5.02499 5.52496 5.52867 5.52496 6.14999C5.52496 6.77131 6.02864 7.27499 6.64996 7.27499Z" fill="currentColor"/>
+  </svg>
+);
+
+export const RtUnlink: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M6.2 3.2V2M9.8 12.8V14M3.2 6.2H2M12.8 9.8H14M3.74853 3.74853L2.9 2.9M12.2515 12.2515L13.1 13.1M8 11.3941L6.72721 12.6669C5.78995 13.6042 4.27035 13.6042 3.3331 12.6669C2.39584 11.7296 2.39584 10.2101 3.3331 9.27279L4.60589 8M11.3941 8L12.6669 6.72721C13.6042 5.78995 13.6042 4.27035 12.6669 3.3331C11.7296 2.39584 10.2101 2.39584 9.27279 3.3331L8 4.60589" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtTable: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <rect x="2" y="2" width="12" height="12" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M6 2V14" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M10 2V14" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M14 6L2 6" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M14 10L2 10" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtEvenHeight: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M11.8268 3H4.17322M11.8268 12.4778H4.17324" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M12.1575 8.99202C12.7298 8.99202 13.016 8.99203 13.2417 8.88207C13.5427 8.73547 13.7818 8.45427 13.9065 8.10035C14 7.8349 14 7.82536 14 7.82536L13.9065 7.55037C13.7818 7.19644 13.5427 6.91525 13.2417 6.76864C13.016 6.65869 12.7298 6.65869 12.1575 6.65869L3.84252 6.65869C3.27018 6.65869 2.98401 6.65869 2.75828 6.76864C2.4573 6.91525 2.21817 7.19644 2.0935 7.55037L2 7.82536L2.0935 8.10034C2.21817 8.45427 2.4573 8.73547 2.75828 8.88207C2.98401 8.99202 3.27018 8.99202 3.84252 8.99202H12.1575Z" fill="currentColor"/>
+  </svg>
+);
+
+export const RtBlockquote: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M12.1322 12.0952C12.7621 11.5822 13.2786 10.887 13.636 10.0714C13.9933 9.25584 14.1804 8.34505 14.1807 7.41989V6.02197C14.1807 5.75094 14.0926 5.49101 13.9358 5.29936C13.779 5.10771 13.5663 5.00004 13.3445 5.00004H10.8362C10.6144 5.00004 10.4017 5.10771 10.2449 5.29936C10.0881 5.49101 10 5.75094 10 6.02197V6.08776C10 6.35879 10.0881 6.61872 10.2449 6.81037C10.4017 7.00202 10.6144 7.10969 10.8362 7.10969H12.2986V5.70837H10.6807" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M4.13216 12.0952C4.76206 11.5822 5.27861 10.887 5.63596 10.0714C5.99331 9.25584 6.18041 8.34505 6.18066 7.41989V6.02197C6.18066 5.75094 6.09257 5.49101 5.93577 5.29936C5.77896 5.10771 5.56629 5.00004 5.34454 5.00004H2.83617C2.61441 5.00004 2.40174 5.10771 2.24494 5.29936C2.08813 5.49101 2.00004 5.75094 2.00004 6.02197V6.08776C2.00004 6.35879 2.08813 6.61872 2.24494 6.81037C2.40174 7.00202 2.61441 7.10969 2.83617 7.10969H4.29855V5.70837H2.68066" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtCode: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M4 10L7 2H9L12 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5.25 7L10.25 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M1 11V13.25C1 13.6642 1.28491 14 1.63636 14H14.3636C14.715 14 15 13.6642 15 13.25V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+
+export const RtSpellCheck: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M3 12L6.52941 2H8.88235L11.2932 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5.35291 7.88235L10.0588 7.88236" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="bevel"/>
+    <path d="M8.79321 12.6667L10.2932 14L14.7932 10" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtQuote: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M2 2L2 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <rect x="5" y="4" width="10" height="8" rx="2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtChecklist: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M13.524 2.35798C13.2193 2.12877 12.806 2 12.375 2H2.625C2.19402 2 1.7807 2.12877 1.47595 2.35798C1.1712 2.58719 1 2.89807 1 3.22222V11.7778C1 12.1019 1.1712 12.4128 1.47595 12.642C1.7807 12.8712 2.19402 13 2.625 13H12.375C12.806 13 13.2193 12.8712 13.524 12.642C13.8288 12.4128 14 12.1019 14 11.7778V3.22222C14 2.89807 13.8288 2.58719 13.524 2.35798Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M8.58923 6.375H11.3749" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M7.71875 9.625H11.375" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <circle cx="4.625" cy="9.5" r="1" fill="currentColor"/>
+    <path d="M3.625 5.5L4.625 6.5L6.625 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtCopyright: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M10 5.76389C9.46924 5.28885 8.76835 5 8 5C6.34315 5 5 6.34315 5 8C5 9.65685 6.34315 11 8 11C8.76835 11 9.46924 10.7111 10 10.2361M14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtEmoji: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M10.8 9.39999C10.8 9.39999 9.74995 10.8 7.99995 10.8C6.24995 10.8 5.19995 9.39999 5.19995 9.39999" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5.90002 5.89999H5.90802" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M10.1 5.89999H10.108" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtClearFormat: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M8.5 3.5V14M6.5 14H10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M4 4.5V3L13 3V4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M7 12L10 9.5" stroke="white" strokeWidth="1.5"/>
+    <path d="M5 12L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtExpand: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M3.77209 12.2217L3.77209 9.22794L0.778346 9.22794" stroke="currentColor" strokeWidth="1.55664" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M0.778892 4.13582L3.77263 4.13582L3.77263 1.14208" stroke="currentColor" strokeWidth="1.55664" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M8.83631 12.1937L8.83631 9.19994L12.1938 9.19994" stroke="currentColor" strokeWidth="1.55664" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M11.8581 4.13579L8.86433 4.13579L8.86433 0.778318" stroke="currentColor" strokeWidth="1.55664" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const RtAlignCenter: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M2 4h12M4 7h8M2 10h12M4 13h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+
+export const RtAlignRight: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M2 4h12M6 7h8M2 10h12M6 13h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+
+export const RtAlignJustify: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M2 4h12M2 7h12M2 10h12M2 13h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
   </svg>
 );

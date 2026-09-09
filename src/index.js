@@ -82,12 +82,12 @@ export {
   BentoMenu,
   ZiaAI,
   AppMarket,
-  Motivator,
-  AlarmClock,
-  Zia,
-  File,
-  Comment,
-  Announcement,
+  RtEmoji,
+  WmsMotivator,
+  WmsReminder,
+  WmsZia,
+  WmsComment,
+  WmsAnnouncements,
 } from './design-system/foundations/icons/Icons';
 
 // ── Token Engine ──────────────────────────────────────────────────────────────

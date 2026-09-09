@@ -152,6 +152,19 @@
   z-index: 1500;
 }
 
+/* ── Inline link button (e.g. "Change" timezone) ────────────────────────── */
+
+.input-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-sm);
+  color: var(--ds-text-link);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 /* ── Helper text ─────────────────────────────────────────────────────────── */
 
 .input-helper-text {

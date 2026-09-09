@@ -9,9 +9,9 @@
   right: 0;
   z-index: 100;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   height: 34px;
-  background: #F0F2F7;
+  background: var(--ds-bg-common-bg, #EEF1F9);
   border-top: 1px solid #E5E8F0;
   padding: 0 10px;
   box-sizing: border-box;
@@ -24,15 +24,9 @@
 
 .wmsb-tabs {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   flex-shrink: 0;
-  border: 1px solid #D6DAEA;
-  border-radius: 6px;
   background: transparent;
-  padding: 2px;
-  gap: 1px;
-  height: 26px;
-  box-sizing: border-box;
 }
 
 .wmsb-tab {
@@ -40,10 +34,9 @@
   align-items: center;
   gap: 5px;
   height: 100%;
-  padding: 0 8px;
+  padding: 0 10px;
   border: none;
-  background: transparent;
-  border-radius: 4px;
+  background: #fff;
   cursor: pointer;
   font-family: inherit;
   font-size: 12px;
@@ -58,10 +51,9 @@
 }
 
 .wmsb-tab-active {
-  background: #fff;
-  color: #313949;
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+  color: var(--ds-text-base, #313949);
   font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.10);
 }
 
 /* ── Icon + badge inside tab ─────────────────────────────────────────────── */
@@ -75,28 +67,30 @@
 
 .wmsb-badge {
   position: absolute;
-  top: -3px;
-  right: -4px;
-  width: 6px;
-  height: 6px;
+  top: -4px;
+  right: -5px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #E53B3B;
   border: 1.5px solid #F0F2F7;
   box-sizing: border-box;
+  pointer-events: none;
 }
 
 .wmsb-tab-label {
   line-height: 1;
 }
 
-/* ── Vertical separator ──────────────────────────────────────────────────── */
-
-.wmsb-sep {
-  width: 1px;
-  height: 16px;
-  background: #D6DAEA;
-  margin: 0 10px;
-  flex-shrink: 0;
+/* Reserve bold width so tab width stays stable during active state changes */
+.wmsb-tab-label::after {
+  content: attr(data-label);
+  font-weight: 500;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  display: block;
+  pointer-events: none;
 }
 
 /* ── Center smart-chat button ────────────────────────────────────────────── */
@@ -110,7 +104,7 @@
   cursor: pointer;
   border: none;
   background: none;
-  padding: 0;
+  padding: 0 10px;
   font: inherit;
   text-align: left;
 }
@@ -134,8 +128,8 @@
 
 .wmsb-icons {
   display: flex;
-  align-items: center;
-  gap: 2px;
+  align-items: stretch;
+  align-self: stretch;
   flex-shrink: 0;
   margin-left: 8px;
 }
@@ -144,15 +138,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 100%;
   border: none;
+  border-left: 1px solid #D6D6E3;
   background: none;
-  border-radius: 5px;
   cursor: pointer;
   color: #616E88;
   padding: 0;
   transition: background 120ms, color 120ms;
+  box-sizing: border-box;
+}
+
+.wmsb-icon-btn:first-child {
+  border-left: none;
 }
 
 .wmsb-icon-btn:hover {

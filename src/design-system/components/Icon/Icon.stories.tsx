@@ -12,8 +12,15 @@ import {
   ModuleSolutions, ModuleProducts, ModuleCases, ModuleActivities, ModuleMeeting,
   ModuleReports, ModuleHome, ModuleDocs, ModuleSocial, ModuleCustom, ModuleMyJobs, ModuleAnalytics,
   Bell, CalendarIcon, Settings, BentoMenu, ZiaAI, AppMarket,
-  Motivator, AlarmClock, Zia, File, Comment, Announcement,
+  WmsMotivator, WmsReminder, WmsZia, WmsComment, WmsAnnouncements,
   WmsChat, WmsChannel, WmsNotes, WmsUsers,
+  RtBold, RtItalic, RtUnderline, RtStrikethrough, RtSubscript,
+  RtFontColor, RtBgColor,
+  RtAlignLeft, RtAlignCenter, RtAlignRight, RtAlignJustify,
+  RtBulletList, RtIndentRight, RtLineHeight,
+  RtImage, RtUnlink, RtTable, RtEvenHeight,
+  RtBlockquote, RtCode, RtSpellCheck, RtQuote, RtChecklist,
+  RtCopyright, RtClearFormat, RtExpand, RtEmoji,
 } from '../../foundations/icons/Icons';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -525,16 +532,51 @@ export const AllIcons: Story = {
       <div style={SECTION_LABEL_STYLE}>WMS Bar</div>
       <div style={GRID_STYLE}>
         {([
-          ['Motivator',    <Motivator    key="mo"  width={14} height={14} />],
-          ['AlarmClock',   <AlarmClock   key="ac"  width={16} height={15} />],
-          ['Zia',          <Zia          key="zi"  width={17} height={13} />],
-          ['File',         <File         key="fi"  width={13} height={15} />],
-          ['Comment',      <Comment      key="co"  width={14} height={14} />],
-          ['Announcement', <Announcement key="an"  width={13} height={17} />],
+          ['WmsMotivator',    <WmsMotivator    key="mo"  width={14} height={14} />],
+          ['WmsReminder',     <WmsReminder     key="ac"  width={16} height={15} />],
+          ['WmsZia',          <WmsZia          key="zi"  width={17} height={13} />],
+          ['WmsComment',      <WmsComment      key="co"  width={14} height={14} />],
+          ['WmsAnnouncements',<WmsAnnouncements key="an" width={13} height={17} />],
           ['WmsChat',      <WmsChat      key="wc"  width={14} height={14} />],
           ['WmsChannel',   <WmsChannel   key="wch" width={14} height={14} />],
           ['WmsNotes',     <WmsNotes     key="wn"  width={13} height={15} />],
           ['WmsUsers',     <WmsUsers     key="wu"  width={14} height={14} />],
+        ] as [string, React.ReactNode][]).map(([label, el]) => (
+          <IconCell key={label} label={label}>{el}</IconCell>
+        ))}
+      </div>
+
+      {/* ── Rich Text Editor ── */}
+      <div style={SECTION_LABEL_STYLE}>Rich Text Editor</div>
+      <div style={GRID_STYLE}>
+        {([
+          ['RtBold',         <RtBold         key="rb"   width={16} height={16} />],
+          ['RtItalic',       <RtItalic       key="ri"   width={16} height={16} />],
+          ['RtUnderline',    <RtUnderline    key="ru"   width={16} height={16} />],
+          ['RtStrikethrough',<RtStrikethrough key="rs"  width={16} height={16} />],
+          ['RtSubscript',    <RtSubscript    key="rss"  width={16} height={16} />],
+          ['RtFontColor',    <RtFontColor    key="rfc"  width={16} height={16} />],
+          ['RtBgColor',      <RtBgColor      key="rbc"  width={16} height={16} />],
+          ['RtAlignLeft',    <RtAlignLeft    key="ral"  width={16} height={16} />],
+          ['RtAlignCenter',  <RtAlignCenter  key="rac"  width={16} height={16} />],
+          ['RtAlignRight',   <RtAlignRight   key="rar"  width={16} height={16} />],
+          ['RtAlignJustify', <RtAlignJustify key="raj"  width={16} height={16} />],
+          ['RtBulletList',   <RtBulletList   key="rbl"  width={16} height={16} />],
+          ['RtIndentRight',  <RtIndentRight  key="rir"  width={16} height={16} />],
+          ['RtLineHeight',   <RtLineHeight   key="rlh"  width={16} height={16} />],
+          ['RtImage',        <RtImage        key="rim"  width={16} height={16} />],
+          ['RtUnlink',       <RtUnlink       key="run"  width={16} height={16} />],
+          ['RtTable',        <RtTable        key="rt"   width={16} height={16} />],
+          ['RtEvenHeight',   <RtEvenHeight   key="reh"  width={16} height={16} />],
+          ['RtBlockquote',   <RtBlockquote   key="rbq"  width={16} height={16} />],
+          ['RtCode',         <RtCode         key="rc"   width={16} height={16} />],
+          ['RtSpellCheck',   <RtSpellCheck   key="rsc"  width={16} height={16} />],
+          ['RtQuote',        <RtQuote        key="rq"   width={16} height={16} />],
+          ['RtChecklist',    <RtChecklist    key="rcl"  width={16} height={16} />],
+          ['RtCopyright',    <RtCopyright    key="rco"  width={16} height={16} />],
+          ['RtClearFormat',  <RtClearFormat  key="rcf"  width={16} height={16} />],
+          ['RtExpand',       <RtExpand       key="re"   width={12} height={12} />],
+          ['RtEmoji',        <RtEmoji        key="rem"  width={16} height={16} />],
         ] as [string, React.ReactNode][]).map(([label, el]) => (
           <IconCell key={label} label={label}>{el}</IconCell>
         ))}

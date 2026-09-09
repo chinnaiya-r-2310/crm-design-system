@@ -88,6 +88,7 @@ export function Dropdown({
   onMultiChange,
   id: idProp,
   style,
+  panelStyle,
   columns,
 }) {
   const autoId = useId();
@@ -367,6 +368,7 @@ export function Dropdown({
           top: panelPos.top,
           left: panelPos.left,
           width: panelPos.width,
+          ...(typeof panelStyle === 'function' ? panelStyle(panelPos) : panelStyle),
         }}
       role="listbox"
       aria-label={label}

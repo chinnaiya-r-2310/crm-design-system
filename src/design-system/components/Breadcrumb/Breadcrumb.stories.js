@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import { Breadcrumb } from './Breadcrumb';
 
-const meta: Meta<typeof Breadcrumb> = {
+/** @type {import('@storybook/react').Meta} */
+const meta = {
   title: 'Design System/Components/Breadcrumb',
   component: Breadcrumb,
   parameters: {
@@ -16,13 +16,12 @@ const meta: Meta<typeof Breadcrumb> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Breadcrumb>;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, children }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <span style={{ fontSize: 11, color: '#8C9BAB', fontFamily: 'var(--ds-font-family-base)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
@@ -37,7 +36,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 // Stories
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const Default: Story = {
+export const Default = {
   name: 'Default',
   render: () => (
     <Breadcrumb
@@ -50,7 +49,7 @@ export const Default: Story = {
   ),
 };
 
-export const TwoLevels: Story = {
+export const TwoLevels = {
   name: 'Two levels',
   render: () => (
     <Breadcrumb
@@ -62,7 +61,7 @@ export const TwoLevels: Story = {
   ),
 };
 
-export const SingleItem: Story = {
+export const SingleItem = {
   name: 'Single item (current only)',
   render: () => (
     <Breadcrumb
@@ -73,7 +72,7 @@ export const SingleItem: Story = {
   ),
 };
 
-export const DeepTrail: Story = {
+export const DeepTrail = {
   name: 'Deep trail — 4 levels',
   render: () => (
     <Breadcrumb
@@ -87,7 +86,7 @@ export const DeepTrail: Story = {
   ),
 };
 
-export const AllVariations: Story = {
+export const AllVariations = {
   name: 'All variations',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>

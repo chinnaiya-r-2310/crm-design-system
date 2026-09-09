@@ -7,6 +7,13 @@ import {
   ModuleForecasts, ModuleSolutions, ModuleProducts, ModuleCases,
   ModuleActivities, ModuleMeeting, ModuleDocs, ModuleSocial, ModuleCustom,
 } from '../../foundations/icons/Icons';
+import { Tooltip } from '../Tooltip/Tooltip';
+
+const PlusIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+    <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Default data
@@ -61,6 +68,7 @@ export function NextGenLeftMenu({
   activeId,
   onItemClick,
   defaultOpenFolders = ['activity'],
+  width = 240,
 }) {
   const [openFolders, setOpenFolders] = useState(() => new Set(defaultOpenFolders));
   const [search, setSearch] = useState('');
@@ -95,15 +103,24 @@ export function NextGenLeftMenu({
     const IconComp = item.icon;
     const isActive = activeId === item.id;
     return (
-      <button
-        key={item.id}
-        type="button"
-        className={`nglm-item${isActive ? ' nglm-active' : ''}`}
-        onClick={() => onItemClick?.(item.id)}
-      >
-        {IconComp && <span className="nglm-item-icon"><IconComp /></span>}
-        <span className="nglm-item-label">{item.label}</span>
-      </button>
+      <Tooltip key={item.id} content={item.label} variant="black" placement="right" wrapperStyle={{ display: 'block', width: '100%' }}>
+        <button
+          type="button"
+          className={`nglm-item nglm-module-item${isActive ? ' nglm-active' : ''}`}
+          onClick={() => onItemClick?.(item.id)}
+        >
+          {IconComp && <span className="nglm-item-icon"><IconComp /></span>}
+          <span className="nglm-item-label">{item.label}</span>
+          <button
+            type="button"
+            className="nglm-item-action"
+            aria-label={`More options for ${item.label}`}
+            onClick={e => { e.stopPropagation(); }}
+          >
+            <More />
+          </button>
+        </button>
+      </Tooltip>
     );
   };
 
@@ -112,17 +129,27 @@ export function NextGenLeftMenu({
     const hasChildren = (item.children || []).length > 0;
     return (
       <div key={item.id} className="nglm-folder">
-        <button
-          type="button"
-          className="nglm-item nglm-folder-trigger"
-          onClick={() => toggleFolder(item.id)}
-        >
-          <span className="nglm-item-icon nglm-folder-icon"><Folder /></span>
-          <span className="nglm-item-label">{item.label}</span>
-          <span className="nglm-folder-chevron">
-            {isOpen ? <ChevronUp /> : <ChevronDownFilled />}
-          </span>
-        </button>
+        <Tooltip content={item.label} variant="black" placement="right">
+          <button
+            type="button"
+            className="nglm-item nglm-module-item nglm-folder-trigger"
+            onClick={() => toggleFolder(item.id)}
+          >
+            <span className="nglm-item-icon nglm-folder-icon"><Folder /></span>
+            <span className="nglm-item-label">{item.label}</span>
+            <button
+              type="button"
+              className="nglm-item-action"
+              aria-label={`More options for ${item.label}`}
+              onClick={e => { e.stopPropagation(); }}
+            >
+              <More />
+            </button>
+            <span className="nglm-folder-chevron">
+              {isOpen ? <ChevronUp /> : <ChevronDownFilled />}
+            </span>
+          </button>
+        </Tooltip>
         {isOpen && hasChildren && (
           <div className="nglm-folder-children">
             {(item.children || []).map(child => renderItem(child))}
@@ -133,7 +160,7 @@ export function NextGenLeftMenu({
   };
 
   return (
-    <nav className="nglm-root">
+    <nav className="nglm-root" style={{ width: typeof width === 'number' ? `${width}px` : width }}>
       {/* App header */}
       <div className="nglm-header">
         <div className="nglm-app-badge">Z</div>
@@ -150,15 +177,24 @@ export function NextGenLeftMenu({
           const IconComp = item.icon;
           const isActive = activeId === item.id;
           return (
-            <button
-              key={item.id}
-              type="button"
-              className={`nglm-item${isActive ? ' nglm-active' : ''}`}
-              onClick={() => onItemClick?.(item.id)}
-            >
-              {IconComp && <span className="nglm-item-icon"><IconComp /></span>}
-              <span className="nglm-item-label">{item.label}</span>
-            </button>
+            <Tooltip key={item.id} content={item.label} variant="black" placement="right" wrapperStyle={{ display: 'block', width: '100%' }}>
+              <button
+                type="button"
+                className={`nglm-item${isActive ? ' nglm-active' : ''}`}
+                onClick={() => onItemClick?.(item.id)}
+              >
+                {IconComp && <span className="nglm-item-icon"><IconComp /></span>}
+                <span className="nglm-item-label">{item.label}</span>
+                <button
+                  type="button"
+                  className="nglm-item-action"
+                  aria-label={`Add to ${item.label}`}
+                  onClick={e => { e.stopPropagation(); }}
+                >
+                  <PlusIcon />
+                </button>
+              </button>
+            </Tooltip>
           );
         })}
       </div>

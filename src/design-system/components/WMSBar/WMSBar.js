@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import './WMSBar.css';
-import {
-  Motivator, AlarmClock, Zia, WmsNotes, Comment, Announcement,
-  WmsChat, WmsChannel, WmsUsers,
-} from '../../foundations/icons/Icons';
+import { Icon } from '../Icon/Icon';
 
 const TABS = [
-  { id: 'chats',    label: 'Chats',    Icon: WmsChat },
-  { id: 'channels', label: 'Channels', Icon: WmsChannel },
-  { id: 'contacts', label: 'Contacts', Icon: WmsUsers },
+  { id: 'chats',    label: 'Chats',    icon: 'WmsChat' },
+  { id: 'channels', label: 'Channels', icon: 'WmsChannel' },
+  { id: 'contacts', label: 'Contacts', icon: 'WmsUsers' },
 ];
 
 export function WMSBar({
@@ -16,7 +13,6 @@ export function WMSBar({
   shortcut = 'Ctrl+Space',
   defaultTab = 'chats',
   activeTab: controlledTab,
-  chatBadge = false,
   onTabChange,
   onChatClick,
   onMotivator,
@@ -39,7 +35,7 @@ export function WMSBar({
 
       {/* ── Left: Chats / Channels / Contacts tabs ── */}
       <div className="wmsb-tabs">
-        {TABS.map(({ id, label, Icon }) => (
+        {TABS.map(({ id, label, icon }) => (
           <button
             key={id}
             type="button"
@@ -47,16 +43,13 @@ export function WMSBar({
             onClick={() => handleTab(id)}
           >
             <span className="wmsb-tab-icon-wrap">
-              <Icon width={14} height={14} />
-              {id === 'chats' && chatBadge && <span className="wmsb-badge" />}
+              <Icon name={icon} size={14} />
+              {id === 'chats' && <span className="wmsb-badge" />}
             </span>
-            <span className="wmsb-tab-label">{label}</span>
+            <span className="wmsb-tab-label" data-label={label}>{label}</span>
           </button>
         ))}
       </div>
-
-      {/* ── Separator ── */}
-      <div className="wmsb-sep" />
 
       {/* ── Center: smart chat input ── */}
       <button type="button" className="wmsb-chat" onClick={onChatClick}>
@@ -67,22 +60,22 @@ export function WMSBar({
       {/* ── Right: quick-access icons ── */}
       <div className="wmsb-icons">
         <button type="button" className="wmsb-icon-btn" aria-label="Motivator" onClick={onMotivator}>
-          <Motivator width={14} height={14} />
+          <Icon name="WmsMotivator" size={14} />
         </button>
         <button type="button" className="wmsb-icon-btn" aria-label="Reminder" onClick={onAlarmClock}>
-          <AlarmClock width={15} height={14} />
+          <Icon name="WmsReminder" size={15} />
         </button>
         <button type="button" className="wmsb-icon-btn" aria-label="Zia" onClick={onZia}>
-          <Zia width={15} height={12} />
+          <Icon name="WmsZia" size={15} />
         </button>
         <button type="button" className="wmsb-icon-btn" aria-label="Notes" onClick={onNotes}>
-          <WmsNotes width={12} height={14} />
+          <Icon name="WmsNotes" size={14} />
         </button>
         <button type="button" className="wmsb-icon-btn" aria-label="Comments" onClick={onComment}>
-          <Comment width={14} height={14} />
+          <Icon name="WmsComment" size={14} />
         </button>
         <button type="button" className="wmsb-icon-btn" aria-label="Announcements" onClick={onAnnouncement}>
-          <Announcement width={12} height={15} />
+          <Icon name="WmsAnnouncements" size={14} />
         </button>
       </div>
 
