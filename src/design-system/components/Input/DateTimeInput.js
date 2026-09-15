@@ -130,8 +130,7 @@ export function DateTimeInput({
     const digits = e.target.value.replace(/\D/g, '').slice(0, 8);
     const masked = maskDigits(digits);
     setInputText(masked);
-    const parsed = parseDate(masked);
-    if (parsed) onDateChange?.(masked);
+    onDateChange?.(masked);
   };
 
   // ── Render ───────────────────────────────────────────────────────────────
