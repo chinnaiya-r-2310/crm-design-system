@@ -1,0 +1,58 @@
+import{i as e,s as t}from"./preload-helper-BTXe9M7S.js";import{N as n}from"./iframe-DW-Tj92J.js";import{t as r}from"./jsx-runtime-D-I7Lrue.js";import{B as i,Et as a,F as o,G as s,H as c,I as l,J as u,K as d,L as f,M as p,N as m,Ot as h,P as g,R as _,U as v,V as y,Vt as b,W as x,Y as S,d as C,q as w,u as T,w as E,z as D}from"./Icons-1ApAK5fO.js";import{n as O,t as k}from"./Tooltip-BsODL1W5.js";var A=e((()=>{}));function j({appName:e=`Zoho CRM`,teamspaceName:t=`CRM Teamspace`,topNavItems:n=F,modules:r=I,activeId:i,onItemClick:o,defaultOpenFolders:s=[`activity`],width:c=240}){let[l,u]=(0,N.useState)(()=>new Set(s)),[d,f]=(0,N.useState)(``),p=e=>{u(t=>{let n=new Set(t);return n.has(e)?n.delete(e):n.add(e),n})},m=d.toLowerCase(),g=(e=>m?e.reduce((e,t)=>{if(t.type===`folder`){let n=(t.children||[]).filter(e=>e.label.toLowerCase().includes(m));(n.length||t.label.toLowerCase().includes(m))&&e.push({...t,children:n})}else t.label.toLowerCase().includes(m)&&e.push(t);return e},[]):e)(r),_=e=>{let t=e.icon,n=i===e.id;return(0,M.jsx)(k,{content:e.label,variant:`black`,placement:`right`,wrapperStyle:{display:`block`,width:`100%`},children:(0,M.jsxs)(`button`,{type:`button`,className:`nglm-item nglm-module-item${n?` nglm-active`:``}`,onClick:()=>o?.(e.id),children:[t&&(0,M.jsx)(`span`,{className:`nglm-item-icon`,children:(0,M.jsx)(t,{})}),(0,M.jsx)(`span`,{className:`nglm-item-label`,children:e.label}),(0,M.jsx)(`button`,{type:`button`,className:`nglm-item-action`,"aria-label":`More options for ${e.label}`,onClick:e=>{e.stopPropagation()},children:(0,M.jsx)(S,{})})]})},e.id)},v=e=>{let t=l.has(e.id)||m&&(e.children||[]).length>0,n=(e.children||[]).length>0;return(0,M.jsxs)(`div`,{className:`nglm-folder`,children:[(0,M.jsx)(k,{content:e.label,variant:`black`,placement:`right`,children:(0,M.jsxs)(`button`,{type:`button`,className:`nglm-item nglm-module-item nglm-folder-trigger`,onClick:()=>p(e.id),children:[(0,M.jsx)(`span`,{className:`nglm-item-icon nglm-folder-icon`,children:(0,M.jsx)(E,{})}),(0,M.jsx)(`span`,{className:`nglm-item-label`,children:e.label}),(0,M.jsx)(`button`,{type:`button`,className:`nglm-item-action`,"aria-label":`More options for ${e.label}`,onClick:e=>{e.stopPropagation()},children:(0,M.jsx)(S,{})}),(0,M.jsx)(`span`,{className:`nglm-folder-chevron`,children:t?(0,M.jsx)(C,{}):(0,M.jsx)(T,{})})]})}),t&&n&&(0,M.jsx)(`div`,{className:`nglm-folder-children`,children:(e.children||[]).map(e=>_(e))})]},e.id)};return(0,M.jsxs)(`nav`,{className:`nglm-root`,style:{width:typeof c==`number`?`${c}px`:c},children:[(0,M.jsxs)(`div`,{className:`nglm-header`,children:[(0,M.jsx)(`div`,{className:`nglm-app-badge`,children:`Z`}),(0,M.jsx)(`span`,{className:`nglm-app-name`,children:e}),(0,M.jsx)(T,{className:`nglm-header-chevron`}),(0,M.jsx)(`button`,{type:`button`,className:`nglm-icon-btn`,"aria-label":`Collapse sidebar`,children:(0,M.jsx)(h,{})})]}),(0,M.jsx)(`div`,{className:`nglm-top-nav`,children:n.map(e=>{let t=e.icon,n=i===e.id;return(0,M.jsx)(k,{content:e.label,variant:`black`,placement:`right`,wrapperStyle:{display:`block`,width:`100%`},children:(0,M.jsxs)(`button`,{type:`button`,className:`nglm-item${n?` nglm-active`:``}`,onClick:()=>o?.(e.id),children:[t&&(0,M.jsx)(`span`,{className:`nglm-item-icon`,children:(0,M.jsx)(t,{})}),(0,M.jsx)(`span`,{className:`nglm-item-label`,children:e.label}),(0,M.jsx)(`button`,{type:`button`,className:`nglm-item-action`,"aria-label":`Add to ${e.label}`,onClick:e=>{e.stopPropagation()},children:(0,M.jsx)(P,{})})]})},e.id)})}),(0,M.jsxs)(`div`,{className:`nglm-teamspace`,children:[(0,M.jsx)(`div`,{className:`nglm-ts-badge`,children:`C`}),(0,M.jsx)(`span`,{className:`nglm-ts-name`,children:t}),(0,M.jsx)(T,{className:`nglm-ts-chevron`}),(0,M.jsx)(`button`,{type:`button`,className:`nglm-icon-btn nglm-ts-more`,"aria-label":`More options`,children:(0,M.jsx)(S,{})})]}),(0,M.jsxs)(`div`,{className:`nglm-modules`,children:[(0,M.jsxs)(`div`,{className:`nglm-search-wrap`,children:[(0,M.jsx)(`span`,{className:`nglm-search-icon`,children:(0,M.jsx)(a,{})}),(0,M.jsx)(`input`,{className:`nglm-search-input`,placeholder:`Search Modules`,value:d,onChange:e=>f(e.target.value)})]}),(0,M.jsx)(`div`,{className:`nglm-module-list`,children:g.map(e=>e.type===`folder`?v(e):_(e))})]})]})}var M,N,P,F,I,L=e((()=>{M=r(),N=t(n(),1),A(),b(),O(),P=()=>(0,M.jsx)(`svg`,{width:`12`,height:`12`,viewBox:`0 0 12 12`,fill:`none`,"aria-hidden":`true`,children:(0,M.jsx)(`path`,{d:`M6 1v10M1 6h10`,stroke:`currentColor`,strokeWidth:`1.5`,strokeLinecap:`round`})}),F=[{id:`home`,label:`Home`,icon:y},{id:`analytics`,label:`Analytics`,icon:g},{id:`reports`,label:`Reports`,icon:d},{id:`my-requests`,label:`My Requests`,icon:x}],I=[{id:`contacts`,label:`Contacts`,icon:l},{id:`leads`,label:`Leads`,icon:c},{id:`deals`,label:`Deals`,icon:_},{id:`accounts`,label:`Accounts`,icon:p},{id:`forecasts`,label:`Forecasts`,icon:i},{id:`solutions`,label:`Solutions`,icon:u},{id:`products`,label:`Products`,icon:s},{id:`case-study`,label:`Case Study`,icon:o},{id:`activity`,label:`Activity`,type:`folder`,children:[{id:`calls`,label:`Calls`,icon:m},{id:`meetings`,label:`Meetings`,icon:v},{id:`tasks`,label:`Tasks`,icon:x}]},{id:`inventory`,label:`Inventory`,type:`folder`,children:[]},{id:`demo-request`,label:`Demo Request`,icon:f},{id:`expanse-tracking`,label:`Expanse Tracking`,icon:f},{id:`social-media-strategy`,label:`Social Media Strategy`,icon:w},{id:`influencer-outreach`,label:`Influencer Outreach`,icon:f},{id:`budget-allocation`,label:`Budget Allocation S...`,icon:f},{id:`brand-voice`,label:`Brand Voice and Gui...`,icon:D},{id:`projects`,label:`Projects`,type:`folder`,children:[]},{id:`cliq-channels`,label:`Cliq Channels`,type:`folder`,children:[]},{id:`bugs-ideas`,label:`Bugs and Ideas`,icon:f},{id:`strategy-presentation`,label:`Strategy Presentation`,icon:D}],j.__docgenInfo={description:``,methods:[],displayName:`NextGenLeftMenu`,props:{appName:{defaultValue:{value:`'Zoho CRM'`,computed:!1},required:!1},teamspaceName:{defaultValue:{value:`'CRM Teamspace'`,computed:!1},required:!1},topNavItems:{defaultValue:{value:`[
+  { id: 'home',        label: 'Home',        icon: ModuleHome },
+  { id: 'analytics',  label: 'Analytics',   icon: ModuleAnalytics },
+  { id: 'reports',    label: 'Reports',     icon: ModuleReports },
+  { id: 'my-requests',label: 'My Requests', icon: ModuleMyJobs },
+]`,computed:!1},required:!1},modules:{defaultValue:{value:`[
+  { id: 'contacts',   label: 'Contacts',   icon: ModuleContacts },
+  { id: 'leads',      label: 'Leads',      icon: ModuleLeads },
+  { id: 'deals',      label: 'Deals',      icon: ModuleDeals },
+  { id: 'accounts',   label: 'Accounts',   icon: ModuleAccounts },
+  { id: 'forecasts',  label: 'Forecasts',  icon: ModuleForecasts },
+  { id: 'solutions',  label: 'Solutions',  icon: ModuleSolutions },
+  { id: 'products',   label: 'Products',   icon: ModuleProducts },
+  { id: 'case-study', label: 'Case Study', icon: ModuleCases },
+  {
+    id: 'activity', label: 'Activity', type: 'folder',
+    children: [
+      { id: 'calls',    label: 'Calls',    icon: ModuleActivities },
+      { id: 'meetings', label: 'Meetings', icon: ModuleMeeting },
+      { id: 'tasks',    label: 'Tasks',    icon: ModuleMyJobs },
+    ],
+  },
+  { id: 'inventory', label: 'Inventory', type: 'folder', children: [] },
+  { id: 'demo-request',           label: 'Demo Request',           icon: ModuleCustom },
+  { id: 'expanse-tracking',       label: 'Expanse Tracking',       icon: ModuleCustom },
+  { id: 'social-media-strategy',  label: 'Social Media Strategy',  icon: ModuleSocial },
+  { id: 'influencer-outreach',    label: 'Influencer Outreach',    icon: ModuleCustom },
+  { id: 'budget-allocation',      label: 'Budget Allocation S...',  icon: ModuleCustom },
+  { id: 'brand-voice',            label: 'Brand Voice and Gui...', icon: ModuleDocs },
+  { id: 'projects',               label: 'Projects',               type: 'folder', children: [] },
+  { id: 'cliq-channels',          label: 'Cliq Channels',          type: 'folder', children: [] },
+  { id: 'bugs-ideas',             label: 'Bugs and Ideas',         icon: ModuleCustom },
+  { id: 'strategy-presentation',  label: 'Strategy Presentation',  icon: ModuleDocs },
+]`,computed:!1},required:!1},defaultOpenFolders:{defaultValue:{value:`['activity']`,computed:!1},required:!1},width:{defaultValue:{value:`240`,computed:!1},required:!1}}}}));function R({initialActiveId:e}){let[t,n]=(0,z.useState)(e);return(0,B.jsxs)(`div`,{style:{display:`flex`,height:`100vh`},children:[(0,B.jsx)(j,{activeId:t,onItemClick:n}),(0,B.jsx)(`div`,{style:{flex:1,background:`#f0f2f7`,display:`flex`,alignItems:`center`,justifyContent:`center`,fontFamily:`var(--ds-font-family-base, sans-serif)`,fontSize:14,color:`#616E88`},children:t?`Active: ${t}`:`Click a menu item`})]})}var z,B,V,H,U,W,G;e((()=>{z=t(n(),1),L(),B=r(),V={title:`Design System/Components/NextGenLeftMenu`,component:j,parameters:{layout:`fullscreen`,docs:{description:{component:`Next-generation left navigation menu for Zoho CRM. Dark navy sidebar with app header, top nav, teamspace section, and searchable module list. Supports expandable folder groups. Figma: Chinnaiya-Style-Sheet node 93673-150972.`}}},argTypes:{appName:{control:`text`},teamspaceName:{control:`text`},topNavItems:{control:!1},modules:{control:!1},activeId:{control:`text`},onItemClick:{control:!1},defaultOpenFolders:{control:!1}}},H={name:`Default`,parameters:{controls:{disable:!0}},render:()=>(0,B.jsx)(R,{})},U={name:`Active Item — Contacts`,parameters:{controls:{disable:!0}},render:()=>(0,B.jsx)(R,{initialActiveId:`contacts`})},W={name:`Active Item — Analytics (top nav)`,parameters:{controls:{disable:!0}},render:()=>(0,B.jsx)(R,{initialActiveId:`analytics`})},H.parameters={...H.parameters,docs:{...H.parameters?.docs,source:{originalSource:`{
+  name: 'Default',
+  parameters: {
+    controls: {
+      disable: true
+    }
+  },
+  render: () => <Shell />
+}`,...H.parameters?.docs?.source}}},U.parameters={...U.parameters,docs:{...U.parameters?.docs,source:{originalSource:`{
+  name: 'Active Item — Contacts',
+  parameters: {
+    controls: {
+      disable: true
+    }
+  },
+  render: () => <Shell initialActiveId="contacts" />
+}`,...U.parameters?.docs?.source}}},W.parameters={...W.parameters,docs:{...W.parameters?.docs,source:{originalSource:`{
+  name: 'Active Item — Analytics (top nav)',
+  parameters: {
+    controls: {
+      disable: true
+    }
+  },
+  render: () => <Shell initialActiveId="analytics" />
+}`,...W.parameters?.docs?.source}}},G=[`Default`,`WithActiveItem`,`ActiveTopNav`]}))();export{W as ActiveTopNav,H as Default,U as WithActiveItem,G as __namedExportsOrder,V as default};
