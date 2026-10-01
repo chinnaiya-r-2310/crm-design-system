@@ -532,7 +532,7 @@ export const ManageLogRetentionSettings: Story = {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExemptEnabled(e.target.checked)}
                 />
                 <Tooltip
-                  content="Logs for selected modules will not follow the standard duration and will be retained for 6 months only."
+                  content="Selected modules logs will not be populated in the audit log generation."
                   placement="top"
                   variant="white"
                 >
@@ -623,7 +623,7 @@ export const ManageLogRetentionSettings: Story = {
           title="Save audit log duration changes"
           description={
             <>
-              <p>Logs beyond the retention period will be permanently deleted. Exempted modules will be retained for 6 months only, then permanently deleted.</p>
+              <p>Existing logs follow the configured retention period then moving to archive if enabled or being deleted if disabled. Exempted modules stop generating new log, removing them resumes logging.</p>
               <div style={{ marginTop: 20 }}>
                 <MessageInfo variant="note" message="Deleted logs cannot be recovered." />
               </div>
