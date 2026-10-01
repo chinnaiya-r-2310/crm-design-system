@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.1s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.4s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -1187,7 +1187,7 @@ export const ManageLogRetentionSettings: Story = {
                   onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
                 /&gt;
                 &lt;Tooltip
-                  content=&quot;Logs for selected modules will not follow the standard duration and will be retained for 6 months only.&quot;
+                  content=&quot;Selected modules logs will not be populated in the audit log generation.&quot;
                   placement=&quot;top&quot;
                   variant=&quot;white&quot;
                 &gt;
@@ -1278,7 +1278,7 @@ export const ManageLogRetentionSettings: Story = {
           title=&quot;Save audit log duration changes&quot;
           description={
             &lt;&gt;
-              &lt;p&gt;Logs beyond the retention period will be permanently deleted. Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/p&gt;
+              &lt;p&gt;Existing logs follow the configured retention period then moving to archive if enabled or being deleted if disabled. Exempted modules stop generating new log, removing them resumes logging.&lt;/p&gt;
               &lt;div style={{ marginTop: 20 }}&gt;
                 &lt;MessageInfo variant=&quot;note&quot; message=&quot;Deleted logs cannot be recovered.&quot; /&gt;
               &lt;/div&gt;
@@ -1504,7 +1504,7 @@ export const ManageLogRetentionSettings: Story = {
                 onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
               /&gt;
               &lt;Tooltip
-                content=&quot;Logs for selected modules will not follow the standard duration and will be retained for 6 months only.&quot;
+                content=&quot;Selected modules logs will not be populated in the audit log generation.&quot;
                 placement=&quot;top&quot;
                 variant=&quot;white&quot;
               &gt;
@@ -1595,7 +1595,7 @@ export const ManageLogRetentionSettings: Story = {
         title=&quot;Save audit log duration changes&quot;
         description={
           &lt;&gt;
-            &lt;p&gt;Logs beyond the retention period will be permanently deleted. Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/p&gt;
+            &lt;p&gt;Existing logs follow the configured retention period then moving to archive if enabled or being deleted if disabled. Exempted modules stop generating new log, removing them resumes logging.&lt;/p&gt;
             &lt;div style={{ marginTop: 20 }}&gt;
               &lt;MessageInfo variant=&quot;note&quot; message=&quot;Deleted logs cannot be recovered.&quot; /&gt;
             &lt;/div&gt;
@@ -14501,7 +14501,7 @@ export const ManageLogRetentionSettings: Story = {
                   onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
                 /&gt;
                 &lt;Tooltip
-                  content=&quot;Logs for selected modules will not follow the standard duration and will be retained for 6 months only.&quot;
+                  content=&quot;Selected modules logs will not be populated in the audit log generation.&quot;
                   placement=&quot;top&quot;
                   variant=&quot;white&quot;
                 &gt;
@@ -14592,7 +14592,7 @@ export const ManageLogRetentionSettings: Story = {
           title=&quot;Save audit log duration changes&quot;
           description={
             &lt;&gt;
-              &lt;p&gt;Logs beyond the retention period will be permanently deleted. Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/p&gt;
+              &lt;p&gt;Existing logs follow the configured retention period then moving to archive if enabled or being deleted if disabled. Exempted modules stop generating new log, removing them resumes logging.&lt;/p&gt;
               &lt;div style={{ marginTop: 20 }}&gt;
                 &lt;MessageInfo variant=&quot;note&quot; message=&quot;Deleted logs cannot be recovered.&quot; /&gt;
               &lt;/div&gt;
@@ -14818,7 +14818,7 @@ export const ManageLogRetentionSettings: Story = {
                 onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setExemptEnabled(e.target.checked)}
               /&gt;
               &lt;Tooltip
-                content=&quot;Logs for selected modules will not follow the standard duration and will be retained for 6 months only.&quot;
+                content=&quot;Selected modules logs will not be populated in the audit log generation.&quot;
                 placement=&quot;top&quot;
                 variant=&quot;white&quot;
               &gt;
@@ -14909,7 +14909,7 @@ export const ManageLogRetentionSettings: Story = {
         title=&quot;Save audit log duration changes&quot;
         description={
           &lt;&gt;
-            &lt;p&gt;Logs beyond the retention period will be permanently deleted. Exempted modules will be retained for 6 months only, then permanently deleted.&lt;/p&gt;
+            &lt;p&gt;Existing logs follow the configured retention period then moving to archive if enabled or being deleted if disabled. Exempted modules stop generating new log, removing them resumes logging.&lt;/p&gt;
             &lt;div style={{ marginTop: 20 }}&gt;
               &lt;MessageInfo variant=&quot;note&quot; message=&quot;Deleted logs cannot be recovered.&quot; /&gt;
             &lt;/div&gt;
