@@ -1,0 +1,10 @@
+import{i as e}from"./preload-helper-BTXe9M7S.js";import{t}from"./jsx-runtime-D-I7Lrue.js";import{n,t as r}from"./NextGenTopBand-DcWDaf3d.js";var i,a,o,s,c,l,u;e((()=>{n(),i=t(),a=`/images/avatars/user_01.jpg`,o={title:`Design System/Components/NextGenTopBand`,component:r,parameters:{layout:`fullscreen`,docs:{description:{component:`Next-generation top navigation band for Zoho CRM. Figma: Chinnaiya-Style-Sheet node 70396:190911.`}}}},s={name:`Default`,render:()=>(0,i.jsx)(r,{moduleLabel:`Leads`,searchPlaceholder:`Search Leads...`,territory:`All Territories`,notificationCount:3,userAvatarSrc:a})},c={name:`No Notification`,render:()=>(0,i.jsx)(r,{moduleLabel:`Contacts`,searchPlaceholder:`Search Contacts...`,territory:`All Territories`,userAvatarSrc:a})},l={name:`Long Module Name`,render:()=>(0,i.jsx)(r,{moduleLabel:`Social Media Strategy`,searchPlaceholder:`Search...`,territory:`North America`,notificationCount:99,userAvatarSrc:a})},s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+  name: 'Default',
+  render: () => <NextGenTopBand moduleLabel="Leads" searchPlaceholder="Search Leads..." territory="All Territories" notificationCount={3} userAvatarSrc={userAvatar} />
+}`,...s.parameters?.docs?.source}}},c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
+  name: 'No Notification',
+  render: () => <NextGenTopBand moduleLabel="Contacts" searchPlaceholder="Search Contacts..." territory="All Territories" userAvatarSrc={userAvatar} />
+}`,...c.parameters?.docs?.source}}},l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
+  name: 'Long Module Name',
+  render: () => <NextGenTopBand moduleLabel="Social Media Strategy" searchPlaceholder="Search..." territory="North America" notificationCount={99} userAvatarSrc={userAvatar} />
+}`,...l.parameters?.docs?.source}}},u=[`Default`,`NoNotification`,`LongModule`]}))();export{s as Default,l as LongModule,c as NoNotification,u as __namedExportsOrder,o as default};
