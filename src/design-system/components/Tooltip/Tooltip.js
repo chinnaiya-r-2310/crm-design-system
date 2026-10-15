@@ -39,24 +39,33 @@ export function Tooltip({
   placement = 'top',
   showIcon = false,
   alwaysVisible = false,
+  followCursor = false,
   iconLabel,
   disabled = false,
   wrapperStyle,
   wrapperClassName,
+  as: Wrapper = 'span',
 }) {
   const [visible, setVisible] = useState(false);
   const [rect, setRect] = useState(null);
   const [effectivePlacement, setEffectivePlacement] = useState(placement);
   const wrapperRef = useRef(null);
 
-  const show = useCallback(() => {
+  const updatePosition = useCallback((event) => {
     if (wrapperRef.current) {
-      const r = wrapperRef.current.getBoundingClientRect();
+      // Mouse events anchor at the cursor; keyboard focus still uses the trigger.
+      const r = followCursor && event?.type.startsWith('mouse')
+        ? { top: event.clientY, bottom: event.clientY, left: event.clientX, width: 0, height: 0 }
+        : wrapperRef.current.getBoundingClientRect();
       setRect(r);
       setEffectivePlacement(flipPlacement(placement, r));
     }
+  }, [followCursor, placement]);
+
+  const show = useCallback((event) => {
+    updatePosition(event);
     setVisible(true);
-  }, [placement]);
+  }, [updatePosition]);
 
   const hide = useCallback(() => setVisible(false), []);
 
@@ -89,14 +98,16 @@ export function Tooltip({
   );
 
   return (
-    <span
+    <Wrapper
       ref={wrapperRef}
       className={`tooltip-wrapper${wrapperClassName ? ` ${wrapperClassName}` : ''}`}
       style={wrapperStyle}
       onMouseEnter={show}
+      onMouseMove={followCursor ? updatePosition : undefined}
       onMouseLeave={hide}
       onFocus={show}
       onBlur={hide}
+      onKeyDown={event => { if (event.key === 'Escape') hide(); }}
     >
       {children}
 
@@ -120,7 +131,7 @@ export function Tooltip({
         </span>,
         document.body
       )}
-    </span>
+    </Wrapper>
   );
 }
 

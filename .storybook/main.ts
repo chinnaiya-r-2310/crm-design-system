@@ -14,8 +14,10 @@ const config: StorybookConfig = {
     '@storybook/addon-mcp',
   ],
   framework: '@storybook/react-vite',
-  viteFinal: async (config) => {
-    config.base = '/crm-design-system/';
+  viteFinal: async (config, { configType }) => {
+    // Storybook's development middleware serves preview modules from the root.
+    // Only the deployed GitHub Pages build needs the repository path prefix.
+    config.base = configType === 'PRODUCTION' ? '/crm-design-system/' : '/';
     config.plugins = [...(config.plugins ?? []), jsxInJsPlugin()];
     // Tell Rolldown's dep scanner that .js files contain JSX
     const existingRolldown = (config.optimizeDeps as any)?.rolldownOptions ?? {};

@@ -37,6 +37,7 @@ export function NextGenTopBand({
   searchPlaceholder = 'Search',
   territories = DEFAULT_TERRITORIES,
   defaultTerritory = 'All Territories',
+  showTerritory = true,
   notificationCount,
   userInitials = 'C',
   userAvatarSrc,
@@ -110,7 +111,7 @@ export function NextGenTopBand({
           {moduleLabel}
         </button>
 
-        <div className="ngtb-territory-wrap">
+        {showTerritory && <div className="ngtb-territory-wrap">
           <Dropdown
             options={territoryOptions}
             value={selectedTerritory}
@@ -118,7 +119,7 @@ export function NextGenTopBand({
             width="fit-content"
             panelStyle={(pos) => ({ width: 'auto', minWidth: `${pos.width}px`, maxWidth: '390px' })}
           />
-        </div>
+        </div>}
       </div>
 
       <div className="ngtb-right">

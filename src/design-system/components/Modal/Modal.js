@@ -142,7 +142,7 @@ export function Modal({
     const actionLabel = confirmLabel ?? (singleBtn ? 'Ok, Got it' : saveLabel);
 
     return createPortal(
-      <div className='modal-backdrop' aria-hidden="true">
+      <div className='modal-backdrop'>
         <div
           ref={dialogRef}
           className='modal-dialog'
@@ -180,7 +180,7 @@ export function Modal({
   }
 
   return createPortal(
-    <div className='modal-backdrop' aria-hidden="true">
+    <div className='modal-backdrop'>
       <div
         ref={dialogRef}
         className='modal-dialog'
