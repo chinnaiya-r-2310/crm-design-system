@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">11/42 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">39/42 infos</a><span class="filter-pill ok" aria-disabled="true">273 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">11/42 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">39/42 infos</a><span class="filter-pill ok" aria-disabled="true">274 stories ok</span></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.7s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -4220,7 +4220,7 @@ const MEETINGS = [
 ];
 
 // Story-local composition, not a new design-system component.
-export function CrmHomepage({ empty = false, children, showTerritory = true }: { empty?: boolean; children?: ReactNode; showTerritory?: boolean }) {
+export function CrmHomepage({ empty = false, children, showTerritory = true, workspaceName = &#39;Sales workspace&#39; }: { empty?: boolean; children?: ReactNode; showTerritory?: boolean; workspaceName?: string }) {
   const headingId = useId();
   const [period, setPeriod] = useState&lt;Period&gt;(&#39;month&#39;);
   const [tasks, setTasks] = useState(empty ? [] : INITIAL_TASKS);
@@ -4252,14 +4252,14 @@ export function CrmHomepage({ empty = false, children, showTerritory = true }: {
     &lt;div className=&quot;crm-homepage&quot;&gt;
       &lt;div className=&quot;crm-homepage__shell&quot;&gt;
         &lt;aside className=&quot;crm-homepage__sidebar&quot; data-open={menuOpen || undefined} aria-label=&quot;CRM navigation&quot;&gt;
-          &lt;NextGenLeftMenu activeId=&quot;home&quot; teamspaceName=&quot;Sales workspace&quot; onItemClick={(id: string) =&gt; {
+          &lt;NextGenLeftMenu activeId=&quot;home&quot; teamspaceName={workspaceName} onItemClick={(id: string) =&gt; {
             setMenuOpen(false);
             if (id !== &#39;home&#39;) setNotice(`${id.charAt(0).toUpperCase() + id.slice(1)} selected. Navigation is a local preview; no CRM records are changed.`);
           }} /&gt;
         &lt;/aside&gt;
         &lt;div className=&quot;crm-homepage__workspace&quot;&gt;
           &lt;header&gt;
-            &lt;NextGenTopBand moduleLabel=&quot;Home&quot; userInitials=&quot;AS&quot; notificationCount={2} showTerritory={showTerritory}
+            &lt;NextGenTopBand moduleLabel=&quot;Home&quot; userInitials=&quot;AS&quot; userAvatarSrc={`${import.meta.env.BASE_URL}images/avatars/user_06.jpg`} showTerritory={showTerritory}
               onAddNew={() =&gt; setNotice(&#39;Quick create selected. In a connected CRM, this opens record creation.&#39;)}
               onCalendar={() =&gt; document.getElementById(`${headingId}-meetings`)?.scrollIntoView({ block: &#39;nearest&#39; })} /&gt;
           &lt;/header&gt;
@@ -7744,7 +7744,7 @@ variant?: any = &#39;info&#39;</code></pre>
       <div class="badges">
         <label for="c-19-design-system-patterns-crm-homepage-minimal-err" class="badge err as-toggle">prop type error</label>
         <label for="c-19-design-system-patterns-crm-homepage-minimal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-19-design-system-patterns-crm-homepage-minimal-stories" class="badge ok as-toggle">2 stories</label>
+        <label for="c-19-design-system-patterns-crm-homepage-minimal-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -7788,26 +7788,26 @@ import { Textarea } from &#39;../components/Textarea/Textarea&#39;;
 import { Modal } from &#39;../components/Modal/Modal&#39;;
 import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
-import { ProgressBar } from &#39;../components/ProgressBar/ProgressBar&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
 import { SetupTable } from &#39;../components/Table/Table&#39;;
 import { CrmHomepage } from &#39;./CrmHomepage.stories&#39;;
-import { DEALS, INITIAL_TASKS, PERFORMANCE, PERIODS } from &#39;./CrmHomepage.data&#39;;
+import { PERFORMANCE } from &#39;./CrmHomepage.data&#39;;
 import type { Period } from &#39;./CrmHomepage.data&#39;;
 import { SALES_CHARTS } from &#39;./Colorful.data&#39;;
-import { ACCOUNTS_BY_INDUSTRY, COMPANY_TARGET, PIPELINE_SNAPSHOTS, PIPELINE_STAGES, REVENUE_LINES, TODAY_TASKS, TODAYS_APPOINTMENTS } from &#39;./Minimal.data&#39;;
+import { ACCOUNTS_BY_INDUSTRY, CARGO_DEALS, CARGO_INITIAL_TASKS, ADDITIONAL_OPEN_DEALS, PIPELINE_SNAPSHOTS, PIPELINE_STAGES, REVENUE_LINES, SALES_HOME_VIEWS, TODAY_TASKS, TODAYS_APPOINTMENTS } from &#39;./Minimal.data&#39;;
+import { getSalesDashboard } from &#39;./Minimal.views&#39;;
 import &#39;./Minimal.css&#39;;
 
 const meta = {
   title: &#39;Design System/Patterns/crm-homepage/minimal&#39;,
   parameters: {
     layout: &#39;fullscreen&#39;,
-    docs: { description: { component: &#39;A minimal CRM homepage inside the existing CRM shell. Preserves the floating page header, with 30px horizontal content padding, four headline metrics, revenue progress, open deals, and tasks. Uses existing components and shared CRM sample data; all interactions are local.&#39; } },
+    docs: { description: { component: &#39;A minimal CRM homepage inside the existing CRM shell. Preserves the floating page header, with 30px horizontal content padding, four headline metrics, open deals, and tasks. Uses existing components and shared CRM sample data; all interactions are local.&#39; } },
   },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj&lt;typeof meta&gt;;
-const CONVERSION_SNAPSHOTS = [18, 22, 19, 24, 21, 25, 23, 17, 26, 20, 24, 28, 22, 19, 25, 27, 21, 24, 18, 23, 29, 25, 22, 26, 20, 24, 27, 23, 28, 25];
+const CONVERSION_SNAPSHOTS = [18, 22, 19, 24, 21, 25, 23, 17, 26, 20, 24, 28, 22, 19, 25, 27, 21, 24, 18, 23, 29, 25, 22, 26, 20, 24, 27, 23, 28, 25, 21, 26, 18, 24, 29, 22, 25, 19, 27, 23, 28, 20, 26, 24, 30];
 const COLUMNS = [
   { key: &#39;name&#39;, label: &#39;Account&#39; },
   { key: &#39;stage&#39;, label: &#39;Stage&#39; },
@@ -7819,15 +7819,17 @@ const COLUMNS = [
 function useChartWidth(initialWidth: number) {
   const ref = useRef&lt;SVGSVGElement&gt;(null);
   const [width, setWidth] = useState(initialWidth);
+  const [height, setHeight] = useState(180);
   useEffect(() =&gt; {
     if (!ref.current) return;
     const observer = new ResizeObserver(([entry]) =&gt; {
       if (entry.contentRect.width &gt; 0) setWidth(entry.contentRect.width);
+      if (entry.contentRect.height &gt; 0) setHeight(entry.contentRect.height);
     });
     observer.observe(ref.current);
     return () =&gt; observer.disconnect();
   }, []);
-  return { ref, width };
+  return { ref, width, height };
 }
 
 // Smooth cubic segments interpolate the same coordinates used by the tooltip dots.
@@ -7840,34 +7842,105 @@ function curvedLine(points: { x: number; y: number }[]) {
   }).join(&#39; &#39;);
 }
 
+// Catmull–Rom-style averaged tangents give the monthly joins gentler bends.
+// Limit the tangents to preserve each segment&#39;s range within the chart scale.
+function revenueCurve(points: { x: number; y: number }[]) {
+  const slopes = points.slice(1).map((point, index) =&gt;
+    (point.y - points[index].y) / (point.x - points[index].x));
+  const tangents = points.map((_, index) =&gt; {
+    if (index === 0) return slopes[0];
+    if (index === points.length - 1) return slopes[index - 1];
+    const before = slopes[index - 1];
+    const after = slopes[index];
+    if (before * after &lt;= 0) return 0;
+    const average = (before + after) / 2;
+    const limit = 3 * Math.min(Math.abs(before), Math.abs(after));
+    return Math.sign(average) * Math.min(Math.abs(average), limit);
+  });
+  return points.map((point, index) =&gt; {
+    if (index === 0) return `M ${point.x},${point.y}`;
+    const previous = points[index - 1];
+    const step = (point.x - previous.x) / 3;
+    return `C ${previous.x + step},${previous.y + tangents[index - 1] * step} ${point.x - step},${point.y - tangents[index] * step} ${point.x},${point.y}`;
+  }).join(&#39; &#39;);
+}
+
 // Story-local page composition; no new design-system primitives.
 function MinimalPage({ empty = false }: { empty?: boolean }) {
   const id = useId();
-  const { ref: revenueRef, width: revenueWidth } = useChartWidth(320);
+  const { ref: revenueRef, width: revenueWidth, height: revenueHeight } = useChartWidth(320);
+  const revenueBottom = Math.max(140, revenueHeight - 40);
+  const revenueY = (value: number) =&gt; revenueBottom - value / 150 * (revenueBottom - 30);
   const { ref: industryRef, width: industryWidth } = useChartWidth(1000);
-  const industryStep = (industryWidth - 70) / ACCOUNTS_BY_INDUSTRY.length;
   const [builderPrompt, setBuilderPrompt] = useState(&#39;&#39;);
   const [builderPreview, setBuilderPreview] = useState&lt;string | null&gt;(null);
+  const [builderDiscuss, setBuilderDiscuss] = useState(false);
   const builderInput = useRef&lt;HTMLDivElement&gt;(null);
   const [period, setPeriod] = useState&lt;Period&gt;(&#39;month&#39;);
-  const [tasks, setTasks] = useState(empty ? [] : [...INITIAL_TASKS, ...TODAY_TASKS]);
+  const [homeView, setHomeView] = useState(&#39;classic&#39;);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [actionNotice, setActionNotice] = useState(&#39;&#39;);
+  const pageRef = useRef&lt;HTMLDivElement&gt;(null);
+  useEffect(() =&gt; {
+    const sync = () =&gt; setFullscreen(document.fullscreenElement === document.documentElement);
+    document.addEventListener(&#39;fullscreenchange&#39;, sync);
+    return () =&gt; document.removeEventListener(&#39;fullscreenchange&#39;, sync);
+  }, []);
+  const menuPosition = (position: { left: number; width: number }) =&gt; {
+    const width = Math.min(window.innerWidth - 16, Math.max(position.width, 340));
+    return { width, left: Math.max(8, Math.min(position.left, window.innerWidth - width - 8)) };
+  };
+  const { REVENUE_LINES, PIPELINE_STAGES, ACCOUNTS_BY_INDUSTRY, COMPANY_TARGET, sections: defaultSections, chartOrder } = getSalesDashboard(homeView);
+  const sections = defaultSections;
+  const industryStep = (industryWidth - 70) / ACCOUNTS_BY_INDUSTRY.length;
+  const industryMax = Math.max(800, Math.ceil(Math.max(...ACCOUNTS_BY_INDUSTRY.map(item =&gt; item.count)) / 200) * 200);
+  const [tasks, setTasks] = useState(() =&gt; empty ? [] : [...CARGO_INITIAL_TASKS, ...TODAY_TASKS].map(task =&gt; ({
+    ...task,
+    completed: [&#39;proposal&#39;, &#39;renewal&#39;, &#39;pricing&#39;].includes(task.id),
+  })));
   const [activeSnapshot, setActiveSnapshot] = useState&lt;number | null&gt;(null);
+  const [activeConversionSnapshot, setActiveConversionSnapshot] = useState(0);
   const [selectedAppointment, setSelectedAppointment] = useState&lt;typeof TODAYS_APPOINTMENTS[number] | null&gt;(null);
   const [completedAppointments, setCompletedAppointments] = useState&lt;string[]&gt;([]);
   const snapshotPoints = PIPELINE_SNAPSHOTS.map((value, index) =&gt; ({ x: 2 + index * 156 / (PIPELINE_SNAPSHOTS.length - 1), y: 25 - value / 100 * 24 }));
   const visibleSnapshotStart = activeSnapshot === null ? -1 : Math.max(0, Math.min(activeSnapshot - 1, snapshotPoints.length - 3));
   const performance = PERFORMANCE[period];
-  const rows = empty ? [] : DEALS;
+  const rows = empty ? [] : [...CARGO_DEALS, ...ADDITIONAL_OPEN_DEALS];
 
-  return &lt;CrmHomepage empty={empty} showTerritory={false}&gt;&lt;div className=&quot;crm-minimal&quot;&gt;
+  return &lt;CrmHomepage empty={empty} showTerritory={false} workspaceName=&quot;Cargo Shipping Logistics&quot;&gt;&lt;div ref={pageRef} className=&quot;crm-minimal&quot;&gt;
     &lt;div className=&quot;crm-minimal__main&quot; role=&quot;region&quot; aria-labelledby={`${id}-title`}&gt;
       &lt;div className=&quot;crm-minimal__heading&quot;&gt;
-        &lt;h1 id={`${id}-title`}&gt;Welcome Patricia Boyle&lt;/h1&gt;
-        &lt;Dropdown layout=&quot;vertical&quot; width=&quot;fit-content&quot; options={PERIODS} value={period} onChange={(value: string) =&gt; setPeriod(value as Period)} /&gt;
+        &lt;div className=&quot;crm-minimal__welcome&quot;&gt;
+          &lt;span className=&quot;crm-minimal__welcome-logo&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;img src={`${import.meta.env.BASE_URL}images/sailboat-logo.png`} width=&quot;46&quot; height=&quot;46&quot; alt=&quot;&quot; /&gt;
+          &lt;/span&gt;
+          &lt;h1 id={`${id}-title`}&gt;Welcome Patricia Boyle&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;crm-minimal__home-controls&quot;&gt;
+        &lt;Dropdown layout=&quot;vertical&quot; width=&quot;max-content&quot; panelStyle={menuPosition} style={{ maxWidth: &#39;100%&#39; }} options={SALES_HOME_VIEWS} value={homeView} onChange={(value: string) =&gt; {
+          const view = SALES_HOME_VIEWS.find(option =&gt; option.value === value);
+          if (!view) return;
+          setHomeView(view.value);
+          setPeriod(view.period);
+        }} /&gt;
+        &lt;Dropdown value=&quot;&quot; placeholder=&quot;More options&quot; triggerAriaLabel=&quot;More options&quot; triggerButtonVariant=&quot;default&quot; triggerIcon={&lt;Icon name=&quot;More&quot; size={16} /&gt;} width=&quot;max-content&quot; layout=&quot;vertical&quot; id={`${id}-homepage-actions`} panelStyle={(position: { left: number; width: number }) =&gt; ({ width: &#39;max-content&#39;, maxWidth: &#39;calc(100vw - 16px)&#39;, left: &#39;auto&#39;, right: Math.max(8, window.innerWidth - position.left - position.width) })} options={[
+          { value: &#39;edit&#39;, label: &#39;Edit Homepage&#39; },
+          { value: &#39;reorder&#39;, label: &#39;Reorder&#39; },
+          { value: &#39;fullscreen&#39;, label: &#39;View Fullscreen&#39; },
+        ]} onChange={async (action: string) =&gt; {
+          if (action !== &#39;fullscreen&#39;) return;
+          try {
+            if (document.fullscreenElement) await document.exitFullscreen();
+            else await document.documentElement.requestFullscreen();
+          } catch { setActionNotice(&#39;Fullscreen is unavailable in this preview. Open the story in a new tab to try again.&#39;); }
+        }} /&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
+      {actionNotice &amp;&amp; &lt;p role=&quot;status&quot;&gt;{actionNotice}&lt;/p&gt;}
+      {fullscreen &amp;&amp; &lt;Button variant=&quot;default&quot; onClick={() =&gt; document.exitFullscreen()}&gt;Exit fullscreen&lt;/Button&gt;}
       &lt;section id={`${id}-overview`} aria-label=&quot;Sales overview&quot; className=&quot;crm-minimal__overview&quot;&gt;
         &lt;dl className=&quot;crm-minimal__metrics&quot;&gt;
-          &lt;div&gt;&lt;dt&gt;Closed revenue&lt;/dt&gt;&lt;dd className={empty ? undefined : &#39;crm-minimal__trend--up&#39;}&gt;{empty ? &#39;$0&#39; : performance.revenue}&lt;/dd&gt;&lt;p&gt;{empty ? &#39;No revenue yet&#39; : &lt;&gt;&lt;span className=&quot;crm-minimal__trend crm-minimal__trend--up&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt; Increased {performance.changes[0].replace(&#39;↑ &#39;, &#39;&#39;)}&lt;/span&gt; vs. previous {period}&lt;/&gt;}&lt;/p&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;Closed revenue&lt;/dt&gt;&lt;dd className={empty ? undefined : &#39;crm-minimal__trend--up&#39;}&gt;{empty ? &#39;$0&#39; : performance.revenue}&lt;/dd&gt;&lt;p&gt;{empty ? &#39;No revenue yet&#39; : &lt;&gt;&lt;span className=&quot;crm-minimal__trend crm-minimal__trend--up&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt; {performance.changes[0].replace(&#39;↑ &#39;, &#39;&#39;)}&lt;/span&gt; vs. previous {period}&lt;/&gt;}&lt;/p&gt;&lt;/div&gt;
           &lt;div className=&quot;crm-minimal__pipeline-kpi&quot;&gt;&lt;dt&gt;Open pipeline&lt;/dt&gt;&lt;dd&gt;{empty ? &#39;$0&#39; : performance.pipeline}&lt;/dd&gt;{empty ? &lt;p&gt;No open opportunities&lt;/p&gt; : &lt;svg className=&quot;crm-minimal__kpi-area&quot; viewBox=&quot;0 0 160 28&quot; preserveAspectRatio=&quot;none&quot; role=&quot;img&quot; aria-label=&quot;Open pipeline sample trend across 15 snapshots&quot; onClickCapture={event =&gt; { event.preventDefault(); event.stopPropagation(); }} onMouseLeave={() =&gt; setActiveSnapshot(null)}&gt;
             &lt;defs&gt;&lt;linearGradient id={`${id}-pipeline-fill`} x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0%&quot; stopColor=&quot;currentColor&quot; stopOpacity=&quot;0.25&quot; /&gt;&lt;stop offset=&quot;100%&quot; stopColor=&quot;currentColor&quot; stopOpacity=&quot;0.02&quot; /&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
             &lt;path d={`${curvedLine(snapshotPoints)} L 158,28 L 2,28 Z`} fill={`url(#${id}-pipeline-fill)`} /&gt;
@@ -7878,32 +7951,37 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
               const visible = activeSnapshot !== null &amp;&amp; index &gt;= visibleSnapshotStart &amp;&amp; index &lt; visibleSnapshotStart + 3;
               return &lt;g key={index} onMouseEnter={() =&gt; setActiveSnapshot(index)}&gt;
                 &lt;circle data-snapshot-dot={index} data-visible={visible} cx={point.x} cy={point.y} r=&quot;2&quot; fill=&quot;currentColor&quot; opacity={visible ? 1 : 0} pointerEvents=&quot;none&quot; /&gt;
-                &lt;Tooltip as=&quot;g&quot; content={`Open pipeline: ${performance.pipeline} · Snapshot ${index + 1} of 15 · Trend index: ${PIPELINE_SNAPSHOTS[index]}`} placement=&quot;bottom&quot;&gt;&lt;rect className=&quot;crm-minimal__chart-hit&quot; data-snapshot={index} x={start} y=&quot;0&quot; width={end - start} height=&quot;28&quot; fill=&quot;transparent&quot; focusable=&quot;false&quot; aria-label={`Pipeline snapshot ${index + 1} of 15, trend index ${PIPELINE_SNAPSHOTS[index]}`} /&gt;&lt;/Tooltip&gt;
+                &lt;Tooltip as=&quot;g&quot; content={`Open pipeline: ${performance.pipeline} · Snapshot ${index + 1} of 15 · Trend index: ${PIPELINE_SNAPSHOTS[index]}`} placement=&quot;bottom&quot; followCursor&gt;&lt;rect className=&quot;crm-minimal__chart-hit&quot; data-snapshot={index} x={start} y=&quot;0&quot; width={end - start} height=&quot;28&quot; fill=&quot;transparent&quot; focusable=&quot;false&quot; aria-label={`Pipeline snapshot ${index + 1} of 15, trend index ${PIPELINE_SNAPSHOTS[index]}`} /&gt;&lt;/Tooltip&gt;
               &lt;/g&gt;;
             })}
           &lt;/svg&gt;}&lt;/div&gt;
-          &lt;div&gt;&lt;dt&gt;Deals won&lt;/dt&gt;&lt;dd className={empty ? undefined : &#39;crm-minimal__trend--up&#39;}&gt;{empty ? &#39;0&#39; : performance.deals}&lt;/dd&gt;&lt;p&gt;{empty ? &#39;Your first win starts here&#39; : &lt;&gt;&lt;span className=&quot;crm-minimal__trend crm-minimal__trend--up&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt; Increased {performance.changes[1].replace(&#39;↑ &#39;, &#39;&#39;)}&lt;/span&gt; vs. previous {period}&lt;/&gt;}&lt;/p&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;Deals won&lt;/dt&gt;&lt;dd className={empty ? undefined : &#39;crm-minimal__trend--up&#39;}&gt;{empty ? &#39;0&#39; : performance.deals}&lt;/dd&gt;&lt;p&gt;{empty ? &#39;Your first win starts here&#39; : &lt;&gt;&lt;span className=&quot;crm-minimal__trend crm-minimal__trend--up&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt; {performance.changes[1].replace(&#39;↑ &#39;, &#39;&#39;)}&lt;/span&gt; vs. previous {period}&lt;/&gt;}&lt;/p&gt;&lt;/div&gt;
           &lt;div className=&quot;crm-minimal__conversion-kpi&quot;&gt;&lt;dt&gt;Conversion rate&lt;/dt&gt;&lt;dd className={empty ? undefined : &#39;crm-minimal__trend--up&#39;}&gt;{empty ? &#39;0%&#39; : performance.conversion}&lt;/dd&gt;{!empty &amp;&amp; &lt;&gt;
-            &lt;svg className=&quot;crm-minimal__kpi-columns&quot; viewBox=&quot;0 0 300 30&quot; preserveAspectRatio=&quot;none&quot; role=&quot;img&quot; aria-label=&quot;Conversion rate sample trend across 30 snapshots&quot; onClickCapture={event =&gt; { event.preventDefault(); event.stopPropagation(); }}&gt;
-              {CONVERSION_SNAPSHOTS.map((value, index) =&gt; (
-                &lt;Tooltip as=&quot;g&quot; key={index} content={`Snapshot ${index + 1}: ${value}% conversion · Sample data`} placement=&quot;bottom&quot;&gt;&lt;rect className=&quot;crm-minimal__chart-hit&quot; focusable=&quot;false&quot; aria-label={`Snapshot ${index + 1}: ${value}% conversion`} x={index * 10 + 1} y={30 - value} width=&quot;8&quot; height={value} fill=&quot;currentColor&quot; /&gt;&lt;/Tooltip&gt;
-              ))}
+            &lt;svg className=&quot;crm-minimal__kpi-columns&quot; viewBox=&quot;0 0 300 30&quot; preserveAspectRatio=&quot;none&quot; role=&quot;img&quot; aria-label=&quot;Conversion rate sample trend across 45 snapshots&quot; onClickCapture={event =&gt; { event.preventDefault(); event.stopPropagation(); }} onMouseMove={event =&gt; {
+              const bounds = event.currentTarget.getBoundingClientRect();
+              if (bounds.width &gt; 0) setActiveConversionSnapshot(Math.max(0, Math.min(CONVERSION_SNAPSHOTS.length - 1, Math.floor((event.clientX - bounds.left) / bounds.width * CONVERSION_SNAPSHOTS.length))));
+            }}&gt;
+              &lt;defs&gt;&lt;linearGradient id={`${id}-conversion-fill`} x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0%&quot; stopColor=&quot;var(--ds-icon-primary-cyan-blue)&quot; /&gt;&lt;stop offset=&quot;100%&quot; stopColor=&quot;var(--ds-text-link)&quot; /&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
+              &lt;Tooltip as=&quot;g&quot; content={`Snapshot ${activeConversionSnapshot + 1}: ${CONVERSION_SNAPSHOTS[activeConversionSnapshot]}% conversion · Sample data`} placement=&quot;bottom&quot; followCursor&gt;
+                {/* One continuous hover surface keeps the tooltip mounted between bars. */}
+                &lt;path d=&quot;M 0,0 H 300 V 30 H 0 Z&quot; fill=&quot;transparent&quot; pointerEvents=&quot;all&quot; /&gt;
+                {CONVERSION_SNAPSHOTS.map((value, index) =&gt; (
+                  &lt;rect key={index} className=&quot;crm-minimal__chart-hit&quot; focusable=&quot;false&quot; aria-label={`Snapshot ${index + 1}: ${value}% conversion`} x={index * 300 / CONVERSION_SNAPSHOTS.length + 1} y={30 - value} width={300 / CONVERSION_SNAPSHOTS.length - 2} height={value} fill={`url(#${id}-conversion-fill)`} /&gt;
+                ))}
+              &lt;/Tooltip&gt;
             &lt;/svg&gt;
           &lt;/&gt;}&lt;/div&gt;
         &lt;/dl&gt;
-        &lt;div className=&quot;crm-minimal__goal&quot;&gt;
-          &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2&gt;Revenue goal&lt;/h2&gt;&lt;p&gt;{empty ? &#39;0&#39; : performance.progress}% of {performance.target}&lt;/p&gt;&lt;/div&gt;
-          &lt;div role=&quot;progressbar&quot; aria-label=&quot;Revenue goal&quot; aria-valuemin={0} aria-valuemax={100} aria-valuenow={empty ? 0 : performance.progress} aria-valuetext={`${empty ? &#39;$0&#39; : performance.revenue} of ${performance.target}`}&gt;&lt;ProgressBar value={empty ? 0 : performance.progress} /&gt;&lt;/div&gt;
-        &lt;/div&gt;
       &lt;/section&gt;
-      &lt;div className=&quot;crm-minimal__charts&quot;&gt;
-        {SALES_CHARTS.slice(0, 2).map((sourceChart, index) =&gt; {
+      &lt;div className={`crm-minimal__charts${chartOrder[0] === 1 ? &#39; crm-minimal__charts--donut-first&#39; : &#39;&#39;}`} style={{ order: sections.indexOf(&#39;charts&#39;) + 1 }} data-dashboard-section=&quot;charts&quot;&gt;
+        {chartOrder.map(index =&gt; {
+          const sourceChart = SALES_CHARTS[index];
           const chart = index === 1 ? { ...sourceChart, series: PIPELINE_STAGES } : sourceChart;
-          const max = 125;
           const monthX = (point: number) =&gt; 52 + point * (revenueWidth - 72) / (chart.series.length - 1);
           const total = chart.series.reduce((sum, item) =&gt; sum + item.value, 0);
-          const latest = chart.series[chart.series.length - 1];
-          const previous = chart.series[chart.series.length - 2];
+          const summarySeries = index === 0 ? REVENUE_LINES[0].series : chart.series;
+          const latest = summarySeries[summarySeries.length - 1];
+          const previous = summarySeries[summarySeries.length - 2];
           const change = latest.value - previous.value;
           const direction = change &gt;= 0 ? &#39;up&#39; : &#39;down&#39;;
           let offset = 0;
@@ -7911,25 +7989,27 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
             &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-chart-${index}`}&gt;{chart.title}&lt;/h2&gt;&lt;/div&gt;
             {empty ? &lt;p className=&quot;crm-minimal__empty&quot;&gt;{index === 0 ? &#39;Close your first deal to see revenue trends.&#39; : &#39;Add opportunities to see your pipeline by stage.&#39;}&lt;/p&gt; : &lt;&gt;
               {chart.kind === &#39;line&#39; ? &lt;&gt;
-                &lt;div className=&quot;crm-minimal__chart-summary&quot;&gt;&lt;strong className={`crm-minimal__trend--${direction}`}&gt;{latest.display}&lt;/strong&gt;&lt;p&gt;&lt;span className={`crm-minimal__trend crm-minimal__trend--${direction}`}&gt;&lt;span aria-hidden=&quot;true&quot;&gt;{change &gt;= 0 ? &#39;↗&#39; : &#39;↘&#39;}&lt;/span&gt; {change &gt;= 0 ? &#39;Increased&#39; : &#39;Decreased&#39;} {Math.abs(change / previous.value * 100).toFixed(1)}% · {Math.abs(change * 1000).toLocaleString(&#39;en-US&#39;, { style: &#39;currency&#39;, currency: &#39;USD&#39;, maximumFractionDigits: 0 })}&lt;/span&gt; vs. {previous.label}&lt;/p&gt;&lt;/div&gt;
-                &lt;svg ref={revenueRef} className=&quot;crm-minimal__line&quot; viewBox={`0 0 ${revenueWidth} 180`} role=&quot;img&quot; aria-label={`${chart.title}. ${REVENUE_LINES.map(line =&gt; `${line.label}: ${line.series.map(item =&gt; `${item.label}: ${item.display}`).join(&#39;; &#39;)}`).join(&#39;. &#39;)}`}&gt;
-                  {Array.from({ length: max / 25 + 1 }, (_, tick) =&gt; tick * 25).map(value =&gt; {
-                    const y = 140 - value / max * 110;
+                &lt;div className=&quot;crm-minimal__chart-summary&quot;&gt;&lt;strong className={`crm-minimal__trend--${direction}`}&gt;{latest.display}&lt;/strong&gt;&lt;p&gt;&lt;span className={`crm-minimal__trend crm-minimal__trend--${direction}`}&gt;&lt;span aria-hidden=&quot;true&quot;&gt;{change &gt;= 0 ? &#39;↗&#39; : &#39;↘&#39;}&lt;/span&gt; {Math.abs(change / previous.value * 100).toFixed(1)}% · {Math.abs(change * 1000).toLocaleString(&#39;en-US&#39;, { style: &#39;currency&#39;, currency: &#39;USD&#39;, maximumFractionDigits: 0 })}&lt;/span&gt; vs. {previous.label}&lt;/p&gt;&lt;/div&gt;
+                &lt;svg ref={revenueRef} className=&quot;crm-minimal__line&quot; viewBox={`0 20 ${revenueWidth} ${Math.max(180, revenueHeight) - 20}`} preserveAspectRatio=&quot;xMidYMin meet&quot; role=&quot;img&quot; aria-label={`${chart.title}. ${REVENUE_LINES.map(line =&gt; `${line.label}: ${line.series.map(item =&gt; `${item.label}: ${item.display}`).join(&#39;; &#39;)}`).join(&#39;. &#39;)}`}&gt;
+                  {[0, 50, 100, 150].map(value =&gt; {
+                    const y = revenueY(value);
                     return &lt;g key={value}&gt;
                       &lt;line x1=&quot;52&quot; x2={revenueWidth - 20} y1={y} y2={y} className=&quot;crm-minimal__gridline&quot; /&gt;
-                      &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;44&quot; y={y + 4} textAnchor=&quot;end&quot;&gt;${value}K&lt;/text&gt;
+                      &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;44&quot; y={y + 4} textAnchor=&quot;end&quot;&gt;{value}k&lt;/text&gt;
                     &lt;/g&gt;;
                   })}
-                  &lt;line x1=&quot;52&quot; x2=&quot;52&quot; y1=&quot;30&quot; y2=&quot;140&quot; className=&quot;crm-minimal__y-axis&quot; /&gt;
+                  &lt;line x1=&quot;52&quot; x2=&quot;52&quot; y1=&quot;30&quot; y2={revenueBottom} className=&quot;crm-minimal__y-axis&quot; /&gt;
                   {REVENUE_LINES.map(line =&gt; &lt;g key={line.label} className={`crm-minimal__revenue--${line.color}`} data-revenue-series={line.label}&gt;
-                    &lt;path d={curvedLine(line.series.map((item, point) =&gt; ({ x: monthX(point), y: 140 - item.value / max * 110 })))} fill=&quot;none&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;2&quot; strokeLinejoin=&quot;round&quot; /&gt;
-                    {line.series.map((item, point) =&gt; &lt;Tooltip as=&quot;g&quot; key={item.label} content={`${line.label} · ${item.label}: ${item.display}`} placement=&quot;bottom&quot;&gt;&lt;circle className=&quot;crm-minimal__chart-hit&quot; tabIndex={0} aria-label={`${line.label} · ${item.label}: ${item.display}`} data-month={item.label} cx={monthX(point)} cy={140 - item.value / max * 110} r=&quot;3&quot; fill=&quot;currentColor&quot; stroke=&quot;transparent&quot; strokeWidth=&quot;8&quot; /&gt;&lt;/Tooltip&gt;)}
+                    &lt;defs&gt;&lt;linearGradient id={`${id}-revenue-fill-${line.color}`} x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0%&quot; stopColor=&quot;currentColor&quot; stopOpacity=&quot;0.25&quot; /&gt;&lt;stop offset=&quot;100%&quot; stopColor=&quot;currentColor&quot; stopOpacity=&quot;0.02&quot; /&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
+                    &lt;path d={`${revenueCurve(line.series.map((item, point) =&gt; ({ x: monthX(point), y: revenueY(item.value) })))} L ${monthX(line.series.length - 1)},${revenueBottom} L ${monthX(0)},${revenueBottom} Z`} fill={`url(#${id}-revenue-fill-${line.color})`} pointerEvents=&quot;none&quot; /&gt;
+                    &lt;path d={revenueCurve(line.series.map((item, point) =&gt; ({ x: monthX(point), y: revenueY(item.value) })))} fill=&quot;none&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;2&quot; strokeLinejoin=&quot;round&quot; /&gt;
+                    {line.series.map((item, point) =&gt; &lt;Tooltip as=&quot;g&quot; key={item.label} content={`${line.label} · ${item.label}: ${item.display}`} placement=&quot;bottom&quot;&gt;&lt;circle className=&quot;crm-minimal__chart-hit&quot; tabIndex={0} aria-label={`${line.label} · ${item.label}: ${item.display}`} data-month={item.label} cx={monthX(point)} cy={revenueY(item.value)} r=&quot;3&quot; fill=&quot;currentColor&quot; stroke=&quot;transparent&quot; strokeWidth=&quot;8&quot; /&gt;&lt;/Tooltip&gt;)}
                   &lt;/g&gt;)}
-                  {chart.series.map((item, point) =&gt; &lt;text className=&quot;crm-minimal__line-month&quot; key={item.label} x={monthX(point)} y=&quot;166&quot; textAnchor=&quot;middle&quot;&gt;{item.label.slice(0, 3)}&lt;/text&gt;)}
+                  {chart.series.map((item, point) =&gt; &lt;text className=&quot;crm-minimal__line-month&quot; key={item.label} x={monthX(point)} y={revenueBottom + 26} textAnchor=&quot;middle&quot;&gt;{item.label.slice(0, 3)}&lt;/text&gt;)}
                 &lt;/svg&gt;
                 &lt;ul className=&quot;crm-minimal__line-legend&quot; aria-label=&quot;Revenue series&quot;&gt;{REVENUE_LINES.map(line =&gt; &lt;li key={line.label}&gt;&lt;span className={`crm-minimal__revenue--${line.color}`} aria-hidden=&quot;true&quot; /&gt;{line.label}&lt;/li&gt;)}&lt;/ul&gt;
               &lt;/&gt; : &lt;div className=&quot;crm-minimal__donut-layout&quot;&gt;
-                &lt;svg className=&quot;crm-minimal__donut&quot; viewBox=&quot;0 0 120 120&quot; role=&quot;img&quot; aria-label={`${chart.title}. ${chart.series.map(item =&gt; `${item.label}: ${item.display}`).join(&#39;; &#39;)}`}&gt;
+                &lt;svg className=&quot;crm-minimal__donut&quot; viewBox=&quot;8 8 104 104&quot; role=&quot;img&quot; aria-label={`${chart.title}. ${chart.series.map(item =&gt; `${item.label}: ${item.display}`).join(&#39;; &#39;)}`}&gt;
                   {chart.series.map((item, segment) =&gt; {
                     const start = offset;
                     const share = item.value / total * 100;
@@ -7941,8 +8021,7 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
                     const angle = start / total * Math.PI * 2 - Math.PI / 2;
                     return &lt;line key={item.label} className=&quot;crm-minimal__donut-separator&quot; x1={60 + 37 * Math.cos(angle)} y1={60 + 37 * Math.sin(angle)} x2={60 + 51 * Math.cos(angle)} y2={60 + 51 * Math.sin(angle)} /&gt;;
                   })}
-                  &lt;text x=&quot;60&quot; y=&quot;58&quot; textAnchor=&quot;middle&quot; className=&quot;crm-minimal__donut-total&quot;&gt;${total.toFixed(1)}K&lt;/text&gt;
-                  &lt;text x=&quot;60&quot; y=&quot;72&quot; textAnchor=&quot;middle&quot; className=&quot;crm-minimal__donut-caption&quot;&gt;Pipeline&lt;/text&gt;
+                  &lt;text x=&quot;60&quot; y=&quot;60&quot; textAnchor=&quot;middle&quot; dominantBaseline=&quot;central&quot; className=&quot;crm-minimal__donut-total&quot;&gt;${total.toFixed(1)}K&lt;/text&gt;
                 &lt;/svg&gt;
                 &lt;ul className=&quot;crm-minimal__legend&quot;&gt;{chart.series.map((item, segment) =&gt; &lt;li key={item.label}&gt;&lt;span className={`crm-minimal__segment--${segment}`} aria-hidden=&quot;true&quot;&gt;●&lt;/span&gt;&lt;div&gt;{item.label}&lt;strong&gt;{item.display} &lt;span className=&quot;crm-minimal__caption&quot;&gt;· {(item.value / total * 100).toFixed(1)}%&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;&lt;/li&gt;)}&lt;/ul&gt;
               &lt;/div&gt;}
@@ -7950,7 +8029,7 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
           &lt;/section&gt;;
         })}
       &lt;/div&gt;
-      &lt;div className=&quot;crm-minimal__charts crm-minimal__charts--company&quot;&gt;
+      &lt;div className=&quot;crm-minimal__charts crm-minimal__charts--company&quot; style={{ order: sections.indexOf(&#39;company&#39;) + 1 }} data-dashboard-section=&quot;company&quot;&gt;
         &lt;section className=&quot;crm-minimal__chart crm-minimal__company-target&quot; aria-labelledby={`${id}-company-title`}&gt;
           &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-company-title`}&gt;Company Target&lt;/h2&gt;&lt;/div&gt;
           {empty ? &lt;p className=&quot;crm-minimal__empty&quot;&gt;Set a company target to track achievement.&lt;/p&gt; : &lt;&gt;
@@ -7959,15 +8038,14 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
               &lt;span className=&quot;crm-minimal__target-divider&quot; aria-hidden=&quot;true&quot;&gt;|&lt;/span&gt;
               &lt;span&gt;Target: &lt;strong&gt;{COMPANY_TARGET.target}&lt;/strong&gt;&lt;/span&gt;
             &lt;/div&gt;
-            &lt;svg className=&quot;crm-minimal__target&quot; viewBox=&quot;0 0 640 180&quot; role=&quot;img&quot; aria-label={`Company Target. Entire Org: ${COMPANY_TARGET.achieved} records achieved. Target: ${COMPANY_TARGET.target}.`}&gt;
-              {[0, 1000, 2000, 3000, 4000].map(value =&gt; &lt;g key={value}&gt;&lt;line className=&quot;crm-minimal__gridline&quot; x1={100 + value / COMPANY_TARGET.axisMax * 500} x2={100 + value / COMPANY_TARGET.axisMax * 500} y1=&quot;30&quot; y2=&quot;120&quot; /&gt;&lt;text className=&quot;crm-minimal__svg-label&quot; x={100 + value / COMPANY_TARGET.axisMax * 500} y=&quot;140&quot; textAnchor=&quot;middle&quot;&gt;{value}&lt;/text&gt;&lt;/g&gt;)}
-              &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;88&quot; y=&quot;79&quot; textAnchor=&quot;end&quot;&gt;Entire Org&lt;/text&gt;
+            &lt;svg className=&quot;crm-minimal__target&quot; viewBox=&quot;0 0 640 180&quot; role=&quot;img&quot; aria-label={`Company Target. All branches: ${COMPANY_TARGET.achieved} shipments achieved. Target: ${COMPANY_TARGET.target}.`}&gt;
+              {Array.from({ length: 5 }, (_, tick) =&gt; tick * COMPANY_TARGET.axisMax / 4).map(value =&gt; &lt;g key={value}&gt;&lt;line className=&quot;crm-minimal__gridline&quot; x1={100 + value / COMPANY_TARGET.axisMax * 500} x2={100 + value / COMPANY_TARGET.axisMax * 500} y1=&quot;30&quot; y2=&quot;120&quot; /&gt;&lt;text className=&quot;crm-minimal__svg-label&quot; x={100 + value / COMPANY_TARGET.axisMax * 500} y=&quot;140&quot; textAnchor=&quot;middle&quot;&gt;{value}&lt;/text&gt;&lt;/g&gt;)}
+              &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;88&quot; y=&quot;79&quot; textAnchor=&quot;end&quot;&gt;All branches&lt;/text&gt;
               &lt;rect className=&quot;crm-minimal__target-track&quot; x=&quot;100&quot; y=&quot;40&quot; width=&quot;500&quot; height=&quot;70&quot; /&gt;
-              &lt;Tooltip as=&quot;g&quot; content={`Entire Org: ${COMPANY_TARGET.achieved.toLocaleString(&#39;en-US&#39;)} records · Target: ${COMPANY_TARGET.target}`} placement=&quot;bottom&quot;&gt;&lt;rect tabIndex={0} aria-label={`Achieved: ${COMPANY_TARGET.achieved} records. Target: ${COMPANY_TARGET.target}`} className=&quot;crm-minimal__target-fill crm-minimal__chart-hit&quot; x=&quot;100&quot; y=&quot;49&quot; width={COMPANY_TARGET.achieved / COMPANY_TARGET.axisMax * 500} height=&quot;52&quot; /&gt;&lt;/Tooltip&gt;
+              &lt;Tooltip as=&quot;g&quot; content={`All branches: ${COMPANY_TARGET.achieved.toLocaleString(&#39;en-US&#39;)} shipments · Target: ${COMPANY_TARGET.target}`} placement=&quot;bottom&quot;&gt;&lt;rect tabIndex={0} aria-label={`Achieved: ${COMPANY_TARGET.achieved} shipments. Target: ${COMPANY_TARGET.target}`} className=&quot;crm-minimal__target-fill crm-minimal__chart-hit&quot; x=&quot;100&quot; y=&quot;49&quot; width={COMPANY_TARGET.achieved / COMPANY_TARGET.axisMax * 500} height=&quot;52&quot; /&gt;&lt;/Tooltip&gt;
               &lt;line className=&quot;crm-minimal__target-marker&quot; x1={100 + COMPANY_TARGET.target / COMPANY_TARGET.axisMax * 500} x2={100 + COMPANY_TARGET.target / COMPANY_TARGET.axisMax * 500} y1=&quot;40&quot; y2=&quot;110&quot; /&gt;
-              &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;120&quot; y=&quot;24&quot;&gt;Target: {COMPANY_TARGET.target}&lt;/text&gt;
               &lt;text className=&quot;crm-minimal__svg-value&quot; x={100 + COMPANY_TARGET.achieved / COMPANY_TARGET.axisMax * 250} y=&quot;80&quot; textAnchor=&quot;middle&quot;&gt;{COMPANY_TARGET.achieved}&lt;/text&gt;
-              &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;350&quot; y=&quot;170&quot; textAnchor=&quot;middle&quot;&gt;Record Count&lt;/text&gt;
+              &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;350&quot; y=&quot;170&quot; textAnchor=&quot;middle&quot;&gt;Shipment Count&lt;/text&gt;
             &lt;/svg&gt;
             &lt;div className=&quot;crm-minimal__target-legend&quot;&gt;&lt;span aria-hidden=&quot;true&quot; /&gt;Achieved&lt;/div&gt;
           &lt;/&gt;}
@@ -7988,16 +8066,18 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
           &lt;Modal isOpen={selectedAppointment !== null} type=&quot;alert&quot; variant=&quot;info&quot; title={selectedAppointment?.title ?? &#39;Appointment details&#39;} description={selectedAppointment ? `${selectedAppointment.account} · ${selectedAppointment.contact} · ${selectedAppointment.time}–${selectedAppointment.end} · ${selectedAppointment.type}` : &#39;&#39;} confirmLabel=&quot;Close&quot; onClose={() =&gt; setSelectedAppointment(null)} /&gt;
         &lt;/section&gt;
       &lt;/div&gt;
-      &lt;div className=&quot;crm-minimal__industry-builder&quot;&gt;
+      &lt;div className=&quot;crm-minimal__industry-builder&quot; style={{ order: sections.indexOf(&#39;industry&#39;) + 1 }} data-dashboard-section=&quot;industry&quot;&gt;
       &lt;section className=&quot;crm-minimal__chart crm-minimal__industries&quot; aria-labelledby={`${id}-industries-title`}&gt;
         &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-industries-title`}&gt;Accounts by Industry&lt;/h2&gt;&lt;/div&gt;
         {empty ? &lt;p className=&quot;crm-minimal__empty&quot;&gt;Add accounts to see your industry breakdown.&lt;/p&gt; : &lt;div className=&quot;crm-minimal__industry-scroll&quot; tabIndex={0} role=&quot;group&quot; aria-label=&quot;Industry chart, scroll horizontally on small screens&quot;&gt;
           &lt;svg ref={industryRef} className=&quot;crm-minimal__columns&quot; viewBox={`0 0 ${industryWidth} 300`} role=&quot;img&quot; aria-label={`Accounts by Industry. ${ACCOUNTS_BY_INDUSTRY.map(item =&gt; `${item.industry}: ${item.count}`).join(&#39;; &#39;)}. Total: ${ACCOUNTS_BY_INDUSTRY.reduce((total, item) =&gt; total + item.count, 0)} accounts.`}&gt;
-            {[0, 200, 400, 600, 800].map(value =&gt; &lt;g key={value}&gt;&lt;line className=&quot;crm-minimal__gridline&quot; x1=&quot;50&quot; x2={industryWidth - 10} y1={240 - value / 800 * 208} y2={240 - value / 800 * 208} /&gt;&lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;38&quot; y={245 - value / 800 * 208} textAnchor=&quot;end&quot;&gt;{value}&lt;/text&gt;&lt;/g&gt;)}
+            {Array.from({ length: 5 }, (_, tick) =&gt; tick * industryMax / 4).map(value =&gt; &lt;g key={value}&gt;&lt;line className=&quot;crm-minimal__gridline&quot; x1=&quot;50&quot; x2={industryWidth - 10} y1={240 - value / industryMax * 208} y2={240 - value / industryMax * 208} /&gt;&lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;38&quot; y={245 - value / industryMax * 208} textAnchor=&quot;end&quot;&gt;{value}&lt;/text&gt;&lt;/g&gt;)}
             {ACCOUNTS_BY_INDUSTRY.map((item, index) =&gt; &lt;g key={item.industry}&gt;
-              &lt;Tooltip as=&quot;g&quot; content={`${item.industry}: ${item.count} accounts`} placement=&quot;bottom&quot;&gt;&lt;rect tabIndex={0} aria-label={`${item.industry}: ${item.count} accounts`} data-industry={item.industry} className=&quot;crm-minimal__column crm-minimal__chart-hit&quot; x={50 + index * industryStep + industryStep * 0.23} y={240 - item.count / 800 * 208} width={industryStep * 0.54} height={item.count / 800 * 208} /&gt;&lt;/Tooltip&gt;
-              &lt;text className=&quot;crm-minimal__svg-value&quot; x={50 + (index + 0.5) * industryStep} y={230 - item.count / 800 * 208} textAnchor=&quot;middle&quot;&gt;{item.count}&lt;/text&gt;
-              &lt;text className=&quot;crm-minimal__svg-label&quot; x={50 + (index + 0.5) * industryStep} y=&quot;266&quot; textAnchor=&quot;middle&quot;&gt;{item.industry}&lt;/text&gt;
+              &lt;Tooltip as=&quot;g&quot; content={`${item.industry}: ${item.count} accounts`} placement=&quot;bottom&quot;&gt;&lt;rect tabIndex={0} aria-label={`${item.industry}: ${item.count} accounts`} data-industry={item.industry} className=&quot;crm-minimal__column crm-minimal__chart-hit&quot; x={50 + index * industryStep + industryStep * 0.23} y={240 - item.count / industryMax * 208} width={industryStep * 0.54} height={item.count / industryMax * 208} /&gt;&lt;/Tooltip&gt;
+              &lt;text className=&quot;crm-minimal__svg-value&quot; x={50 + (index + 0.5) * industryStep} y={230 - item.count / industryMax * 208} textAnchor=&quot;middle&quot;&gt;{item.count}&lt;/text&gt;
+              &lt;foreignObject x={50 + index * industryStep + 2.5} y=&quot;250&quot; width={industryStep - 5} height=&quot;50&quot;&gt;
+                &lt;div className=&quot;crm-minimal__industry-label&quot;&gt;{item.industry}&lt;/div&gt;
+              &lt;/foreignObject&gt;
             &lt;/g&gt;)}
           &lt;/svg&gt;
         &lt;/div&gt;}
@@ -8005,34 +8085,45 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
       &lt;section className=&quot;crm-minimal__builder&quot; aria-labelledby={`${id}-builder-title`}&gt;
         &lt;div className=&quot;crm-minimal__builder-intro&quot;&gt;
           &lt;span className=&quot;crm-minimal__builder-mark&quot;&gt;&lt;Icon name=&quot;WmsZia&quot; size={24} /&gt;&lt;/span&gt;
-          &lt;h2 id={`${id}-builder-title`}&gt;Build something &lt;span&gt;for your next move.&lt;/span&gt;&lt;/h2&gt;
-          &lt;p&gt;What would you like to build today?&lt;/p&gt;
+          &lt;h2 id={`${id}-builder-title`}&gt;Plan &lt;span&gt;Your Next Shipment.&lt;/span&gt;&lt;/h2&gt;
+          &lt;p&gt;How can we help your cargo move today?&lt;/p&gt;
         &lt;/div&gt;
-        &lt;form className=&quot;crm-minimal__builder-form&quot; onSubmit={event =&gt; { event.preventDefault(); if (builderPrompt.trim()) setBuilderPreview(builderPrompt.trim()); }}&gt;
+        &lt;form className=&quot;crm-minimal__builder-form&quot; onSubmit={event =&gt; { event.preventDefault(); if (builderPrompt.trim()) { setBuilderDiscuss(false); setBuilderPreview(builderPrompt.trim()); } }}&gt;
           &lt;span className=&quot;crm-minimal__builder-sparkle&quot; aria-hidden=&quot;true&quot; /&gt;
-          &lt;div ref={builderInput}&gt;&lt;Textarea aria-label=&quot;Describe your idea&quot; placeholder=&quot;Describe your idea…&quot; width=&quot;100%&quot; layout=&quot;vertical&quot; minHeight={48} value={builderPrompt} maxLength={2000} onChange={(event: React.ChangeEvent&lt;HTMLTextAreaElement&gt;) =&gt; setBuilderPrompt(event.target.value)} /&gt;&lt;/div&gt;
+          &lt;div ref={builderInput}&gt;&lt;Textarea aria-label=&quot;Describe your shipment plan&quot; placeholder=&quot;Ask about freight quotes, trade lanes, or shipment plans…&quot; width=&quot;100%&quot; layout=&quot;vertical&quot; minHeight={48} value={builderPrompt} maxLength={2000} onChange={(event: React.ChangeEvent&lt;HTMLTextAreaElement&gt;) =&gt; setBuilderPrompt(event.target.value)} /&gt;&lt;/div&gt;
           &lt;div className=&quot;crm-minimal__builder-toolbar&quot;&gt;
-            &lt;div className=&quot;crm-minimal__builder-tools&quot; role=&quot;group&quot; aria-label=&quot;Idea tools&quot;&gt;
+            &lt;div className=&quot;crm-minimal__builder-tools&quot; role=&quot;group&quot; aria-label=&quot;Shipment planning tools&quot;&gt;
               &lt;Button type=&quot;button&quot; variant=&quot;link-default&quot; disabled aria-label=&quot;Attach file (unavailable in local demo)&quot; title=&quot;Attachments are unavailable in this local demo&quot;&gt;&lt;Icon name=&quot;RtUnlink&quot; size={18} /&gt;&lt;/Button&gt;
-              &lt;Button type=&quot;button&quot; variant=&quot;link-default&quot; aria-label=&quot;Edit idea&quot; title=&quot;Edit idea&quot; onClick={() =&gt; builderInput.current?.querySelector(&#39;textarea&#39;)?.focus()}&gt;&lt;Icon name=&quot;Edit&quot; size={18} /&gt;&lt;/Button&gt;
+              &lt;Button type=&quot;button&quot; variant=&quot;link-default&quot; aria-label=&quot;Edit shipment plan&quot; title=&quot;Edit shipment plan&quot; onClick={() =&gt; builderInput.current?.querySelector(&#39;textarea&#39;)?.focus()}&gt;&lt;Icon name=&quot;Edit&quot; size={18} /&gt;&lt;/Button&gt;
             &lt;/div&gt;
             &lt;div className=&quot;crm-minimal__builder-tools&quot; role=&quot;group&quot; aria-label=&quot;Preview controls&quot;&gt;
               &lt;Button type=&quot;button&quot; variant=&quot;link-default&quot; disabled aria-label=&quot;Voice input (unavailable in local demo)&quot; title=&quot;Voice input is unavailable in this local demo&quot;&gt;&lt;Icon name=&quot;WmsAnnouncements&quot; size={20} /&gt;&lt;/Button&gt;
-              &lt;span className=&quot;crm-minimal__builder-send&quot;&gt;&lt;Button type=&quot;submit&quot; size=&quot;sm&quot; aria-label=&quot;Preview idea&quot; title=&quot;Preview idea · Local demo&quot; disabled={!builderPrompt.trim()}&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↑&lt;/span&gt;&lt;/Button&gt;&lt;/span&gt;
+              &lt;div className=&quot;crm-minimal__builder-send-group&quot;&gt;
+                &lt;div className=&quot;crm-minimal__builder-send-extras&quot;&gt;
+                  &lt;Button type=&quot;button&quot; variant=&quot;link-default&quot; aria-label=&quot;Discuss shipment plan first&quot; title=&quot;Let&#39;s discuss first · Local demo&quot; disabled={!builderPrompt.trim()} onClick={() =&gt; { setBuilderDiscuss(true); setBuilderPreview(builderPrompt.trim()); }}&gt;&lt;Icon name=&quot;WmsChat&quot; size={16} /&gt;&lt;/Button&gt;
+                &lt;/div&gt;
+                &lt;span className=&quot;crm-minimal__builder-send&quot;&gt;&lt;Button type=&quot;submit&quot; size=&quot;sm&quot; aria-label=&quot;Preview shipment plan&quot; title=&quot;Preview shipment plan · Local demo&quot; disabled={!builderPrompt.trim()}&gt;
+                  &lt;svg viewBox=&quot;0 0 26 26&quot; width=&quot;26&quot; height=&quot;26&quot; fill=&quot;none&quot; aria-hidden=&quot;true&quot;&gt;
+                    &lt;rect width=&quot;26&quot; height=&quot;26&quot; rx=&quot;13&quot; fill={`url(#${id}-builder-send-gradient)`} /&gt;
+                    &lt;path d=&quot;M9.5 11.69L13 8.19L16.5 11.69M13 8.19V17.81&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;1.5&quot; strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; /&gt;
+                    &lt;defs&gt;&lt;linearGradient id={`${id}-builder-send-gradient`} x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;1&quot;&gt;&lt;stop stopColor=&quot;var(--ds-icon-primary-purple)&quot; /&gt;&lt;stop offset=&quot;1&quot; stopColor=&quot;var(--ds-text-link)&quot; /&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
+                  &lt;/svg&gt;
+                &lt;/Button&gt;&lt;/span&gt;
+              &lt;/div&gt;
             &lt;/div&gt;
           &lt;/div&gt;
         &lt;/form&gt;
-        {builderPreview !== null &amp;&amp; &lt;Modal isOpen type=&quot;alert&quot; variant=&quot;info&quot; title=&quot;Idea preview · Local demo&quot; description={`${builderPreview}\n\nThis preview only captures your idea. No application is generated and no data is sent.`} confirmLabel=&quot;Back to idea&quot; onSave={() =&gt; { setBuilderPreview(null); builderInput.current?.querySelector(&#39;textarea&#39;)?.focus(); }} onClose={() =&gt; { setBuilderPreview(null); builderInput.current?.querySelector(&#39;textarea&#39;)?.focus(); }} /&gt;}
+        {builderPreview !== null &amp;&amp; &lt;Modal isOpen type=&quot;alert&quot; variant=&quot;info&quot; title={builderDiscuss ? &#39;Discuss shipment plan · Local demo&#39; : &#39;Shipment plan preview · Local demo&#39;} description={`${builderPreview}\n\n${builderDiscuss ? &#39;Consider the intended users, required data, and desired outcome before building. &#39; : &#39;&#39;}This preview only captures your shipment plan. No bookings are created and no data is sent.`} confirmLabel=&quot;Back to shipment plan&quot; onSave={() =&gt; { setBuilderPreview(null); builderInput.current?.querySelector(&#39;textarea&#39;)?.focus(); }} onClose={() =&gt; { setBuilderPreview(null); builderInput.current?.querySelector(&#39;textarea&#39;)?.focus(); }} /&gt;}
       &lt;/section&gt;
       &lt;/div&gt;
-      &lt;div className=&quot;crm-minimal__grid&quot;&gt;
+      &lt;div className=&quot;crm-minimal__grid&quot; style={{ order: sections.indexOf(&#39;work&#39;) + 1 }} data-dashboard-section=&quot;work&quot;&gt;
         &lt;section id={`${id}-deals`} aria-labelledby={`${id}-deals-title`} className=&quot;crm-minimal__deals&quot;&gt;
           &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-deals-title`}&gt;Open deals&lt;/h2&gt;&lt;/div&gt;
-          &lt;div className=&quot;crm-minimal__table&quot;&gt;&lt;SetupTable columns={COLUMNS} rows={rows} selectable={false} width=&quot;100%&quot; emptyMessage=&quot;No open deals yet. Your opportunities will appear here.&quot; /&gt;&lt;/div&gt;
+          &lt;div className=&quot;crm-minimal__table&quot;&gt;&lt;SetupTable columns={COLUMNS} rows={rows} selectable={false} width=&quot;100%&quot; maxHeight=&quot;var(--crm-minimal-list-height)&quot; emptyMessage=&quot;No open deals yet. Your opportunities will appear here.&quot; /&gt;&lt;/div&gt;
         &lt;/section&gt;
         &lt;aside className=&quot;crm-minimal__daily&quot; aria-label=&quot;Daily workspace&quot;&gt;
           &lt;section id={`${id}-today`} aria-labelledby={`${id}-tasks-title`}&gt;
-            &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-tasks-title`}&gt;Today&lt;/h2&gt;&lt;/div&gt;
+            &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-tasks-title`}&gt;Today and OverDue Tasks&lt;/h2&gt;&lt;/div&gt;
             &lt;ul className=&quot;crm-minimal__list crm-minimal__today-list&quot; tabIndex={tasks.length ? 0 : undefined} aria-label=&quot;Today&#39;s tasks&quot;&gt;{tasks.map(task =&gt; &lt;li key={task.id} data-completed={task.completed || undefined}&gt;&lt;Checkbox label={task.title} checked={task.completed} onChange={() =&gt; setTasks(current =&gt; current.map(item =&gt; item.id === task.id ? { ...item, completed: !item.completed } : item))} /&gt;&lt;/li&gt;)}&lt;/ul&gt;
             {empty &amp;&amp; &lt;p className=&quot;crm-minimal__empty&quot; role=&quot;status&quot;&gt;Nothing scheduled. Enjoy a fresh start.&lt;/p&gt;}
           &lt;/section&gt;
@@ -8042,55 +8133,81 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
   &lt;/div&gt;&lt;/CrmHomepage&gt;;
 }
 
-export const Default: Story = {
+export const Default: Story = { render: () =&gt; &lt;MinimalPage /&gt; };
+
+export const InteractionChecks: Story = {
+  tags: [&#39;!dev&#39;, &#39;!autodocs&#39;],
   render: () =&gt; &lt;MinimalPage /&gt;,
   play: async ({ canvasElement }) =&gt; {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Welcome Patricia Boyle&#39; })).toBeVisible();
-    const builder = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Build something for your next move.&#39; }));
+    const builder = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Plan Your Next Shipment.&#39; }));
     await expect(builder.queryByRole(&#39;heading&#39;, { name: &#39;Suggestions&#39; })).not.toBeInTheDocument();
     await expect(builder.queryByRole(&#39;list&#39;)).not.toBeInTheDocument();
-    const prompt = builder.getByRole(&#39;textbox&#39;, { name: &#39;Describe your idea&#39; });
+    const prompt = builder.getByRole(&#39;textbox&#39;, { name: &#39;Describe your shipment plan&#39; });
     await expect(builder.getByRole(&#39;button&#39;, { name: &#39;Attach file (unavailable in local demo)&#39; })).toBeDisabled();
     await expect(builder.getByRole(&#39;button&#39;, { name: &#39;Voice input (unavailable in local demo)&#39; })).toBeDisabled();
-    await userEvent.click(builder.getByRole(&#39;button&#39;, { name: &#39;Edit idea&#39; }));
+    await userEvent.click(builder.getByRole(&#39;button&#39;, { name: &#39;Edit shipment plan&#39; }));
     await expect(prompt).toHaveFocus();
-    await expect(builder.getByRole(&#39;button&#39;, { name: &#39;Preview idea&#39; })).toBeDisabled();
-    await userEvent.type(prompt, &#39;Create a sales forecast dashboard.&#39;);
-    await userEvent.click(builder.getByRole(&#39;button&#39;, { name: &#39;Preview idea&#39; }));
-    const preview = within(canvasElement.ownerDocument.body).getByRole(&#39;alertdialog&#39;, { name: &#39;Idea preview · Local demo&#39; });
-    await expect(preview).toHaveTextContent(&#39;No application is generated&#39;);
-    await userEvent.click(within(preview).getByRole(&#39;button&#39;, { name: &#39;Back to idea&#39; }));
-    await expect(prompt).toHaveValue(&#39;Create a sales forecast dashboard.&#39;);
+    await expect(builder.getByRole(&#39;button&#39;, { name: &#39;Preview shipment plan&#39; })).toBeDisabled();
+    await userEvent.type(prompt, &#39;Plan weekly ocean freight capacity for Singapore to Rotterdam.&#39;);
+    await userEvent.click(builder.getByRole(&#39;button&#39;, { name: &#39;Preview shipment plan&#39; }));
+    const preview = within(canvasElement.ownerDocument.body).getByRole(&#39;alertdialog&#39;, { name: &#39;Shipment plan preview · Local demo&#39; });
+    await expect(preview).toHaveTextContent(&#39;No bookings are created&#39;);
+    await userEvent.click(within(preview).getByRole(&#39;button&#39;, { name: &#39;Back to shipment plan&#39; }));
+    await expect(prompt).toHaveValue(&#39;Plan weekly ocean freight capacity for Singapore to Rotterdam.&#39;);
+    await userEvent.hover(builder.getByRole(&#39;button&#39;, { name: &#39;Preview shipment plan&#39; }));
+    await userEvent.click(builder.getByRole(&#39;button&#39;, { name: &#39;Discuss shipment plan first&#39; }));
+    const discussion = within(canvasElement.ownerDocument.body).getByRole(&#39;alertdialog&#39;, { name: &#39;Discuss shipment plan · Local demo&#39; });
+    await expect(discussion).toHaveTextContent(&#39;Consider the intended users&#39;);
+    await userEvent.click(within(discussion).getByRole(&#39;button&#39;, { name: &#39;Back to shipment plan&#39; }));
+    await expect(prompt).toHaveFocus();
     await userEvent.clear(prompt);
+    await expect(builder.getByRole(&#39;button&#39;, { name: &#39;Preview shipment plan&#39; })).toBeDisabled();
+    (prompt as HTMLTextAreaElement).blur();
     await expect(canvas.queryByText(&#39;Friday, June 19, 2026&#39;)).not.toBeInTheDocument();
     await expect(canvas.queryByText(&#39;A little clarity for your next move.&#39;)).not.toBeInTheDocument();
     await expect(canvas.queryByText(&#39;Reporting period&#39;)).not.toBeInTheDocument();
     await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;All Territories&#39; })).not.toBeInTheDocument();
     const overview = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Sales overview&#39; }));
     await expect(overview.getAllByRole(&#39;term&#39;)).toHaveLength(4);
+    await expect(canvas.queryByText(&#39;Revenue goal&#39;)).not.toBeInTheDocument();
     const miniArea = overview.getByRole(&#39;img&#39;, { name: &#39;Open pipeline sample trend across 15 snapshots&#39; });
     await expect(miniArea).toBeVisible();
     await expect(miniArea.querySelectorAll(&#39;path&#39;)).toHaveLength(2);
     await expect(canvasElement.ownerDocument.defaultView!.getComputedStyle(miniArea).position).toBe(&#39;absolute&#39;);
     await expect(overview.getByText(&#39;Conversion rate&#39;)).toBeVisible();
-    const miniColumns = overview.getByRole(&#39;img&#39;, { name: &#39;Conversion rate sample trend across 30 snapshots&#39; });
+    const miniColumns = overview.getByRole(&#39;img&#39;, { name: &#39;Conversion rate sample trend across 45 snapshots&#39; });
     await expect(miniColumns).toBeVisible();
-    await expect(miniColumns.querySelectorAll(&#39;rect&#39;)).toHaveLength(30);
+    await expect(miniColumns.querySelectorAll(&#39;rect&#39;)).toHaveLength(45);
     await expect(canvasElement.ownerDocument.defaultView!.getComputedStyle(miniColumns).position).toBe(&#39;absolute&#39;);
     const conversionBar = miniColumns.querySelector&lt;SVGRectElement&gt;(&#39;rect&#39;)!;
-    await userEvent.hover(conversionBar);
-    await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Snapshot 1: 18% conversion&#39;);
-    await userEvent.unhover(conversionBar);
+    const conversionBounds = miniColumns.getBoundingClientRect();
+    await userEvent.pointer({ target: conversionBar, coords: { clientX: conversionBounds.left + conversionBounds.width / (CONVERSION_SNAPSHOTS.length * 2), clientY: conversionBounds.bottom - 2 } });
+    const conversionTooltip = within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;);
+    await expect(conversionTooltip).toHaveTextContent(&#39;Snapshot 1: 18% conversion&#39;);
+    const conversionSurface = miniColumns.querySelector&lt;SVGPathElement&gt;(&#39;path&#39;)!;
+    for (const position of [0.03, 0.05, 0.5, 0.99]) {
+      await userEvent.pointer({ target: conversionSurface, coords: { clientX: conversionBounds.left + conversionBounds.width * position, clientY: conversionBounds.top + 1 } });
+      await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toBe(conversionTooltip);
+      const snapshot = Math.floor(position * CONVERSION_SNAPSHOTS.length);
+      await expect(conversionTooltip).toHaveTextContent(`Snapshot ${snapshot + 1}: ${CONVERSION_SNAPSHOTS[snapshot]}% conversion`);
+    }
+    await userEvent.unhover(conversionSurface);
+    await expect(within(canvasElement.ownerDocument.body).queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
     await expect(overview.getByText(&#39;25%&#39;, { exact: true })).toBeVisible();
     await expect(overview.getByText(&#39;$84,500&#39;)).toBeVisible();
     const trend = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Revenue trend&#39; }));
     const revenueChart = trend.getByRole(&#39;img&#39;, { name: /Revenue trend/ });
     await expect(revenueChart).toBeVisible();
-    await expect(revenueChart.querySelectorAll(&#39;path&#39;)).toHaveLength(3);
+    await expect(revenueChart.querySelectorAll(&#39;path&#39;)).toHaveLength(2);
+    await expect(revenueChart.querySelector(&#39;[data-revenue-series=&quot;Target&quot;]&#39;)).toBeNull();
+    await expect(trend.queryByText(&#39;Target&#39;, { exact: true })).not.toBeInTheDocument();
     await expect(revenueChart.querySelector(&#39;.crm-minimal__y-axis&#39;)).toBeInTheDocument();
-    await expect(within(revenueChart).getByText(&#39;$0K&#39;)).toBeVisible();
-    await expect(within(revenueChart).getByText(&#39;$125K&#39;)).toBeVisible();
+    for (const label of [&#39;0k&#39;, &#39;50k&#39;, &#39;100k&#39;, &#39;150k&#39;]) {
+      await expect(within(revenueChart).getByText(label, { exact: true })).toBeVisible();
+    }
+    await expect(revenueChart.querySelectorAll(&#39;.crm-minimal__svg-label&#39;)).toHaveLength(4);
     for (let first = 0; first &lt; REVENUE_LINES.length; first++) {
       for (let second = first + 1; second &lt; REVENUE_LINES.length; second++) {
         const differences = REVENUE_LINES[first].series.map((item, index) =&gt; item.value - REVENUE_LINES[second].series[index].value);
@@ -8106,12 +8223,16 @@ export const Default: Story = {
     for (const line of REVENUE_LINES) {
       const series = revenueChart.querySelector(`[data-revenue-series=&quot;${line.label}&quot;]`)!;
       await expect(series).toHaveClass(`crm-minimal__revenue--${line.color}`);
+      await expect(revenueChart.querySelector(`[data-revenue-area=&quot;${line.label}&quot;]`)).toBeNull();
+      const curve = series.querySelector(&#39;path&#39;)!;
+      await expect(curve).toHaveAttribute(&#39;fill&#39;, &#39;none&#39;);
+      await expect(curve.getAttribute(&#39;d&#39;)?.match(/C /g)).toHaveLength(5);
       const dots = series.querySelectorAll(&#39;circle&#39;);
       await expect(dots).toHaveLength(6);
       dots.forEach((dot, index) =&gt; expect(dot.getAttribute(&#39;cx&#39;)).toBe(monthLabels[index].getAttribute(&#39;x&#39;)));
     }
     // KPI mini charts are hover-only and prevent click activation and bubbling.
-    const conversionChart = overview.getByRole(&#39;img&#39;, { name: &#39;Conversion rate sample trend across 30 snapshots&#39; });
+    const conversionChart = overview.getByRole(&#39;img&#39;, { name: &#39;Conversion rate sample trend across 45 snapshots&#39; });
     for (const chart of [miniArea, conversionChart]) {
       let bubbled = false;
       const onClick = () =&gt; { bubbled = true; };
@@ -8150,7 +8271,7 @@ export const Default: Story = {
     await expect(miniAreaTooltip.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
     const forecastPoint = revenueChart.querySelector&lt;SVGCircleElement&gt;(&#39;[data-revenue-series=&quot;Forecast&quot;] circle[data-month=&quot;January&quot;]&#39;)!;
     await userEvent.hover(forecastPoint);
-    await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Forecast · January: $60,000&#39;);
+    await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Forecast · January: $85,000&#39;);
     await userEvent.unhover(forecastPoint);
     await expect(canvas.queryByText(&#39;View chart data&#39;)).not.toBeInTheDocument();
     const pipeline = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Pipeline by stage&#39; }));
@@ -8181,25 +8302,33 @@ export const Default: Story = {
     await userEvent.keyboard(&#39;{Escape}&#39;);
     pipelineSegment.blur();
     await expect(pipeline.getByText(&#39;$115.5K&#39;)).toBeVisible();
-    await expect(trend.getByText(/Decreased 5.6% · \$5,000/)).toHaveClass(&#39;crm-minimal__trend--down&#39;);
-    await expect(overview.getByText(&#39;Increased 18.2%&#39;)).toHaveClass(&#39;crm-minimal__trend--up&#39;);
-    await expect(overview.getByText(&#39;Increased 3 deals&#39;)).toHaveClass(&#39;crm-minimal__trend--up&#39;);
+    await expect(trend.getByText(/77.1% · \$27,000/)).toHaveClass(&#39;crm-minimal__trend--down&#39;);
+    await expect(trend.getByText(&#39;$8,000&#39;, { exact: true })).toBeVisible();
+    const revenueValues = REVENUE_LINES.flatMap(line =&gt; line.series.map(item =&gt; item.value));
+    await expect(Math.max(...revenueValues)).toBe(125);
+    await expect(Math.min(...revenueValues)).toBe(1);
+    await expect(overview.getByText(&#39;18.2%&#39;)).toHaveClass(&#39;crm-minimal__trend--up&#39;);
+    await expect(overview.getByText(&#39;3 deals&#39;)).toHaveClass(&#39;crm-minimal__trend--up&#39;);
     const company = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Company Target&#39; }));
-    await expect(company.getByRole(&#39;img&#39;, { name: /3210 records achieved.*Target: 3000/ })).toBeVisible();
+    await expect(company.getByRole(&#39;img&#39;, { name: /3210 shipments achieved.*Target: 3000/ })).toBeVisible();
     await expect(company.getByText(&#39;3210&#39;, { selector: &#39;strong&#39; })).toBeVisible();
     await expect(company.getByText(&#39;3000&#39;, { selector: &#39;strong&#39; })).toBeVisible();
     await expect(company.queryByText(/% of target achieved/)).not.toBeInTheDocument();
     const achievedBar = canvas.getByRole(&#39;region&#39;, { name: &#39;Company Target&#39; }).querySelector&lt;SVGRectElement&gt;(&#39;.crm-minimal__target-fill&#39;)!;
     await expect(Number(achievedBar.getAttribute(&#39;width&#39;))).toBe(3210 / 4000 * 500);
     await userEvent.hover(achievedBar);
-    await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;3,210 records · Target: 3000&#39;);
+    await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;3,210 shipments · Target: 3000&#39;);
     await userEvent.unhover(achievedBar);
     const appointments = within(canvas.getByRole(&#39;region&#39;, { name: &quot;My Today&#39;s Appointments&quot; }));
     await expect(appointments.getAllByRole(&#39;listitem&#39;)).toHaveLength(TODAYS_APPOINTMENTS.length);
     await expect(canvas.getAllByRole(&#39;region&#39;, { name: &quot;My Today&#39;s Appointments&quot; })).toHaveLength(1);
+    const appointmentList = appointments.getByRole(&#39;list&#39;);
+    await expect(appointmentList.scrollHeight).toBeGreaterThan(appointmentList.clientHeight);
     for (const appointment of TODAYS_APPOINTMENTS) {
+      const row = appointments.getByText(appointment.title).closest(&#39;li&#39;)!;
+      row.scrollIntoView({ block: &#39;nearest&#39; });
       await expect(appointments.getByText(appointment.title)).toBeVisible();
-      const photo = appointments.getByRole(&#39;img&#39;, { name: appointment.contact });
+      const photo = within(row).getByRole(&#39;img&#39;, { name: appointment.contact });
       await expect(photo).toBeVisible();
       await expect((photo as HTMLImageElement).naturalWidth).toBeGreaterThan(0);
     }
@@ -8212,43 +8341,97 @@ export const Default: Story = {
     }
     await userEvent.click(appointments.getAllByRole(&#39;button&#39;, { name: &#39;View details&#39; })[0]);
     const appointmentDialog = within(canvasElement.ownerDocument.body).getByRole(&#39;alertdialog&#39;);
-    await expect(within(appointmentDialog).getByText(&#39;Discovery call&#39;)).toBeVisible();
-    await expect(within(appointmentDialog).getByText(/Atlas Logistics · Daniel Kim · 09:30–10:00 · Video call/)).toBeVisible();
+    await expect(within(appointmentDialog).getByText(&#39;Ocean freight discovery&#39;)).toBeVisible();
+    await expect(within(appointmentDialog).getByText(/Atlas Freight · Daniel Kim · 09:30–10:00 · Video call/)).toBeVisible();
     await userEvent.click(within(appointmentDialog).getByRole(&#39;button&#39;, { name: &#39;Close&#39;, exact: true }));
     const industries = canvas.getByRole(&#39;region&#39;, { name: &#39;Accounts by Industry&#39; });
     await expect(industries.querySelectorAll(&#39;rect[data-industry]&#39;)).toHaveLength(10);
-    const industryColumn = industries.querySelector&lt;SVGRectElement&gt;(&#39;rect[data-industry=&quot;Technology&quot;]&#39;)!;
+    const industryColumn = industries.querySelector&lt;SVGRectElement&gt;(&#39;rect[data-industry=&quot;Electronics&quot;]&#39;)!;
     const documentBody = within(canvasElement.ownerDocument.body);
     await userEvent.hover(industryColumn);
-    await expect(documentBody.getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Technology: 640 accounts&#39;);
+    await expect(documentBody.getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Electronics: 640 accounts&#39;);
     await userEvent.unhover(industryColumn);
     await expect(documentBody.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
     industryColumn.focus();
-    await expect(documentBody.getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Technology: 640 accounts&#39;);
+    await expect(documentBody.getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Electronics: 640 accounts&#39;);
     await userEvent.keyboard(&#39;{Escape}&#39;);
     await expect(documentBody.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
     industryColumn.blur();
-    await expect(within(industries).getByRole(&#39;img&#39;, { name: /Technology: 640.*Hospitality: 126.*3191 accounts/ })).toBeVisible();
-    const period = canvas.getByRole(&#39;button&#39;, { name: &#39;This month&#39; });
+    await expect(within(industries).getByRole(&#39;img&#39;, { name: /Electronics: 640.*Consumer Goods: 126.*3191 accounts/ })).toBeVisible();
+    const period = canvas.getByRole(&#39;button&#39;, { name: &#39;Classic Sales View&#39; });
     await userEvent.click(period);
-    await userEvent.click(within(canvasElement.ownerDocument.body).getByRole(&#39;option&#39;, { name: &#39;This quarter&#39; }));
-    await expect(overview.getByText(&#39;$246,000&#39;)).toBeVisible();
-    await expect(overview.getByText(&#39;24%&#39;, { exact: true })).toBeVisible();
-    const today = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Today&#39; }));
+    const viewMenu = within(canvasElement.ownerDocument.body);
+    await expect(viewMenu.getAllByRole(&#39;option&#39;)).toHaveLength(SALES_HOME_VIEWS.length);
+    const menuBounds = viewMenu.getByRole(&#39;listbox&#39;).getBoundingClientRect();
+    await expect(menuBounds.right).toBeLessThanOrEqual(window.innerWidth);
+    await expect(menuBounds.left).toBeGreaterThanOrEqual(0);
+    await expect(viewMenu.queryByText(&#39;Reporting period&#39;)).not.toBeInTheDocument();
+    await expect(viewMenu.queryByRole(&#39;option&#39;, { name: &#39;This quarter&#39; })).not.toBeInTheDocument();
+    await expect(SALES_HOME_VIEWS.filter(view =&gt; view.group === &#39;Sales homepages&#39;).length).toBeGreaterThan(10);
+    await userEvent.click(viewMenu.getByRole(&#39;option&#39;, { name: &#39;Freight Pipeline Center&#39; }));
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Freight Pipeline Center&#39; })).toBeVisible();
+    await expect(overview.getByText(&#39;$84,500&#39;)).toBeVisible();
+    for (const view of SALES_HOME_VIEWS.filter(view =&gt; view.value !== &#39;classic&#39;)) {
+      if (view.value !== &#39;pipeline&#39;) {
+        await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Freight Pipeline Center&#39; }));
+        await userEvent.click(viewMenu.getByRole(&#39;option&#39;, { name: view.label }));
+      }
+      const dashboard = getSalesDashboard(view.value);
+      const revenue = canvas.getByRole(&#39;region&#39;, { name: &#39;Revenue trend&#39; });
+      await expect(within(revenue).getByText(dashboard.REVENUE_LINES[0].series[5].display, { exact: true })).toBeVisible();
+      await expect(canvasElement.querySelector(&#39;[data-dashboard-section=&quot;industry&quot;]&#39;)).toHaveStyle({ order: String(dashboard.sections.indexOf(&#39;industry&#39;) + 1) });
+      const chartPanels = canvasElement.querySelectorAll(&#39;[data-dashboard-section=&quot;charts&quot;] &gt; section&#39;);
+      await expect(within(chartPanels[0] as HTMLElement).getByRole(&#39;heading&#39;, { name: dashboard.chartOrder[0] === 1 ? &#39;Pipeline by stage&#39; : &#39;Revenue trend&#39; })).toBeVisible();
+      const industryChart = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Accounts by Industry&#39; })).getByRole(&#39;img&#39;);
+      await expect(industryChart).toHaveAccessibleName(expect.stringContaining(`Electronics: ${dashboard.ACCOUNTS_BY_INDUSTRY[0].count}`));
+      if (view.value !== &#39;pipeline&#39;) {
+        await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: view.label }));
+        await userEvent.click(viewMenu.getByRole(&#39;option&#39;, { name: &#39;Freight Pipeline Center&#39; }));
+      }
+    }
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Freight Pipeline Center&#39; }));
+    await expect(viewMenu.queryByText(&#39;Reporting period&#39;)).not.toBeInTheDocument();
+    await userEvent.keyboard(&#39;{Escape}&#39;);
+    const dealsPanel = canvas.getByRole(&#39;region&#39;, { name: &#39;Open deals&#39; });
+    const dealsBody = dealsPanel.querySelector&lt;HTMLElement&gt;(&#39;.table-body-wrap&#39;)!;
+    await expect(within(dealsBody).getAllByRole(&#39;row&#39;)).toHaveLength(CARGO_DEALS.length + ADDITIONAL_OPEN_DEALS.length);
+    await expect(dealsBody.scrollHeight).toBeGreaterThan(dealsBody.clientHeight);
+    dealsBody.scrollTop = dealsBody.scrollHeight;
+    await expect(dealsBody.scrollTop).toBeGreaterThan(0);
+    dealsBody.scrollTop = 0;
+    const today = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Today and OverDue Tasks&#39; }));
     const todayList = today.getByRole(&#39;list&#39;, { name: &quot;Today&#39;s tasks&quot; });
-    await expect(today.getAllByRole(&#39;checkbox&#39;)).toHaveLength(INITIAL_TASKS.length + TODAY_TASKS.length);
+    const taskCheckboxes = today.getAllByRole(&#39;checkbox&#39;);
+    await expect(taskCheckboxes).toHaveLength(CARGO_INITIAL_TASKS.length + TODAY_TASKS.length);
+    for (const [index, checkbox] of taskCheckboxes.entries()) {
+      if ([0, 2, 3].includes(index)) await expect(checkbox).toBeChecked();
+      else await expect(checkbox).not.toBeChecked();
+    }
     await expect(todayList).toHaveAttribute(&#39;tabindex&#39;, &#39;0&#39;);
     await expect(todayList.scrollHeight).toBeGreaterThan(todayList.clientHeight);
     const lastTask = today.getAllByRole(&#39;checkbox&#39;).at(-1)!;
     lastTask.scrollIntoView({ block: &#39;nearest&#39; });
     await expect(todayList.scrollTop).toBeGreaterThan(0);
-    for (const checkbox of today.getAllByRole(&#39;checkbox&#39;)) await userEvent.click(checkbox);
+    for (const checkbox of today.getAllByRole(&#39;checkbox&#39;, { checked: false })) await userEvent.click(checkbox);
     for (const checkbox of today.getAllByRole(&#39;checkbox&#39;)) await expect(checkbox).toBeChecked();
     await expect(today.queryByRole(&#39;status&#39;)).not.toBeInTheDocument();
     await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Review follow-up&#39; })).not.toBeInTheDocument();
     await expect(canvas.queryByText(/\d+ opportunities/)).not.toBeInTheDocument();
     await expect(canvas.getByText(&#39;Meridian Health&#39;, { exact: true })).toBeVisible();
     await expect(canvas.queryByRole(&#39;heading&#39;, { name: &#39;Conversations&#39; })).not.toBeInTheDocument();
+    await userEvent.click(within(canvasElement.querySelector&lt;HTMLElement&gt;(&#39;.crm-minimal__home-controls&#39;)!).getByRole(&#39;button&#39;, { name: &#39;More options&#39; }));
+    for (const name of [&#39;Edit Homepage&#39;, &#39;Reorder&#39;, &#39;View Fullscreen&#39;]) await expect(viewMenu.getByRole(&#39;option&#39;, { name })).toBeVisible();
+    const originalSections = Array.from(canvasElement.querySelectorAll&lt;HTMLElement&gt;(&#39;[data-dashboard-section]&#39;), section =&gt; section.style.order);
+    for (const action of [&#39;Edit Homepage&#39;, &#39;Reorder&#39;]) {
+      if (action === &#39;Reorder&#39;) await userEvent.click(within(canvasElement.querySelector&lt;HTMLElement&gt;(&#39;.crm-minimal__home-controls&#39;)!).getByRole(&#39;button&#39;, { name: &#39;More options&#39; }));
+      const option = viewMenu.getByRole(&#39;option&#39;, { name: action });
+      const labelStyle = canvasElement.ownerDocument.defaultView!.getComputedStyle(option.querySelector(&#39;.dropdown-option-label&#39;)!);
+      await expect(labelStyle.paddingLeft).toBe(labelStyle.paddingRight);
+      await userEvent.click(option);
+      await expect(viewMenu.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument();
+      await expect(viewMenu.queryByRole(&#39;listbox&#39;)).not.toBeInTheDocument();
+      await expect(Array.from(canvasElement.querySelectorAll&lt;HTMLElement&gt;(&#39;[data-dashboard-section]&#39;), section =&gt; section.style.order)).toEqual(originalSections);
+    }
   },
 };
 export const EmptyState: Story = {
@@ -8257,7 +8440,7 @@ export const EmptyState: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText(&#39;No open deals yet. Your opportunities will appear here.&#39;)).toBeVisible();
     await expect(canvas.queryByRole(&#39;heading&#39;, { name: &#39;Conversations&#39; })).not.toBeInTheDocument();
-    await expect(canvas.getByRole(&#39;progressbar&#39;, { name: &#39;Revenue goal&#39; })).toHaveAttribute(&#39;aria-valuenow&#39;, &#39;0&#39;);
+    await expect(canvas.queryByText(&#39;Revenue goal&#39;)).not.toBeInTheDocument();
     const trend = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Revenue trend&#39; }));
     await expect(trend.getByText(&#39;Close your first deal to see revenue trends.&#39;)).toBeVisible();
     await expect(trend.queryByRole(&#39;img&#39;)).not.toBeInTheDocument();
@@ -8301,7 +8484,6 @@ export const EmptyState: Story = {
     Dropdown,
     Icon,
     Modal,
-    ProgressBar,
     SetupTable,
     Textarea,
     Tooltip,
@@ -8317,6 +8499,15 @@ export const EmptyState: Story = {
               
               
               <pre><code>const Default = () =&gt; &lt;MinimalPage /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Interaction Checks</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const InteractionChecks = () =&gt; &lt;MinimalPage /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -16991,7 +17182,7 @@ const MEETINGS = [
 ];
 
 // Story-local composition, not a new design-system component.
-export function CrmHomepage({ empty = false, children, showTerritory = true }: { empty?: boolean; children?: ReactNode; showTerritory?: boolean }) {
+export function CrmHomepage({ empty = false, children, showTerritory = true, workspaceName = &#39;Sales workspace&#39; }: { empty?: boolean; children?: ReactNode; showTerritory?: boolean; workspaceName?: string }) {
   const headingId = useId();
   const [period, setPeriod] = useState&lt;Period&gt;(&#39;month&#39;);
   const [tasks, setTasks] = useState(empty ? [] : INITIAL_TASKS);
@@ -17023,14 +17214,14 @@ export function CrmHomepage({ empty = false, children, showTerritory = true }: {
     &lt;div className=&quot;crm-homepage&quot;&gt;
       &lt;div className=&quot;crm-homepage__shell&quot;&gt;
         &lt;aside className=&quot;crm-homepage__sidebar&quot; data-open={menuOpen || undefined} aria-label=&quot;CRM navigation&quot;&gt;
-          &lt;NextGenLeftMenu activeId=&quot;home&quot; teamspaceName=&quot;Sales workspace&quot; onItemClick={(id: string) =&gt; {
+          &lt;NextGenLeftMenu activeId=&quot;home&quot; teamspaceName={workspaceName} onItemClick={(id: string) =&gt; {
             setMenuOpen(false);
             if (id !== &#39;home&#39;) setNotice(`${id.charAt(0).toUpperCase() + id.slice(1)} selected. Navigation is a local preview; no CRM records are changed.`);
           }} /&gt;
         &lt;/aside&gt;
         &lt;div className=&quot;crm-homepage__workspace&quot;&gt;
           &lt;header&gt;
-            &lt;NextGenTopBand moduleLabel=&quot;Home&quot; userInitials=&quot;AS&quot; notificationCount={2} showTerritory={showTerritory}
+            &lt;NextGenTopBand moduleLabel=&quot;Home&quot; userInitials=&quot;AS&quot; userAvatarSrc={`${import.meta.env.BASE_URL}images/avatars/user_06.jpg`} showTerritory={showTerritory}
               onAddNew={() =&gt; setNotice(&#39;Quick create selected. In a connected CRM, this opens record creation.&#39;)}
               onCalendar={() =&gt; document.getElementById(`${headingId}-meetings`)?.scrollIntoView({ block: &#39;nearest&#39; })} /&gt;
           &lt;/header&gt;
@@ -18192,7 +18383,7 @@ export const CreateDeal: Story = {
       <div class="badges">
         <label for="c-error-4-design-system-patterns-crm-homepage-minimal-err" class="badge err as-toggle">prop type error</label>
         <label for="c-error-4-design-system-patterns-crm-homepage-minimal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-4-design-system-patterns-crm-homepage-minimal-stories" class="badge ok as-toggle">2 stories</label>
+        <label for="c-error-4-design-system-patterns-crm-homepage-minimal-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -18236,26 +18427,26 @@ import { Textarea } from &#39;../components/Textarea/Textarea&#39;;
 import { Modal } from &#39;../components/Modal/Modal&#39;;
 import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
-import { ProgressBar } from &#39;../components/ProgressBar/ProgressBar&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
 import { SetupTable } from &#39;../components/Table/Table&#39;;
 import { CrmHomepage } from &#39;./CrmHomepage.stories&#39;;
-import { DEALS, INITIAL_TASKS, PERFORMANCE, PERIODS } from &#39;./CrmHomepage.data&#39;;
+import { PERFORMANCE } from &#39;./CrmHomepage.data&#39;;
 import type { Period } from &#39;./CrmHomepage.data&#39;;
 import { SALES_CHARTS } from &#39;./Colorful.data&#39;;
-import { ACCOUNTS_BY_INDUSTRY, COMPANY_TARGET, PIPELINE_SNAPSHOTS, PIPELINE_STAGES, REVENUE_LINES, TODAY_TASKS, TODAYS_APPOINTMENTS } from &#39;./Minimal.data&#39;;
+import { ACCOUNTS_BY_INDUSTRY, CARGO_DEALS, CARGO_INITIAL_TASKS, ADDITIONAL_OPEN_DEALS, PIPELINE_SNAPSHOTS, PIPELINE_STAGES, REVENUE_LINES, SALES_HOME_VIEWS, TODAY_TASKS, TODAYS_APPOINTMENTS } from &#39;./Minimal.data&#39;;
+import { getSalesDashboard } from &#39;./Minimal.views&#39;;
 import &#39;./Minimal.css&#39;;
 
 const meta = {
   title: &#39;Design System/Patterns/crm-homepage/minimal&#39;,
   parameters: {
     layout: &#39;fullscreen&#39;,
-    docs: { description: { component: &#39;A minimal CRM homepage inside the existing CRM shell. Preserves the floating page header, with 30px horizontal content padding, four headline metrics, revenue progress, open deals, and tasks. Uses existing components and shared CRM sample data; all interactions are local.&#39; } },
+    docs: { description: { component: &#39;A minimal CRM homepage inside the existing CRM shell. Preserves the floating page header, with 30px horizontal content padding, four headline metrics, open deals, and tasks. Uses existing components and shared CRM sample data; all interactions are local.&#39; } },
   },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj&lt;typeof meta&gt;;
-const CONVERSION_SNAPSHOTS = [18, 22, 19, 24, 21, 25, 23, 17, 26, 20, 24, 28, 22, 19, 25, 27, 21, 24, 18, 23, 29, 25, 22, 26, 20, 24, 27, 23, 28, 25];
+const CONVERSION_SNAPSHOTS = [18, 22, 19, 24, 21, 25, 23, 17, 26, 20, 24, 28, 22, 19, 25, 27, 21, 24, 18, 23, 29, 25, 22, 26, 20, 24, 27, 23, 28, 25, 21, 26, 18, 24, 29, 22, 25, 19, 27, 23, 28, 20, 26, 24, 30];
 const COLUMNS = [
   { key: &#39;name&#39;, label: &#39;Account&#39; },
   { key: &#39;stage&#39;, label: &#39;Stage&#39; },
@@ -18267,15 +18458,17 @@ const COLUMNS = [
 function useChartWidth(initialWidth: number) {
   const ref = useRef&lt;SVGSVGElement&gt;(null);
   const [width, setWidth] = useState(initialWidth);
+  const [height, setHeight] = useState(180);
   useEffect(() =&gt; {
     if (!ref.current) return;
     const observer = new ResizeObserver(([entry]) =&gt; {
       if (entry.contentRect.width &gt; 0) setWidth(entry.contentRect.width);
+      if (entry.contentRect.height &gt; 0) setHeight(entry.contentRect.height);
     });
     observer.observe(ref.current);
     return () =&gt; observer.disconnect();
   }, []);
-  return { ref, width };
+  return { ref, width, height };
 }
 
 // Smooth cubic segments interpolate the same coordinates used by the tooltip dots.
@@ -18288,34 +18481,105 @@ function curvedLine(points: { x: number; y: number }[]) {
   }).join(&#39; &#39;);
 }
 
+// Catmull–Rom-style averaged tangents give the monthly joins gentler bends.
+// Limit the tangents to preserve each segment&#39;s range within the chart scale.
+function revenueCurve(points: { x: number; y: number }[]) {
+  const slopes = points.slice(1).map((point, index) =&gt;
+    (point.y - points[index].y) / (point.x - points[index].x));
+  const tangents = points.map((_, index) =&gt; {
+    if (index === 0) return slopes[0];
+    if (index === points.length - 1) return slopes[index - 1];
+    const before = slopes[index - 1];
+    const after = slopes[index];
+    if (before * after &lt;= 0) return 0;
+    const average = (before + after) / 2;
+    const limit = 3 * Math.min(Math.abs(before), Math.abs(after));
+    return Math.sign(average) * Math.min(Math.abs(average), limit);
+  });
+  return points.map((point, index) =&gt; {
+    if (index === 0) return `M ${point.x},${point.y}`;
+    const previous = points[index - 1];
+    const step = (point.x - previous.x) / 3;
+    return `C ${previous.x + step},${previous.y + tangents[index - 1] * step} ${point.x - step},${point.y - tangents[index] * step} ${point.x},${point.y}`;
+  }).join(&#39; &#39;);
+}
+
 // Story-local page composition; no new design-system primitives.
 function MinimalPage({ empty = false }: { empty?: boolean }) {
   const id = useId();
-  const { ref: revenueRef, width: revenueWidth } = useChartWidth(320);
+  const { ref: revenueRef, width: revenueWidth, height: revenueHeight } = useChartWidth(320);
+  const revenueBottom = Math.max(140, revenueHeight - 40);
+  const revenueY = (value: number) =&gt; revenueBottom - value / 150 * (revenueBottom - 30);
   const { ref: industryRef, width: industryWidth } = useChartWidth(1000);
-  const industryStep = (industryWidth - 70) / ACCOUNTS_BY_INDUSTRY.length;
   const [builderPrompt, setBuilderPrompt] = useState(&#39;&#39;);
   const [builderPreview, setBuilderPreview] = useState&lt;string | null&gt;(null);
+  const [builderDiscuss, setBuilderDiscuss] = useState(false);
   const builderInput = useRef&lt;HTMLDivElement&gt;(null);
   const [period, setPeriod] = useState&lt;Period&gt;(&#39;month&#39;);
-  const [tasks, setTasks] = useState(empty ? [] : [...INITIAL_TASKS, ...TODAY_TASKS]);
+  const [homeView, setHomeView] = useState(&#39;classic&#39;);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [actionNotice, setActionNotice] = useState(&#39;&#39;);
+  const pageRef = useRef&lt;HTMLDivElement&gt;(null);
+  useEffect(() =&gt; {
+    const sync = () =&gt; setFullscreen(document.fullscreenElement === document.documentElement);
+    document.addEventListener(&#39;fullscreenchange&#39;, sync);
+    return () =&gt; document.removeEventListener(&#39;fullscreenchange&#39;, sync);
+  }, []);
+  const menuPosition = (position: { left: number; width: number }) =&gt; {
+    const width = Math.min(window.innerWidth - 16, Math.max(position.width, 340));
+    return { width, left: Math.max(8, Math.min(position.left, window.innerWidth - width - 8)) };
+  };
+  const { REVENUE_LINES, PIPELINE_STAGES, ACCOUNTS_BY_INDUSTRY, COMPANY_TARGET, sections: defaultSections, chartOrder } = getSalesDashboard(homeView);
+  const sections = defaultSections;
+  const industryStep = (industryWidth - 70) / ACCOUNTS_BY_INDUSTRY.length;
+  const industryMax = Math.max(800, Math.ceil(Math.max(...ACCOUNTS_BY_INDUSTRY.map(item =&gt; item.count)) / 200) * 200);
+  const [tasks, setTasks] = useState(() =&gt; empty ? [] : [...CARGO_INITIAL_TASKS, ...TODAY_TASKS].map(task =&gt; ({
+    ...task,
+    completed: [&#39;proposal&#39;, &#39;renewal&#39;, &#39;pricing&#39;].includes(task.id),
+  })));
   const [activeSnapshot, setActiveSnapshot] = useState&lt;number | null&gt;(null);
+  const [activeConversionSnapshot, setActiveConversionSnapshot] = useState(0);
   const [selectedAppointment, setSelectedAppointment] = useState&lt;typeof TODAYS_APPOINTMENTS[number] | null&gt;(null);
   const [completedAppointments, setCompletedAppointments] = useState&lt;string[]&gt;([]);
   const snapshotPoints = PIPELINE_SNAPSHOTS.map((value, index) =&gt; ({ x: 2 + index * 156 / (PIPELINE_SNAPSHOTS.length - 1), y: 25 - value / 100 * 24 }));
   const visibleSnapshotStart = activeSnapshot === null ? -1 : Math.max(0, Math.min(activeSnapshot - 1, snapshotPoints.length - 3));
   const performance = PERFORMANCE[period];
-  const rows = empty ? [] : DEALS;
+  const rows = empty ? [] : [...CARGO_DEALS, ...ADDITIONAL_OPEN_DEALS];
 
-  return &lt;CrmHomepage empty={empty} showTerritory={false}&gt;&lt;div className=&quot;crm-minimal&quot;&gt;
+  return &lt;CrmHomepage empty={empty} showTerritory={false} workspaceName=&quot;Cargo Shipping Logistics&quot;&gt;&lt;div ref={pageRef} className=&quot;crm-minimal&quot;&gt;
     &lt;div className=&quot;crm-minimal__main&quot; role=&quot;region&quot; aria-labelledby={`${id}-title`}&gt;
       &lt;div className=&quot;crm-minimal__heading&quot;&gt;
-        &lt;h1 id={`${id}-title`}&gt;Welcome Patricia Boyle&lt;/h1&gt;
-        &lt;Dropdown layout=&quot;vertical&quot; width=&quot;fit-content&quot; options={PERIODS} value={period} onChange={(value: string) =&gt; setPeriod(value as Period)} /&gt;
+        &lt;div className=&quot;crm-minimal__welcome&quot;&gt;
+          &lt;span className=&quot;crm-minimal__welcome-logo&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;img src={`${import.meta.env.BASE_URL}images/sailboat-logo.png`} width=&quot;46&quot; height=&quot;46&quot; alt=&quot;&quot; /&gt;
+          &lt;/span&gt;
+          &lt;h1 id={`${id}-title`}&gt;Welcome Patricia Boyle&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;crm-minimal__home-controls&quot;&gt;
+        &lt;Dropdown layout=&quot;vertical&quot; width=&quot;max-content&quot; panelStyle={menuPosition} style={{ maxWidth: &#39;100%&#39; }} options={SALES_HOME_VIEWS} value={homeView} onChange={(value: string) =&gt; {
+          const view = SALES_HOME_VIEWS.find(option =&gt; option.value === value);
+          if (!view) return;
+          setHomeView(view.value);
+          setPeriod(view.period);
+        }} /&gt;
+        &lt;Dropdown value=&quot;&quot; placeholder=&quot;More options&quot; triggerAriaLabel=&quot;More options&quot; triggerButtonVariant=&quot;default&quot; triggerIcon={&lt;Icon name=&quot;More&quot; size={16} /&gt;} width=&quot;max-content&quot; layout=&quot;vertical&quot; id={`${id}-homepage-actions`} panelStyle={(position: { left: number; width: number }) =&gt; ({ width: &#39;max-content&#39;, maxWidth: &#39;calc(100vw - 16px)&#39;, left: &#39;auto&#39;, right: Math.max(8, window.innerWidth - position.left - position.width) })} options={[
+          { value: &#39;edit&#39;, label: &#39;Edit Homepage&#39; },
+          { value: &#39;reorder&#39;, label: &#39;Reorder&#39; },
+          { value: &#39;fullscreen&#39;, label: &#39;View Fullscreen&#39; },
+        ]} onChange={async (action: string) =&gt; {
+          if (action !== &#39;fullscreen&#39;) return;
+          try {
+            if (document.fullscreenElement) await document.exitFullscreen();
+            else await document.documentElement.requestFullscreen();
+          } catch { setActionNotice(&#39;Fullscreen is unavailable in this preview. Open the story in a new tab to try again.&#39;); }
+        }} /&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
+      {actionNotice &amp;&amp; &lt;p role=&quot;status&quot;&gt;{actionNotice}&lt;/p&gt;}
+      {fullscreen &amp;&amp; &lt;Button variant=&quot;default&quot; onClick={() =&gt; document.exitFullscreen()}&gt;Exit fullscreen&lt;/Button&gt;}
       &lt;section id={`${id}-overview`} aria-label=&quot;Sales overview&quot; className=&quot;crm-minimal__overview&quot;&gt;
         &lt;dl className=&quot;crm-minimal__metrics&quot;&gt;
-          &lt;div&gt;&lt;dt&gt;Closed revenue&lt;/dt&gt;&lt;dd className={empty ? undefined : &#39;crm-minimal__trend--up&#39;}&gt;{empty ? &#39;$0&#39; : performance.revenue}&lt;/dd&gt;&lt;p&gt;{empty ? &#39;No revenue yet&#39; : &lt;&gt;&lt;span className=&quot;crm-minimal__trend crm-minimal__trend--up&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt; Increased {performance.changes[0].replace(&#39;↑ &#39;, &#39;&#39;)}&lt;/span&gt; vs. previous {period}&lt;/&gt;}&lt;/p&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;Closed revenue&lt;/dt&gt;&lt;dd className={empty ? undefined : &#39;crm-minimal__trend--up&#39;}&gt;{empty ? &#39;$0&#39; : performance.revenue}&lt;/dd&gt;&lt;p&gt;{empty ? &#39;No revenue yet&#39; : &lt;&gt;&lt;span className=&quot;crm-minimal__trend crm-minimal__trend--up&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt; {performance.changes[0].replace(&#39;↑ &#39;, &#39;&#39;)}&lt;/span&gt; vs. previous {period}&lt;/&gt;}&lt;/p&gt;&lt;/div&gt;
           &lt;div className=&quot;crm-minimal__pipeline-kpi&quot;&gt;&lt;dt&gt;Open pipeline&lt;/dt&gt;&lt;dd&gt;{empty ? &#39;$0&#39; : performance.pipeline}&lt;/dd&gt;{empty ? &lt;p&gt;No open opportunities&lt;/p&gt; : &lt;svg className=&quot;crm-minimal__kpi-area&quot; viewBox=&quot;0 0 160 28&quot; preserveAspectRatio=&quot;none&quot; role=&quot;img&quot; aria-label=&quot;Open pipeline sample trend across 15 snapshots&quot; onClickCapture={event =&gt; { event.preventDefault(); event.stopPropagation(); }} onMouseLeave={() =&gt; setActiveSnapshot(null)}&gt;
             &lt;defs&gt;&lt;linearGradient id={`${id}-pipeline-fill`} x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0%&quot; stopColor=&quot;currentColor&quot; stopOpacity=&quot;0.25&quot; /&gt;&lt;stop offset=&quot;100%&quot; stopColor=&quot;currentColor&quot; stopOpacity=&quot;0.02&quot; /&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
             &lt;path d={`${curvedLine(snapshotPoints)} L 158,28 L 2,28 Z`} fill={`url(#${id}-pipeline-fill)`} /&gt;
@@ -18326,32 +18590,37 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
               const visible = activeSnapshot !== null &amp;&amp; index &gt;= visibleSnapshotStart &amp;&amp; index &lt; visibleSnapshotStart + 3;
               return &lt;g key={index} onMouseEnter={() =&gt; setActiveSnapshot(index)}&gt;
                 &lt;circle data-snapshot-dot={index} data-visible={visible} cx={point.x} cy={point.y} r=&quot;2&quot; fill=&quot;currentColor&quot; opacity={visible ? 1 : 0} pointerEvents=&quot;none&quot; /&gt;
-                &lt;Tooltip as=&quot;g&quot; content={`Open pipeline: ${performance.pipeline} · Snapshot ${index + 1} of 15 · Trend index: ${PIPELINE_SNAPSHOTS[index]}`} placement=&quot;bottom&quot;&gt;&lt;rect className=&quot;crm-minimal__chart-hit&quot; data-snapshot={index} x={start} y=&quot;0&quot; width={end - start} height=&quot;28&quot; fill=&quot;transparent&quot; focusable=&quot;false&quot; aria-label={`Pipeline snapshot ${index + 1} of 15, trend index ${PIPELINE_SNAPSHOTS[index]}`} /&gt;&lt;/Tooltip&gt;
+                &lt;Tooltip as=&quot;g&quot; content={`Open pipeline: ${performance.pipeline} · Snapshot ${index + 1} of 15 · Trend index: ${PIPELINE_SNAPSHOTS[index]}`} placement=&quot;bottom&quot; followCursor&gt;&lt;rect className=&quot;crm-minimal__chart-hit&quot; data-snapshot={index} x={start} y=&quot;0&quot; width={end - start} height=&quot;28&quot; fill=&quot;transparent&quot; focusable=&quot;false&quot; aria-label={`Pipeline snapshot ${index + 1} of 15, trend index ${PIPELINE_SNAPSHOTS[index]}`} /&gt;&lt;/Tooltip&gt;
               &lt;/g&gt;;
             })}
           &lt;/svg&gt;}&lt;/div&gt;
-          &lt;div&gt;&lt;dt&gt;Deals won&lt;/dt&gt;&lt;dd className={empty ? undefined : &#39;crm-minimal__trend--up&#39;}&gt;{empty ? &#39;0&#39; : performance.deals}&lt;/dd&gt;&lt;p&gt;{empty ? &#39;Your first win starts here&#39; : &lt;&gt;&lt;span className=&quot;crm-minimal__trend crm-minimal__trend--up&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt; Increased {performance.changes[1].replace(&#39;↑ &#39;, &#39;&#39;)}&lt;/span&gt; vs. previous {period}&lt;/&gt;}&lt;/p&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;Deals won&lt;/dt&gt;&lt;dd className={empty ? undefined : &#39;crm-minimal__trend--up&#39;}&gt;{empty ? &#39;0&#39; : performance.deals}&lt;/dd&gt;&lt;p&gt;{empty ? &#39;Your first win starts here&#39; : &lt;&gt;&lt;span className=&quot;crm-minimal__trend crm-minimal__trend--up&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt; {performance.changes[1].replace(&#39;↑ &#39;, &#39;&#39;)}&lt;/span&gt; vs. previous {period}&lt;/&gt;}&lt;/p&gt;&lt;/div&gt;
           &lt;div className=&quot;crm-minimal__conversion-kpi&quot;&gt;&lt;dt&gt;Conversion rate&lt;/dt&gt;&lt;dd className={empty ? undefined : &#39;crm-minimal__trend--up&#39;}&gt;{empty ? &#39;0%&#39; : performance.conversion}&lt;/dd&gt;{!empty &amp;&amp; &lt;&gt;
-            &lt;svg className=&quot;crm-minimal__kpi-columns&quot; viewBox=&quot;0 0 300 30&quot; preserveAspectRatio=&quot;none&quot; role=&quot;img&quot; aria-label=&quot;Conversion rate sample trend across 30 snapshots&quot; onClickCapture={event =&gt; { event.preventDefault(); event.stopPropagation(); }}&gt;
-              {CONVERSION_SNAPSHOTS.map((value, index) =&gt; (
-                &lt;Tooltip as=&quot;g&quot; key={index} content={`Snapshot ${index + 1}: ${value}% conversion · Sample data`} placement=&quot;bottom&quot;&gt;&lt;rect className=&quot;crm-minimal__chart-hit&quot; focusable=&quot;false&quot; aria-label={`Snapshot ${index + 1}: ${value}% conversion`} x={index * 10 + 1} y={30 - value} width=&quot;8&quot; height={value} fill=&quot;currentColor&quot; /&gt;&lt;/Tooltip&gt;
-              ))}
+            &lt;svg className=&quot;crm-minimal__kpi-columns&quot; viewBox=&quot;0 0 300 30&quot; preserveAspectRatio=&quot;none&quot; role=&quot;img&quot; aria-label=&quot;Conversion rate sample trend across 45 snapshots&quot; onClickCapture={event =&gt; { event.preventDefault(); event.stopPropagation(); }} onMouseMove={event =&gt; {
+              const bounds = event.currentTarget.getBoundingClientRect();
+              if (bounds.width &gt; 0) setActiveConversionSnapshot(Math.max(0, Math.min(CONVERSION_SNAPSHOTS.length - 1, Math.floor((event.clientX - bounds.left) / bounds.width * CONVERSION_SNAPSHOTS.length))));
+            }}&gt;
+              &lt;defs&gt;&lt;linearGradient id={`${id}-conversion-fill`} x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0%&quot; stopColor=&quot;var(--ds-icon-primary-cyan-blue)&quot; /&gt;&lt;stop offset=&quot;100%&quot; stopColor=&quot;var(--ds-text-link)&quot; /&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
+              &lt;Tooltip as=&quot;g&quot; content={`Snapshot ${activeConversionSnapshot + 1}: ${CONVERSION_SNAPSHOTS[activeConversionSnapshot]}% conversion · Sample data`} placement=&quot;bottom&quot; followCursor&gt;
+                {/* One continuous hover surface keeps the tooltip mounted between bars. */}
+                &lt;path d=&quot;M 0,0 H 300 V 30 H 0 Z&quot; fill=&quot;transparent&quot; pointerEvents=&quot;all&quot; /&gt;
+                {CONVERSION_SNAPSHOTS.map((value, index) =&gt; (
+                  &lt;rect key={index} className=&quot;crm-minimal__chart-hit&quot; focusable=&quot;false&quot; aria-label={`Snapshot ${index + 1}: ${value}% conversion`} x={index * 300 / CONVERSION_SNAPSHOTS.length + 1} y={30 - value} width={300 / CONVERSION_SNAPSHOTS.length - 2} height={value} fill={`url(#${id}-conversion-fill)`} /&gt;
+                ))}
+              &lt;/Tooltip&gt;
             &lt;/svg&gt;
           &lt;/&gt;}&lt;/div&gt;
         &lt;/dl&gt;
-        &lt;div className=&quot;crm-minimal__goal&quot;&gt;
-          &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2&gt;Revenue goal&lt;/h2&gt;&lt;p&gt;{empty ? &#39;0&#39; : performance.progress}% of {performance.target}&lt;/p&gt;&lt;/div&gt;
-          &lt;div role=&quot;progressbar&quot; aria-label=&quot;Revenue goal&quot; aria-valuemin={0} aria-valuemax={100} aria-valuenow={empty ? 0 : performance.progress} aria-valuetext={`${empty ? &#39;$0&#39; : performance.revenue} of ${performance.target}`}&gt;&lt;ProgressBar value={empty ? 0 : performance.progress} /&gt;&lt;/div&gt;
-        &lt;/div&gt;
       &lt;/section&gt;
-      &lt;div className=&quot;crm-minimal__charts&quot;&gt;
-        {SALES_CHARTS.slice(0, 2).map((sourceChart, index) =&gt; {
+      &lt;div className={`crm-minimal__charts${chartOrder[0] === 1 ? &#39; crm-minimal__charts--donut-first&#39; : &#39;&#39;}`} style={{ order: sections.indexOf(&#39;charts&#39;) + 1 }} data-dashboard-section=&quot;charts&quot;&gt;
+        {chartOrder.map(index =&gt; {
+          const sourceChart = SALES_CHARTS[index];
           const chart = index === 1 ? { ...sourceChart, series: PIPELINE_STAGES } : sourceChart;
-          const max = 125;
           const monthX = (point: number) =&gt; 52 + point * (revenueWidth - 72) / (chart.series.length - 1);
           const total = chart.series.reduce((sum, item) =&gt; sum + item.value, 0);
-          const latest = chart.series[chart.series.length - 1];
-          const previous = chart.series[chart.series.length - 2];
+          const summarySeries = index === 0 ? REVENUE_LINES[0].series : chart.series;
+          const latest = summarySeries[summarySeries.length - 1];
+          const previous = summarySeries[summarySeries.length - 2];
           const change = latest.value - previous.value;
           const direction = change &gt;= 0 ? &#39;up&#39; : &#39;down&#39;;
           let offset = 0;
@@ -18359,25 +18628,27 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
             &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-chart-${index}`}&gt;{chart.title}&lt;/h2&gt;&lt;/div&gt;
             {empty ? &lt;p className=&quot;crm-minimal__empty&quot;&gt;{index === 0 ? &#39;Close your first deal to see revenue trends.&#39; : &#39;Add opportunities to see your pipeline by stage.&#39;}&lt;/p&gt; : &lt;&gt;
               {chart.kind === &#39;line&#39; ? &lt;&gt;
-                &lt;div className=&quot;crm-minimal__chart-summary&quot;&gt;&lt;strong className={`crm-minimal__trend--${direction}`}&gt;{latest.display}&lt;/strong&gt;&lt;p&gt;&lt;span className={`crm-minimal__trend crm-minimal__trend--${direction}`}&gt;&lt;span aria-hidden=&quot;true&quot;&gt;{change &gt;= 0 ? &#39;↗&#39; : &#39;↘&#39;}&lt;/span&gt; {change &gt;= 0 ? &#39;Increased&#39; : &#39;Decreased&#39;} {Math.abs(change / previous.value * 100).toFixed(1)}% · {Math.abs(change * 1000).toLocaleString(&#39;en-US&#39;, { style: &#39;currency&#39;, currency: &#39;USD&#39;, maximumFractionDigits: 0 })}&lt;/span&gt; vs. {previous.label}&lt;/p&gt;&lt;/div&gt;
-                &lt;svg ref={revenueRef} className=&quot;crm-minimal__line&quot; viewBox={`0 0 ${revenueWidth} 180`} role=&quot;img&quot; aria-label={`${chart.title}. ${REVENUE_LINES.map(line =&gt; `${line.label}: ${line.series.map(item =&gt; `${item.label}: ${item.display}`).join(&#39;; &#39;)}`).join(&#39;. &#39;)}`}&gt;
-                  {Array.from({ length: max / 25 + 1 }, (_, tick) =&gt; tick * 25).map(value =&gt; {
-                    const y = 140 - value / max * 110;
+                &lt;div className=&quot;crm-minimal__chart-summary&quot;&gt;&lt;strong className={`crm-minimal__trend--${direction}`}&gt;{latest.display}&lt;/strong&gt;&lt;p&gt;&lt;span className={`crm-minimal__trend crm-minimal__trend--${direction}`}&gt;&lt;span aria-hidden=&quot;true&quot;&gt;{change &gt;= 0 ? &#39;↗&#39; : &#39;↘&#39;}&lt;/span&gt; {Math.abs(change / previous.value * 100).toFixed(1)}% · {Math.abs(change * 1000).toLocaleString(&#39;en-US&#39;, { style: &#39;currency&#39;, currency: &#39;USD&#39;, maximumFractionDigits: 0 })}&lt;/span&gt; vs. {previous.label}&lt;/p&gt;&lt;/div&gt;
+                &lt;svg ref={revenueRef} className=&quot;crm-minimal__line&quot; viewBox={`0 20 ${revenueWidth} ${Math.max(180, revenueHeight) - 20}`} preserveAspectRatio=&quot;xMidYMin meet&quot; role=&quot;img&quot; aria-label={`${chart.title}. ${REVENUE_LINES.map(line =&gt; `${line.label}: ${line.series.map(item =&gt; `${item.label}: ${item.display}`).join(&#39;; &#39;)}`).join(&#39;. &#39;)}`}&gt;
+                  {[0, 50, 100, 150].map(value =&gt; {
+                    const y = revenueY(value);
                     return &lt;g key={value}&gt;
                       &lt;line x1=&quot;52&quot; x2={revenueWidth - 20} y1={y} y2={y} className=&quot;crm-minimal__gridline&quot; /&gt;
-                      &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;44&quot; y={y + 4} textAnchor=&quot;end&quot;&gt;${value}K&lt;/text&gt;
+                      &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;44&quot; y={y + 4} textAnchor=&quot;end&quot;&gt;{value}k&lt;/text&gt;
                     &lt;/g&gt;;
                   })}
-                  &lt;line x1=&quot;52&quot; x2=&quot;52&quot; y1=&quot;30&quot; y2=&quot;140&quot; className=&quot;crm-minimal__y-axis&quot; /&gt;
+                  &lt;line x1=&quot;52&quot; x2=&quot;52&quot; y1=&quot;30&quot; y2={revenueBottom} className=&quot;crm-minimal__y-axis&quot; /&gt;
                   {REVENUE_LINES.map(line =&gt; &lt;g key={line.label} className={`crm-minimal__revenue--${line.color}`} data-revenue-series={line.label}&gt;
-                    &lt;path d={curvedLine(line.series.map((item, point) =&gt; ({ x: monthX(point), y: 140 - item.value / max * 110 })))} fill=&quot;none&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;2&quot; strokeLinejoin=&quot;round&quot; /&gt;
-                    {line.series.map((item, point) =&gt; &lt;Tooltip as=&quot;g&quot; key={item.label} content={`${line.label} · ${item.label}: ${item.display}`} placement=&quot;bottom&quot;&gt;&lt;circle className=&quot;crm-minimal__chart-hit&quot; tabIndex={0} aria-label={`${line.label} · ${item.label}: ${item.display}`} data-month={item.label} cx={monthX(point)} cy={140 - item.value / max * 110} r=&quot;3&quot; fill=&quot;currentColor&quot; stroke=&quot;transparent&quot; strokeWidth=&quot;8&quot; /&gt;&lt;/Tooltip&gt;)}
+                    &lt;defs&gt;&lt;linearGradient id={`${id}-revenue-fill-${line.color}`} x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0%&quot; stopColor=&quot;currentColor&quot; stopOpacity=&quot;0.25&quot; /&gt;&lt;stop offset=&quot;100%&quot; stopColor=&quot;currentColor&quot; stopOpacity=&quot;0.02&quot; /&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
+                    &lt;path d={`${revenueCurve(line.series.map((item, point) =&gt; ({ x: monthX(point), y: revenueY(item.value) })))} L ${monthX(line.series.length - 1)},${revenueBottom} L ${monthX(0)},${revenueBottom} Z`} fill={`url(#${id}-revenue-fill-${line.color})`} pointerEvents=&quot;none&quot; /&gt;
+                    &lt;path d={revenueCurve(line.series.map((item, point) =&gt; ({ x: monthX(point), y: revenueY(item.value) })))} fill=&quot;none&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;2&quot; strokeLinejoin=&quot;round&quot; /&gt;
+                    {line.series.map((item, point) =&gt; &lt;Tooltip as=&quot;g&quot; key={item.label} content={`${line.label} · ${item.label}: ${item.display}`} placement=&quot;bottom&quot;&gt;&lt;circle className=&quot;crm-minimal__chart-hit&quot; tabIndex={0} aria-label={`${line.label} · ${item.label}: ${item.display}`} data-month={item.label} cx={monthX(point)} cy={revenueY(item.value)} r=&quot;3&quot; fill=&quot;currentColor&quot; stroke=&quot;transparent&quot; strokeWidth=&quot;8&quot; /&gt;&lt;/Tooltip&gt;)}
                   &lt;/g&gt;)}
-                  {chart.series.map((item, point) =&gt; &lt;text className=&quot;crm-minimal__line-month&quot; key={item.label} x={monthX(point)} y=&quot;166&quot; textAnchor=&quot;middle&quot;&gt;{item.label.slice(0, 3)}&lt;/text&gt;)}
+                  {chart.series.map((item, point) =&gt; &lt;text className=&quot;crm-minimal__line-month&quot; key={item.label} x={monthX(point)} y={revenueBottom + 26} textAnchor=&quot;middle&quot;&gt;{item.label.slice(0, 3)}&lt;/text&gt;)}
                 &lt;/svg&gt;
                 &lt;ul className=&quot;crm-minimal__line-legend&quot; aria-label=&quot;Revenue series&quot;&gt;{REVENUE_LINES.map(line =&gt; &lt;li key={line.label}&gt;&lt;span className={`crm-minimal__revenue--${line.color}`} aria-hidden=&quot;true&quot; /&gt;{line.label}&lt;/li&gt;)}&lt;/ul&gt;
               &lt;/&gt; : &lt;div className=&quot;crm-minimal__donut-layout&quot;&gt;
-                &lt;svg className=&quot;crm-minimal__donut&quot; viewBox=&quot;0 0 120 120&quot; role=&quot;img&quot; aria-label={`${chart.title}. ${chart.series.map(item =&gt; `${item.label}: ${item.display}`).join(&#39;; &#39;)}`}&gt;
+                &lt;svg className=&quot;crm-minimal__donut&quot; viewBox=&quot;8 8 104 104&quot; role=&quot;img&quot; aria-label={`${chart.title}. ${chart.series.map(item =&gt; `${item.label}: ${item.display}`).join(&#39;; &#39;)}`}&gt;
                   {chart.series.map((item, segment) =&gt; {
                     const start = offset;
                     const share = item.value / total * 100;
@@ -18389,8 +18660,7 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
                     const angle = start / total * Math.PI * 2 - Math.PI / 2;
                     return &lt;line key={item.label} className=&quot;crm-minimal__donut-separator&quot; x1={60 + 37 * Math.cos(angle)} y1={60 + 37 * Math.sin(angle)} x2={60 + 51 * Math.cos(angle)} y2={60 + 51 * Math.sin(angle)} /&gt;;
                   })}
-                  &lt;text x=&quot;60&quot; y=&quot;58&quot; textAnchor=&quot;middle&quot; className=&quot;crm-minimal__donut-total&quot;&gt;${total.toFixed(1)}K&lt;/text&gt;
-                  &lt;text x=&quot;60&quot; y=&quot;72&quot; textAnchor=&quot;middle&quot; className=&quot;crm-minimal__donut-caption&quot;&gt;Pipeline&lt;/text&gt;
+                  &lt;text x=&quot;60&quot; y=&quot;60&quot; textAnchor=&quot;middle&quot; dominantBaseline=&quot;central&quot; className=&quot;crm-minimal__donut-total&quot;&gt;${total.toFixed(1)}K&lt;/text&gt;
                 &lt;/svg&gt;
                 &lt;ul className=&quot;crm-minimal__legend&quot;&gt;{chart.series.map((item, segment) =&gt; &lt;li key={item.label}&gt;&lt;span className={`crm-minimal__segment--${segment}`} aria-hidden=&quot;true&quot;&gt;●&lt;/span&gt;&lt;div&gt;{item.label}&lt;strong&gt;{item.display} &lt;span className=&quot;crm-minimal__caption&quot;&gt;· {(item.value / total * 100).toFixed(1)}%&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;&lt;/li&gt;)}&lt;/ul&gt;
               &lt;/div&gt;}
@@ -18398,7 +18668,7 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
           &lt;/section&gt;;
         })}
       &lt;/div&gt;
-      &lt;div className=&quot;crm-minimal__charts crm-minimal__charts--company&quot;&gt;
+      &lt;div className=&quot;crm-minimal__charts crm-minimal__charts--company&quot; style={{ order: sections.indexOf(&#39;company&#39;) + 1 }} data-dashboard-section=&quot;company&quot;&gt;
         &lt;section className=&quot;crm-minimal__chart crm-minimal__company-target&quot; aria-labelledby={`${id}-company-title`}&gt;
           &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-company-title`}&gt;Company Target&lt;/h2&gt;&lt;/div&gt;
           {empty ? &lt;p className=&quot;crm-minimal__empty&quot;&gt;Set a company target to track achievement.&lt;/p&gt; : &lt;&gt;
@@ -18407,15 +18677,14 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
               &lt;span className=&quot;crm-minimal__target-divider&quot; aria-hidden=&quot;true&quot;&gt;|&lt;/span&gt;
               &lt;span&gt;Target: &lt;strong&gt;{COMPANY_TARGET.target}&lt;/strong&gt;&lt;/span&gt;
             &lt;/div&gt;
-            &lt;svg className=&quot;crm-minimal__target&quot; viewBox=&quot;0 0 640 180&quot; role=&quot;img&quot; aria-label={`Company Target. Entire Org: ${COMPANY_TARGET.achieved} records achieved. Target: ${COMPANY_TARGET.target}.`}&gt;
-              {[0, 1000, 2000, 3000, 4000].map(value =&gt; &lt;g key={value}&gt;&lt;line className=&quot;crm-minimal__gridline&quot; x1={100 + value / COMPANY_TARGET.axisMax * 500} x2={100 + value / COMPANY_TARGET.axisMax * 500} y1=&quot;30&quot; y2=&quot;120&quot; /&gt;&lt;text className=&quot;crm-minimal__svg-label&quot; x={100 + value / COMPANY_TARGET.axisMax * 500} y=&quot;140&quot; textAnchor=&quot;middle&quot;&gt;{value}&lt;/text&gt;&lt;/g&gt;)}
-              &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;88&quot; y=&quot;79&quot; textAnchor=&quot;end&quot;&gt;Entire Org&lt;/text&gt;
+            &lt;svg className=&quot;crm-minimal__target&quot; viewBox=&quot;0 0 640 180&quot; role=&quot;img&quot; aria-label={`Company Target. All branches: ${COMPANY_TARGET.achieved} shipments achieved. Target: ${COMPANY_TARGET.target}.`}&gt;
+              {Array.from({ length: 5 }, (_, tick) =&gt; tick * COMPANY_TARGET.axisMax / 4).map(value =&gt; &lt;g key={value}&gt;&lt;line className=&quot;crm-minimal__gridline&quot; x1={100 + value / COMPANY_TARGET.axisMax * 500} x2={100 + value / COMPANY_TARGET.axisMax * 500} y1=&quot;30&quot; y2=&quot;120&quot; /&gt;&lt;text className=&quot;crm-minimal__svg-label&quot; x={100 + value / COMPANY_TARGET.axisMax * 500} y=&quot;140&quot; textAnchor=&quot;middle&quot;&gt;{value}&lt;/text&gt;&lt;/g&gt;)}
+              &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;88&quot; y=&quot;79&quot; textAnchor=&quot;end&quot;&gt;All branches&lt;/text&gt;
               &lt;rect className=&quot;crm-minimal__target-track&quot; x=&quot;100&quot; y=&quot;40&quot; width=&quot;500&quot; height=&quot;70&quot; /&gt;
-              &lt;Tooltip as=&quot;g&quot; content={`Entire Org: ${COMPANY_TARGET.achieved.toLocaleString(&#39;en-US&#39;)} records · Target: ${COMPANY_TARGET.target}`} placement=&quot;bottom&quot;&gt;&lt;rect tabIndex={0} aria-label={`Achieved: ${COMPANY_TARGET.achieved} records. Target: ${COMPANY_TARGET.target}`} className=&quot;crm-minimal__target-fill crm-minimal__chart-hit&quot; x=&quot;100&quot; y=&quot;49&quot; width={COMPANY_TARGET.achieved / COMPANY_TARGET.axisMax * 500} height=&quot;52&quot; /&gt;&lt;/Tooltip&gt;
+              &lt;Tooltip as=&quot;g&quot; content={`All branches: ${COMPANY_TARGET.achieved.toLocaleString(&#39;en-US&#39;)} shipments · Target: ${COMPANY_TARGET.target}`} placement=&quot;bottom&quot;&gt;&lt;rect tabIndex={0} aria-label={`Achieved: ${COMPANY_TARGET.achieved} shipments. Target: ${COMPANY_TARGET.target}`} className=&quot;crm-minimal__target-fill crm-minimal__chart-hit&quot; x=&quot;100&quot; y=&quot;49&quot; width={COMPANY_TARGET.achieved / COMPANY_TARGET.axisMax * 500} height=&quot;52&quot; /&gt;&lt;/Tooltip&gt;
               &lt;line className=&quot;crm-minimal__target-marker&quot; x1={100 + COMPANY_TARGET.target / COMPANY_TARGET.axisMax * 500} x2={100 + COMPANY_TARGET.target / COMPANY_TARGET.axisMax * 500} y1=&quot;40&quot; y2=&quot;110&quot; /&gt;
-              &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;120&quot; y=&quot;24&quot;&gt;Target: {COMPANY_TARGET.target}&lt;/text&gt;
               &lt;text className=&quot;crm-minimal__svg-value&quot; x={100 + COMPANY_TARGET.achieved / COMPANY_TARGET.axisMax * 250} y=&quot;80&quot; textAnchor=&quot;middle&quot;&gt;{COMPANY_TARGET.achieved}&lt;/text&gt;
-              &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;350&quot; y=&quot;170&quot; textAnchor=&quot;middle&quot;&gt;Record Count&lt;/text&gt;
+              &lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;350&quot; y=&quot;170&quot; textAnchor=&quot;middle&quot;&gt;Shipment Count&lt;/text&gt;
             &lt;/svg&gt;
             &lt;div className=&quot;crm-minimal__target-legend&quot;&gt;&lt;span aria-hidden=&quot;true&quot; /&gt;Achieved&lt;/div&gt;
           &lt;/&gt;}
@@ -18436,16 +18705,18 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
           &lt;Modal isOpen={selectedAppointment !== null} type=&quot;alert&quot; variant=&quot;info&quot; title={selectedAppointment?.title ?? &#39;Appointment details&#39;} description={selectedAppointment ? `${selectedAppointment.account} · ${selectedAppointment.contact} · ${selectedAppointment.time}–${selectedAppointment.end} · ${selectedAppointment.type}` : &#39;&#39;} confirmLabel=&quot;Close&quot; onClose={() =&gt; setSelectedAppointment(null)} /&gt;
         &lt;/section&gt;
       &lt;/div&gt;
-      &lt;div className=&quot;crm-minimal__industry-builder&quot;&gt;
+      &lt;div className=&quot;crm-minimal__industry-builder&quot; style={{ order: sections.indexOf(&#39;industry&#39;) + 1 }} data-dashboard-section=&quot;industry&quot;&gt;
       &lt;section className=&quot;crm-minimal__chart crm-minimal__industries&quot; aria-labelledby={`${id}-industries-title`}&gt;
         &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-industries-title`}&gt;Accounts by Industry&lt;/h2&gt;&lt;/div&gt;
         {empty ? &lt;p className=&quot;crm-minimal__empty&quot;&gt;Add accounts to see your industry breakdown.&lt;/p&gt; : &lt;div className=&quot;crm-minimal__industry-scroll&quot; tabIndex={0} role=&quot;group&quot; aria-label=&quot;Industry chart, scroll horizontally on small screens&quot;&gt;
           &lt;svg ref={industryRef} className=&quot;crm-minimal__columns&quot; viewBox={`0 0 ${industryWidth} 300`} role=&quot;img&quot; aria-label={`Accounts by Industry. ${ACCOUNTS_BY_INDUSTRY.map(item =&gt; `${item.industry}: ${item.count}`).join(&#39;; &#39;)}. Total: ${ACCOUNTS_BY_INDUSTRY.reduce((total, item) =&gt; total + item.count, 0)} accounts.`}&gt;
-            {[0, 200, 400, 600, 800].map(value =&gt; &lt;g key={value}&gt;&lt;line className=&quot;crm-minimal__gridline&quot; x1=&quot;50&quot; x2={industryWidth - 10} y1={240 - value / 800 * 208} y2={240 - value / 800 * 208} /&gt;&lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;38&quot; y={245 - value / 800 * 208} textAnchor=&quot;end&quot;&gt;{value}&lt;/text&gt;&lt;/g&gt;)}
+            {Array.from({ length: 5 }, (_, tick) =&gt; tick * industryMax / 4).map(value =&gt; &lt;g key={value}&gt;&lt;line className=&quot;crm-minimal__gridline&quot; x1=&quot;50&quot; x2={industryWidth - 10} y1={240 - value / industryMax * 208} y2={240 - value / industryMax * 208} /&gt;&lt;text className=&quot;crm-minimal__svg-label&quot; x=&quot;38&quot; y={245 - value / industryMax * 208} textAnchor=&quot;end&quot;&gt;{value}&lt;/text&gt;&lt;/g&gt;)}
             {ACCOUNTS_BY_INDUSTRY.map((item, index) =&gt; &lt;g key={item.industry}&gt;
-              &lt;Tooltip as=&quot;g&quot; content={`${item.industry}: ${item.count} accounts`} placement=&quot;bottom&quot;&gt;&lt;rect tabIndex={0} aria-label={`${item.industry}: ${item.count} accounts`} data-industry={item.industry} className=&quot;crm-minimal__column crm-minimal__chart-hit&quot; x={50 + index * industryStep + industryStep * 0.23} y={240 - item.count / 800 * 208} width={industryStep * 0.54} height={item.count / 800 * 208} /&gt;&lt;/Tooltip&gt;
-              &lt;text className=&quot;crm-minimal__svg-value&quot; x={50 + (index + 0.5) * industryStep} y={230 - item.count / 800 * 208} textAnchor=&quot;middle&quot;&gt;{item.count}&lt;/text&gt;
-              &lt;text className=&quot;crm-minimal__svg-label&quot; x={50 + (index + 0.5) * industryStep} y=&quot;266&quot; textAnchor=&quot;middle&quot;&gt;{item.industry}&lt;/text&gt;
+              &lt;Tooltip as=&quot;g&quot; content={`${item.industry}: ${item.count} accounts`} placement=&quot;bottom&quot;&gt;&lt;rect tabIndex={0} aria-label={`${item.industry}: ${item.count} accounts`} data-industry={item.industry} className=&quot;crm-minimal__column crm-minimal__chart-hit&quot; x={50 + index * industryStep + industryStep * 0.23} y={240 - item.count / industryMax * 208} width={industryStep * 0.54} height={item.count / industryMax * 208} /&gt;&lt;/Tooltip&gt;
+              &lt;text className=&quot;crm-minimal__svg-value&quot; x={50 + (index + 0.5) * industryStep} y={230 - item.count / industryMax * 208} textAnchor=&quot;middle&quot;&gt;{item.count}&lt;/text&gt;
+              &lt;foreignObject x={50 + index * industryStep + 2.5} y=&quot;250&quot; width={industryStep - 5} height=&quot;50&quot;&gt;
+                &lt;div className=&quot;crm-minimal__industry-label&quot;&gt;{item.industry}&lt;/div&gt;
+              &lt;/foreignObject&gt;
             &lt;/g&gt;)}
           &lt;/svg&gt;
         &lt;/div&gt;}
@@ -18453,34 +18724,45 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
       &lt;section className=&quot;crm-minimal__builder&quot; aria-labelledby={`${id}-builder-title`}&gt;
         &lt;div className=&quot;crm-minimal__builder-intro&quot;&gt;
           &lt;span className=&quot;crm-minimal__builder-mark&quot;&gt;&lt;Icon name=&quot;WmsZia&quot; size={24} /&gt;&lt;/span&gt;
-          &lt;h2 id={`${id}-builder-title`}&gt;Build something &lt;span&gt;for your next move.&lt;/span&gt;&lt;/h2&gt;
-          &lt;p&gt;What would you like to build today?&lt;/p&gt;
+          &lt;h2 id={`${id}-builder-title`}&gt;Plan &lt;span&gt;Your Next Shipment.&lt;/span&gt;&lt;/h2&gt;
+          &lt;p&gt;How can we help your cargo move today?&lt;/p&gt;
         &lt;/div&gt;
-        &lt;form className=&quot;crm-minimal__builder-form&quot; onSubmit={event =&gt; { event.preventDefault(); if (builderPrompt.trim()) setBuilderPreview(builderPrompt.trim()); }}&gt;
+        &lt;form className=&quot;crm-minimal__builder-form&quot; onSubmit={event =&gt; { event.preventDefault(); if (builderPrompt.trim()) { setBuilderDiscuss(false); setBuilderPreview(builderPrompt.trim()); } }}&gt;
           &lt;span className=&quot;crm-minimal__builder-sparkle&quot; aria-hidden=&quot;true&quot; /&gt;
-          &lt;div ref={builderInput}&gt;&lt;Textarea aria-label=&quot;Describe your idea&quot; placeholder=&quot;Describe your idea…&quot; width=&quot;100%&quot; layout=&quot;vertical&quot; minHeight={48} value={builderPrompt} maxLength={2000} onChange={(event: React.ChangeEvent&lt;HTMLTextAreaElement&gt;) =&gt; setBuilderPrompt(event.target.value)} /&gt;&lt;/div&gt;
+          &lt;div ref={builderInput}&gt;&lt;Textarea aria-label=&quot;Describe your shipment plan&quot; placeholder=&quot;Ask about freight quotes, trade lanes, or shipment plans…&quot; width=&quot;100%&quot; layout=&quot;vertical&quot; minHeight={48} value={builderPrompt} maxLength={2000} onChange={(event: React.ChangeEvent&lt;HTMLTextAreaElement&gt;) =&gt; setBuilderPrompt(event.target.value)} /&gt;&lt;/div&gt;
           &lt;div className=&quot;crm-minimal__builder-toolbar&quot;&gt;
-            &lt;div className=&quot;crm-minimal__builder-tools&quot; role=&quot;group&quot; aria-label=&quot;Idea tools&quot;&gt;
+            &lt;div className=&quot;crm-minimal__builder-tools&quot; role=&quot;group&quot; aria-label=&quot;Shipment planning tools&quot;&gt;
               &lt;Button type=&quot;button&quot; variant=&quot;link-default&quot; disabled aria-label=&quot;Attach file (unavailable in local demo)&quot; title=&quot;Attachments are unavailable in this local demo&quot;&gt;&lt;Icon name=&quot;RtUnlink&quot; size={18} /&gt;&lt;/Button&gt;
-              &lt;Button type=&quot;button&quot; variant=&quot;link-default&quot; aria-label=&quot;Edit idea&quot; title=&quot;Edit idea&quot; onClick={() =&gt; builderInput.current?.querySelector(&#39;textarea&#39;)?.focus()}&gt;&lt;Icon name=&quot;Edit&quot; size={18} /&gt;&lt;/Button&gt;
+              &lt;Button type=&quot;button&quot; variant=&quot;link-default&quot; aria-label=&quot;Edit shipment plan&quot; title=&quot;Edit shipment plan&quot; onClick={() =&gt; builderInput.current?.querySelector(&#39;textarea&#39;)?.focus()}&gt;&lt;Icon name=&quot;Edit&quot; size={18} /&gt;&lt;/Button&gt;
             &lt;/div&gt;
             &lt;div className=&quot;crm-minimal__builder-tools&quot; role=&quot;group&quot; aria-label=&quot;Preview controls&quot;&gt;
               &lt;Button type=&quot;button&quot; variant=&quot;link-default&quot; disabled aria-label=&quot;Voice input (unavailable in local demo)&quot; title=&quot;Voice input is unavailable in this local demo&quot;&gt;&lt;Icon name=&quot;WmsAnnouncements&quot; size={20} /&gt;&lt;/Button&gt;
-              &lt;span className=&quot;crm-minimal__builder-send&quot;&gt;&lt;Button type=&quot;submit&quot; size=&quot;sm&quot; aria-label=&quot;Preview idea&quot; title=&quot;Preview idea · Local demo&quot; disabled={!builderPrompt.trim()}&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↑&lt;/span&gt;&lt;/Button&gt;&lt;/span&gt;
+              &lt;div className=&quot;crm-minimal__builder-send-group&quot;&gt;
+                &lt;div className=&quot;crm-minimal__builder-send-extras&quot;&gt;
+                  &lt;Button type=&quot;button&quot; variant=&quot;link-default&quot; aria-label=&quot;Discuss shipment plan first&quot; title=&quot;Let&#39;s discuss first · Local demo&quot; disabled={!builderPrompt.trim()} onClick={() =&gt; { setBuilderDiscuss(true); setBuilderPreview(builderPrompt.trim()); }}&gt;&lt;Icon name=&quot;WmsChat&quot; size={16} /&gt;&lt;/Button&gt;
+                &lt;/div&gt;
+                &lt;span className=&quot;crm-minimal__builder-send&quot;&gt;&lt;Button type=&quot;submit&quot; size=&quot;sm&quot; aria-label=&quot;Preview shipment plan&quot; title=&quot;Preview shipment plan · Local demo&quot; disabled={!builderPrompt.trim()}&gt;
+                  &lt;svg viewBox=&quot;0 0 26 26&quot; width=&quot;26&quot; height=&quot;26&quot; fill=&quot;none&quot; aria-hidden=&quot;true&quot;&gt;
+                    &lt;rect width=&quot;26&quot; height=&quot;26&quot; rx=&quot;13&quot; fill={`url(#${id}-builder-send-gradient)`} /&gt;
+                    &lt;path d=&quot;M9.5 11.69L13 8.19L16.5 11.69M13 8.19V17.81&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;1.5&quot; strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; /&gt;
+                    &lt;defs&gt;&lt;linearGradient id={`${id}-builder-send-gradient`} x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;1&quot;&gt;&lt;stop stopColor=&quot;var(--ds-icon-primary-purple)&quot; /&gt;&lt;stop offset=&quot;1&quot; stopColor=&quot;var(--ds-text-link)&quot; /&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
+                  &lt;/svg&gt;
+                &lt;/Button&gt;&lt;/span&gt;
+              &lt;/div&gt;
             &lt;/div&gt;
           &lt;/div&gt;
         &lt;/form&gt;
-        {builderPreview !== null &amp;&amp; &lt;Modal isOpen type=&quot;alert&quot; variant=&quot;info&quot; title=&quot;Idea preview · Local demo&quot; description={`${builderPreview}\n\nThis preview only captures your idea. No application is generated and no data is sent.`} confirmLabel=&quot;Back to idea&quot; onSave={() =&gt; { setBuilderPreview(null); builderInput.current?.querySelector(&#39;textarea&#39;)?.focus(); }} onClose={() =&gt; { setBuilderPreview(null); builderInput.current?.querySelector(&#39;textarea&#39;)?.focus(); }} /&gt;}
+        {builderPreview !== null &amp;&amp; &lt;Modal isOpen type=&quot;alert&quot; variant=&quot;info&quot; title={builderDiscuss ? &#39;Discuss shipment plan · Local demo&#39; : &#39;Shipment plan preview · Local demo&#39;} description={`${builderPreview}\n\n${builderDiscuss ? &#39;Consider the intended users, required data, and desired outcome before building. &#39; : &#39;&#39;}This preview only captures your shipment plan. No bookings are created and no data is sent.`} confirmLabel=&quot;Back to shipment plan&quot; onSave={() =&gt; { setBuilderPreview(null); builderInput.current?.querySelector(&#39;textarea&#39;)?.focus(); }} onClose={() =&gt; { setBuilderPreview(null); builderInput.current?.querySelector(&#39;textarea&#39;)?.focus(); }} /&gt;}
       &lt;/section&gt;
       &lt;/div&gt;
-      &lt;div className=&quot;crm-minimal__grid&quot;&gt;
+      &lt;div className=&quot;crm-minimal__grid&quot; style={{ order: sections.indexOf(&#39;work&#39;) + 1 }} data-dashboard-section=&quot;work&quot;&gt;
         &lt;section id={`${id}-deals`} aria-labelledby={`${id}-deals-title`} className=&quot;crm-minimal__deals&quot;&gt;
           &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-deals-title`}&gt;Open deals&lt;/h2&gt;&lt;/div&gt;
-          &lt;div className=&quot;crm-minimal__table&quot;&gt;&lt;SetupTable columns={COLUMNS} rows={rows} selectable={false} width=&quot;100%&quot; emptyMessage=&quot;No open deals yet. Your opportunities will appear here.&quot; /&gt;&lt;/div&gt;
+          &lt;div className=&quot;crm-minimal__table&quot;&gt;&lt;SetupTable columns={COLUMNS} rows={rows} selectable={false} width=&quot;100%&quot; maxHeight=&quot;var(--crm-minimal-list-height)&quot; emptyMessage=&quot;No open deals yet. Your opportunities will appear here.&quot; /&gt;&lt;/div&gt;
         &lt;/section&gt;
         &lt;aside className=&quot;crm-minimal__daily&quot; aria-label=&quot;Daily workspace&quot;&gt;
           &lt;section id={`${id}-today`} aria-labelledby={`${id}-tasks-title`}&gt;
-            &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-tasks-title`}&gt;Today&lt;/h2&gt;&lt;/div&gt;
+            &lt;div className=&quot;crm-minimal__section-heading&quot;&gt;&lt;h2 id={`${id}-tasks-title`}&gt;Today and OverDue Tasks&lt;/h2&gt;&lt;/div&gt;
             &lt;ul className=&quot;crm-minimal__list crm-minimal__today-list&quot; tabIndex={tasks.length ? 0 : undefined} aria-label=&quot;Today&#39;s tasks&quot;&gt;{tasks.map(task =&gt; &lt;li key={task.id} data-completed={task.completed || undefined}&gt;&lt;Checkbox label={task.title} checked={task.completed} onChange={() =&gt; setTasks(current =&gt; current.map(item =&gt; item.id === task.id ? { ...item, completed: !item.completed } : item))} /&gt;&lt;/li&gt;)}&lt;/ul&gt;
             {empty &amp;&amp; &lt;p className=&quot;crm-minimal__empty&quot; role=&quot;status&quot;&gt;Nothing scheduled. Enjoy a fresh start.&lt;/p&gt;}
           &lt;/section&gt;
@@ -18490,55 +18772,81 @@ function MinimalPage({ empty = false }: { empty?: boolean }) {
   &lt;/div&gt;&lt;/CrmHomepage&gt;;
 }
 
-export const Default: Story = {
+export const Default: Story = { render: () =&gt; &lt;MinimalPage /&gt; };
+
+export const InteractionChecks: Story = {
+  tags: [&#39;!dev&#39;, &#39;!autodocs&#39;],
   render: () =&gt; &lt;MinimalPage /&gt;,
   play: async ({ canvasElement }) =&gt; {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Welcome Patricia Boyle&#39; })).toBeVisible();
-    const builder = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Build something for your next move.&#39; }));
+    const builder = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Plan Your Next Shipment.&#39; }));
     await expect(builder.queryByRole(&#39;heading&#39;, { name: &#39;Suggestions&#39; })).not.toBeInTheDocument();
     await expect(builder.queryByRole(&#39;list&#39;)).not.toBeInTheDocument();
-    const prompt = builder.getByRole(&#39;textbox&#39;, { name: &#39;Describe your idea&#39; });
+    const prompt = builder.getByRole(&#39;textbox&#39;, { name: &#39;Describe your shipment plan&#39; });
     await expect(builder.getByRole(&#39;button&#39;, { name: &#39;Attach file (unavailable in local demo)&#39; })).toBeDisabled();
     await expect(builder.getByRole(&#39;button&#39;, { name: &#39;Voice input (unavailable in local demo)&#39; })).toBeDisabled();
-    await userEvent.click(builder.getByRole(&#39;button&#39;, { name: &#39;Edit idea&#39; }));
+    await userEvent.click(builder.getByRole(&#39;button&#39;, { name: &#39;Edit shipment plan&#39; }));
     await expect(prompt).toHaveFocus();
-    await expect(builder.getByRole(&#39;button&#39;, { name: &#39;Preview idea&#39; })).toBeDisabled();
-    await userEvent.type(prompt, &#39;Create a sales forecast dashboard.&#39;);
-    await userEvent.click(builder.getByRole(&#39;button&#39;, { name: &#39;Preview idea&#39; }));
-    const preview = within(canvasElement.ownerDocument.body).getByRole(&#39;alertdialog&#39;, { name: &#39;Idea preview · Local demo&#39; });
-    await expect(preview).toHaveTextContent(&#39;No application is generated&#39;);
-    await userEvent.click(within(preview).getByRole(&#39;button&#39;, { name: &#39;Back to idea&#39; }));
-    await expect(prompt).toHaveValue(&#39;Create a sales forecast dashboard.&#39;);
+    await expect(builder.getByRole(&#39;button&#39;, { name: &#39;Preview shipment plan&#39; })).toBeDisabled();
+    await userEvent.type(prompt, &#39;Plan weekly ocean freight capacity for Singapore to Rotterdam.&#39;);
+    await userEvent.click(builder.getByRole(&#39;button&#39;, { name: &#39;Preview shipment plan&#39; }));
+    const preview = within(canvasElement.ownerDocument.body).getByRole(&#39;alertdialog&#39;, { name: &#39;Shipment plan preview · Local demo&#39; });
+    await expect(preview).toHaveTextContent(&#39;No bookings are created&#39;);
+    await userEvent.click(within(preview).getByRole(&#39;button&#39;, { name: &#39;Back to shipment plan&#39; }));
+    await expect(prompt).toHaveValue(&#39;Plan weekly ocean freight capacity for Singapore to Rotterdam.&#39;);
+    await userEvent.hover(builder.getByRole(&#39;button&#39;, { name: &#39;Preview shipment plan&#39; }));
+    await userEvent.click(builder.getByRole(&#39;button&#39;, { name: &#39;Discuss shipment plan first&#39; }));
+    const discussion = within(canvasElement.ownerDocument.body).getByRole(&#39;alertdialog&#39;, { name: &#39;Discuss shipment plan · Local demo&#39; });
+    await expect(discussion).toHaveTextContent(&#39;Consider the intended users&#39;);
+    await userEvent.click(within(discussion).getByRole(&#39;button&#39;, { name: &#39;Back to shipment plan&#39; }));
+    await expect(prompt).toHaveFocus();
     await userEvent.clear(prompt);
+    await expect(builder.getByRole(&#39;button&#39;, { name: &#39;Preview shipment plan&#39; })).toBeDisabled();
+    (prompt as HTMLTextAreaElement).blur();
     await expect(canvas.queryByText(&#39;Friday, June 19, 2026&#39;)).not.toBeInTheDocument();
     await expect(canvas.queryByText(&#39;A little clarity for your next move.&#39;)).not.toBeInTheDocument();
     await expect(canvas.queryByText(&#39;Reporting period&#39;)).not.toBeInTheDocument();
     await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;All Territories&#39; })).not.toBeInTheDocument();
     const overview = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Sales overview&#39; }));
     await expect(overview.getAllByRole(&#39;term&#39;)).toHaveLength(4);
+    await expect(canvas.queryByText(&#39;Revenue goal&#39;)).not.toBeInTheDocument();
     const miniArea = overview.getByRole(&#39;img&#39;, { name: &#39;Open pipeline sample trend across 15 snapshots&#39; });
     await expect(miniArea).toBeVisible();
     await expect(miniArea.querySelectorAll(&#39;path&#39;)).toHaveLength(2);
     await expect(canvasElement.ownerDocument.defaultView!.getComputedStyle(miniArea).position).toBe(&#39;absolute&#39;);
     await expect(overview.getByText(&#39;Conversion rate&#39;)).toBeVisible();
-    const miniColumns = overview.getByRole(&#39;img&#39;, { name: &#39;Conversion rate sample trend across 30 snapshots&#39; });
+    const miniColumns = overview.getByRole(&#39;img&#39;, { name: &#39;Conversion rate sample trend across 45 snapshots&#39; });
     await expect(miniColumns).toBeVisible();
-    await expect(miniColumns.querySelectorAll(&#39;rect&#39;)).toHaveLength(30);
+    await expect(miniColumns.querySelectorAll(&#39;rect&#39;)).toHaveLength(45);
     await expect(canvasElement.ownerDocument.defaultView!.getComputedStyle(miniColumns).position).toBe(&#39;absolute&#39;);
     const conversionBar = miniColumns.querySelector&lt;SVGRectElement&gt;(&#39;rect&#39;)!;
-    await userEvent.hover(conversionBar);
-    await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Snapshot 1: 18% conversion&#39;);
-    await userEvent.unhover(conversionBar);
+    const conversionBounds = miniColumns.getBoundingClientRect();
+    await userEvent.pointer({ target: conversionBar, coords: { clientX: conversionBounds.left + conversionBounds.width / (CONVERSION_SNAPSHOTS.length * 2), clientY: conversionBounds.bottom - 2 } });
+    const conversionTooltip = within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;);
+    await expect(conversionTooltip).toHaveTextContent(&#39;Snapshot 1: 18% conversion&#39;);
+    const conversionSurface = miniColumns.querySelector&lt;SVGPathElement&gt;(&#39;path&#39;)!;
+    for (const position of [0.03, 0.05, 0.5, 0.99]) {
+      await userEvent.pointer({ target: conversionSurface, coords: { clientX: conversionBounds.left + conversionBounds.width * position, clientY: conversionBounds.top + 1 } });
+      await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toBe(conversionTooltip);
+      const snapshot = Math.floor(position * CONVERSION_SNAPSHOTS.length);
+      await expect(conversionTooltip).toHaveTextContent(`Snapshot ${snapshot + 1}: ${CONVERSION_SNAPSHOTS[snapshot]}% conversion`);
+    }
+    await userEvent.unhover(conversionSurface);
+    await expect(within(canvasElement.ownerDocument.body).queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
     await expect(overview.getByText(&#39;25%&#39;, { exact: true })).toBeVisible();
     await expect(overview.getByText(&#39;$84,500&#39;)).toBeVisible();
     const trend = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Revenue trend&#39; }));
     const revenueChart = trend.getByRole(&#39;img&#39;, { name: /Revenue trend/ });
     await expect(revenueChart).toBeVisible();
-    await expect(revenueChart.querySelectorAll(&#39;path&#39;)).toHaveLength(3);
+    await expect(revenueChart.querySelectorAll(&#39;path&#39;)).toHaveLength(2);
+    await expect(revenueChart.querySelector(&#39;[data-revenue-series=&quot;Target&quot;]&#39;)).toBeNull();
+    await expect(trend.queryByText(&#39;Target&#39;, { exact: true })).not.toBeInTheDocument();
     await expect(revenueChart.querySelector(&#39;.crm-minimal__y-axis&#39;)).toBeInTheDocument();
-    await expect(within(revenueChart).getByText(&#39;$0K&#39;)).toBeVisible();
-    await expect(within(revenueChart).getByText(&#39;$125K&#39;)).toBeVisible();
+    for (const label of [&#39;0k&#39;, &#39;50k&#39;, &#39;100k&#39;, &#39;150k&#39;]) {
+      await expect(within(revenueChart).getByText(label, { exact: true })).toBeVisible();
+    }
+    await expect(revenueChart.querySelectorAll(&#39;.crm-minimal__svg-label&#39;)).toHaveLength(4);
     for (let first = 0; first &lt; REVENUE_LINES.length; first++) {
       for (let second = first + 1; second &lt; REVENUE_LINES.length; second++) {
         const differences = REVENUE_LINES[first].series.map((item, index) =&gt; item.value - REVENUE_LINES[second].series[index].value);
@@ -18554,12 +18862,16 @@ export const Default: Story = {
     for (const line of REVENUE_LINES) {
       const series = revenueChart.querySelector(`[data-revenue-series=&quot;${line.label}&quot;]`)!;
       await expect(series).toHaveClass(`crm-minimal__revenue--${line.color}`);
+      await expect(revenueChart.querySelector(`[data-revenue-area=&quot;${line.label}&quot;]`)).toBeNull();
+      const curve = series.querySelector(&#39;path&#39;)!;
+      await expect(curve).toHaveAttribute(&#39;fill&#39;, &#39;none&#39;);
+      await expect(curve.getAttribute(&#39;d&#39;)?.match(/C /g)).toHaveLength(5);
       const dots = series.querySelectorAll(&#39;circle&#39;);
       await expect(dots).toHaveLength(6);
       dots.forEach((dot, index) =&gt; expect(dot.getAttribute(&#39;cx&#39;)).toBe(monthLabels[index].getAttribute(&#39;x&#39;)));
     }
     // KPI mini charts are hover-only and prevent click activation and bubbling.
-    const conversionChart = overview.getByRole(&#39;img&#39;, { name: &#39;Conversion rate sample trend across 30 snapshots&#39; });
+    const conversionChart = overview.getByRole(&#39;img&#39;, { name: &#39;Conversion rate sample trend across 45 snapshots&#39; });
     for (const chart of [miniArea, conversionChart]) {
       let bubbled = false;
       const onClick = () =&gt; { bubbled = true; };
@@ -18598,7 +18910,7 @@ export const Default: Story = {
     await expect(miniAreaTooltip.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
     const forecastPoint = revenueChart.querySelector&lt;SVGCircleElement&gt;(&#39;[data-revenue-series=&quot;Forecast&quot;] circle[data-month=&quot;January&quot;]&#39;)!;
     await userEvent.hover(forecastPoint);
-    await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Forecast · January: $60,000&#39;);
+    await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Forecast · January: $85,000&#39;);
     await userEvent.unhover(forecastPoint);
     await expect(canvas.queryByText(&#39;View chart data&#39;)).not.toBeInTheDocument();
     const pipeline = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Pipeline by stage&#39; }));
@@ -18629,25 +18941,33 @@ export const Default: Story = {
     await userEvent.keyboard(&#39;{Escape}&#39;);
     pipelineSegment.blur();
     await expect(pipeline.getByText(&#39;$115.5K&#39;)).toBeVisible();
-    await expect(trend.getByText(/Decreased 5.6% · \$5,000/)).toHaveClass(&#39;crm-minimal__trend--down&#39;);
-    await expect(overview.getByText(&#39;Increased 18.2%&#39;)).toHaveClass(&#39;crm-minimal__trend--up&#39;);
-    await expect(overview.getByText(&#39;Increased 3 deals&#39;)).toHaveClass(&#39;crm-minimal__trend--up&#39;);
+    await expect(trend.getByText(/77.1% · \$27,000/)).toHaveClass(&#39;crm-minimal__trend--down&#39;);
+    await expect(trend.getByText(&#39;$8,000&#39;, { exact: true })).toBeVisible();
+    const revenueValues = REVENUE_LINES.flatMap(line =&gt; line.series.map(item =&gt; item.value));
+    await expect(Math.max(...revenueValues)).toBe(125);
+    await expect(Math.min(...revenueValues)).toBe(1);
+    await expect(overview.getByText(&#39;18.2%&#39;)).toHaveClass(&#39;crm-minimal__trend--up&#39;);
+    await expect(overview.getByText(&#39;3 deals&#39;)).toHaveClass(&#39;crm-minimal__trend--up&#39;);
     const company = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Company Target&#39; }));
-    await expect(company.getByRole(&#39;img&#39;, { name: /3210 records achieved.*Target: 3000/ })).toBeVisible();
+    await expect(company.getByRole(&#39;img&#39;, { name: /3210 shipments achieved.*Target: 3000/ })).toBeVisible();
     await expect(company.getByText(&#39;3210&#39;, { selector: &#39;strong&#39; })).toBeVisible();
     await expect(company.getByText(&#39;3000&#39;, { selector: &#39;strong&#39; })).toBeVisible();
     await expect(company.queryByText(/% of target achieved/)).not.toBeInTheDocument();
     const achievedBar = canvas.getByRole(&#39;region&#39;, { name: &#39;Company Target&#39; }).querySelector&lt;SVGRectElement&gt;(&#39;.crm-minimal__target-fill&#39;)!;
     await expect(Number(achievedBar.getAttribute(&#39;width&#39;))).toBe(3210 / 4000 * 500);
     await userEvent.hover(achievedBar);
-    await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;3,210 records · Target: 3000&#39;);
+    await expect(within(canvasElement.ownerDocument.body).getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;3,210 shipments · Target: 3000&#39;);
     await userEvent.unhover(achievedBar);
     const appointments = within(canvas.getByRole(&#39;region&#39;, { name: &quot;My Today&#39;s Appointments&quot; }));
     await expect(appointments.getAllByRole(&#39;listitem&#39;)).toHaveLength(TODAYS_APPOINTMENTS.length);
     await expect(canvas.getAllByRole(&#39;region&#39;, { name: &quot;My Today&#39;s Appointments&quot; })).toHaveLength(1);
+    const appointmentList = appointments.getByRole(&#39;list&#39;);
+    await expect(appointmentList.scrollHeight).toBeGreaterThan(appointmentList.clientHeight);
     for (const appointment of TODAYS_APPOINTMENTS) {
+      const row = appointments.getByText(appointment.title).closest(&#39;li&#39;)!;
+      row.scrollIntoView({ block: &#39;nearest&#39; });
       await expect(appointments.getByText(appointment.title)).toBeVisible();
-      const photo = appointments.getByRole(&#39;img&#39;, { name: appointment.contact });
+      const photo = within(row).getByRole(&#39;img&#39;, { name: appointment.contact });
       await expect(photo).toBeVisible();
       await expect((photo as HTMLImageElement).naturalWidth).toBeGreaterThan(0);
     }
@@ -18660,43 +18980,97 @@ export const Default: Story = {
     }
     await userEvent.click(appointments.getAllByRole(&#39;button&#39;, { name: &#39;View details&#39; })[0]);
     const appointmentDialog = within(canvasElement.ownerDocument.body).getByRole(&#39;alertdialog&#39;);
-    await expect(within(appointmentDialog).getByText(&#39;Discovery call&#39;)).toBeVisible();
-    await expect(within(appointmentDialog).getByText(/Atlas Logistics · Daniel Kim · 09:30–10:00 · Video call/)).toBeVisible();
+    await expect(within(appointmentDialog).getByText(&#39;Ocean freight discovery&#39;)).toBeVisible();
+    await expect(within(appointmentDialog).getByText(/Atlas Freight · Daniel Kim · 09:30–10:00 · Video call/)).toBeVisible();
     await userEvent.click(within(appointmentDialog).getByRole(&#39;button&#39;, { name: &#39;Close&#39;, exact: true }));
     const industries = canvas.getByRole(&#39;region&#39;, { name: &#39;Accounts by Industry&#39; });
     await expect(industries.querySelectorAll(&#39;rect[data-industry]&#39;)).toHaveLength(10);
-    const industryColumn = industries.querySelector&lt;SVGRectElement&gt;(&#39;rect[data-industry=&quot;Technology&quot;]&#39;)!;
+    const industryColumn = industries.querySelector&lt;SVGRectElement&gt;(&#39;rect[data-industry=&quot;Electronics&quot;]&#39;)!;
     const documentBody = within(canvasElement.ownerDocument.body);
     await userEvent.hover(industryColumn);
-    await expect(documentBody.getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Technology: 640 accounts&#39;);
+    await expect(documentBody.getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Electronics: 640 accounts&#39;);
     await userEvent.unhover(industryColumn);
     await expect(documentBody.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
     industryColumn.focus();
-    await expect(documentBody.getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Technology: 640 accounts&#39;);
+    await expect(documentBody.getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Electronics: 640 accounts&#39;);
     await userEvent.keyboard(&#39;{Escape}&#39;);
     await expect(documentBody.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
     industryColumn.blur();
-    await expect(within(industries).getByRole(&#39;img&#39;, { name: /Technology: 640.*Hospitality: 126.*3191 accounts/ })).toBeVisible();
-    const period = canvas.getByRole(&#39;button&#39;, { name: &#39;This month&#39; });
+    await expect(within(industries).getByRole(&#39;img&#39;, { name: /Electronics: 640.*Consumer Goods: 126.*3191 accounts/ })).toBeVisible();
+    const period = canvas.getByRole(&#39;button&#39;, { name: &#39;Classic Sales View&#39; });
     await userEvent.click(period);
-    await userEvent.click(within(canvasElement.ownerDocument.body).getByRole(&#39;option&#39;, { name: &#39;This quarter&#39; }));
-    await expect(overview.getByText(&#39;$246,000&#39;)).toBeVisible();
-    await expect(overview.getByText(&#39;24%&#39;, { exact: true })).toBeVisible();
-    const today = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Today&#39; }));
+    const viewMenu = within(canvasElement.ownerDocument.body);
+    await expect(viewMenu.getAllByRole(&#39;option&#39;)).toHaveLength(SALES_HOME_VIEWS.length);
+    const menuBounds = viewMenu.getByRole(&#39;listbox&#39;).getBoundingClientRect();
+    await expect(menuBounds.right).toBeLessThanOrEqual(window.innerWidth);
+    await expect(menuBounds.left).toBeGreaterThanOrEqual(0);
+    await expect(viewMenu.queryByText(&#39;Reporting period&#39;)).not.toBeInTheDocument();
+    await expect(viewMenu.queryByRole(&#39;option&#39;, { name: &#39;This quarter&#39; })).not.toBeInTheDocument();
+    await expect(SALES_HOME_VIEWS.filter(view =&gt; view.group === &#39;Sales homepages&#39;).length).toBeGreaterThan(10);
+    await userEvent.click(viewMenu.getByRole(&#39;option&#39;, { name: &#39;Freight Pipeline Center&#39; }));
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Freight Pipeline Center&#39; })).toBeVisible();
+    await expect(overview.getByText(&#39;$84,500&#39;)).toBeVisible();
+    for (const view of SALES_HOME_VIEWS.filter(view =&gt; view.value !== &#39;classic&#39;)) {
+      if (view.value !== &#39;pipeline&#39;) {
+        await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Freight Pipeline Center&#39; }));
+        await userEvent.click(viewMenu.getByRole(&#39;option&#39;, { name: view.label }));
+      }
+      const dashboard = getSalesDashboard(view.value);
+      const revenue = canvas.getByRole(&#39;region&#39;, { name: &#39;Revenue trend&#39; });
+      await expect(within(revenue).getByText(dashboard.REVENUE_LINES[0].series[5].display, { exact: true })).toBeVisible();
+      await expect(canvasElement.querySelector(&#39;[data-dashboard-section=&quot;industry&quot;]&#39;)).toHaveStyle({ order: String(dashboard.sections.indexOf(&#39;industry&#39;) + 1) });
+      const chartPanels = canvasElement.querySelectorAll(&#39;[data-dashboard-section=&quot;charts&quot;] &gt; section&#39;);
+      await expect(within(chartPanels[0] as HTMLElement).getByRole(&#39;heading&#39;, { name: dashboard.chartOrder[0] === 1 ? &#39;Pipeline by stage&#39; : &#39;Revenue trend&#39; })).toBeVisible();
+      const industryChart = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Accounts by Industry&#39; })).getByRole(&#39;img&#39;);
+      await expect(industryChart).toHaveAccessibleName(expect.stringContaining(`Electronics: ${dashboard.ACCOUNTS_BY_INDUSTRY[0].count}`));
+      if (view.value !== &#39;pipeline&#39;) {
+        await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: view.label }));
+        await userEvent.click(viewMenu.getByRole(&#39;option&#39;, { name: &#39;Freight Pipeline Center&#39; }));
+      }
+    }
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Freight Pipeline Center&#39; }));
+    await expect(viewMenu.queryByText(&#39;Reporting period&#39;)).not.toBeInTheDocument();
+    await userEvent.keyboard(&#39;{Escape}&#39;);
+    const dealsPanel = canvas.getByRole(&#39;region&#39;, { name: &#39;Open deals&#39; });
+    const dealsBody = dealsPanel.querySelector&lt;HTMLElement&gt;(&#39;.table-body-wrap&#39;)!;
+    await expect(within(dealsBody).getAllByRole(&#39;row&#39;)).toHaveLength(CARGO_DEALS.length + ADDITIONAL_OPEN_DEALS.length);
+    await expect(dealsBody.scrollHeight).toBeGreaterThan(dealsBody.clientHeight);
+    dealsBody.scrollTop = dealsBody.scrollHeight;
+    await expect(dealsBody.scrollTop).toBeGreaterThan(0);
+    dealsBody.scrollTop = 0;
+    const today = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Today and OverDue Tasks&#39; }));
     const todayList = today.getByRole(&#39;list&#39;, { name: &quot;Today&#39;s tasks&quot; });
-    await expect(today.getAllByRole(&#39;checkbox&#39;)).toHaveLength(INITIAL_TASKS.length + TODAY_TASKS.length);
+    const taskCheckboxes = today.getAllByRole(&#39;checkbox&#39;);
+    await expect(taskCheckboxes).toHaveLength(CARGO_INITIAL_TASKS.length + TODAY_TASKS.length);
+    for (const [index, checkbox] of taskCheckboxes.entries()) {
+      if ([0, 2, 3].includes(index)) await expect(checkbox).toBeChecked();
+      else await expect(checkbox).not.toBeChecked();
+    }
     await expect(todayList).toHaveAttribute(&#39;tabindex&#39;, &#39;0&#39;);
     await expect(todayList.scrollHeight).toBeGreaterThan(todayList.clientHeight);
     const lastTask = today.getAllByRole(&#39;checkbox&#39;).at(-1)!;
     lastTask.scrollIntoView({ block: &#39;nearest&#39; });
     await expect(todayList.scrollTop).toBeGreaterThan(0);
-    for (const checkbox of today.getAllByRole(&#39;checkbox&#39;)) await userEvent.click(checkbox);
+    for (const checkbox of today.getAllByRole(&#39;checkbox&#39;, { checked: false })) await userEvent.click(checkbox);
     for (const checkbox of today.getAllByRole(&#39;checkbox&#39;)) await expect(checkbox).toBeChecked();
     await expect(today.queryByRole(&#39;status&#39;)).not.toBeInTheDocument();
     await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Review follow-up&#39; })).not.toBeInTheDocument();
     await expect(canvas.queryByText(/\d+ opportunities/)).not.toBeInTheDocument();
     await expect(canvas.getByText(&#39;Meridian Health&#39;, { exact: true })).toBeVisible();
     await expect(canvas.queryByRole(&#39;heading&#39;, { name: &#39;Conversations&#39; })).not.toBeInTheDocument();
+    await userEvent.click(within(canvasElement.querySelector&lt;HTMLElement&gt;(&#39;.crm-minimal__home-controls&#39;)!).getByRole(&#39;button&#39;, { name: &#39;More options&#39; }));
+    for (const name of [&#39;Edit Homepage&#39;, &#39;Reorder&#39;, &#39;View Fullscreen&#39;]) await expect(viewMenu.getByRole(&#39;option&#39;, { name })).toBeVisible();
+    const originalSections = Array.from(canvasElement.querySelectorAll&lt;HTMLElement&gt;(&#39;[data-dashboard-section]&#39;), section =&gt; section.style.order);
+    for (const action of [&#39;Edit Homepage&#39;, &#39;Reorder&#39;]) {
+      if (action === &#39;Reorder&#39;) await userEvent.click(within(canvasElement.querySelector&lt;HTMLElement&gt;(&#39;.crm-minimal__home-controls&#39;)!).getByRole(&#39;button&#39;, { name: &#39;More options&#39; }));
+      const option = viewMenu.getByRole(&#39;option&#39;, { name: action });
+      const labelStyle = canvasElement.ownerDocument.defaultView!.getComputedStyle(option.querySelector(&#39;.dropdown-option-label&#39;)!);
+      await expect(labelStyle.paddingLeft).toBe(labelStyle.paddingRight);
+      await userEvent.click(option);
+      await expect(viewMenu.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument();
+      await expect(viewMenu.queryByRole(&#39;listbox&#39;)).not.toBeInTheDocument();
+      await expect(Array.from(canvasElement.querySelectorAll&lt;HTMLElement&gt;(&#39;[data-dashboard-section]&#39;), section =&gt; section.style.order)).toEqual(originalSections);
+    }
   },
 };
 export const EmptyState: Story = {
@@ -18705,7 +19079,7 @@ export const EmptyState: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText(&#39;No open deals yet. Your opportunities will appear here.&#39;)).toBeVisible();
     await expect(canvas.queryByRole(&#39;heading&#39;, { name: &#39;Conversations&#39; })).not.toBeInTheDocument();
-    await expect(canvas.getByRole(&#39;progressbar&#39;, { name: &#39;Revenue goal&#39; })).toHaveAttribute(&#39;aria-valuenow&#39;, &#39;0&#39;);
+    await expect(canvas.queryByText(&#39;Revenue goal&#39;)).not.toBeInTheDocument();
     const trend = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Revenue trend&#39; }));
     await expect(trend.getByText(&#39;Close your first deal to see revenue trends.&#39;)).toBeVisible();
     await expect(trend.queryByRole(&#39;img&#39;)).not.toBeInTheDocument();
@@ -18749,7 +19123,6 @@ export const EmptyState: Story = {
     Dropdown,
     Icon,
     Modal,
-    ProgressBar,
     SetupTable,
     Textarea,
     Tooltip,
@@ -18765,6 +19138,15 @@ export const EmptyState: Story = {
               
               
               <pre><code>const Default = () =&gt; &lt;MinimalPage /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Interaction Checks</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const InteractionChecks = () =&gt; &lt;MinimalPage /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
