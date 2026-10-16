@@ -44,7 +44,7 @@ const MEETINGS = [
 ];
 
 // Story-local composition, not a new design-system component.
-export function CrmHomepage({ empty = false, children, showTerritory = true }: { empty?: boolean; children?: ReactNode; showTerritory?: boolean }) {
+export function CrmHomepage({ empty = false, children, showTerritory = true, workspaceName = 'Sales workspace' }: { empty?: boolean; children?: ReactNode; showTerritory?: boolean; workspaceName?: string }) {
   const headingId = useId();
   const [period, setPeriod] = useState<Period>('month');
   const [tasks, setTasks] = useState(empty ? [] : INITIAL_TASKS);
@@ -76,14 +76,14 @@ export function CrmHomepage({ empty = false, children, showTerritory = true }: {
     <div className="crm-homepage">
       <div className="crm-homepage__shell">
         <aside className="crm-homepage__sidebar" data-open={menuOpen || undefined} aria-label="CRM navigation">
-          <NextGenLeftMenu activeId="home" teamspaceName="Sales workspace" onItemClick={(id: string) => {
+          <NextGenLeftMenu activeId="home" teamspaceName={workspaceName} onItemClick={(id: string) => {
             setMenuOpen(false);
             if (id !== 'home') setNotice(`${id.charAt(0).toUpperCase() + id.slice(1)} selected. Navigation is a local preview; no CRM records are changed.`);
           }} />
         </aside>
         <div className="crm-homepage__workspace">
           <header>
-            <NextGenTopBand moduleLabel="Home" userInitials="AS" notificationCount={2} showTerritory={showTerritory}
+            <NextGenTopBand moduleLabel="Home" userInitials="AS" userAvatarSrc={`${import.meta.env.BASE_URL}images/avatars/user_06.jpg`} showTerritory={showTerritory}
               onAddNew={() => setNotice('Quick create selected. In a connected CRM, this opens record creation.')}
               onCalendar={() => document.getElementById(`${headingId}-meetings`)?.scrollIntoView({ block: 'nearest' })} />
           </header>

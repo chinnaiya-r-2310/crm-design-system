@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useId } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronDownFilled, Check, Search as SearchIcon } from '../../foundations/icons/Icons';
 import { Tooltip } from '../Tooltip/Tooltip.js';
+import { Button } from '../Button/Button.js';
 import './Dropdown.css';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -90,6 +91,9 @@ export function Dropdown({
   style,
   panelStyle,
   columns,
+  triggerIcon,
+  triggerAriaLabel,
+  triggerButtonVariant,
 }) {
   const autoId = useId();
   const triggerId = idProp ?? autoId;
@@ -429,14 +433,18 @@ export function Dropdown({
     document.body
   ) : null;
 
+  const Trigger = triggerButtonVariant ? Button : 'button';
   const dropdownEl = (
     <div ref={rootRef} className='dropdown-dropdown-wrapper' onKeyDown={handleKeyDown}>
-      <button
+      <Trigger
         ref={triggerRef}
         id={triggerId}
         type="button"
-        className='dropdown-trigger'
+        {...(triggerButtonVariant
+          ? { variant: triggerButtonVariant, size: 'md' }
+          : { className: 'dropdown-trigger' })}
         disabled={disabled}
+        aria-label={triggerAriaLabel}
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
@@ -445,16 +453,22 @@ export function Dropdown({
         data-open={open || undefined}
         onClick={toggle}
       >
-        <TruncatedLabel
-          text={displayValue}
-          className='dropdown-trigger-value'
-          wrapperStyle={{ flex: 1, minWidth: 0 }}
-          spanProps={{ 'data-placeholder': isPlaceholder || undefined }}
-        />
-        <span className='dropdown-chevron' aria-hidden="true">
-          <ChevronDownFilled aria-hidden="true" />
-        </span>
-      </button>
+        {triggerIcon ? (
+          <span className='dropdown-trigger-icon' aria-hidden="true">{triggerIcon}</span>
+        ) : (
+          <>
+            <TruncatedLabel
+              text={displayValue}
+              className='dropdown-trigger-value'
+              wrapperStyle={{ flex: 1, minWidth: 0 }}
+              spanProps={{ 'data-placeholder': isPlaceholder || undefined }}
+            />
+            <span className='dropdown-chevron' aria-hidden="true">
+              <ChevronDownFilled aria-hidden="true" />
+            </span>
+          </>
+        )}
+      </Trigger>
       {panelContent}
     </div>
   );

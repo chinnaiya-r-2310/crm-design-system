@@ -129,7 +129,7 @@ export function NextGenLeftMenu({
     const hasChildren = (item.children || []).length > 0;
     return (
       <div key={item.id} className="nglm-folder">
-        <Tooltip content={item.label} variant="black" placement="right">
+        <Tooltip content={item.label} variant="black" placement="right" wrapperStyle={{ display: 'block', width: '100%' }}>
           <button
             type="button"
             className="nglm-item nglm-module-item nglm-folder-trigger"
