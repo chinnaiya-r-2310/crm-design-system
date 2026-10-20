@@ -1,6 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
+import { Input } from '../Input/Input';
 import { Icon } from './Icon';
 import { iconMap } from './iconMap';
+import { crmIconMetadata } from '../../foundations/icons/CrmCatalog';
+import { Tooltip } from '../Tooltip/Tooltip';
 import type { IconName } from './iconMap';
 import {
   AlertError, AlertInfo, AlertSuccess, AlertWarning,
@@ -108,6 +113,47 @@ export const Playground: Story = {
   ),
 };
 
+/** Only the two requested icons from the CRM Icon Help document. */
+export const MobileAndEmail: Story = {
+  name: 'Mobile and Email',
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: 'Mobile and Email imported from the CRM Icon Help document (zcicn-mobile and zcicn-emails). Assets are bundled locally; no internal server is required at runtime. Shown at 16, 20, and 24px.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--ds-line-height-base)', color: 'var(--ds-text-base)', fontFamily: 'var(--ds-font-family-base)' }}>
+      {(['Mobile', 'Email'] as const).map((name) => (
+        <div key={name}>
+          <p>{name}</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--ds-line-height-base)' }}>
+            {[16, 20, 24].map((size) => (
+              <Icon key={size} name={name} size={size} aria-label={`${name} ${size}px`} />
+            ))}
+          </div>
+          <Icon name={name} size={16} />
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const name of ['Mobile', 'Email']) {
+      for (const size of [16, 20, 24]) {
+        const icon = canvas.getByRole('img', { name: `${name} ${size}px` });
+        await expect(icon).toHaveAttribute('width', String(size));
+        await expect(icon).toHaveAttribute('height', String(size));
+        await expect(icon.querySelector('path')).not.toBeNull();
+        await expect(icon.querySelector('use')).toBeNull();
+      }
+    }
+    await expect(canvasElement.querySelectorAll('svg[aria-hidden="true"]')).toHaveLength(2);
+  },
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Gallery — every registered icon
 // ─────────────────────────────────────────────────────────────────────────────
@@ -119,16 +165,38 @@ export const Playground: Story = {
 export const Gallery: Story = {
   name: 'Gallery',
   parameters: { controls: { disable: true } },
-  render: () => (
-    <div style={{ fontFamily: 'var(--ds-font-family-base)' }}>
-      <div style={{
-        fontSize: '11px',
+  render: function GalleryRender() {
+    const [query, setQuery] = useState('');
+    const [page, setPage] = useState(0);
+    const pageSize = 120;
+    const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const filteredIcons = galleryIcons.filter((name) => {
+      const keywords = crmIconMetadata[name]?.keywords ?? '';
+      return terms.every(term => `${name} ${keywords}`.toLowerCase().includes(term));
+    });
+    const shownIcons = filteredIcons.slice(page * pageSize, (page + 1) * pageSize);
+
+    return (
+    <div style={{ fontFamily: 'var(--ds-font-family-base)', width: '800px', maxWidth: '100%' }}>
+      <Input
+        type="search"
+        label="Search icons"
+        layout="vertical"
+        width="100%"
+        placeholder="Search icons by name or keyword"
+        value={query}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setQuery(event.target.value); setPage(0); }}
+      />
+      <p role="status" style={{
+        fontSize: 'var(--ds-font-size-base)',
         color: 'var(--ds-text-label)',
-        marginBottom: '16px',
-        letterSpacing: '0.02em',
+        marginBlock: 'var(--ds-line-height-base)',
       }}>
-        {galleryIcons.length} icons
-      </div>
+        {filteredIcons.length} of {galleryIcons.length} icons
+      </p>
+      {filteredIcons.length === 0 && (
+        <p style={{ color: 'var(--ds-text-base)' }}>No icons found. Try another name.</p>
+      )}
 
       <div style={{
         display: 'grid',
@@ -137,10 +205,11 @@ export const Gallery: Story = {
         width: '800px',
         maxWidth: '100%',
       }}>
-        {galleryIcons.map((name) => (
+        {shownIcons.map((name) => (
+          <Tooltip key={name} content={crmIconMetadata[name]?.keywords ?? name} variant="black" wrapperStyle={{ display: 'block' }}>
           <div
-            key={name}
-            title={name}
+            tabIndex={0}
+            aria-label={name}
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -167,10 +236,45 @@ export const Gallery: Story = {
               {name}
             </span>
           </div>
+          </Tooltip>
         ))}
       </div>
+      <nav aria-label="Icon gallery pages" style={{ display: 'flex', gap: 16, alignItems: 'center', marginTop: 16 }}>
+        <button type="button" disabled={page === 0} onClick={() => setPage(value => value - 1)}>Previous</button>
+        <span>Page {page + 1} of {Math.max(1, Math.ceil(filteredIcons.length / pageSize))}</span>
+        <button type="button" disabled={(page + 1) * pageSize >= filteredIcons.length} onClick={() => setPage(value => value + 1)}>Next</button>
+      </nav>
     </div>
-  ),
+    );
+  },
+};
+
+/** Search checks run separately so browsing Gallery never types automatically. */
+export const GallerySearch: Story = {
+  ...Gallery,
+  name: 'Gallery Search',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Search icons' });
+    await userEvent.type(search, '  mObIlE  ');
+    await expect(canvas.getByText('Mobile', { exact: true })).toBeVisible();
+    await expect(canvas.queryByText('Email', { exact: true })).not.toBeInTheDocument();
+    await userEvent.clear(search);
+    await userEvent.type(search, 'no-matching-icon');
+    await expect(canvas.getByText('No icons found. Try another name.')).toBeVisible();
+    await userEvent.clear(search);
+    await userEvent.type(search, 'arrow sort');
+    await expect(canvas.getByText('CrmArrowSort', { exact: true })).toBeVisible();
+    const tile = canvas.getByLabelText('CrmArrowSort', { exact: true });
+    await userEvent.hover(tile);
+    await expect(await within(canvasElement.ownerDocument.body).findByRole('tooltip')).toBeVisible();
+    await userEvent.unhover(tile);
+    await userEvent.clear(search);
+    await userEvent.type(search, 'Email');
+    await expect(canvas.getByText('Email', { exact: true })).toBeVisible();
+    await userEvent.clear(search);
+    await expect(canvas.getByRole('status')).toHaveTextContent(`${galleryIcons.length} of ${galleryIcons.length} icons`);
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────

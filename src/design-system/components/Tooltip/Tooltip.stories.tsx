@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tooltip } from './Tooltip';
 import { Button } from '../Button/Button';
+import { expect, fireEvent, waitFor, within } from 'storybook/test';
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Design System/Components/Tooltip',
@@ -123,6 +124,52 @@ export const AllVariants: Story = {
       ))}
     </div>
   ),
+};
+
+/** Regression coverage for chart tooltips at viewport boundaries. */
+export const ViewportEdges: Story = {
+  render: () => (
+    <div>
+      <div style={{ position: 'fixed', right: 8, top: '40%' }}>
+        <Tooltip content="Long chart label: forecast revenue $125,000" placement="left">
+          <button type="button">Right edge</button>
+        </Tooltip>
+      </div>
+      <div style={{ position: 'fixed', left: 8, top: 8 }}>
+        <Tooltip content="Long chart label at the top left corner" placement="bottom">
+          <button type="button">Top left</button>
+        </Tooltip>
+      </div>
+      <div style={{ position: 'fixed', right: 8, bottom: 8 }}>
+        <Tooltip content={'Long chart description '.repeat(30)} placement="top" followCursor>
+          <button type="button">Cursor edge</button>
+        </Tooltip>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    for (const label of ['Right edge', 'Top left', 'Cursor edge']) {
+      const trigger = canvas.getByRole('button', { name: label });
+      const bounds = trigger.getBoundingClientRect();
+      await fireEvent.mouseOver(trigger, { clientX: bounds.right, clientY: bounds.bottom });
+      await waitFor(() => {
+        const tooltip = body.getByRole('tooltip');
+        const rect = tooltip.getBoundingClientRect();
+        expect(rect.left).toBeGreaterThanOrEqual(7);
+        expect(rect.top).toBeGreaterThanOrEqual(7);
+        expect(rect.right).toBeLessThanOrEqual(canvasElement.ownerDocument.documentElement.clientWidth - 7);
+        expect(rect.bottom).toBeLessThanOrEqual(canvasElement.ownerDocument.documentElement.clientHeight - 7);
+        if (label === 'Right edge') {
+          expect(tooltip).toHaveClass('tooltip-placement-right');
+          expect(rect.right).toBeLessThanOrEqual(bounds.left);
+        }
+      });
+      await fireEvent.mouseOut(trigger);
+      await waitFor(() => expect(body.queryByRole('tooltip')).not.toBeInTheDocument());
+    }
+  },
 };
 
 /** Interactive — hover any button to see the tooltip. */

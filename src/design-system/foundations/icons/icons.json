@@ -1,4 +1,8 @@
 {
+  "SourceClose": { "category": "Actions", "keywords": ["close", "dismiss", "cancel"], "source": "http://zcrm-ui-imac:8888/Ui-team/Muneeshwaran/2021/crm-icon-helpdoc/common/crmutil-icon-files/crmutil_icons.svg#zcicn-close-9" },
+  "OpenInNewTab": { "category": "Navigation", "keywords": ["open", "external", "tab", "expand"], "source": "http://zcrm-ui-imac:8888/Ui-team/Muneeshwaran/2021/crm-icon-helpdoc/common/crmutil-icon-files/crmutil_icons.svg#zcicn-expand-sm" },
+  "Mobile": { "category": "Communication", "keywords": ["phone", "mobile", "sms", "verification"], "source": "http://zcrm-ui-imac:8888/Ui-team/Muneeshwaran/2021/crm-icon-helpdoc/common/crmutil-icon-files/crmutil_icons.svg#zcicn-mobile" },
+  "Email": { "category": "Communication", "keywords": ["email", "mail", "envelope", "verification"], "source": "http://zcrm-ui-imac:8888/Ui-team/Muneeshwaran/2021/crm-icon-helpdoc/common/crmutil-icon-files/crmutil_icons.svg#zcicn-emails" },
   "Check":             { "category": "Actions",    "keywords": ["confirm", "done", "success", "tick", "approve", "checkmark"] },
   "ChevronDownFilled": { "category": "Navigation", "keywords": ["expand", "dropdown", "arrow", "filled", "select", "caret"] },
   "Info":              { "category": "Status",     "keywords": ["information", "help", "hint", "tooltip", "detail"] },

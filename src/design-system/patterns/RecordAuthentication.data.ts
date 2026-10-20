@@ -15,6 +15,8 @@ export interface VerificationConfig {
   validationReset: string;
   emailTemplate: string;
   verificationPage: string;
+  emailContent?: { subject: string; sender: string; body: string };
+  pageContent?: { subject: string; sender: string; body: string };
 }
 
 export const PHONE_FIELDS: Field[] = [

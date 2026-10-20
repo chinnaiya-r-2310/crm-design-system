@@ -1,5 +1,10 @@
 import type { FC, SVGProps } from 'react';
+import { crmIconMap } from '../../foundations/icons/CrmCatalog';
 import {
+  Mobile,
+  Email,
+  SourceClose,
+  OpenInNewTab,
   AlertError,
   AlertInfo,
   AlertSuccess,
@@ -62,6 +67,11 @@ import {
 export type SvgComponent = FC<SVGProps<SVGSVGElement>>;
 
 export const iconMap = {
+  ...crmIconMap,
+  Mobile,
+  Email,
+  SourceClose,
+  OpenInNewTab,
   AlertError,
   AlertInfo,
   AlertSuccess,

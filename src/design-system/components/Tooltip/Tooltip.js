@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import './Tooltip.css';
 
@@ -80,8 +80,60 @@ export function Tooltip({
 
   const isVisible = !disabled && (alwaysVisible || visible);
 
+  // Measure real content so long chart labels cannot escape the viewport.
+  const tooltipRef = useRef(null);
+  useLayoutEffect(() => {
+    const panel = tooltipRef.current;
+    if (!isVisible || !rect || !panel) return;
+    const { width, height } = panel.getBoundingClientRect();
+    const margin = 8;
+    const gap = 6;
+    const viewportWidth = document.documentElement.clientWidth;
+    const viewportHeight = document.documentElement.clientHeight;
+    const right = rect.left + rect.width;
+    const bottom = rect.top + rect.height;
+    let nextPlacement = placement;
+    let x = rect.left + (rect.width - width) / 2;
+    let y;
+
+    // Placement names describe the arrow edge, preserving the existing API.
+    if (placement === 'left' || placement === 'right') {
+      const roomRight = viewportWidth - right - margin - gap;
+      const roomLeft = rect.left - margin - gap;
+      if (placement === 'left' && width > roomRight && roomLeft > roomRight) nextPlacement = 'right';
+      if (placement === 'right' && width > roomLeft && roomRight > roomLeft) nextPlacement = 'left';
+      x = nextPlacement === 'left' ? right + gap : rect.left - width - gap;
+      y = rect.top + (rect.height - height) / 2;
+    } else {
+      const roomAbove = rect.top - margin - gap;
+      const roomBelow = viewportHeight - bottom - margin - gap;
+      if (placement === 'bottom' && height > roomAbove && roomBelow > roomAbove) nextPlacement = 'top';
+      if (placement === 'top' && height > roomBelow && roomAbove > roomBelow) nextPlacement = 'bottom';
+      y = nextPlacement === 'bottom' ? rect.top - height - gap : bottom + gap;
+    }
+    setEffectivePlacement(nextPlacement);
+    Object.assign(panel.style, {
+      position: 'fixed',
+      left: `${Math.max(margin, Math.min(x, viewportWidth - width - margin))}px`,
+      top: `${Math.max(margin, Math.min(y, viewportHeight - height - margin))}px`,
+      right: 'auto', bottom: 'auto', transform: 'none',
+    });
+  }, [isVisible, rect, placement, effectivePlacement, content, variant, showIcon]);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    const reposition = () => updatePosition();
+    window.addEventListener('resize', reposition);
+    window.addEventListener('scroll', reposition, true);
+    return () => {
+      window.removeEventListener('resize', reposition);
+      window.removeEventListener('scroll', reposition, true);
+    };
+  }, [isVisible, updatePosition]);
+
   const tooltipEl = (
     <span
+      ref={tooltipRef}
       role="tooltip"
       className={`tooltip-tooltip tooltip-${variant} tooltip-placement-${effectivePlacement}`}
     >

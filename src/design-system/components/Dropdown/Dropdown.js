@@ -339,6 +339,7 @@ export function Dropdown({
             {isSelected && <Check aria-hidden="true" />}
           </span>
         )}
+        {opt.icon && <span className='dropdown-option-icon' aria-hidden="true">{opt.icon}</span>}
         <TruncatedLabel text={opt.label} className='dropdown-option-label' wrapperStyle={{ flex: 1, minWidth: 0 }} />
       </div>
     );
@@ -441,7 +442,7 @@ export function Dropdown({
         id={triggerId}
         type="button"
         {...(triggerButtonVariant
-          ? { variant: triggerButtonVariant, size: 'md' }
+          ? { variant: triggerButtonVariant, size: 'md', arrow: !triggerIcon, split: false, isOpen: open }
           : { className: 'dropdown-trigger' })}
         disabled={disabled}
         aria-label={triggerAriaLabel}
@@ -455,6 +456,8 @@ export function Dropdown({
       >
         {triggerIcon ? (
           <span className='dropdown-trigger-icon' aria-hidden="true">{triggerIcon}</span>
+        ) : triggerButtonVariant ? (
+          displayValue
         ) : (
           <>
             <TruncatedLabel

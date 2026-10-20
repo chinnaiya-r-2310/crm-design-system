@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState, useRef, useLayoutEffect } from 'react';
+import { useEffect, useCallback, useState, useRef, useLayoutEffect, useId } from 'react';
 import { createPortal } from 'react-dom';
 import './Modal.css';
 import { Button } from '../Button/Button';
@@ -20,6 +20,8 @@ const ALERT_ICONS = {
 
 // success, info, denial show a single "Ok, Got it" button — no Cancel
 const SINGLE_BTN_VARIANTS = new Set(['success', 'info', 'denial']);
+let scrollLockCount = 0;
+let previousBodyOverflow = '';
 
 function alertConfirmVariant(variant) {
   return variant === 'error' ? 'negative' : 'primary';
@@ -48,10 +50,15 @@ export function Modal({
   type = 'modal',
   variant = 'info',
   confirmLabel,
+  className = '',
+  headerActions,
+  headerStart,
+  footerStart,
 }) {
   // isVisible stays true during the slide-up closing animation
   const [isVisible, setIsVisible] = useState(isOpen);
   const [isClosing, setIsClosing] = useState(false);
+  const titleId = useId();
   const dialogRef = useRef(null);
   const bodyRef = useRef(null);
   const [isBodyScrollable, setIsBodyScrollable] = useState(false);
@@ -94,7 +101,8 @@ export function Modal({
   useEffect(() => {
     if (!isVisible) return;
     const handler = (e) => {
-      if (e.key === 'Escape') onClose();
+      const dialogs = document.querySelectorAll('.modal-dialog');
+      if (e.key === 'Escape' && dialogs[dialogs.length - 1] === dialogRef.current) onClose();
     };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
@@ -124,12 +132,14 @@ export function Modal({
 
   // Prevent body scroll while modal is visible
   useEffect(() => {
-    if (isVisible) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
+    if (!isVisible) return;
+    if (scrollLockCount === 0) previousBodyOverflow = document.body.style.overflow;
+    scrollLockCount += 1;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      scrollLockCount -= 1;
+      if (scrollLockCount === 0) document.body.style.overflow = previousBodyOverflow;
+    };
   }, [isVisible]);
 
   if (!isVisible) return null;
@@ -148,7 +158,7 @@ export function Modal({
           className='modal-dialog'
           role="alertdialog"
           aria-modal="true"
-          aria-labelledby="modal-title"
+          aria-labelledby={titleId}
           style={{ width }}
           data-closing={isClosing || undefined}
           onAnimationEnd={handleAnimationEnd}
@@ -161,7 +171,7 @@ export function Modal({
                   <IconComp width={25} height={25} />
                 </span>
               )}
-              <h2 id="modal-title" className="modal-title">{title}</h2>
+              <h2 id={titleId} className="modal-title">{title}</h2>
             </div>
             {description && <div className="modal-description">{description}</div>}
           </div>
@@ -183,10 +193,10 @@ export function Modal({
     <div className='modal-backdrop'>
       <div
         ref={dialogRef}
-        className='modal-dialog'
+        className={`modal-dialog${className ? ` ${className}` : ''}`}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="modal-title"
+        aria-labelledby={titleId}
         style={{ width }}
         data-closing={isClosing || undefined}
         onAnimationEnd={handleAnimationEnd}
@@ -195,14 +205,16 @@ export function Modal({
         {/* ── Header ───────────────────────────────────────────────────── */}
         <div className='modal-header'>
           <div className='modal-header-title-row'>
+            {headerStart}
             {headerIcon && (
               <span className='modal-header-icon' aria-hidden="true">
                 {headerIcon}
               </span>
             )}
-            <h2 id="modal-title" className='modal-title'>
+            <h2 id={titleId} className='modal-title'>
               {title}
             </h2>
+            {headerActions}
           </div>
           {description && (
             <p className='modal-description'>{description}</p>
@@ -222,6 +234,7 @@ export function Modal({
             </div>
           )}
           <div className='modal-footer'>
+            {footerStart && <div className="modal-footer-start">{footerStart}</div>}
             <Button variant="default" onClick={handleCancel}>
               {cancelLabel}
             </Button>

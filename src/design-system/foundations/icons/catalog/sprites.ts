@@ -1,0 +1,30 @@
+import sprite0 from "./sprite-0-svg_cssicons.svg?raw";
+import sprite1 from "./sprite-1-Logo_icons.svg?raw";
+import sprite2 from "./sprite-2-ui-flow.svg?raw";
+import sprite3 from "./sprite-3-Approval-Feature.svg?raw";
+import sprite4 from "./sprite-4-crm-accessibility.svg?raw";
+import sprite5 from "./sprite-5-crm-editor.svg?raw";
+import sprite6 from "./sprite-6-UtilGameScopeicons.svg?raw";
+import sprite7 from "./sprite-7-setup_page.svg?raw";
+import sprite8 from "./sprite-8-crm-sheetview.svg?raw";
+import sprite9 from "./sprite-9-zia_promptbuilder.svg?raw";
+import sprite10 from "./sprite-10-prm_svg_cssicons.svg?raw";
+import sprite11 from "./sprite-11-auditlog_icons.svg?raw";
+import sprite12 from "./sprite-12-crux-pb-sprite.svg?raw";
+import sprite13 from "./sprite-13-WhatsApp-Template-Icon-For-Unavailablity.svg?raw";
+export const sprites: Record<string, string> = {
+  "sprite-0-svg_cssicons.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite0),
+  "sprite-1-Logo_icons.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite1),
+  "sprite-2-ui-flow.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite2),
+  "sprite-3-Approval%20Feature.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite3),
+  "sprite-4-crm-accessibility.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite4),
+  "sprite-5-crm-editor.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite5),
+  "sprite-6-UtilGameScopeicons.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite6),
+  "sprite-7-setup_page.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite7),
+  "sprite-8-crm-sheetview.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite8),
+  "sprite-9-zia_promptbuilder.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite9),
+  "sprite-10-prm_svg_cssicons.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite10),
+  "sprite-11-auditlog_icons.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite11),
+  "sprite-12-crux-pb-sprite.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite12),
+  "sprite-13-WhatsApp-Template-Icon-For-Unavailablity.svg": 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sprite13),
+};

@@ -101,6 +101,33 @@ npm run build-storybook
 
 ---
 
+## Installable Storybook without patterns
+
+The separate `@chinnaiya-2310/design-system-storybook` package provides a prebuilt gallery of components and foundations only. It does not change or replace `@chinnaiya-r-2310/design-system@1.0.0`.
+
+This separate gallery is configured for **public npmjs.com**, with no login or token required for consumers. Consumers can run **once the gallery package is published**:
+
+```bash
+npm install --save-dev @chinnaiya-2310/design-system-storybook@1.0.0
+npx design-system-storybook
+# → http://127.0.0.1:6006 (use --port 6007 to choose another port)
+```
+
+Maintainers can build, test and pack it locally:
+
+```bash
+npm run test:storybook-package
+npm run build:storybook-package
+cd packages/storybook
+npm pack
+```
+
+The build explicitly includes only component and foundation stories and verifies the generated index contains zero patterns. It uses relative asset URLs for local viewing; the normal `build-storybook` command still builds the full gallery for GitHub Pages.
+
+To release, first confirm npm ownership of the `@chinnaiya-2310` scope and store an npm publishing token as the repository Actions secret **`NPM_TOKEN`**. Push the setup to GitHub and manually run **Publish pattern-free Storybook** from Actions on the intended branch. This publishes only the gallery package to **npmjs.com with public access**, using the version in `packages/storybook/package.json`. Increase that version before subsequent releases. See `packages/storybook/README.md` for token setup and first-release instructions.
+
+The gallery uses the npm scope `@chinnaiya-2310`, distinct from the component library's GitHub scope `@chinnaiya-r-2310`. Existing GitHub Packages configuration for the component library can remain unchanged. The authentication section below applies only to that library.
+
 ## For feature developers
 
 ### Authentication

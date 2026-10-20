@@ -1,0 +1,16 @@
+{
+  "name": "@chinnaiya-2310/design-system-storybook",
+  "version": "1.0.0",
+  "description": "Installable CRM component and foundation gallery — no patterns",
+  "type": "module",
+  "bin": "./cli.mjs",
+  "files": ["site", "cli.mjs", "server.mjs", "README.md"],
+  "engines": { "node": ">=20" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chinnaiya-r-2310/crm-design-system.git",
+    "directory": "packages/storybook"
+  },
+  "publishConfig": { "registry": "https://registry.npmjs.org/", "access": "public" },
+  "scripts": { "prepack": "node ../../scripts/verify-storybook-package.mjs" }
+}

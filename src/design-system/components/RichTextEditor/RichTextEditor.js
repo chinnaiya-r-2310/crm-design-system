@@ -166,6 +166,11 @@ export function RichTextEditor({
   onChange,
   width = 500,
   forceState,
+  initialContent,
+  alwaysShowToolbar = false,
+  toolbarPosition = 'bottom',
+  showExpand = true,
+  'aria-label': ariaLabel,
 }) {
   const [focused, setFocused] = useState(false);
   const [fontSize, setFontSize] = useState('16');
@@ -175,7 +180,7 @@ export function RichTextEditor({
   const editorRef = useRef(null);
 
   const AlignIcon = ALIGN_OPTIONS.find(a => a.value === align)?.icon ?? RtAlignLeft;
-  const showToolbar = focused && !disabled;
+  const showToolbar = (focused || alwaysShowToolbar) && !disabled;
 
   const exec = useCallback((cmd, val = null) => {
     editorRef.current?.focus();
@@ -221,6 +226,7 @@ export function RichTextEditor({
           disabled ? 'rte-field--disabled' : '',
         ].filter(Boolean).join(' ')}
         data-state={forceState || undefined}
+        data-toolbar-position={toolbarPosition}
       >
 
         <div className="rte-editor-wrap" style={{ minHeight: showToolbar ? minHeight : 32 }}>
@@ -228,13 +234,17 @@ export function RichTextEditor({
             ref={editorRef}
             className="rte-editor"
             contentEditable={!disabled}
+            role="textbox"
+            aria-label={ariaLabel || label || 'Rich text editor'}
+            aria-multiline="true"
             suppressContentEditableWarning
+            onInput={event => onChange?.(event.currentTarget.innerText)}
             onFocus={handleFocus}
             onKeyUp={updateFormats}
             onMouseUp={updateFormats}
             data-placeholder={placeholder}
             style={{ lineHeight }}
-          />
+          >{initialContent}</div>
           {(onSave || onCancel) && (
             <div className="rte-ajax">
               {onSave && (
@@ -417,14 +427,14 @@ export function RichTextEditor({
               </TbBtn>
             </div>
 
-            <button
+            {showExpand && <button
               type="button"
               className="rte-expand-btn"
               onMouseDown={e => e.preventDefault()}
               title="Expand"
             >
               <RtExpand width={12} height={12} />
-            </button>
+            </button>}
           </div>
         )}
       </div>

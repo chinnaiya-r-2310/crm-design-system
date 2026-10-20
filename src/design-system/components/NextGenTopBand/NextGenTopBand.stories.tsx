@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { NextGenTopBand } from './NextGenTopBand';
 
 const userAvatar = '/images/avatars/user_01.jpg';
@@ -28,8 +28,7 @@ export const Default: Story = {
       moduleLabel="Leads"
       searchPlaceholder="Search Leads..."
       territory="All Territories"
-      notificationCount={3}
-      userAvatarSrc={userAvatar}
+
     />
   ),
 };

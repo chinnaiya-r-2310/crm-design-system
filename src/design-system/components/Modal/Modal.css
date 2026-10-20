@@ -137,9 +137,10 @@
   min-height: 0;
   overflow-y: auto;
   scrollbar-gutter: stable;
-  /* Prevent scroll container from clipping focus box-shadows on right edge */
-  padding: 4px 30px 0 4px;
-  margin: -4px -30px 0 -4px;
+  /* Leave clearance on every edge so the first and last controls' focus
+     shadows remain visible, including at the end of the scroll area. */
+  padding: 4px 30px 4px 4px;
+  margin: -4px -30px -4px -4px;
 }
 
 /* ── Footer area (note + buttons) ────────────────────────────────────────── */
@@ -205,3 +206,6 @@
   margin-top: 10px;
 }
 
+
+/* Optional leading footer action; existing modal actions remain right-aligned. */
+.modal-footer-start { margin-inline-end: auto; }

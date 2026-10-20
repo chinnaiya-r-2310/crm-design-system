@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Textarea } from './Textarea';
+import { expect, fireEvent, within } from 'storybook/test';
 
 const meta: Meta<typeof Textarea> = {
   title: 'Design System/Components/Textarea',
@@ -117,6 +118,36 @@ export const WithHelperText: Story = {
     helperText: 'Max 500 characters. Markdown is not supported.',
     layout: 'horizontal',
     width: 670,
+  },
+};
+
+export const ResizeTracksPointer: Story = {
+  args: {
+    label: 'Description',
+    defaultValue: 'Cargo shipment handling instructions.',
+    width: 670,
+  },
+  play: async ({ canvasElement }) => {
+    const textarea = within(canvasElement).getByRole('textbox');
+    const handle = canvasElement.querySelector('.textarea-resize-icon');
+    if (!handle) throw new Error('Resize handle is missing');
+
+    const initialHeight = textarea.getBoundingClientRect().height;
+    const startY = handle.getBoundingClientRect().top;
+    await fireEvent.mouseDown(handle, { clientY: startY });
+    try {
+      for (const delta of [60, 120, 30]) {
+        await fireEvent.mouseMove(document, { clientY: startY + delta });
+        expect(getComputedStyle(textarea).transitionDuration).toBe('0s');
+        expect(textarea.getBoundingClientRect().height).toBe(initialHeight + delta);
+      }
+      await fireEvent.mouseMove(document, { clientY: startY - 200 });
+      expect(textarea.getBoundingClientRect().height).toBe(70);
+    } finally {
+      await fireEvent.mouseUp(document);
+    }
+    await fireEvent.mouseMove(document, { clientY: startY + 200 });
+    expect(textarea.getBoundingClientRect().height).toBe(70);
   },
 };
 
