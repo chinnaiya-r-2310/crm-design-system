@@ -28,7 +28,7 @@ export const EMAIL_FIELDS: Field[] = [
   { value: 'email', label: 'Email ID' },
   { value: 'secondary-email', label: 'Secondary Email' },
 ];
-export const SMS_TEMPLATE = 'Your verification OTP is ${OTP}. Valid for ${Valid For}.\nShare with <CRM User> only. —\n${Organization.Organization Name}';
+export const SMS_TEMPLATE = 'Your verification OTP is ${OTP}. Valid for ${Valid For}.\nShare with <CRM User> only.\n${Organization.Organization Name}';
 export const EMAIL_TEMPLATES = [
   { value: 'verification', label: 'Verification Link Email' },
   { value: 'contact', label: 'Contact Verification Email' },

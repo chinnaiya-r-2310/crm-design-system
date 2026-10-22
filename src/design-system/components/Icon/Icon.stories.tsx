@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { MessageBox } from '../MessageBox/MessageBox';
 import { expect, userEvent, within } from 'storybook/test';
 import { Input } from '../Input/Input';
 import { Icon } from './Icon';
@@ -33,6 +34,40 @@ import {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const galleryIcons = (Object.keys(iconMap) as IconName[]).sort();
+
+type CopyFeedback = { message: string; variant: 'success' | 'error' };
+
+function CopyIconId({ name, onFeedback }: { name: string; onFeedback: (feedback: CopyFeedback) => void }) {
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(name);
+      onFeedback({ message: 'Copied', variant: 'success' });
+    } catch {
+      onFeedback({ message: `Could not copy ${name}. Please copy the ID below manually.`, variant: 'error' });
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      aria-label={`Copy icon ID: ${name}`}
+      title="Copy icon ID"
+      onClick={copy}
+      style={{
+        position: 'absolute', top: 4, right: 4, padding: 5,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        border: '1px solid var(--ds-components-input-default-outline)',
+        borderRadius: 4, background: 'var(--ds-bg-common-card)',
+        color: 'var(--ds-text-label)', cursor: 'pointer',
+      }}
+    >
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
+        <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+        <path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2" />
+      </svg>
+    </button>
+  );
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -168,6 +203,12 @@ export const Gallery: Story = {
   render: function GalleryRender() {
     const [query, setQuery] = useState('');
     const [page, setPage] = useState(0);
+    const [feedback, setFeedback] = useState<CopyFeedback | null>(null);
+    useEffect(() => {
+      if (!feedback) return;
+      const timeout = window.setTimeout(() => setFeedback(null), 3000);
+      return () => window.clearTimeout(timeout);
+    }, [feedback]);
     const pageSize = 120;
     const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
     const filteredIcons = galleryIcons.filter((name) => {
@@ -178,6 +219,9 @@ export const Gallery: Story = {
 
     return (
     <div style={{ fontFamily: 'var(--ds-font-family-base)', width: '800px', maxWidth: '100%' }}>
+      {feedback && <MessageBox variant={feedback.variant} message={feedback.message}
+        onClose={() => setFeedback(null)}
+        style={{ position: 'fixed', top: 20, left: '50%', transform: 'translateX(-50%)', zIndex: 10000, maxWidth: 'calc(100vw - 32px)' }} />}
       <Input
         type="search"
         label="Search icons"
@@ -205,7 +249,11 @@ export const Gallery: Story = {
         width: '800px',
         maxWidth: '100%',
       }}>
-        {shownIcons.map((name) => (
+        {shownIcons.map((name) => {
+          const GalleryIcon = iconMap[name];
+          const dimensions = crmIconMetadata[name];
+          const scale = dimensions ? Math.min(1, 64 / Math.max(dimensions.width, dimensions.height)) : 1;
+          return (
           <Tooltip key={name} content={crmIconMetadata[name]?.keywords ?? name} variant="black" wrapperStyle={{ display: 'block' }}>
           <div
             tabIndex={0}
@@ -216,7 +264,8 @@ export const Gallery: Story = {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '10px',
-              padding: '20px 8px 14px',
+              position: 'relative',
+              padding: '36px 8px 14px',
               border: '1px solid var(--ds-components-input-default-outline)',
               borderRadius: '8px',
               background: 'var(--ds-bg-common-card)',
@@ -225,7 +274,12 @@ export const Gallery: Story = {
               transition: 'background 120ms',
             }}
           >
-            <Icon name={name} size={20} />
+            <GalleryIcon
+              width={dimensions ? dimensions.width * scale : undefined}
+              height={dimensions ? dimensions.height * scale : undefined}
+              aria-hidden="true"
+              style={{ flexShrink: 0, maxWidth: 64, maxHeight: 64, objectFit: 'contain' }}
+            />
             <span style={{
               fontSize: '11px',
               color: 'var(--ds-text-label)',
@@ -235,9 +289,11 @@ export const Gallery: Story = {
             }}>
               {name}
             </span>
+            <CopyIconId name={name} onFeedback={setFeedback} />
           </div>
           </Tooltip>
-        ))}
+          );
+        })}
       </div>
       <nav aria-label="Icon gallery pages" style={{ display: 'flex', gap: 16, alignItems: 'center', marginTop: 16 }}>
         <button type="button" disabled={page === 0} onClick={() => setPage(value => value - 1)}>Previous</button>
@@ -263,6 +319,24 @@ export const GallerySearch: Story = {
     await userEvent.type(search, 'no-matching-icon');
     await expect(canvas.getByText('No icons found. Try another name.')).toBeVisible();
     await userEvent.clear(search);
+    await userEvent.type(search, 'CrmArrowBack');
+    const nativeIcon = canvas.getByLabelText('CrmArrowBack', { exact: true }).querySelector('svg');
+    await expect(nativeIcon).toHaveAttribute('width', String(crmIconMetadata.CrmArrowBack.width));
+    await expect(nativeIcon).toHaveAttribute('height', String(crmIconMetadata.CrmArrowBack.height));
+    const largeName = galleryIcons.find(name => {
+      const dimensions = crmIconMetadata[name];
+      return dimensions && Math.max(dimensions.width, dimensions.height) > 64;
+    });
+    if (largeName) {
+      await userEvent.clear(search);
+      await userEvent.type(search, largeName);
+      const largeIcon = canvas.getByLabelText(largeName, { exact: true }).querySelector('svg')!;
+      const bounds = largeIcon.getBoundingClientRect();
+      await expect(Math.max(bounds.width, bounds.height)).toBeLessThanOrEqual(64);
+      const dimensions = crmIconMetadata[largeName];
+      await expect(bounds.width / bounds.height).toBeCloseTo(dimensions.width / dimensions.height, 1);
+    }
+    await userEvent.clear(search);
     await userEvent.type(search, 'arrow sort');
     await expect(canvas.getByText('CrmArrowSort', { exact: true })).toBeVisible();
     const tile = canvas.getByLabelText('CrmArrowSort', { exact: true });
@@ -274,6 +348,41 @@ export const GallerySearch: Story = {
     await expect(canvas.getByText('Email', { exact: true })).toBeVisible();
     await userEvent.clear(search);
     await expect(canvas.getByRole('status')).toHaveTextContent(`${galleryIcons.length} of ${galleryIcons.length} icons`);
+  },
+};
+
+export const GalleryCopy: Story = {
+  ...Gallery,
+  name: 'Gallery Copy',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Search icons' });
+    await userEvent.type(search, 'Mobile');
+    const clipboardDescriptor = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+    let copied = '';
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: async (value: string) => { copied = value; } },
+    });
+    try {
+      const copyButton = canvas.getByRole('button', { name: 'Copy icon ID: Mobile', exact: true });
+      const copyArtwork = copyButton.innerHTML;
+      await userEvent.click(copyButton);
+      await expect(copied).toBe('Mobile');
+      await expect(canvas.getByText('Copied', { exact: true })).toBeVisible();
+      await expect(copyButton.innerHTML).toBe(copyArtwork);
+      await userEvent.click(canvas.getByRole('button', { name: 'Dismiss', exact: true }));
+      await expect(canvas.queryByText('Copied', { exact: true })).not.toBeInTheDocument();
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: { writeText: async () => { throw new Error('Clipboard denied'); } },
+      });
+      await userEvent.click(canvas.getByRole('button', { name: 'Copy icon ID: Mobile', exact: true }));
+      await expect(canvas.getByText('Could not copy Mobile. Please copy the ID below manually.')).toBeVisible();
+    } finally {
+      if (clipboardDescriptor) Object.defineProperty(navigator, 'clipboard', clipboardDescriptor);
+      else Reflect.deleteProperty(navigator, 'clipboard');
+    }
   },
 };
 

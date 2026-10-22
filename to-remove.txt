@@ -1,0 +1,121 @@
+# IMPROPER ICONS TO REMOVE FROM data/general/
+# ─────────────────────────────────────────────────────────────────────
+# SOLID RECTANGLES (MHVHVZ / rect-path — just filled boxes)
+sprite-icon-1       # solid square (8.4×8.4)
+sprite-icon-6       # solid rectangle (12.7×8.4)
+sprite-icon-99      # solid rectangle
+sprite-icon-271     # solid rectangle
+sprite-icon-517     # solid rectangle
+sprite-icon-526     # solid rectangle
+
+# SOLID CIRCLES (MCSZ bezier circles — just filled discs)
+sprite-icon-26      # 4px solid dot
+sprite-icon-102     # solid circle MCSCZ
+sprite-icon-145     # solid circle MCSCZ
+sprite-icon-326     # solid circle MCSZ
+sprite-icon-337     # solid circle MCSZ
+sprite-icon-338     # solid circle MCSZ
+sprite-icon-349     # solid circle MCSZ
+sprite-icon-351     # solid circle MCSZ
+sprite-icon-353     # solid circle MCSZ
+sprite-icon-355     # solid circle MCSZ
+sprite-icon-357     # solid circle MCSZ
+sprite-icon-370     # solid circle MCSZ
+sprite-icon-383     # solid circle MCSZ
+sprite-icon-385     # solid circle MCSZ
+sprite-icon-402     # solid circle MCSZ
+sprite-icon-404     # solid circle MCSZ
+sprite-icon-437     # solid circle MCSZ
+sprite-icon-539     # solid circle MCSCZ
+sprite-icon-574     # solid circle MCSZ
+sprite-icon-708     # solid circle MCSZ
+sprite-icon-720     # solid circle MCSZ
+sprite-icon-1056    # solid circle MCZ
+sprite-icon-559     # solid circle (<circle> element)
+sprite-icon-619     # solid circle (<circle> element)
+sprite-icon-699     # solid circle (<circle> element)
+sprite-icon-704     # solid circle (<circle> element)
+sprite-icon-716     # solid circle (<circle> element)
+
+# SOLID BLOBS — simple closed shapes, no recognizable form
+sprite-icon-2       # comma/teardrop blob MCSCSCZ
+sprite-icon-8       # irregular polygon MVLVHCZ
+sprite-icon-9       # irregular polygon MLVLVLZ
+sprite-icon-33      # L-shape blob MCHVLVZ
+sprite-icon-98      # blob MLHLCHCZ
+sprite-icon-108     # blob MLCHVHVZ
+sprite-icon-125     # triangle-like MLHLHLZ
+sprite-icon-144     # blob MCSCHZ
+sprite-icon-216     # blob MCSHZ
+sprite-icon-219     # blob MVHVCHCZ
+sprite-icon-220     # blob MVHVCHCZ
+sprite-icon-221     # blob MVHVCHCZ
+sprite-icon-222     # blob MLCLZ
+sprite-icon-223     # blob MLCLZ
+sprite-icon-224     # blob MCSLHZ
+sprite-icon-225     # blob MLCLCSZ
+sprite-icon-226     # blob MLCLCZ
+sprite-icon-227     # blob MCSLCLHZ
+sprite-icon-316     # irregular polygon MLHZ
+sprite-icon-317     # blob MLCLCVCZ
+sprite-icon-382     # blob MCSLVHZ
+sprite-icon-387     # blob MCVHVSZ
+sprite-icon-389     # blob MVHVCZ
+sprite-icon-394     # half-dome blob MCSCHCZ
+sprite-icon-413     # blob MLHLVHVZ
+sprite-icon-415     # blob MCHVHVZ
+sprite-icon-417     # blob MLHLVHVZ
+sprite-icon-419     # blob MLHLHCHZ
+sprite-icon-425     # blob MLVHLZ
+sprite-icon-432     # blob MCLSZ
+sprite-icon-434     # blob MVHCVCZ
+sprite-icon-438     # blob MCSCHZ
+sprite-icon-452     # blob MLCLHCHZ
+sprite-icon-453     # blob MLCLCHVZ
+sprite-icon-456     # blob MCHVHVZ
+sprite-icon-458     # blob MCHVLHVZ
+sprite-icon-464     # 4-vertex diamond MLZ (too simple)
+sprite-icon-489     # blob MVCVCZ
+sprite-icon-534     # blob MLSLCLCZ
+sprite-icon-548     # blob MCLCSLCZ
+sprite-icon-549     # blob MLHLHZ
+sprite-icon-550     # blob MLHLCHZ
+sprite-icon-561     # blob MCSVHZ
+sprite-icon-565     # blob MCHVHVHZ
+sprite-icon-576     # blob MVHVLHCZ
+sprite-icon-580     # blob MCHVHVHZ
+sprite-icon-583     # blob MVHVLHCZ
+sprite-icon-584     # blob MVCLZ
+sprite-icon-586     # blob MVHVLHCZ
+sprite-icon-602     # blob MCSCLCLZ
+sprite-icon-629     # blob MCHVHVHZ
+sprite-icon-702     # blob MCLCZ
+sprite-icon-712     # blob MCHZ
+sprite-icon-714     # blob MCHVHVZ
+sprite-icon-721     # blob MCHCSHCZ
+sprite-icon-875     # blob MHLVHLVZ
+sprite-icon-890     # blob MVCLHVHZ
+sprite-icon-916     # blob MCSCHZ
+sprite-icon-929     # blob MLHZ
+sprite-icon-930     # blob MCHVCHVZ
+sprite-icon-944     # blob MCHZ
+sprite-icon-963     # blob MLVLHZ
+sprite-icon-965     # blob MVHVHCZ
+sprite-icon-975     # blob MLHLHZ
+sprite-icon-977     # blob MLHZ
+sprite-icon-980     # blob MLZ
+sprite-icon-983     # blob MCHVHVZ
+sprite-icon-1010    # blob MCHVHVZ
+sprite-icon-1013    # blob MCHVHCVZ
+sprite-icon-1017    # blob MLHZ
+sprite-icon-1018    # blob MHVLHLVZ
+
+# PLACEHOLDER RECTS (intentional solid rectangles, not real icons)
+placeholder-8
+placeholder-12
+placeholder-16
+
+# HARDCODED-COLOR SPRITE RECTS (simple rects with hardcoded colors)
+sprite-icon-39      # two rects with hardcoded fill
+sprite-icon-757     # small rotated rect
+sprite-icon-1039    # single rect

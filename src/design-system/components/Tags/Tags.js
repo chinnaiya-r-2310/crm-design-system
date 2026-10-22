@@ -316,12 +316,12 @@ export function Tags({
             overflow:     'hidden',
           }}
         >
-          <div style={{ overflowY: 'auto', padding: '6px 0', flex: 1 }}>
+          <div style={{ overflowY: 'auto', padding: filtered.length === 0 ? 0 : '6px 0', flex: 1 }}>
           {(() => {
             if (filtered.length === 0) {
               return (
                 <div style={{
-                  height:     50,
+                  height:     32,
                   display:    'flex',
                   alignItems: 'center',
                   padding:    '0 25px',

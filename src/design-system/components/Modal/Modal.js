@@ -2,6 +2,10 @@ import { useEffect, useCallback, useState, useRef, useLayoutEffect, useId } from
 import { createPortal } from 'react-dom';
 import './Modal.css';
 import { Button } from '../Button/Button';
+import { crmIconMap, crmIconMetadata } from '../../foundations/icons/CrmCatalog';
+
+const CloseIcon = crmIconMap.CrmMaskCloseEditor;
+const closeIconSize = crmIconMetadata.CrmMaskCloseEditor;
 import {
   CrmAlertSuccess,
   CrmAlertInfo,
@@ -54,6 +58,9 @@ export function Modal({
   headerActions,
   headerStart,
   footerStart,
+  showFooter = true,
+  showClose = false,
+  closeLabel = 'Close modal',
 }) {
   // isVisible stays true during the slide-up closing animation
   const [isVisible, setIsVisible] = useState(isOpen);
@@ -215,6 +222,9 @@ export function Modal({
               {title}
             </h2>
             {headerActions}
+            {showClose && <button type="button" className="modal-close" aria-label={closeLabel} onClick={onClose}>
+              <CloseIcon width={closeIconSize.width} height={closeIconSize.height} aria-hidden="true" />
+            </button>}
           </div>
           {description && (
             <p className='modal-description'>{description}</p>
@@ -227,7 +237,7 @@ export function Modal({
         </div>
 
         {/* ── Footer area (note + buttons) ─────────────────────────────── */}
-        <div className='modal-footer-area' data-shadow={isBodyScrollable || undefined}>
+        {showFooter && <div className='modal-footer-area' data-shadow={isBodyScrollable || undefined}>
           {footerNote && (
             <div className='modal-footer-note'>
               {footerNote}
@@ -242,7 +252,7 @@ export function Modal({
               {saveLabel}
             </Button>
           </div>
-        </div>
+        </div>}
       </div>
     </div>,
     document.body

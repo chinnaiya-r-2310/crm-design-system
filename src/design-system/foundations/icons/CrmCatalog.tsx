@@ -4,7 +4,12 @@ import catalog from './catalog/catalog.json';
 
 // Inline text SVG sprites so masks also work offline and in browser tests.
 import { sprites } from './catalog/sprites';
-export const crmIconMetadata = Object.fromEntries(catalog.map(item => [item.name, { keywords: item.keywords, source: item.source }]));
+export const crmIconMetadata = Object.fromEntries(catalog.map(item => {
+  const dimensions = item.kind === 'vector'
+    ? item.viewBox!.trim().split(/\s+/).map(Number).slice(2)
+    : [item.width!, item.height!];
+  return [item.name, { keywords: item.keywords, source: item.source, width: dimensions[0], height: dimensions[1] }];
+}));
 export const crmIconMap: Record<string, FC<SVGProps<SVGSVGElement>>> = Object.fromEntries(catalog.map(item => {
   function CatalogIcon(props: SVGProps<SVGSVGElement>) {
     const id = `crm-mask-${useId().replace(/:/g, '')}`;

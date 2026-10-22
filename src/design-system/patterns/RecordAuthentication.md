@@ -4,7 +4,7 @@ Storybook: **Design System → Patterns → Record Authentication**.
 
 Implements the Data Verification setup illustrated in Frames 1–6 supplied as PDF references: verify-via selection, phone OTP settings, expanded resend options, email-link settings, and saved summaries.
 
-The second tab is named **Record Configuration** per the latest request and is intentionally empty. The reference PDFs call this tab Record Confirmation; no confirmation behavior has been invented.
+The second tab is **Record Verification**, following the linked PM mock. It captures record-level consent independently of Data Verification. See `RecordVerification.md` for the three-step flow, supported actions/methods, and prototype limitations.
 
 ## States
 
@@ -14,7 +14,7 @@ The second tab is named **Record Configuration** per the latest request and is i
 - Email Verification: email-link configuration dialog.
 - Phone Configured: saved phone summary.
 - Configured: saved phone and email summaries.
-- Record Configuration: intentionally empty tab.
+- Record Verification: action/method/configuration wizard, saved rules, status toggles, editing, and confirmed deletion.
 
 ## Behavior
 
@@ -30,7 +30,7 @@ The setup sidebar and module navigation provide shell context rather than naviga
 
 ## Validation
 
-Story interaction tests cover draft cancellation, save validation, summaries, template previews, editing existing settings, and the empty second tab. Run the focused Storybook tests with:
+Story interaction tests cover draft cancellation, save validation, summaries, template previews, editing existing settings, and the Record Verification setup flows. Run the focused Storybook tests with:
 
 ```sh
 npx vitest run src/design-system/patterns/RecordAuthentication.stories.tsx
