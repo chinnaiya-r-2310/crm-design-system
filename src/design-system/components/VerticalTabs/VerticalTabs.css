@@ -236,3 +236,182 @@
   border-left: none;
   border-radius: 4px;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Setup variant — CRM Setup left menu
+   Figma: Pascal Stone "Setup Left Menu" node 79954:198542
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.vtabs-panel[data-variant="setup"] {
+  gap: 0;
+  padding: 0;
+  border: none;
+  border-right: 1px solid var(--ds-border-lighter, #DCDBEE);
+  border-radius: 0;
+}
+
+/* Header: ← Setup Home ............ [customise] */
+.vtabs-setup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.vtabs-setup-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base, 14px);
+  font-weight: var(--ds-font-weight-semibold, 600);
+  color: var(--ds-text-link, #5464F2);
+}
+
+.vtabs-setup-back {
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: var(--ds-text-base, #313949);
+  transition: background 120ms ease;
+}
+
+.vtabs-setup-home:hover .vtabs-setup-back {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+.vtabs-setup-customise {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ds-text-label, #616E88);
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.vtabs-setup-customise:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+.vtabs-panel[data-variant="setup"] .vtabs-search-box {
+  margin: 0 10px 6px;
+}
+
+.vtabs-panel[data-variant="setup"] .vtabs-list {
+  gap: 6px;
+  padding: 0 10px 10px;
+}
+
+/* Group header: [icon] Label ............ ^ */
+.vtabs-panel[data-variant="setup"] .vtabs-group-header {
+  gap: 6px;
+  padding: 0 0 0 4px;
+  font-weight: var(--ds-font-weight-medium, 500);
+  color: var(--ds-text-base, #313949);
+  border-radius: 6px;
+}
+
+.vtabs-panel[data-variant="setup"] .vtabs-group-header[aria-expanded="true"] {
+  font-weight: var(--ds-font-weight-semibold, 600);
+}
+
+.vtabs-panel[data-variant="setup"] .vtabs-group-header:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+.vtabs-group-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--ds-text-base, #313949);
+}
+
+.vtabs-group-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vtabs-group-chevron {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--ds-text-label, #616E88);
+  transition: transform 220ms ease;
+}
+
+.vtabs-group-chevron[data-open] {
+  transform: rotate(180deg);
+}
+
+.vtabs-panel[data-variant="setup"] .vtabs-children {
+  gap: 2px;
+  padding-top: 2px;
+}
+
+/* Sub-items: dark text, 33px inset so they line up under the group label */
+.vtabs-panel[data-variant="setup"] .vtabs-item {
+  padding: 0 10px 0 33px;
+  color: var(--ds-text-base, #313949);
+  border-radius: 6px;
+}
+
+.vtabs-panel[data-variant="setup"] .vtabs-item[data-active] {
+  background: var(--ds-components-navigation-tab-active-bg, #EBEDFF);
+  color: var(--ds-brand-primary, #5464F2);
+  font-weight: var(--ds-font-weight-medium, 500);
+}
+
+/* Yellow "new" sparkle after a sub-item label */
+.vtabs-item-new {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 4px;
+  color: var(--ds-icon-primary-orange-yellow, #EFCA09);
+}
+
+[dir="rtl"] .vtabs-item-new {
+  margin-left: 0;
+  margin-right: 4px;
+}
+
+.vtabs-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+[dir="rtl"] .vtabs-panel[data-variant="setup"] {
+  border-right: none;
+  border-left: 1px solid var(--ds-border-lighter, #DCDBEE);
+}
+
+[dir="rtl"] .vtabs-panel[data-variant="setup"] .vtabs-item {
+  padding: 0 33px 0 10px;
+  text-align: right;
+}
+
+[dir="rtl"] .vtabs-setup-back {
+  transform: scaleX(-1);
+}

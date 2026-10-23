@@ -26,7 +26,7 @@ Validation errors appear directly beneath the affected fields, with invalid stat
 
 The existing WMSBar spans the bottom of the viewport. On desktop, the Setup panel starts at the top edge and extends to just above the bar; navigation and workspace scroll independently. Narrow screens retain the existing hidden-sidebar layout and allow horizontal scrolling within the communication bar.
 
-The setup sidebar and module navigation provide shell context rather than navigating to unrelated pages. Chart/homepage patterns are untouched.
+The setup sidebar (the VerticalTabs `setup` variant, shared with SB Connections, with Customization → Modules and Fields selected) and module navigation provide shell context rather than navigating to unrelated pages. Chart/homepage patterns are untouched.
 
 ## Validation
 

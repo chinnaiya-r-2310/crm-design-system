@@ -61,31 +61,7 @@ export function smsPreview(config: VerificationConfig): string {
     .replaceAll('<CRM User>', 'CRM User')
     .replaceAll('${Organization.Organization Name}', 'Zoho');
 }
-export const SETUP_ITEMS = [
-  { id: 'general', label: 'General', children: [
-    { id: 'personal', label: 'Personal Settings' },
-    { id: 'company', label: 'Company Details' },
-    { id: 'calendar', label: 'Calendar Booking' },
-    { id: 'motivator', label: 'Motivator' },
-  ] },
-  { id: 'security', label: 'Security Control', children: [{ id: 'permissions', label: 'Permissions' }] },
-  { id: 'channels', label: 'Channels', children: [{ id: 'email-channel', label: 'Email' }] },
-  { id: 'customization', label: 'Customization', children: [
-    { id: 'modules', label: 'Modules and Fields' },
-    { id: 'templates', label: 'Templates' },
-    { id: 'pipelines', label: 'Pipelines' },
-    { id: 'wizards', label: 'Wizards' },
-    { id: 'home', label: 'Customise Home page' },
-    { id: 'translations', label: 'Translations' },
-    { id: 'copy', label: 'Copy Customisation' },
-    { id: 'canvas', label: 'Canvas' },
-  ] },
-  { id: 'automation', label: 'Automation', children: [
-    { id: 'workflow', label: 'Workflow Rules' },
-    { id: 'schedules', label: 'Schedules' },
-    { id: 'action', label: 'Action' },
-    { id: 'assignment', label: 'Assignment' },
-    { id: 'escalation', label: 'Case Escalation Rules' },
-  ] },
-];
+// Setup left menu (icons + groups) comes from the VerticalTabs "setup" variant,
+// shared with the SB Connections pattern.
+export { SETUP_MENU_ITEMS as SETUP_ITEMS } from '../components/VerticalTabs/setupMenuItems';
 export const MODULE_TABS = ['Layouts', 'Layout Rules', 'Validation Rules', 'Fields', 'Record Locking Configuration', 'Record Authentication', 'Links', 'Buttons', 'Summary'];

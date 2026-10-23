@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from 'storybook/test';
 import { VerticalTabs } from './VerticalTabs';
+import { SETUP_MENU_ITEMS } from './setupMenuItems';
 
 const meta: Meta<typeof VerticalTabs> = {
   title: 'Design System/Components/VerticalTabs',
@@ -169,5 +171,39 @@ export const AllStyles: Story = {
         </div>
       </div>
     );
+  },
+};
+
+/**
+ * Setup — CRM Setup left menu: "← Setup Home" header with a customise action,
+ * search, and icon-led groups with an up/down chevron.
+ * Figma: Pascal Stone "Setup Left Menu" (79954:198542).
+ */
+export const Setup: Story = {
+  render: () => {
+    const [active, setActive] = useState('');
+    return (
+      <div style={{ height: 760, overflowY: 'auto' }}>
+        <VerticalTabs
+          variant="setup"
+          searchable
+          items={SETUP_MENU_ITEMS}
+          defaultExpanded={['general', 'customization', 'automation']}
+          activeId={active}
+          onSelect={setActive}
+          width={240}
+        />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('button', { name: 'Setup Home' })).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Customise Setup' })).toBeVisible();
+    const general = canvas.getByRole('button', { name: 'General' });
+    await expect(general).toHaveAttribute('aria-expanded', 'true');
+    await expect(canvas.getByRole('button', { name: 'Security Control' })).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(canvas.getByRole('button', { name: 'Company Settings' }));
+    await expect(canvas.getByRole('button', { name: 'Company Settings' })).toHaveAttribute('data-active', 'true');
   },
 };

@@ -815,3 +815,24 @@ export const RtAlignJustify: FC<P> = (props) => (
     <path d="M2 4h12M2 7h12M2 10h12M2 13h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
   </svg>
 );
+// ─────────────────────────────────────────────────────────────────────────────
+// Setup menu icons — exported from Figma Pascal Stone "Setup Left Menu" (79954:198542)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const SetupBack: FC<P> = (props) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
+  <path d="M11.375 8.25L7.625 12L11.375 15.75M7.9375 12H16.6875" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" />
+  </svg>
+);
+
+export const SetupCustomise: FC<P> = (props) => (
+  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
+  <path d="M18.75 8L18.75 10.25M18.75 10.25C17.5074 10.25 16.5 11.2574 16.5 12.5C16.5 13.7426 17.5074 14.75 18.75 14.75C19.9926 14.75 21 13.7426 21 12.5C21 11.2574 19.9926 10.25 18.75 10.25ZM11.25 8L11.25 12.5M11.25 19.25L11.25 21.5M11.25 19.25C10.0074 19.25 9 18.2426 9 17C9 15.7574 10.0074 14.75 11.25 14.75C12.4926 14.75 13.5 15.7574 13.5 17C13.5 18.2426 12.4926 19.25 11.25 19.25ZM18.75 17L18.75 21.5" strokeWidth="1.5" strokeLinecap="round" stroke="currentColor" />
+  </svg>
+);
+
+export const SetupChevron: FC<P> = (props) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
+    <path d="M8 10L12 14L16 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);

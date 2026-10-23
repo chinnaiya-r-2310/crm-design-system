@@ -329,14 +329,14 @@ function RecordAuthenticationPage({ initial = 'empty', dialog, expanded = false,
     const timeout = window.setTimeout(() => setNotice(undefined), 5000);
     return () => window.clearTimeout(timeout);
   }, [notice]);
-  const [sidebarId, setSidebarId] = useState('modules');
+  const [sidebarId, setSidebarId] = useState('modules-fields');
   const configured = !!saved.phone || !!saved.email;
   const availableChannels = VERIFICATION_CHANNELS.filter(option => !saved[option.value as Channel]);
   return <div className="record-auth">
     <header><NextGenTopBand moduleLabel={null} showTerritory={false} /></header>
     <div className="record-auth__shell">
-      <aside className="record-auth__sidebar" aria-label="Setup navigation"><VerticalTabs title="Setup" searchable
-        width="100%" items={SETUP_ITEMS} activeId={sidebarId} onSelect={setSidebarId} variant="1" /></aside>
+      <aside className="record-auth__sidebar" aria-label="Setup navigation"><VerticalTabs variant="setup" searchable
+        width="100%" items={SETUP_ITEMS} activeId={sidebarId} onSelect={setSidebarId} /></aside>
       <main className="record-auth__workspace" aria-label="Record Authentication">
         <div className="record-auth__module-title">
           <svg width="14.5" height="12" viewBox="0 0 14.5 12" fill="none" aria-hidden="true">
