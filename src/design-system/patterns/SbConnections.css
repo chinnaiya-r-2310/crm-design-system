@@ -1,11 +1,3 @@
-/* CRM fonts: the same Zoho Puvi 4.0 web fonts the CRM product loads from its
-   static CDN, registered under the family name used by --ds-font-family-base so
-   the story renders in Puvi even where the font is not installed locally.
-   Weights follow the Figma frame: Regular 400, Medium 500, Semibold 600. */
-@font-face { font-family: 'Zoho Puvi'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Regular.woff2') format('woff2'); }
-@font-face { font-family: 'Zoho Puvi'; font-style: normal; font-weight: 500; font-display: swap; src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Medium.woff2') format('woff2'); }
-@font-face { font-family: 'Zoho Puvi'; font-style: normal; font-weight: 600; font-display: swap; src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Semibold.woff2') format('woff2'); }
-@font-face { font-family: 'Zoho Puvi'; font-style: normal; font-weight: 700; font-display: swap; src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Bold.woff2') format('woff2'); }
 
 .sb-connections {
   --sb-connections-inbound: var(--ds-status-success);
@@ -20,6 +12,9 @@
   grid-template-rows: auto minmax(0, 1fr);
   height: 100dvh;
   min-height: 0;
+  /* No page scroll: the sidebar and the map panel scroll on their own. */
+  position: relative;
+  overflow: hidden;
   background: var(--ds-bg-common-bg);
   color: var(--ds-text-base);
   font-family: var(--ds-font-family-base);
@@ -28,7 +23,7 @@
 }
 .sb-connections *, .sb-connections *::before, .sb-connections *::after { box-sizing: border-box; }
 .sb-connections > header { grid-column: 2; grid-row: 1; min-width: 0; }
-.sb-connections__sidebar { grid-column: 1; grid-row: 1 / -1; min-height: 0; overflow-y: auto; background: var(--ds-bg-common-card); border-inline-end: thin solid var(--ds-border-lighter); }
+.sb-connections__sidebar { position: relative; grid-column: 1; grid-row: 1 / -1; min-height: 0; overflow-y: auto; background: var(--ds-bg-common-card); border-inline-end: thin solid var(--ds-border-lighter); }
 .sb-connections__sidebar > .vtabs-panel { min-height: 100%; border-right: none; }
 .sb-connections__workspace {
   grid-column: 2;
@@ -37,14 +32,15 @@
   flex-direction: column;
   min-width: 0;
   min-height: 0;
-  overflow: auto;
+  overflow: hidden;
   margin: var(--ds-line-height-sm);
   border: thin solid var(--ds-border-lighter);
   border-radius: var(--sb-connections-card-radius);
   background: var(--ds-bg-common-card);
 }
 .sb-connections__workspace > .tabs-tab-bar { flex-shrink: 0; padding-top: calc(var(--ds-line-height-base) / 2); overflow-x: auto; }
-.sb-connections__content { display: flex; flex-direction: column; flex: 1 0 auto; gap: var(--ds-line-height-base); padding: var(--ds-line-height-h2) var(--sb-connections-gutter) var(--sb-connections-gutter); }
+/* Content fills the card height; only the map panel scrolls. */
+.sb-connections__content { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; gap: var(--ds-line-height-base); padding: var(--ds-line-height-h2) var(--sb-connections-gutter) var(--sb-connections-gutter); }
 .sb-connections__intro { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--ds-line-height-base); }
 .sb-connections h1 { margin: 0 0 calc(var(--ds-line-height-base) / 4); color: var(--ds-text-heading); font-size: var(--ds-font-size-h1); line-height: var(--ds-line-height-h1); font-weight: var(--ds-font-weight-semibold); }
 .sb-connections__intro p, .sb-connections__note { margin: 0; color: var(--ds-text-paragraph); }
@@ -55,7 +51,9 @@
 .sb-connections__legend-dot[data-kind="inbound"] { border-color: var(--sb-connections-inbound); background: var(--ds-bg-scale-bg7); }
 .sb-connections__legend-dot[data-kind="outbound"] { border-color: var(--sb-connections-outbound); background: var(--ds-components-badge-bg-blue); }
 
-.sb-connections__panel { flex: 1 0 auto; display: flex; overflow: auto; border: thin solid var(--ds-border-lighter); border-radius: var(--sb-connections-card-radius, 10px); background: var(--ds-bg-scale-bg3); }
+.sb-connections__intro, .sb-connections__legend { flex-shrink: 0; }
+/* Panel takes the remaining fixed height and scrolls inside itself. */
+.sb-connections__panel { flex: 1 1 0; min-height: 0; display: flex; overflow: auto; overscroll-behavior: contain; border: thin solid var(--ds-border-lighter); border-radius: var(--sb-connections-card-radius, 10px); background: var(--ds-bg-scale-bg3); }
 .sb-connections__panel--standalone { padding: var(--sb-connections-gutter, 30px); font-family: var(--ds-font-family-base); font-size: var(--ds-font-size-base); line-height: var(--ds-line-height-base); color: var(--ds-text-base); }
 .sb-connections__panel--standalone { --sb-connections-inbound: var(--ds-status-success); --sb-connections-outbound: var(--ds-components-badge-text-blue); --sb-connections-internal: var(--ds-border-strong); }
 .sb-connections__diagram { margin: auto; padding: calc(var(--ds-line-height-base) * 2.5) var(--sb-connections-gutter, 30px); }
