@@ -1,0 +1,602 @@
+import{i as e,s as t}from"./preload-helper-BTXe9M7S.js";import{N as n}from"./iframe-CULqjkQ9.js";import{t as r}from"./jsx-runtime-D-I7Lrue.js";import{Jt as i,j as a}from"./Icons-Cn7si_AF.js";import{r as o,t as s}from"./Button-BaAI9Sdx.js";import{n as c,t as l}from"./Checkbox-DUw7oJMH.js";import{n as u,t as d}from"./Tooltip-CFrsth8E.js";import{n as f,t as p}from"./Dropdown-Ch76Fk9y.js";import{n as m,t as h}from"./Input-ufjjzKQ8.js";import{n as g,t as _}from"./DateTimeInput-CS76FzsN.js";import{n as ee,t as te}from"./GroupButton-XXTcfB--.js";import{n as v,t as ne}from"./MessageInfo-BQUrdfOl.js";import{n as y,t as b}from"./Modal-Xl7PI8e9.js";import{n as x,t as S}from"./Radio-WeXY7hgE.js";import{n as C,t as re}from"./Tags-DNaQjg9j.js";import{n as w,t as ie}from"./FormSection-DB8ioMjr.js";function ae(){let e=new Date;return`${String(e.getDate()).padStart(2,`0`)}/${String(e.getMonth()+1).padStart(2,`0`)}/${e.getFullYear()}`}function oe(e){let[t,n,r]=(e||``).split(`/`);return new Date(Number(r),Number(n)-1,Number(t))}function T(e,t,n){return e===`after_n`?`, ends after ${t} ${t===1?`time`:`times`}`:e===`on_date`&&n?`, ends on ${n}`:``}function se(e,t,n,r,i,a,o,s,c,l,u,d,f,p,m,h){if(!e||!t)return``;let g=T(i,a,o);if(n===`daily`)return`Email will be sent every ${r} ${r===1?`day`:`days`} from ${e}, at ${t} IST${g}`;if(n===`weekly`)return`Email will be sent every ${r} ${r===1?`week`:`weeks`}${s.length>0?` on ${s.join(`, `)}`:``} from ${e}, at ${t} IST${g}`;if(n===`monthly`){let n=r===1?`month`:`months`;return c===`days_of_month`?`Email will be sent every ${r} ${n} on the ${l.length>0?l.slice().sort((e,t)=>e-t).join(`, `):`no days selected`} from ${e}, at ${t} IST${g}`:`Email will be sent every ${r} ${n} on the ${u.charAt(0).toUpperCase()+u.slice(1)} ${d.charAt(0).toUpperCase()+d.slice(1)} from ${e}, at ${t} IST${g}`}return n===`quarterly`?`Email will be sent every ${r} ${r===1?`quarter`:`quarters`}, in the ${f.charAt(0).toUpperCase()+f.slice(1)} month on the ${p===`15th`?`15th`:p.charAt(0).toUpperCase()+p.slice(1)} day, from ${e}, at ${t} IST${g}`:n===`yearly`?`Email will be sent every ${r} ${r===1?`year`:`years`} in ${m.length>0?m.join(`, `):`no months selected`}, on the ${h===`15th`?`15th`:h.charAt(0).toUpperCase()+h.slice(1)} day, from ${e}, at ${t} IST${g}`:`Scheduler will run on ${e}, at ${t} IST`}var E,D,O,k,A,j,M,N,P,F,I,L,R;e((()=>{E=r(),D=t(n(),1),y(),f(),c(),o(),u(),w(),g(),m(),v(),C(),x(),ee(),i(),O={title:`Design System/Patterns/Send Dashboard Scheduler`,parameters:{layout:`centered`,docs:{description:{component:`Modal pattern for scheduling a dashboard email report — configure send options, frequency, start date/time, and delivery preferences.`}}}},k={daily:`Days`,weekly:`Weeks`,monthly:`Months`,quarterly:`Quarter`,yearly:`Years`},A=[`January`,`February`,`March`,`April`,`May`,`June`,`July`,`August`,`September`,`October`,`November`,`December`],j=[{value:`first`,label:`First`},{value:`second`,label:`Second`},{value:`third`,label:`Third`},{value:`fourth`,label:`Fourth`},{value:`last`,label:`Last`}],M={fontFamily:`var(--ds-font-family-base)`,fontSize:`var(--ds-font-size-base)`,fontWeight:`var(--ds-font-weight-regular)`,color:`var(--ds-text-label)`,lineHeight:`var(--ds-line-height-base)`,textAlign:`right`,paddingTop:7},N={fontFamily:`var(--ds-font-family-base)`,fontSize:`var(--ds-font-size-base)`,color:`var(--ds-text-base)`,whiteSpace:`nowrap`},P=540,F=`130px 390px`,I=150,L={name:`Send Dashboard Scheduler`,render:()=>{let[e,t]=(0,D.useState)(!1),[n,r]=(0,D.useState)(`send_later`),[i,o]=(0,D.useState)(`once`),[c,u]=(0,D.useState)(ae),[f,m]=(0,D.useState)(`12:20 PM`),[g,ee]=(0,D.useState)(!0),[v,y]=(0,D.useState)(!1),[x,C]=(0,D.useState)(!1),[w,T]=(0,D.useState)(2),[O,L]=(0,D.useState)(`never`),[R,ce]=(0,D.useState)(1),[z,le]=(0,D.useState)(``),[ue,B]=(0,D.useState)(!1),[V,de]=(0,D.useState)(`(GMT 5:30) India Standard Time (Asia/Kolkata)`),[H,U]=(0,D.useState)(V),[W,fe]=(0,D.useState)([]),[G,K]=(0,D.useState)(`days_of_month`),[q,pe]=(0,D.useState)([]),[J,me]=(0,D.useState)(`first`),[Y,he]=(0,D.useState)(`monday`),[X,ge]=(0,D.useState)(`first`),[Z,_e]=(0,D.useState)(`first`),[ve,ye]=(0,D.useState)([`January`]),[be,xe]=(0,D.useState)(`first`),Q=n===`send_later`,$=Q?se(c,f,i,w,O,R,z,W,G,q,J,Y,X,Z,ve,be):``;return(0,E.jsxs)(E.Fragment,{children:[(0,E.jsx)(s,{variant:`primary`,onClick:()=>t(!0),children:`Send Email`}),(0,E.jsxs)(b,{isOpen:e,title:`Send Email`,onClose:()=>t(!1),onCancel:()=>t(!1),onSave:()=>{if(Q){if(!c.trim()){C(!0);return}let e=oe(c),t=new Date;if(t.setHours(0,0,0,0),isNaN(e.getTime())||e<t){C(!0);return}}t(!1)},cancelLabel:`Cancel`,saveLabel:`Save`,width:600,disableAutoFocus:!0,children:[(0,E.jsx)(ie,{title:`Scheduling Details`}),(0,E.jsx)(p,{label:`Send Options`,layout:`horizontal`,width:P,columns:F,value:n,onChange:e=>r(e),options:[{value:`send_immediately`,label:`Send Immediately`},{value:`send_later`,label:`Send Later`}]}),Q&&(0,E.jsxs)(`div`,{style:{display:`grid`,gridTemplateColumns:F,columnGap:20,alignItems:`start`,width:P},children:[(0,E.jsx)(`span`,{style:M,children:`Frequency`}),(0,E.jsxs)(`div`,{style:{display:`flex`,alignItems:`center`,gap:10},children:[(0,E.jsx)(`div`,{style:{flex:1,minWidth:0},children:(0,E.jsx)(p,{layout:`vertical`,width:`100%`,value:i,onChange:e=>{o(e),L(`never`)},options:[{value:`once`,label:`Once`},{value:`daily`,label:`Daily`},{value:`weekly`,label:`Weekly`},{value:`monthly`,label:`Monthly`},{value:`quarterly`,label:`Quarterly`},{value:`yearly`,label:`Yearly`}]})}),i!==`once`&&(0,E.jsxs)(E.Fragment,{children:[(0,E.jsx)(`span`,{style:N,children:`Every`}),(0,E.jsx)(h,{layout:`vertical`,type:`number`,width:70,value:String(w),min:1,onChange:e=>T(Math.max(1,Number(e.target.value)))}),(0,E.jsx)(`span`,{style:N,children:k[i]})]})]})]}),Q&&i===`weekly`&&(0,E.jsxs)(`div`,{style:{display:`grid`,gridTemplateColumns:F,columnGap:20,width:P},children:[(0,E.jsx)(`span`,{}),(0,E.jsx)(te,{options:[{value:`Mon`,label:`Mon`},{value:`Tue`,label:`Tue`},{value:`Wed`,label:`Wed`},{value:`Thu`,label:`Thu`},{value:`Fri`,label:`Fri`},{value:`Sat`,label:`Sat`},{value:`Sun`,label:`Sun`}],value:W,onChange:e=>fe(e),multiSelect:!0,showBadge:!0,itemWidth:50})]}),Q&&i===`monthly`&&(0,E.jsxs)(`div`,{style:{display:`flex`,flexDirection:`column`,gap:10},children:[(0,E.jsxs)(`div`,{style:{display:`grid`,gridTemplateColumns:F,columnGap:20,width:P},children:[(0,E.jsx)(`span`,{}),(0,E.jsxs)(`div`,{style:{display:`flex`,gap:20},children:[(0,E.jsx)(S,{label:`Days of the month`,name:`monthly-mode`,value:`days_of_month`,checked:G===`days_of_month`,onChange:()=>K(`days_of_month`)}),(0,E.jsx)(S,{label:`On Specific Days`,name:`monthly-mode`,value:`specific_days`,checked:G===`specific_days`,onChange:()=>K(`specific_days`)})]})]}),G===`days_of_month`&&(0,E.jsxs)(`div`,{style:{display:`grid`,gridTemplateColumns:F,columnGap:20,width:P},children:[(0,E.jsx)(`span`,{}),(0,E.jsxs)(`div`,{style:{display:`inline-flex`,flexDirection:`column`,gap:10,border:`1px solid var(--ds-components-input-default-outline)`,borderRadius:6,padding:`15px 10px`,width:`fit-content`},children:[(0,E.jsx)(`style`,{children:`
+                      .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
+                      .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
+                      .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                      .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                    `}),(0,E.jsx)(`span`,{style:{fontFamily:`var(--ds-font-family-base)`,fontSize:`var(--ds-font-size-sm)`,fontWeight:600,color:`var(--ds-text-base)`},children:`Select Dates`}),(0,E.jsx)(`div`,{style:{display:`grid`,gridTemplateColumns:`repeat(7, 34px)`,gap:4},children:Array.from({length:31},(e,t)=>t+1).map(e=>(0,E.jsx)(`button`,{type:`button`,className:`sds-cal-day`,"data-sel":q.includes(e)||void 0,onClick:()=>pe(t=>t.includes(e)?t.filter(t=>t!==e):[...t,e]),style:{width:34,height:34,borderRadius:`50%`,cursor:`pointer`,fontFamily:`var(--ds-font-family-base)`,fontSize:`var(--ds-font-size-sm)`,display:`flex`,alignItems:`center`,justifyContent:`center`},children:e},e))})]})]}),G===`specific_days`&&(0,E.jsxs)(`div`,{style:{display:`grid`,gridTemplateColumns:F,columnGap:20,width:P,alignItems:`start`},children:[(0,E.jsx)(`span`,{}),(0,E.jsxs)(`div`,{style:{display:`flex`,alignItems:`center`,gap:8},children:[(0,E.jsx)(`span`,{style:N,children:`Every`}),(0,E.jsx)(p,{layout:`vertical`,width:120,value:J,onChange:e=>me(e),options:[{value:`first`,label:`First`},{value:`15th`,label:`15th`},{value:`last`,label:`Last`}]}),(0,E.jsx)(p,{layout:`vertical`,width:152,value:Y,onChange:e=>he(e),options:[{value:`monday`,label:`Monday`},{value:`tuesday`,label:`Tuesday`},{value:`wednesday`,label:`Wednesday`},{value:`thursday`,label:`Thursday`},{value:`friday`,label:`Friday`},{value:`saturday`,label:`Saturday`},{value:`sunday`,label:`Sunday`}]})]})]})]}),Q&&i===`quarterly`&&(0,E.jsxs)(`div`,{style:{display:`grid`,gridTemplateColumns:F,columnGap:20,width:P},children:[(0,E.jsx)(`span`,{}),(0,E.jsxs)(`div`,{style:{display:`flex`,alignItems:`center`,gap:8,flexWrap:`wrap`},children:[(0,E.jsx)(`span`,{style:N,children:`In the`}),(0,E.jsx)(p,{layout:`vertical`,width:100,value:X,onChange:e=>ge(e),options:[{value:`first`,label:`First`},{value:`second`,label:`Second`},{value:`third`,label:`Third`},{value:`last`,label:`Last`}]}),(0,E.jsx)(`span`,{style:N,children:`Month of Quarter on`}),(0,E.jsx)(p,{layout:`vertical`,width:90,value:Z,onChange:e=>_e(e),options:[{value:`first`,label:`First`},{value:`15th`,label:`15th`},{value:`last`,label:`Last`}]}),(0,E.jsx)(`span`,{style:N,children:`day`})]})]}),Q&&i===`yearly`&&(0,E.jsxs)(E.Fragment,{children:[(0,E.jsxs)(`div`,{style:{display:`grid`,gridTemplateColumns:F,columnGap:20,width:P,alignItems:`start`},children:[(0,E.jsx)(`span`,{}),(0,E.jsxs)(`div`,{style:{display:`flex`,alignItems:`flex-start`,gap:8},children:[(0,E.jsx)(`span`,{style:{...N,paddingTop:7},children:`In`}),(0,E.jsx)(`div`,{style:{flex:1},children:(0,E.jsx)(re,{value:ve.map(e=>({value:e,label:e})),options:A.map(e=>({value:e,label:e})),onChange:e=>ye(e.map(e=>e.value)),width:`100%`,placeholder:`Add month`})})]})]}),(0,E.jsxs)(`div`,{style:{display:`grid`,gridTemplateColumns:F,columnGap:20,width:P},children:[(0,E.jsx)(`span`,{}),(0,E.jsxs)(`div`,{style:{display:`flex`,alignItems:`center`,gap:8},children:[(0,E.jsx)(`span`,{style:N,children:`On`}),(0,E.jsx)(p,{layout:`vertical`,width:120,value:be,onChange:e=>xe(e),options:j}),(0,E.jsx)(`span`,{style:N,children:`day`})]})]})]}),Q&&(0,E.jsx)(_,{label:`Start On`,layout:`horizontal`,width:P,columns:F,dateValue:c,timeValue:f,error:x,helperText:x?c.trim()?`Start date cannot be in the past.`:`Please enter a start date.`:void 0,onDateChange:e=>{u(e),C(!1)},onTimeChange:e=>m(e)}),Q&&(0,E.jsxs)(`p`,{style:{margin:0,marginTop:-15,paddingLeft:I,fontFamily:`var(--ds-font-family-base)`,fontSize:`var(--ds-font-size-sm)`,color:`var(--ds-text-muted)`,lineHeight:`var(--ds-line-height-base)`},children:[(0,E.jsx)(`span`,{style:{color:`var(--ds-text-label)`},children:`Time Zone: `}),V,(0,E.jsx)(`button`,{type:`button`,className:`input-link-btn`,style:{marginLeft:4},onClick:()=>{U(V),B(!0)},children:`Change`})]}),Q&&i!==`once`&&(0,E.jsxs)(`div`,{style:{display:`grid`,gridTemplateColumns:F,columnGap:20,alignItems:`start`,width:P},children:[(0,E.jsx)(`span`,{style:M,children:`Ends`}),(0,E.jsxs)(`div`,{style:{display:`flex`,alignItems:`center`,gap:8},children:[(0,E.jsx)(`div`,{style:{flex:1,minWidth:0},children:(0,E.jsx)(p,{layout:`vertical`,width:`100%`,value:O,onChange:e=>L(e),options:[{value:`never`,label:`Never`},{value:`after_n`,label:`After N times`,triggerLabel:`After`},{value:`on_date`,label:`On Specific Date`}]})}),O===`after_n`&&(0,E.jsxs)(E.Fragment,{children:[(0,E.jsx)(h,{layout:`vertical`,type:`number`,width:70,value:String(R),min:1,onChange:e=>ce(Math.max(1,Number(e.target.value)))}),(0,E.jsx)(`span`,{style:N,children:`times`})]}),O===`on_date`&&(0,E.jsx)(_,{layout:`vertical`,width:160,dateOnly:!0,dateValue:z,onDateChange:e=>le(e)})]})]}),Q&&$&&(0,E.jsxs)(`div`,{className:`sds-summary-note`,style:{paddingLeft:I},children:[(0,E.jsx)(`style`,{children:`.sds-summary-note .msg-info-label { display: none; }`}),(0,E.jsx)(ne,{variant:`info`,message:$})]}),(0,E.jsxs)(`div`,{style:{display:`flex`,flexDirection:`column`,gap:`15px`},children:[(0,E.jsx)(l,{id:`skip-no-data`,label:`Do not send Email when there is no data in the chart.`,checked:g,onChange:e=>ee(e.target.checked)}),(0,E.jsxs)(`div`,{style:{display:`flex`,alignItems:`center`,gap:10},children:[(0,E.jsx)(l,{id:`working-days-only`,label:`Send Email only on working days`,checked:v,onChange:e=>y(e.target.checked)}),(0,E.jsx)(d,{content:`Email will only be dispatched on business days, skipping weekends and public holidays.`,variant:`white`,placement:`top`,children:(0,E.jsx)(`span`,{style:{display:`inline-flex`,alignItems:`center`,color:`var(--ds-text-label)`,cursor:`pointer`,lineHeight:0},children:(0,E.jsx)(a,{})})})]})]})]}),(0,E.jsx)(b,{isOpen:ue,title:`Change Timezone`,onClose:()=>B(!1),onCancel:()=>B(!1),onSave:()=>{de(H),B(!1)},cancelLabel:`Cancel`,saveLabel:`Done`,width:574,children:(0,E.jsx)(p,{label:`Timezone`,layout:`horizontal`,width:`fit-content`,columns:`100px 390px`,value:H,onChange:e=>U(e),options:[{value:`(GMT -12:00) International Date Line West`,label:`(GMT -12:00) International Date Line West`},{value:`(GMT -11:00) Coordinated Universal Time-11`,label:`(GMT -11:00) Coordinated Universal Time-11`},{value:`(GMT -10:00) Hawaii`,label:`(GMT -10:00) Hawaii`},{value:`(GMT -09:00) Alaska`,label:`(GMT -09:00) Alaska`},{value:`(GMT -08:00) Pacific Time (US & Canada)`,label:`(GMT -08:00) Pacific Time (US & Canada)`},{value:`(GMT -07:00) Mountain Time (US & Canada)`,label:`(GMT -07:00) Mountain Time (US & Canada)`},{value:`(GMT -06:00) Central Time (US & Canada)`,label:`(GMT -06:00) Central Time (US & Canada)`},{value:`(GMT -05:00) Eastern Time (US & Canada)`,label:`(GMT -05:00) Eastern Time (US & Canada)`},{value:`(GMT -04:00) Atlantic Time (Canada)`,label:`(GMT -04:00) Atlantic Time (Canada)`},{value:`(GMT -03:30) Newfoundland`,label:`(GMT -03:30) Newfoundland`},{value:`(GMT -03:00) Brasilia`,label:`(GMT -03:00) Brasilia`},{value:`(GMT -02:00) Coordinated Universal Time-02`,label:`(GMT -02:00) Coordinated Universal Time-02`},{value:`(GMT -01:00) Azores`,label:`(GMT -01:00) Azores`},{value:`(GMT +00:00) Dublin / Edinburgh / Lisbon / London`,label:`(GMT +00:00) Dublin / Edinburgh / Lisbon / London`},{value:`(GMT +01:00) Amsterdam / Berlin / Rome / Paris`,label:`(GMT +01:00) Amsterdam / Berlin / Rome / Paris`},{value:`(GMT +02:00) Athens / Bucharest`,label:`(GMT +02:00) Athens / Bucharest`},{value:`(GMT +03:00) Moscow / St. Petersburg`,label:`(GMT +03:00) Moscow / St. Petersburg`},{value:`(GMT +03:30) Tehran`,label:`(GMT +03:30) Tehran`},{value:`(GMT +04:00) Abu Dhabi / Muscat`,label:`(GMT +04:00) Abu Dhabi / Muscat`},{value:`(GMT +04:30) Kabul`,label:`(GMT +04:30) Kabul`},{value:`(GMT +05:00) Islamabad / Karachi`,label:`(GMT +05:00) Islamabad / Karachi`},{value:`(GMT 5:30) India Standard Time (Asia/Kolkata)`,label:`(GMT 5:30) India Standard Time (Asia/Kolkata)`},{value:`(GMT +05:45) Kathmandu`,label:`(GMT +05:45) Kathmandu`},{value:`(GMT +06:00) Dhaka`,label:`(GMT +06:00) Dhaka`},{value:`(GMT +06:30) Yangon (Rangoon)`,label:`(GMT +06:30) Yangon (Rangoon)`},{value:`(GMT +07:00) Bangkok / Hanoi / Jakarta`,label:`(GMT +07:00) Bangkok / Hanoi / Jakarta`},{value:`(GMT +08:00) Beijing / Chongqing / Hong Kong`,label:`(GMT +08:00) Beijing / Chongqing / Hong Kong`},{value:`(GMT +09:00) Osaka / Sapporo / Tokyo`,label:`(GMT +09:00) Osaka / Sapporo / Tokyo`},{value:`(GMT +09:30) Adelaide`,label:`(GMT +09:30) Adelaide`},{value:`(GMT +10:00) Canberra / Melbourne / Sydney`,label:`(GMT +10:00) Canberra / Melbourne / Sydney`},{value:`(GMT +11:00) Solomon Islands / New Caledonia`,label:`(GMT +11:00) Solomon Islands / New Caledonia`},{value:`(GMT +12:00) Auckland / Wellington`,label:`(GMT +12:00) Auckland / Wellington`}]})})]})}},L.parameters={...L.parameters,docs:{...L.parameters?.docs,source:{originalSource:`{
+  name: "Send Dashboard Scheduler",
+  render: () => {
+    const [open, setOpen] = useState(false);
+    const [sendOption, setSendOption] = useState("send_later");
+    const [frequency, setFrequency] = useState("once");
+    const [date, setDate] = useState(todayDDMMYYYY);
+    const [time, setTime] = useState("12:20 PM");
+    const [skipNoData, setSkipNoData] = useState(true);
+    const [workingOnly, setWorkingOnly] = useState(false);
+    const [startOnError, setStartOnError] = useState(false);
+    const [everyN, setEveryN] = useState(2);
+    const [ends, setEnds] = useState("never");
+    const [endsAfterN, setEndsAfterN] = useState(1);
+    const [endsOnDate, setEndsOnDate] = useState("");
+    const [tzOpen, setTzOpen] = useState(false);
+    const [timezone, setTimezone] = useState("(GMT 5:30) India Standard Time (Asia/Kolkata)");
+    const [tzDraft, setTzDraft] = useState(timezone);
+    const [selectedDays, setSelectedDays] = useState([]);
+    const [monthlyMode, setMonthlyMode] = useState("days_of_month");
+    const [selectedMonthDays, setSelectedMonthDays] = useState([]);
+    const [monthlyPos, setMonthlyPos] = useState("first");
+    const [monthlyWeekDay, setMonthlyWeekDay] = useState("monday");
+    const [quarterMonthPos, setQuarterMonthPos] = useState("first");
+    const [quarterDay, setQuarterDay] = useState("first");
+    const [yearlyMonths, setYearlyMonths] = useState(["January"]);
+    const [yearlyOn, setYearlyOn] = useState("first");
+    const showSchedule = sendOption === "send_later";
+    const summary = showSchedule ? formatScheduleSummary(date, time, frequency, everyN, ends, endsAfterN, endsOnDate, selectedDays, monthlyMode, selectedMonthDays, monthlyPos, monthlyWeekDay, quarterMonthPos, quarterDay, yearlyMonths, yearlyOn) : "";
+    const handleSave = () => {
+      if (showSchedule) {
+        if (!date.trim()) {
+          setStartOnError(true);
+          return;
+        }
+        const parsed = parseDDMMYYYY(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (isNaN(parsed.getTime()) || parsed < today) {
+          setStartOnError(true);
+          return;
+        }
+      }
+      setOpen(false);
+    };
+    return <>
+        <Button variant="primary" onClick={() => setOpen(true)}>
+          Send Email
+        </Button>
+
+        <Modal isOpen={open} title="Send Email" onClose={() => setOpen(false)} onCancel={() => setOpen(false)} onSave={handleSave} cancelLabel="Cancel" saveLabel="Save" width={600} disableAutoFocus>
+          <FormSection title="Scheduling Details" />
+
+          {
+          /* Send Options */
+        }
+          <Dropdown label="Send Options" layout="horizontal" width={W} columns={COLS} value={sendOption} onChange={val => setSendOption(val)} options={[{
+          value: "send_immediately",
+          label: "Send Immediately"
+        }, {
+          value: "send_later",
+          label: "Send Later"
+        }]} />
+
+          {
+          /* Frequency + Every N [Unit] (same row for repeating frequencies) */
+        }
+          {showSchedule && <div style={{
+          display: "grid",
+          gridTemplateColumns: COLS,
+          columnGap: 20,
+          alignItems: "start",
+          width: W
+        }}>
+              <span style={FIELD_LABEL_STYLE}>Frequency</span>
+              <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10
+          }}>
+                <div style={{
+              flex: 1,
+              minWidth: 0
+            }}>
+                  <Dropdown layout="vertical" width="100%" value={frequency} onChange={val => {
+                setFrequency(val);
+                setEnds("never");
+              }} options={[{
+                value: "once",
+                label: "Once"
+              }, {
+                value: "daily",
+                label: "Daily"
+              }, {
+                value: "weekly",
+                label: "Weekly"
+              }, {
+                value: "monthly",
+                label: "Monthly"
+              }, {
+                value: "quarterly",
+                label: "Quarterly"
+              }, {
+                value: "yearly",
+                label: "Yearly"
+              }]} />
+                </div>
+                {frequency !== "once" && <>
+                    <span style={INLINE_TEXT_STYLE}>Every</span>
+                    <Input layout="vertical" type="number" width={70} value={String(everyN)} min={1} onChange={e => setEveryN(Math.max(1, Number(e.target.value)))} />
+                    <span style={INLINE_TEXT_STYLE}>{FREQ_UNIT[frequency]}</span>
+                  </>}
+              </div>
+            </div>}
+
+          {
+          /* Weekly — day-of-week picker */
+        }
+          {showSchedule && frequency === "weekly" && <div style={{
+          display: "grid",
+          gridTemplateColumns: COLS,
+          columnGap: 20,
+          width: W
+        }}>
+              <span />
+              <GroupButton options={[{
+            value: "Mon",
+            label: "Mon"
+          }, {
+            value: "Tue",
+            label: "Tue"
+          }, {
+            value: "Wed",
+            label: "Wed"
+          }, {
+            value: "Thu",
+            label: "Thu"
+          }, {
+            value: "Fri",
+            label: "Fri"
+          }, {
+            value: "Sat",
+            label: "Sat"
+          }, {
+            value: "Sun",
+            label: "Sun"
+          }]} value={selectedDays} onChange={v => setSelectedDays(v)} multiSelect showBadge itemWidth={50} />
+            </div>}
+
+          {
+          /* Monthly — mode radio + date grid or specific-day dropdowns */
+        }
+          {showSchedule && frequency === "monthly" && <div style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 10
+        }}>
+              <div style={{
+            display: "grid",
+            gridTemplateColumns: COLS,
+            columnGap: 20,
+            width: W
+          }}>
+                <span />
+                <div style={{
+              display: "flex",
+              gap: 20
+            }}>
+                  <Radio label="Days of the month" name="monthly-mode" value="days_of_month" checked={monthlyMode === "days_of_month"} onChange={() => setMonthlyMode("days_of_month")} />
+                  <Radio label="On Specific Days" name="monthly-mode" value="specific_days" checked={monthlyMode === "specific_days"} onChange={() => setMonthlyMode("specific_days")} />
+                </div>
+              </div>
+
+              {monthlyMode === "days_of_month" && <div style={{
+            display: "grid",
+            gridTemplateColumns: COLS,
+            columnGap: 20,
+            width: W
+          }}>
+                  <span />
+                  <div style={{
+              display: "inline-flex",
+              flexDirection: "column",
+              gap: 10,
+              border: "1px solid var(--ds-components-input-default-outline)",
+              borderRadius: 6,
+              padding: "15px 10px",
+              width: "fit-content"
+            }}>
+                    <style>{\`
+                      .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
+                      .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
+                      .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                      .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
+                    \`}</style>
+                    <span style={{
+                fontFamily: "var(--ds-font-family-base)",
+                fontSize: "var(--ds-font-size-sm)",
+                fontWeight: 600,
+                color: "var(--ds-text-base)"
+              }}>Select Dates</span>
+                    <div style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(7, 34px)",
+                gap: 4
+              }}>
+                      {Array.from({
+                  length: 31
+                }, (_, i) => i + 1).map(day => {
+                  const sel = selectedMonthDays.includes(day);
+                  return <button key={day} type="button" className="sds-cal-day" data-sel={sel || void 0} onClick={() => setSelectedMonthDays(p => p.includes(day) ? p.filter(d => d !== day) : [...p, day])} style={{
+                    width: 34,
+                    height: 34,
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                    fontFamily: "var(--ds-font-family-base)",
+                    fontSize: "var(--ds-font-size-sm)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}>
+                            {day}
+                          </button>;
+                })}
+                    </div>
+                  </div>
+                </div>}
+
+              {monthlyMode === "specific_days" && <div style={{
+            display: "grid",
+            gridTemplateColumns: COLS,
+            columnGap: 20,
+            width: W,
+            alignItems: "start"
+          }}>
+                  <span />
+                  <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8
+            }}>
+                    <span style={INLINE_TEXT_STYLE}>Every</span>
+                    <Dropdown layout="vertical" width={120} value={monthlyPos} onChange={val => setMonthlyPos(val)} options={[{
+                value: "first",
+                label: "First"
+              }, {
+                value: "15th",
+                label: "15th"
+              }, {
+                value: "last",
+                label: "Last"
+              }]} />
+                    <Dropdown layout="vertical" width={152} value={monthlyWeekDay} onChange={val => setMonthlyWeekDay(val)} options={[{
+                value: "monday",
+                label: "Monday"
+              }, {
+                value: "tuesday",
+                label: "Tuesday"
+              }, {
+                value: "wednesday",
+                label: "Wednesday"
+              }, {
+                value: "thursday",
+                label: "Thursday"
+              }, {
+                value: "friday",
+                label: "Friday"
+              }, {
+                value: "saturday",
+                label: "Saturday"
+              }, {
+                value: "sunday",
+                label: "Sunday"
+              }]} />
+                  </div>
+                </div>}
+            </div>}
+
+          {
+          /* Quarterly — month of quarter + day */
+        }
+          {showSchedule && frequency === "quarterly" && <div style={{
+          display: "grid",
+          gridTemplateColumns: COLS,
+          columnGap: 20,
+          width: W
+        }}>
+              <span />
+              <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            flexWrap: "wrap"
+          }}>
+                <span style={INLINE_TEXT_STYLE}>In the</span>
+                <Dropdown layout="vertical" width={100} value={quarterMonthPos} onChange={val => setQuarterMonthPos(val)} options={[{
+              value: "first",
+              label: "First"
+            }, {
+              value: "second",
+              label: "Second"
+            }, {
+              value: "third",
+              label: "Third"
+            }, {
+              value: "last",
+              label: "Last"
+            }]} />
+                <span style={INLINE_TEXT_STYLE}>Month of Quarter on</span>
+                <Dropdown layout="vertical" width={90} value={quarterDay} onChange={val => setQuarterDay(val)} options={[{
+              value: "first",
+              label: "First"
+            }, {
+              value: "15th",
+              label: "15th"
+            }, {
+              value: "last",
+              label: "Last"
+            }]} />
+                <span style={INLINE_TEXT_STYLE}>day</span>
+              </div>
+            </div>}
+
+          {
+          /* Yearly — month tags + ordinal day */
+        }
+          {showSchedule && frequency === "yearly" && <>
+              <div style={{
+            display: "grid",
+            gridTemplateColumns: COLS,
+            columnGap: 20,
+            width: W,
+            alignItems: "start"
+          }}>
+                <span />
+                <div style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: 8
+            }}>
+                  <span style={{
+                ...INLINE_TEXT_STYLE,
+                paddingTop: 7
+              }}>In</span>
+                  <div style={{
+                flex: 1
+              }}>
+                    <Tags value={yearlyMonths.map(m => ({
+                  value: m,
+                  label: m
+                }))} options={ALL_MONTHS.map(m => ({
+                  value: m,
+                  label: m
+                }))} onChange={tags => setYearlyMonths(tags.map(t => t.value))} width="100%" placeholder="Add month" />
+                  </div>
+                </div>
+              </div>
+
+              <div style={{
+            display: "grid",
+            gridTemplateColumns: COLS,
+            columnGap: 20,
+            width: W
+          }}>
+                <span />
+                <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8
+            }}>
+                  <span style={INLINE_TEXT_STYLE}>On</span>
+                  <Dropdown layout="vertical" width={120} value={yearlyOn} onChange={val => setYearlyOn(val)} options={ORDINAL_OPTS} />
+                  <span style={INLINE_TEXT_STYLE}>day</span>
+                </div>
+              </div>
+            </>}
+
+          {
+          /* Start On — date + time picker */
+        }
+          {showSchedule && <DateTimeInput label="Start On" layout="horizontal" width={W} columns={COLS} dateValue={date} timeValue={time} error={startOnError} helperText={startOnError ? !date.trim() ? "Please enter a start date." : "Start date cannot be in the past." : void 0} onDateChange={val => {
+          setDate(val);
+          setStartOnError(false);
+        }} onTimeChange={val => setTime(val)} />}
+
+          {
+          /* Timezone note — always below Start On */
+        }
+          {showSchedule && <p style={{
+          margin: 0,
+          marginTop: -15,
+          paddingLeft: FIELD_OFFSET,
+          fontFamily: "var(--ds-font-family-base)",
+          fontSize: "var(--ds-font-size-sm)",
+          color: "var(--ds-text-muted)",
+          lineHeight: "var(--ds-line-height-base)"
+        }}>
+              <span style={{
+            color: "var(--ds-text-label)"
+          }}>Time Zone: </span>
+              {timezone}
+              <button type="button" className="input-link-btn" style={{
+            marginLeft: 4
+          }} onClick={() => {
+            setTzDraft(timezone);
+            setTzOpen(true);
+          }}>
+                Change
+              </button>
+            </p>}
+
+          {
+          /* Ends — shown for all repeating frequencies */
+        }
+          {showSchedule && frequency !== "once" && <div style={{
+          display: "grid",
+          gridTemplateColumns: COLS,
+          columnGap: 20,
+          alignItems: "start",
+          width: W
+        }}>
+              <span style={FIELD_LABEL_STYLE}>Ends</span>
+              <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8
+          }}>
+                <div style={{
+              flex: 1,
+              minWidth: 0
+            }}>
+                  <Dropdown layout="vertical" width="100%" value={ends} onChange={val => setEnds(val)} options={[{
+                value: "never",
+                label: "Never"
+              }, {
+                value: "after_n",
+                label: "After N times",
+                triggerLabel: "After"
+              }, {
+                value: "on_date",
+                label: "On Specific Date"
+              }]} />
+                </div>
+                {ends === "after_n" && <>
+                    <Input layout="vertical" type="number" width={70} value={String(endsAfterN)} min={1} onChange={e => setEndsAfterN(Math.max(1, Number(e.target.value)))} />
+                    <span style={INLINE_TEXT_STYLE}>times</span>
+                  </>}
+                {ends === "on_date" && <DateTimeInput layout="vertical" width={160} dateOnly dateValue={endsOnDate} onDateChange={val => setEndsOnDate(val)} />}
+              </div>
+            </div>}
+
+          {
+          /* Scheduler run summary */
+        }
+          {showSchedule && summary && <div className="sds-summary-note" style={{
+          paddingLeft: FIELD_OFFSET
+        }}>
+              <style>{\`.sds-summary-note .msg-info-label { display: none; }\`}</style>
+              <MessageInfo variant="info" message={summary} />
+            </div>}
+
+          {
+          /* Delivery preferences */
+        }
+          <div style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px"
+        }}>
+            <Checkbox id="skip-no-data" label="Do not send Email when there is no data in the chart." checked={skipNoData} onChange={e => setSkipNoData(e.target.checked)} />
+
+            <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10
+          }}>
+              <Checkbox id="working-days-only" label="Send Email only on working days" checked={workingOnly} onChange={e => setWorkingOnly(e.target.checked)} />
+              <Tooltip content="Email will only be dispatched on business days, skipping weekends and public holidays." variant="white" placement="top">
+                <span style={{
+                display: "inline-flex",
+                alignItems: "center",
+                color: "var(--ds-text-label)",
+                cursor: "pointer",
+                lineHeight: 0
+              }}>
+                  <Info />
+                </span>
+              </Tooltip>
+            </div>
+          </div>
+        </Modal>
+
+        <Modal isOpen={tzOpen} title="Change Timezone" onClose={() => setTzOpen(false)} onCancel={() => setTzOpen(false)} onSave={() => {
+        setTimezone(tzDraft);
+        setTzOpen(false);
+      }} cancelLabel="Cancel" saveLabel="Done" width={574}>
+          <Dropdown label="Timezone" layout="horizontal" width="fit-content" columns="100px 390px" value={tzDraft} onChange={val => setTzDraft(val)} options={[{
+          value: "(GMT -12:00) International Date Line West",
+          label: "(GMT -12:00) International Date Line West"
+        }, {
+          value: "(GMT -11:00) Coordinated Universal Time-11",
+          label: "(GMT -11:00) Coordinated Universal Time-11"
+        }, {
+          value: "(GMT -10:00) Hawaii",
+          label: "(GMT -10:00) Hawaii"
+        }, {
+          value: "(GMT -09:00) Alaska",
+          label: "(GMT -09:00) Alaska"
+        }, {
+          value: "(GMT -08:00) Pacific Time (US & Canada)",
+          label: "(GMT -08:00) Pacific Time (US & Canada)"
+        }, {
+          value: "(GMT -07:00) Mountain Time (US & Canada)",
+          label: "(GMT -07:00) Mountain Time (US & Canada)"
+        }, {
+          value: "(GMT -06:00) Central Time (US & Canada)",
+          label: "(GMT -06:00) Central Time (US & Canada)"
+        }, {
+          value: "(GMT -05:00) Eastern Time (US & Canada)",
+          label: "(GMT -05:00) Eastern Time (US & Canada)"
+        }, {
+          value: "(GMT -04:00) Atlantic Time (Canada)",
+          label: "(GMT -04:00) Atlantic Time (Canada)"
+        }, {
+          value: "(GMT -03:30) Newfoundland",
+          label: "(GMT -03:30) Newfoundland"
+        }, {
+          value: "(GMT -03:00) Brasilia",
+          label: "(GMT -03:00) Brasilia"
+        }, {
+          value: "(GMT -02:00) Coordinated Universal Time-02",
+          label: "(GMT -02:00) Coordinated Universal Time-02"
+        }, {
+          value: "(GMT -01:00) Azores",
+          label: "(GMT -01:00) Azores"
+        }, {
+          value: "(GMT +00:00) Dublin / Edinburgh / Lisbon / London",
+          label: "(GMT +00:00) Dublin / Edinburgh / Lisbon / London"
+        }, {
+          value: "(GMT +01:00) Amsterdam / Berlin / Rome / Paris",
+          label: "(GMT +01:00) Amsterdam / Berlin / Rome / Paris"
+        }, {
+          value: "(GMT +02:00) Athens / Bucharest",
+          label: "(GMT +02:00) Athens / Bucharest"
+        }, {
+          value: "(GMT +03:00) Moscow / St. Petersburg",
+          label: "(GMT +03:00) Moscow / St. Petersburg"
+        }, {
+          value: "(GMT +03:30) Tehran",
+          label: "(GMT +03:30) Tehran"
+        }, {
+          value: "(GMT +04:00) Abu Dhabi / Muscat",
+          label: "(GMT +04:00) Abu Dhabi / Muscat"
+        }, {
+          value: "(GMT +04:30) Kabul",
+          label: "(GMT +04:30) Kabul"
+        }, {
+          value: "(GMT +05:00) Islamabad / Karachi",
+          label: "(GMT +05:00) Islamabad / Karachi"
+        }, {
+          value: "(GMT 5:30) India Standard Time (Asia/Kolkata)",
+          label: "(GMT 5:30) India Standard Time (Asia/Kolkata)"
+        }, {
+          value: "(GMT +05:45) Kathmandu",
+          label: "(GMT +05:45) Kathmandu"
+        }, {
+          value: "(GMT +06:00) Dhaka",
+          label: "(GMT +06:00) Dhaka"
+        }, {
+          value: "(GMT +06:30) Yangon (Rangoon)",
+          label: "(GMT +06:30) Yangon (Rangoon)"
+        }, {
+          value: "(GMT +07:00) Bangkok / Hanoi / Jakarta",
+          label: "(GMT +07:00) Bangkok / Hanoi / Jakarta"
+        }, {
+          value: "(GMT +08:00) Beijing / Chongqing / Hong Kong",
+          label: "(GMT +08:00) Beijing / Chongqing / Hong Kong"
+        }, {
+          value: "(GMT +09:00) Osaka / Sapporo / Tokyo",
+          label: "(GMT +09:00) Osaka / Sapporo / Tokyo"
+        }, {
+          value: "(GMT +09:30) Adelaide",
+          label: "(GMT +09:30) Adelaide"
+        }, {
+          value: "(GMT +10:00) Canberra / Melbourne / Sydney",
+          label: "(GMT +10:00) Canberra / Melbourne / Sydney"
+        }, {
+          value: "(GMT +11:00) Solomon Islands / New Caledonia",
+          label: "(GMT +11:00) Solomon Islands / New Caledonia"
+        }, {
+          value: "(GMT +12:00) Auckland / Wellington",
+          label: "(GMT +12:00) Auckland / Wellington"
+        }]} />
+        </Modal>
+      </>;
+  }
+}`,...L.parameters?.docs?.source}}},R=[`SendDashboardScheduler`]}))();export{L as SendDashboardScheduler,R as __namedExportsOrder,O as default};
