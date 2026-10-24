@@ -68,20 +68,20 @@ const QA_BOTTOM = ROW[2] + NODE_HEIGHT;
 const PRE_BOTTOM = ROW[1] + NODE_HEIGHT;
 
 export const SANDBOX_CONNECTIONS: SandboxConnection[] = [
-  { id: 'cust-custqa', from: 'customization', to: 'customization-qa', kind: 'internal', count: 12,
+  { id: 'cust-custqa', from: 'customization', to: 'customization-qa', kind: 'internal', count: 8,
     points: [[MID[0], ROW[3]], [MID[0], QA_BOTTOM]], badge: [MID[0], (ROW[3] + QA_BOTTOM) / 2] },
-  { id: 'auto-autoqa', from: 'automation', to: 'automation-qa', kind: 'internal', count: 12,
+  { id: 'auto-autoqa', from: 'automation', to: 'automation-qa', kind: 'internal', count: 3,
     points: [[MID[1], ROW[3]], [MID[1], QA_BOTTOM]], badge: [MID[1], (ROW[3] + QA_BOTTOM) / 2] },
-  { id: 'dev-devqa', from: 'dev', to: 'dev-qa', kind: 'internal', count: 12,
+  { id: 'dev-devqa', from: 'dev', to: 'dev-qa', kind: 'internal', count: 15,
     points: [[MID[2], ROW[3]], [MID[2], QA_BOTTOM]], badge: [MID[2], (ROW[3] + QA_BOTTOM) / 2] },
-  { id: 'custqa-pre', from: 'customization-qa', to: 'pre-production', kind: 'inbound', count: 12,
+  { id: 'custqa-pre', from: 'customization-qa', to: 'pre-production', kind: 'inbound', count: 21,
     points: [[MID[0], ROW[2]], [MID[0], MERGE_Y], [MID[1] - 30, MERGE_Y], [MID[1] - 30, PRE_BOTTOM]],
     badge: [(MID[0] + MID[1] - 30) / 2, MERGE_Y] },
-  { id: 'autoqa-pre', from: 'automation-qa', to: 'pre-production', kind: 'inbound', count: 12,
+  { id: 'autoqa-pre', from: 'automation-qa', to: 'pre-production', kind: 'inbound', count: 6,
     points: [[MID[1], ROW[2]], [MID[1], PRE_BOTTOM]], badge: [MID[1], MERGE_Y] },
-  { id: 'devqa-pre', from: 'dev-qa', to: 'pre-production', kind: 'inbound', count: 12,
+  { id: 'devqa-pre', from: 'dev-qa', to: 'pre-production', kind: 'inbound', count: 9,
     points: [[MID[2], ROW[2]], [MID[2], MERGE_Y], [MID[1] + 30, MERGE_Y], [MID[1] + 30, PRE_BOTTOM]],
     badge: [(MID[2] + MID[1] + 30) / 2, MERGE_Y] },
-  { id: 'pre-prod', from: 'pre-production', to: 'production', kind: 'outbound', count: 12,
+  { id: 'pre-prod', from: 'pre-production', to: 'production', kind: 'outbound', count: 34,
     points: [[MID[1], ROW[1]], [MID[1], NODE_HEIGHT]], badge: [MID[1], (ROW[1] + NODE_HEIGHT) / 2] },
 ];
