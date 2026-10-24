@@ -1,0 +1,8 @@
+/* CRM fonts: the same Zoho Puvi 4.0 web fonts the CRM product loads from its
+   static CDN, registered under the family name used by --ds-font-family-base so
+   the story renders in Puvi even where the font is not installed locally.
+   Weights follow the Figma frame: Regular 400, Medium 500, Semibold 600. */
+@font-face { font-family: 'Zoho Puvi'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Zoho Puvi'; font-style: normal; font-weight: 500; font-display: swap; src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Zoho Puvi'; font-style: normal; font-weight: 600; font-display: swap; src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Semibold.woff2') format('woff2'); }
+@font-face { font-family: 'Zoho Puvi'; font-style: normal; font-weight: 700; font-display: swap; src: url('https://static.zohocdn.com/zohofonts/zohopuvi/4.0/Zoho_Puvi_Bold.woff2') format('woff2'); }

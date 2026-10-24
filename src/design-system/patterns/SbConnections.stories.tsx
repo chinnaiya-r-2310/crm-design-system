@@ -12,6 +12,7 @@ import {
   SANDBOX_CONNECTIONS, SANDBOX_NODES, SANDBOX_TABS, SB_SETUP_ITEMS,
 } from './SbConnections.data';
 import type { SandboxConnection, SandboxNode } from './SbConnections.data';
+import './CrmFonts.css';
 import './SbConnections.css';
 
 const ENVIRONMENT = 'Pre production';

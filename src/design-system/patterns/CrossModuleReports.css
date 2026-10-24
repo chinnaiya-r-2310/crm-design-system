@@ -1,0 +1,379 @@
+/* Cross-module Reports — Figma 79995:20707. Spacing derives from typography
+   tokens (spacing tokens are not exposed). Subtotal tints are mixed from the
+   warning status token to match the Figma peach rows. */
+.cmr {
+  --cmr-gap: var(--ds-line-height-sm);
+  --cmr-radius: 10px;
+  --cmr-wms-height: 34px;
+  --cmr-subtotal-bg: color-mix(in srgb, var(--ds-status-warning) 4%, var(--ds-bg-common-card));
+  --cmr-subtotal-border: color-mix(in srgb, var(--ds-status-warning) 18%, var(--ds-bg-common-card));
+  display: flex;
+  height: 100dvh;
+  padding-bottom: var(--cmr-wms-height);
+  background: var(--ds-bg-common-bg);
+  color: var(--ds-text-base);
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  line-height: var(--ds-line-height-base);
+  box-sizing: border-box;
+}
+.cmr *, .cmr *::before, .cmr *::after { box-sizing: border-box; }
+.cmr p, .cmr h1, .cmr h2, .cmr ol { margin: 0; }
+.cmr__nav { flex-shrink: 0; }
+.cmr__nav > .nglm-root { height: calc(100dvh - var(--cmr-wms-height)); }
+.cmr__workspace { display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; }
+
+/* Header */
+.cmr__header {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-line-height-base);
+  min-height: 71px;
+  padding-inline: var(--cmr-gap) var(--ds-line-height-base);
+  background: var(--ds-bg-common-card);
+  flex-shrink: 0;
+}
+.cmr__back, .cmr__help, .cmr__icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ds-text-base);
+  cursor: pointer;
+}
+.cmr__help, .cmr__icon-button { color: var(--ds-icon-primary-label-grey); }
+.cmr__back:hover, .cmr__help:hover, .cmr__icon-button:hover { background: var(--ds-text-icon-bg-hover); }
+.cmr__back:focus-visible, .cmr__help:focus-visible, .cmr__icon-button:focus-visible, .cmr__table-wrap:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline);
+  outline-offset: 1px;
+}
+.cmr__title h1 { font-size: var(--ds-font-size-h1); line-height: var(--ds-line-height-h1); font-weight: var(--ds-font-weight-semibold); color: var(--ds-text-heading); white-space: nowrap; }
+.cmr__title p { color: var(--ds-text-heading); }
+.cmr__back { width: 32px; height: 32px; padding: 0; }
+[dir="rtl"] .cmr__back svg { transform: scaleX(-1); }
+.cmr__actions { display: flex; align-items: center; gap: calc(var(--ds-line-height-base) / 2); margin-inline-start: auto; }
+.cmr__actions .cmr__help { margin-inline-start: var(--ds-line-height-base); }
+
+/* Main area */
+.cmr__main { display: flex; flex: 1; gap: var(--cmr-gap); min-height: 0; padding: var(--cmr-gap); }
+
+/* Config panel */
+.cmr__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cmr-gap);
+  width: 287px;
+  flex-shrink: 0;
+  min-height: 0;
+  padding: var(--ds-line-height-base) var(--cmr-gap);
+  border: thin solid var(--ds-components-table-header-outline-border);
+  border-radius: var(--cmr-radius);
+  background: var(--ds-bg-common-card);
+}
+/* Matches the Figma "Secoundary Tab" instance: hug width, no fill, 3px padding, 4px gap,
+   1px inside stroke (35px tall overall) and 15px tab padding. */
+.cmr__panel > .tabs-tab-bar {
+  align-self: flex-start;
+  margin-inline: 8px;
+  gap: 4px;
+  border: 0;
+  box-shadow: inset 0 0 0 1px var(--ds-components-navigation-tab-tab-border);
+  background: transparent;
+}
+.cmr__panel > .tabs-tab-bar[data-size="md"] .tabs-tab { padding: 0 15px; }
+.cmr__panel-body { display: flex; flex-direction: column; gap: var(--ds-line-height-base); min-height: 0; overflow-y: auto; }
+/* Scroll body runs to the panel's inner right edge, so the scrollbar sits just inside the border. */
+.cmr__panel-body {
+  margin-inline-end: calc(var(--cmr-gap) * -1);
+  padding-inline-end: var(--cmr-gap);
+}
+.cmr__panel-heading { display: flex; align-items: center; justify-content: space-between; padding-inline: 8px; }
+.cmr__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  color: var(--ds-text-muted);
+}
+/* Saved filter summaries (after Apply) — one titled CriteriaSummary card per filter. */
+/* Tighter gap between the heading and the saved cards than the empty state uses. */
+.cmr__panel-body--saved { gap: 10px; }
+.cmr__heading-actions { display: flex; align-items: center; gap: 8px; }
+/* Edit / Delete keep their native 12px glyph size, centred in a 24px circle that fills on hover. */
+.cmr__heading-actions .cmr__icon-button { width: 24px; height: 24px; padding: 0; border-radius: 50%; }
+.cmr__heading-actions .cmr__icon-button--delete:hover { background: var(--ds-icon-bg-negative-red); }
+.cmr__icon-button--delete:hover { color: var(--ds-icon-primary-negative-red); }
+/* "Filter applied successfully" — floats top-centre over the page, auto-hides. */
+/* Same placement and entrance as the Record Authentication notice. */
+.cmr__toast {
+  position: fixed;
+  inset-block-start: calc(var(--ds-line-height-base) * 3.5);
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - var(--ds-line-height-base) * 2);
+  z-index: 1100;
+  animation: cmr-toast-enter 250ms ease-out both;
+}
+[dir="rtl"] .cmr__toast { transform: translateX(50%); }
+@keyframes cmr-toast-enter {
+  from { opacity: 0; translate: 0 calc(var(--ds-line-height-base) * -1); }
+  to { opacity: 1; translate: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) { .cmr__toast { animation: none; } }
+.cmr__saved { display: flex; flex-direction: column; gap: 8px; padding-inline: 8px; }
+.cmr__saved h3 { margin: 0; font-size: var(--ds-font-size-md); font-weight: var(--ds-font-weight-semibold); color: var(--ds-text-heading); }
+.cmr__saved-summary { align-self: stretch; padding: 15px; font-size: var(--ds-font-size-md); }
+.cmr__saved-sentence { display: block; margin: 0; }
+.cmr__panel-heading h2 { font-size: var(--ds-font-size-base); font-weight: var(--ds-font-weight-semibold); color: var(--ds-text-heading); }
+
+.cmr__column-list { display: flex; flex-direction: column; gap: 6px; padding-inline: 28px 8px; color: var(--ds-text-base); }
+
+/* Preview */
+.cmr__preview {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--cmr-gap);
+  min-width: 0;
+  min-height: 0;
+  padding: var(--ds-line-height-base) 0 0 var(--ds-line-height-h1);
+  border: thin solid var(--ds-components-table-header-outline-border);
+  border-radius: var(--cmr-radius);
+  background: var(--ds-bg-common-card);
+  overflow: hidden;
+}
+.cmr__note { display: flex; align-items: center; gap: 10px; color: var(--ds-text-label); }
+.cmr__note svg { flex-shrink: 0; }
+.cmr__table-wrap { flex: 1; min-height: 0; overflow: auto; border-start-start-radius: 12px; border: thin solid var(--ds-components-table-row-border); border-inline-end: none; border-bottom: none; }
+.cmr__table { width: max-content; min-width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: var(--ds-font-size-h3); }
+.cmr__table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 40px;
+  padding-inline: 21px;
+  background: var(--ds-bg-common-card);
+  border-bottom: thin solid var(--ds-components-table-header-outline-border);
+  font-size: var(--ds-font-size-md);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+  text-align: start;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.cmr__table thead th:first-child { padding-inline-start: 34px; }
+.cmr__table td, .cmr__table tbody th {
+  height: 47px;
+  padding-inline: 21px;
+  border-bottom: thin solid var(--ds-components-table-row-border);
+  border-inline-end: thin solid var(--ds-components-table-row-border);
+  font-weight: var(--ds-font-weight-regular);
+  text-align: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cmr__table td:last-child { border-inline-end: none; }
+.cmr__table tbody tr:not(.cmr__subtotal) td:first-of-type { padding-inline-start: 45px; }
+.cmr__table tbody tr:not(.cmr__subtotal):hover td { background: var(--ds-components-table-table-hover); }
+.cmr__owner { vertical-align: top; padding-top: 8px; padding-inline-start: 49px; }
+.cmr__person { display: inline-flex; align-items: center; gap: 8px; }
+.cmr__person img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+.cmr__subtotal th, .cmr__subtotal td {
+  height: 37px;
+  background: var(--cmr-subtotal-bg);
+  border-block: thin solid var(--cmr-subtotal-border);
+  border-inline-end: none;
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
+.cmr__subtotal th { padding-inline-start: 49px; }
+.cmr__subtotal + tr td, .cmr__subtotal + tr th { border-top: none; }
+
+@media (max-width: 1100px) {
+  .cmr__nav { display: none; }
+}
+@media (max-width: 760px) {
+  .cmr__main { flex-direction: column; overflow-y: auto; }
+  .cmr__panel { width: 100%; max-height: 60dvh; }
+  .cmr__preview { min-height: 420px; }
+  .cmr__header { flex-wrap: wrap; padding-block: 10px; }
+}
+
+/* Add Filter modal — portalled to <body>, so it is scoped by its own class on the dialog. */
+.cmr-filter { font-family: var(--ds-font-family-base); color: var(--ds-text-base); }
+/* More room between Base, Quick and Territory sections (matches the dialog's own 30px rhythm). */
+.cmr-filter .modal-body { gap: 30px; }
+.cmr-filter__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-line-height-sm);
+}
+.cmr-filter__title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-line-height-sm);
+}
+.cmr-filter__add { display: flex; }
+/* Section headers float while the modal body scrolls (modal-body has 4px top padding). */
+.cmr-filter__heading {
+  position: sticky;
+  top: -4px;
+  z-index: 2;
+  padding-block: 4px;
+  margin-block: -4px;
+  background: var(--ds-bg-common-card);
+}
+.cmr-filter__heading h3 {
+  margin: 0;
+  font-size: var(--ds-font-size-h3);
+  line-height: var(--ds-line-height-h3);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
+.cmr-filter__heading p {
+  margin: 0;
+  font-size: var(--ds-font-size-md);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-label);
+}
+.cmr-filter__card:has(> .cmr-filter__card-off) { gap: var(--ds-line-height-sm); }
+.cmr-filter__custom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-line-height-sm);
+}
+
+/* Base Filter — criteria cards (reference: Specify Criteria + Related Modules Criteria) */
+.cmr-filter__cards { display: flex; flex-direction: column; }
+.cmr-filter__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-line-height-base);
+  padding: var(--ds-line-height-base);
+  border: thin solid var(--ds-border-subtle);
+  border-radius: 8px;
+  background: var(--ds-bg-common-card);
+}
+.cmr-filter__card-title { display: flex; align-items: center; gap: var(--ds-line-height-sm); }
+.cmr-filter__card-title h4 {
+  margin: 0;
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
+/* AND connector between the two cards — line sits under the criteria circles (20px padding + 14px half circle). */
+.cmr-filter__and {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-inline-start: 34px;
+  color: var(--ds-text-base);
+  font-size: var(--ds-font-size-md);
+}
+.cmr-filter__and::before, .cmr-filter__and::after { content: ''; width: 1px; height: 12px; background: var(--ds-border-subtle); }
+.cmr-filter__and span { transform: translateX(-50%); line-height: 20px; }
+[dir="rtl"] .cmr-filter__and span { transform: translateX(50%); }
+
+.cmr-filter__related-list { display: flex; flex-direction: column; }
+.cmr-filter__related { position: relative; display: flex; flex-direction: column; gap: var(--ds-line-height-base); }
+/* Vertical line from the circle down past the nested criteria to Add Condition. */
+.cmr-filter__related::before {
+  content: '';
+  position: absolute;
+  inset-block: 31px 0;
+  inset-inline-start: 13.5px;
+  width: 1px;
+  background: var(--ds-border-subtle);
+}
+.cmr-filter__related[data-last]::before { inset-block-end: -20px; }
+.cmr-filter__related-line { display: flex; align-items: center; gap: var(--ds-line-height-sm); }
+/* Minus to remove a related module row — same red icon as the criteria builder. */
+.cmr-filter__related-remove {
+  display: inline-flex;
+  /* Row gap (17px) − 2px = 15px from the module picker, same as the criteria builder's input → minus. */
+  margin-inline-start: -2px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--ds-icon-primary-negative-red);
+  cursor: pointer;
+}
+.cmr-filter__related-remove:hover { opacity: 0.75; }
+.cmr-filter__related-remove:focus-visible { outline: 2px solid var(--ds-text-link); outline-offset: 2px; }
+/* AND / OR between related module rows, centred on the circles' line. */
+.cmr-filter__related-conn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 28px;
+}
+.cmr-filter__related-conn::before, .cmr-filter__related-conn::after { content: ''; width: 1px; height: 10px; background: var(--ds-border-subtle); }
+.cmr-filter__related-conn button {
+  padding: 2px 4px;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  font-family: inherit;
+  font-size: var(--ds-font-size-sm);
+  color: var(--ds-text-link);
+  cursor: pointer;
+}
+.cmr-filter__related-conn button:focus-visible { outline: 2px solid var(--ds-text-link); outline-offset: 1px; }
+.cmr-filter__circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin-inline-end: 2px;
+  border: thin solid var(--ds-border-subtle);
+  border-radius: 50%;
+  background: var(--ds-bg-scale-bg2);
+  font-size: var(--ds-font-size-sm);
+}
+.cmr-filter__related-module { font-size: var(--ds-font-size-base); }
+.cmr-filter__related-body { display: flex; flex-direction: column; gap: var(--ds-line-height-sm); padding-inline-start: 40px; }
+.cmr-filter__nested {
+  /* Hug the criteria rows so there is no extra space on the right. */
+  align-self: flex-start;
+  max-width: 100%;
+  padding: var(--ds-line-height-base);
+  border: thin solid var(--ds-border-subtle);
+  border-radius: 8px;
+  background: var(--ds-bg-scale-bg2);
+}
+.cmr-filter__add-condition { position: relative; display: flex; }
+/* Off-state summary under the card title (reference: both switches off). */
+.cmr-filter__card-off {
+  margin: 0;
+  font-size: var(--ds-font-size-md);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-label);
+}
+.cmr-filter__card:has(> .cmr-filter__card-off) { gap: var(--ds-line-height-sm); }
+
+/* Version 2: filters as primary tabs. Tab bar stays pinned while the panel scrolls. */
+.cmr-filter__v2 { display: flex; flex-direction: column; gap: var(--ds-line-height-sm); }
+.cmr-filter__tabs {
+  position: sticky;
+  top: -4px;
+  z-index: 2;
+  background: var(--ds-bg-common-card);
+}
+/* Trim the primary tab bar's start padding so "Base Filter" lines up with the modal title. */
+.cmr-filter .cmr-filter__tabs .tabs-tab-bar[data-variant="primary"] { padding-inline-start: 0; }
+.cmr-filter__tab-desc {
+  margin: 0;
+  font-size: var(--ds-font-size-md);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-label);
+}
+.cmr-filter__v2 > [hidden] { display: none; }

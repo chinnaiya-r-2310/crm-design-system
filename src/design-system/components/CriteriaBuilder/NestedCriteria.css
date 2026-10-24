@@ -1,0 +1,117 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   NestedCriteria — Specify Criteria + AND + Related Modules Criteria
+   (UI from the Cross-module Reports Add Filter › Base Filter section)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.nested-criteria {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--ds-font-family-base);
+  color: var(--ds-text-base);
+}
+
+.nested-criteria__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-line-height-base);
+  padding: var(--ds-line-height-base);
+  border: thin solid var(--ds-border-subtle);
+  border-radius: 8px;
+  background: var(--ds-bg-common-card);
+}
+.nested-criteria__card:has(> .nested-criteria__card-off) { gap: var(--ds-line-height-sm); }
+.nested-criteria__card-title { display: flex; align-items: center; gap: var(--ds-line-height-sm); }
+.nested-criteria__card-title h4 {
+  margin: 0;
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
+.nested-criteria__card-off {
+  margin: 0;
+  font-size: var(--ds-font-size-md);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-label);
+}
+
+/* AND between the cards — line under the criteria circles (20px padding + 14px half circle). */
+.nested-criteria__and {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-inline-start: 34px;
+  font-size: var(--ds-font-size-md);
+}
+.nested-criteria__and::before, .nested-criteria__and::after { content: ''; width: 1px; height: 12px; background: var(--ds-border-subtle); }
+.nested-criteria__and span { transform: translateX(-50%); line-height: 20px; }
+[dir="rtl"] .nested-criteria__and span { transform: translateX(50%); }
+
+/* Related module rows */
+.nested-criteria__related-list { display: flex; flex-direction: column; }
+.nested-criteria__related { position: relative; display: flex; flex-direction: column; gap: var(--ds-line-height-base); }
+.nested-criteria__related::before {
+  content: '';
+  position: absolute;
+  inset-block: 31px 0;
+  inset-inline-start: 13.5px;
+  width: 1px;
+  background: var(--ds-border-subtle);
+}
+.nested-criteria__related[data-last]::before { inset-block-end: -20px; }
+.nested-criteria__related-line { display: flex; align-items: center; gap: var(--ds-line-height-sm); }
+.nested-criteria__related-module { font-size: var(--ds-font-size-md); }
+.nested-criteria__circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin-inline-end: 2px;
+  border: thin solid var(--ds-border-subtle);
+  border-radius: 50%;
+  background: var(--ds-bg-scale-bg2);
+  font-size: var(--ds-font-size-sm);
+}
+.nested-criteria__related-remove {
+  display: inline-flex;
+  margin-inline-start: 5px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--ds-icon-primary-negative-red);
+  cursor: pointer;
+}
+.nested-criteria__related-remove:hover { opacity: 0.75; }
+.nested-criteria__related-remove:focus-visible { outline: 2px solid var(--ds-text-link); outline-offset: 2px; }
+
+.nested-criteria__related-conn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 28px;
+}
+.nested-criteria__related-conn::before, .nested-criteria__related-conn::after { content: ''; width: 1px; height: 10px; background: var(--ds-border-subtle); }
+.nested-criteria__related-conn button {
+  padding: 2px 4px;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  font-family: inherit;
+  font-size: var(--ds-font-size-sm);
+  color: var(--ds-text-link);
+  cursor: pointer;
+}
+.nested-criteria__related-conn button:focus-visible { outline: 2px solid var(--ds-text-link); outline-offset: 1px; }
+
+.nested-criteria__related-body { display: flex; flex-direction: column; gap: var(--ds-line-height-sm); padding-inline-start: 40px; }
+.nested-criteria__nested {
+  align-self: flex-start;
+  max-width: 100%;
+  padding: var(--ds-line-height-base);
+  border: thin solid var(--ds-border-subtle);
+  border-radius: 8px;
+  background: var(--ds-bg-scale-bg2);
+}
+.nested-criteria__add-condition { position: relative; display: flex; }

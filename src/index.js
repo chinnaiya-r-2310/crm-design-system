@@ -7,7 +7,7 @@ export { Breadcrumb } from './design-system/components/Breadcrumb';
 export { Button, ButtonGroup } from './design-system/components/Button';
 export { Calendar, DateRangePicker } from './design-system/components/Calendar';
 export { Checkbox } from './design-system/components/Checkbox';
-export { CriteriaBuilder } from './design-system/components/CriteriaBuilder';
+export { CriteriaBuilder, CriteriaSummary, NestedCriteria } from './design-system/components/CriteriaBuilder';
 export { DatePicker } from './design-system/components/DatePicker';
 export { Dropdown } from './design-system/components/Dropdown';
 export { FormSection } from './design-system/components/FormSection';
@@ -51,6 +51,7 @@ export {
   CriteriaPlus,
   HelpCircle,
   Edit,
+  Delete,
   Close,
   UserAvatar,
   GroupAvatar,

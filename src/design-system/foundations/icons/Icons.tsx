@@ -202,6 +202,13 @@ export const Edit: FC<P> = (props) => (
   </svg>
 );
 
+// Figma: Pascal Stone "icon/ standard/ delete" (node 79998:20825). Uses currentColor.
+export const Delete: FC<P> = (props) => (
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path fillRule="evenodd" clipRule="evenodd" d="M1.75 10.5C1.75 11.325 2.425 12 3.25 12H8.75C9.575 12 10.25 11.325 10.25 10.5V3H1.75V10.5ZM11 0.75H8.75L8 0H4L3.25 0.75H1V2.25H11V0.75ZM4 8.77246V5.5C4 5.22386 4.22386 5 4.5 5C4.77614 5 5 5.22386 5 5.5V8.77246C5 9.0486 4.77614 9.27246 4.5 9.27246C4.2582 9.27246 4.05619 9.10114 4.00977 8.87305L4 8.77246ZM7 5.5V8.77246L7.00977 8.87305C7.05619 9.10114 7.2582 9.27246 7.5 9.27246C7.77614 9.27246 8 9.0486 8 8.77246V5.5C8 5.22386 7.77614 5 7.5 5C7.22386 5 7 5.22386 7 5.5Z" fill="currentColor"/>
+  </svg>
+);
+
 export const Close: FC<P> = (props) => (
   <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path d="M6.3501 0.75L0.750104 6.34999" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

@@ -40,6 +40,40 @@ function generatePattern(rows) {
 const EMPTY_VALUE    = '${EMPTY}';
 const NOTEMPTY_VALUE = '${NOTEMPTY}';
 
+/**
+ * Parses a criteria pattern such as "1 and ( 2 OR 3 )".
+ * Returns normalised text, the highest criterion number, and the connector that
+ * follows each criterion number (index 0 = between 1 and 2), or an error message.
+ */
+function parsePattern(text) {
+  const tokens = text.toLowerCase().match(/\d+|and|or|\(|\)|\S+/g) ?? [];
+  if (tokens.length === 0) return { error: 'Enter a criteria pattern' };
+  const bad = tokens.find(t => !/^(\d+|and|or|\(|\))$/.test(t));
+  if (bad) return { error: `"${bad}" is not allowed. Use numbers, and, or, ( )` };
+  let depth = 0;
+  for (const t of tokens) {
+    if (t === '(') depth += 1;
+    if (t === ')') depth -= 1;
+    if (depth < 0) return { error: 'Brackets do not match' };
+  }
+  if (depth !== 0) return { error: 'Brackets do not match' };
+  const flat = tokens.filter(t => t !== '(' && t !== ')');
+  for (let i = 0; i < flat.length; i++) {
+    const isNumber = /^\d+$/.test(flat[i]);
+    if (isNumber !== (i % 2 === 0)) return { error: 'Use "and" / "or" between each number' };
+  }
+  if (flat.length % 2 === 0) return { error: 'The pattern must end with a number' };
+  const numbers = flat.filter((_, i) => i % 2 === 0).map(Number);
+  if (numbers.some(n => n < 1)) return { error: 'Numbers start from 1' };
+  const max = Math.max(...numbers);
+  const missing = Array.from({ length: max }, (_, i) => i + 1).find(n => !numbers.includes(n));
+  if (missing) return { error: `Criterion ${missing} is missing from the pattern` };
+  if (max > CRITERIA_LIMIT) return { error: `Use at most ${CRITERIA_LIMIT} criteria` };
+  const connectors = {};
+  for (let i = 0; i < flat.length - 1; i += 2) connectors[Number(flat[i])] = flat[i + 1].toUpperCase();
+  return { text: tokens.join(' '), max, connectors };
+}
+
 const isPlaceholderOp = (op) => op === 'is_empty' || op === 'is_not_empty';
 
 /** Derives the CriteriaRow type from field type + operator. */
@@ -59,25 +93,35 @@ export function CriteriaBuilder({
   getDefaultOperator,
   onChange,
   onPatternChange,
+  placeholder = 'None',
+  /** Placeholder for the field picker; falls back to `placeholder`. */
+  fieldPlaceholder,
+  /** Optional module picker shown before the field (e.g. cross-module criteria). Omit for the standard row. */
+  moduleOptions,
+  /** Width of the value column; defaults to the standard 390px. */
+  valueWidth = 390,
 }) {
   const [editingPattern, setEditingPattern] = useState(false);
   const [patternDraft, setPatternDraft] = useState(pattern);
   const [showLimitToast, setShowLimitToast] = useState(false);
+  const [patternError, setPatternError] = useState('');
 
   const updateRow = (id, updates) =>
     onChange(rows.map(r => (r.id === id ? { ...r, ...updates } : r)));
 
   const removeRow = (id) => onChange(rows.filter(r => r.id !== id));
 
+  const newRow = (suffix = '') => ({
+    id: `row-${Date.now()}${suffix}`, field: '', operator: '', value: '', type: 'text', connector: 'AND',
+    ...(moduleOptions?.length ? { module: moduleOptions[0].value } : {}),
+  });
+
   const addRow = () => {
     if (rows.length >= CRITERIA_LIMIT) {
       setShowLimitToast(true);
       return;
     }
-    onChange([
-      ...rows,
-      { id: `row-${Date.now()}`, field: '', operator: '', value: '', type: 'text', connector: 'AND' },
-    ]);
+    onChange([...rows, newRow()]);
   };
 
   // Auto-dismiss the limit toast after 3 seconds
@@ -89,10 +133,13 @@ export function CriteriaBuilder({
 
   // Re-generate the pattern whenever rows are added, removed, or a connector changes.
   // Skip the first render so a saved/loaded pattern is not overwritten on mount.
+  // Also skip the update caused by saving an edited pattern, so the typed pattern is kept.
   const isFirstRender = useRef(true);
+  const skipRegenerate = useRef(false);
   const connectorKey = rows.map(r => r.connector).join(',');
   useEffect(() => {
     if (isFirstRender.current) { isFirstRender.current = false; return; }
+    if (skipRegenerate.current) { skipRegenerate.current = false; return; }
     if (!editingPattern) onPatternChange(generatePattern(rows));
   }, [rows.length, connectorKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -101,13 +148,28 @@ export function CriteriaBuilder({
     if (row) updateRow(id, { connector: row.connector === 'AND' ? 'OR' : 'AND' });
   };
 
+  /** Saving applies the pattern back to the rows: the highest number sets the row count
+   *  (adding empty rows or dropping trailing ones) and each and/or sets that row's connector. */
   const savePattern = () => {
-    onPatternChange(patternDraft);
+    const parsed = parsePattern(patternDraft);
+    if (parsed.error) { setPatternError(parsed.error); return; }
+    const sized = parsed.max > rows.length
+      ? [...rows, ...Array.from({ length: parsed.max - rows.length }, (_, i) => newRow(`-${i}`))]
+      : rows.slice(0, parsed.max);
+    const nextRows = sized.map((r, i) => ({ ...r, connector: parsed.connectors[i + 1] ?? r.connector }));
+    const nextKey = nextRows.map(r => r.connector).join(',');
+    if (nextRows.length !== rows.length || nextKey !== connectorKey) {
+      skipRegenerate.current = true;
+      onChange(nextRows);
+    }
+    onPatternChange(parsed.text);
+    setPatternError('');
     setEditingPattern(false);
   };
 
   const cancelPattern = () => {
     setPatternDraft(pattern);
+    setPatternError('');
     setEditingPattern(false);
   };
 
@@ -118,24 +180,48 @@ export function CriteriaBuilder({
           {/* ── Row ───────────────────────────────────────────────────────── */}
           <div className='criteria-builder-row'>
             {/* Circle number + connecting lines */}
-            <div className='criteria-builder-circle-col'>
+            {/* AND / OR sits right under the circle (top-aligned), so a tall row
+                such as date-range doesn't push it down next to the following row. */}
+            <div className={`criteria-builder-circle-col${index < rows.length - 1 ? ' criteria-builder-circle-col--has-conn' : ''}`}>
               {index === 0
                 ? <div className='criteria-builder-circle-top-spacer' />
                 : <div className='criteria-builder-circle-top-line' />
               }
               <div className='criteria-builder-circle'>{index + 1}</div>
               {index < rows.length - 1 && (
-                <div className='criteria-builder-circle-conn-line' />
+                <>
+                  <div className='criteria-builder-conn-lead' />
+                  <button
+                    className='criteria-builder-conn-btn'
+                    onClick={() => toggleConnector(row.id)}
+                    aria-label={`Toggle connector, currently ${row.connector}`}
+                  >
+                    {row.connector}
+                  </button>
+                  <div className='criteria-builder-circle-conn-line' />
+                </>
               )}
             </div>
 
             {/* Fields */}
             <div className='criteria-builder-fields'>
+              {/* Module — 150px, only when moduleOptions is provided */}
+              {moduleOptions?.length > 0 && (
+                <Dropdown
+                  layout="vertical"
+                  width={150}
+                  placeholder={placeholder}
+                  value={row.module ?? ''}
+                  options={moduleOptions}
+                  onChange={v => updateRow(row.id, { module: v })}
+                />
+              )}
+
               {/* Field — 200px */}
               <Dropdown
                 layout="vertical"
                 width={200}
-                placeholder="None"
+                placeholder={fieldPlaceholder ?? placeholder}
                 value={row.field}
                 options={fieldOptions}
                 error={!!row.errors?.field}
@@ -160,7 +246,7 @@ export function CriteriaBuilder({
                   <Dropdown
                     layout="vertical"
                     width={150}
-                    placeholder="None"
+                    placeholder={placeholder}
                     value={row.operator}
                     options={rowOperatorOptions}
                     disabled={!row.field}
@@ -190,7 +276,7 @@ export function CriteriaBuilder({
                   <div className='criteria-builder-empty-value-wrap'>
                     <Input
                       layout="vertical"
-                      width={390}
+                      width={valueWidth}
                       value={row.value}
                       disabled
                     />
@@ -198,7 +284,7 @@ export function CriteriaBuilder({
                 ) : (
                   <Input
                     layout="vertical"
-                    width={390}
+                    width={valueWidth}
                     value={row.value}
                     disabled={!row.operator}
                     error={!!row.errors?.value}
@@ -213,14 +299,14 @@ export function CriteriaBuilder({
                   <div className='criteria-builder-empty-value-wrap'>
                     <Input
                       layout="vertical"
-                      width={390}
+                      width={valueWidth}
                       value={row.value}
                       disabled
                     />
                   </div>
                 ) : (
                   <DateTimeInput
-                    width={390}
+                    width={valueWidth}
                     dateValue={row.value}
                     timeValue={row.valueTime ?? ''}
                     onDateChange={v => updateRow(row.id, { value: v })}
@@ -234,7 +320,7 @@ export function CriteriaBuilder({
               {row.type === 'date-range' && (
                 <div className='criteria-builder-date-rows'>
                   <DateTimeInput
-                    width={390}
+                    width={valueWidth}
                     dateValue={row.value}
                     timeValue={row.valueTime ?? ''}
                     onDateChange={v => updateRow(row.id, { value: v })}
@@ -243,7 +329,7 @@ export function CriteriaBuilder({
                     helperText={row.errors?.value}
                   />
                   <DateTimeInput
-                    width={390}
+                    width={valueWidth}
                     dateValue={row.valueTo ?? ''}
                     timeValue={row.valueToTime ?? ''}
                     onDateChange={v => updateRow(row.id, { valueTo: v })}
@@ -280,19 +366,8 @@ export function CriteriaBuilder({
 
           {/* ── Connector (AND / OR) ─────────────────────────────────────── */}
           {index < rows.length - 1 && (
-            <div className='criteria-builder-connector'>
-              <div className='criteria-builder-connector-col'>
-                <div className='criteria-builder-conn-line' />
-                <button
-                  className='criteria-builder-conn-btn'
-                  onClick={() => toggleConnector(row.id)}
-                  aria-label={`Toggle connector, currently ${row.connector}`}
-                >
-                  {row.connector}
-                </button>
-                <div className='criteria-builder-conn-line' />
-              </div>
-            </div>
+            /* Spacer only — the AND / OR button and its line live in the row's circle column above. */
+            <div className='criteria-builder-connector' aria-hidden='true' />
           )}
         </div>
       ))}
@@ -323,7 +398,10 @@ export function CriteriaBuilder({
                 layout="vertical"
                 width="100%"
                 value={patternDraft}
-                onChange={e => setPatternDraft(e.target.value)}
+                error={!!patternError}
+                helperText={patternError || undefined}
+                aria-label="Criteria pattern"
+                onChange={e => { setPatternDraft(e.target.value); setPatternError(''); }}
                 onKeyDown={e => {
                   if (e.key === 'Enter') savePattern();
                   if (e.key === 'Escape') cancelPattern();

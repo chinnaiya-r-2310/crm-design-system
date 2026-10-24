@@ -17,6 +17,9 @@ const WarningIcon = () => (
 // Component
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Height of the mouse pointer, so a cursor-following tooltip sits below the pointer, not under it.
+const CURSOR_HEIGHT = 16;
+
 // Approx tooltip height (inner padding 12px + line 18px + border 2px) + gap 6px
 const TOOLTIP_CLEARANCE = 44;
 
@@ -55,7 +58,7 @@ export function Tooltip({
     if (wrapperRef.current) {
       // Mouse events anchor at the cursor; keyboard focus still uses the trigger.
       const r = followCursor && event?.type.startsWith('mouse')
-        ? { top: event.clientY, bottom: event.clientY, left: event.clientX, width: 0, height: 0 }
+        ? { top: event.clientY, bottom: event.clientY + CURSOR_HEIGHT, left: event.clientX, width: 0, height: CURSOR_HEIGHT }
         : wrapperRef.current.getBoundingClientRect();
       setRect(r);
       setEffectivePlacement(flipPlacement(placement, r));

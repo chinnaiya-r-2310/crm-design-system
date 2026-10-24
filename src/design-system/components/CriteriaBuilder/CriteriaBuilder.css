@@ -46,13 +46,42 @@
   background: var(--ds-border-subtle, #D6D6E3);
 }
 
-/* Vertical line that runs from the bottom of the circle to the bottom of the
-   row, keeping the visual connection to the connector below unbroken even
-   when the row is taller than a single input (e.g. date-range). */
+/* AND / OR sits at a fixed offset under the circle (top-aligned to the row), so a
+   tall row (e.g. date-range) keeps it next to its own circle instead of pushing it
+   to the bottom. Pieces are absolutely positioned so they never grow the row:
+     lead   — circle bottom (31px) → button top (45px)
+     button — 45px → 61px (sits in the 38px connector gap on single-line rows)
+     tail   — button bottom → through the connector gap to the next row's top line. */
+.criteria-builder-circle-col--has-conn {
+  position: relative;
+}
+
+.criteria-builder-conn-lead,
 .criteria-builder-circle-conn-line {
-  flex: 1;
+  position: absolute;
+  left: 50%;
   width: 1px;
+  transform: translateX(-50%);
   background: var(--ds-border-subtle, #D6D6E3);
+}
+
+.criteria-builder-conn-lead {
+  top: 31px;
+  height: 14px;
+}
+
+.criteria-builder-circle-conn-line {
+  top: 61px;
+  bottom: -38px;
+}
+
+.criteria-builder-circle-col--has-conn .criteria-builder-conn-btn {
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  height: 16px;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 
 .criteria-builder-circle {
@@ -137,24 +166,7 @@
 
 /* Height = 38px so the vertical gap from one row's inputs to the next is 38px. */
 .criteria-builder-connector {
-  display: flex;
-  align-items: stretch;
-  gap: 12px;
   height: 38px;
-}
-
-.criteria-builder-connector-col {
-  width: 28px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.criteria-builder-conn-line {
-  width: 1px;
-  flex: 1;
-  background: var(--ds-border-subtle, #D6D6E3);
 }
 
 .criteria-builder-conn-btn {
@@ -171,11 +183,12 @@
   cursor: pointer;
   border-radius: 4px;
   white-space: nowrap;
-  transition: background 120ms ease;
 }
 
-.criteria-builder-conn-btn:hover {
-  background: rgba(84, 100, 242, 0.08);
+/* No hover fill — the link colour and pointer are enough. */
+.criteria-builder-conn-btn:focus-visible {
+  outline: 2px solid var(--ds-text-link, #5464F2);
+  outline-offset: 1px;
 }
 
 /* ── Criteria limit toast — fixed at 100px from top, centered horizontally ── */
@@ -261,8 +274,8 @@
   height: 26px;
   border-radius: 50%;
   background: var(--ds-bg-common-card, #ffffff);
-  border: 1.5px solid var(--ds-icon-primary-negative-red, #FF5D5A);
-  color: var(--ds-icon-primary-negative-red, #FF5D5A);
+  border: 1.5px solid var(--ds-border-subtle, #D6D6E3);
+  color: var(--ds-icon-primary-label-grey, #616E88);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -271,7 +284,7 @@
   transition: background 150ms ease;
 }
 
-.criteria-builder-pattern-cancel-btn:hover { background: rgba(255, 93, 90, 0.06); }
+.criteria-builder-pattern-cancel-btn:hover { background: var(--ds-bg-scale-bg2, #F5F6FA); }
 
 /* Pattern view mode — fills the right side of the .criteria-builder-pattern row */
 .criteria-builder-pattern-view {

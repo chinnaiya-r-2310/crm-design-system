@@ -173,3 +173,11 @@ Avoid pseudo-code.
 ## Rule 15
 
 Prefer readability over cleverness.
+
+---
+
+## Rule 16
+
+Tooltips appear below the cursor.
+
+Use `<Tooltip placement="top" followCursor>` (placement names the arrow edge, so `top` puts the tooltip below). Keyboard focus still anchors below the trigger, and the tooltip flips or shifts to stay inside the viewport.

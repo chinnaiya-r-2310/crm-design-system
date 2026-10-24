@@ -1,0 +1,269 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   CriteriaSummary — read-only criteria view (Standard / Nested Criteria)
+   Figma: Pascal Stone node 79998-20593
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.criteria-summary {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  box-sizing: border-box;
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  font-size: var(--ds-font-size-base, 14px);
+  font-weight: var(--ds-font-weight-regular, 400);
+  line-height: 22px;
+  color: var(--ds-text-base, #313949);
+}
+
+/* ── Appearance ────────────────────────────────────────────────────────────── */
+
+.criteria-summary--card,
+.criteria-summary--outline {
+  padding: 20px;
+  border: 1px solid var(--ds-border-lighter, #DCDBEE);
+  border-radius: 6px;
+}
+
+.criteria-summary--nested.criteria-summary--card,
+.criteria-summary--nested.criteria-summary--outline {
+  border-radius: 10px;
+}
+
+.criteria-summary--card {
+  background: var(--ds-bg-scale-bg3, #F8FAFF);
+}
+
+.criteria-summary--outline {
+  background: var(--ds-bg-common-card, #FFFFFF);
+}
+
+/* Sections (Primary / Related Module) use a 20px rhythm. */
+.criteria-summary:has(> .criteria-summary__section-wrap) {
+  align-items: stretch;
+  gap: 20px;
+}
+
+/* ── Rows ──────────────────────────────────────────────────────────────────── */
+
+.criteria-summary__list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.criteria-summary--nested > .criteria-summary__list,
+.criteria-summary--nested .criteria-summary__section-body > .criteria-summary__list {
+  gap: 10px;
+}
+
+.criteria-summary__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.criteria-summary__row--chips {
+  gap: 5px;
+}
+
+.criteria-summary__index {
+  flex: 0 0 auto;
+  min-width: 10px;
+  color: var(--ds-text-label, #616E88);
+}
+
+.criteria-summary__row--chips .criteria-summary__index {
+  min-width: 12px;
+}
+
+.criteria-summary__content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.criteria-summary__field,
+.criteria-summary__value {
+  color: var(--ds-text-base, #313949);
+  overflow-wrap: anywhere;
+}
+
+.criteria-summary__operator {
+  color: var(--ds-products-builder-criteria-summary, #20B8A8);
+  text-transform: uppercase;
+}
+
+.criteria-summary__chip {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 23px;
+  padding: 0 8px;
+  border: 1px solid var(--ds-border-default, #C5C4D3);
+  border-radius: 4px;
+  background: var(--ds-bg-common-white, #FFFFFF);
+  font-size: var(--ds-font-size-md, 13px);
+  line-height: 15px;
+  color: var(--ds-text-base, #313949);
+  white-space: nowrap;
+}
+
+/* ── Criteria pattern ──────────────────────────────────────────────────────── */
+
+.criteria-summary__pattern {
+  display: flex;
+  gap: 10px;
+  line-height: 16px;
+}
+
+.criteria-summary__pattern-label {
+  color: var(--ds-text-label, #616E88);
+}
+
+.criteria-summary__pattern-value {
+  color: var(--ds-text-base, #313949);
+}
+
+/* ── Nested relation (Accounts WITH Deals) ─────────────────────────────────── */
+
+.criteria-summary__relation {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* Guide line under the index; content sits 17px after it. */
+.criteria-summary__branch {
+  display: flex;
+  padding-inline-start: 3px;
+}
+
+.criteria-summary__branch-body {
+  display: flex;
+  flex-direction: column;
+  padding-top: 8px;
+  padding-bottom: 20px;
+  padding-inline-start: 17px;
+  border-inline-start: 1px solid var(--ds-border-lighter, #DCDBEE);
+}
+
+.criteria-summary__branch-body > .criteria-summary__list {
+  gap: 5px;
+}
+
+/* ── Sections (Primary Module / Related Module) ────────────────────────────── */
+
+.criteria-summary__section-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.criteria-summary__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.criteria-summary__section-title {
+  margin: 0;
+  font-size: var(--ds-font-size-base, 14px);
+  font-weight: var(--ds-font-weight-semibold, 600);
+  line-height: 16px;
+  color: var(--ds-text-heading, #202123);
+}
+
+.criteria-summary__section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.criteria-summary__divider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  line-height: 16px;
+}
+
+.criteria-summary__divider::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  border-top: 1px solid var(--ds-border-subtle, #D6D6E3);
+}
+
+.criteria-summary__divider-label {
+  position: relative;
+  padding: 0 10px;
+  background: var(--ds-bg-common-card, #FFFFFF);
+  color: var(--ds-products-builder-criteria-summary, #20B8A8);
+}
+
+.criteria-summary--card .criteria-summary__divider-label {
+  background: var(--ds-bg-scale-bg3, #F8FAFF);
+}
+
+/* ── Hover actions (edit / delete pill) ────────────────────────────────────── */
+
+.criteria-summary__actions {
+  position: absolute;
+  top: 15px;
+  inset-inline-end: 10px;
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid var(--ds-border-subtle, #D6D6E3);
+  border-radius: 63px;
+  background: var(--ds-bg-common-white, #FFFFFF);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  /* Opacity only (not visibility) so keyboard focus can still reach the buttons. */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.criteria-summary--has-actions:hover .criteria-summary__actions,
+.criteria-summary--has-actions:focus-within .criteria-summary__actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.criteria-summary__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-icon-primary-label-grey, #616E88);
+  cursor: pointer;
+}
+
+.criteria-summary__action:hover,
+.criteria-summary__action:focus-visible {
+  background: var(--ds-text-icon-bg-hover, #E9EEF4);
+  color: var(--ds-icon-primary-base, #313949);
+}
+
+.criteria-summary__action--delete:hover,
+.criteria-summary__action--delete:focus-visible {
+  background: var(--ds-icon-bg-negative-red, #FFE8E9);
+  color: var(--ds-icon-primary-negative-red, #FF5D5A);
+}
+
+.criteria-summary__action:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-shadow, rgba(76, 94, 253, 0.5));
+  outline-offset: 1px;
+}
