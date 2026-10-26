@@ -236,8 +236,8 @@
 
 /* Add Filter modal — portalled to <body>, so it is scoped by its own class on the dialog. */
 .cmr-filter { font-family: var(--ds-font-family-base); color: var(--ds-text-base); }
-/* More room between Base, Quick and Territory sections (matches the dialog's own 30px rhythm). */
-.cmr-filter .modal-body { gap: 30px; }
+/* Room between Base, Quick and Territory sections: the dialog's 30px rhythm + 10px. */
+.cmr-filter .modal-body { gap: 40px; }
 .cmr-filter__section {
   display: flex;
   flex-direction: column;
