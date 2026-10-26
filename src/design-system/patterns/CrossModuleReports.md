@@ -58,7 +58,7 @@ Each time the modal opens it starts fresh, so Cancel throws away any edits. Appl
 - Only **Related Modules Criteria** has a switch, and it starts off. When off, the card shows "It helps to filter record based on related module values."
 - Every related-module row, including the first, starts empty: the condition picker shows **Select** and the module picker shows **Select Module**. Each row always shows its **Specify Criteria** checkbox, disabled until a module is picked; the label then reads **Specify Criteria - <Module>**. It starts unchecked.
 - Related-module rows are joined by an **AND / OR** connector (AND by default, click to toggle; no pattern). Each row has a minus to remove it when there is more than one. Nested boxes hug their rows.
-- The Base, Quick and Territory section headers stay pinned at the top of the modal body while it scrolls.
+- The Base, Quick and Territory section headers scroll with the content (they are not pinned).
 - Field pickers show **Select Field** (`fieldPlaceholder` on CriteriaBuilder); condition and module pickers show **Select**.
 - **Remove** links on Quick and Territory filters are red. The Territory picklist has no label.
 
@@ -87,3 +87,17 @@ Saving an edited pattern now updates the rows: the highest number sets how many 
 - Apply shows a success MessageBox, "Filter applied successfully", fixed top-centre of the page with the same placement and slide-in as Record Authentication; it hides after 4s or on ✕.
 - The filters panel scrolls with its scrollbar on the panel's inner right edge.
 - Visible stories render without interactions, so the modal no longer opens and closes on every refresh. The interaction checks live in hidden `· checks` stories (`!dev`, `!autodocs`) that only the test runner executes.
+
+## Add Filter · Version 1.1
+
+Same stacked layout as Version 1, with these changes:
+
+- The story opens on the report page with the modal closed; the user opens it with the **Add Filter** button in the Filters panel.
+- Specify Criteria and Related Modules Criteria share one bordered card, separated by spacing only (no divider, no AND connector): 30px above Related Modules Criteria. The ghost button also sits inside that card.
+- Quick Filter's criteria have no card border.
+- Related modules start hidden behind a ghost-blue **Filter by Related Module** button (no switch). Once added, a red **Remove** link sits next to the "Related Modules Criteria" title and brings the ghost button back. The ghost button is medium size (32px).
+- Clearer text hierarchy: section names (Base / Quick / Territory Filter) use the h3 font (15px semibold, heading colour); criteria group titles (Specify Criteria, Related Modules Criteria) are 14px semibold heading colour.
+
+Version 1, Version 2 and the shared Nested Criteria component are unchanged.
+
+The empty Filters panel's **Add Filter** call to action is a small outline-blue button with no icon.

@@ -58,7 +58,7 @@
   background: var(--ds-border-subtle);
 }
 .nested-criteria__related[data-last]::before { inset-block-end: -20px; }
-.nested-criteria__related-line { display: flex; align-items: center; gap: var(--ds-line-height-sm); }
+.nested-criteria__related-line { display: flex; align-items: center; gap: 10px; }
 .nested-criteria__related-module { font-size: var(--ds-font-size-md); }
 .nested-criteria__circle {
   display: inline-flex;

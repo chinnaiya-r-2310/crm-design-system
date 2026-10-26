@@ -52,7 +52,9 @@
 }
 .cmr__title h1 { font-size: var(--ds-font-size-h1); line-height: var(--ds-line-height-h1); font-weight: var(--ds-font-weight-semibold); color: var(--ds-text-heading); white-space: nowrap; }
 .cmr__title p { color: var(--ds-text-heading); }
-.cmr__back { width: 32px; height: 32px; padding: 0; }
+.cmr__back { width: 32px; height: 32px; padding: 0; border-radius: 50%; }
+/* Back button sits 10px from the title (header gap is 20px). */
+.cmr__back-wrap { margin-inline-end: -10px; }
 [dir="rtl"] .cmr__back svg { transform: scaleX(-1); }
 .cmr__actions { display: flex; align-items: center; gap: calc(var(--ds-line-height-base) / 2); margin-inline-start: auto; }
 .cmr__actions .cmr__help { margin-inline-start: var(--ds-line-height-base); }
@@ -93,19 +95,46 @@
 .cmr__panel-heading { display: flex; align-items: center; justify-content: space-between; padding-inline: 8px; }
 .cmr__empty {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 12px;
   min-height: 120px;
   color: var(--ds-text-muted);
 }
+.cmr__empty p { margin: 0; }
+/* Prominent outline call to action in the empty Filters panel. */
+.cmr__add-filter { font-weight: var(--ds-font-weight-semibold); }
+.cmr__add-filter .button-btn { font-weight: var(--ds-font-weight-semibold); }
 /* Saved filter summaries (after Apply) — one titled CriteriaSummary card per filter. */
 /* Tighter gap between the heading and the saved cards than the empty state uses. */
 .cmr__panel-body--saved { gap: 10px; }
-.cmr__heading-actions { display: flex; align-items: center; gap: 8px; }
-/* Edit / Delete keep their native 12px glyph size, centred in a 24px circle that fills on hover. */
-.cmr__heading-actions .cmr__icon-button { width: 24px; height: 24px; padding: 0; border-radius: 50%; }
-.cmr__heading-actions .cmr__icon-button--delete:hover { background: var(--ds-icon-bg-negative-red); }
-.cmr__icon-button--delete:hover { color: var(--ds-icon-primary-negative-red); }
+/* Edit / Delete pill — same combo as Criteria Summary's hover actions (buttons reuse .criteria-summary__action),
+   but always visible here since it is the only way to edit or clear the saved filters. */
+.cmr__heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  /* Icons only at rest; the border and shadow appear on hover/focus.
+     The transparent border keeps the size fixed so nothing shifts. */
+  border: 1px solid transparent;
+  border-radius: 63px;
+  background: transparent;
+  box-shadow: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.cmr__heading-actions:hover,
+.cmr__heading-actions:focus-within {
+  border-color: var(--ds-border-subtle);
+  background: var(--ds-bg-common-white);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cmr__heading-actions {
+    transition: none;
+  }
+}
 /* "Filter applied successfully" — floats top-centre over the page, auto-hides. */
 /* Same placement and entrance as the Record Authentication notice. */
 .cmr__toast {
@@ -220,15 +249,6 @@
   gap: var(--ds-line-height-sm);
 }
 .cmr-filter__add { display: flex; }
-/* Section headers float while the modal body scrolls (modal-body has 4px top padding). */
-.cmr-filter__heading {
-  position: sticky;
-  top: -4px;
-  z-index: 2;
-  padding-block: 4px;
-  margin-block: -4px;
-  background: var(--ds-bg-common-card);
-}
 .cmr-filter__heading h3 {
   margin: 0;
   font-size: var(--ds-font-size-h3);
@@ -292,12 +312,12 @@
   background: var(--ds-border-subtle);
 }
 .cmr-filter__related[data-last]::before { inset-block-end: -20px; }
-.cmr-filter__related-line { display: flex; align-items: center; gap: var(--ds-line-height-sm); }
+.cmr-filter__related-line { display: flex; align-items: center; gap: 10px; }
 /* Minus to remove a related module row — same red icon as the criteria builder. */
 .cmr-filter__related-remove {
   display: inline-flex;
-  /* Row gap (17px) − 2px = 15px from the module picker, same as the criteria builder's input → minus. */
-  margin-inline-start: -2px;
+  /* Row gap (10px) + 5px = 15px from the module picker, same as the criteria builder's input → minus. */
+  margin-inline-start: 5px;
   padding: 0;
   border: none;
   border-radius: 50%;
@@ -359,6 +379,27 @@
   color: var(--ds-text-label);
 }
 .cmr-filter__card:has(> .cmr-filter__card-off) { gap: var(--ds-line-height-sm); }
+
+/* Version 1.1: Specify Criteria and Related Modules Criteria share one bordered card;
+   the inner groups drop their own frame and are separated by spacing only. */
+.cmr-filter__combined { gap: var(--ds-line-height-base); }
+.cmr-filter__combined > .cmr-filter__card {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/* Extra room above Related Modules Criteria: 20px gap + 10px = 30px, the dialog's section rhythm. */
+.cmr-filter__combined > .cmr-filter__card + .cmr-filter__card {
+  margin-block-start: calc(var(--ds-line-height-base) / 2);
+}
+.cmr-filter__related-add { display: flex; }
+/* Version 1.1: section names (Base / Quick / Territory) use the shared h3 heading style above;
+   criteria group titles (Specify Criteria / Related Modules Criteria) are 14px semibold. */
+.cmr-filter--v11 .cmr-filter__card-title h4 {
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
 
 /* Version 2: filters as primary tabs. Tab bar stays pinned while the panel scrolls. */
 .cmr-filter__v2 { display: flex; flex-direction: column; gap: var(--ds-line-height-sm); }

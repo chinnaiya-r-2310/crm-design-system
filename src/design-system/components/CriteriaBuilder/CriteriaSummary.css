@@ -251,6 +251,12 @@
   cursor: pointer;
 }
 
+/* The Edit icon ships with a built-in 0.8 opacity group; Delete has none.
+   Reset it so both action icons render in the same grey. */
+.criteria-summary__action svg g {
+  opacity: 1;
+}
+
 .criteria-summary__action:hover,
 .criteria-summary__action:focus-visible {
   background: var(--ds-text-icon-bg-hover, #E9EEF4);
