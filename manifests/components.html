@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">16/47 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">44/47 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/313 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">16/47 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">44/47 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/315 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>6.0s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -4568,7 +4568,7 @@ export const EmptyState: Story = {
       <div class="badges">
         <label for="c-10-design-system-patterns-cross-module-reports-err" class="badge err as-toggle">prop type error</label>
         <label for="c-10-design-system-patterns-cross-module-reports-info" class="badge info as-toggle">1 info</label>
-        <label for="c-10-design-system-patterns-cross-module-reports-stories" class="badge ok as-toggle">11 stories</label>
+        <label for="c-10-design-system-patterns-cross-module-reports-stories" class="badge ok as-toggle">13 stories</label>
         
         
       </div>
@@ -4594,13 +4594,13 @@ export const EmptyState: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  691 | };
-  692 |
-&gt; 693 | const meta = {
+  729 | };
+  730 |
+&gt; 731 | const meta = {
       | ^
-  694 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
-  695 |   parameters: {
-  696 |     layout: &#39;fullscreen&#39;,
+  732 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
+  733 |   parameters: {
+  734 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/CrossModuleReports.stories.tsx:
 import { Fragment, createContext, useContext, useEffect, useMemo, useRef, useState } from &#39;react&#39;;
@@ -4649,7 +4649,7 @@ function BackArrow() {
 function ReportHeader({ onRun, onCancel }: { onRun: () =&gt; void; onCancel: () =&gt; void }) {
   return (
     &lt;header className=&quot;cmr__header&quot;&gt;
-      &lt;Tooltip content=&quot;Back to reports&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+      &lt;Tooltip content=&quot;Back to reports&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor wrapperClassName=&quot;cmr__back-wrap&quot;&gt;
         &lt;button type=&quot;button&quot; className=&quot;cmr__back&quot; aria-label=&quot;Back to reports&quot; onClick={onCancel}&gt;
           &lt;BackArrow /&gt;
         &lt;/button&gt;
@@ -4765,7 +4765,7 @@ function CriteriaRows({ idPrefix, withModule = false, valueWidth }: { idPrefix: 
 
 /** Off state shows a one-line summary (reference image); on state shows the criteria. */
 /** Cards without a toggle (Specify Criteria) are always open. */
-function CriteriaCard({ title, offText, enabled = true, onToggle, children }: { title: string; offText?: string; enabled?: boolean; onToggle?: (value: boolean) =&gt; void; children: ReactNode }) {
+function CriteriaCard({ title, offText, enabled = true, onToggle, onRemove, children }: { title: string; offText?: string; enabled?: boolean; onToggle?: (value: boolean) =&gt; void; onRemove?: () =&gt; void; children: ReactNode }) {
   return (
     &lt;section className=&quot;cmr-filter__card&quot; aria-label={title}&gt;
       &lt;div className=&quot;cmr-filter__card-title&quot;&gt;
@@ -4776,6 +4776,9 @@ function CriteriaCard({ title, offText, enabled = true, onToggle, children }: { 
             checked={enabled}
             onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; onToggle(event.target.checked)}
           /&gt;
+        )}
+        {onRemove &amp;&amp; (
+          &lt;Button variant=&quot;link-red&quot; size=&quot;sm&quot; aria-label={`Remove ${title}`} onClick={onRemove}&gt;Remove&lt;/Button&gt;
         )}
       &lt;/div&gt;
       {enabled ? children : &lt;p className=&quot;cmr-filter__card-off&quot;&gt;{offText}&lt;/p&gt;}
@@ -4833,52 +4836,81 @@ function RelatedModuleRow({ row, index, isLast, onChange, onRemove }: { row: Rel
 }
 
 /** Base Filter, laid out like the reference: primary-module criteria, AND, then related modules criteria. */
-function BaseFilterSection({ showHeading = true }: { showHeading?: boolean }) {
+/** `plain` (Version 1.1 only): both criteria groups share one bordered card, and related modules are added with a ghost button and removed with &quot;Remove&quot; instead of a switch. */
+function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?: boolean; plain?: boolean }) {
   const [relatedOn, setRelatedOn] = useFilterState(&#39;base:relatedOn&#39;, () =&gt; false);
   const [related, setRelated] = useFilterState&lt;RelatedRow[]&gt;(&#39;base:related&#39;, () =&gt; [emptyRelatedRow(&#39;related-1&#39;)]);
   const updateRelated = (next: RelatedRow) =&gt; setRelated((current) =&gt; current.map((row) =&gt; (row.id === next.id ? next : row)));
   const removeRelated = (id: string) =&gt; setRelated((current) =&gt; current.filter((row) =&gt; row.id !== id));
-  return (
-    &lt;section className=&quot;cmr-filter__section&quot; aria-label=&quot;Base Filter&quot;&gt;
-      {showHeading &amp;&amp; &lt;FilterHeading title=&quot;Base Filter&quot; description={FILTER_DESCRIPTIONS.base} /&gt;}
-      &lt;div className=&quot;cmr-filter__cards&quot;&gt;
-        &lt;CriteriaCard title=&quot;Specify Criteria&quot;&gt;
-          &lt;CriteriaRows idPrefix=&quot;base&quot; withModule valueWidth={360} /&gt;
-        &lt;/CriteriaCard&gt;
-        &lt;div className=&quot;cmr-filter__and&quot; aria-hidden=&quot;true&quot;&gt;&lt;span&gt;AND&lt;/span&gt;&lt;/div&gt;
-        &lt;CriteriaCard title=&quot;Related Modules Criteria&quot; offText=&quot;It helps to filter record based on related module values.&quot; enabled={relatedOn} onToggle={setRelatedOn}&gt;
-          &lt;div className=&quot;cmr-filter__related-list&quot;&gt;
-            {related.map((row, index) =&gt; (
-              &lt;Fragment key={row.id}&gt;
-                &lt;RelatedModuleRow
-                  row={row}
-                  index={index}
-                  isLast={index === related.length - 1}
-                  onChange={updateRelated}
-                  onRemove={related.length &gt; 1 ? () =&gt; removeRelated(row.id) : undefined}
-                /&gt;
-                {/* AND by default; click to switch to OR. No pattern for related modules. */}
-                {index &lt; related.length - 1 &amp;&amp; (
-                  &lt;div className=&quot;cmr-filter__related-conn&quot;&gt;
-                    &lt;button
-                      type=&quot;button&quot;
-                      aria-label={`Toggle related connector ${index + 1}, currently ${row.connector}`}
-                      onClick={() =&gt; updateRelated({ ...row, connector: row.connector === &#39;AND&#39; ? &#39;OR&#39; : &#39;AND&#39; })}
-                    &gt;
-                      {row.connector}
-                    &lt;/button&gt;
-                  &lt;/div&gt;
-                )}
-              &lt;/Fragment&gt;
-            ))}
-          &lt;/div&gt;
-          &lt;div className=&quot;cmr-filter__add-condition&quot;&gt;
-            &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; onClick={() =&gt; setRelated((current) =&gt; [...current, emptyRelatedRow(`related-${Date.now()}`)])}&gt;
-              Add Condition
-            &lt;/Button&gt;
-          &lt;/div&gt;
-        &lt;/CriteriaCard&gt;
+  const relatedContent = (
+    &lt;&gt;
+      &lt;div className=&quot;cmr-filter__related-list&quot;&gt;
+        {related.map((row, index) =&gt; (
+          &lt;Fragment key={row.id}&gt;
+            &lt;RelatedModuleRow
+              row={row}
+              index={index}
+              isLast={index === related.length - 1}
+              onChange={updateRelated}
+              onRemove={related.length &gt; 1 ? () =&gt; removeRelated(row.id) : undefined}
+            /&gt;
+            {/* AND by default; click to switch to OR. No pattern for related modules. */}
+            {index &lt; related.length - 1 &amp;&amp; (
+              &lt;div className=&quot;cmr-filter__related-conn&quot;&gt;
+                &lt;button
+                  type=&quot;button&quot;
+                  aria-label={`Toggle related connector ${index + 1}, currently ${row.connector}`}
+                  onClick={() =&gt; updateRelated({ ...row, connector: row.connector === &#39;AND&#39; ? &#39;OR&#39; : &#39;AND&#39; })}
+                &gt;
+                  {row.connector}
+                &lt;/button&gt;
+              &lt;/div&gt;
+            )}
+          &lt;/Fragment&gt;
+        ))}
       &lt;/div&gt;
+      &lt;div className=&quot;cmr-filter__add-condition&quot;&gt;
+        &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; onClick={() =&gt; setRelated((current) =&gt; [...current, emptyRelatedRow(`related-${Date.now()}`)])}&gt;
+          Add Condition
+        &lt;/Button&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+  return (
+    &lt;section className={plain ? &#39;cmr-filter__section cmr-filter__section--plain&#39; : &#39;cmr-filter__section&#39;} aria-label=&quot;Base Filter&quot;&gt;
+      {showHeading &amp;&amp; &lt;FilterHeading title=&quot;Base Filter&quot; description={FILTER_DESCRIPTIONS.base} /&gt;}
+      {plain ? (
+        /* Version 1.1: Specify Criteria and Related Modules Criteria combined in one bordered card. */
+        &lt;div className=&quot;cmr-filter__card cmr-filter__combined&quot;&gt;
+          &lt;CriteriaCard title=&quot;Specify Criteria&quot;&gt;
+            &lt;CriteriaRows idPrefix=&quot;base&quot; withModule valueWidth={360} /&gt;
+          &lt;/CriteriaCard&gt;
+          {relatedOn ? (
+            &lt;CriteriaCard title=&quot;Related Modules Criteria&quot; onRemove={() =&gt; setRelatedOn(false)}&gt;
+              {relatedContent}
+            &lt;/CriteriaCard&gt;
+          ) : (
+            &lt;div className=&quot;cmr-filter__related-add&quot;&gt;
+              &lt;Button variant=&quot;ghost-blue&quot; size=&quot;md&quot; onClick={() =&gt; setRelatedOn(true)}&gt;Filter by Related Module&lt;/Button&gt;
+            &lt;/div&gt;
+          )}
+        &lt;/div&gt;
+      ) : (
+        &lt;div className=&quot;cmr-filter__cards&quot;&gt;
+          &lt;CriteriaCard title=&quot;Specify Criteria&quot;&gt;
+            &lt;CriteriaRows idPrefix=&quot;base&quot; withModule valueWidth={360} /&gt;
+          &lt;/CriteriaCard&gt;
+          &lt;div className=&quot;cmr-filter__and&quot; aria-hidden=&quot;true&quot;&gt;&lt;span&gt;AND&lt;/span&gt;&lt;/div&gt;
+          &lt;CriteriaCard
+            title=&quot;Related Modules Criteria&quot;
+            offText=&quot;It helps to filter record based on related module values.&quot;
+            enabled={relatedOn}
+            onToggle={setRelatedOn}
+          &gt;
+            {relatedContent}
+          &lt;/CriteriaCard&gt;
+        &lt;/div&gt;
+      )}
     &lt;/section&gt;
   );
 }
@@ -4914,13 +4946,13 @@ function TerritorySection({ onRemove, showHeading = true }: { onRemove?: () =&gt
 }
 
 /** Base Filter is always shown; Quick and Territory are added from the Add Filter menu, in the order the user adds them, and can be removed. */
-function FilterSections() {
+function FilterSections({ plain = false }: { plain?: boolean }) {
   const [added, setAdded] = useFilterState&lt;OptionalFilter[]&gt;(&#39;v1:added&#39;, () =&gt; []);
   const remove = (filter: OptionalFilter) =&gt; setAdded((current) =&gt; current.filter((item) =&gt; item !== filter));
   const available = OPTIONAL_FILTERS.filter((option) =&gt; !added.includes(option.value));
   return (
     &lt;&gt;
-      &lt;BaseFilterSection /&gt;
+      &lt;BaseFilterSection plain={plain} /&gt;
       {added.map((filter) =&gt;
         filter === &#39;quick&#39; ? (
           &lt;CriteriaSection key=&quot;quick&quot; title=&quot;Quick Filter&quot; description={FILTER_DESCRIPTIONS.quick} idPrefix=&quot;quick&quot; onRemove={() =&gt; remove(&#39;quick&#39;)} /&gt;
@@ -4970,7 +5002,8 @@ function FilterTabs({ initialTab = &#39;base&#39; }: { initialTab?: FilterTabId 
   );
 }
 
-export type FilterVersion = 1 | 2;
+/** 1 = stacked sections, 1.1 = stacked with borderless Base Filter and a ghost &quot;Filter by Related Module&quot; button, 2 = primary tabs. */
+export type FilterVersion = 1 | 1.1 | 2;
 
 /** Each open seeds the sections from the applied snapshot, so Cancel discards edits and Apply saves them. */
 function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = &#39;base&#39; }: {
@@ -4988,7 +5021,7 @@ function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 
       title=&quot;Add Filter&quot;
       // 1080px fits the Base Filter module row (module + field + condition + value + minus/plus) inside the 30px side padding.
       width=&quot;min(1080px, 100vw)&quot;
-      className=&quot;cmr-filter&quot;
+      className={version === 1.1 ? &#39;cmr-filter cmr-filter--v11&#39; : &#39;cmr-filter&#39;}
       cancelLabel=&quot;Cancel&quot;
       saveLabel=&quot;Apply&quot;
       onClose={onClose}
@@ -4996,7 +5029,7 @@ function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 
       onSave={() =&gt; onApply({ ...live.current })}
     &gt;
       &lt;FilterStore.Provider value={store}&gt;
-        {isOpen &amp;&amp; (version === 2 ? &lt;FilterTabs initialTab={focus} /&gt; : &lt;FilterSections /&gt;)}
+        {isOpen &amp;&amp; (version === 2 ? &lt;FilterTabs initialTab={focus} /&gt; : &lt;FilterSections plain={version === 1.1} /&gt;)}
       &lt;/FilterStore.Provider&gt;
     &lt;/Modal&gt;
   );
@@ -5116,26 +5149,20 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
           &lt;div className=&quot;cmr__panel-heading&quot;&gt;
             &lt;h2&gt;Filters&lt;/h2&gt;
             {hasFilters ? (
-              // One shared Edit / Delete for all saved filters (no per-card actions).
+              // One shared Edit / Delete for all saved filters, in the same pill combo as Criteria Summary&#39;s hover actions.
               &lt;div className=&quot;cmr__heading-actions&quot;&gt;
                 &lt;Tooltip content=&quot;Edit filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
-                  &lt;button type=&quot;button&quot; className=&quot;cmr__icon-button&quot; aria-label=&quot;Edit filters&quot; onClick={() =&gt; openModal()}&gt;
+                  &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label=&quot;Edit filters&quot; onClick={() =&gt; openModal()}&gt;
                     &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
                   &lt;/button&gt;
                 &lt;/Tooltip&gt;
                 &lt;Tooltip content=&quot;Delete filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
-                  &lt;button type=&quot;button&quot; className=&quot;cmr__icon-button cmr__icon-button--delete&quot; aria-label=&quot;Delete filters&quot; onClick={() =&gt; setConfirmDelete(true)}&gt;
+                  &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action criteria-summary__action--delete&quot; aria-label=&quot;Delete filters&quot; onClick={() =&gt; setConfirmDelete(true)}&gt;
                     &lt;Icon name=&quot;Delete&quot; size={12} /&gt;
                   &lt;/button&gt;
                 &lt;/Tooltip&gt;
               &lt;/div&gt;
-            ) : (
-              &lt;Tooltip content=&quot;Add filter&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
-                &lt;button type=&quot;button&quot; className=&quot;cmr__icon-button&quot; aria-label=&quot;Add filter&quot; onClick={() =&gt; openModal()}&gt;
-                  &lt;Icon name=&quot;CriteriaPlus&quot; size={16} /&gt;
-                &lt;/button&gt;
-              &lt;/Tooltip&gt;
-            )}
+            ) : null}
           &lt;/div&gt;
           {hasFilters ? (
             savedFilters.map((filter) =&gt; (
@@ -5155,7 +5182,18 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
               &lt;/section&gt;
             ))
           ) : (
-            &lt;p className=&quot;cmr__empty&quot;&gt;No filters applied&lt;/p&gt;
+            // Empty state: prominent outline &quot;Add Filter&quot; call to action.
+            &lt;div className=&quot;cmr__empty&quot;&gt;
+              &lt;p&gt;No filters applied&lt;/p&gt;
+              &lt;Button
+                variant=&quot;outline-blue&quot;
+                size=&quot;sm&quot;
+                className=&quot;cmr__add-filter&quot;
+                onClick={() =&gt; openModal()}
+              &gt;
+                Add Filter
+              &lt;/Button&gt;
+            &lt;/div&gt;
           )}
         &lt;/section&gt;
       ) : (
@@ -5424,6 +5462,38 @@ export const AddFilterModalOpenChecks: Story = {
   },
 };
 
+export const AddFilterModalV11: Story = {
+  name: &#39;Add Filter modal · Version 1.1&#39;,
+  // Opens only when the user clicks &quot;Add Filter&quot; in the Filters panel.
+  render: () =&gt; &lt;CrossModuleReportsPage filterVersion={1.1} /&gt;,
+};
+
+export const AddFilterModalV11Checks: Story = {
+  name: &#39;Add Filter modal · Version 1.1 · checks&#39;,
+  tags: TEST_ONLY,
+  render: () =&gt; &lt;CrossModuleReportsPage filterVersion={1.1} /&gt;,
+  play: async ({ canvasElement }) =&gt; {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    // The modal stays closed until the user clicks Add Filter.
+    await expect(body.queryByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
+    const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
+    await waitFor(() =&gt; expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Base Filter&#39; })).toBeVisible());
+    // No switch; related modules start hidden behind a ghost button.
+    await expect(dialog.queryByRole(&#39;switch&#39;)).toBeNull();
+    await expect(dialog.queryByRole(&#39;checkbox&#39;, { name: /Enable/ })).toBeNull();
+    await expect(dialog.queryByRole(&#39;region&#39;, { name: &#39;Related Modules Criteria&#39; })).toBeNull();
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Filter by Related Module&#39; }));
+    await expect(dialog.getByRole(&#39;region&#39;, { name: &#39;Related Modules Criteria&#39; })).toBeVisible();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Filter by Related Module&#39; })).toBeNull();
+    // Remove near the title brings the ghost button back.
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove Related Modules Criteria&#39; }));
+    await expect(dialog.queryByRole(&#39;region&#39;, { name: &#39;Related Modules Criteria&#39; })).toBeNull();
+    await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Filter by Related Module&#39; })).toBeVisible();
+  },
+};
+
 export const SavedFiltersV1: Story = {
   name: &#39;Saved filters · Version 1&#39;,
   render: () =&gt; &lt;CrossModuleReportsPage filterVersion={1} initialSaved={SAMPLE_SAVED} /&gt;,
@@ -5447,14 +5517,14 @@ export const SavedFiltersV1Checks: Story = {
 
     // No per-card actions; one shared Edit / Delete replaces the plus.
     await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Edit criteria&#39; })).toBeNull();
-    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Add filter&#39; })).toBeNull();
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
 
     // Edit reopens the modal pre-filled; Apply writes the summary back and confirms.
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit filters&#39; }));
     const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
     await waitFor(() =&gt; expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Territory Filter&#39; })).toBeVisible());
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Apply&#39; }));
-    await expect(await canvas.findByText(&#39;Filter applied successfully&#39;)).toBeVisible();
+    await waitFor(() =&gt; expect(canvas.getByText(&#39;Filter applied successfully&#39;)).toBeVisible());
     await waitFor(() =&gt; expect(canvas.getByRole(&#39;region&#39;, { name: &#39;Saved Base Filter&#39; })).toBeVisible());
 
     // Delete asks for confirmation first; Cancel keeps the filters.
@@ -5468,7 +5538,7 @@ export const SavedFiltersV1Checks: Story = {
     const confirmAgain = within(await body.findByRole(&#39;alertdialog&#39;, { name: &#39;Are you sure you want to delete filter?&#39; }));
     await userEvent.click(confirmAgain.getByRole(&#39;button&#39;, { name: &#39;Delete&#39; }));
     await expect(canvas.getByText(&#39;No filters applied&#39;)).toBeVisible();
-    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Add filter&#39; })).toBeVisible();
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; })).toBeVisible();
   },
 };
 
@@ -5484,7 +5554,7 @@ export const SavedFiltersV2Checks: Story = {
   play: async ({ canvasElement }) =&gt; {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add filter&#39; }));
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
     const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
     await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; })).toBeVisible());
     await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
@@ -5494,7 +5564,7 @@ export const SavedFiltersV2Checks: Story = {
     const savedRegion = await canvas.findByRole(&#39;region&#39;, { name: &#39;Saved Territory Filter&#39; });
     await expect(within(savedRegion).getByText(&#39;All Territories&#39;)).toBeVisible();
     await expect(canvas.queryByText(&#39;No filters applied&#39;)).toBeNull();
-    await expect(await canvas.findByText(&#39;Filter applied successfully&#39;)).toBeVisible();
+    await waitFor(() =&gt; expect(canvas.getByText(&#39;Filter applied successfully&#39;)).toBeVisible());
     // Shared Edit reopens Version 2 with the applied values.
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit filters&#39; }));
     const reopened = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
@@ -5627,6 +5697,24 @@ import { Fragment } from "react";</code></pre>
               
               
               <pre><code>const AddFilterModalOpenChecks = () =&gt; &lt;CrossModuleReportsPage initialModalOpen filterVersion={1} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Add Filter modal · Version 1.1</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AddFilterModalV11 = () =&gt; &lt;CrossModuleReportsPage filterVersion={1.1} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Add Filter modal · Version 1.1 · checks</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AddFilterModalV11Checks = () =&gt; &lt;CrossModuleReportsPage filterVersion={1.1} /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -22558,7 +22646,7 @@ export const EmptyState: Story = {
       <div class="badges">
         <label for="c-error-3-design-system-patterns-cross-module-reports-err" class="badge err as-toggle">prop type error</label>
         <label for="c-error-3-design-system-patterns-cross-module-reports-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-3-design-system-patterns-cross-module-reports-stories" class="badge ok as-toggle">11 stories</label>
+        <label for="c-error-3-design-system-patterns-cross-module-reports-stories" class="badge ok as-toggle">13 stories</label>
         
         
       </div>
@@ -22584,13 +22672,13 @@ export const EmptyState: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  691 | };
-  692 |
-&gt; 693 | const meta = {
+  729 | };
+  730 |
+&gt; 731 | const meta = {
       | ^
-  694 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
-  695 |   parameters: {
-  696 |     layout: &#39;fullscreen&#39;,
+  732 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
+  733 |   parameters: {
+  734 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/CrossModuleReports.stories.tsx:
 import { Fragment, createContext, useContext, useEffect, useMemo, useRef, useState } from &#39;react&#39;;
@@ -22639,7 +22727,7 @@ function BackArrow() {
 function ReportHeader({ onRun, onCancel }: { onRun: () =&gt; void; onCancel: () =&gt; void }) {
   return (
     &lt;header className=&quot;cmr__header&quot;&gt;
-      &lt;Tooltip content=&quot;Back to reports&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+      &lt;Tooltip content=&quot;Back to reports&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor wrapperClassName=&quot;cmr__back-wrap&quot;&gt;
         &lt;button type=&quot;button&quot; className=&quot;cmr__back&quot; aria-label=&quot;Back to reports&quot; onClick={onCancel}&gt;
           &lt;BackArrow /&gt;
         &lt;/button&gt;
@@ -22755,7 +22843,7 @@ function CriteriaRows({ idPrefix, withModule = false, valueWidth }: { idPrefix: 
 
 /** Off state shows a one-line summary (reference image); on state shows the criteria. */
 /** Cards without a toggle (Specify Criteria) are always open. */
-function CriteriaCard({ title, offText, enabled = true, onToggle, children }: { title: string; offText?: string; enabled?: boolean; onToggle?: (value: boolean) =&gt; void; children: ReactNode }) {
+function CriteriaCard({ title, offText, enabled = true, onToggle, onRemove, children }: { title: string; offText?: string; enabled?: boolean; onToggle?: (value: boolean) =&gt; void; onRemove?: () =&gt; void; children: ReactNode }) {
   return (
     &lt;section className=&quot;cmr-filter__card&quot; aria-label={title}&gt;
       &lt;div className=&quot;cmr-filter__card-title&quot;&gt;
@@ -22766,6 +22854,9 @@ function CriteriaCard({ title, offText, enabled = true, onToggle, children }: { 
             checked={enabled}
             onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; onToggle(event.target.checked)}
           /&gt;
+        )}
+        {onRemove &amp;&amp; (
+          &lt;Button variant=&quot;link-red&quot; size=&quot;sm&quot; aria-label={`Remove ${title}`} onClick={onRemove}&gt;Remove&lt;/Button&gt;
         )}
       &lt;/div&gt;
       {enabled ? children : &lt;p className=&quot;cmr-filter__card-off&quot;&gt;{offText}&lt;/p&gt;}
@@ -22823,52 +22914,81 @@ function RelatedModuleRow({ row, index, isLast, onChange, onRemove }: { row: Rel
 }
 
 /** Base Filter, laid out like the reference: primary-module criteria, AND, then related modules criteria. */
-function BaseFilterSection({ showHeading = true }: { showHeading?: boolean }) {
+/** `plain` (Version 1.1 only): both criteria groups share one bordered card, and related modules are added with a ghost button and removed with &quot;Remove&quot; instead of a switch. */
+function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?: boolean; plain?: boolean }) {
   const [relatedOn, setRelatedOn] = useFilterState(&#39;base:relatedOn&#39;, () =&gt; false);
   const [related, setRelated] = useFilterState&lt;RelatedRow[]&gt;(&#39;base:related&#39;, () =&gt; [emptyRelatedRow(&#39;related-1&#39;)]);
   const updateRelated = (next: RelatedRow) =&gt; setRelated((current) =&gt; current.map((row) =&gt; (row.id === next.id ? next : row)));
   const removeRelated = (id: string) =&gt; setRelated((current) =&gt; current.filter((row) =&gt; row.id !== id));
-  return (
-    &lt;section className=&quot;cmr-filter__section&quot; aria-label=&quot;Base Filter&quot;&gt;
-      {showHeading &amp;&amp; &lt;FilterHeading title=&quot;Base Filter&quot; description={FILTER_DESCRIPTIONS.base} /&gt;}
-      &lt;div className=&quot;cmr-filter__cards&quot;&gt;
-        &lt;CriteriaCard title=&quot;Specify Criteria&quot;&gt;
-          &lt;CriteriaRows idPrefix=&quot;base&quot; withModule valueWidth={360} /&gt;
-        &lt;/CriteriaCard&gt;
-        &lt;div className=&quot;cmr-filter__and&quot; aria-hidden=&quot;true&quot;&gt;&lt;span&gt;AND&lt;/span&gt;&lt;/div&gt;
-        &lt;CriteriaCard title=&quot;Related Modules Criteria&quot; offText=&quot;It helps to filter record based on related module values.&quot; enabled={relatedOn} onToggle={setRelatedOn}&gt;
-          &lt;div className=&quot;cmr-filter__related-list&quot;&gt;
-            {related.map((row, index) =&gt; (
-              &lt;Fragment key={row.id}&gt;
-                &lt;RelatedModuleRow
-                  row={row}
-                  index={index}
-                  isLast={index === related.length - 1}
-                  onChange={updateRelated}
-                  onRemove={related.length &gt; 1 ? () =&gt; removeRelated(row.id) : undefined}
-                /&gt;
-                {/* AND by default; click to switch to OR. No pattern for related modules. */}
-                {index &lt; related.length - 1 &amp;&amp; (
-                  &lt;div className=&quot;cmr-filter__related-conn&quot;&gt;
-                    &lt;button
-                      type=&quot;button&quot;
-                      aria-label={`Toggle related connector ${index + 1}, currently ${row.connector}`}
-                      onClick={() =&gt; updateRelated({ ...row, connector: row.connector === &#39;AND&#39; ? &#39;OR&#39; : &#39;AND&#39; })}
-                    &gt;
-                      {row.connector}
-                    &lt;/button&gt;
-                  &lt;/div&gt;
-                )}
-              &lt;/Fragment&gt;
-            ))}
-          &lt;/div&gt;
-          &lt;div className=&quot;cmr-filter__add-condition&quot;&gt;
-            &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; onClick={() =&gt; setRelated((current) =&gt; [...current, emptyRelatedRow(`related-${Date.now()}`)])}&gt;
-              Add Condition
-            &lt;/Button&gt;
-          &lt;/div&gt;
-        &lt;/CriteriaCard&gt;
+  const relatedContent = (
+    &lt;&gt;
+      &lt;div className=&quot;cmr-filter__related-list&quot;&gt;
+        {related.map((row, index) =&gt; (
+          &lt;Fragment key={row.id}&gt;
+            &lt;RelatedModuleRow
+              row={row}
+              index={index}
+              isLast={index === related.length - 1}
+              onChange={updateRelated}
+              onRemove={related.length &gt; 1 ? () =&gt; removeRelated(row.id) : undefined}
+            /&gt;
+            {/* AND by default; click to switch to OR. No pattern for related modules. */}
+            {index &lt; related.length - 1 &amp;&amp; (
+              &lt;div className=&quot;cmr-filter__related-conn&quot;&gt;
+                &lt;button
+                  type=&quot;button&quot;
+                  aria-label={`Toggle related connector ${index + 1}, currently ${row.connector}`}
+                  onClick={() =&gt; updateRelated({ ...row, connector: row.connector === &#39;AND&#39; ? &#39;OR&#39; : &#39;AND&#39; })}
+                &gt;
+                  {row.connector}
+                &lt;/button&gt;
+              &lt;/div&gt;
+            )}
+          &lt;/Fragment&gt;
+        ))}
       &lt;/div&gt;
+      &lt;div className=&quot;cmr-filter__add-condition&quot;&gt;
+        &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; onClick={() =&gt; setRelated((current) =&gt; [...current, emptyRelatedRow(`related-${Date.now()}`)])}&gt;
+          Add Condition
+        &lt;/Button&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+  return (
+    &lt;section className={plain ? &#39;cmr-filter__section cmr-filter__section--plain&#39; : &#39;cmr-filter__section&#39;} aria-label=&quot;Base Filter&quot;&gt;
+      {showHeading &amp;&amp; &lt;FilterHeading title=&quot;Base Filter&quot; description={FILTER_DESCRIPTIONS.base} /&gt;}
+      {plain ? (
+        /* Version 1.1: Specify Criteria and Related Modules Criteria combined in one bordered card. */
+        &lt;div className=&quot;cmr-filter__card cmr-filter__combined&quot;&gt;
+          &lt;CriteriaCard title=&quot;Specify Criteria&quot;&gt;
+            &lt;CriteriaRows idPrefix=&quot;base&quot; withModule valueWidth={360} /&gt;
+          &lt;/CriteriaCard&gt;
+          {relatedOn ? (
+            &lt;CriteriaCard title=&quot;Related Modules Criteria&quot; onRemove={() =&gt; setRelatedOn(false)}&gt;
+              {relatedContent}
+            &lt;/CriteriaCard&gt;
+          ) : (
+            &lt;div className=&quot;cmr-filter__related-add&quot;&gt;
+              &lt;Button variant=&quot;ghost-blue&quot; size=&quot;md&quot; onClick={() =&gt; setRelatedOn(true)}&gt;Filter by Related Module&lt;/Button&gt;
+            &lt;/div&gt;
+          )}
+        &lt;/div&gt;
+      ) : (
+        &lt;div className=&quot;cmr-filter__cards&quot;&gt;
+          &lt;CriteriaCard title=&quot;Specify Criteria&quot;&gt;
+            &lt;CriteriaRows idPrefix=&quot;base&quot; withModule valueWidth={360} /&gt;
+          &lt;/CriteriaCard&gt;
+          &lt;div className=&quot;cmr-filter__and&quot; aria-hidden=&quot;true&quot;&gt;&lt;span&gt;AND&lt;/span&gt;&lt;/div&gt;
+          &lt;CriteriaCard
+            title=&quot;Related Modules Criteria&quot;
+            offText=&quot;It helps to filter record based on related module values.&quot;
+            enabled={relatedOn}
+            onToggle={setRelatedOn}
+          &gt;
+            {relatedContent}
+          &lt;/CriteriaCard&gt;
+        &lt;/div&gt;
+      )}
     &lt;/section&gt;
   );
 }
@@ -22904,13 +23024,13 @@ function TerritorySection({ onRemove, showHeading = true }: { onRemove?: () =&gt
 }
 
 /** Base Filter is always shown; Quick and Territory are added from the Add Filter menu, in the order the user adds them, and can be removed. */
-function FilterSections() {
+function FilterSections({ plain = false }: { plain?: boolean }) {
   const [added, setAdded] = useFilterState&lt;OptionalFilter[]&gt;(&#39;v1:added&#39;, () =&gt; []);
   const remove = (filter: OptionalFilter) =&gt; setAdded((current) =&gt; current.filter((item) =&gt; item !== filter));
   const available = OPTIONAL_FILTERS.filter((option) =&gt; !added.includes(option.value));
   return (
     &lt;&gt;
-      &lt;BaseFilterSection /&gt;
+      &lt;BaseFilterSection plain={plain} /&gt;
       {added.map((filter) =&gt;
         filter === &#39;quick&#39; ? (
           &lt;CriteriaSection key=&quot;quick&quot; title=&quot;Quick Filter&quot; description={FILTER_DESCRIPTIONS.quick} idPrefix=&quot;quick&quot; onRemove={() =&gt; remove(&#39;quick&#39;)} /&gt;
@@ -22960,7 +23080,8 @@ function FilterTabs({ initialTab = &#39;base&#39; }: { initialTab?: FilterTabId 
   );
 }
 
-export type FilterVersion = 1 | 2;
+/** 1 = stacked sections, 1.1 = stacked with borderless Base Filter and a ghost &quot;Filter by Related Module&quot; button, 2 = primary tabs. */
+export type FilterVersion = 1 | 1.1 | 2;
 
 /** Each open seeds the sections from the applied snapshot, so Cancel discards edits and Apply saves them. */
 function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = &#39;base&#39; }: {
@@ -22978,7 +23099,7 @@ function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 
       title=&quot;Add Filter&quot;
       // 1080px fits the Base Filter module row (module + field + condition + value + minus/plus) inside the 30px side padding.
       width=&quot;min(1080px, 100vw)&quot;
-      className=&quot;cmr-filter&quot;
+      className={version === 1.1 ? &#39;cmr-filter cmr-filter--v11&#39; : &#39;cmr-filter&#39;}
       cancelLabel=&quot;Cancel&quot;
       saveLabel=&quot;Apply&quot;
       onClose={onClose}
@@ -22986,7 +23107,7 @@ function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 
       onSave={() =&gt; onApply({ ...live.current })}
     &gt;
       &lt;FilterStore.Provider value={store}&gt;
-        {isOpen &amp;&amp; (version === 2 ? &lt;FilterTabs initialTab={focus} /&gt; : &lt;FilterSections /&gt;)}
+        {isOpen &amp;&amp; (version === 2 ? &lt;FilterTabs initialTab={focus} /&gt; : &lt;FilterSections plain={version === 1.1} /&gt;)}
       &lt;/FilterStore.Provider&gt;
     &lt;/Modal&gt;
   );
@@ -23106,26 +23227,20 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
           &lt;div className=&quot;cmr__panel-heading&quot;&gt;
             &lt;h2&gt;Filters&lt;/h2&gt;
             {hasFilters ? (
-              // One shared Edit / Delete for all saved filters (no per-card actions).
+              // One shared Edit / Delete for all saved filters, in the same pill combo as Criteria Summary&#39;s hover actions.
               &lt;div className=&quot;cmr__heading-actions&quot;&gt;
                 &lt;Tooltip content=&quot;Edit filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
-                  &lt;button type=&quot;button&quot; className=&quot;cmr__icon-button&quot; aria-label=&quot;Edit filters&quot; onClick={() =&gt; openModal()}&gt;
+                  &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label=&quot;Edit filters&quot; onClick={() =&gt; openModal()}&gt;
                     &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
                   &lt;/button&gt;
                 &lt;/Tooltip&gt;
                 &lt;Tooltip content=&quot;Delete filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
-                  &lt;button type=&quot;button&quot; className=&quot;cmr__icon-button cmr__icon-button--delete&quot; aria-label=&quot;Delete filters&quot; onClick={() =&gt; setConfirmDelete(true)}&gt;
+                  &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action criteria-summary__action--delete&quot; aria-label=&quot;Delete filters&quot; onClick={() =&gt; setConfirmDelete(true)}&gt;
                     &lt;Icon name=&quot;Delete&quot; size={12} /&gt;
                   &lt;/button&gt;
                 &lt;/Tooltip&gt;
               &lt;/div&gt;
-            ) : (
-              &lt;Tooltip content=&quot;Add filter&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
-                &lt;button type=&quot;button&quot; className=&quot;cmr__icon-button&quot; aria-label=&quot;Add filter&quot; onClick={() =&gt; openModal()}&gt;
-                  &lt;Icon name=&quot;CriteriaPlus&quot; size={16} /&gt;
-                &lt;/button&gt;
-              &lt;/Tooltip&gt;
-            )}
+            ) : null}
           &lt;/div&gt;
           {hasFilters ? (
             savedFilters.map((filter) =&gt; (
@@ -23145,7 +23260,18 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
               &lt;/section&gt;
             ))
           ) : (
-            &lt;p className=&quot;cmr__empty&quot;&gt;No filters applied&lt;/p&gt;
+            // Empty state: prominent outline &quot;Add Filter&quot; call to action.
+            &lt;div className=&quot;cmr__empty&quot;&gt;
+              &lt;p&gt;No filters applied&lt;/p&gt;
+              &lt;Button
+                variant=&quot;outline-blue&quot;
+                size=&quot;sm&quot;
+                className=&quot;cmr__add-filter&quot;
+                onClick={() =&gt; openModal()}
+              &gt;
+                Add Filter
+              &lt;/Button&gt;
+            &lt;/div&gt;
           )}
         &lt;/section&gt;
       ) : (
@@ -23414,6 +23540,38 @@ export const AddFilterModalOpenChecks: Story = {
   },
 };
 
+export const AddFilterModalV11: Story = {
+  name: &#39;Add Filter modal · Version 1.1&#39;,
+  // Opens only when the user clicks &quot;Add Filter&quot; in the Filters panel.
+  render: () =&gt; &lt;CrossModuleReportsPage filterVersion={1.1} /&gt;,
+};
+
+export const AddFilterModalV11Checks: Story = {
+  name: &#39;Add Filter modal · Version 1.1 · checks&#39;,
+  tags: TEST_ONLY,
+  render: () =&gt; &lt;CrossModuleReportsPage filterVersion={1.1} /&gt;,
+  play: async ({ canvasElement }) =&gt; {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    // The modal stays closed until the user clicks Add Filter.
+    await expect(body.queryByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
+    const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
+    await waitFor(() =&gt; expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Base Filter&#39; })).toBeVisible());
+    // No switch; related modules start hidden behind a ghost button.
+    await expect(dialog.queryByRole(&#39;switch&#39;)).toBeNull();
+    await expect(dialog.queryByRole(&#39;checkbox&#39;, { name: /Enable/ })).toBeNull();
+    await expect(dialog.queryByRole(&#39;region&#39;, { name: &#39;Related Modules Criteria&#39; })).toBeNull();
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Filter by Related Module&#39; }));
+    await expect(dialog.getByRole(&#39;region&#39;, { name: &#39;Related Modules Criteria&#39; })).toBeVisible();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Filter by Related Module&#39; })).toBeNull();
+    // Remove near the title brings the ghost button back.
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove Related Modules Criteria&#39; }));
+    await expect(dialog.queryByRole(&#39;region&#39;, { name: &#39;Related Modules Criteria&#39; })).toBeNull();
+    await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Filter by Related Module&#39; })).toBeVisible();
+  },
+};
+
 export const SavedFiltersV1: Story = {
   name: &#39;Saved filters · Version 1&#39;,
   render: () =&gt; &lt;CrossModuleReportsPage filterVersion={1} initialSaved={SAMPLE_SAVED} /&gt;,
@@ -23437,14 +23595,14 @@ export const SavedFiltersV1Checks: Story = {
 
     // No per-card actions; one shared Edit / Delete replaces the plus.
     await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Edit criteria&#39; })).toBeNull();
-    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Add filter&#39; })).toBeNull();
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
 
     // Edit reopens the modal pre-filled; Apply writes the summary back and confirms.
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit filters&#39; }));
     const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
     await waitFor(() =&gt; expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Territory Filter&#39; })).toBeVisible());
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Apply&#39; }));
-    await expect(await canvas.findByText(&#39;Filter applied successfully&#39;)).toBeVisible();
+    await waitFor(() =&gt; expect(canvas.getByText(&#39;Filter applied successfully&#39;)).toBeVisible());
     await waitFor(() =&gt; expect(canvas.getByRole(&#39;region&#39;, { name: &#39;Saved Base Filter&#39; })).toBeVisible());
 
     // Delete asks for confirmation first; Cancel keeps the filters.
@@ -23458,7 +23616,7 @@ export const SavedFiltersV1Checks: Story = {
     const confirmAgain = within(await body.findByRole(&#39;alertdialog&#39;, { name: &#39;Are you sure you want to delete filter?&#39; }));
     await userEvent.click(confirmAgain.getByRole(&#39;button&#39;, { name: &#39;Delete&#39; }));
     await expect(canvas.getByText(&#39;No filters applied&#39;)).toBeVisible();
-    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Add filter&#39; })).toBeVisible();
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; })).toBeVisible();
   },
 };
 
@@ -23474,7 +23632,7 @@ export const SavedFiltersV2Checks: Story = {
   play: async ({ canvasElement }) =&gt; {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add filter&#39; }));
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
     const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
     await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; })).toBeVisible());
     await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
@@ -23484,7 +23642,7 @@ export const SavedFiltersV2Checks: Story = {
     const savedRegion = await canvas.findByRole(&#39;region&#39;, { name: &#39;Saved Territory Filter&#39; });
     await expect(within(savedRegion).getByText(&#39;All Territories&#39;)).toBeVisible();
     await expect(canvas.queryByText(&#39;No filters applied&#39;)).toBeNull();
-    await expect(await canvas.findByText(&#39;Filter applied successfully&#39;)).toBeVisible();
+    await waitFor(() =&gt; expect(canvas.getByText(&#39;Filter applied successfully&#39;)).toBeVisible());
     // Shared Edit reopens Version 2 with the applied values.
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit filters&#39; }));
     const reopened = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
@@ -23617,6 +23775,24 @@ import { Fragment } from "react";</code></pre>
               
               
               <pre><code>const AddFilterModalOpenChecks = () =&gt; &lt;CrossModuleReportsPage initialModalOpen filterVersion={1} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Add Filter modal · Version 1.1</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AddFilterModalV11 = () =&gt; &lt;CrossModuleReportsPage filterVersion={1.1} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Add Filter modal · Version 1.1 · checks</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AddFilterModalV11Checks = () =&gt; &lt;CrossModuleReportsPage filterVersion={1.1} /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
