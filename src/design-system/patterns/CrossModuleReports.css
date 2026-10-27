@@ -116,24 +116,14 @@
   align-items: center;
   gap: 2px;
   padding: 4px;
-  /* Icons only at rest; the border and shadow appear on hover/focus.
-     The transparent border keeps the size fixed so nothing shifts. */
-  border: 1px solid transparent;
-  border-radius: 63px;
-  background: transparent;
-  box-shadow: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  /* Icons only; each icon's own round hover background is the only hover state. */
 }
-.cmr__heading-actions:hover,
-.cmr__heading-actions:focus-within {
-  border-color: var(--ds-border-subtle);
-  background: var(--ds-bg-common-white);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-}
-@media (prefers-reduced-motion: reduce) {
-  .cmr__heading-actions {
-    transition: none;
-  }
+/* Page-level Edit / Delete icons (Filters + Columns panels): roomier 28px hover circle around the 12px icon.
+   Negative block margin keeps the heading row height unchanged. */
+.cmr .criteria-summary__action {
+  width: 28px;
+  height: 28px;
+  margin-block: -2px;
 }
 /* "Filter applied successfully" — floats top-centre over the page, auto-hides. */
 /* Same placement and entrance as the Record Authentication notice. */
@@ -159,7 +149,41 @@
 .cmr__saved-sentence { display: block; margin: 0; }
 .cmr__panel-heading h2 { font-size: var(--ds-font-size-base); font-weight: var(--ds-font-weight-semibold); color: var(--ds-text-heading); }
 
-.cmr__column-list { display: flex; flex-direction: column; gap: 6px; padding-inline: 28px 8px; color: var(--ds-text-base); }
+.cmr__columns { gap: 20px; }
+.cmr__columns-group { display: flex; flex-direction: column; gap: 6px; }
+.cmr__columns-empty { margin: 0; padding-inline: 8px; color: var(--ds-text-muted); }
+.cmr__add-group { padding-inline: 8px; }
+.cmr__column-list { display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 0; list-style: none; color: var(--ds-text-base); }
+.cmr__column {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+  padding-inline: 8px;
+  border-radius: 6px;
+  cursor: grab;
+}
+.cmr__column:hover, .cmr__column:focus-within { background: var(--ds-text-icon-bg-hover); }
+.cmr__column--dragging { opacity: 0.5; cursor: grabbing; }
+.cmr__column-grip { display: inline-flex; color: var(--ds-text-muted); }
+.cmr__column:hover .cmr__column-grip { color: var(--ds-icon-primary-label-grey); }
+.cmr__column-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cmr__column-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-icon-primary-base);
+  opacity: 0;
+  cursor: pointer;
+}
+.cmr__column:hover .cmr__column-remove, .cmr__column-remove:focus-visible { opacity: 1; }
+.cmr__column-remove:focus-visible { outline: 2px solid var(--ds-components-input-focus-shadow); outline-offset: 1px; }
 
 /* Preview */
 .cmr__preview {
@@ -392,6 +416,8 @@
 .cmr-filter__combined > .cmr-filter__card + .cmr-filter__card {
   margin-block-start: calc(var(--ds-line-height-base) / 2);
 }
+/* Version 2: tighter title-to-content gap (10px) inside Filter by Fields / Filter by Related Module. */
+.cmr-filter__combined--fields > .cmr-filter__card { gap: calc(var(--ds-line-height-base) / 2); }
 .cmr-filter__related-add { display: flex; }
 /* Version 1.1: section names (Base / Quick / Territory) use the shared h3 heading style above;
    criteria group titles (Specify Criteria / Related Modules Criteria) are 14px semibold. */

@@ -94,6 +94,9 @@ export function Dropdown({
   triggerIcon,
   triggerAriaLabel,
   triggerButtonVariant,
+  /** Single-select only: shows a ✕ inside the trigger once a value is picked; clicking it calls onChange(''). */
+  clearable = false,
+  clearAriaLabel = 'Clear selection',
 }) {
   const autoId = useId();
   const triggerId = idProp ?? autoId;
@@ -320,6 +323,7 @@ export function Dropdown({
       <div
         key={opt.value}
         className='dropdown-option'
+        data-description={!!opt.description || undefined}
         role="option"
         aria-selected={isSelected}
         aria-disabled={opt.disabled}
@@ -340,7 +344,10 @@ export function Dropdown({
           </span>
         )}
         {opt.icon && <span className='dropdown-option-icon' aria-hidden="true">{opt.icon}</span>}
-        <TruncatedLabel text={opt.label} className='dropdown-option-label' wrapperStyle={{ flex: 1, minWidth: 0 }} />
+        {opt.description ? <span className='dropdown-option-content'>
+          <span className='dropdown-option-label'>{opt.label}</span>
+          <span className='dropdown-option-description'>{opt.description}</span>
+        </span> : <TruncatedLabel text={opt.label} className='dropdown-option-label' wrapperStyle={{ flex: 1, minWidth: 0 }} />}
       </div>
     );
   };
@@ -436,7 +443,7 @@ export function Dropdown({
 
   const Trigger = triggerButtonVariant ? Button : 'button';
   const dropdownEl = (
-    <div ref={rootRef} className='dropdown-dropdown-wrapper' onKeyDown={handleKeyDown}>
+    <div ref={rootRef} className='dropdown-dropdown-wrapper' data-clearable={(clearable && selectedOption) || undefined} onKeyDown={handleKeyDown}>
       <Trigger
         ref={triggerRef}
         id={triggerId}
@@ -472,6 +479,22 @@ export function Dropdown({
           </>
         )}
       </Trigger>
+      {clearable && !multiSelect && !triggerButtonVariant && !disabled && selectedOption && (
+        <button
+          type="button"
+          className='dropdown-trigger-clear'
+          aria-label={clearAriaLabel}
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpen(false);
+            if (onChange) onChange('');
+            else setInternalSingleValue('');
+            triggerRef.current?.focus();
+          }}
+        >
+          <CloseIcon />
+        </button>
+      )}
       {panelContent}
     </div>
   );

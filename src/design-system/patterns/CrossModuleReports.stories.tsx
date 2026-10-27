@@ -136,7 +136,7 @@ type RelatedRow = { id: string; condition: string; module: string; specify: bool
 const emptyRelatedRow = (id: string): RelatedRow => ({ id, condition: '', module: '', specify: false, connector: 'AND' });
 
 /** Criteria builder with its own rows and pattern state. */
-function CriteriaRows({ idPrefix, withModule = false, valueWidth }: { idPrefix: string; withModule?: boolean; valueWidth?: number }) {
+function CriteriaRows({ idPrefix, withModule = false, moduleLabel, valueWidth }: { idPrefix: string; withModule?: boolean; moduleLabel?: string; valueWidth?: number }) {
   const [rows, setRows] = useFilterState<ModuleCriteriaRow[]>(`${idPrefix}:rows`, () =>
     emptyCriteria(`${idPrefix}-1`).map((row) => (withModule ? { ...row, module: BASE_MODULE } : row)),
   );
@@ -153,6 +153,7 @@ function CriteriaRows({ idPrefix, withModule = false, valueWidth }: { idPrefix: 
       placeholder="Select"
       fieldPlaceholder="Select Field"
       moduleOptions={withModule ? BASE_MODULE_OPTIONS : undefined}
+      moduleLabel={moduleLabel}
       valueWidth={valueWidth}
     />
   );
@@ -231,10 +232,17 @@ function RelatedModuleRow({ row, index, isLast, onChange, onRemove }: { row: Rel
 }
 
 /** Base Filter, laid out like the reference: primary-module criteria, AND, then related modules criteria. */
-/** `plain` (Version 1.1 only): both criteria groups share one bordered card, and related modules are added with a ghost button and removed with "Remove" instead of a switch. */
-function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?: boolean; plain?: boolean }) {
-  const [relatedOn, setRelatedOn] = useFilterState('base:relatedOn', () => false);
-  const [related, setRelated] = useFilterState<RelatedRow[]>('base:related', () => [emptyRelatedRow('related-1')]);
+/** `layout`:
+ *  - `cards` (Version 1): two cards joined by AND, related modules switched on/off.
+ *  - `plain` (Version 1.1): one bordered card; related modules added with a ghost button, removed with "Remove".
+ *  - `fields` (Version 2): one bordered card titled "Filter by Fields" / "Filter by Related Module"; no module picker or
+ *    module label in Filter by Fields; related modules always shown, starting with just Add Condition, and every row (even the first) has a minus. */
+type BaseLayout = 'cards' | 'plain' | 'fields';
+function BaseFilterSection({ showHeading = true, layout = 'cards' }: { showHeading?: boolean; layout?: BaseLayout }) {
+  const isFields = layout === 'fields';
+  const [relatedOnState, setRelatedOn] = useFilterState('base:relatedOn', () => isFields);
+  const relatedOn = isFields || relatedOnState;
+  const [related, setRelated] = useFilterState<RelatedRow[]>('base:related', () => (isFields ? [] : [emptyRelatedRow('related-1')]));
   const updateRelated = (next: RelatedRow) => setRelated((current) => current.map((row) => (row.id === next.id ? next : row)));
   const removeRelated = (id: string) => setRelated((current) => current.filter((row) => row.id !== id));
   const relatedContent = (
@@ -247,7 +255,7 @@ function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?
               index={index}
               isLast={index === related.length - 1}
               onChange={updateRelated}
-              onRemove={related.length > 1 ? () => removeRelated(row.id) : undefined}
+              onRemove={isFields || related.length > 1 ? () => removeRelated(row.id) : undefined}
             />
             {/* AND by default; click to switch to OR. No pattern for related modules. */}
             {index < related.length - 1 && (
@@ -272,9 +280,19 @@ function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?
     </>
   );
   return (
-    <section className={plain ? 'cmr-filter__section cmr-filter__section--plain' : 'cmr-filter__section'} aria-label="Base Filter">
+    <section className={layout === 'cards' ? 'cmr-filter__section' : 'cmr-filter__section cmr-filter__section--plain'} aria-label="Base Filter">
       {showHeading && <FilterHeading title="Base Filter" description={FILTER_DESCRIPTIONS.base} />}
-      {plain ? (
+      {isFields ? (
+        /* Version 2: one bordered card, both groups always shown. */
+        <div className="cmr-filter__card cmr-filter__combined cmr-filter__combined--fields">
+          <CriteriaCard title="Filter by Fields">
+            <CriteriaRows idPrefix="base" />
+          </CriteriaCard>
+          <CriteriaCard title="Filter by Related Module">
+            {relatedContent}
+          </CriteriaCard>
+        </div>
+      ) : layout === 'plain' ? (
         /* Version 1.1: Specify Criteria and Related Modules Criteria combined in one bordered card. */
         <div className="cmr-filter__card cmr-filter__combined">
           <CriteriaCard title="Specify Criteria">
@@ -310,7 +328,7 @@ function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?
   );
 }
 
-function TerritorySection({ onRemove, showHeading = true }: { onRemove?: () => void; showHeading?: boolean }) {
+function TerritorySection({ onRemove, showHeading = true, clearable = false }: { onRemove?: () => void; showHeading?: boolean; clearable?: boolean }) {
   const [mode, setMode] = useFilterState('territory:mode', () => '');
   const [territories, setTerritories] = useFilterState<TerritoryOption[]>('territory:list', () => []);
   const [includeSub, setIncludeSub] = useFilterState('territory:includeSub', () => false);
@@ -324,6 +342,8 @@ function TerritorySection({ onRemove, showHeading = true }: { onRemove?: () => v
         placeholder="Select"
         options={TERRITORY_MODES}
         value={mode}
+        clearable={clearable}
+        clearAriaLabel="Clear territory"
         onChange={(value: string) => setMode(value)}
       />
       {mode === 'custom' && (
@@ -347,7 +367,7 @@ function FilterSections({ plain = false }: { plain?: boolean }) {
   const available = OPTIONAL_FILTERS.filter((option) => !added.includes(option.value));
   return (
     <>
-      <BaseFilterSection plain={plain} />
+      <BaseFilterSection layout={plain ? 'plain' : 'cards'} />
       {added.map((filter) =>
         filter === 'quick' ? (
           <CriteriaSection key="quick" title="Quick Filter" description={FILTER_DESCRIPTIONS.quick} idPrefix="quick" onRemove={() => remove('quick')} />
@@ -390,9 +410,9 @@ function FilterTabs({ initialTab = 'base' }: { initialTab?: FilterTabId }) {
         <Tabs tabs={FILTER_TABS as unknown as { id: string; label: string }[]} activeTab={tab} onChange={(id: string) => setTab(id as FilterTabId)} variant="primary" />
       </div>
       <p className="cmr-filter__tab-desc">{FILTER_DESCRIPTIONS[tab]}</p>
-      <div hidden={tab !== 'base'}><BaseFilterSection showHeading={false} /></div>
+      <div hidden={tab !== 'base'}><BaseFilterSection showHeading={false} layout="fields" /></div>
       <div hidden={tab !== 'quick'}><CriteriaSection title="Quick Filter" description={FILTER_DESCRIPTIONS.quick} idPrefix="quick" showHeading={false} /></div>
-      <div hidden={tab !== 'territory'}><TerritorySection showHeading={false} /></div>
+      <div hidden={tab !== 'territory'}><TerritorySection showHeading={false} clearable /></div>
     </div>
   );
 }
@@ -416,7 +436,7 @@ function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 
       title="Add Filter"
       // 1080px fits the Base Filter module row (module + field + condition + value + minus/plus) inside the 30px side padding.
       width="min(1080px, 100vw)"
-      className={version === 1.1 ? 'cmr-filter cmr-filter--v11' : 'cmr-filter'}
+      className={version === 1 ? 'cmr-filter' : 'cmr-filter cmr-filter--v11'}
       cancelLabel="Cancel"
       saveLabel="Apply"
       onClose={onClose}
@@ -516,6 +536,122 @@ function buildSavedFilters(snapshot: FilterSnapshot): SavedFilter[] {
   return result;
 }
 
+// ─── Columns panel ───────────────────────────────────────────────────────────
+
+/** Six-dot grip used as the column drag handle. */
+function DragGrip() {
+  return (
+    <svg width="8" height="12" viewBox="0 0 8 12" fill="currentColor" aria-hidden="true">
+      <circle cx="1.5" cy="1.5" r="1.25" /><circle cx="6.5" cy="1.5" r="1.25" />
+      <circle cx="1.5" cy="6" r="1.25" /><circle cx="6.5" cy="6" r="1.25" />
+      <circle cx="1.5" cy="10.5" r="1.25" /><circle cx="6.5" cy="10.5" r="1.25" />
+    </svg>
+  );
+}
+
+type ColumnGroupId = 'row' | 'column' | 'aggregate';
+/** Each group is pre-filled with sample columns relevant to the report when it is added. */
+const COLUMN_GROUPS: { value: ColumnGroupId; label: string; empty: string; sample: string[] }[] = [
+  { value: 'row', label: 'Row Groups', empty: 'No Group Selected', sample: ['Potential Owner', 'Account Name'] },
+  { value: 'column', label: 'Column Groups', empty: 'No Group Selected', sample: ['Created Time (Month)', 'Lead Source'] },
+  { value: 'aggregate', label: 'Aggregate Columns', empty: 'No Column Selected', sample: ['Annual Revenue (Sum)', 'Potential Name (Count)'] },
+];
+
+function PanelEditButton({ label }: { label: string }) {
+  return (
+    <Tooltip content={`Edit ${label.toLowerCase()}`} variant="black" placement="top" followCursor>
+      <button type="button" className="criteria-summary__action" aria-label={`Edit ${label}`}>
+        <Icon name="Edit" size={12} />
+      </button>
+    </Tooltip>
+  );
+}
+
+/** Draggable column list with a remove (✕) on hover. `minItems` keeps that many rows from being removed. */
+function SortableColumnList({ items, onChange, minItems = 0 }: { items: string[]; onChange: (next: string[]) => void; minItems?: number }) {
+  const [dragging, setDragging] = useState<number | null>(null);
+  const move = (from: number, to: number) => {
+    if (from === to) return;
+    const next = [...items];
+    const [item] = next.splice(from, 1);
+    next.splice(to, 0, item);
+    onChange(next);
+  };
+  return (
+    <ul className="cmr__column-list">
+      {items.map((label, index) => (
+        <li
+          key={label}
+          className={`cmr__column${dragging === index ? ' cmr__column--dragging' : ''}`}
+          draggable
+          onDragStart={(event) => { setDragging(index); event.dataTransfer.effectAllowed = 'move'; }}
+          onDragOver={(event) => { event.preventDefault(); if (dragging !== null && dragging !== index) { move(dragging, index); setDragging(index); } }}
+          onDragEnd={() => setDragging(null)}
+        >
+          <span className="cmr__column-grip" aria-hidden="true"><DragGrip /></span>
+          <span className="cmr__column-label">{label}</span>
+          {items.length > minItems && (
+            <button
+              type="button"
+              className="cmr__column-remove"
+              aria-label={`Remove ${label}`}
+              onClick={() => onChange(items.filter((item) => item !== label))}
+            >
+              <Icon name="Close" size={10} />
+            </button>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ColumnsPanel() {
+  const [columns, setColumns] = useState(() => [OWNER_COLUMN, ...REPORT_COLUMNS].map((column) => column.label));
+  // Insertion order = display order; each added group starts with its sample columns.
+  const [groups, setGroups] = useState<{ id: ColumnGroupId; items: string[] }[]>([]);
+  const available = COLUMN_GROUPS.filter((group) => !groups.some((added) => added.id === group.value));
+  const addGroup = (id: ColumnGroupId) => {
+    const sample = COLUMN_GROUPS.find((group) => group.value === id)?.sample ?? [];
+    setGroups((current) => [...current, { id, items: [...sample] }]);
+  };
+  const setGroupItems = (id: ColumnGroupId, items: string[]) =>
+    setGroups((current) => current.map((group) => (group.id === id ? { ...group, items } : group)));
+  return (
+    <section className="cmr__panel-body cmr__columns" aria-label="Columns">
+      <section className="cmr__columns-group" aria-label="Columns list">
+        <div className="cmr__panel-heading"><h2>Columns</h2><PanelEditButton label="Columns" /></div>
+        <SortableColumnList items={columns} onChange={setColumns} minItems={1} />
+      </section>
+      {groups.map(({ id, items }) => {
+        const meta = COLUMN_GROUPS.find((group) => group.value === id)!;
+        return (
+          <section key={id} className="cmr__columns-group" aria-label={meta.label}>
+            <div className="cmr__panel-heading"><h2>{meta.label}</h2><PanelEditButton label={meta.label} /></div>
+            {items.length
+              ? <SortableColumnList items={items} onChange={(next) => setGroupItems(id, next)} />
+              : <p className="cmr__columns-empty">{meta.empty}</p>}
+          </section>
+        );
+      })}
+      {available.length > 0 && (
+        <div className="cmr__add-group">
+          <Dropdown
+            value=""
+            placeholder="Add Group"
+            triggerAriaLabel="Add Group"
+            triggerButtonVariant="outline-blue"
+            width="fit-content"
+            options={available}
+            panelStyle={{ minWidth: 180, width: 'max-content' }}
+            onChange={(value: ColumnGroupId) => addGroup(value)}
+          />
+        </div>
+      )}
+    </section>
+  );
+}
+
 // ─── Filters panel ───────────────────────────────────────────────────────────
 
 function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, initialSaved = {} }: {
@@ -551,11 +687,14 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
                     <Icon name="Edit" size={12} />
                   </button>
                 </Tooltip>
-                <Tooltip content="Delete filters" variant="black" placement="top" followCursor>
-                  <button type="button" className="criteria-summary__action criteria-summary__action--delete" aria-label="Delete filters" onClick={() => setConfirmDelete(true)}>
-                    <Icon name="Delete" size={12} />
-                  </button>
-                </Tooltip>
+                {/* Version 2: Edit only, no Delete. */}
+                {filterVersion !== 2 && (
+                  <Tooltip content="Delete filters" variant="black" placement="top" followCursor>
+                    <button type="button" className="criteria-summary__action criteria-summary__action--delete" aria-label="Delete filters" onClick={() => setConfirmDelete(true)}>
+                      <Icon name="Delete" size={12} />
+                    </button>
+                  </Tooltip>
+                )}
               </div>
             ) : null}
           </div>
@@ -592,12 +731,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
           )}
         </section>
       ) : (
-        <section className="cmr__panel-body" aria-label="Columns">
-          <div className="cmr__panel-heading"><h2>Selected Columns</h2></div>
-          <ol className="cmr__column-list">
-            {[OWNER_COLUMN, ...REPORT_COLUMNS].map(column => <li key={column.label}>{column.label}</li>)}
-          </ol>
-        </section>
+        <ColumnsPanel />
       )}
       <AddFilterModal
         isOpen={modalOpen}
@@ -768,7 +902,22 @@ export const DefaultChecks: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Run' }));
     await expect(canvas.getByText(/^Report run with the current filters/)).toBeVisible();
     await userEvent.click(canvas.getByRole('tab', { name: 'Columns' }));
-    await expect(canvas.getByRole('heading', { name: 'Selected Columns' })).toBeVisible();
+    await expect(canvas.getByRole('heading', { name: 'Columns' })).toBeVisible();
+    await expect(canvas.queryByRole('heading', { name: 'Row Groups' })).toBeNull();
+    await userEvent.click(canvas.getByRole('button', { name: 'Add Group' }));
+    await userEvent.click(await within(document.body).findByRole('option', { name: 'Row Groups' }));
+    await expect(canvas.getByRole('heading', { name: 'Row Groups' })).toBeVisible();
+    const rowGroups = within(canvas.getByRole('region', { name: 'Row Groups' }));
+    await expect(rowGroups.getByText('Potential Owner')).toBeVisible();
+    await expect(rowGroups.getByText('Account Name')).toBeVisible();
+    await userEvent.click(rowGroups.getByRole('button', { name: 'Remove Potential Owner' }));
+    await userEvent.click(rowGroups.getByRole('button', { name: 'Remove Account Name' }));
+    await expect(rowGroups.getByText('No Group Selected')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Add Group' }));
+    await userEvent.click(await within(document.body).findByRole('option', { name: 'Aggregate Columns' }));
+    await expect(within(canvas.getByRole('region', { name: 'Aggregate Columns' })).getByText('Annual Revenue (Sum)')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Email' }));
+    await expect(canvas.queryByText('Email', { selector: '.cmr__column-label' })).toBeNull();
   },
 };
 
@@ -960,6 +1109,8 @@ export const SavedFiltersV2Checks: Story = {
     await expect(within(savedRegion).getByText('All Territories')).toBeVisible();
     await expect(canvas.queryByText('No filters applied')).toBeNull();
     await waitFor(() => expect(canvas.getByText('Filter applied successfully')).toBeVisible());
+    // Version 2 summary: Edit only, no Delete.
+    await expect(canvas.queryByRole('button', { name: 'Delete filters' })).toBeNull();
     // Shared Edit reopens Version 2 with the applied values.
     await userEvent.click(canvas.getByRole('button', { name: 'Edit filters' }));
     const reopened = within(await body.findByRole('dialog', { name: 'Add Filter' }));
@@ -972,19 +1123,35 @@ export const SavedFiltersV2Checks: Story = {
 
 export const AddFilterModalV2: Story = {
   name: 'Add Filter modal · Version 2',
-  render: () => <CrossModuleReportsPage initialModalOpen filterVersion={2} />,
+  render: () => <CrossModuleReportsPage filterVersion={2} />,
 };
 
 export const AddFilterModalV2Checks: Story = {
   name: 'Add Filter modal · Version 2 · checks',
   tags: TEST_ONLY,
-  render: () => <CrossModuleReportsPage initialModalOpen filterVersion={2} />,
+  render: () => <CrossModuleReportsPage filterVersion={2} />,
   play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
+    // Opens only on click.
+    await expect(body.queryByRole('dialog', { name: 'Add Filter' })).toBeNull();
+    await userEvent.click(canvas.getByRole('button', { name: 'Add Filter' }));
     const dialog = within(await body.findByRole('dialog', { name: 'Add Filter' }));
     await waitFor(() => expect(dialog.getByRole('tab', { name: 'Base Filter' })).toHaveAttribute('aria-selected', 'true'));
     await waitFor(() => expect(dialog.getByText(FILTER_DESCRIPTIONS.base)).toBeVisible());
-    await expect(dialog.getByRole('heading', { name: 'Specify Criteria' })).toBeVisible();
+    // One combined card: Filter by Fields (no module picker or label) + Filter by Related Module.
+    await expect(dialog.getByRole('heading', { name: 'Filter by Fields' })).toBeVisible();
+    await expect(dialog.getByRole('heading', { name: 'Filter by Related Module' })).toBeVisible();
+    await expect(dialog.queryByRole('heading', { name: 'Specify Criteria' })).toBeNull();
+    await expect(dialog.queryByText('Contact', { selector: '.criteria-builder-module-label' })).toBeNull();
+    await expect(dialog.queryByRole('button', { name: 'Filter by Related Module' })).toBeNull();
+    await expect(dialog.queryByRole('button', { name: /^Remove Related/ })).toBeNull();
+    // Related modules start with just Add Condition; the first row gets a minus.
+    await expect(dialog.queryByRole('button', { name: 'Related module 1' })).toBeNull();
+    await userEvent.click(dialog.getByRole('button', { name: 'Add Condition' }));
+    await expect(dialog.getByRole('button', { name: 'Remove related module 1' })).toBeVisible();
+    await userEvent.click(dialog.getByRole('button', { name: 'Remove related module 1' }));
+    await expect(dialog.queryByRole('button', { name: 'Related module 1' })).toBeNull();
     await expect(dialog.queryByRole('button', { name: 'Add Filter' })).toBeNull();
     await expect(dialog.queryByRole('button', { name: /^Remove (Quick|Territory)/ })).toBeNull();
 
@@ -1003,6 +1170,10 @@ export const AddFilterModalV2Checks: Story = {
     await userEvent.click(dialog.getByRole('tab', { name: 'Base Filter' }));
     await userEvent.click(dialog.getByRole('tab', { name: 'Territory Filter' }));
     await expect(dialog.getByRole('button', { name: 'Territory filter type' })).toHaveTextContent('Custom');
+    // ✕ inside the Territory input clears it.
+    await userEvent.click(dialog.getByRole('button', { name: 'Clear territory' }));
+    await expect(dialog.getByRole('button', { name: 'Territory filter type' })).toHaveTextContent('Select');
+    await expect(dialog.queryByRole('button', { name: 'Clear territory' })).toBeNull();
     await userEvent.click(dialog.getByRole('button', { name: 'Cancel' }));
   },
 };

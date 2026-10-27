@@ -16,7 +16,8 @@ Built inside the pattern (no matching component exists):
 
 - The Filters tab shows "No filters applied". The plus button next to the Filters heading has no action yet.
 - **Run** replaces the preview notice with a "report run" message. **Cancel** and **Back** restore the notice. Save has no action.
-- The Columns tab lists the selected report columns.
+- The Columns tab (shared by every version) shows a Columns list with a six-dot drag grip on each row (drag to reorder, ✕ on hover to remove) and an outline **Add Group** menu that adds Row Groups, Column Groups and Aggregate Columns in the order chosen. Each added group starts with sample columns (Row Groups: Potential Owner, Account Name; Column Groups: Created Time (Month), Lead Source; Aggregate Columns: Annual Revenue (Sum), Potential Name (Count)) that can be dragged or removed like the main list. Each section has an Edit icon; a group emptied of columns reads "No Group Selected" / "No Column Selected".
+- Panel Edit / Delete icons show only a round background on hover (no pill border or shadow).
 - The grid scrolls in both directions inside its card.
 - At widths of 1100px or less, the left menu is hidden. At widths of 760px or less, the panel stacks above the grid.
 
@@ -101,3 +102,11 @@ Same stacked layout as Version 1, with these changes:
 Version 1, Version 2 and the shared Nested Criteria component are unchanged.
 
 The empty Filters panel's **Add Filter** call to action is a small outline-blue button with no icon.
+
+### Version 2 updates
+- Opens only when the user clicks **Add Filter** (no auto-open).
+- Base Filter uses the Version 1.1 single bordered card, with two titles: **Filter by Fields** and **Filter by Related Module**.
+- Filter by Fields rows start straight with Select Field — no module picker and no module label.
+- Filter by Related Module is always shown and starts with only **Add Condition**; every related row, including the first, has a minus. No "Remove" links.
+- The Territory picklist has a ✕ inside to clear the value (`Dropdown` `clearable`).
+- The saved summary shows Edit only (no Delete).

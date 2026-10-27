@@ -98,6 +98,8 @@ export function CriteriaBuilder({
   fieldPlaceholder,
   /** Optional module picker shown before the field (e.g. cross-module criteria). Omit for the standard row. */
   moduleOptions,
+  /** Fixed module name shown as plain text before the field (instead of a module picker). */
+  moduleLabel,
   /** Width of the value column; defaults to the standard 390px. */
   valueWidth = 390,
 }) {
@@ -205,6 +207,11 @@ export function CriteriaBuilder({
 
             {/* Fields */}
             <div className='criteria-builder-fields'>
+              {/* Fixed module name — plain text, when moduleLabel is provided */}
+              {moduleLabel && !moduleOptions?.length && (
+                <span className='criteria-builder-module-label'>{moduleLabel}</span>
+              )}
+
               {/* Module — 150px, only when moduleOptions is provided */}
               {moduleOptions?.length > 0 && (
                 <Dropdown

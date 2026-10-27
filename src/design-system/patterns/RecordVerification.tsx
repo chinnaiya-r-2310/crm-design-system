@@ -1,12 +1,12 @@
-import { useId, useState } from 'react';
+import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { Button } from '../components/Button/Button';
 import { Dropdown } from '../components/Dropdown/Dropdown';
 import { Input } from '../components/Input/Input';
-import { MessageInfo } from '../components/MessageInfo/MessageInfo';
+import { Checkbox } from '../components/Checkbox/Checkbox';
+import { Icon } from '../components/Icon/Icon';
 import { Modal } from '../components/Modal/Modal';
-import { Radio } from '../components/Radio/Radio';
-import { Stepper } from '../components/Stepper/Stepper';
+import { Tooltip } from '../components/Tooltip/Tooltip';
 import { Switch } from '../components/Switch/Switch';
 import { SetupTable } from '../components/Table/Table';
 import { Tags } from '../components/Tags/Tags';
@@ -23,7 +23,7 @@ type Rule = {
 };
 export type ConfirmationSettingsProps = {
   method: ConfirmationMethod; initial: VerificationConfig; lead: ReactNode;
-  onBack: (settings: VerificationConfig) => void; onClose: () => void; onSave: (settings: VerificationConfig) => void;
+  onChange: (settings: VerificationConfig) => void; onClose: () => void; onSave: (settings: VerificationConfig) => void;
 };
 const ACTION_LABELS = { record: 'Record creation', criteria: 'Picklist value', buttons: 'Button actions' };
 const METHOD_LABELS = { otp: 'OTP on Phone', code: 'Code on Email', link: 'Confirmation Link' };
@@ -50,16 +50,16 @@ export function RecordVerification({ renderSettings, onNotice }: {
   renderSettings: (props: ConfirmationSettingsProps) => ReactNode;
   onNotice: (message: string) => void;
 }) {
-  const id = useId();
   const [rules, setRules] = useState<Rule[]>([]);
   const [draft, setDraft] = useState<Rule>();
-  const [step, setStep] = useState(0);
   const [error, setError] = useState('');
+  const [whenSelected, setWhenSelected] = useState(false);
+  const [consentSelected, setConsentSelected] = useState(false);
   const [deleting, setDeleting] = useState<Rule>();
   const recordTaken = rules.some(rule => rule.action === 'record' && rule.id !== draft?.id);
   const patch = (update: Partial<Rule>) => { setDraft(current => current ? { ...current, ...update } : current); setError(''); };
-  const close = () => { setDraft(undefined); setStep(0); setError(''); };
-  const start = (rule?: Rule) => { setDraft(rule ?? newRule(rules.some(item => item.action === 'record'))); setStep(0); setError(''); };
+  const close = () => { setDraft(undefined); setError(''); };
+  const start = (rule?: Rule) => { setDraft(rule ?? newRule(rules.some(item => item.action === 'record'))); setWhenSelected(!!rule); setConsentSelected(!!rule); setError(''); };
   const changeMethod = (method: ConfirmationMethod) => {
     if (!draft) return;
     const settings = defaultConfig(method === 'otp' ? 'phone' : 'email');
@@ -71,18 +71,16 @@ export function RecordVerification({ renderSettings, onNotice }: {
       settings.emailContent = { sender: 'owner', subject: 'Confirm your action with ${Organization.OrganizationName}',
         body: 'Hello ${Contacts.FullName},\n\nPlease confirm the requested action with ${Organization.OrganizationName}.\n\n[Verify email address]\n\nIf you did not request this action, ignore this email.' };
     }
+    setConsentSelected(true);
     patch({ method, field: '', settings });
   };
-  const next = () => {
+  const save = (settings: VerificationConfig) => {
     if (!draft) return;
+    if (!whenSelected || !consentSelected) { setError('Select When and Consent Type.'); return; }
     if (draft.action === 'record' && recordTaken) { setError('Record creation already has a configuration. Edit the existing rule.'); return; }
     if (draft.action === 'buttons' && (!draft.buttonName.trim() || !draft.layouts.length || !draft.profiles.length)) {
       setError('Enter a button name and select at least one layout and profile.'); return;
     }
-    setStep(current => current + 1);
-  };
-  const save = (settings: VerificationConfig) => {
-    if (!draft) return;
     if (!draft.field) { setError('Select a verification field.'); return; }
     if (rules.some(rule => rule.id !== draft.id && rule.action === draft.action && rule.method === draft.method && rule.field === draft.field)) {
       setError('This action, method, and field already have a configuration. Edit the existing rule.'); return;
@@ -92,25 +90,62 @@ export function RecordVerification({ renderSettings, onNotice }: {
     setRules(current => draft.id ? current.map(item => item.id === draft.id ? rule : item) : [...current, rule]);
     close(); onNotice('Record verification configured successfully');
   };
-  const progress = <Stepper variant="single" steps={['Action', 'Method', 'Configuration']} currentStep={step} />;
   const lead = draft && <>
-    {progress}
-    <MessageInfo variant="info" message={`Verifying: ${actionDescription(draft)} via ${METHOD_LABELS[draft.method]}. Confirmation captures consent; it does not verify ownership of the field.`} />
-    <Dropdown label="Verification Field" width="100%" value={draft.field} placeholder="Select a field"
-      options={fieldsFor(draft.method)} onChange={(field: string) => patch({ field })} error={!!error} />
-    {draft.action === 'record' && <MessageInfo variant="info" message="Confirmation is required before saving a new record. Only one record-creation configuration is allowed." />}
+    <div className="record-auth-form__row">
+      <span className="record-auth-form__label record-confirmation__when-label">When
+        <Tooltip variant="white" content="Choose the event that requires the contact’s consent. Confirmation captures consent for an action; it does not verify ownership of a phone number or email address.">
+          <button type="button" className="record-confirmation__info" aria-label="About When"><Icon name="CrmInfoSolid" size={13} /></button>
+        </Tooltip>
+      </span>
+      <Dropdown id="record-consent-when" triggerAriaLabel="When" placeholder="Select" width="100%" value={whenSelected ? draft.action : ''}
+        options={([
+          { value: 'record', label: ACTION_LABELS.record, description: recordTaken ? 'Already configured. Edit the existing record-creation rule.' : 'Ask for consent before a new record is saved.', disabled: recordTaken },
+          { value: 'criteria', label: ACTION_LABELS.criteria, description: 'Ask for consent when a picklist is set to a value.' },
+          { value: 'buttons', label: ACTION_LABELS.buttons, description: 'Ask for consent via a custom button on the record’s Detail page.' },
+        ])} onChange={(action: Action) => {
+          setWhenSelected(true);
+          if (action !== 'buttons' && draft.method === 'link') changeMethod('otp');
+          patch({ action });
+        }} />
+    </div>
+    <div className="record-auth-form__row">
+      <span className="record-auth-form__label">Consent Type</span>
+      <Dropdown id="record-consent-type" triggerAriaLabel="Consent Type" placeholder="Select" width="100%" value={consentSelected ? draft.method : ''}
+        options={[
+          { value: 'otp', label: METHOD_LABELS.otp, description: 'Send an SMS OTP to confirm the action.' },
+          { value: 'code', label: METHOD_LABELS.code, description: 'Send an email code to confirm the action.' },
+          { value: 'link', label: METHOD_LABELS.link, description: draft.action === 'buttons' ? 'Confirm the action by clicking an email link.' : 'Available only for button actions.', disabled: draft.action !== 'buttons' },
+        ]} onChange={changeMethod} />
+    </div>
+    {draft.action === 'criteria' && <div className="record-auth-form__row">
+      <span className="record-auth-form__label">Picklist condition</span>
+      <div className="record-confirmation__criteria">
+        <Dropdown triggerAriaLabel="Picklist" width="100%" options={Object.keys(PICKLISTS).map(label => ({ value: label, label }))}
+          value={draft.criteriaField} onChange={(criteriaField: keyof typeof PICKLISTS) => patch({ criteriaField, criteriaValue: PICKLISTS[criteriaField][0] })} />
+        <span>is</span>
+        <Dropdown triggerAriaLabel="Value" width="100%" options={PICKLISTS[draft.criteriaField as keyof typeof PICKLISTS].map(label => ({ value: label, label }))}
+          value={draft.criteriaValue} onChange={(criteriaValue: string) => patch({ criteriaValue })} />
+      </div>
+    </div>}
+    {draft.action === 'buttons' && <>
+      <div className="record-auth-form__row"><span className="record-auth-form__label">Button Name</span>
+        <Input aria-label="Button Name" width="100%" value={draft.buttonName} onChange={(event: React.ChangeEvent<HTMLInputElement>) => patch({ buttonName: event.target.value })} /></div>
+      <div className="record-auth-form__row"><span className="record-auth-form__label">Layout</span>
+        <Tags width="100%" value={draft.layouts} options={LAYOUTS} onChange={(layouts: Field[]) => patch({ layouts })} /></div>
+      <div className="record-auth-form__row"><span className="record-auth-form__label">Profile</span>
+        <Tags width="100%" value={draft.profiles} options={PROFILES} onChange={(profiles: Field[]) => patch({ profiles })} /></div>
+      <div className="record-auth-form__row"><span /><Checkbox label="For Portal Users" checked={draft.portal} onChange={(event: React.ChangeEvent<HTMLInputElement>) => patch({ portal: event.target.checked })} /></div>
+    </>}
+    <div className="record-auth-form__row"><span className="record-auth-form__label">Verification Field</span>
+      <Dropdown triggerAriaLabel="Verification Field" width="100%" value={draft.field} placeholder="Select a field"
+        options={fieldsFor(draft.method)} onChange={(field: string) => patch({ field })} error={!!error} /></div>
     {error && <p className="record-auth-form__error" role="alert">{error}</p>}
   </>;
   return <div className="record-confirmation">
-    <div className="record-auth__intro"><div>
-      <h2>Record Verification Settings</h2>
-      <p>Configure the channel used to obtain consent for a process in this module.</p>
-    </div><Button variant="primary" onClick={() => start()}>New</Button></div>
-    {rules.length === 0 ? <div className="record-confirmation__empty">
-      <h2>No record verification configured</h2>
-      <p>Request consent when a record is created, a picklist value changes, or a custom button is used.</p>
-      <Button variant="link-primary" onClick={() => start()}>Configure Record Verification</Button>
-    </div> : <SetupTable rows={rules} columns={[
+    <div className="record-auth__intro"><p>Configure the channel used to obtain consent for a process in this module.</p>
+      {rules.length > 0 && <Button variant="primary" onClick={() => start()}>Configure</Button>}</div>
+    {rules.length === 0 && <Button variant="primary" onClick={() => start()}>Configure</Button>}
+    {rules.length > 0 && <SetupTable rows={rules} columns={[
       { key: 'action', label: 'Use verification at', width: 200, render: (_: Action, rule: Rule) => actionDescription(rule) },
       { key: 'field', label: 'Field', width: 150, render: (field: string, rule: Rule) => fieldsFor(rule.method).find(item => item.value === field)?.label },
       { key: 'method', label: 'Type / Channel', width: 180, render: (method: ConfirmationMethod) => METHOD_LABELS[method] },
@@ -122,47 +157,8 @@ export function RecordVerification({ renderSettings, onNotice }: {
         <Button variant="link-primary" aria-label={`Delete ${actionDescription(rule)}`} onClick={() => setDeleting(rule)}>Delete</Button>
       </div> },
     ]} />}
-    {draft && step < 2 && <Modal isOpen title="Record Verification" width={680} className="record-auth-config-modal"
-      onClose={close} onSave={next} saveLabel="Next"
-      footerStart={step > 0 ? <Button onClick={() => setStep(current => current - 1)}>Back</Button> : undefined}>
-      <div className="record-auth-form">{progress}
-        <p className="record-confirmation__description">{step === 0 ? 'Choose when this module should ask for consent. You will pick how to send the request on the next step.' : 'How should the contact give consent?'}</p>
-        {step === 0 ? <>
-          <div className="record-confirmation__choices" role="radiogroup" aria-label="Verification action">
-            {(['record', 'criteria', 'buttons'] as const).map(action => <div className="record-confirmation__choice" key={action} data-selected={draft.action === action}>
-              <Radio name={`${id}-action`} label={ACTION_LABELS[action]} checked={draft.action === action} disabled={action === 'record' && recordTaken}
-                onChange={() => patch({ action, ...(action !== 'buttons' && draft.method === 'link' ? { method: 'otp', field: '', settings: defaultConfig('phone') } : {}) })} />
-              <p>{action === 'record' ? (recordTaken ? 'Already configured. Edit the existing record-creation rule.' : 'Ask for consent before a new record is saved.') : action === 'criteria' ? 'Ask for consent when a picklist is set to a value.' : 'Ask for consent via a custom button on the record’s Detail page.'}</p>
-            </div>)}
-          </div>
-          {draft.action === 'criteria' && <div className="record-confirmation__criteria">
-            <Dropdown label="Picklist" layout="vertical" width="100%" options={Object.keys(PICKLISTS).map(label => ({ value: label, label }))}
-              value={draft.criteriaField} onChange={(criteriaField: keyof typeof PICKLISTS) => patch({ criteriaField, criteriaValue: PICKLISTS[criteriaField][0] })} />
-            <span>is</span>
-            <Dropdown label="Value" layout="vertical" width="100%" options={PICKLISTS[draft.criteriaField as keyof typeof PICKLISTS].map(label => ({ value: label, label }))}
-              value={draft.criteriaValue} onChange={(criteriaValue: string) => patch({ criteriaValue })} />
-          </div>}
-          {draft.action === 'buttons' && <>
-            <Input label="Button Name" width="100%" value={draft.buttonName} onChange={(event: React.ChangeEvent<HTMLInputElement>) => patch({ buttonName: event.target.value })} />
-            <Tags label="Select Layout(s)" width="100%" value={draft.layouts} options={LAYOUTS} onChange={(layouts: Field[]) => patch({ layouts })} />
-            <Tags label="Profiles" width="100%" value={draft.profiles} options={PROFILES} onChange={(profiles: Field[]) => patch({ profiles })} />
-            <Switch label="For Portal Users" checked={draft.portal} onChange={(event: React.ChangeEvent<HTMLInputElement>) => patch({ portal: event.target.checked })} />
-          </>}
-        </> : <>
-          <MessageInfo variant="info" message={`Verifying: ${actionDescription(draft)}`} />
-          <div className="record-confirmation__choices" role="radiogroup" aria-label="Confirmation method">
-            {(['otp', 'code', 'link'] as const).map(method => <div className="record-confirmation__choice" key={method} data-selected={draft.method === method}>
-              <Radio name={`${id}-method`} label={`Via ${METHOD_LABELS[method]}`} checked={draft.method === method}
-                disabled={method === 'link' && draft.action !== 'buttons'} onChange={() => changeMethod(method)} />
-              <p>{method === 'link' ? (draft.action === 'buttons' ? 'The recipient confirms the action by clicking the email link.' : 'Available only for button actions.') : 'The contact shares the code with the CRM user to confirm this action.'}</p>
-            </div>)}
-          </div>
-        </>}
-        {error && <p className="record-auth-form__error" role="alert">{error}</p>}
-      </div>
-    </Modal>}
-    {draft && step === 2 && renderSettings({ method: draft.method, initial: draft.settings, lead,
-      onBack: settings => { patch({ settings }); setStep(1); setError(''); }, onClose: close, onSave: save })}
+    {draft && renderSettings({ method: draft.method, initial: draft.settings, lead,
+      onChange: settings => patch({ settings }), onClose: close, onSave: save })}
     {deleting && <Modal isOpen type="alert" variant="warning" title="Delete record verification?"
       description={`Remove the configuration for ${actionDescription(deleting)}? Existing confirmation statuses are preserved.`}
       saveLabel="Delete" onClose={() => setDeleting(undefined)} onSave={() => {

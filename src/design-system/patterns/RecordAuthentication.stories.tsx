@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
@@ -132,21 +132,38 @@ function FormRow({ label, children }: { label: string; children: ReactNode }) {
   return <div className="record-auth-form__row"><span className="record-auth-form__label">{label}</span><div>{children}</div></div>;
 }
 
-function VerificationDialog({ channel, initial, expanded, onClose, onSave, method, lead, onBack }: {
+function VerificationDialog({ channel, initial, expanded, onClose, onSave, method, lead, onChange }: {
   channel: Channel; initial: VerificationConfig; expanded: boolean;
-  method?: ConfirmationMethod; lead?: ReactNode; onBack?: (config: VerificationConfig) => void;
+  method?: ConfirmationMethod; lead?: ReactNode; onChange?: (config: VerificationConfig) => void;
   onClose: () => void; onSave: (config: VerificationConfig) => void;
 }) {
   const id = useId();
   const [draft, setDraft] = useState<VerificationConfig>(() => ({ ...initial, fields: [...initial.fields] }));
   const [more, setMore] = useState(expanded);
+  const [smsNotice, setSmsNotice] = useState(false);
   const [preview, setPreview] = useState<Preview>();
   const [errors, setErrors] = useState<Partial<Record<keyof VerificationConfig, string>>>({});
+  const previousMethod = useRef(method);
+  useEffect(() => {
+    if (previousMethod.current !== method) {
+      previousMethod.current = method;
+      setDraft({ ...initial, fields: [...initial.fields] });
+      setErrors({});
+      setPreview(undefined);
+    }
+  }, [method, initial]);
+  useEffect(() => {
+    if (!smsNotice) return;
+    const timer = window.setTimeout(() => setSmsNotice(false), 5000);
+    return () => window.clearTimeout(timer);
+  }, [smsNotice]);
   const phone = channel === 'phone';
   const code = method === 'code';
   const usesCode = phone || code;
   const update = <K extends keyof VerificationConfig>(key: K, value: VerificationConfig[K]) => {
-    setDraft(current => ({ ...current, [key]: value }));
+    const next = { ...draft, [key]: value };
+    setDraft(next);
+    onChange?.(next);
     setErrors(current => ({ ...current, [key]: undefined }));
   };
   const fieldError = (key: keyof VerificationConfig) => errors[key] ? (
@@ -195,9 +212,9 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
       {fieldError(key)}
     </div>
   );
-  return <><Modal isOpen title={method ? `Record Verification via ${phone ? 'OTP on Phone' : code ? 'Code on Email' : 'Confirmation Link'}` : `Data Verification via ${phone ? 'Phone Number' : 'Email Address'}`}
-    className="record-auth-config-modal" width={670} onClose={onClose} onSave={save}
-    footerStart={onBack ? <Button onClick={() => onBack(draft)}>Back</Button> : undefined}>
+  return <><Modal isOpen title={method ? 'Record Verification' : `Data Verification via ${phone ? 'Phone Number' : 'Email Address'}`}
+    className={`record-auth-config-modal${method ? ' record-confirmation-modal' : ''}`} width={method ? 760 : 670} onClose={onClose} onSave={save}
+    >
     <div className="record-auth-form">
       {lead}
       {!method && <><FormRow label="Fields"><div role="group" aria-label="Fields to verify" aria-invalid={!!errors.fields} aria-describedby={errors.fields ? `${id}-fields-error` : undefined}>
@@ -236,7 +253,7 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
                 <span id={`${id}-sms-hint`}>Type # to insert merge field</span><span>{draft.template.length}/160</span>
               </div>
               <div className="record-auth-form__preview" role="region" aria-label="SMS Preview"><strong>SMS Preview</strong><p>{smsPreview(draft)}</p></div>
-              <Button variant="link-primary" size="sm">Send Text SMS</Button>
+              <Button variant="link-primary" size="sm" onClick={() => setSmsNotice(true)}>Send Test SMS</Button>
             </div>
           </div>
         </> : <>
@@ -274,9 +291,10 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
           <FormRow label="Reset Attempt After">{numberInput('validationReset', 'Reset validation attempt after', 'Hour(s)')}</FormRow>
         </section>}
       </div>}
-      {!usesCode && <MessageInfo variant="info" message="A new send invalidates the previous link. Latest request wins." />}
+      {!method && !usesCode && <MessageInfo variant="info" message="A new send invalidates the previous link. Latest request wins." />}
     </div>
   </Modal>
+    {smsNotice && <MessageBox className="record-auth__notice" variant="success" message="Test SMS sent successfully" onClose={() => setSmsNotice(false)} />}
     {preview?.kind && <TemplateDialog kind={preview.kind} validity={draft.validity}
       initial={preview.kind === 'email' ? draft.emailContent : draft.pageContent}
       onClose={() => setPreview(undefined)} onSave={settings => {
@@ -366,9 +384,9 @@ function RecordAuthenticationPage({ initial = 'empty', dialog, expanded = false,
                 channel={channel} config={saved[channel]} onEdit={() => setEditing(channel)} onPreview={setPreview} />)}
             </>}
             <div hidden={activeTab !== 'configuration'}><RecordVerification onNotice={message => setNotice({ message })}
-              renderSettings={({ method, initial, lead, onBack, onClose, onSave }) => <VerificationDialog
-                key={method} channel={method === 'otp' ? 'phone' : 'email'} method={method}
-                initial={initial} expanded={false} lead={lead} onBack={onBack} onClose={onClose} onSave={onSave} />} /></div>
+              renderSettings={({ method, initial, lead, onChange, onClose, onSave }) => <VerificationDialog
+                channel={method === 'otp' ? 'phone' : 'email'} method={method}
+                initial={initial} expanded={false} lead={lead} onChange={onChange} onClose={onClose} onSave={onSave} />} /></div>
           </div>
         </div>
       </main>
@@ -395,7 +413,7 @@ function RecordAuthenticationPage({ initial = 'empty', dialog, expanded = false,
 
 const meta = {
   title: 'Design System/Patterns/Record Authentication',
-  parameters: { layout: 'fullscreen', docs: { description: { component: 'Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification follows the PM mock with action, method, and delivery configuration steps. No real SMS, email, or authentication requests are made.' } } },
+  parameters: { layout: 'fullscreen', docs: { description: { component: 'Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification combines action, consent type, and shared delivery settings in a single form. No real SMS, email, or authentication requests are made.' } } },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -420,7 +438,7 @@ export const Default: Story = {
     await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
     await expect(canvas.queryByRole('region', { name: 'OTP Configuration for Phone Number Verification' })).not.toBeInTheDocument();
     await userEvent.click(canvas.getByRole('tab', { name: 'Record Verification' }));
-    await expect(canvas.getByRole('heading', { name: 'No record verification configured' })).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Configure', exact: true })).toBeVisible();
     await userEvent.click(canvas.getByRole('tab', { name: 'Data Verification' }));
   },
 };
@@ -637,9 +655,12 @@ export const Configured: Story = {
     await expect(form.getByRole('spinbutton', { name: 'Max Resend Attempts' })).toHaveValue(5);
     await expect(form.getByRole('textbox', { name: 'SMS Template' })).toHaveAccessibleDescription('Type # to insert merge field');
     await expect(form.getByText('SMS Preview')).toBeVisible();
-    const testSms = form.getByRole('button', { name: 'Send Text SMS' });
+    const testSms = form.getByRole('button', { name: 'Send Test SMS' });
     await expect(testSms).toHaveAttribute('data-variant', 'link-primary');
     await userEvent.click(testSms);
+    const testNotice = body.getByRole('status');
+    await expect(testNotice).toHaveTextContent('Test SMS sent successfully');
+    await userEvent.click(within(testNotice).getByRole('button', { name: 'Dismiss' }));
     await expect(form.queryByText('Demo preview only. No SMS was sent.')).not.toBeInTheDocument();
     await userEvent.click(form.getByRole('button', { name: 'Save' }));
     await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
@@ -670,18 +691,38 @@ export const RecordConfiguration: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    const open = async () => { await userEvent.click(canvas.getByRole('button', { name: 'New', exact: true })); return within(await body.findByRole('dialog')); };
-    const next = async () => { await userEvent.click(within(body.getByRole('dialog')).getByRole('button', { name: 'Next' })); };
+    const open = async () => { await userEvent.click(canvas.getByRole('button', { name: 'Configure', exact: true })); return within(await body.findByRole('dialog')); };
     const choose = async (name: string) => { await userEvent.click(body.getByRole('option', { name, exact: true })); };
     let form = await open();
-    await expect(form.getByRole('radio', { name: 'Record creation' })).toBeChecked();
-    await next();
-    await expect(body.getByRole('radio', { name: 'Via Confirmation Link' })).toBeDisabled();
-    await next();
+    for (const name of ['When', 'Consent Type']) {
+      const selector = form.getByRole('button', { name, exact: true });
+      await expect(selector).toHaveTextContent('Select');
+      await expect(Math.round(selector.getBoundingClientRect().width)).toBe(390);
+    }
+    await expect(canvas.queryByText('Record Verification Settings')).not.toBeInTheDocument();
+    await expect(canvasElement.querySelector('.record-confirmation__empty')).toBeNull();
+    await expect(form.queryByRole('button', { name: 'Next' })).not.toBeInTheDocument();
+    const selectors = form.getAllByRole('button', { name: /^(When|Consent Type)$/ });
+    await expect(selectors.map(element => element.getAttribute('aria-label'))).toEqual(['When', 'Consent Type']);
+    await userEvent.click(form.getByRole('button', { name: 'About When' }));
+    await expect(await body.findByRole('tooltip')).toHaveTextContent('Choose the event');
+    await expect(body.getByRole('tooltip')).toHaveClass('tooltip-white');
+    await expect(form.getByRole('button', { name: 'About When' }).querySelector('svg')).toBeInTheDocument();
+    await userEvent.unhover(form.getByRole('button', { name: 'About When' }));
+    await userEvent.click(form.getByRole('button', { name: 'Consent Type', exact: true }));
+    await expect(body.getAllByRole('option')).toHaveLength(3);
+    await expect(body.getByRole('option', { name: /Confirmation Link/ })).toHaveAttribute('aria-disabled', 'true');
+    const secondary = body.getByText('Send an SMS OTP to confirm the action.');
+    await expect(secondary).toBeVisible();
+    await expect(getComputedStyle(secondary).fontSize).toBe('13px');
+    await expect(getComputedStyle(secondary).fontFamily).toContain('Zoho Puvi');
+    await choose('OTP on Phone Send an SMS OTP to confirm the action.');
     form = within(body.getByRole('dialog'));
+    await userEvent.click(form.getByRole('button', { name: 'When', exact: true }));
+    await choose('Record creation Ask for consent before a new record is saved.');
     await userEvent.click(form.getByRole('button', { name: 'Save', exact: true }));
     await expect(form.getByRole('alert')).toHaveTextContent('Select an SMS carrier.');
-    await userEvent.click(form.getByRole('button', { name: 'Select a field' })); await choose('Mobile');
+    await userEvent.click(form.getByRole('button', { name: 'Verification Field' })); await choose('Mobile');
     await userEvent.click(form.getByRole('button', { name: 'Select', exact: true })); await choose('Twilio');
     await userEvent.click(form.getByRole('button', { name: 'Save', exact: true }));
     await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
@@ -691,32 +732,55 @@ export const RecordConfiguration: Story = {
     await userEvent.click(canvas.getByRole('tab', { name: 'Record Verification' }));
     await expect(canvas.getByText('Record creation', { exact: true })).toBeVisible();
     form = await open();
-    await expect(form.getByRole('radio', { name: 'Record creation' })).toBeDisabled();
-    await expect(form.getByRole('radio', { name: 'Picklist value' })).toBeChecked();
-    await next();
-    await userEvent.click(body.getByRole('radio', { name: 'Via Code on Email' }));
-    await next();
+    await userEvent.click(form.getByRole('button', { name: 'When', exact: true }));
+    await expect(body.getByRole('option', { name: /Record creation/ })).toHaveAttribute('aria-disabled', 'true');
+    await choose('Picklist value Ask for consent when a picklist is set to a value.');
+    await expect(form.getByRole('button', { name: 'Picklist', exact: true })).toBeVisible();
+    await userEvent.click(form.getByRole('button', { name: 'Consent Type', exact: true }));
+    const sameDialog = body.getByRole('dialog');
+    await choose('Code on Email Send an email code to confirm the action.');
+    await expect(body.getByRole('dialog')).toBe(sameDialog);
+    await expect(sameDialog).toHaveAccessibleName('Record Verification');
     form = within(body.getByRole('dialog'));
     await waitFor(() => expect(form.getByRole('heading', { name: 'Email Code Configuration' })).toBeVisible());
     await expect(form.queryByRole('button', { name: 'Verification Page', exact: true })).not.toBeInTheDocument();
     await userEvent.click(form.getByRole('button', { name: 'Save', exact: true }));
     await expect(form.getByRole('alert')).toHaveTextContent('Select a verification field.');
-    await userEvent.click(form.getByRole('button', { name: 'Select a field' })); await choose('Email ID');
+    await userEvent.click(form.getByRole('button', { name: 'Verification Field' })); await choose('Email ID');
     await userEvent.click(form.getByRole('button', { name: 'Save', exact: true }));
     await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
     await expect(canvas.getByText('Status is Open')).toBeVisible();
     const enabled = canvas.getByRole('switch', { name: 'Enable Status is Open' });
     await userEvent.click(enabled); await expect(enabled).not.toBeChecked();
     form = await open();
-    await userEvent.click(form.getByRole('radio', { name: 'Button actions' }));
-    await next();
-    await expect(form.getByRole('alert')).toHaveTextContent('Enter a button name');
-    await userEvent.type(form.getByRole('textbox', { name: 'Button Name' }), 'Approve shipment');
-    await next();
-    await userEvent.click(body.getByRole('radio', { name: 'Via Confirmation Link' }));
-    await next();
+    await userEvent.click(form.getByRole('button', { name: 'When', exact: true }));
+    await choose('Button actions Ask for consent via a custom button on the record’s Detail page.');
+    await userEvent.click(form.getByRole('button', { name: 'Consent Type', exact: true }));
+    await choose('Confirmation Link Confirm the action by clicking an email link.');
     form = within(body.getByRole('dialog'));
-    await userEvent.click(form.getByRole('button', { name: 'Select a field' })); await choose('Email ID');
+    await userEvent.click(form.getByRole('button', { name: 'Save', exact: true }));
+    await expect(form.getByRole('alert')).toHaveTextContent('Enter a button name');
+    await expect(form.getByText('Layout', { exact: true })).toBeVisible();
+    await expect(form.getByText('Profile', { exact: true })).toBeVisible();
+    const portalUsers = form.getByRole('checkbox', { name: 'For Portal Users' });
+    await userEvent.click(portalUsers);
+    await expect(portalUsers).toBeChecked();
+    await userEvent.type(form.getByRole('textbox', { name: 'Button Name' }), 'Approve shipment');
+    // Incompatible actions reset link consent; compatible changes preserve delivery edits.
+    await userEvent.click(form.getByRole('button', { name: 'When', exact: true }));
+    await choose('Picklist value Ask for consent when a picklist is set to a value.');
+    form = within(body.getByRole('dialog'));
+    await waitFor(() => expect(form.getByRole('heading', { name: 'OTP Configuration' })).toBeVisible());
+    const validity = form.getByRole('spinbutton', { name: 'OTP validity' });
+    await userEvent.clear(validity); await userEvent.type(validity, '8');
+    await userEvent.click(form.getByRole('button', { name: 'When', exact: true }));
+    await choose('Button actions Ask for consent via a custom button on the record’s Detail page.');
+    await expect(form.getByRole('spinbutton', { name: 'OTP validity' })).toHaveValue(8);
+    await expect(form.getByRole('textbox', { name: 'Button Name' })).toHaveValue('Approve shipment');
+    await userEvent.click(form.getByRole('button', { name: 'Consent Type', exact: true }));
+    await choose('Confirmation Link Confirm the action by clicking an email link.');
+    form = within(body.getByRole('dialog'));
+    await userEvent.click(form.getByRole('button', { name: 'Verification Field' })); await choose('Email ID');
     await userEvent.click(form.getByRole('button', { name: 'Save', exact: true }));
     await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
     await expect(canvas.getByText('Approve shipment', { exact: true })).toBeVisible();

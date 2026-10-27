@@ -111,6 +111,14 @@
   gap: 10px;
 }
 
+/* Fixed module name (moduleLabel): plain text centred on the 34px input line. */
+.criteria-builder-module-label {
+  flex-shrink: 0;
+  font-size: var(--ds-font-size-base);
+  line-height: 34px;
+  color: var(--ds-text-base);
+}
+
 /* ── Empty / Not-empty placeholder value — base text color exception ────────── */
 
 /* Overrides the disabled input text color for ${EMPTY} / ${NOTEMPTY} sentinel

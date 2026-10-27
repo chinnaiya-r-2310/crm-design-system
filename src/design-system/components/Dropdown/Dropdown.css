@@ -233,6 +233,29 @@
   box-sizing: border-box;
 }
 
+/* Clear (✕) inside the trigger, just before the chevron — `clearable` prop. */
+.dropdown-trigger-clear {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: 32px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  border-radius: 100px;
+  background: var(--ds-bg-muted, #EAF0F4);
+  color: var(--ds-text-label);
+  cursor: pointer;
+}
+.dropdown-trigger-clear:hover { color: var(--ds-text-heading); }
+.dropdown-trigger-clear:focus-visible { outline: 2px solid var(--ds-components-input-focus-outline); outline-offset: 1px; }
+/* Keep the value text clear of the ✕. */
+.dropdown-dropdown-wrapper[data-clearable] .dropdown-trigger-value { padding-inline-end: 26px; }
+
 .dropdown-clear-btn:hover {
   background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
 }
@@ -259,6 +282,23 @@
   cursor: pointer;
   user-select: none;
   box-sizing: border-box;
+}
+
+.dropdown-option[data-description] {
+  height: auto;
+  min-height: 58px;
+  padding-block: 8px;
+  align-items: flex-start;
+}
+.dropdown-option-content { flex: 1; min-width: 0; padding-right: 10px; }
+.dropdown-option-content .dropdown-option-label { display: block; white-space: normal; }
+.dropdown-option-description {
+  display: block;
+  margin-top: 3px;
+  color: var(--ds-text-label);
+  font-size: var(--ds-font-size-sm);
+  line-height: var(--ds-line-height-sm);
+  white-space: normal;
 }
 
 .dropdown-option[data-active]:not([data-disabled]) {

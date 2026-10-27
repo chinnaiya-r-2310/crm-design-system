@@ -99,6 +99,26 @@
 .record-confirmation { min-width: 0; }
 .record-confirmation__empty { padding: calc(var(--ds-line-height-base) * 3) var(--ds-line-height-base); text-align: center; border: thin solid var(--ds-border-lighter); border-radius: calc(var(--ds-line-height-base) / 3); background: var(--ds-bg-scale-bg2); }
 .record-confirmation__empty p { color: var(--ds-text-label); }
+.record-confirmation__when-label { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
+.record-confirmation__info {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 14px; height: 14px; padding: 0;
+  border: 0;
+  background: transparent; color: var(--ds-text-label);
+  cursor: help;
+}
+.record-confirmation-modal .record-auth-form { --record-auth-form-columns: 23ch minmax(0, 390px); }
+.record-confirmation-modal .record-auth-form__row > :last-child { width: 390px; max-width: 100%; }
+.record-confirmation-modal .record-confirmation__criteria { grid-template-columns: minmax(0, 1fr); }
+.dropdown-panel[id^="record-consent-"] .dropdown-option-description {
+  font-family: 'Zoho Puvi', var(--ds-font-family-base);
+  font-size: 13px;
+}
+@media (max-width: 600px) {
+  .record-confirmation-modal .record-auth-form { --record-auth-form-columns: minmax(0, 1fr); }
+  .record-confirmation__when-label { justify-content: flex-start; }
+}
+.record-confirmation__info:focus-visible { outline: 2px solid var(--ds-text-link); outline-offset: 2px; }
 .record-confirmation__description { margin: 0; color: var(--ds-text-label); }
 .record-confirmation__choices { display: grid; gap: var(--ds-line-height-sm); }
 .record-confirmation__choice { padding: var(--ds-line-height-base); border: thin solid var(--ds-border-lighter); border-radius: calc(var(--ds-line-height-base) / 3); }
