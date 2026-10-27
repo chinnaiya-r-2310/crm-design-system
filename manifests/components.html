@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>3.6s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.6s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -4594,13 +4594,13 @@ export const EmptyState: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  729 | };
-  730 |
-&gt; 731 | const meta = {
+  863 | };
+  864 |
+&gt; 865 | const meta = {
       | ^
-  732 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
-  733 |   parameters: {
-  734 |     layout: &#39;fullscreen&#39;,
+  866 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
+  867 |   parameters: {
+  868 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/CrossModuleReports.stories.tsx:
 import { Fragment, createContext, useContext, useEffect, useMemo, useRef, useState } from &#39;react&#39;;
@@ -4741,7 +4741,7 @@ type RelatedRow = { id: string; condition: string; module: string; specify: bool
 const emptyRelatedRow = (id: string): RelatedRow =&gt; ({ id, condition: &#39;&#39;, module: &#39;&#39;, specify: false, connector: &#39;AND&#39; });
 
 /** Criteria builder with its own rows and pattern state. */
-function CriteriaRows({ idPrefix, withModule = false, valueWidth }: { idPrefix: string; withModule?: boolean; valueWidth?: number }) {
+function CriteriaRows({ idPrefix, withModule = false, moduleLabel, valueWidth }: { idPrefix: string; withModule?: boolean; moduleLabel?: string; valueWidth?: number }) {
   const [rows, setRows] = useFilterState&lt;ModuleCriteriaRow[]&gt;(`${idPrefix}:rows`, () =&gt;
     emptyCriteria(`${idPrefix}-1`).map((row) =&gt; (withModule ? { ...row, module: BASE_MODULE } : row)),
   );
@@ -4758,6 +4758,7 @@ function CriteriaRows({ idPrefix, withModule = false, valueWidth }: { idPrefix: 
       placeholder=&quot;Select&quot;
       fieldPlaceholder=&quot;Select Field&quot;
       moduleOptions={withModule ? BASE_MODULE_OPTIONS : undefined}
+      moduleLabel={moduleLabel}
       valueWidth={valueWidth}
     /&gt;
   );
@@ -4836,10 +4837,17 @@ function RelatedModuleRow({ row, index, isLast, onChange, onRemove }: { row: Rel
 }
 
 /** Base Filter, laid out like the reference: primary-module criteria, AND, then related modules criteria. */
-/** `plain` (Version 1.1 only): both criteria groups share one bordered card, and related modules are added with a ghost button and removed with &quot;Remove&quot; instead of a switch. */
-function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?: boolean; plain?: boolean }) {
-  const [relatedOn, setRelatedOn] = useFilterState(&#39;base:relatedOn&#39;, () =&gt; false);
-  const [related, setRelated] = useFilterState&lt;RelatedRow[]&gt;(&#39;base:related&#39;, () =&gt; [emptyRelatedRow(&#39;related-1&#39;)]);
+/** `layout`:
+ *  - `cards` (Version 1): two cards joined by AND, related modules switched on/off.
+ *  - `plain` (Version 1.1): one bordered card; related modules added with a ghost button, removed with &quot;Remove&quot;.
+ *  - `fields` (Version 2): one bordered card titled &quot;Filter by Fields&quot; / &quot;Filter by Related Module&quot;; no module picker or
+ *    module label in Filter by Fields; related modules always shown, starting with just Add Condition, and every row (even the first) has a minus. */
+type BaseLayout = &#39;cards&#39; | &#39;plain&#39; | &#39;fields&#39;;
+function BaseFilterSection({ showHeading = true, layout = &#39;cards&#39; }: { showHeading?: boolean; layout?: BaseLayout }) {
+  const isFields = layout === &#39;fields&#39;;
+  const [relatedOnState, setRelatedOn] = useFilterState(&#39;base:relatedOn&#39;, () =&gt; isFields);
+  const relatedOn = isFields || relatedOnState;
+  const [related, setRelated] = useFilterState&lt;RelatedRow[]&gt;(&#39;base:related&#39;, () =&gt; (isFields ? [] : [emptyRelatedRow(&#39;related-1&#39;)]));
   const updateRelated = (next: RelatedRow) =&gt; setRelated((current) =&gt; current.map((row) =&gt; (row.id === next.id ? next : row)));
   const removeRelated = (id: string) =&gt; setRelated((current) =&gt; current.filter((row) =&gt; row.id !== id));
   const relatedContent = (
@@ -4852,7 +4860,7 @@ function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?
               index={index}
               isLast={index === related.length - 1}
               onChange={updateRelated}
-              onRemove={related.length &gt; 1 ? () =&gt; removeRelated(row.id) : undefined}
+              onRemove={isFields || related.length &gt; 1 ? () =&gt; removeRelated(row.id) : undefined}
             /&gt;
             {/* AND by default; click to switch to OR. No pattern for related modules. */}
             {index &lt; related.length - 1 &amp;&amp; (
@@ -4877,9 +4885,19 @@ function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?
     &lt;/&gt;
   );
   return (
-    &lt;section className={plain ? &#39;cmr-filter__section cmr-filter__section--plain&#39; : &#39;cmr-filter__section&#39;} aria-label=&quot;Base Filter&quot;&gt;
+    &lt;section className={layout === &#39;cards&#39; ? &#39;cmr-filter__section&#39; : &#39;cmr-filter__section cmr-filter__section--plain&#39;} aria-label=&quot;Base Filter&quot;&gt;
       {showHeading &amp;&amp; &lt;FilterHeading title=&quot;Base Filter&quot; description={FILTER_DESCRIPTIONS.base} /&gt;}
-      {plain ? (
+      {isFields ? (
+        /* Version 2: one bordered card, both groups always shown. */
+        &lt;div className=&quot;cmr-filter__card cmr-filter__combined cmr-filter__combined--fields&quot;&gt;
+          &lt;CriteriaCard title=&quot;Filter by Fields&quot;&gt;
+            &lt;CriteriaRows idPrefix=&quot;base&quot; /&gt;
+          &lt;/CriteriaCard&gt;
+          &lt;CriteriaCard title=&quot;Filter by Related Module&quot;&gt;
+            {relatedContent}
+          &lt;/CriteriaCard&gt;
+        &lt;/div&gt;
+      ) : layout === &#39;plain&#39; ? (
         /* Version 1.1: Specify Criteria and Related Modules Criteria combined in one bordered card. */
         &lt;div className=&quot;cmr-filter__card cmr-filter__combined&quot;&gt;
           &lt;CriteriaCard title=&quot;Specify Criteria&quot;&gt;
@@ -4915,7 +4933,7 @@ function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?
   );
 }
 
-function TerritorySection({ onRemove, showHeading = true }: { onRemove?: () =&gt; void; showHeading?: boolean }) {
+function TerritorySection({ onRemove, showHeading = true, clearable = false }: { onRemove?: () =&gt; void; showHeading?: boolean; clearable?: boolean }) {
   const [mode, setMode] = useFilterState(&#39;territory:mode&#39;, () =&gt; &#39;&#39;);
   const [territories, setTerritories] = useFilterState&lt;TerritoryOption[]&gt;(&#39;territory:list&#39;, () =&gt; []);
   const [includeSub, setIncludeSub] = useFilterState(&#39;territory:includeSub&#39;, () =&gt; false);
@@ -4929,6 +4947,8 @@ function TerritorySection({ onRemove, showHeading = true }: { onRemove?: () =&gt
         placeholder=&quot;Select&quot;
         options={TERRITORY_MODES}
         value={mode}
+        clearable={clearable}
+        clearAriaLabel=&quot;Clear territory&quot;
         onChange={(value: string) =&gt; setMode(value)}
       /&gt;
       {mode === &#39;custom&#39; &amp;&amp; (
@@ -4952,7 +4972,7 @@ function FilterSections({ plain = false }: { plain?: boolean }) {
   const available = OPTIONAL_FILTERS.filter((option) =&gt; !added.includes(option.value));
   return (
     &lt;&gt;
-      &lt;BaseFilterSection plain={plain} /&gt;
+      &lt;BaseFilterSection layout={plain ? &#39;plain&#39; : &#39;cards&#39;} /&gt;
       {added.map((filter) =&gt;
         filter === &#39;quick&#39; ? (
           &lt;CriteriaSection key=&quot;quick&quot; title=&quot;Quick Filter&quot; description={FILTER_DESCRIPTIONS.quick} idPrefix=&quot;quick&quot; onRemove={() =&gt; remove(&#39;quick&#39;)} /&gt;
@@ -4995,9 +5015,9 @@ function FilterTabs({ initialTab = &#39;base&#39; }: { initialTab?: FilterTabId 
         &lt;Tabs tabs={FILTER_TABS as unknown as { id: string; label: string }[]} activeTab={tab} onChange={(id: string) =&gt; setTab(id as FilterTabId)} variant=&quot;primary&quot; /&gt;
       &lt;/div&gt;
       &lt;p className=&quot;cmr-filter__tab-desc&quot;&gt;{FILTER_DESCRIPTIONS[tab]}&lt;/p&gt;
-      &lt;div hidden={tab !== &#39;base&#39;}&gt;&lt;BaseFilterSection showHeading={false} /&gt;&lt;/div&gt;
+      &lt;div hidden={tab !== &#39;base&#39;}&gt;&lt;BaseFilterSection showHeading={false} layout=&quot;fields&quot; /&gt;&lt;/div&gt;
       &lt;div hidden={tab !== &#39;quick&#39;}&gt;&lt;CriteriaSection title=&quot;Quick Filter&quot; description={FILTER_DESCRIPTIONS.quick} idPrefix=&quot;quick&quot; showHeading={false} /&gt;&lt;/div&gt;
-      &lt;div hidden={tab !== &#39;territory&#39;}&gt;&lt;TerritorySection showHeading={false} /&gt;&lt;/div&gt;
+      &lt;div hidden={tab !== &#39;territory&#39;}&gt;&lt;TerritorySection showHeading={false} clearable /&gt;&lt;/div&gt;
     &lt;/div&gt;
   );
 }
@@ -5021,7 +5041,7 @@ function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 
       title=&quot;Add Filter&quot;
       // 1080px fits the Base Filter module row (module + field + condition + value + minus/plus) inside the 30px side padding.
       width=&quot;min(1080px, 100vw)&quot;
-      className={version === 1.1 ? &#39;cmr-filter cmr-filter--v11&#39; : &#39;cmr-filter&#39;}
+      className={version === 1 ? &#39;cmr-filter&#39; : &#39;cmr-filter cmr-filter--v11&#39;}
       cancelLabel=&quot;Cancel&quot;
       saveLabel=&quot;Apply&quot;
       onClose={onClose}
@@ -5121,6 +5141,122 @@ function buildSavedFilters(snapshot: FilterSnapshot): SavedFilter[] {
   return result;
 }
 
+// ─── Columns panel ───────────────────────────────────────────────────────────
+
+/** Six-dot grip used as the column drag handle. */
+function DragGrip() {
+  return (
+    &lt;svg width=&quot;8&quot; height=&quot;12&quot; viewBox=&quot;0 0 8 12&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;circle cx=&quot;1.5&quot; cy=&quot;1.5&quot; r=&quot;1.25&quot; /&gt;&lt;circle cx=&quot;6.5&quot; cy=&quot;1.5&quot; r=&quot;1.25&quot; /&gt;
+      &lt;circle cx=&quot;1.5&quot; cy=&quot;6&quot; r=&quot;1.25&quot; /&gt;&lt;circle cx=&quot;6.5&quot; cy=&quot;6&quot; r=&quot;1.25&quot; /&gt;
+      &lt;circle cx=&quot;1.5&quot; cy=&quot;10.5&quot; r=&quot;1.25&quot; /&gt;&lt;circle cx=&quot;6.5&quot; cy=&quot;10.5&quot; r=&quot;1.25&quot; /&gt;
+    &lt;/svg&gt;
+  );
+}
+
+type ColumnGroupId = &#39;row&#39; | &#39;column&#39; | &#39;aggregate&#39;;
+/** Each group is pre-filled with sample columns relevant to the report when it is added. */
+const COLUMN_GROUPS: { value: ColumnGroupId; label: string; empty: string; sample: string[] }[] = [
+  { value: &#39;row&#39;, label: &#39;Row Groups&#39;, empty: &#39;No Group Selected&#39;, sample: [&#39;Potential Owner&#39;, &#39;Account Name&#39;] },
+  { value: &#39;column&#39;, label: &#39;Column Groups&#39;, empty: &#39;No Group Selected&#39;, sample: [&#39;Created Time (Month)&#39;, &#39;Lead Source&#39;] },
+  { value: &#39;aggregate&#39;, label: &#39;Aggregate Columns&#39;, empty: &#39;No Column Selected&#39;, sample: [&#39;Annual Revenue (Sum)&#39;, &#39;Potential Name (Count)&#39;] },
+];
+
+function PanelEditButton({ label }: { label: string }) {
+  return (
+    &lt;Tooltip content={`Edit ${label.toLowerCase()}`} variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+      &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label={`Edit ${label}`}&gt;
+        &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
+      &lt;/button&gt;
+    &lt;/Tooltip&gt;
+  );
+}
+
+/** Draggable column list with a remove (✕) on hover. `minItems` keeps that many rows from being removed. */
+function SortableColumnList({ items, onChange, minItems = 0 }: { items: string[]; onChange: (next: string[]) =&gt; void; minItems?: number }) {
+  const [dragging, setDragging] = useState&lt;number | null&gt;(null);
+  const move = (from: number, to: number) =&gt; {
+    if (from === to) return;
+    const next = [...items];
+    const [item] = next.splice(from, 1);
+    next.splice(to, 0, item);
+    onChange(next);
+  };
+  return (
+    &lt;ul className=&quot;cmr__column-list&quot;&gt;
+      {items.map((label, index) =&gt; (
+        &lt;li
+          key={label}
+          className={`cmr__column${dragging === index ? &#39; cmr__column--dragging&#39; : &#39;&#39;}`}
+          draggable
+          onDragStart={(event) =&gt; { setDragging(index); event.dataTransfer.effectAllowed = &#39;move&#39;; }}
+          onDragOver={(event) =&gt; { event.preventDefault(); if (dragging !== null &amp;&amp; dragging !== index) { move(dragging, index); setDragging(index); } }}
+          onDragEnd={() =&gt; setDragging(null)}
+        &gt;
+          &lt;span className=&quot;cmr__column-grip&quot; aria-hidden=&quot;true&quot;&gt;&lt;DragGrip /&gt;&lt;/span&gt;
+          &lt;span className=&quot;cmr__column-label&quot;&gt;{label}&lt;/span&gt;
+          {items.length &gt; minItems &amp;&amp; (
+            &lt;button
+              type=&quot;button&quot;
+              className=&quot;cmr__column-remove&quot;
+              aria-label={`Remove ${label}`}
+              onClick={() =&gt; onChange(items.filter((item) =&gt; item !== label))}
+            &gt;
+              &lt;Icon name=&quot;Close&quot; size={10} /&gt;
+            &lt;/button&gt;
+          )}
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function ColumnsPanel() {
+  const [columns, setColumns] = useState(() =&gt; [OWNER_COLUMN, ...REPORT_COLUMNS].map((column) =&gt; column.label));
+  // Insertion order = display order; each added group starts with its sample columns.
+  const [groups, setGroups] = useState&lt;{ id: ColumnGroupId; items: string[] }[]&gt;([]);
+  const available = COLUMN_GROUPS.filter((group) =&gt; !groups.some((added) =&gt; added.id === group.value));
+  const addGroup = (id: ColumnGroupId) =&gt; {
+    const sample = COLUMN_GROUPS.find((group) =&gt; group.value === id)?.sample ?? [];
+    setGroups((current) =&gt; [...current, { id, items: [...sample] }]);
+  };
+  const setGroupItems = (id: ColumnGroupId, items: string[]) =&gt;
+    setGroups((current) =&gt; current.map((group) =&gt; (group.id === id ? { ...group, items } : group)));
+  return (
+    &lt;section className=&quot;cmr__panel-body cmr__columns&quot; aria-label=&quot;Columns&quot;&gt;
+      &lt;section className=&quot;cmr__columns-group&quot; aria-label=&quot;Columns list&quot;&gt;
+        &lt;div className=&quot;cmr__panel-heading&quot;&gt;&lt;h2&gt;Columns&lt;/h2&gt;&lt;PanelEditButton label=&quot;Columns&quot; /&gt;&lt;/div&gt;
+        &lt;SortableColumnList items={columns} onChange={setColumns} minItems={1} /&gt;
+      &lt;/section&gt;
+      {groups.map(({ id, items }) =&gt; {
+        const meta = COLUMN_GROUPS.find((group) =&gt; group.value === id)!;
+        return (
+          &lt;section key={id} className=&quot;cmr__columns-group&quot; aria-label={meta.label}&gt;
+            &lt;div className=&quot;cmr__panel-heading&quot;&gt;&lt;h2&gt;{meta.label}&lt;/h2&gt;&lt;PanelEditButton label={meta.label} /&gt;&lt;/div&gt;
+            {items.length
+              ? &lt;SortableColumnList items={items} onChange={(next) =&gt; setGroupItems(id, next)} /&gt;
+              : &lt;p className=&quot;cmr__columns-empty&quot;&gt;{meta.empty}&lt;/p&gt;}
+          &lt;/section&gt;
+        );
+      })}
+      {available.length &gt; 0 &amp;&amp; (
+        &lt;div className=&quot;cmr__add-group&quot;&gt;
+          &lt;Dropdown
+            value=&quot;&quot;
+            placeholder=&quot;Add Group&quot;
+            triggerAriaLabel=&quot;Add Group&quot;
+            triggerButtonVariant=&quot;outline-blue&quot;
+            width=&quot;fit-content&quot;
+            options={available}
+            panelStyle={{ minWidth: 180, width: &#39;max-content&#39; }}
+            onChange={(value: ColumnGroupId) =&gt; addGroup(value)}
+          /&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/section&gt;
+  );
+}
+
 // ─── Filters panel ───────────────────────────────────────────────────────────
 
 function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, initialSaved = {} }: {
@@ -5156,11 +5292,14 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
                     &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
                   &lt;/button&gt;
                 &lt;/Tooltip&gt;
-                &lt;Tooltip content=&quot;Delete filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
-                  &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action criteria-summary__action--delete&quot; aria-label=&quot;Delete filters&quot; onClick={() =&gt; setConfirmDelete(true)}&gt;
-                    &lt;Icon name=&quot;Delete&quot; size={12} /&gt;
-                  &lt;/button&gt;
-                &lt;/Tooltip&gt;
+                {/* Version 2: Edit only, no Delete. */}
+                {filterVersion !== 2 &amp;&amp; (
+                  &lt;Tooltip content=&quot;Delete filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action criteria-summary__action--delete&quot; aria-label=&quot;Delete filters&quot; onClick={() =&gt; setConfirmDelete(true)}&gt;
+                      &lt;Icon name=&quot;Delete&quot; size={12} /&gt;
+                    &lt;/button&gt;
+                  &lt;/Tooltip&gt;
+                )}
               &lt;/div&gt;
             ) : null}
           &lt;/div&gt;
@@ -5197,12 +5336,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
           )}
         &lt;/section&gt;
       ) : (
-        &lt;section className=&quot;cmr__panel-body&quot; aria-label=&quot;Columns&quot;&gt;
-          &lt;div className=&quot;cmr__panel-heading&quot;&gt;&lt;h2&gt;Selected Columns&lt;/h2&gt;&lt;/div&gt;
-          &lt;ol className=&quot;cmr__column-list&quot;&gt;
-            {[OWNER_COLUMN, ...REPORT_COLUMNS].map(column =&gt; &lt;li key={column.label}&gt;{column.label}&lt;/li&gt;)}
-          &lt;/ol&gt;
-        &lt;/section&gt;
+        &lt;ColumnsPanel /&gt;
       )}
       &lt;AddFilterModal
         isOpen={modalOpen}
@@ -5373,7 +5507,22 @@ export const DefaultChecks: Story = {
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Run&#39; }));
     await expect(canvas.getByText(/^Report run with the current filters/)).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Columns&#39; }));
-    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Selected Columns&#39; })).toBeVisible();
+    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Columns&#39; })).toBeVisible();
+    await expect(canvas.queryByRole(&#39;heading&#39;, { name: &#39;Row Groups&#39; })).toBeNull();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Group&#39; }));
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Row Groups&#39; }));
+    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Row Groups&#39; })).toBeVisible();
+    const rowGroups = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Row Groups&#39; }));
+    await expect(rowGroups.getByText(&#39;Potential Owner&#39;)).toBeVisible();
+    await expect(rowGroups.getByText(&#39;Account Name&#39;)).toBeVisible();
+    await userEvent.click(rowGroups.getByRole(&#39;button&#39;, { name: &#39;Remove Potential Owner&#39; }));
+    await userEvent.click(rowGroups.getByRole(&#39;button&#39;, { name: &#39;Remove Account Name&#39; }));
+    await expect(rowGroups.getByText(&#39;No Group Selected&#39;)).toBeVisible();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Group&#39; }));
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Aggregate Columns&#39; }));
+    await expect(within(canvas.getByRole(&#39;region&#39;, { name: &#39;Aggregate Columns&#39; })).getByText(&#39;Annual Revenue (Sum)&#39;)).toBeVisible();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Remove Email&#39; }));
+    await expect(canvas.queryByText(&#39;Email&#39;, { selector: &#39;.cmr__column-label&#39; })).toBeNull();
   },
 };
 
@@ -5565,6 +5714,8 @@ export const SavedFiltersV2Checks: Story = {
     await expect(within(savedRegion).getByText(&#39;All Territories&#39;)).toBeVisible();
     await expect(canvas.queryByText(&#39;No filters applied&#39;)).toBeNull();
     await waitFor(() =&gt; expect(canvas.getByText(&#39;Filter applied successfully&#39;)).toBeVisible());
+    // Version 2 summary: Edit only, no Delete.
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Delete filters&#39; })).toBeNull();
     // Shared Edit reopens Version 2 with the applied values.
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit filters&#39; }));
     const reopened = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
@@ -5577,19 +5728,35 @@ export const SavedFiltersV2Checks: Story = {
 
 export const AddFilterModalV2: Story = {
   name: &#39;Add Filter modal · Version 2&#39;,
-  render: () =&gt; &lt;CrossModuleReportsPage initialModalOpen filterVersion={2} /&gt;,
+  render: () =&gt; &lt;CrossModuleReportsPage filterVersion={2} /&gt;,
 };
 
 export const AddFilterModalV2Checks: Story = {
   name: &#39;Add Filter modal · Version 2 · checks&#39;,
   tags: TEST_ONLY,
-  render: () =&gt; &lt;CrossModuleReportsPage initialModalOpen filterVersion={2} /&gt;,
+  render: () =&gt; &lt;CrossModuleReportsPage filterVersion={2} /&gt;,
   play: async ({ canvasElement }) =&gt; {
+    const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
+    // Opens only on click.
+    await expect(body.queryByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
     const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
     await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Base Filter&#39; })).toHaveAttribute(&#39;aria-selected&#39;, &#39;true&#39;));
     await waitFor(() =&gt; expect(dialog.getByText(FILTER_DESCRIPTIONS.base)).toBeVisible());
-    await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Specify Criteria&#39; })).toBeVisible();
+    // One combined card: Filter by Fields (no module picker or label) + Filter by Related Module.
+    await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Filter by Fields&#39; })).toBeVisible();
+    await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Filter by Related Module&#39; })).toBeVisible();
+    await expect(dialog.queryByRole(&#39;heading&#39;, { name: &#39;Specify Criteria&#39; })).toBeNull();
+    await expect(dialog.queryByText(&#39;Contact&#39;, { selector: &#39;.criteria-builder-module-label&#39; })).toBeNull();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Filter by Related Module&#39; })).toBeNull();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: /^Remove Related/ })).toBeNull();
+    // Related modules start with just Add Condition; the first row gets a minus.
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Related module 1&#39; })).toBeNull();
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Add Condition&#39; }));
+    await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove related module 1&#39; })).toBeVisible();
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove related module 1&#39; }));
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Related module 1&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: /^Remove (Quick|Territory)/ })).toBeNull();
 
@@ -5608,6 +5775,10 @@ export const AddFilterModalV2Checks: Story = {
     await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Base Filter&#39; }));
     await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
     await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; })).toHaveTextContent(&#39;Custom&#39;);
+    // ✕ inside the Territory input clears it.
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Clear territory&#39; }));
+    await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; })).toHaveTextContent(&#39;Select&#39;);
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Clear territory&#39; })).toBeNull();
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39; }));
   },
 };
@@ -5759,7 +5930,7 @@ import { Fragment } from "react";</code></pre>
               </div>
               
               
-              <pre><code>const AddFilterModalV2 = () =&gt; &lt;CrossModuleReportsPage initialModalOpen filterVersion={2} /&gt;;</code></pre>
+              <pre><code>const AddFilterModalV2 = () =&gt; &lt;CrossModuleReportsPage filterVersion={2} /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -5768,7 +5939,7 @@ import { Fragment } from "react";</code></pre>
               </div>
               
               
-              <pre><code>const AddFilterModalV2Checks = () =&gt; &lt;CrossModuleReportsPage initialModalOpen filterVersion={2} /&gt;;</code></pre>
+              <pre><code>const AddFilterModalV2Checks = () =&gt; &lt;CrossModuleReportsPage filterVersion={2} /&gt;;</code></pre>
             </div>
         </div>
     
@@ -6675,7 +6846,7 @@ width?: any = 320</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Dropdown</h2>
       <div class="badges">
-        <label for="c-14-design-system-components-dropdown-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-14-design-system-components-dropdown-props" class="badge ok as-toggle">9 prop types</label>
         <label for="c-14-design-system-components-dropdown-info" class="badge info as-toggle">1 info</label>
         <label for="c-14-design-system-components-dropdown-stories" class="badge ok as-toggle">15 stories</label>
         
@@ -6711,11 +6882,15 @@ width?: any = 320</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">7 prop types</span>
+              <span class="badge ok">9 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/Dropdown/Dropdown.js::Dropdown</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>layout?: any = &#39;horizontal&#39;
+            <pre><code>clearable?: any = false
+
+clearAriaLabel?: any = &#39;Clear selection&#39;
+
+layout?: any = &#39;horizontal&#39;
 
 multiSelect?: any = false
 
@@ -13979,16 +14154,16 @@ value?: any = 0</code></pre>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  394 | }
-  395 |
-&gt; 396 | const meta = {
+  412 | }
+  413 |
+&gt; 414 | const meta = {
       | ^
-  397 |   title: &#39;Design System/Patterns/Record Authentication&#39;,
-  398 |   parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification follows the PM mock with action, method, and delivery configuration steps. No real SMS, email, or authentication requests are made.&#39; } } },
-  399 | } satisfies Meta;
+  415 |   title: &#39;Design System/Patterns/Record Authentication&#39;,
+  416 |   parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification combines action, consent type, and shared delivery settings in a single form. No real SMS, email, or authentication requests are made.&#39; } } },
+  417 | } satisfies Meta;
 
 ./src/design-system/patterns/RecordAuthentication.stories.tsx:
-import { useEffect, useId, useState } from &#39;react&#39;;
+import { useEffect, useId, useRef, useState } from &#39;react&#39;;
 import type { ReactNode } from &#39;react&#39;;
 import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
 import { expect, userEvent, waitFor, within } from &#39;storybook/test&#39;;
@@ -14122,21 +14297,38 @@ function FormRow({ label, children }: { label: string; children: ReactNode }) {
   return &lt;div className=&quot;record-auth-form__row&quot;&gt;&lt;span className=&quot;record-auth-form__label&quot;&gt;{label}&lt;/span&gt;&lt;div&gt;{children}&lt;/div&gt;&lt;/div&gt;;
 }
 
-function VerificationDialog({ channel, initial, expanded, onClose, onSave, method, lead, onBack }: {
+function VerificationDialog({ channel, initial, expanded, onClose, onSave, method, lead, onChange }: {
   channel: Channel; initial: VerificationConfig; expanded: boolean;
-  method?: ConfirmationMethod; lead?: ReactNode; onBack?: (config: VerificationConfig) =&gt; void;
+  method?: ConfirmationMethod; lead?: ReactNode; onChange?: (config: VerificationConfig) =&gt; void;
   onClose: () =&gt; void; onSave: (config: VerificationConfig) =&gt; void;
 }) {
   const id = useId();
   const [draft, setDraft] = useState&lt;VerificationConfig&gt;(() =&gt; ({ ...initial, fields: [...initial.fields] }));
   const [more, setMore] = useState(expanded);
+  const [smsNotice, setSmsNotice] = useState(false);
   const [preview, setPreview] = useState&lt;Preview&gt;();
   const [errors, setErrors] = useState&lt;Partial&lt;Record&lt;keyof VerificationConfig, string&gt;&gt;&gt;({});
+  const previousMethod = useRef(method);
+  useEffect(() =&gt; {
+    if (previousMethod.current !== method) {
+      previousMethod.current = method;
+      setDraft({ ...initial, fields: [...initial.fields] });
+      setErrors({});
+      setPreview(undefined);
+    }
+  }, [method, initial]);
+  useEffect(() =&gt; {
+    if (!smsNotice) return;
+    const timer = window.setTimeout(() =&gt; setSmsNotice(false), 5000);
+    return () =&gt; window.clearTimeout(timer);
+  }, [smsNotice]);
   const phone = channel === &#39;phone&#39;;
   const code = method === &#39;code&#39;;
   const usesCode = phone || code;
   const update = &lt;K extends keyof VerificationConfig&gt;(key: K, value: VerificationConfig[K]) =&gt; {
-    setDraft(current =&gt; ({ ...current, [key]: value }));
+    const next = { ...draft, [key]: value };
+    setDraft(next);
+    onChange?.(next);
     setErrors(current =&gt; ({ ...current, [key]: undefined }));
   };
   const fieldError = (key: keyof VerificationConfig) =&gt; errors[key] ? (
@@ -14185,9 +14377,9 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
       {fieldError(key)}
     &lt;/div&gt;
   );
-  return &lt;&gt;&lt;Modal isOpen title={method ? `Record Verification via ${phone ? &#39;OTP on Phone&#39; : code ? &#39;Code on Email&#39; : &#39;Confirmation Link&#39;}` : `Data Verification via ${phone ? &#39;Phone Number&#39; : &#39;Email Address&#39;}`}
-    className=&quot;record-auth-config-modal&quot; width={670} onClose={onClose} onSave={save}
-    footerStart={onBack ? &lt;Button onClick={() =&gt; onBack(draft)}&gt;Back&lt;/Button&gt; : undefined}&gt;
+  return &lt;&gt;&lt;Modal isOpen title={method ? &#39;Record Verification&#39; : `Data Verification via ${phone ? &#39;Phone Number&#39; : &#39;Email Address&#39;}`}
+    className={`record-auth-config-modal${method ? &#39; record-confirmation-modal&#39; : &#39;&#39;}`} width={method ? 760 : 670} onClose={onClose} onSave={save}
+    &gt;
     &lt;div className=&quot;record-auth-form&quot;&gt;
       {lead}
       {!method &amp;&amp; &lt;&gt;&lt;FormRow label=&quot;Fields&quot;&gt;&lt;div role=&quot;group&quot; aria-label=&quot;Fields to verify&quot; aria-invalid={!!errors.fields} aria-describedby={errors.fields ? `${id}-fields-error` : undefined}&gt;
@@ -14226,7 +14418,7 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
                 &lt;span id={`${id}-sms-hint`}&gt;Type # to insert merge field&lt;/span&gt;&lt;span&gt;{draft.template.length}/160&lt;/span&gt;
               &lt;/div&gt;
               &lt;div className=&quot;record-auth-form__preview&quot; role=&quot;region&quot; aria-label=&quot;SMS Preview&quot;&gt;&lt;strong&gt;SMS Preview&lt;/strong&gt;&lt;p&gt;{smsPreview(draft)}&lt;/p&gt;&lt;/div&gt;
-              &lt;Button variant=&quot;link-primary&quot; size=&quot;sm&quot;&gt;Send Text SMS&lt;/Button&gt;
+              &lt;Button variant=&quot;link-primary&quot; size=&quot;sm&quot; onClick={() =&gt; setSmsNotice(true)}&gt;Send Test SMS&lt;/Button&gt;
             &lt;/div&gt;
           &lt;/div&gt;
         &lt;/&gt; : &lt;&gt;
@@ -14264,9 +14456,10 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
           &lt;FormRow label=&quot;Reset Attempt After&quot;&gt;{numberInput(&#39;validationReset&#39;, &#39;Reset validation attempt after&#39;, &#39;Hour(s)&#39;)}&lt;/FormRow&gt;
         &lt;/section&gt;}
       &lt;/div&gt;}
-      {!usesCode &amp;&amp; &lt;MessageInfo variant=&quot;info&quot; message=&quot;A new send invalidates the previous link. Latest request wins.&quot; /&gt;}
+      {!method &amp;&amp; !usesCode &amp;&amp; &lt;MessageInfo variant=&quot;info&quot; message=&quot;A new send invalidates the previous link. Latest request wins.&quot; /&gt;}
     &lt;/div&gt;
   &lt;/Modal&gt;
+    {smsNotice &amp;&amp; &lt;MessageBox className=&quot;record-auth__notice&quot; variant=&quot;success&quot; message=&quot;Test SMS sent successfully&quot; onClose={() =&gt; setSmsNotice(false)} /&gt;}
     {preview?.kind &amp;&amp; &lt;TemplateDialog kind={preview.kind} validity={draft.validity}
       initial={preview.kind === &#39;email&#39; ? draft.emailContent : draft.pageContent}
       onClose={() =&gt; setPreview(undefined)} onSave={settings =&gt; {
@@ -14356,9 +14549,9 @@ function RecordAuthenticationPage({ initial = &#39;empty&#39;, dialog, expanded 
                 channel={channel} config={saved[channel]} onEdit={() =&gt; setEditing(channel)} onPreview={setPreview} /&gt;)}
             &lt;/&gt;}
             &lt;div hidden={activeTab !== &#39;configuration&#39;}&gt;&lt;RecordVerification onNotice={message =&gt; setNotice({ message })}
-              renderSettings={({ method, initial, lead, onBack, onClose, onSave }) =&gt; &lt;VerificationDialog
-                key={method} channel={method === &#39;otp&#39; ? &#39;phone&#39; : &#39;email&#39;} method={method}
-                initial={initial} expanded={false} lead={lead} onBack={onBack} onClose={onClose} onSave={onSave} /&gt;} /&gt;&lt;/div&gt;
+              renderSettings={({ method, initial, lead, onChange, onClose, onSave }) =&gt; &lt;VerificationDialog
+                channel={method === &#39;otp&#39; ? &#39;phone&#39; : &#39;email&#39;} method={method}
+                initial={initial} expanded={false} lead={lead} onChange={onChange} onClose={onClose} onSave={onSave} /&gt;} /&gt;&lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
       &lt;/main&gt;
@@ -14385,7 +14578,7 @@ function RecordAuthenticationPage({ initial = &#39;empty&#39;, dialog, expanded 
 
 const meta = {
   title: &#39;Design System/Patterns/Record Authentication&#39;,
-  parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification follows the PM mock with action, method, and delivery configuration steps. No real SMS, email, or authentication requests are made.&#39; } } },
+  parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification combines action, consent type, and shared delivery settings in a single form. No real SMS, email, or authentication requests are made.&#39; } } },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj&lt;typeof meta&gt;;
@@ -14410,7 +14603,7 @@ export const Default: Story = {
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     await expect(canvas.queryByRole(&#39;region&#39;, { name: &#39;OTP Configuration for Phone Number Verification&#39; })).not.toBeInTheDocument();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Record Verification&#39; }));
-    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;No record verification configured&#39; })).toBeVisible();
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Data Verification&#39; }));
   },
 };
@@ -14627,9 +14820,12 @@ export const Configured: Story = {
     await expect(form.getByRole(&#39;spinbutton&#39;, { name: &#39;Max Resend Attempts&#39; })).toHaveValue(5);
     await expect(form.getByRole(&#39;textbox&#39;, { name: &#39;SMS Template&#39; })).toHaveAccessibleDescription(&#39;Type # to insert merge field&#39;);
     await expect(form.getByText(&#39;SMS Preview&#39;)).toBeVisible();
-    const testSms = form.getByRole(&#39;button&#39;, { name: &#39;Send Text SMS&#39; });
+    const testSms = form.getByRole(&#39;button&#39;, { name: &#39;Send Test SMS&#39; });
     await expect(testSms).toHaveAttribute(&#39;data-variant&#39;, &#39;link-primary&#39;);
     await userEvent.click(testSms);
+    const testNotice = body.getByRole(&#39;status&#39;);
+    await expect(testNotice).toHaveTextContent(&#39;Test SMS sent successfully&#39;);
+    await userEvent.click(within(testNotice).getByRole(&#39;button&#39;, { name: &#39;Dismiss&#39; }));
     await expect(form.queryByText(&#39;Demo preview only. No SMS was sent.&#39;)).not.toBeInTheDocument();
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
@@ -14660,18 +14856,38 @@ export const RecordConfiguration: Story = {
   play: async ({ canvasElement }) =&gt; {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    const open = async () =&gt; { await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;New&#39;, exact: true })); return within(await body.findByRole(&#39;dialog&#39;)); };
-    const next = async () =&gt; { await userEvent.click(within(body.getByRole(&#39;dialog&#39;)).getByRole(&#39;button&#39;, { name: &#39;Next&#39; })); };
+    const open = async () =&gt; { await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })); return within(await body.findByRole(&#39;dialog&#39;)); };
     const choose = async (name: string) =&gt; { await userEvent.click(body.getByRole(&#39;option&#39;, { name, exact: true })); };
     let form = await open();
-    await expect(form.getByRole(&#39;radio&#39;, { name: &#39;Record creation&#39; })).toBeChecked();
-    await next();
-    await expect(body.getByRole(&#39;radio&#39;, { name: &#39;Via Confirmation Link&#39; })).toBeDisabled();
-    await next();
+    for (const name of [&#39;When&#39;, &#39;Consent Type&#39;]) {
+      const selector = form.getByRole(&#39;button&#39;, { name, exact: true });
+      await expect(selector).toHaveTextContent(&#39;Select&#39;);
+      await expect(Math.round(selector.getBoundingClientRect().width)).toBe(390);
+    }
+    await expect(canvas.queryByText(&#39;Record Verification Settings&#39;)).not.toBeInTheDocument();
+    await expect(canvasElement.querySelector(&#39;.record-confirmation__empty&#39;)).toBeNull();
+    await expect(form.queryByRole(&#39;button&#39;, { name: &#39;Next&#39; })).not.toBeInTheDocument();
+    const selectors = form.getAllByRole(&#39;button&#39;, { name: /^(When|Consent Type)$/ });
+    await expect(selectors.map(element =&gt; element.getAttribute(&#39;aria-label&#39;))).toEqual([&#39;When&#39;, &#39;Consent Type&#39;]);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }));
+    await expect(await body.findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Choose the event&#39;);
+    await expect(body.getByRole(&#39;tooltip&#39;)).toHaveClass(&#39;tooltip-white&#39;);
+    await expect(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }).querySelector(&#39;svg&#39;)).toBeInTheDocument();
+    await userEvent.unhover(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }));
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
+    await expect(body.getAllByRole(&#39;option&#39;)).toHaveLength(3);
+    await expect(body.getByRole(&#39;option&#39;, { name: /Confirmation Link/ })).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
+    const secondary = body.getByText(&#39;Send an SMS OTP to confirm the action.&#39;);
+    await expect(secondary).toBeVisible();
+    await expect(getComputedStyle(secondary).fontSize).toBe(&#39;13px&#39;);
+    await expect(getComputedStyle(secondary).fontFamily).toContain(&#39;Zoho Puvi&#39;);
+    await choose(&#39;OTP on Phone Send an SMS OTP to confirm the action.&#39;);
     form = within(body.getByRole(&#39;dialog&#39;));
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
+    await choose(&#39;Record creation Ask for consent before a new record is saved.&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Select an SMS carrier.&#39;);
-    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Select a field&#39; })); await choose(&#39;Mobile&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Verification Field&#39; })); await choose(&#39;Mobile&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Select&#39;, exact: true })); await choose(&#39;Twilio&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
@@ -14681,32 +14897,55 @@ export const RecordConfiguration: Story = {
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Record Verification&#39; }));
     await expect(canvas.getByText(&#39;Record creation&#39;, { exact: true })).toBeVisible();
     form = await open();
-    await expect(form.getByRole(&#39;radio&#39;, { name: &#39;Record creation&#39; })).toBeDisabled();
-    await expect(form.getByRole(&#39;radio&#39;, { name: &#39;Picklist value&#39; })).toBeChecked();
-    await next();
-    await userEvent.click(body.getByRole(&#39;radio&#39;, { name: &#39;Via Code on Email&#39; }));
-    await next();
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
+    await expect(body.getByRole(&#39;option&#39;, { name: /Record creation/ })).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
+    await choose(&#39;Picklist value Ask for consent when a picklist is set to a value.&#39;);
+    await expect(form.getByRole(&#39;button&#39;, { name: &#39;Picklist&#39;, exact: true })).toBeVisible();
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
+    const sameDialog = body.getByRole(&#39;dialog&#39;);
+    await choose(&#39;Code on Email Send an email code to confirm the action.&#39;);
+    await expect(body.getByRole(&#39;dialog&#39;)).toBe(sameDialog);
+    await expect(sameDialog).toHaveAccessibleName(&#39;Record Verification&#39;);
     form = within(body.getByRole(&#39;dialog&#39;));
     await waitFor(() =&gt; expect(form.getByRole(&#39;heading&#39;, { name: &#39;Email Code Configuration&#39; })).toBeVisible());
     await expect(form.queryByRole(&#39;button&#39;, { name: &#39;Verification Page&#39;, exact: true })).not.toBeInTheDocument();
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Select a verification field.&#39;);
-    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Select a field&#39; })); await choose(&#39;Email ID&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Verification Field&#39; })); await choose(&#39;Email ID&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     await expect(canvas.getByText(&#39;Status is Open&#39;)).toBeVisible();
     const enabled = canvas.getByRole(&#39;switch&#39;, { name: &#39;Enable Status is Open&#39; });
     await userEvent.click(enabled); await expect(enabled).not.toBeChecked();
     form = await open();
-    await userEvent.click(form.getByRole(&#39;radio&#39;, { name: &#39;Button actions&#39; }));
-    await next();
-    await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Enter a button name&#39;);
-    await userEvent.type(form.getByRole(&#39;textbox&#39;, { name: &#39;Button Name&#39; }), &#39;Approve shipment&#39;);
-    await next();
-    await userEvent.click(body.getByRole(&#39;radio&#39;, { name: &#39;Via Confirmation Link&#39; }));
-    await next();
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
+    await choose(&#39;Button actions Ask for consent via a custom button on the record’s Detail page.&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
+    await choose(&#39;Confirmation Link Confirm the action by clicking an email link.&#39;);
     form = within(body.getByRole(&#39;dialog&#39;));
-    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Select a field&#39; })); await choose(&#39;Email ID&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
+    await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Enter a button name&#39;);
+    await expect(form.getByText(&#39;Layout&#39;, { exact: true })).toBeVisible();
+    await expect(form.getByText(&#39;Profile&#39;, { exact: true })).toBeVisible();
+    const portalUsers = form.getByRole(&#39;checkbox&#39;, { name: &#39;For Portal Users&#39; });
+    await userEvent.click(portalUsers);
+    await expect(portalUsers).toBeChecked();
+    await userEvent.type(form.getByRole(&#39;textbox&#39;, { name: &#39;Button Name&#39; }), &#39;Approve shipment&#39;);
+    // Incompatible actions reset link consent; compatible changes preserve delivery edits.
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
+    await choose(&#39;Picklist value Ask for consent when a picklist is set to a value.&#39;);
+    form = within(body.getByRole(&#39;dialog&#39;));
+    await waitFor(() =&gt; expect(form.getByRole(&#39;heading&#39;, { name: &#39;OTP Configuration&#39; })).toBeVisible());
+    const validity = form.getByRole(&#39;spinbutton&#39;, { name: &#39;OTP validity&#39; });
+    await userEvent.clear(validity); await userEvent.type(validity, &#39;8&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
+    await choose(&#39;Button actions Ask for consent via a custom button on the record’s Detail page.&#39;);
+    await expect(form.getByRole(&#39;spinbutton&#39;, { name: &#39;OTP validity&#39; })).toHaveValue(8);
+    await expect(form.getByRole(&#39;textbox&#39;, { name: &#39;Button Name&#39; })).toHaveValue(&#39;Approve shipment&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
+    await choose(&#39;Confirmation Link Confirm the action by clicking an email link.&#39;);
+    form = within(body.getByRole(&#39;dialog&#39;));
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Verification Field&#39; })); await choose(&#39;Email ID&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     await expect(canvas.getByText(&#39;Approve shipment&#39;, { exact: true })).toBeVisible();
@@ -22672,13 +22911,13 @@ export const EmptyState: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  729 | };
-  730 |
-&gt; 731 | const meta = {
+  863 | };
+  864 |
+&gt; 865 | const meta = {
       | ^
-  732 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
-  733 |   parameters: {
-  734 |     layout: &#39;fullscreen&#39;,
+  866 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
+  867 |   parameters: {
+  868 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/CrossModuleReports.stories.tsx:
 import { Fragment, createContext, useContext, useEffect, useMemo, useRef, useState } from &#39;react&#39;;
@@ -22819,7 +23058,7 @@ type RelatedRow = { id: string; condition: string; module: string; specify: bool
 const emptyRelatedRow = (id: string): RelatedRow =&gt; ({ id, condition: &#39;&#39;, module: &#39;&#39;, specify: false, connector: &#39;AND&#39; });
 
 /** Criteria builder with its own rows and pattern state. */
-function CriteriaRows({ idPrefix, withModule = false, valueWidth }: { idPrefix: string; withModule?: boolean; valueWidth?: number }) {
+function CriteriaRows({ idPrefix, withModule = false, moduleLabel, valueWidth }: { idPrefix: string; withModule?: boolean; moduleLabel?: string; valueWidth?: number }) {
   const [rows, setRows] = useFilterState&lt;ModuleCriteriaRow[]&gt;(`${idPrefix}:rows`, () =&gt;
     emptyCriteria(`${idPrefix}-1`).map((row) =&gt; (withModule ? { ...row, module: BASE_MODULE } : row)),
   );
@@ -22836,6 +23075,7 @@ function CriteriaRows({ idPrefix, withModule = false, valueWidth }: { idPrefix: 
       placeholder=&quot;Select&quot;
       fieldPlaceholder=&quot;Select Field&quot;
       moduleOptions={withModule ? BASE_MODULE_OPTIONS : undefined}
+      moduleLabel={moduleLabel}
       valueWidth={valueWidth}
     /&gt;
   );
@@ -22914,10 +23154,17 @@ function RelatedModuleRow({ row, index, isLast, onChange, onRemove }: { row: Rel
 }
 
 /** Base Filter, laid out like the reference: primary-module criteria, AND, then related modules criteria. */
-/** `plain` (Version 1.1 only): both criteria groups share one bordered card, and related modules are added with a ghost button and removed with &quot;Remove&quot; instead of a switch. */
-function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?: boolean; plain?: boolean }) {
-  const [relatedOn, setRelatedOn] = useFilterState(&#39;base:relatedOn&#39;, () =&gt; false);
-  const [related, setRelated] = useFilterState&lt;RelatedRow[]&gt;(&#39;base:related&#39;, () =&gt; [emptyRelatedRow(&#39;related-1&#39;)]);
+/** `layout`:
+ *  - `cards` (Version 1): two cards joined by AND, related modules switched on/off.
+ *  - `plain` (Version 1.1): one bordered card; related modules added with a ghost button, removed with &quot;Remove&quot;.
+ *  - `fields` (Version 2): one bordered card titled &quot;Filter by Fields&quot; / &quot;Filter by Related Module&quot;; no module picker or
+ *    module label in Filter by Fields; related modules always shown, starting with just Add Condition, and every row (even the first) has a minus. */
+type BaseLayout = &#39;cards&#39; | &#39;plain&#39; | &#39;fields&#39;;
+function BaseFilterSection({ showHeading = true, layout = &#39;cards&#39; }: { showHeading?: boolean; layout?: BaseLayout }) {
+  const isFields = layout === &#39;fields&#39;;
+  const [relatedOnState, setRelatedOn] = useFilterState(&#39;base:relatedOn&#39;, () =&gt; isFields);
+  const relatedOn = isFields || relatedOnState;
+  const [related, setRelated] = useFilterState&lt;RelatedRow[]&gt;(&#39;base:related&#39;, () =&gt; (isFields ? [] : [emptyRelatedRow(&#39;related-1&#39;)]));
   const updateRelated = (next: RelatedRow) =&gt; setRelated((current) =&gt; current.map((row) =&gt; (row.id === next.id ? next : row)));
   const removeRelated = (id: string) =&gt; setRelated((current) =&gt; current.filter((row) =&gt; row.id !== id));
   const relatedContent = (
@@ -22930,7 +23177,7 @@ function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?
               index={index}
               isLast={index === related.length - 1}
               onChange={updateRelated}
-              onRemove={related.length &gt; 1 ? () =&gt; removeRelated(row.id) : undefined}
+              onRemove={isFields || related.length &gt; 1 ? () =&gt; removeRelated(row.id) : undefined}
             /&gt;
             {/* AND by default; click to switch to OR. No pattern for related modules. */}
             {index &lt; related.length - 1 &amp;&amp; (
@@ -22955,9 +23202,19 @@ function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?
     &lt;/&gt;
   );
   return (
-    &lt;section className={plain ? &#39;cmr-filter__section cmr-filter__section--plain&#39; : &#39;cmr-filter__section&#39;} aria-label=&quot;Base Filter&quot;&gt;
+    &lt;section className={layout === &#39;cards&#39; ? &#39;cmr-filter__section&#39; : &#39;cmr-filter__section cmr-filter__section--plain&#39;} aria-label=&quot;Base Filter&quot;&gt;
       {showHeading &amp;&amp; &lt;FilterHeading title=&quot;Base Filter&quot; description={FILTER_DESCRIPTIONS.base} /&gt;}
-      {plain ? (
+      {isFields ? (
+        /* Version 2: one bordered card, both groups always shown. */
+        &lt;div className=&quot;cmr-filter__card cmr-filter__combined cmr-filter__combined--fields&quot;&gt;
+          &lt;CriteriaCard title=&quot;Filter by Fields&quot;&gt;
+            &lt;CriteriaRows idPrefix=&quot;base&quot; /&gt;
+          &lt;/CriteriaCard&gt;
+          &lt;CriteriaCard title=&quot;Filter by Related Module&quot;&gt;
+            {relatedContent}
+          &lt;/CriteriaCard&gt;
+        &lt;/div&gt;
+      ) : layout === &#39;plain&#39; ? (
         /* Version 1.1: Specify Criteria and Related Modules Criteria combined in one bordered card. */
         &lt;div className=&quot;cmr-filter__card cmr-filter__combined&quot;&gt;
           &lt;CriteriaCard title=&quot;Specify Criteria&quot;&gt;
@@ -22993,7 +23250,7 @@ function BaseFilterSection({ showHeading = true, plain = false }: { showHeading?
   );
 }
 
-function TerritorySection({ onRemove, showHeading = true }: { onRemove?: () =&gt; void; showHeading?: boolean }) {
+function TerritorySection({ onRemove, showHeading = true, clearable = false }: { onRemove?: () =&gt; void; showHeading?: boolean; clearable?: boolean }) {
   const [mode, setMode] = useFilterState(&#39;territory:mode&#39;, () =&gt; &#39;&#39;);
   const [territories, setTerritories] = useFilterState&lt;TerritoryOption[]&gt;(&#39;territory:list&#39;, () =&gt; []);
   const [includeSub, setIncludeSub] = useFilterState(&#39;territory:includeSub&#39;, () =&gt; false);
@@ -23007,6 +23264,8 @@ function TerritorySection({ onRemove, showHeading = true }: { onRemove?: () =&gt
         placeholder=&quot;Select&quot;
         options={TERRITORY_MODES}
         value={mode}
+        clearable={clearable}
+        clearAriaLabel=&quot;Clear territory&quot;
         onChange={(value: string) =&gt; setMode(value)}
       /&gt;
       {mode === &#39;custom&#39; &amp;&amp; (
@@ -23030,7 +23289,7 @@ function FilterSections({ plain = false }: { plain?: boolean }) {
   const available = OPTIONAL_FILTERS.filter((option) =&gt; !added.includes(option.value));
   return (
     &lt;&gt;
-      &lt;BaseFilterSection plain={plain} /&gt;
+      &lt;BaseFilterSection layout={plain ? &#39;plain&#39; : &#39;cards&#39;} /&gt;
       {added.map((filter) =&gt;
         filter === &#39;quick&#39; ? (
           &lt;CriteriaSection key=&quot;quick&quot; title=&quot;Quick Filter&quot; description={FILTER_DESCRIPTIONS.quick} idPrefix=&quot;quick&quot; onRemove={() =&gt; remove(&#39;quick&#39;)} /&gt;
@@ -23073,9 +23332,9 @@ function FilterTabs({ initialTab = &#39;base&#39; }: { initialTab?: FilterTabId 
         &lt;Tabs tabs={FILTER_TABS as unknown as { id: string; label: string }[]} activeTab={tab} onChange={(id: string) =&gt; setTab(id as FilterTabId)} variant=&quot;primary&quot; /&gt;
       &lt;/div&gt;
       &lt;p className=&quot;cmr-filter__tab-desc&quot;&gt;{FILTER_DESCRIPTIONS[tab]}&lt;/p&gt;
-      &lt;div hidden={tab !== &#39;base&#39;}&gt;&lt;BaseFilterSection showHeading={false} /&gt;&lt;/div&gt;
+      &lt;div hidden={tab !== &#39;base&#39;}&gt;&lt;BaseFilterSection showHeading={false} layout=&quot;fields&quot; /&gt;&lt;/div&gt;
       &lt;div hidden={tab !== &#39;quick&#39;}&gt;&lt;CriteriaSection title=&quot;Quick Filter&quot; description={FILTER_DESCRIPTIONS.quick} idPrefix=&quot;quick&quot; showHeading={false} /&gt;&lt;/div&gt;
-      &lt;div hidden={tab !== &#39;territory&#39;}&gt;&lt;TerritorySection showHeading={false} /&gt;&lt;/div&gt;
+      &lt;div hidden={tab !== &#39;territory&#39;}&gt;&lt;TerritorySection showHeading={false} clearable /&gt;&lt;/div&gt;
     &lt;/div&gt;
   );
 }
@@ -23099,7 +23358,7 @@ function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 
       title=&quot;Add Filter&quot;
       // 1080px fits the Base Filter module row (module + field + condition + value + minus/plus) inside the 30px side padding.
       width=&quot;min(1080px, 100vw)&quot;
-      className={version === 1.1 ? &#39;cmr-filter cmr-filter--v11&#39; : &#39;cmr-filter&#39;}
+      className={version === 1 ? &#39;cmr-filter&#39; : &#39;cmr-filter cmr-filter--v11&#39;}
       cancelLabel=&quot;Cancel&quot;
       saveLabel=&quot;Apply&quot;
       onClose={onClose}
@@ -23199,6 +23458,122 @@ function buildSavedFilters(snapshot: FilterSnapshot): SavedFilter[] {
   return result;
 }
 
+// ─── Columns panel ───────────────────────────────────────────────────────────
+
+/** Six-dot grip used as the column drag handle. */
+function DragGrip() {
+  return (
+    &lt;svg width=&quot;8&quot; height=&quot;12&quot; viewBox=&quot;0 0 8 12&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;circle cx=&quot;1.5&quot; cy=&quot;1.5&quot; r=&quot;1.25&quot; /&gt;&lt;circle cx=&quot;6.5&quot; cy=&quot;1.5&quot; r=&quot;1.25&quot; /&gt;
+      &lt;circle cx=&quot;1.5&quot; cy=&quot;6&quot; r=&quot;1.25&quot; /&gt;&lt;circle cx=&quot;6.5&quot; cy=&quot;6&quot; r=&quot;1.25&quot; /&gt;
+      &lt;circle cx=&quot;1.5&quot; cy=&quot;10.5&quot; r=&quot;1.25&quot; /&gt;&lt;circle cx=&quot;6.5&quot; cy=&quot;10.5&quot; r=&quot;1.25&quot; /&gt;
+    &lt;/svg&gt;
+  );
+}
+
+type ColumnGroupId = &#39;row&#39; | &#39;column&#39; | &#39;aggregate&#39;;
+/** Each group is pre-filled with sample columns relevant to the report when it is added. */
+const COLUMN_GROUPS: { value: ColumnGroupId; label: string; empty: string; sample: string[] }[] = [
+  { value: &#39;row&#39;, label: &#39;Row Groups&#39;, empty: &#39;No Group Selected&#39;, sample: [&#39;Potential Owner&#39;, &#39;Account Name&#39;] },
+  { value: &#39;column&#39;, label: &#39;Column Groups&#39;, empty: &#39;No Group Selected&#39;, sample: [&#39;Created Time (Month)&#39;, &#39;Lead Source&#39;] },
+  { value: &#39;aggregate&#39;, label: &#39;Aggregate Columns&#39;, empty: &#39;No Column Selected&#39;, sample: [&#39;Annual Revenue (Sum)&#39;, &#39;Potential Name (Count)&#39;] },
+];
+
+function PanelEditButton({ label }: { label: string }) {
+  return (
+    &lt;Tooltip content={`Edit ${label.toLowerCase()}`} variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+      &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label={`Edit ${label}`}&gt;
+        &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
+      &lt;/button&gt;
+    &lt;/Tooltip&gt;
+  );
+}
+
+/** Draggable column list with a remove (✕) on hover. `minItems` keeps that many rows from being removed. */
+function SortableColumnList({ items, onChange, minItems = 0 }: { items: string[]; onChange: (next: string[]) =&gt; void; minItems?: number }) {
+  const [dragging, setDragging] = useState&lt;number | null&gt;(null);
+  const move = (from: number, to: number) =&gt; {
+    if (from === to) return;
+    const next = [...items];
+    const [item] = next.splice(from, 1);
+    next.splice(to, 0, item);
+    onChange(next);
+  };
+  return (
+    &lt;ul className=&quot;cmr__column-list&quot;&gt;
+      {items.map((label, index) =&gt; (
+        &lt;li
+          key={label}
+          className={`cmr__column${dragging === index ? &#39; cmr__column--dragging&#39; : &#39;&#39;}`}
+          draggable
+          onDragStart={(event) =&gt; { setDragging(index); event.dataTransfer.effectAllowed = &#39;move&#39;; }}
+          onDragOver={(event) =&gt; { event.preventDefault(); if (dragging !== null &amp;&amp; dragging !== index) { move(dragging, index); setDragging(index); } }}
+          onDragEnd={() =&gt; setDragging(null)}
+        &gt;
+          &lt;span className=&quot;cmr__column-grip&quot; aria-hidden=&quot;true&quot;&gt;&lt;DragGrip /&gt;&lt;/span&gt;
+          &lt;span className=&quot;cmr__column-label&quot;&gt;{label}&lt;/span&gt;
+          {items.length &gt; minItems &amp;&amp; (
+            &lt;button
+              type=&quot;button&quot;
+              className=&quot;cmr__column-remove&quot;
+              aria-label={`Remove ${label}`}
+              onClick={() =&gt; onChange(items.filter((item) =&gt; item !== label))}
+            &gt;
+              &lt;Icon name=&quot;Close&quot; size={10} /&gt;
+            &lt;/button&gt;
+          )}
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function ColumnsPanel() {
+  const [columns, setColumns] = useState(() =&gt; [OWNER_COLUMN, ...REPORT_COLUMNS].map((column) =&gt; column.label));
+  // Insertion order = display order; each added group starts with its sample columns.
+  const [groups, setGroups] = useState&lt;{ id: ColumnGroupId; items: string[] }[]&gt;([]);
+  const available = COLUMN_GROUPS.filter((group) =&gt; !groups.some((added) =&gt; added.id === group.value));
+  const addGroup = (id: ColumnGroupId) =&gt; {
+    const sample = COLUMN_GROUPS.find((group) =&gt; group.value === id)?.sample ?? [];
+    setGroups((current) =&gt; [...current, { id, items: [...sample] }]);
+  };
+  const setGroupItems = (id: ColumnGroupId, items: string[]) =&gt;
+    setGroups((current) =&gt; current.map((group) =&gt; (group.id === id ? { ...group, items } : group)));
+  return (
+    &lt;section className=&quot;cmr__panel-body cmr__columns&quot; aria-label=&quot;Columns&quot;&gt;
+      &lt;section className=&quot;cmr__columns-group&quot; aria-label=&quot;Columns list&quot;&gt;
+        &lt;div className=&quot;cmr__panel-heading&quot;&gt;&lt;h2&gt;Columns&lt;/h2&gt;&lt;PanelEditButton label=&quot;Columns&quot; /&gt;&lt;/div&gt;
+        &lt;SortableColumnList items={columns} onChange={setColumns} minItems={1} /&gt;
+      &lt;/section&gt;
+      {groups.map(({ id, items }) =&gt; {
+        const meta = COLUMN_GROUPS.find((group) =&gt; group.value === id)!;
+        return (
+          &lt;section key={id} className=&quot;cmr__columns-group&quot; aria-label={meta.label}&gt;
+            &lt;div className=&quot;cmr__panel-heading&quot;&gt;&lt;h2&gt;{meta.label}&lt;/h2&gt;&lt;PanelEditButton label={meta.label} /&gt;&lt;/div&gt;
+            {items.length
+              ? &lt;SortableColumnList items={items} onChange={(next) =&gt; setGroupItems(id, next)} /&gt;
+              : &lt;p className=&quot;cmr__columns-empty&quot;&gt;{meta.empty}&lt;/p&gt;}
+          &lt;/section&gt;
+        );
+      })}
+      {available.length &gt; 0 &amp;&amp; (
+        &lt;div className=&quot;cmr__add-group&quot;&gt;
+          &lt;Dropdown
+            value=&quot;&quot;
+            placeholder=&quot;Add Group&quot;
+            triggerAriaLabel=&quot;Add Group&quot;
+            triggerButtonVariant=&quot;outline-blue&quot;
+            width=&quot;fit-content&quot;
+            options={available}
+            panelStyle={{ minWidth: 180, width: &#39;max-content&#39; }}
+            onChange={(value: ColumnGroupId) =&gt; addGroup(value)}
+          /&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/section&gt;
+  );
+}
+
 // ─── Filters panel ───────────────────────────────────────────────────────────
 
 function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, initialSaved = {} }: {
@@ -23234,11 +23609,14 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
                     &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
                   &lt;/button&gt;
                 &lt;/Tooltip&gt;
-                &lt;Tooltip content=&quot;Delete filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
-                  &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action criteria-summary__action--delete&quot; aria-label=&quot;Delete filters&quot; onClick={() =&gt; setConfirmDelete(true)}&gt;
-                    &lt;Icon name=&quot;Delete&quot; size={12} /&gt;
-                  &lt;/button&gt;
-                &lt;/Tooltip&gt;
+                {/* Version 2: Edit only, no Delete. */}
+                {filterVersion !== 2 &amp;&amp; (
+                  &lt;Tooltip content=&quot;Delete filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action criteria-summary__action--delete&quot; aria-label=&quot;Delete filters&quot; onClick={() =&gt; setConfirmDelete(true)}&gt;
+                      &lt;Icon name=&quot;Delete&quot; size={12} /&gt;
+                    &lt;/button&gt;
+                  &lt;/Tooltip&gt;
+                )}
               &lt;/div&gt;
             ) : null}
           &lt;/div&gt;
@@ -23275,12 +23653,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
           )}
         &lt;/section&gt;
       ) : (
-        &lt;section className=&quot;cmr__panel-body&quot; aria-label=&quot;Columns&quot;&gt;
-          &lt;div className=&quot;cmr__panel-heading&quot;&gt;&lt;h2&gt;Selected Columns&lt;/h2&gt;&lt;/div&gt;
-          &lt;ol className=&quot;cmr__column-list&quot;&gt;
-            {[OWNER_COLUMN, ...REPORT_COLUMNS].map(column =&gt; &lt;li key={column.label}&gt;{column.label}&lt;/li&gt;)}
-          &lt;/ol&gt;
-        &lt;/section&gt;
+        &lt;ColumnsPanel /&gt;
       )}
       &lt;AddFilterModal
         isOpen={modalOpen}
@@ -23451,7 +23824,22 @@ export const DefaultChecks: Story = {
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Run&#39; }));
     await expect(canvas.getByText(/^Report run with the current filters/)).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Columns&#39; }));
-    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Selected Columns&#39; })).toBeVisible();
+    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Columns&#39; })).toBeVisible();
+    await expect(canvas.queryByRole(&#39;heading&#39;, { name: &#39;Row Groups&#39; })).toBeNull();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Group&#39; }));
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Row Groups&#39; }));
+    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Row Groups&#39; })).toBeVisible();
+    const rowGroups = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Row Groups&#39; }));
+    await expect(rowGroups.getByText(&#39;Potential Owner&#39;)).toBeVisible();
+    await expect(rowGroups.getByText(&#39;Account Name&#39;)).toBeVisible();
+    await userEvent.click(rowGroups.getByRole(&#39;button&#39;, { name: &#39;Remove Potential Owner&#39; }));
+    await userEvent.click(rowGroups.getByRole(&#39;button&#39;, { name: &#39;Remove Account Name&#39; }));
+    await expect(rowGroups.getByText(&#39;No Group Selected&#39;)).toBeVisible();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Group&#39; }));
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Aggregate Columns&#39; }));
+    await expect(within(canvas.getByRole(&#39;region&#39;, { name: &#39;Aggregate Columns&#39; })).getByText(&#39;Annual Revenue (Sum)&#39;)).toBeVisible();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Remove Email&#39; }));
+    await expect(canvas.queryByText(&#39;Email&#39;, { selector: &#39;.cmr__column-label&#39; })).toBeNull();
   },
 };
 
@@ -23643,6 +24031,8 @@ export const SavedFiltersV2Checks: Story = {
     await expect(within(savedRegion).getByText(&#39;All Territories&#39;)).toBeVisible();
     await expect(canvas.queryByText(&#39;No filters applied&#39;)).toBeNull();
     await waitFor(() =&gt; expect(canvas.getByText(&#39;Filter applied successfully&#39;)).toBeVisible());
+    // Version 2 summary: Edit only, no Delete.
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Delete filters&#39; })).toBeNull();
     // Shared Edit reopens Version 2 with the applied values.
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit filters&#39; }));
     const reopened = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
@@ -23655,19 +24045,35 @@ export const SavedFiltersV2Checks: Story = {
 
 export const AddFilterModalV2: Story = {
   name: &#39;Add Filter modal · Version 2&#39;,
-  render: () =&gt; &lt;CrossModuleReportsPage initialModalOpen filterVersion={2} /&gt;,
+  render: () =&gt; &lt;CrossModuleReportsPage filterVersion={2} /&gt;,
 };
 
 export const AddFilterModalV2Checks: Story = {
   name: &#39;Add Filter modal · Version 2 · checks&#39;,
   tags: TEST_ONLY,
-  render: () =&gt; &lt;CrossModuleReportsPage initialModalOpen filterVersion={2} /&gt;,
+  render: () =&gt; &lt;CrossModuleReportsPage filterVersion={2} /&gt;,
   play: async ({ canvasElement }) =&gt; {
+    const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
+    // Opens only on click.
+    await expect(body.queryByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
     const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
     await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Base Filter&#39; })).toHaveAttribute(&#39;aria-selected&#39;, &#39;true&#39;));
     await waitFor(() =&gt; expect(dialog.getByText(FILTER_DESCRIPTIONS.base)).toBeVisible());
-    await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Specify Criteria&#39; })).toBeVisible();
+    // One combined card: Filter by Fields (no module picker or label) + Filter by Related Module.
+    await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Filter by Fields&#39; })).toBeVisible();
+    await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Filter by Related Module&#39; })).toBeVisible();
+    await expect(dialog.queryByRole(&#39;heading&#39;, { name: &#39;Specify Criteria&#39; })).toBeNull();
+    await expect(dialog.queryByText(&#39;Contact&#39;, { selector: &#39;.criteria-builder-module-label&#39; })).toBeNull();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Filter by Related Module&#39; })).toBeNull();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: /^Remove Related/ })).toBeNull();
+    // Related modules start with just Add Condition; the first row gets a minus.
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Related module 1&#39; })).toBeNull();
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Add Condition&#39; }));
+    await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove related module 1&#39; })).toBeVisible();
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove related module 1&#39; }));
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Related module 1&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: /^Remove (Quick|Territory)/ })).toBeNull();
 
@@ -23686,6 +24092,10 @@ export const AddFilterModalV2Checks: Story = {
     await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Base Filter&#39; }));
     await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
     await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; })).toHaveTextContent(&#39;Custom&#39;);
+    // ✕ inside the Territory input clears it.
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Clear territory&#39; }));
+    await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; })).toHaveTextContent(&#39;Select&#39;);
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Clear territory&#39; })).toBeNull();
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39; }));
   },
 };
@@ -23837,7 +24247,7 @@ import { Fragment } from "react";</code></pre>
               </div>
               
               
-              <pre><code>const AddFilterModalV2 = () =&gt; &lt;CrossModuleReportsPage initialModalOpen filterVersion={2} /&gt;;</code></pre>
+              <pre><code>const AddFilterModalV2 = () =&gt; &lt;CrossModuleReportsPage filterVersion={2} /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -23846,7 +24256,7 @@ import { Fragment } from "react";</code></pre>
               </div>
               
               
-              <pre><code>const AddFilterModalV2Checks = () =&gt; &lt;CrossModuleReportsPage initialModalOpen filterVersion={2} /&gt;;</code></pre>
+              <pre><code>const AddFilterModalV2Checks = () =&gt; &lt;CrossModuleReportsPage filterVersion={2} /&gt;;</code></pre>
             </div>
         </div>
     
@@ -28512,16 +28922,16 @@ export const Users = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  394 | }
-  395 |
-&gt; 396 | const meta = {
+  412 | }
+  413 |
+&gt; 414 | const meta = {
       | ^
-  397 |   title: &#39;Design System/Patterns/Record Authentication&#39;,
-  398 |   parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification follows the PM mock with action, method, and delivery configuration steps. No real SMS, email, or authentication requests are made.&#39; } } },
-  399 | } satisfies Meta;
+  415 |   title: &#39;Design System/Patterns/Record Authentication&#39;,
+  416 |   parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification combines action, consent type, and shared delivery settings in a single form. No real SMS, email, or authentication requests are made.&#39; } } },
+  417 | } satisfies Meta;
 
 ./src/design-system/patterns/RecordAuthentication.stories.tsx:
-import { useEffect, useId, useState } from &#39;react&#39;;
+import { useEffect, useId, useRef, useState } from &#39;react&#39;;
 import type { ReactNode } from &#39;react&#39;;
 import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
 import { expect, userEvent, waitFor, within } from &#39;storybook/test&#39;;
@@ -28655,21 +29065,38 @@ function FormRow({ label, children }: { label: string; children: ReactNode }) {
   return &lt;div className=&quot;record-auth-form__row&quot;&gt;&lt;span className=&quot;record-auth-form__label&quot;&gt;{label}&lt;/span&gt;&lt;div&gt;{children}&lt;/div&gt;&lt;/div&gt;;
 }
 
-function VerificationDialog({ channel, initial, expanded, onClose, onSave, method, lead, onBack }: {
+function VerificationDialog({ channel, initial, expanded, onClose, onSave, method, lead, onChange }: {
   channel: Channel; initial: VerificationConfig; expanded: boolean;
-  method?: ConfirmationMethod; lead?: ReactNode; onBack?: (config: VerificationConfig) =&gt; void;
+  method?: ConfirmationMethod; lead?: ReactNode; onChange?: (config: VerificationConfig) =&gt; void;
   onClose: () =&gt; void; onSave: (config: VerificationConfig) =&gt; void;
 }) {
   const id = useId();
   const [draft, setDraft] = useState&lt;VerificationConfig&gt;(() =&gt; ({ ...initial, fields: [...initial.fields] }));
   const [more, setMore] = useState(expanded);
+  const [smsNotice, setSmsNotice] = useState(false);
   const [preview, setPreview] = useState&lt;Preview&gt;();
   const [errors, setErrors] = useState&lt;Partial&lt;Record&lt;keyof VerificationConfig, string&gt;&gt;&gt;({});
+  const previousMethod = useRef(method);
+  useEffect(() =&gt; {
+    if (previousMethod.current !== method) {
+      previousMethod.current = method;
+      setDraft({ ...initial, fields: [...initial.fields] });
+      setErrors({});
+      setPreview(undefined);
+    }
+  }, [method, initial]);
+  useEffect(() =&gt; {
+    if (!smsNotice) return;
+    const timer = window.setTimeout(() =&gt; setSmsNotice(false), 5000);
+    return () =&gt; window.clearTimeout(timer);
+  }, [smsNotice]);
   const phone = channel === &#39;phone&#39;;
   const code = method === &#39;code&#39;;
   const usesCode = phone || code;
   const update = &lt;K extends keyof VerificationConfig&gt;(key: K, value: VerificationConfig[K]) =&gt; {
-    setDraft(current =&gt; ({ ...current, [key]: value }));
+    const next = { ...draft, [key]: value };
+    setDraft(next);
+    onChange?.(next);
     setErrors(current =&gt; ({ ...current, [key]: undefined }));
   };
   const fieldError = (key: keyof VerificationConfig) =&gt; errors[key] ? (
@@ -28718,9 +29145,9 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
       {fieldError(key)}
     &lt;/div&gt;
   );
-  return &lt;&gt;&lt;Modal isOpen title={method ? `Record Verification via ${phone ? &#39;OTP on Phone&#39; : code ? &#39;Code on Email&#39; : &#39;Confirmation Link&#39;}` : `Data Verification via ${phone ? &#39;Phone Number&#39; : &#39;Email Address&#39;}`}
-    className=&quot;record-auth-config-modal&quot; width={670} onClose={onClose} onSave={save}
-    footerStart={onBack ? &lt;Button onClick={() =&gt; onBack(draft)}&gt;Back&lt;/Button&gt; : undefined}&gt;
+  return &lt;&gt;&lt;Modal isOpen title={method ? &#39;Record Verification&#39; : `Data Verification via ${phone ? &#39;Phone Number&#39; : &#39;Email Address&#39;}`}
+    className={`record-auth-config-modal${method ? &#39; record-confirmation-modal&#39; : &#39;&#39;}`} width={method ? 760 : 670} onClose={onClose} onSave={save}
+    &gt;
     &lt;div className=&quot;record-auth-form&quot;&gt;
       {lead}
       {!method &amp;&amp; &lt;&gt;&lt;FormRow label=&quot;Fields&quot;&gt;&lt;div role=&quot;group&quot; aria-label=&quot;Fields to verify&quot; aria-invalid={!!errors.fields} aria-describedby={errors.fields ? `${id}-fields-error` : undefined}&gt;
@@ -28759,7 +29186,7 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
                 &lt;span id={`${id}-sms-hint`}&gt;Type # to insert merge field&lt;/span&gt;&lt;span&gt;{draft.template.length}/160&lt;/span&gt;
               &lt;/div&gt;
               &lt;div className=&quot;record-auth-form__preview&quot; role=&quot;region&quot; aria-label=&quot;SMS Preview&quot;&gt;&lt;strong&gt;SMS Preview&lt;/strong&gt;&lt;p&gt;{smsPreview(draft)}&lt;/p&gt;&lt;/div&gt;
-              &lt;Button variant=&quot;link-primary&quot; size=&quot;sm&quot;&gt;Send Text SMS&lt;/Button&gt;
+              &lt;Button variant=&quot;link-primary&quot; size=&quot;sm&quot; onClick={() =&gt; setSmsNotice(true)}&gt;Send Test SMS&lt;/Button&gt;
             &lt;/div&gt;
           &lt;/div&gt;
         &lt;/&gt; : &lt;&gt;
@@ -28797,9 +29224,10 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
           &lt;FormRow label=&quot;Reset Attempt After&quot;&gt;{numberInput(&#39;validationReset&#39;, &#39;Reset validation attempt after&#39;, &#39;Hour(s)&#39;)}&lt;/FormRow&gt;
         &lt;/section&gt;}
       &lt;/div&gt;}
-      {!usesCode &amp;&amp; &lt;MessageInfo variant=&quot;info&quot; message=&quot;A new send invalidates the previous link. Latest request wins.&quot; /&gt;}
+      {!method &amp;&amp; !usesCode &amp;&amp; &lt;MessageInfo variant=&quot;info&quot; message=&quot;A new send invalidates the previous link. Latest request wins.&quot; /&gt;}
     &lt;/div&gt;
   &lt;/Modal&gt;
+    {smsNotice &amp;&amp; &lt;MessageBox className=&quot;record-auth__notice&quot; variant=&quot;success&quot; message=&quot;Test SMS sent successfully&quot; onClose={() =&gt; setSmsNotice(false)} /&gt;}
     {preview?.kind &amp;&amp; &lt;TemplateDialog kind={preview.kind} validity={draft.validity}
       initial={preview.kind === &#39;email&#39; ? draft.emailContent : draft.pageContent}
       onClose={() =&gt; setPreview(undefined)} onSave={settings =&gt; {
@@ -28889,9 +29317,9 @@ function RecordAuthenticationPage({ initial = &#39;empty&#39;, dialog, expanded 
                 channel={channel} config={saved[channel]} onEdit={() =&gt; setEditing(channel)} onPreview={setPreview} /&gt;)}
             &lt;/&gt;}
             &lt;div hidden={activeTab !== &#39;configuration&#39;}&gt;&lt;RecordVerification onNotice={message =&gt; setNotice({ message })}
-              renderSettings={({ method, initial, lead, onBack, onClose, onSave }) =&gt; &lt;VerificationDialog
-                key={method} channel={method === &#39;otp&#39; ? &#39;phone&#39; : &#39;email&#39;} method={method}
-                initial={initial} expanded={false} lead={lead} onBack={onBack} onClose={onClose} onSave={onSave} /&gt;} /&gt;&lt;/div&gt;
+              renderSettings={({ method, initial, lead, onChange, onClose, onSave }) =&gt; &lt;VerificationDialog
+                channel={method === &#39;otp&#39; ? &#39;phone&#39; : &#39;email&#39;} method={method}
+                initial={initial} expanded={false} lead={lead} onChange={onChange} onClose={onClose} onSave={onSave} /&gt;} /&gt;&lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
       &lt;/main&gt;
@@ -28918,7 +29346,7 @@ function RecordAuthenticationPage({ initial = &#39;empty&#39;, dialog, expanded 
 
 const meta = {
   title: &#39;Design System/Patterns/Record Authentication&#39;,
-  parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification follows the PM mock with action, method, and delivery configuration steps. No real SMS, email, or authentication requests are made.&#39; } } },
+  parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification combines action, consent type, and shared delivery settings in a single form. No real SMS, email, or authentication requests are made.&#39; } } },
 } satisfies Meta;
 export default meta;
 type Story = StoryObj&lt;typeof meta&gt;;
@@ -28943,7 +29371,7 @@ export const Default: Story = {
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     await expect(canvas.queryByRole(&#39;region&#39;, { name: &#39;OTP Configuration for Phone Number Verification&#39; })).not.toBeInTheDocument();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Record Verification&#39; }));
-    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;No record verification configured&#39; })).toBeVisible();
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Data Verification&#39; }));
   },
 };
@@ -29160,9 +29588,12 @@ export const Configured: Story = {
     await expect(form.getByRole(&#39;spinbutton&#39;, { name: &#39;Max Resend Attempts&#39; })).toHaveValue(5);
     await expect(form.getByRole(&#39;textbox&#39;, { name: &#39;SMS Template&#39; })).toHaveAccessibleDescription(&#39;Type # to insert merge field&#39;);
     await expect(form.getByText(&#39;SMS Preview&#39;)).toBeVisible();
-    const testSms = form.getByRole(&#39;button&#39;, { name: &#39;Send Text SMS&#39; });
+    const testSms = form.getByRole(&#39;button&#39;, { name: &#39;Send Test SMS&#39; });
     await expect(testSms).toHaveAttribute(&#39;data-variant&#39;, &#39;link-primary&#39;);
     await userEvent.click(testSms);
+    const testNotice = body.getByRole(&#39;status&#39;);
+    await expect(testNotice).toHaveTextContent(&#39;Test SMS sent successfully&#39;);
+    await userEvent.click(within(testNotice).getByRole(&#39;button&#39;, { name: &#39;Dismiss&#39; }));
     await expect(form.queryByText(&#39;Demo preview only. No SMS was sent.&#39;)).not.toBeInTheDocument();
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
@@ -29193,18 +29624,38 @@ export const RecordConfiguration: Story = {
   play: async ({ canvasElement }) =&gt; {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    const open = async () =&gt; { await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;New&#39;, exact: true })); return within(await body.findByRole(&#39;dialog&#39;)); };
-    const next = async () =&gt; { await userEvent.click(within(body.getByRole(&#39;dialog&#39;)).getByRole(&#39;button&#39;, { name: &#39;Next&#39; })); };
+    const open = async () =&gt; { await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })); return within(await body.findByRole(&#39;dialog&#39;)); };
     const choose = async (name: string) =&gt; { await userEvent.click(body.getByRole(&#39;option&#39;, { name, exact: true })); };
     let form = await open();
-    await expect(form.getByRole(&#39;radio&#39;, { name: &#39;Record creation&#39; })).toBeChecked();
-    await next();
-    await expect(body.getByRole(&#39;radio&#39;, { name: &#39;Via Confirmation Link&#39; })).toBeDisabled();
-    await next();
+    for (const name of [&#39;When&#39;, &#39;Consent Type&#39;]) {
+      const selector = form.getByRole(&#39;button&#39;, { name, exact: true });
+      await expect(selector).toHaveTextContent(&#39;Select&#39;);
+      await expect(Math.round(selector.getBoundingClientRect().width)).toBe(390);
+    }
+    await expect(canvas.queryByText(&#39;Record Verification Settings&#39;)).not.toBeInTheDocument();
+    await expect(canvasElement.querySelector(&#39;.record-confirmation__empty&#39;)).toBeNull();
+    await expect(form.queryByRole(&#39;button&#39;, { name: &#39;Next&#39; })).not.toBeInTheDocument();
+    const selectors = form.getAllByRole(&#39;button&#39;, { name: /^(When|Consent Type)$/ });
+    await expect(selectors.map(element =&gt; element.getAttribute(&#39;aria-label&#39;))).toEqual([&#39;When&#39;, &#39;Consent Type&#39;]);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }));
+    await expect(await body.findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Choose the event&#39;);
+    await expect(body.getByRole(&#39;tooltip&#39;)).toHaveClass(&#39;tooltip-white&#39;);
+    await expect(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }).querySelector(&#39;svg&#39;)).toBeInTheDocument();
+    await userEvent.unhover(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }));
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
+    await expect(body.getAllByRole(&#39;option&#39;)).toHaveLength(3);
+    await expect(body.getByRole(&#39;option&#39;, { name: /Confirmation Link/ })).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
+    const secondary = body.getByText(&#39;Send an SMS OTP to confirm the action.&#39;);
+    await expect(secondary).toBeVisible();
+    await expect(getComputedStyle(secondary).fontSize).toBe(&#39;13px&#39;);
+    await expect(getComputedStyle(secondary).fontFamily).toContain(&#39;Zoho Puvi&#39;);
+    await choose(&#39;OTP on Phone Send an SMS OTP to confirm the action.&#39;);
     form = within(body.getByRole(&#39;dialog&#39;));
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
+    await choose(&#39;Record creation Ask for consent before a new record is saved.&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Select an SMS carrier.&#39;);
-    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Select a field&#39; })); await choose(&#39;Mobile&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Verification Field&#39; })); await choose(&#39;Mobile&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Select&#39;, exact: true })); await choose(&#39;Twilio&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
@@ -29214,32 +29665,55 @@ export const RecordConfiguration: Story = {
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Record Verification&#39; }));
     await expect(canvas.getByText(&#39;Record creation&#39;, { exact: true })).toBeVisible();
     form = await open();
-    await expect(form.getByRole(&#39;radio&#39;, { name: &#39;Record creation&#39; })).toBeDisabled();
-    await expect(form.getByRole(&#39;radio&#39;, { name: &#39;Picklist value&#39; })).toBeChecked();
-    await next();
-    await userEvent.click(body.getByRole(&#39;radio&#39;, { name: &#39;Via Code on Email&#39; }));
-    await next();
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
+    await expect(body.getByRole(&#39;option&#39;, { name: /Record creation/ })).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
+    await choose(&#39;Picklist value Ask for consent when a picklist is set to a value.&#39;);
+    await expect(form.getByRole(&#39;button&#39;, { name: &#39;Picklist&#39;, exact: true })).toBeVisible();
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
+    const sameDialog = body.getByRole(&#39;dialog&#39;);
+    await choose(&#39;Code on Email Send an email code to confirm the action.&#39;);
+    await expect(body.getByRole(&#39;dialog&#39;)).toBe(sameDialog);
+    await expect(sameDialog).toHaveAccessibleName(&#39;Record Verification&#39;);
     form = within(body.getByRole(&#39;dialog&#39;));
     await waitFor(() =&gt; expect(form.getByRole(&#39;heading&#39;, { name: &#39;Email Code Configuration&#39; })).toBeVisible());
     await expect(form.queryByRole(&#39;button&#39;, { name: &#39;Verification Page&#39;, exact: true })).not.toBeInTheDocument();
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Select a verification field.&#39;);
-    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Select a field&#39; })); await choose(&#39;Email ID&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Verification Field&#39; })); await choose(&#39;Email ID&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     await expect(canvas.getByText(&#39;Status is Open&#39;)).toBeVisible();
     const enabled = canvas.getByRole(&#39;switch&#39;, { name: &#39;Enable Status is Open&#39; });
     await userEvent.click(enabled); await expect(enabled).not.toBeChecked();
     form = await open();
-    await userEvent.click(form.getByRole(&#39;radio&#39;, { name: &#39;Button actions&#39; }));
-    await next();
-    await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Enter a button name&#39;);
-    await userEvent.type(form.getByRole(&#39;textbox&#39;, { name: &#39;Button Name&#39; }), &#39;Approve shipment&#39;);
-    await next();
-    await userEvent.click(body.getByRole(&#39;radio&#39;, { name: &#39;Via Confirmation Link&#39; }));
-    await next();
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
+    await choose(&#39;Button actions Ask for consent via a custom button on the record’s Detail page.&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
+    await choose(&#39;Confirmation Link Confirm the action by clicking an email link.&#39;);
     form = within(body.getByRole(&#39;dialog&#39;));
-    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Select a field&#39; })); await choose(&#39;Email ID&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
+    await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Enter a button name&#39;);
+    await expect(form.getByText(&#39;Layout&#39;, { exact: true })).toBeVisible();
+    await expect(form.getByText(&#39;Profile&#39;, { exact: true })).toBeVisible();
+    const portalUsers = form.getByRole(&#39;checkbox&#39;, { name: &#39;For Portal Users&#39; });
+    await userEvent.click(portalUsers);
+    await expect(portalUsers).toBeChecked();
+    await userEvent.type(form.getByRole(&#39;textbox&#39;, { name: &#39;Button Name&#39; }), &#39;Approve shipment&#39;);
+    // Incompatible actions reset link consent; compatible changes preserve delivery edits.
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
+    await choose(&#39;Picklist value Ask for consent when a picklist is set to a value.&#39;);
+    form = within(body.getByRole(&#39;dialog&#39;));
+    await waitFor(() =&gt; expect(form.getByRole(&#39;heading&#39;, { name: &#39;OTP Configuration&#39; })).toBeVisible());
+    const validity = form.getByRole(&#39;spinbutton&#39;, { name: &#39;OTP validity&#39; });
+    await userEvent.clear(validity); await userEvent.type(validity, &#39;8&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
+    await choose(&#39;Button actions Ask for consent via a custom button on the record’s Detail page.&#39;);
+    await expect(form.getByRole(&#39;spinbutton&#39;, { name: &#39;OTP validity&#39; })).toHaveValue(8);
+    await expect(form.getByRole(&#39;textbox&#39;, { name: &#39;Button Name&#39; })).toHaveValue(&#39;Approve shipment&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
+    await choose(&#39;Confirmation Link Confirm the action by clicking an email link.&#39;);
+    form = within(body.getByRole(&#39;dialog&#39;));
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Verification Field&#39; })); await choose(&#39;Email ID&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     await expect(canvas.getByText(&#39;Approve shipment&#39;, { exact: true })).toBeVisible();
