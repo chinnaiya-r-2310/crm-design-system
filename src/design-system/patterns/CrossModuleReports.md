@@ -16,7 +16,7 @@ Built inside the pattern (no matching component exists):
 
 - The Filters tab shows "No filters applied". The plus button next to the Filters heading has no action yet.
 - **Run** replaces the preview notice with a "report run" message. **Cancel** and **Back** restore the notice. Save has no action.
-- The Columns tab (shared by every version) shows a Columns list with a six-dot drag grip on each row (drag to reorder, ✕ on hover to remove) and an outline **Add Group** menu that adds Row Groups, Column Groups and Aggregate Columns in the order chosen. Each added group starts with sample columns (Row Groups: Potential Owner, Account Name; Column Groups: Created Time (Month), Lead Source; Aggregate Columns: Annual Revenue (Sum), Potential Name (Count)) that can be dragged or removed like the main list. Each section has an Edit icon; a group emptied of columns reads "No Group Selected" / "No Column Selected".
+- The Columns tab (shared by every version) shows a Columns list whose rows line up with the headings; on hover a row gets a grey background that extends into the panel padding, with a six-dot drag grip shown in that padding (drag to reorder, ✕ on hover to remove) and an outline **Add Group** menu that adds Row Groups, Column Groups and Aggregate Columns in the order chosen. Each added group starts with sample columns (Row Groups: Potential Owner, Account Name; Column Groups: Created Time (Month), Lead Source; Aggregate Columns: Annual Revenue (Sum), Potential Name (Count)) that can be dragged or removed like the main list. Each section has an Edit icon; a group emptied of columns reads "No Group Selected" / "No Column Selected".
 - Panel Edit / Delete icons show only a round background on hover (no pill border or shadow).
 - The grid scrolls in both directions inside its card.
 - At widths of 1100px or less, the left menu is hidden. At widths of 760px or less, the panel stacks above the grid.
@@ -110,3 +110,9 @@ The empty Filters panel's **Add Filter** call to action is a small outline-blue 
 - Filter by Related Module is always shown and starts with only **Add Condition**; every related row, including the first, has a minus. No "Remove" links.
 - The Territory picklist has a ✕ inside to clear the value (`Dropdown` `clearable`).
 - The saved summary shows Edit only (no Delete).
+
+### Version 2 copy (Filter Configuration)
+- Modal title **Filter Configuration**; tabs **Report Filters | Quick View | Territory**.
+- Sub-titles: Report Filters — "Define which records to include in the report using fields and related modules."; Quick View and Territory — "Choose the filters to apply by default when viewing this report. Users can adjust them anytime."
+- Left-panel empty-state button: **Configure Filters**. Saved cards are titled after the tabs.
+- Starting state: **Filter by Fields** opens with one criteria row that has a minus. Removing the last row shows an **Add criteria** button instead. **Filter by Related Modules** starts with only **Add criteria**.

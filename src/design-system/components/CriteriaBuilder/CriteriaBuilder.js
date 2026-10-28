@@ -102,6 +102,8 @@ export function CriteriaBuilder({
   moduleLabel,
   /** Width of the value column; defaults to the standard 390px. */
   valueWidth = 390,
+  /** Show the minus on a single remaining row too, so the last row can be removed (off by default). */
+  allowRemoveLast = false,
 }) {
   const [editingPattern, setEditingPattern] = useState(false);
   const [patternDraft, setPatternDraft] = useState(pattern);
@@ -349,7 +351,7 @@ export function CriteriaBuilder({
 
               {/* Action buttons */}
               <div className='criteria-builder-actions'>
-                {rows.length > 1 && (
+                {(allowRemoveLast || rows.length > 1) && (
                   <button
                     className='criteria-builder-remove-btn'
                     onClick={() => removeRow(row.id)}

@@ -149,24 +149,43 @@
 .cmr__saved-sentence { display: block; margin: 0; }
 .cmr__panel-heading h2 { font-size: var(--ds-font-size-base); font-weight: var(--ds-font-weight-semibold); color: var(--ds-text-heading); }
 
-.cmr__columns { gap: 20px; }
+/* The scroll body reaches into the panel's start padding so each column row's hover background
+   (and its drag grip) can sit in that padding, while the labels stay aligned with the headings. */
+.cmr__columns {
+  gap: 20px;
+  margin-inline-start: -14px;
+  padding-inline-start: 14px;
+}
 .cmr__columns-group { display: flex; flex-direction: column; gap: 6px; }
 .cmr__columns-empty { margin: 0; padding-inline: 8px; color: var(--ds-text-muted); }
 .cmr__add-group { padding-inline: 8px; }
 .cmr__column-list { display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 0; list-style: none; color: var(--ds-text-base); }
 .cmr__column {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
   min-height: 32px;
-  padding-inline: 8px;
+  margin-inline-start: -14px;
+  padding-inline: 22px 8px;
   border-radius: 6px;
   cursor: grab;
 }
 .cmr__column:hover, .cmr__column:focus-within { background: var(--ds-text-icon-bg-hover); }
 .cmr__column--dragging { opacity: 0.5; cursor: grabbing; }
-.cmr__column-grip { display: inline-flex; color: var(--ds-text-muted); }
-.cmr__column:hover .cmr__column-grip { color: var(--ds-icon-primary-label-grey); }
+/* Grip lives in the padding area at the row's start and only shows on hover / keyboard focus. */
+.cmr__column-grip {
+  position: absolute;
+  inset-inline-start: 7px;
+  top: 50%;
+  display: inline-flex;
+  color: var(--ds-icon-primary-label-grey);
+  opacity: 0;
+  transform: translateY(-50%);
+}
+.cmr__column:hover .cmr__column-grip,
+.cmr__column:focus-within .cmr__column-grip,
+.cmr__column--dragging .cmr__column-grip { opacity: 1; }
 .cmr__column-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cmr__column-remove {
   display: inline-flex;
