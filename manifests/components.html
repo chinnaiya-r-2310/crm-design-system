@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.6s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -3975,7 +3975,7 @@ export const Default: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> CriteriaBuilder</h2>
       <div class="badges">
-        <label for="c-8-design-system-components-criteriabuilder-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-8-design-system-components-criteriabuilder-props" class="badge ok as-toggle">5 prop types</label>
         <label for="c-8-design-system-components-criteriabuilder-info" class="badge info as-toggle">1 info</label>
         <label for="c-8-design-system-components-criteriabuilder-stories" class="badge ok as-toggle">8 stories</label>
         
@@ -4011,11 +4011,13 @@ export const Default: Story = {
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">4 prop types</span>
+              <span class="badge ok">5 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/CriteriaBuilder/CriteriaBuilder.js::CriteriaBuilder</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>fieldOptions?: any = []
+            <pre><code>allowRemoveLast?: any = false
+
+fieldOptions?: any = []
 
 operatorOptions?: any = []
 
@@ -4594,13 +4596,13 @@ export const EmptyState: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  863 | };
-  864 |
-&gt; 865 | const meta = {
+  899 | };
+  900 |
+&gt; 901 | const meta = {
       | ^
-  866 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
-  867 |   parameters: {
-  868 |     layout: &#39;fullscreen&#39;,
+  902 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
+  903 |   parameters: {
+  904 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/CrossModuleReports.stories.tsx:
 import { Fragment, createContext, useContext, useEffect, useMemo, useRef, useState } from &#39;react&#39;;
@@ -4706,6 +4708,17 @@ const FILTER_DESCRIPTIONS = {
   territory: &#39;Select territories to filter records&#39;,
 };
 
+/** Version 2 copy: modal title, tab names, sub-titles and the left-panel button. */
+const V2_MODAL_TITLE = &#39;Filter Configuration&#39;;
+const V2_CONFIGURE_LABEL = &#39;Configure Filters&#39;;
+const V2_QUICK_DESC = &#39;Choose the filters to apply by default when viewing this report. Users can adjust them anytime.&#39;;
+const V2_DESCRIPTIONS = {
+  base: &#39;Define which records to include in the report using fields and related modules.&#39;,
+  quick: V2_QUICK_DESC,
+  territory: V2_QUICK_DESC,
+};
+const V2_TITLES: Record&lt;&#39;base&#39; | &#39;quick&#39; | &#39;territory&#39;, string&gt; = { base: &#39;Report Filters&#39;, quick: &#39;Quick View&#39;, territory: &#39;Territory&#39; };
+
 type OptionalFilter = &#39;quick&#39; | &#39;territory&#39;;
 const OPTIONAL_FILTERS: { value: OptionalFilter; label: string }[] = [
   { value: &#39;quick&#39;, label: &#39;Quick Filter&#39; },
@@ -4741,11 +4754,21 @@ type RelatedRow = { id: string; condition: string; module: string; specify: bool
 const emptyRelatedRow = (id: string): RelatedRow =&gt; ({ id, condition: &#39;&#39;, module: &#39;&#39;, specify: false, connector: &#39;AND&#39; });
 
 /** Criteria builder with its own rows and pattern state. */
-function CriteriaRows({ idPrefix, withModule = false, moduleLabel, valueWidth }: { idPrefix: string; withModule?: boolean; moduleLabel?: string; valueWidth?: number }) {
-  const [rows, setRows] = useFilterState&lt;ModuleCriteriaRow[]&gt;(`${idPrefix}:rows`, () =&gt;
-    emptyCriteria(`${idPrefix}-1`).map((row) =&gt; (withModule ? { ...row, module: BASE_MODULE } : row)),
-  );
+/** `onEmpty`: when given, the only row also gets a minus; removing it resets the rows and calls `onEmpty`. */
+function CriteriaRows({ idPrefix, withModule = false, moduleLabel, valueWidth, onEmpty }: { idPrefix: string; withModule?: boolean; moduleLabel?: string; valueWidth?: number; onEmpty?: () =&gt; void }) {
+  const initialRows = () =&gt; emptyCriteria(`${idPrefix}-1`).map((row) =&gt; (withModule ? { ...row, module: BASE_MODULE } : row));
+  const [rows, setRows] = useFilterState&lt;ModuleCriteriaRow[]&gt;(`${idPrefix}:rows`, initialRows);
   const [pattern, setPattern] = useFilterState(`${idPrefix}:pattern`, () =&gt; &#39;1&#39;);
+  const handleRowsChange = (next: ModuleCriteriaRow[]) =&gt; {
+    if (onEmpty &amp;&amp; next.length === 0) {
+      // Last criteria removed: start fresh next time and go back to the &quot;Add criteria&quot; button.
+      setRows(initialRows());
+      setPattern(&#39;1&#39;);
+      onEmpty();
+      return;
+    }
+    setRows(next);
+  };
   return (
     &lt;CriteriaBuilder
       rows={rows}
@@ -4753,13 +4776,14 @@ function CriteriaRows({ idPrefix, withModule = false, moduleLabel, valueWidth }:
       fieldOptions={FILTER_FIELDS}
       getOperatorOptions={operatorsFor}
       getDefaultOperator={defaultOperatorFor}
-      onChange={setRows}
+      onChange={handleRowsChange}
       onPatternChange={setPattern}
       placeholder=&quot;Select&quot;
       fieldPlaceholder=&quot;Select Field&quot;
       moduleOptions={withModule ? BASE_MODULE_OPTIONS : undefined}
       moduleLabel={moduleLabel}
       valueWidth={valueWidth}
+      allowRemoveLast={Boolean(onEmpty)}
     /&gt;
   );
 }
@@ -4845,6 +4869,8 @@ function RelatedModuleRow({ row, index, isLast, onChange, onRemove }: { row: Rel
 type BaseLayout = &#39;cards&#39; | &#39;plain&#39; | &#39;fields&#39;;
 function BaseFilterSection({ showHeading = true, layout = &#39;cards&#39; }: { showHeading?: boolean; layout?: BaseLayout }) {
   const isFields = layout === &#39;fields&#39;;
+  // Version 2: Filter by Fields opens with one criteria; removing the last one shows &quot;Add criteria&quot;.
+  const [fieldsOn, setFieldsOn] = useFilterState(&#39;base:fieldsOn&#39;, () =&gt; true);
   const [relatedOnState, setRelatedOn] = useFilterState(&#39;base:relatedOn&#39;, () =&gt; isFields);
   const relatedOn = isFields || relatedOnState;
   const [related, setRelated] = useFilterState&lt;RelatedRow[]&gt;(&#39;base:related&#39;, () =&gt; (isFields ? [] : [emptyRelatedRow(&#39;related-1&#39;)]));
@@ -4879,7 +4905,7 @@ function BaseFilterSection({ showHeading = true, layout = &#39;cards&#39; }: { s
       &lt;/div&gt;
       &lt;div className=&quot;cmr-filter__add-condition&quot;&gt;
         &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; onClick={() =&gt; setRelated((current) =&gt; [...current, emptyRelatedRow(`related-${Date.now()}`)])}&gt;
-          Add Condition
+          {isFields ? &#39;Add criteria&#39; : &#39;Add Condition&#39;}
         &lt;/Button&gt;
       &lt;/div&gt;
     &lt;/&gt;
@@ -4891,9 +4917,15 @@ function BaseFilterSection({ showHeading = true, layout = &#39;cards&#39; }: { s
         /* Version 2: one bordered card, both groups always shown. */
         &lt;div className=&quot;cmr-filter__card cmr-filter__combined cmr-filter__combined--fields&quot;&gt;
           &lt;CriteriaCard title=&quot;Filter by Fields&quot;&gt;
-            &lt;CriteriaRows idPrefix=&quot;base&quot; /&gt;
+            {fieldsOn ? (
+              &lt;CriteriaRows idPrefix=&quot;base&quot; onEmpty={() =&gt; setFieldsOn(false)} /&gt;
+            ) : (
+              &lt;div className=&quot;cmr-filter__add-condition&quot;&gt;
+                &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; aria-label=&quot;Add criteria for fields&quot; onClick={() =&gt; setFieldsOn(true)}&gt;Add criteria&lt;/Button&gt;
+              &lt;/div&gt;
+            )}
           &lt;/CriteriaCard&gt;
-          &lt;CriteriaCard title=&quot;Filter by Related Module&quot;&gt;
+          &lt;CriteriaCard title=&quot;Filter by Related Modules&quot;&gt;
             {relatedContent}
           &lt;/CriteriaCard&gt;
         &lt;/div&gt;
@@ -4999,9 +5031,9 @@ function FilterSections({ plain = false }: { plain?: boolean }) {
 }
 
 const FILTER_TABS = [
-  { id: &#39;base&#39;, label: &#39;Base Filter&#39; },
-  { id: &#39;quick&#39;, label: &#39;Quick Filter&#39; },
-  { id: &#39;territory&#39;, label: &#39;Territory Filter&#39; },
+  { id: &#39;base&#39;, label: V2_TITLES.base },
+  { id: &#39;quick&#39;, label: V2_TITLES.quick },
+  { id: &#39;territory&#39;, label: V2_TITLES.territory },
 ] as const;
 type FilterTabId = (typeof FILTER_TABS)[number][&#39;id&#39;];
 
@@ -5014,9 +5046,9 @@ function FilterTabs({ initialTab = &#39;base&#39; }: { initialTab?: FilterTabId 
       &lt;div className=&quot;cmr-filter__tabs&quot;&gt;
         &lt;Tabs tabs={FILTER_TABS as unknown as { id: string; label: string }[]} activeTab={tab} onChange={(id: string) =&gt; setTab(id as FilterTabId)} variant=&quot;primary&quot; /&gt;
       &lt;/div&gt;
-      &lt;p className=&quot;cmr-filter__tab-desc&quot;&gt;{FILTER_DESCRIPTIONS[tab]}&lt;/p&gt;
+      &lt;p className=&quot;cmr-filter__tab-desc&quot;&gt;{V2_DESCRIPTIONS[tab]}&lt;/p&gt;
       &lt;div hidden={tab !== &#39;base&#39;}&gt;&lt;BaseFilterSection showHeading={false} layout=&quot;fields&quot; /&gt;&lt;/div&gt;
-      &lt;div hidden={tab !== &#39;quick&#39;}&gt;&lt;CriteriaSection title=&quot;Quick Filter&quot; description={FILTER_DESCRIPTIONS.quick} idPrefix=&quot;quick&quot; showHeading={false} /&gt;&lt;/div&gt;
+      &lt;div hidden={tab !== &#39;quick&#39;}&gt;&lt;CriteriaSection title={V2_TITLES.quick} description={V2_DESCRIPTIONS.quick} idPrefix=&quot;quick&quot; showHeading={false} /&gt;&lt;/div&gt;
       &lt;div hidden={tab !== &#39;territory&#39;}&gt;&lt;TerritorySection showHeading={false} clearable /&gt;&lt;/div&gt;
     &lt;/div&gt;
   );
@@ -5038,7 +5070,7 @@ function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 
   return (
     &lt;Modal
       isOpen={isOpen}
-      title=&quot;Add Filter&quot;
+      title={version === 2 ? V2_MODAL_TITLE : &#39;Add Filter&#39;}
       // 1080px fits the Base Filter module row (module + field + condition + value + minus/plus) inside the 30px side padding.
       width=&quot;min(1080px, 100vw)&quot;
       className={version === 1 ? &#39;cmr-filter&#39; : &#39;cmr-filter cmr-filter--v11&#39;}
@@ -5091,7 +5123,13 @@ type SavedFilterId = &#39;base&#39; | &#39;quick&#39; | &#39;territory&#39;;
 type TerritorySentence = { lead: string; operator?: string; values?: string; suffix?: string };
 type SavedFilter = { id: SavedFilterId; title: string; summary?: Record&lt;string, unknown&gt;; sentence?: TerritorySentence };
 
-function buildSavedFilters(snapshot: FilterSnapshot): SavedFilter[] {
+function buildSavedFilters(snapshot: FilterSnapshot, version: FilterVersion = 1): SavedFilter[] {
+  const raw = buildSavedFiltersV1(snapshot);
+  // Version 2 names the saved cards after its tabs.
+  return version === 2 ? raw.map((filter) =&gt; ({ ...filter, title: V2_TITLES[filter.id] })) : raw;
+}
+
+function buildSavedFiltersV1(snapshot: FilterSnapshot): SavedFilter[] {
   const result: SavedFilter[] = [];
 
   // Base: primary-module criteria, plus related modules when that card is on.
@@ -5268,7 +5306,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
   const [focus, setFocus] = useState&lt;FilterTabId&gt;(&#39;base&#39;);
   const [toast, setToast] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const savedFilters = useMemo(() =&gt; buildSavedFilters(saved), [saved]);
+  const savedFilters = useMemo(() =&gt; buildSavedFilters(saved, filterVersion), [saved, filterVersion]);
   const openModal = (section: FilterTabId = &#39;base&#39;) =&gt; { setFocus(section); setModalOpen(true); };
   // The success alert hides itself after a few seconds (or on ✕).
   useEffect(() =&gt; {
@@ -5330,7 +5368,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
                 className=&quot;cmr__add-filter&quot;
                 onClick={() =&gt; openModal()}
               &gt;
-                Add Filter
+                {filterVersion === 2 ? V2_CONFIGURE_LABEL : &#39;Add Filter&#39;}
               &lt;/Button&gt;
             &lt;/div&gt;
           )}
@@ -5703,14 +5741,14 @@ export const SavedFiltersV2Checks: Story = {
   play: async ({ canvasElement }) =&gt; {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
-    const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
-    await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; })).toBeVisible());
-    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure Filters&#39; }));
+    const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Filter Configuration&#39; }));
+    await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; })).toBeVisible());
+    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; }));
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; }));
     await userEvent.click(await body.findByRole(&#39;option&#39;, { name: &#39;All Territories&#39; }));
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Apply&#39; }));
-    const savedRegion = await canvas.findByRole(&#39;region&#39;, { name: &#39;Saved Territory Filter&#39; });
+    const savedRegion = await canvas.findByRole(&#39;region&#39;, { name: &#39;Saved Territory&#39; });
     await expect(within(savedRegion).getByText(&#39;All Territories&#39;)).toBeVisible();
     await expect(canvas.queryByText(&#39;No filters applied&#39;)).toBeNull();
     await waitFor(() =&gt; expect(canvas.getByText(&#39;Filter applied successfully&#39;)).toBeVisible());
@@ -5718,16 +5756,16 @@ export const SavedFiltersV2Checks: Story = {
     await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Delete filters&#39; })).toBeNull();
     // Shared Edit reopens Version 2 with the applied values.
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit filters&#39; }));
-    const reopened = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
-    await waitFor(() =&gt; expect(reopened.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; })).toBeVisible());
-    await userEvent.click(reopened.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
+    const reopened = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Filter Configuration&#39; }));
+    await waitFor(() =&gt; expect(reopened.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; })).toBeVisible());
+    await userEvent.click(reopened.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; }));
     await expect(reopened.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; })).toHaveTextContent(&#39;All Territories&#39;);
     await userEvent.click(reopened.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39; }));
   },
 };
 
 export const AddFilterModalV2: Story = {
-  name: &#39;Add Filter modal · Version 2&#39;,
+  name: &#39;Filter Configuration · Version 2&#39;,
   render: () =&gt; &lt;CrossModuleReportsPage filterVersion={2} /&gt;,
 };
 
@@ -5739,41 +5777,53 @@ export const AddFilterModalV2Checks: Story = {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     // Opens only on click.
-    await expect(body.queryByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
-    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
-    const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
-    await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Base Filter&#39; })).toHaveAttribute(&#39;aria-selected&#39;, &#39;true&#39;));
-    await waitFor(() =&gt; expect(dialog.getByText(FILTER_DESCRIPTIONS.base)).toBeVisible());
+    await expect(body.queryByRole(&#39;dialog&#39;, { name: &#39;Filter Configuration&#39; })).toBeNull();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure Filters&#39; }));
+    const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Filter Configuration&#39; }));
+    await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Report Filters&#39; })).toHaveAttribute(&#39;aria-selected&#39;, &#39;true&#39;));
+    await waitFor(() =&gt; expect(dialog.getByText(V2_DESCRIPTIONS.base)).toBeVisible());
     // One combined card: Filter by Fields (no module picker or label) + Filter by Related Module.
     await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Filter by Fields&#39; })).toBeVisible();
-    await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Filter by Related Module&#39; })).toBeVisible();
+    await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Filter by Related Modules&#39; })).toBeVisible();
+    // Filter by Fields opens with one criteria that has a minus; Related Modules shows only &quot;Add criteria&quot;.
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add criteria for fields&#39; })).toBeNull();
+    await expect(dialog.getAllByRole(&#39;button&#39;, { name: &#39;Add row&#39; })).toHaveLength(1);
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove row&#39; }));
+    // Removing the last criteria brings the button back; clicking it reopens one criteria.
+    await expect(await dialog.findByRole(&#39;button&#39;, { name: &#39;Add criteria for fields&#39; })).toBeVisible();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add row&#39; })).toBeNull();
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Add criteria for fields&#39; }));
+    await expect(dialog.getAllByRole(&#39;button&#39;, { name: &#39;Add row&#39; })).toHaveLength(1);
+    await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove row&#39; })).toBeVisible();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add criteria for fields&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;heading&#39;, { name: &#39;Specify Criteria&#39; })).toBeNull();
     await expect(dialog.queryByText(&#39;Contact&#39;, { selector: &#39;.criteria-builder-module-label&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Filter by Related Module&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: /^Remove Related/ })).toBeNull();
     // Related modules start with just Add Condition; the first row gets a minus.
     await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Related module 1&#39; })).toBeNull();
-    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Add Condition&#39; }));
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Add criteria&#39; }));
     await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove related module 1&#39; })).toBeVisible();
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove related module 1&#39; }));
     await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Related module 1&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add Condition&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: /^Remove (Quick|Territory)/ })).toBeNull();
 
-    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Quick Filter&#39; }));
-    await expect(dialog.getByText(FILTER_DESCRIPTIONS.quick)).toBeVisible();
-    await expect(dialog.queryByText(FILTER_DESCRIPTIONS.base)).toBeNull();
+    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Quick View&#39; }));
+    await expect(dialog.getByText(V2_DESCRIPTIONS.quick)).toBeVisible();
+    await expect(dialog.queryByText(V2_DESCRIPTIONS.base)).toBeNull();
     await expect(dialog.queryByRole(&#39;heading&#39;, { name: &#39;Specify Criteria&#39; })).toBeNull();
 
-    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
-    await expect(dialog.getByText(FILTER_DESCRIPTIONS.territory)).toBeVisible();
+    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; }));
+    await expect(dialog.getByText(V2_DESCRIPTIONS.territory, { selector: &#39;.cmr-filter__tab-desc&#39; })).toBeVisible();
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; }));
     await userEvent.click(await body.findByRole(&#39;option&#39;, { name: &#39;Custom&#39; }));
     await expect(dialog.getByText(&#39;Include Sub-Territories&#39;)).toBeVisible();
 
     // Edits survive switching tabs.
-    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Base Filter&#39; }));
-    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
+    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Report Filters&#39; }));
+    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; }));
     await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; })).toHaveTextContent(&#39;Custom&#39;);
     // ✕ inside the Territory input clears it.
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Clear territory&#39; }));
@@ -5925,7 +5975,7 @@ import { Fragment } from "react";</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Add Filter modal · Version 2</span>
+                <span class="ex-name">Filter Configuration · Version 2</span>
                 <span class="badge ok">story ok</span>
               </div>
               
@@ -22911,13 +22961,13 @@ export const EmptyState: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  863 | };
-  864 |
-&gt; 865 | const meta = {
+  899 | };
+  900 |
+&gt; 901 | const meta = {
       | ^
-  866 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
-  867 |   parameters: {
-  868 |     layout: &#39;fullscreen&#39;,
+  902 |   title: &#39;Design System/Patterns/Cross-module Reports&#39;,
+  903 |   parameters: {
+  904 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/CrossModuleReports.stories.tsx:
 import { Fragment, createContext, useContext, useEffect, useMemo, useRef, useState } from &#39;react&#39;;
@@ -23023,6 +23073,17 @@ const FILTER_DESCRIPTIONS = {
   territory: &#39;Select territories to filter records&#39;,
 };
 
+/** Version 2 copy: modal title, tab names, sub-titles and the left-panel button. */
+const V2_MODAL_TITLE = &#39;Filter Configuration&#39;;
+const V2_CONFIGURE_LABEL = &#39;Configure Filters&#39;;
+const V2_QUICK_DESC = &#39;Choose the filters to apply by default when viewing this report. Users can adjust them anytime.&#39;;
+const V2_DESCRIPTIONS = {
+  base: &#39;Define which records to include in the report using fields and related modules.&#39;,
+  quick: V2_QUICK_DESC,
+  territory: V2_QUICK_DESC,
+};
+const V2_TITLES: Record&lt;&#39;base&#39; | &#39;quick&#39; | &#39;territory&#39;, string&gt; = { base: &#39;Report Filters&#39;, quick: &#39;Quick View&#39;, territory: &#39;Territory&#39; };
+
 type OptionalFilter = &#39;quick&#39; | &#39;territory&#39;;
 const OPTIONAL_FILTERS: { value: OptionalFilter; label: string }[] = [
   { value: &#39;quick&#39;, label: &#39;Quick Filter&#39; },
@@ -23058,11 +23119,21 @@ type RelatedRow = { id: string; condition: string; module: string; specify: bool
 const emptyRelatedRow = (id: string): RelatedRow =&gt; ({ id, condition: &#39;&#39;, module: &#39;&#39;, specify: false, connector: &#39;AND&#39; });
 
 /** Criteria builder with its own rows and pattern state. */
-function CriteriaRows({ idPrefix, withModule = false, moduleLabel, valueWidth }: { idPrefix: string; withModule?: boolean; moduleLabel?: string; valueWidth?: number }) {
-  const [rows, setRows] = useFilterState&lt;ModuleCriteriaRow[]&gt;(`${idPrefix}:rows`, () =&gt;
-    emptyCriteria(`${idPrefix}-1`).map((row) =&gt; (withModule ? { ...row, module: BASE_MODULE } : row)),
-  );
+/** `onEmpty`: when given, the only row also gets a minus; removing it resets the rows and calls `onEmpty`. */
+function CriteriaRows({ idPrefix, withModule = false, moduleLabel, valueWidth, onEmpty }: { idPrefix: string; withModule?: boolean; moduleLabel?: string; valueWidth?: number; onEmpty?: () =&gt; void }) {
+  const initialRows = () =&gt; emptyCriteria(`${idPrefix}-1`).map((row) =&gt; (withModule ? { ...row, module: BASE_MODULE } : row));
+  const [rows, setRows] = useFilterState&lt;ModuleCriteriaRow[]&gt;(`${idPrefix}:rows`, initialRows);
   const [pattern, setPattern] = useFilterState(`${idPrefix}:pattern`, () =&gt; &#39;1&#39;);
+  const handleRowsChange = (next: ModuleCriteriaRow[]) =&gt; {
+    if (onEmpty &amp;&amp; next.length === 0) {
+      // Last criteria removed: start fresh next time and go back to the &quot;Add criteria&quot; button.
+      setRows(initialRows());
+      setPattern(&#39;1&#39;);
+      onEmpty();
+      return;
+    }
+    setRows(next);
+  };
   return (
     &lt;CriteriaBuilder
       rows={rows}
@@ -23070,13 +23141,14 @@ function CriteriaRows({ idPrefix, withModule = false, moduleLabel, valueWidth }:
       fieldOptions={FILTER_FIELDS}
       getOperatorOptions={operatorsFor}
       getDefaultOperator={defaultOperatorFor}
-      onChange={setRows}
+      onChange={handleRowsChange}
       onPatternChange={setPattern}
       placeholder=&quot;Select&quot;
       fieldPlaceholder=&quot;Select Field&quot;
       moduleOptions={withModule ? BASE_MODULE_OPTIONS : undefined}
       moduleLabel={moduleLabel}
       valueWidth={valueWidth}
+      allowRemoveLast={Boolean(onEmpty)}
     /&gt;
   );
 }
@@ -23162,6 +23234,8 @@ function RelatedModuleRow({ row, index, isLast, onChange, onRemove }: { row: Rel
 type BaseLayout = &#39;cards&#39; | &#39;plain&#39; | &#39;fields&#39;;
 function BaseFilterSection({ showHeading = true, layout = &#39;cards&#39; }: { showHeading?: boolean; layout?: BaseLayout }) {
   const isFields = layout === &#39;fields&#39;;
+  // Version 2: Filter by Fields opens with one criteria; removing the last one shows &quot;Add criteria&quot;.
+  const [fieldsOn, setFieldsOn] = useFilterState(&#39;base:fieldsOn&#39;, () =&gt; true);
   const [relatedOnState, setRelatedOn] = useFilterState(&#39;base:relatedOn&#39;, () =&gt; isFields);
   const relatedOn = isFields || relatedOnState;
   const [related, setRelated] = useFilterState&lt;RelatedRow[]&gt;(&#39;base:related&#39;, () =&gt; (isFields ? [] : [emptyRelatedRow(&#39;related-1&#39;)]));
@@ -23196,7 +23270,7 @@ function BaseFilterSection({ showHeading = true, layout = &#39;cards&#39; }: { s
       &lt;/div&gt;
       &lt;div className=&quot;cmr-filter__add-condition&quot;&gt;
         &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; onClick={() =&gt; setRelated((current) =&gt; [...current, emptyRelatedRow(`related-${Date.now()}`)])}&gt;
-          Add Condition
+          {isFields ? &#39;Add criteria&#39; : &#39;Add Condition&#39;}
         &lt;/Button&gt;
       &lt;/div&gt;
     &lt;/&gt;
@@ -23208,9 +23282,15 @@ function BaseFilterSection({ showHeading = true, layout = &#39;cards&#39; }: { s
         /* Version 2: one bordered card, both groups always shown. */
         &lt;div className=&quot;cmr-filter__card cmr-filter__combined cmr-filter__combined--fields&quot;&gt;
           &lt;CriteriaCard title=&quot;Filter by Fields&quot;&gt;
-            &lt;CriteriaRows idPrefix=&quot;base&quot; /&gt;
+            {fieldsOn ? (
+              &lt;CriteriaRows idPrefix=&quot;base&quot; onEmpty={() =&gt; setFieldsOn(false)} /&gt;
+            ) : (
+              &lt;div className=&quot;cmr-filter__add-condition&quot;&gt;
+                &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; aria-label=&quot;Add criteria for fields&quot; onClick={() =&gt; setFieldsOn(true)}&gt;Add criteria&lt;/Button&gt;
+              &lt;/div&gt;
+            )}
           &lt;/CriteriaCard&gt;
-          &lt;CriteriaCard title=&quot;Filter by Related Module&quot;&gt;
+          &lt;CriteriaCard title=&quot;Filter by Related Modules&quot;&gt;
             {relatedContent}
           &lt;/CriteriaCard&gt;
         &lt;/div&gt;
@@ -23316,9 +23396,9 @@ function FilterSections({ plain = false }: { plain?: boolean }) {
 }
 
 const FILTER_TABS = [
-  { id: &#39;base&#39;, label: &#39;Base Filter&#39; },
-  { id: &#39;quick&#39;, label: &#39;Quick Filter&#39; },
-  { id: &#39;territory&#39;, label: &#39;Territory Filter&#39; },
+  { id: &#39;base&#39;, label: V2_TITLES.base },
+  { id: &#39;quick&#39;, label: V2_TITLES.quick },
+  { id: &#39;territory&#39;, label: V2_TITLES.territory },
 ] as const;
 type FilterTabId = (typeof FILTER_TABS)[number][&#39;id&#39;];
 
@@ -23331,9 +23411,9 @@ function FilterTabs({ initialTab = &#39;base&#39; }: { initialTab?: FilterTabId 
       &lt;div className=&quot;cmr-filter__tabs&quot;&gt;
         &lt;Tabs tabs={FILTER_TABS as unknown as { id: string; label: string }[]} activeTab={tab} onChange={(id: string) =&gt; setTab(id as FilterTabId)} variant=&quot;primary&quot; /&gt;
       &lt;/div&gt;
-      &lt;p className=&quot;cmr-filter__tab-desc&quot;&gt;{FILTER_DESCRIPTIONS[tab]}&lt;/p&gt;
+      &lt;p className=&quot;cmr-filter__tab-desc&quot;&gt;{V2_DESCRIPTIONS[tab]}&lt;/p&gt;
       &lt;div hidden={tab !== &#39;base&#39;}&gt;&lt;BaseFilterSection showHeading={false} layout=&quot;fields&quot; /&gt;&lt;/div&gt;
-      &lt;div hidden={tab !== &#39;quick&#39;}&gt;&lt;CriteriaSection title=&quot;Quick Filter&quot; description={FILTER_DESCRIPTIONS.quick} idPrefix=&quot;quick&quot; showHeading={false} /&gt;&lt;/div&gt;
+      &lt;div hidden={tab !== &#39;quick&#39;}&gt;&lt;CriteriaSection title={V2_TITLES.quick} description={V2_DESCRIPTIONS.quick} idPrefix=&quot;quick&quot; showHeading={false} /&gt;&lt;/div&gt;
       &lt;div hidden={tab !== &#39;territory&#39;}&gt;&lt;TerritorySection showHeading={false} clearable /&gt;&lt;/div&gt;
     &lt;/div&gt;
   );
@@ -23355,7 +23435,7 @@ function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 
   return (
     &lt;Modal
       isOpen={isOpen}
-      title=&quot;Add Filter&quot;
+      title={version === 2 ? V2_MODAL_TITLE : &#39;Add Filter&#39;}
       // 1080px fits the Base Filter module row (module + field + condition + value + minus/plus) inside the 30px side padding.
       width=&quot;min(1080px, 100vw)&quot;
       className={version === 1 ? &#39;cmr-filter&#39; : &#39;cmr-filter cmr-filter--v11&#39;}
@@ -23408,7 +23488,13 @@ type SavedFilterId = &#39;base&#39; | &#39;quick&#39; | &#39;territory&#39;;
 type TerritorySentence = { lead: string; operator?: string; values?: string; suffix?: string };
 type SavedFilter = { id: SavedFilterId; title: string; summary?: Record&lt;string, unknown&gt;; sentence?: TerritorySentence };
 
-function buildSavedFilters(snapshot: FilterSnapshot): SavedFilter[] {
+function buildSavedFilters(snapshot: FilterSnapshot, version: FilterVersion = 1): SavedFilter[] {
+  const raw = buildSavedFiltersV1(snapshot);
+  // Version 2 names the saved cards after its tabs.
+  return version === 2 ? raw.map((filter) =&gt; ({ ...filter, title: V2_TITLES[filter.id] })) : raw;
+}
+
+function buildSavedFiltersV1(snapshot: FilterSnapshot): SavedFilter[] {
   const result: SavedFilter[] = [];
 
   // Base: primary-module criteria, plus related modules when that card is on.
@@ -23585,7 +23671,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
   const [focus, setFocus] = useState&lt;FilterTabId&gt;(&#39;base&#39;);
   const [toast, setToast] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const savedFilters = useMemo(() =&gt; buildSavedFilters(saved), [saved]);
+  const savedFilters = useMemo(() =&gt; buildSavedFilters(saved, filterVersion), [saved, filterVersion]);
   const openModal = (section: FilterTabId = &#39;base&#39;) =&gt; { setFocus(section); setModalOpen(true); };
   // The success alert hides itself after a few seconds (or on ✕).
   useEffect(() =&gt; {
@@ -23647,7 +23733,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
                 className=&quot;cmr__add-filter&quot;
                 onClick={() =&gt; openModal()}
               &gt;
-                Add Filter
+                {filterVersion === 2 ? V2_CONFIGURE_LABEL : &#39;Add Filter&#39;}
               &lt;/Button&gt;
             &lt;/div&gt;
           )}
@@ -24020,14 +24106,14 @@ export const SavedFiltersV2Checks: Story = {
   play: async ({ canvasElement }) =&gt; {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
-    const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
-    await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; })).toBeVisible());
-    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure Filters&#39; }));
+    const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Filter Configuration&#39; }));
+    await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; })).toBeVisible());
+    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; }));
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; }));
     await userEvent.click(await body.findByRole(&#39;option&#39;, { name: &#39;All Territories&#39; }));
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Apply&#39; }));
-    const savedRegion = await canvas.findByRole(&#39;region&#39;, { name: &#39;Saved Territory Filter&#39; });
+    const savedRegion = await canvas.findByRole(&#39;region&#39;, { name: &#39;Saved Territory&#39; });
     await expect(within(savedRegion).getByText(&#39;All Territories&#39;)).toBeVisible();
     await expect(canvas.queryByText(&#39;No filters applied&#39;)).toBeNull();
     await waitFor(() =&gt; expect(canvas.getByText(&#39;Filter applied successfully&#39;)).toBeVisible());
@@ -24035,16 +24121,16 @@ export const SavedFiltersV2Checks: Story = {
     await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Delete filters&#39; })).toBeNull();
     // Shared Edit reopens Version 2 with the applied values.
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit filters&#39; }));
-    const reopened = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
-    await waitFor(() =&gt; expect(reopened.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; })).toBeVisible());
-    await userEvent.click(reopened.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
+    const reopened = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Filter Configuration&#39; }));
+    await waitFor(() =&gt; expect(reopened.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; })).toBeVisible());
+    await userEvent.click(reopened.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; }));
     await expect(reopened.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; })).toHaveTextContent(&#39;All Territories&#39;);
     await userEvent.click(reopened.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39; }));
   },
 };
 
 export const AddFilterModalV2: Story = {
-  name: &#39;Add Filter modal · Version 2&#39;,
+  name: &#39;Filter Configuration · Version 2&#39;,
   render: () =&gt; &lt;CrossModuleReportsPage filterVersion={2} /&gt;,
 };
 
@@ -24056,41 +24142,53 @@ export const AddFilterModalV2Checks: Story = {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     // Opens only on click.
-    await expect(body.queryByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
-    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
-    const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Add Filter&#39; }));
-    await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Base Filter&#39; })).toHaveAttribute(&#39;aria-selected&#39;, &#39;true&#39;));
-    await waitFor(() =&gt; expect(dialog.getByText(FILTER_DESCRIPTIONS.base)).toBeVisible());
+    await expect(body.queryByRole(&#39;dialog&#39;, { name: &#39;Filter Configuration&#39; })).toBeNull();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure Filters&#39; }));
+    const dialog = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;Filter Configuration&#39; }));
+    await waitFor(() =&gt; expect(dialog.getByRole(&#39;tab&#39;, { name: &#39;Report Filters&#39; })).toHaveAttribute(&#39;aria-selected&#39;, &#39;true&#39;));
+    await waitFor(() =&gt; expect(dialog.getByText(V2_DESCRIPTIONS.base)).toBeVisible());
     // One combined card: Filter by Fields (no module picker or label) + Filter by Related Module.
     await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Filter by Fields&#39; })).toBeVisible();
-    await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Filter by Related Module&#39; })).toBeVisible();
+    await expect(dialog.getByRole(&#39;heading&#39;, { name: &#39;Filter by Related Modules&#39; })).toBeVisible();
+    // Filter by Fields opens with one criteria that has a minus; Related Modules shows only &quot;Add criteria&quot;.
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add criteria for fields&#39; })).toBeNull();
+    await expect(dialog.getAllByRole(&#39;button&#39;, { name: &#39;Add row&#39; })).toHaveLength(1);
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove row&#39; }));
+    // Removing the last criteria brings the button back; clicking it reopens one criteria.
+    await expect(await dialog.findByRole(&#39;button&#39;, { name: &#39;Add criteria for fields&#39; })).toBeVisible();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add row&#39; })).toBeNull();
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Add criteria for fields&#39; }));
+    await expect(dialog.getAllByRole(&#39;button&#39;, { name: &#39;Add row&#39; })).toHaveLength(1);
+    await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove row&#39; })).toBeVisible();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add criteria for fields&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;heading&#39;, { name: &#39;Specify Criteria&#39; })).toBeNull();
     await expect(dialog.queryByText(&#39;Contact&#39;, { selector: &#39;.criteria-builder-module-label&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Filter by Related Module&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: /^Remove Related/ })).toBeNull();
     // Related modules start with just Add Condition; the first row gets a minus.
     await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Related module 1&#39; })).toBeNull();
-    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Add Condition&#39; }));
+    await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Add criteria&#39; }));
     await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove related module 1&#39; })).toBeVisible();
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Remove related module 1&#39; }));
     await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Related module 1&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; })).toBeNull();
+    await expect(dialog.queryByRole(&#39;button&#39;, { name: &#39;Add Condition&#39; })).toBeNull();
     await expect(dialog.queryByRole(&#39;button&#39;, { name: /^Remove (Quick|Territory)/ })).toBeNull();
 
-    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Quick Filter&#39; }));
-    await expect(dialog.getByText(FILTER_DESCRIPTIONS.quick)).toBeVisible();
-    await expect(dialog.queryByText(FILTER_DESCRIPTIONS.base)).toBeNull();
+    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Quick View&#39; }));
+    await expect(dialog.getByText(V2_DESCRIPTIONS.quick)).toBeVisible();
+    await expect(dialog.queryByText(V2_DESCRIPTIONS.base)).toBeNull();
     await expect(dialog.queryByRole(&#39;heading&#39;, { name: &#39;Specify Criteria&#39; })).toBeNull();
 
-    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
-    await expect(dialog.getByText(FILTER_DESCRIPTIONS.territory)).toBeVisible();
+    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; }));
+    await expect(dialog.getByText(V2_DESCRIPTIONS.territory, { selector: &#39;.cmr-filter__tab-desc&#39; })).toBeVisible();
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; }));
     await userEvent.click(await body.findByRole(&#39;option&#39;, { name: &#39;Custom&#39; }));
     await expect(dialog.getByText(&#39;Include Sub-Territories&#39;)).toBeVisible();
 
     // Edits survive switching tabs.
-    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Base Filter&#39; }));
-    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory Filter&#39; }));
+    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Report Filters&#39; }));
+    await userEvent.click(dialog.getByRole(&#39;tab&#39;, { name: &#39;Territory&#39; }));
     await expect(dialog.getByRole(&#39;button&#39;, { name: &#39;Territory filter type&#39; })).toHaveTextContent(&#39;Custom&#39;);
     // ✕ inside the Territory input clears it.
     await userEvent.click(dialog.getByRole(&#39;button&#39;, { name: &#39;Clear territory&#39; }));
@@ -24242,7 +24340,7 @@ import { Fragment } from "react";</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Add Filter modal · Version 2</span>
+                <span class="ex-name">Filter Configuration · Version 2</span>
                 <span class="badge ok">story ok</span>
               </div>
               
