@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">16/48 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">44/48 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/323 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">16/48 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">44/48 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/324 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>3.9s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.9s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -9581,7 +9581,7 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
       <div class="badges">
         <label for="c-19-design-system-components-mergefield-props" class="badge ok as-toggle">6 prop types</label>
         
-        <label for="c-19-design-system-components-mergefield-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-19-design-system-components-mergefield-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -9644,7 +9644,7 @@ width?: any = 670</code></pre>
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { MergeField } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import { Dropdown, MergeField } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
@@ -9659,6 +9659,11 @@ width?: any = 670</code></pre>
   // Starts empty; the refresh button fills both fields with generated prompts.
   const [prompts, setPrompts] = useState({ single: &#39;&#39;, multi: &#39;&#39; });
   const [seed, setSeed] = useState(0);
+  const [mode, setMode] = useState(&#39;edit&#39;);
+  const clearAll = () =&gt; {
+    setPrompts({ single: &#39;&#39;, multi: &#39;&#39; });
+    setSeed((s) =&gt; s + 1); // remounts both fields empty
+  };
   const regenerate = () =&gt; {
     setPrompts(generatePrompts());
     setSeed((s) =&gt; s + 1); // remounts both fields so they pick up the new defaults
@@ -9731,16 +9736,31 @@ width?: any = 670</code></pre>
       }}
     /&gt;
 
+    &lt;div style={{ position: &#39;absolute&#39;, top: 20, right: 20, zIndex: 1, display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+    &lt;button
+      type=&quot;button&quot;
+      onClick={clearAll}
+      style={{ background: &#39;none&#39;, border: &#39;none&#39;, padding: 0, color: &#39;var(--ds-text-label, #616E88)&#39;, textDecoration: &#39;underline&#39;, fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-base)&#39;, cursor: &#39;pointer&#39; }}
+    &gt;
+      Clear
+    &lt;/button&gt;
+    &lt;Dropdown
+      layout=&quot;vertical&quot;
+      width={150}
+      options={[
+        { value: &#39;edit&#39;, label: &#39;Default&#39; },
+        { value: &#39;readonly&#39;, label: &#39;Read only&#39; },
+      ]}
+      value={mode}
+      onChange={setMode}
+      triggerAriaLabel=&quot;Field mode&quot;
+    /&gt;
     &lt;button
       type=&quot;button&quot;
       onClick={regenerate}
       aria-label=&quot;Generate new AI prompts&quot;
       title=&quot;Generate new AI prompts&quot;
       style={{
-        position: &#39;absolute&#39;,
-        top: 20,
-        right: 20,
-        zIndex: 1,
         width: 32,
         height: 32,
         display: &#39;flex&#39;,
@@ -9756,6 +9776,7 @@ width?: any = 670</code></pre>
     &gt;
       &lt;RefreshGlyph /&gt;
     &lt;/button&gt;
+    &lt;/div&gt;
 
     &lt;h1
       style={{
@@ -9776,6 +9797,7 @@ width?: any = 670</code></pre>
         width={440}
         mergeFields={CRM_FIELDS}
         key={`single-${seed}`}
+        readOnly={mode === &#39;readonly&#39;}
         defaultValue={prompts.single}
       /&gt;
       &lt;MergeField
@@ -9784,10 +9806,58 @@ width?: any = 670</code></pre>
         width={440}
         mergeFields={CRM_FIELDS}
         key={`multi-${seed}`}
+        readOnly={mode === &#39;readonly&#39;}
         defaultValue={prompts.multi}
       /&gt;
     &lt;/div&gt;
   &lt;/div&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Read only</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Read-only: the same sample content in both variants, shown as plain, non-editable text.</div>
+              <pre><code>const ReadOnly = () =&gt; {
+  const [mode, setMode] = useState(&#39;readonly&#39;);
+  return (
+  &lt;SlideFrame
+    title=&quot;Merge Field - Read Only&quot;
+    controls={
+      &lt;Dropdown
+        layout=&quot;vertical&quot;
+        width={150}
+        options={[
+          { value: &#39;edit&#39;, label: &#39;Default&#39; },
+          { value: &#39;readonly&#39;, label: &#39;Read only&#39; },
+        ]}
+        value={mode}
+        onChange={setMode}
+        triggerAriaLabel=&quot;Field mode&quot;
+      /&gt;
+    }
+  &gt;
+    &lt;MergeField
+      label=&quot;Singleline&quot;
+      layout=&quot;vertical&quot;
+      variant=&quot;singleline&quot;
+      width={440}
+      mergeFields={CRM_FIELDS}
+      defaultValue={READ_ONLY_SAMPLE.single}
+      readOnly={mode === &#39;readonly&#39;}
+    /&gt;
+    &lt;MergeField
+      label=&quot;Multiline&quot;
+      layout=&quot;vertical&quot;
+      width={440}
+      mergeFields={CRM_FIELDS}
+      defaultValue={READ_ONLY_SAMPLE.multi}
+      readOnly={mode === &#39;readonly&#39;}
+    /&gt;
+  &lt;/SlideFrame&gt;
   );
 };</code></pre>
             </div>
