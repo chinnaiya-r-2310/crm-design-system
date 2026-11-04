@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
+import { Dropdown } from '../Dropdown';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MergeField } from './MergeField';
 import { within, userEvent, waitFor } from 'storybook/test';
@@ -172,6 +173,11 @@ export const Default: Story = {
     // Starts empty; the refresh button fills both fields with generated prompts.
     const [prompts, setPrompts] = useState({ single: '', multi: '' });
     const [seed, setSeed] = useState(0);
+    const [mode, setMode] = useState('edit');
+    const clearAll = () => {
+      setPrompts({ single: '', multi: '' });
+      setSeed((s) => s + 1); // remounts both fields empty
+    };
     const regenerate = () => {
       setPrompts(generatePrompts());
       setSeed((s) => s + 1); // remounts both fields so they pick up the new defaults
@@ -244,16 +250,31 @@ export const Default: Story = {
         }}
       />
 
+      <div style={{ position: 'absolute', top: 20, right: 20, zIndex: 1, display: 'flex', alignItems: 'center', gap: 8 }}>
+      <button
+        type="button"
+        onClick={clearAll}
+        style={{ background: 'none', border: 'none', padding: 0, color: 'var(--ds-text-label, #616E88)', textDecoration: 'underline', fontFamily: 'var(--ds-font-family-base)', fontSize: 'var(--ds-font-size-base)', cursor: 'pointer' }}
+      >
+        Clear
+      </button>
+      <Dropdown
+        layout="vertical"
+        width={150}
+        options={[
+          { value: 'edit', label: 'Default' },
+          { value: 'readonly', label: 'Read only' },
+        ]}
+        value={mode}
+        onChange={setMode}
+        triggerAriaLabel="Field mode"
+      />
       <button
         type="button"
         onClick={regenerate}
         aria-label="Generate new AI prompts"
         title="Generate new AI prompts"
         style={{
-          position: 'absolute',
-          top: 20,
-          right: 20,
-          zIndex: 1,
           width: 32,
           height: 32,
           display: 'flex',
@@ -269,6 +290,7 @@ export const Default: Story = {
       >
         <RefreshGlyph />
       </button>
+      </div>
 
       <h1
         style={{
@@ -289,6 +311,7 @@ export const Default: Story = {
           width={440}
           mergeFields={CRM_FIELDS}
           key={`single-${seed}`}
+          readOnly={mode === 'readonly'}
           defaultValue={prompts.single}
         />
         <MergeField
@@ -297,10 +320,86 @@ export const Default: Story = {
           width={440}
           mergeFields={CRM_FIELDS}
           key={`multi-${seed}`}
+          readOnly={mode === 'readonly'}
           defaultValue={prompts.multi}
         />
       </div>
     </div>
+    );
+  },
+};
+
+// Presentation slide used by the Default and Read only pages: title centred near
+// the top, subtle colour accents behind, and the content in the middle.
+const SlideFrame = ({ title, children, controls }: { title: string; children: ReactNode; controls?: ReactNode }) => (
+  <div
+    style={{
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      minHeight: '100vh',
+      background: 'var(--ds-bg-common-card, #fff)',
+      fontFamily: 'var(--ds-font-family-base)',
+      boxSizing: 'border-box',
+      padding: '48px 24px',
+      paddingTop: '18vh',
+      overflow: 'hidden',
+    }}
+  >
+    <div aria-hidden="true" style={{ position: 'absolute', top: -120, left: -100, width: 360, height: 360, borderRadius: '50%', background: 'var(--ds-brand-primary, #5464F2)', opacity: 0.35, filter: 'blur(70px)', pointerEvents: 'none' }} />
+    <div aria-hidden="true" style={{ position: 'absolute', bottom: -140, right: -120, width: 420, height: 420, borderRadius: '50%', background: '#1FB97A', opacity: 0.35, filter: 'blur(80px)', pointerEvents: 'none' }} />
+    <div aria-hidden="true" style={{ position: 'absolute', top: '30%', right: '12%', width: 220, height: 220, borderRadius: '50%', background: '#E8A23A', opacity: 0.3, filter: 'blur(60px)', pointerEvents: 'none' }} />
+    {controls && <div style={{ position: 'absolute', top: 20, right: 20, zIndex: 1, display: 'flex', alignItems: 'center', gap: 8 }}>{controls}</div>}
+    <h1 style={{ position: 'relative', fontSize: 28, fontWeight: 600, color: 'var(--ds-text-base)', margin: '0 0 48px' }}>{title}</h1>
+    <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: 32, width: 440 }}>{children}</div>
+  </div>
+);
+
+// Fixed sample content (the first prompt of each set), so the read-only view is stable.
+const READ_ONLY_SAMPLE = { single: SINGLE_PROMPTS[0], multi: MULTI_PROMPTS[0] };
+
+/** Read-only: the same sample content in both variants, shown as plain, non-editable text. */
+export const ReadOnly: Story = {
+  name: 'Read only',
+  parameters: { layout: 'fullscreen' },
+  render: () => {
+    const [mode, setMode] = useState('readonly');
+    return (
+    <SlideFrame
+      title="Merge Field - Read Only"
+      controls={
+        <Dropdown
+          layout="vertical"
+          width={150}
+          options={[
+            { value: 'edit', label: 'Default' },
+            { value: 'readonly', label: 'Read only' },
+          ]}
+          value={mode}
+          onChange={setMode}
+          triggerAriaLabel="Field mode"
+        />
+      }
+    >
+      <MergeField
+        label="Singleline"
+        layout="vertical"
+        variant="singleline"
+        width={440}
+        mergeFields={CRM_FIELDS}
+        defaultValue={READ_ONLY_SAMPLE.single}
+        readOnly={mode === 'readonly'}
+      />
+      <MergeField
+        label="Multiline"
+        layout="vertical"
+        width={440}
+        mergeFields={CRM_FIELDS}
+        defaultValue={READ_ONLY_SAMPLE.multi}
+        readOnly={mode === 'readonly'}
+      />
+    </SlideFrame>
     );
   },
 };

@@ -1,6 +1,6 @@
 import { useId, useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { ResizeHandle, ChevronDownFilled, Search, Check } from '../../foundations/icons/Icons';
+import { ResizeHandle, ChevronDownFilled, Search, Check, Lock } from '../../foundations/icons/Icons';
 import './MergeField.css';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -95,6 +95,10 @@ function createChipElement(opt) {
   const name = opt.label ?? opt.value;
   // Module goes in brackets so same-named fields (e.g. "Email") stay distinct.
   label.textContent = opt.module ? `${name} (${opt.module})` : name;
+  // Full name as a tooltip, set only while the label is actually truncated.
+  chip.addEventListener('mouseenter', () => {
+    chip.title = label.scrollWidth > label.clientWidth ? label.textContent : '';
+  });
   chip.appendChild(label);
 
   // Overlay, not inline siblings — so the chip's own width never changes;
@@ -327,7 +331,7 @@ function MergeFieldPopup({
 // and swallows Enter instead of inserting a line break.
 // ─────────────────────────────────────────────────────────────────────────────
 
-function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields, defaultValue, onChange, disabled, required, singleLine }) {
+function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields, defaultValue, onChange, disabled, readOnly, required, singleLine }) {
   const rootRef = useRef(null);
   const panelRef = useRef(null);
   const matchRef = useRef(null);
@@ -346,6 +350,17 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
   const [activeIndex, setActiveIndex] = useState(0);
   const [pos, setPos] = useState({ top: 0, left: 0 });
   const [customHeight, setCustomHeight] = useState(null);
+  // Multiline starts at 100px once it has any content (the drag handle can still resize it).
+  const [filled, setFilled] = useState(!!defaultValue);
+  const hasContent = () => {
+    const el = rootRef.current;
+    return !!el && (el.textContent.trim() !== '' || !!el.querySelector('.mergefield-token'));
+  };
+  const effectiveMin = !singleLine && filled ? Math.max(minHeight, 100) : minHeight;
+  const syncContent = () => {
+    setFilled(hasContent());
+    onChange?.(serializeEditable(rootRef.current));
+  };
 
   const deselectChip = () => {
     if (selectedChipRef.current) delete selectedChipRef.current.dataset.selected;
@@ -363,7 +378,7 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
     const startY = e.clientY;
     const startHeight = rootRef.current?.offsetHeight ?? minHeight;
     const onMove = (ev) => {
-      setCustomHeight(Math.max(minHeight, startHeight + (ev.clientY - startY)));
+      setCustomHeight(Math.max(effectiveMin, startHeight + (ev.clientY - startY)));
     };
     const onUp = () => {
       document.removeEventListener('mousemove', onMove);
@@ -416,7 +431,7 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
   const handleInput = () => {
     deselectChip();
     refreshTrigger();
-    onChange?.(serializeEditable(rootRef.current));
+    syncContent();
   };
 
   const filteredCount = () => filterFields(mergeFields, query, selectedModule).length;
@@ -434,7 +449,7 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
     closePopup();
     // The search box may have held focus — hand it back to the field, caret after the chip.
     if (newChip) { rootRef.current?.focus(); placeCaretAfter(newChip); }
-    onChange?.(serializeEditable(rootRef.current));
+    syncContent();
   };
 
   // Arrow/Enter/Tab/Escape behave the same whether focus is in the field or in
@@ -461,6 +476,7 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
   };
 
   const handleEditableClick = (e) => {
+    if (readOnly) return; // capsules are display-only in read-only mode
     deselectChip();
     const removeBtn = e.target.closest('.mergefield-token-remove');
     if (removeBtn) {
@@ -469,7 +485,7 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
       const chip = removeBtn.closest('.mergefield-token');
       if (chip) removeChip(chip);
       closePopup();
-      onChange?.(serializeEditable(rootRef.current));
+      syncContent();
       return;
     }
     const chip = e.target.closest('.mergefield-token');
@@ -492,7 +508,7 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
         e.preventDefault();
         removeChip(selectedChipRef.current);
         selectedChipRef.current = null;
-        onChange?.(serializeEditable(rootRef.current));
+        syncContent();
         return;
       }
       const chip = getAdjacentChip(rootRef.current);
@@ -524,20 +540,24 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
     <div
       className="mergefield-wrapper"
       data-required={required || undefined}
-      style={singleLine ? undefined : { '--mf-min-height': `${minHeight}px` }}
+      data-readonly={readOnly || undefined}
+      data-singleline={singleLine || undefined}
+      style={singleLine ? undefined : { '--mf-min-height': `${effectiveMin}px` }}
     >
       <div
         id={inputId}
         ref={rootRef}
         className="mergefield-editable"
         data-singleline={singleLine || undefined}
-        contentEditable={!disabled}
+        contentEditable={!disabled && !readOnly}
         suppressContentEditableWarning
         data-placeholder={placeholder}
         aria-describedby={helperId}
         aria-multiline={!singleLine}
+        aria-readonly={readOnly || undefined}
         role="textbox"
-        style={!singleLine && customHeight !== null ? { minHeight: `${customHeight}px`, maxHeight: `${customHeight}px`, transition: 'none' } : undefined}
+        // Multiline is a fixed 100px box that scrolls when content overflows; the drag handle sets a custom height.
+        style={!singleLine ? { height: `${customHeight ?? 100}px`, minHeight: `${customHeight ?? 100}px`, maxHeight: `${customHeight ?? 100}px`, transition: 'none' } : undefined}
         onInput={handleInput}
         onKeyDown={handleKeyDown}
         onClick={handleEditableClick}
@@ -546,6 +566,11 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
       {!disabled && !singleLine && (
         <div className="mergefield-resize-icon" aria-hidden="true" onMouseDown={handleResizeStart}>
           <ResizeHandle />
+        </div>
+      )}
+      {readOnly && (
+        <div className="mergefield-lock-badge" aria-hidden="true">
+          <Lock />
         </div>
       )}
       {open && (
@@ -605,6 +630,7 @@ export function MergeField({
   onChange,
   error,
   disabled,
+  readOnly,
   required,
   id: idProp,
   style,
@@ -614,7 +640,7 @@ export function MergeField({
   const helperId = helperText ? `${inputId}-helper` : undefined;
 
   const rootStyle = { width: typeof width === 'number' ? `${width}px` : width, ...style };
-  const rootVariant = disabled ? 'disabled' : error ? 'error' : undefined;
+  const rootVariant = disabled ? 'disabled' : readOnly ? 'readonly' : error ? 'error' : undefined;
 
   const fieldEl = (
     <EditableField
@@ -626,12 +652,14 @@ export function MergeField({
       defaultValue={defaultValue ?? value}
       onChange={onChange}
       disabled={disabled}
+      readOnly={readOnly}
       required={required}
       singleLine={variant === 'singleline'}
     />
   );
 
-  const hintEl = hint && !error ? <span className="mergefield-hint">{hint}</span> : null;
+  // The "Type # to insert" hint is an editing aid, so it's hidden in read-only mode.
+  const hintEl = hint && !error && !readOnly ? <span className="mergefield-hint">{hint}</span> : null;
 
   const helperEl = helperText ? (
     <span id={helperId} className="mergefield-helper-text">

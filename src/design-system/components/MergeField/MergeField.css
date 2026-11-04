@@ -76,6 +76,101 @@
   width: 100%;
 }
 
+/* ── Read-only — matches Textarea's read-only look: muted fill and border, normal
+   text, and an opaque lock strip on the right. Non-interactive: no resize,
+   hover/focus change, or capsule actions. */
+/* The muted fill sits on the wrapper; the field is transparent and stacks above the
+   lock strip so its scrollbar and drag handle stay visible. */
+.mergefield-root[data-variant="readonly"] .mergefield-wrapper {
+  background: var(--ds-components-input-disable-bg);
+  border-radius: 6px;
+}
+
+.mergefield-root[data-variant="readonly"] .mergefield-editable,
+.mergefield-root[data-variant="readonly"] .mergefield-editable:hover,
+.mergefield-root[data-variant="readonly"] .mergefield-editable:focus,
+.mergefield-root[data-variant="readonly"] .mergefield-editable:focus-within {
+  background: transparent;
+  border-color: var(--ds-components-input-disable-outline);
+  box-shadow: none;
+  color: var(--ds-text-base);
+  cursor: default;
+  position: relative;
+  z-index: 1;
+}
+
+.mergefield-root[data-variant="readonly"] .mergefield-editable {
+  padding-right: 42px; /* keeps text clear of the lock strip */
+}
+
+/* Single line: the field stops short of the lock strip, so text is clipped before
+   the lock icon and never runs under it. The strip shows in the space left over. */
+.mergefield-root[data-variant="readonly"] .mergefield-editable[data-singleline] {
+  width: calc(100% - 32px);
+  padding-right: 10px;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+}
+
+.mergefield-root[data-variant="readonly"] .mergefield-wrapper[data-required] .mergefield-editable {
+  border-left-color: var(--ds-components-input-disable-outline);
+}
+
+.mergefield-lock-badge {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  right: 1px;
+  width: 32px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 9px;
+  background: var(--ds-components-input-readonly-lock-bg, #F4F4F6);
+  border-radius: 0 5px 5px 0;
+  color: var(--ds-text-label, #8C91AB);
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+/* Single-line: the strip is only one line tall, so centre the lock in it, and sit it
+   flush against the field's edge so nothing sits between text and lock. */
+.mergefield-wrapper[data-singleline] .mergefield-lock-badge {
+  align-items: center;
+  padding-top: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border: 1px solid var(--ds-components-input-disable-outline);
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+}
+
+/* Single line: text dissolves into the lock strip instead of stopping hard. */
+.mergefield-root[data-variant="readonly"] .mergefield-wrapper[data-singleline]::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  right: 32px;
+  width: 28px;
+  background: linear-gradient(to right, transparent, var(--ds-components-input-disable-bg));
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Read-only capsules have no hover state — they keep their resting fill. */
+.mergefield-root[data-variant="readonly"] .mergefield-token,
+.mergefield-root[data-variant="readonly"] .mergefield-token:hover {
+  cursor: default;
+  background: #F4F7FF;
+}
+
+.mergefield-root[data-variant="readonly"] .mergefield-token-actions,
+.mergefield-root[data-variant="readonly"] .mergefield-token:hover .mergefield-token-actions {
+  display: none;
+}
+
 /* ── Shared field border/background ─────────────────────────────────────── */
 
 .mergefield-editable {
@@ -125,6 +220,14 @@
 /* Figma body text line height for the multiline field (singleline keeps its 32px). */
 .mergefield-editable:not([data-singleline]) {
   line-height: 23px; /* 22px capsule + 1px gap between capsule rows */
+  /* Scrollbar is invisible until the field is hovered or focused. It may overlap the lock strip. */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.mergefield-editable:not([data-singleline]):hover,
+.mergefield-editable:not([data-singleline]):focus {
+  scrollbar-color: var(--ds-components-input-placeholder-text, #B0B7C4) transparent;
 }
 
 .mergefield-editable:empty::before {
@@ -212,8 +315,15 @@
   margin-left: 0;
 }
 
+/* Long names truncate with an ellipsis; the full name shows in a tooltip (see JS). */
 .mergefield-token-label {
   pointer-events: none;
+  display: block;
+  max-width: 180px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* An absolutely-positioned overlay — never part of layout, so the chip's own
