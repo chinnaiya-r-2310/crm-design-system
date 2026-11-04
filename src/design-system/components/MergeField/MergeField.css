@@ -1,0 +1,514 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   MergeField — text field that inserts merge tokens on "#"
+   Same visual language as Input/Textarea (border, states, label layout).
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Root ────────────────────────────────────────────────────────────────── */
+
+.mergefield-root {
+  display: block;
+}
+
+.mergefield-vertical {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mergefield-form-row {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  column-gap: 20px;
+  align-items: start;
+}
+
+.mergefield-field-column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mergefield-label {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-label);
+  word-break: break-word;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.mergefield-form-row .mergefield-label {
+  text-align: right;
+  padding-top: 7px;
+}
+
+.mergefield-hint {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-xs);
+  color: var(--ds-text-muted, #8B9BB8);
+}
+
+.mergefield-helper-text {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-xs);
+  color: var(--ds-text-base);
+}
+
+.mergefield-root[data-variant="error"] .mergefield-helper-text {
+  color: var(--ds-components-input-error-outline);
+}
+
+.mergefield-root[data-variant="disabled"] .mergefield-editable {
+  cursor: not-allowed;
+  color: var(--ds-text-muted);
+  background: var(--ds-components-input-disable-bg);
+  border-color: var(--ds-components-input-disable-outline);
+}
+
+.mergefield-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Shared field border/background ─────────────────────────────────────── */
+
+.mergefield-editable {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--ds-bg-common-card);
+  border: 1px solid var(--ds-components-input-default-outline);
+  border-radius: 6px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-base);
+  color: var(--ds-text-base);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.mergefield-editable:hover {
+  border-color: var(--ds-components-input-hover-outline);
+}
+
+.mergefield-editable:focus,
+.mergefield-editable:focus-within {
+  border-color: var(--ds-components-input-focus-outline);
+  box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow);
+}
+
+.mergefield-root[data-variant="error"] .mergefield-editable {
+  border-color: var(--ds-components-input-error-outline);
+}
+
+.mergefield-wrapper[data-required] .mergefield-editable {
+  border-left: 3px solid var(--ds-components-input-required-accent, #FF5D5A);
+}
+
+/* ── Multiline (contentEditable) ─────────────────────────────────────────── */
+
+.mergefield-editable {
+  min-height: var(--mf-min-height, 70px);
+  padding: 8px 10px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  transition: min-height 200ms ease, max-height 200ms ease;
+}
+
+.mergefield-editable:empty::before {
+  content: attr(data-placeholder);
+  color: var(--ds-components-input-placeholder-text);
+  pointer-events: none;
+}
+
+/* ── Singleline (same contentEditable surface, constrained to one line) ──── */
+
+.mergefield-editable[data-singleline] {
+  height: 34px;
+  min-height: 0;
+  padding: 0 10px;
+  /* line-height (not flex) centers the caret vertically even while the field
+     is completely empty — a flex container has no line box to center an
+     empty caret against, so it renders pinned to the top instead. */
+  line-height: 32px;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* ── Resize icon (multiline only) — mirrors .textarea-resize-icon ───────── */
+
+.mergefield-resize-icon {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  color: var(--ds-components-input-placeholder-text, #B0B7C4);
+  cursor: ns-resize;
+  line-height: 0;
+  z-index: 1;
+}
+
+/* ── Inline token chip (multiline only) ──────────────────────────────────── */
+
+.mergefield-token {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 8px;
+  margin: 2px 3px; /* 3px each side = 6px between capsules, same as .tags-container gap */
+  background: var(--ds-bg-scale-bg4, #EDF0F9);
+  border: 1px solid var(--ds-bg-scale-bg5, #DFE4EF);
+  border-radius: 999px;
+  color: var(--ds-text-base, #313949);
+  font-size: var(--ds-font-size-base);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.mergefield-token:hover {
+  background: var(--ds-bg-scale-bg5, #DFE4EF);
+}
+
+.mergefield-token[data-selected] {
+  background: var(--ds-bg-scale-bg5, #DFE4EF);
+}
+
+/* Singleline: the line box is exactly 32px (line-height), so a 24px capsule
+   top-aligned with a 4px top margin sits precisely in the middle. */
+.mergefield-editable[data-singleline] .mergefield-token {
+  vertical-align: top;
+  margin: 3px 3px 0; /* same 6px gap between capsules as the Tags container */
+}
+
+/* No space before a capsule that opens the field. */
+.mergefield-editable > .mergefield-token:first-child {
+  margin-left: 0;
+}
+
+.mergefield-token-label {
+  pointer-events: none;
+}
+
+/* An absolutely-positioned overlay — never part of layout, so the chip's own
+   width is set by the label alone and never changes. On hover it sits over
+   the tail end of the chip, fading over the label rather than replacing it
+   outright or pushing the chip wider. */
+.mergefield-token-actions {
+  display: flex;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0; /* spacing comes from the close icon's own margin, so it can collapse cleanly */
+  padding: 0 6px 0 14px;
+  background: linear-gradient(to right, transparent, var(--ds-bg-scale-bg5, #DFE4EF) 12px, var(--ds-bg-scale-bg5, #DFE4EF) 100%);
+  border-radius: 0 999px 999px 0;
+}
+
+.mergefield-token:hover .mergefield-token-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mergefield-token-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  color: var(--ds-text-label, #616E88);
+}
+
+.mergefield-token-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--ds-brand-primary, #5464F2);
+  color: #fff;
+  cursor: pointer;
+}
+
+.mergefield-token-remove:hover {
+  background: #4354D4;
+}
+
+/* Close icon only on hover of the capsule (not while it is being changed).
+   Fades and shrinks rather than toggling display, so it animates out smoothly. */
+.mergefield-token-remove {
+  width: 0;
+  margin-left: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.5);
+  pointer-events: none;
+  transition: width 150ms ease, margin-left 150ms ease, opacity 150ms ease, transform 150ms ease, background-color 150ms ease;
+}
+
+.mergefield-token:hover .mergefield-token-remove {
+  width: 14px;
+  margin-left: 4px;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Change case: the capsule being changed takes the hover background, keeps its
+   chevron visible (the backdrop ends hover) and flips it to point up. */
+.mergefield-token-chevron {
+  transition: transform 150ms ease;
+}
+
+.mergefield-token[data-changing] {
+  background: var(--ds-bg-scale-bg5, #DFE4EF);
+}
+
+.mergefield-token[data-changing] .mergefield-token-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mergefield-token[data-changing] .mergefield-token-chevron {
+  transform: rotate(180deg);
+}
+
+/* ── "#" trigger popup ────────────────────────────────────────────────────── */
+
+/* Covers the page while the popup is open (below the popup's own z-index). */
+.mergefield-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1499;
+  background: transparent;
+}
+
+.mergefield-popup {
+  position: fixed;
+  z-index: 1500;
+  min-width: 180px;
+  max-width: 320px;
+  background: var(--ds-components-dropdown-option-bg, #fff);
+  border: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  padding: 6px 0;
+}
+
+/* ── Module filter (shown when any merge field carries a `module`) ───────── */
+
+/* Filter row: module trigger, plus a search box in change mode. */
+.mergefield-popup-head {
+  display: flex;
+  align-items: stretch;
+  margin: 0 6px 6px;
+}
+
+.mergefield-popup-module {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* With a search box beside it, the module trigger shrinks to its label. */
+.mergefield-popup-module[data-has-search] {
+  flex: 0 0 auto;
+}
+
+.mergefield-popup-module[data-has-search] .mergefield-popup-module-trigger {
+  width: auto;
+  border-radius: 6px 0 0 6px;
+}
+
+.mergefield-popup-search {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 10px;
+  margin-left: -1px;
+  background: var(--ds-bg-common-card, #fff);
+  border: 1px solid var(--ds-components-input-default-outline);
+  border-radius: 0 6px 6px 0;
+  box-sizing: border-box;
+  color: var(--ds-text-label, #616E88);
+  cursor: text;
+}
+
+.mergefield-popup-search:hover {
+  border-color: var(--ds-components-input-hover-outline);
+}
+
+/* Focus is shown on the filter row as one unit: both the module trigger and the
+   search box take the focus border together. No box-shadow (intentional). */
+.mergefield-popup-head:focus-within .mergefield-popup-module-trigger,
+.mergefield-popup-head:focus-within .mergefield-popup-search {
+  border-color: var(--ds-components-input-focus-outline);
+}
+
+.mergefield-popup-search svg {
+  flex-shrink: 0;
+}
+
+.mergefield-popup-search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+}
+
+.mergefield-popup-search input::placeholder {
+  color: var(--ds-components-input-placeholder-text, #B0B7C4);
+}
+
+.mergefield-popup-module-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  background: var(--ds-bg-common-card, #fff);
+  border: 1px solid var(--ds-components-input-default-outline);
+  border-radius: 6px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+  cursor: pointer;
+}
+
+.mergefield-popup-module-trigger:hover {
+  border-color: var(--ds-components-input-hover-outline);
+}
+
+.mergefield-popup-module-trigger:focus,
+.mergefield-popup-module-trigger[aria-expanded="true"] {
+  outline: none;
+  border-color: var(--ds-components-input-focus-outline);
+}
+
+/* Chevron is the only affordance on this control — kept clear of any other
+   icon so there's nothing for it to collide with. */
+.mergefield-popup-module-trigger svg {
+  flex-shrink: 0;
+  color: var(--ds-text-label, #616E88);
+  transition: transform 150ms ease;
+}
+
+.mergefield-popup-module-trigger[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.mergefield-popup-module-option {
+  gap: 8px;
+}
+
+.mergefield-popup-module-list .mergefield-popup-option:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+/* Tick for the field being changed (change mode only). */
+.mergefield-popup-check {
+  display: inline-flex;
+  width: 12px;
+  margin-right: 8px;
+  flex-shrink: 0;
+  color: var(--ds-text-base);
+}
+
+.mergefield-popup-module-option[aria-selected="true"] {
+  font-weight: var(--ds-font-weight-medium);
+}
+
+.mergefield-popup-module-check {
+  display: inline-flex;
+  width: 12px;
+  flex-shrink: 0;
+  color: var(--ds-text-base);
+}
+
+.mergefield-popup-module-list {
+  position: absolute;
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  max-width: 260px;
+  top: calc(100% - 1px);
+  background: var(--ds-components-dropdown-option-bg, #fff);
+  border: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  max-height: 160px;
+  overflow-y: auto;
+  padding: 6px 0;
+  z-index: 1;
+}
+
+.mergefield-popup-list {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.mergefield-popup-option {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  margin: 0 6px;
+  padding: 0 10px;
+  border-radius: 5px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+  cursor: pointer;
+  user-select: none;
+}
+
+.mergefield-popup-option[data-active] {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+.mergefield-popup-empty {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-muted, #8C9BAB);
+}

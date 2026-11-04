@@ -97,6 +97,15 @@ export function Dropdown({
   /** Single-select only: shows a ✕ inside the trigger once a value is picked; clicking it calls onChange(''). */
   clearable = false,
   clearAriaLabel = 'Clear selection',
+  /**
+   * Module-filter variant: string[] of module names. Shows a module trigger
+   * joined to the search box, and limits options to the selected module
+   * (options without a `module` always show). Default module: "Leads" if listed, else the first.
+   */
+  moduleFilter,
+  /** Controlled selected module (pair with onModuleChange). Uncontrolled when omitted. */
+  moduleValue,
+  onModuleChange,
 }) {
   const autoId = useId();
   const triggerId = idProp ?? autoId;
@@ -138,12 +147,41 @@ export function Dropdown({
     : (selectedOption?.triggerLabel ?? selectedOption?.label ?? placeholder);
   const isPlaceholder = multiSelect ? activeValues.length === 0 : !selectedOption;
 
-  // Auto-enable search when there are 10 or more options
-  const isSearchable = searchable || options.length >= 10;
+  // Module filter (variant): the selected module scopes the options.
+  const hasModuleFilter = Array.isArray(moduleFilter) && moduleFilter.length > 0;
+  const [internalModule, setInternalModule] = useState(() =>
+    hasModuleFilter ? (moduleFilter.includes('Leads') ? 'Leads' : moduleFilter[0]) : undefined
+  );
+  const [moduleOpen, setModuleOpen] = useState(false);
+  const moduleRef = useRef(null);
+  const activeModule = moduleValue ?? internalModule;
+
+  const selectModule = (m) => {
+    if (onModuleChange) onModuleChange(m);
+    else setInternalModule(m);
+    setModuleOpen(false);
+  };
+
+  // Close the module list on any press outside it.
+  useEffect(() => {
+    if (!moduleOpen) return;
+    const onDown = (e) => {
+      if (!moduleRef.current?.contains(e.target)) setModuleOpen(false);
+    };
+    document.addEventListener('mousedown', onDown);
+    return () => document.removeEventListener('mousedown', onDown);
+  }, [moduleOpen]);
+
+  // Auto-enable search when there are 10 or more options (or a module filter is shown)
+  const isSearchable = searchable || options.length >= 10 || hasModuleFilter;
+
+  const scopedOptions = hasModuleFilter
+    ? options.filter(o => !o.module || o.module === activeModule)
+    : options;
 
   const filtered = isSearchable && search
-    ? options.filter(o => o.label.toLowerCase().includes(search.toLowerCase()))
-    : options;
+    ? scopedOptions.filter(o => o.label.toLowerCase().includes(search.toLowerCase()))
+    : scopedOptions;
 
   // O(1) index lookup for grouped rendering
   const filteredIndexMap = new Map(filtered.map((o, i) => [o.value, i]));
@@ -260,12 +298,12 @@ export function Dropdown({
     }
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Reset to first enabled option when search filter changes
+  // Reset to first enabled option when search filter or module changes
   useEffect(() => {
     if (!open) return;
     const first = filtered.findIndex(o => !o.disabled);
     setActiveIndex(first >= 0 ? first : 0);
-  }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [search, activeModule]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Scroll active option into view — only for keyboard navigation, not mouse hover
   useEffect(() => {
@@ -319,7 +357,7 @@ export function Dropdown({
       ? activeValues.includes(opt.value)
       : opt.value === resolvedValue;
 
-    return (
+    const option = (
       <div
         key={opt.value}
         className='dropdown-option'
@@ -350,6 +388,12 @@ export function Dropdown({
         </span> : <TruncatedLabel text={opt.label} className='dropdown-option-label' wrapperStyle={{ flex: 1, minWidth: 0 }} />}
       </div>
     );
+    return opt.disabled && opt.disabledTooltip ? (
+      <Tooltip key={opt.value} content={opt.disabledTooltip} placement="top" followCursor maxWidth={600}
+        wrapperStyle={{ display: 'block' }}>
+        {option}
+      </Tooltip>
+    ) : option;
   };
 
   const optionListEl = (
@@ -372,6 +416,9 @@ export function Dropdown({
   );
 
   const panelContent = open && panelPos ? createPortal(
+    <>
+    {/* Transparent layer under the panel: swallows clicks and hover on the page behind it. */}
+    <div className='dropdown-backdrop' aria-hidden="true" onMouseDown={() => setOpen(false)} />
     <div
       ref={panelRef}
       id={listId}
@@ -388,8 +435,41 @@ export function Dropdown({
       onKeyDown={handleKeyDown}
     >
       {isSearchable && (
-        <div className='dropdown-search-row'>
-          <div className='dropdown-search-box'>
+        <div className={hasModuleFilter ? 'dropdown-search-row dropdown-search-row--filter' : 'dropdown-search-row'}>
+          {hasModuleFilter && (
+            <div className='dropdown-filter-module' ref={moduleRef}>
+              <button
+                type="button"
+                className='dropdown-filter-module-trigger'
+                aria-haspopup="listbox"
+                aria-expanded={moduleOpen}
+                onClick={() => setModuleOpen(o => !o)}
+              >
+                <span>{activeModule}</span>
+                <ChevronDownFilled aria-hidden="true" />
+              </button>
+              {moduleOpen && (
+                <div className='dropdown-filter-module-list' role="listbox" aria-label="Module">
+                  {moduleFilter.map(m => (
+                    <div
+                      key={m}
+                      role="option"
+                      aria-selected={m === activeModule}
+                      data-active={m === activeModule || undefined}
+                      className='dropdown-filter-module-option'
+                      onClick={() => selectModule(m)}
+                    >
+                      <span className='dropdown-filter-module-check' aria-hidden="true">
+                        {m === activeModule && <Check />}
+                      </span>
+                      {m}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          <div className={hasModuleFilter ? 'dropdown-search-box dropdown-search-box--joined' : 'dropdown-search-box'}>
             <span className='dropdown-search-icon'><SearchIcon /></span>
             <input
               ref={searchRef}
@@ -437,7 +517,8 @@ export function Dropdown({
           )}
         </div>
       )}
-    </div>,
+    </div>
+    </>,
     document.body
   ) : null;
 

@@ -77,16 +77,28 @@
 .record-auth .button-link-btn,
 .record-auth-config-modal .button-link-btn,
 .record-auth-template-modal .button-link-btn { text-decoration: none; }
-.record-auth-form { --record-auth-form-columns: 23ch minmax(0, 1fr); display: flex; flex-direction: column; gap: var(--ds-line-height-h2); min-width: 0; color: var(--ds-text-base); font-family: var(--ds-font-family-base); font-size: var(--ds-font-size-base); line-height: var(--ds-line-height-base); }
+.record-auth-form { --record-auth-form-columns: 11ch minmax(0, 1fr); display: flex; flex-direction: column; gap: var(--ds-line-height-h2); min-width: 0; color: var(--ds-text-base); font-family: var(--ds-font-family-base); font-size: var(--ds-font-size-base); line-height: var(--ds-line-height-base); }
 .record-auth-form *, .record-auth-form *::before, .record-auth-form *::after { box-sizing: border-box; }
 .record-auth-form__section { display: flex; flex-direction: column; gap: var(--ds-line-height-base); min-width: 0; border: 0; padding: 0; margin: 0; }
-.record-auth-form__row { display: grid; grid-template-columns: var(--record-auth-form-columns); gap: calc(var(--ds-line-height-base) / 1.5); align-items: first baseline; }
-.record-auth-form__label { text-align: right; color: var(--ds-text-label); }
+.record-auth-form__row { display: grid; grid-template-columns: var(--record-auth-form-columns); gap: calc(var(--ds-line-height-base) / 1.5); align-items: start; }
+.record-auth-form__label { text-align: right; color: var(--ds-text-label); padding-top: 7px; line-height: var(--ds-line-height-base); }
 .record-auth-form__row > :last-child { min-width: 0; }
 .record-auth-form__number { display: flex; align-items: center; gap: calc(var(--ds-line-height-base) / 2); }
 .record-auth-form__number > :first-child { flex: 1; min-width: 0; }
 .record-auth-form__number > span { flex-shrink: 0; white-space: nowrap; color: var(--ds-text-base); }
 .record-auth-form__inline { display: flex; align-items: center; gap: var(--ds-line-height-base); flex-wrap: wrap; }
+.record-auth-form__inline[role="radiogroup"] { min-height: 34px; }
+.record-auth-form__field-selection { display: flex; flex-direction: column; gap: 8px; }
+:is(.record-auth-config-modal, .record-auth-template-modal, .record-auth-preview-modal) :is(.checkbox-root, .radio-root) { align-items: center; }
+:is(.record-auth-config-modal, .record-auth-template-modal, .record-auth-preview-modal) :is(.checkbox-control, .radio-control) { align-self: center; flex-shrink: 0; }
+:is(.record-auth-config-modal, .record-auth-template-modal, .record-auth-preview-modal) :is(.checkbox-label-text, .radio-label-text) { display: inline-flex; align-items: center; line-height: var(--ds-line-height-base); }
+.record-auth-form .checkbox-root,
+.record-auth-form .radio-root { align-items: center; align-self: center; }
+.record-auth-form__field-selection > .checkbox-root { align-self: flex-start; }
+.record-auth-form .checkbox-control,
+.record-auth-form .radio-control { display: inline-flex; align-self: center; }
+.record-auth-form .checkbox-label-text,
+.record-auth-form .radio-label-text { display: inline-flex; align-items: center; line-height: var(--ds-line-height-base); }
 .record-auth-form__preview { margin-top: var(--ds-line-height-sm); }
 .record-auth-form__preview p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .record-auth-form__preview + .button-link-btn { margin-top: 5px; }
@@ -105,18 +117,32 @@
   width: 14px; height: 14px; padding: 0;
   border: 0;
   background: transparent; color: var(--ds-text-label);
-  cursor: help;
+  cursor: default;
 }
-.record-confirmation-modal .record-auth-form { --record-auth-form-columns: 23ch minmax(0, 390px); }
-.record-confirmation-modal .record-auth-form__row > :last-child { width: 390px; max-width: 100%; }
-.record-confirmation-modal .record-confirmation__criteria { grid-template-columns: minmax(0, 1fr); }
+.record-confirmation-modal .record-auth-form { --record-auth-form-columns: 11ch minmax(0, 390px); }
+.record-confirmation-modal .record-auth-form__row > :last-child { width: 390px; max-width: 100%; min-width: 0; }
+.record-confirmation-modal .record-confirmation__criteria { grid-template-columns: minmax(0, 1fr) minmax(0, .6fr) minmax(0, 1fr); align-items: start; }
+.record-auth-config-modal .modal-body { scrollbar-gutter: auto; }
+/* Keep the 6px focus glow inside the scroll viewport at both form edges.
+   Matching negative margins preserve the existing content positions. */
+.record-auth-config-modal .modal-body,
+.record-auth-template-modal .modal-body {
+  display: block;
+  padding-block: 8px;
+  margin-block: -8px;
+}
+.record-auth-config-modal .input-input { padding-inline: 10px; }
+.record-auth-config-modal .record-auth-form__number .input-root { min-width: 0; }
+.record-confirmation__criteria .dropdown-trigger-value { padding-inline: calc(var(--ds-line-height-base) / 3); }
+.record-confirmation__criteria .dropdown-chevron { width: var(--ds-line-height-base); }
+.record-confirmation .record-auth__summary { max-width: calc(var(--ds-line-height-base) * 32); }
 .dropdown-panel[id^="record-consent-"] .dropdown-option-description {
   font-family: 'Zoho Puvi', var(--ds-font-family-base);
   font-size: 13px;
 }
 @media (max-width: 600px) {
   .record-confirmation-modal .record-auth-form { --record-auth-form-columns: minmax(0, 1fr); }
-  .record-confirmation__when-label { justify-content: flex-start; }
+  .record-confirmation__when-label { justify-content: flex-end; }
 }
 .record-confirmation__info:focus-visible { outline: 2px solid var(--ds-text-link); outline-offset: 2px; }
 .record-confirmation__description { margin: 0; color: var(--ds-text-label); }
@@ -170,7 +196,7 @@
   .record-auth__module-tabs { padding-inline: var(--ds-line-height-base); }
   .record-auth-form { --record-auth-form-columns: minmax(0, 1fr); }
   .record-auth-form__row { grid-template-columns: minmax(0, 1fr); gap: calc(var(--ds-line-height-base) / 3); }
-  .record-auth-form__label { text-align: left; padding: 0; }
+  .record-auth-form__label { text-align: right; padding: 0; }
 }
 
 /* Template modal: Figma Modal/Form 54195:187585, reused for email and page. */

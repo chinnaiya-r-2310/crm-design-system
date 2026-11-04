@@ -39,7 +39,7 @@ export const VERIFICATION_PAGES = [
 ];
 export function defaultConfig(channel: Channel): VerificationConfig {
   return {
-    fields: (channel === 'phone' ? PHONE_FIELDS : EMAIL_FIELDS).slice(0, 2),
+    fields: [],
     restrict: false,
     validity: channel === 'phone' ? '4' : '7',
     digits: '6',

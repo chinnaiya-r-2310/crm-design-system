@@ -48,6 +48,7 @@ export function Tooltip({
   wrapperStyle,
   wrapperClassName,
   as: Wrapper = 'span',
+  maxWidth,
 }) {
   const [visible, setVisible] = useState(false);
   const [rect, setRect] = useState(null);
@@ -138,6 +139,7 @@ export function Tooltip({
     <span
       ref={tooltipRef}
       role="tooltip"
+      style={maxWidth ? { maxWidth: `min(${typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth}, calc(100vw - 16px))` } : undefined}
       className={`tooltip-tooltip tooltip-${variant} tooltip-placement-${effectivePlacement}`}
     >
       <span className="tooltip-arrow" aria-hidden="true" />

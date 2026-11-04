@@ -13,6 +13,7 @@ export { Dropdown } from './design-system/components/Dropdown';
 export { FormSection } from './design-system/components/FormSection';
 export { Icon, iconMap } from './design-system/components/Icon';
 export { Input, DateTimeInput } from './design-system/components/Input';
+export { MergeField } from './design-system/components/MergeField';
 export { MessageBox } from './design-system/components/MessageBox';
 export { Modal } from './design-system/components/Modal';
 export { Radio } from './design-system/components/Radio';

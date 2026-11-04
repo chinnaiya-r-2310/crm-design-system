@@ -261,8 +261,16 @@
 }
 
 .tabs-indicator[data-animated] {
-  transition: left 220ms cubic-bezier(0.4, 0, 0.2, 1),
+  transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1),
               top 220ms cubic-bezier(0.4, 0, 0.2, 1),
               width 220ms cubic-bezier(0.4, 0, 0.2, 1),
               height 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs-indicator[data-animated], .tabs-tab { transition: none; }
+}
+.tabs-tab:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline);
+  outline-offset: 2px;
 }

@@ -29,7 +29,7 @@ export function Tabs({
     const borderLeft = parseFloat(getComputedStyle(container).borderLeftWidth) || 0;
 
     setIndicator({
-      left: elRect.left - containerRect.left - borderLeft,
+      left: elRect.left - containerRect.left - borderLeft + container.scrollLeft,
       width: elRect.width,
     });
   }, [activeTab, tabs]);
@@ -72,7 +72,7 @@ export function Tabs({
       <span
         className={'tabs-indicator'}
         data-animated={animated || undefined}
-        style={indicator}
+        style={{ left: 0, width: indicator.width, transform: `translateX(${indicator.left}px)` }}
         aria-hidden="true"
       />
     </div>
