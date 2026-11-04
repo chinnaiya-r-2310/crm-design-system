@@ -124,7 +124,7 @@
 
 /* Figma body text line height for the multiline field (singleline keeps its 32px). */
 .mergefield-editable:not([data-singleline]) {
-  line-height: 17px;
+  line-height: 23px; /* 22px capsule + 1px gap between capsule rows */
 }
 
 .mergefield-editable:empty::before {
@@ -174,9 +174,9 @@
   height: 22px; /* 24px less 1px top and bottom */
   padding: 0 4px; /* Figma Merge Tag: 4px inset */
   /* Flush with the text on the left; 6px gap to the next capsule, same as .tags-container.
-     Negative top/bottom margins keep the 22px capsule's margin box at the 17px line
-     height, so lines with capsules are the same height as text-only lines. */
-  margin: -2.5px 6px -2.5px 0;
+     The 1px bottom margin makes each capsule's margin box 23px (the line height), so
+     capsule rows sit 1px apart and lines with capsules match text-only lines. */
+  margin: -3px 6px 0 0;
   vertical-align: baseline; /* keeps lines with capsules the same height as text-only lines */
   background: #F4F7FF; /* Figma Merge Tag fill */
   border: none;
@@ -187,8 +187,8 @@
   cursor: pointer;
   user-select: none;
   vertical-align: middle;
-  /* Optically centered on the neighboring text (measured: text sits ~1px higher). */
-  top: -1px;
+  /* Centered on the neighboring text (measured). */
+  top: 0;
 }
 
 .mergefield-token:hover {

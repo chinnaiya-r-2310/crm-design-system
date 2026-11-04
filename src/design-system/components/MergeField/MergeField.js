@@ -383,12 +383,15 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
   const refreshTrigger = () => {
     const match = getCaretTriggerMatch(rootRef.current);
     if (!match) { closePopup(); return; }
+    const prev = matchRef.current;
     matchRef.current = { type: 'insert', ...match };
     const rect = getCaretRect(rootRef.current);
     setPos({ top: rect.bottom, left: rect.left });
     setMode('insert');
     setQuery(match.query);
-    setActiveIndex(0);
+    // Only restart the highlight when the typed query changes. This runs on every
+    // key-up, so resetting unconditionally would undo an arrow-key selection.
+    if (!open || prev?.query !== match.query) setActiveIndex(0);
     setOpen(true);
   };
 
