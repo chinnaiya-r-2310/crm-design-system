@@ -126,11 +126,16 @@
   align-items: flex-start;
   justify-content: center;
   padding-top: 9px;
-  background: var(--ds-components-input-readonly-lock-bg, #F4F4F6);
+  background: transparent;
   border-radius: 0 5px 5px 0;
   color: var(--ds-text-label, #8C91AB);
   box-sizing: border-box;
   pointer-events: none;
+}
+
+/* Chrome/Safari: hide the scrollbar on single-line fields, keep scrolling. */
+.mergefield-editable[data-singleline]::-webkit-scrollbar {
+  display: none;
 }
 
 /* Single-line: the strip is only one line tall, so centre the lock in it, and sit it
@@ -247,8 +252,10 @@
      empty caret against, so it renders pinned to the top instead. */
   line-height: 32px;
   white-space: nowrap;
-  overflow-x: auto;
+  overflow-x: auto; /* still scrollable so all text can be viewed... */
   overflow-y: hidden;
+  scrollbar-width: none; /* ...but the scrollbar itself is hidden (Firefox) */
+  -ms-overflow-style: none; /* IE/Edge legacy */
 }
 
 /* ── Resize icon (multiline only) — mirrors .textarea-resize-icon ───────── */
