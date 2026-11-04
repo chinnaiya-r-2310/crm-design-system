@@ -122,6 +122,11 @@
   transition: min-height 200ms ease, max-height 200ms ease;
 }
 
+/* Figma body text line height for the multiline field (singleline keeps its 32px). */
+.mergefield-editable:not([data-singleline]) {
+  line-height: 17px;
+}
+
 .mergefield-editable:empty::before {
   content: attr(data-placeholder);
   color: var(--ds-components-input-placeholder-text);
@@ -166,18 +171,24 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  height: 24px;
-  padding: 0 8px;
-  margin: 2px 3px; /* 3px each side = 6px between capsules, same as .tags-container gap */
-  background: var(--ds-bg-scale-bg4, #EDF0F9);
-  border: 1px solid var(--ds-bg-scale-bg5, #DFE4EF);
-  border-radius: 999px;
-  color: var(--ds-text-base, #313949);
-  font-size: var(--ds-font-size-base);
+  height: 22px; /* 24px less 1px top and bottom */
+  padding: 0 4px; /* Figma Merge Tag: 4px inset */
+  /* Flush with the text on the left; 6px gap to the next capsule, same as .tags-container.
+     Negative top/bottom margins keep the 22px capsule's margin box at the 17px line
+     height, so lines with capsules are the same height as text-only lines. */
+  margin: -2.5px 6px -2.5px 0;
+  vertical-align: baseline; /* keeps lines with capsules the same height as text-only lines */
+  background: #F4F7FF; /* Figma Merge Tag fill */
+  border: none;
+  border-radius: 4px; /* Figma Merge Tag radius */
+  color: var(--ds-text-label, #616E88); /* Figma Merge Tag label color */
+  font-size: calc(var(--ds-font-size-base) - 1px); /* 1px smaller than body text */
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
   vertical-align: middle;
+  /* Optically centered on the neighboring text (measured: text sits ~1px higher). */
+  top: -1px;
 }
 
 .mergefield-token:hover {
@@ -192,7 +203,8 @@
    top-aligned with a 4px top margin sits precisely in the middle. */
 .mergefield-editable[data-singleline] .mergefield-token {
   vertical-align: top;
-  margin: 3px 3px 0; /* same 6px gap between capsules as the Tags container */
+  margin: 5px 6px 0 0; /* centers the 22px capsule in the 32px line; flush left with the text */
+  top: 0; /* same 6px gap between capsules as the Tags container */
 }
 
 /* No space before a capsule that opens the field. */
@@ -291,6 +303,15 @@
 
 .mergefield-token[data-changing] .mergefield-token-actions {
   opacity: 1;
+  pointer-events: auto;
+}
+
+/* Focus (change) state keeps the close icon visible, same as hover. */
+.mergefield-token[data-changing] .mergefield-token-remove {
+  width: 14px;
+  margin-left: 4px;
+  opacity: 1;
+  transform: scale(1);
   pointer-events: auto;
 }
 
