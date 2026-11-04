@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">16/47 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">44/47 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/315 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">16/48 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">44/48 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/323 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>6.0s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -6898,7 +6898,7 @@ width?: any = 320</code></pre>
       <div class="badges">
         <label for="c-14-design-system-components-dropdown-props" class="badge ok as-toggle">9 prop types</label>
         <label for="c-14-design-system-components-dropdown-info" class="badge info as-toggle">1 info</label>
-        <label for="c-14-design-system-components-dropdown-stories" class="badge ok as-toggle">15 stories</label>
+        <label for="c-14-design-system-components-dropdown-stories" class="badge ok as-toggle">16 stories</label>
         
         
       </div>
@@ -7111,11 +7111,32 @@ width?: any = 670</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
+                <span class="ex-name">Module Filter</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Module-filter variant: module trigger joined to the search box; options follow the selected module.</div>
+              <pre><code>const ModuleFilter = () =&gt; {
+  const [val, setVal] = useState(&#39;&#39;);
+  return (
+    &lt;Dropdown
+      label=&quot;Field&quot;
+      options={MODULE_FIELDS}
+      value={val}
+      onChange={setVal}
+      moduleFilter={[&#39;Deals&#39;, &#39;Contacts&#39;, &#39;Accounts&#39;, &#39;Vendors&#39;]}
+      width={622}
+    /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
                 <span class="ex-name">Searchable</span>
                 <span class="badge ok">story ok</span>
               </div>
               
-              <div class="hint">Searchable — filter options by typing.</div>
+              
               <pre><code>const Searchable = () =&gt; {
   const [val, setVal] = useState(&#39;&#39;);
   return (
@@ -9549,6 +9570,340 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
 <article
   class="card 
   no-error 
+  no-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="MergeField">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> MergeField</h2>
+      <div class="badges">
+        <label for="c-19-design-system-components-mergefield-props" class="badge ok as-toggle">6 prop types</label>
+        
+        <label for="c-19-design-system-components-mergefield-stories" class="badge ok as-toggle">7 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/components/MergeField/MergeField.stories.tsx">design-system-components-mergefield · ./src/design-system/components/MergeField/MergeField.stories.tsx</div>
+    
+    <div class="hint">Text field that lets the user drop in a merge field by typing `#`.
+
+Both variants render the same contentEditable chip surface — `singleline`
+just constrains it to one line (no wrapping, no resize, input-sized).
+A selected field becomes an atomic, non-editable chip inline with the text.
+
+Note: the surface is uncontrolled (`defaultValue` + `onChange`) — re-driving
+a contentEditable from a controlled `value` on every render fights the
+caret, so this mirrors how rich-text editors are typically exposed rather
+than following the plain Input/Textarea controlled pattern. `value` is only
+read once, as a fallback initial value.</div>
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  
+  <input id="c-19-design-system-components-mergefield-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-19-design-system-components-mergefield-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">6 prop types</span>
+            </div>
+            <pre><code>Component: src/design-system/components/MergeField/MergeField.js::MergeField</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>hint?: any = &#39;Type # to insert merge field&#39;
+
+layout?: any = &#39;horizontal&#39;
+
+mergeFields?: any = []
+
+minHeight?: any = 70
+
+variant?: any = &#39;multiline&#39;
+
+width?: any = 670</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { MergeField } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; {
+  // Starts empty; the refresh button fills both fields with generated prompts.
+  const [prompts, setPrompts] = useState({ single: &#39;&#39;, multi: &#39;&#39; });
+  const [seed, setSeed] = useState(0);
+  const regenerate = () =&gt; {
+    setPrompts(generatePrompts());
+    setSeed((s) =&gt; s + 1); // remounts both fields so they pick up the new defaults
+  };
+  return (
+  &lt;div
+    style={{
+      position: &#39;relative&#39;,
+      display: &#39;flex&#39;,
+      flexDirection: &#39;column&#39;,
+      alignItems: &#39;center&#39;,
+      minHeight: &#39;100vh&#39;,
+      background: &#39;var(--ds-bg-common-card, #fff)&#39;,
+      fontFamily: &#39;var(--ds-font-family-base)&#39;,
+      boxSizing: &#39;border-box&#39;,
+      padding: &#39;48px 24px&#39;,
+      overflow: &#39;hidden&#39;,
+      // Fixed, viewport-relative offset — not flex &quot;justify-content: center&quot; —
+      // so the block&#39;s vertical position never recomputes as the Multiline
+      // field grows taller (which would otherwise shift it upward and make
+      // the field look like it&#39;s growing from its middle instead of its
+      // bottom edge).
+      paddingTop: &#39;18vh&#39;,
+    }}
+  &gt;
+    {/* Decorative background accents — purely visual, never intercept clicks */}
+    &lt;div
+      aria-hidden=&quot;true&quot;
+      style={{
+        position: &#39;absolute&#39;,
+        top: -120,
+        left: -100,
+        width: 360,
+        height: 360,
+        borderRadius: &#39;50%&#39;,
+        background: &#39;var(--ds-brand-primary, #5464F2)&#39;,
+        opacity: 0.35,
+        filter: &#39;blur(70px)&#39;,
+        pointerEvents: &#39;none&#39;,
+      }}
+    /&gt;
+    &lt;div
+      aria-hidden=&quot;true&quot;
+      style={{
+        position: &#39;absolute&#39;,
+        bottom: -140,
+        right: -120,
+        width: 420,
+        height: 420,
+        borderRadius: &#39;50%&#39;,
+        background: &#39;#1FB97A&#39;,
+        opacity: 0.35,
+        filter: &#39;blur(80px)&#39;,
+        pointerEvents: &#39;none&#39;,
+      }}
+    /&gt;
+    &lt;div
+      aria-hidden=&quot;true&quot;
+      style={{
+        position: &#39;absolute&#39;,
+        top: &#39;30%&#39;,
+        right: &#39;12%&#39;,
+        width: 220,
+        height: 220,
+        borderRadius: &#39;50%&#39;,
+        background: &#39;#E8A23A&#39;,
+        opacity: 0.3,
+        filter: &#39;blur(60px)&#39;,
+        pointerEvents: &#39;none&#39;,
+      }}
+    /&gt;
+
+    &lt;button
+      type=&quot;button&quot;
+      onClick={regenerate}
+      aria-label=&quot;Generate new AI prompts&quot;
+      title=&quot;Generate new AI prompts&quot;
+      style={{
+        position: &#39;absolute&#39;,
+        top: 20,
+        right: 20,
+        zIndex: 1,
+        width: 32,
+        height: 32,
+        display: &#39;flex&#39;,
+        alignItems: &#39;center&#39;,
+        justifyContent: &#39;center&#39;,
+        padding: 0,
+        background: &#39;var(--ds-bg-common-card, #fff)&#39;,
+        border: &#39;1px solid var(--ds-components-input-default-outline)&#39;,
+        borderRadius: 6,
+        color: &#39;var(--ds-text-label, #616E88)&#39;,
+        cursor: &#39;pointer&#39;,
+      }}
+    &gt;
+      &lt;RefreshGlyph /&gt;
+    &lt;/button&gt;
+
+    &lt;h1
+      style={{
+        position: &#39;relative&#39;,
+        fontSize: 28,
+        fontWeight: 600,
+        color: &#39;var(--ds-text-base)&#39;,
+        margin: &#39;0 0 48px&#39;,
+      }}
+    &gt;
+      Merge Field
+    &lt;/h1&gt;
+    &lt;div style={{ position: &#39;relative&#39;, display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 32, width: 440 }}&gt;
+      &lt;MergeField
+        label=&quot;Singleline&quot;
+        layout=&quot;vertical&quot;
+        variant=&quot;singleline&quot;
+        width={440}
+        mergeFields={CRM_FIELDS}
+        key={`single-${seed}`}
+        defaultValue={prompts.single}
+      /&gt;
+      &lt;MergeField
+        label=&quot;Multiline&quot;
+        layout=&quot;vertical&quot;
+        width={440}
+        mergeFields={CRM_FIELDS}
+        key={`multi-${seed}`}
+        defaultValue={prompts.multi}
+      /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Multiline / Adding tag</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const MultilineAddingTag = () =&gt; &lt;MergeField layout=&quot;vertical&quot; width={440} mergeFields={NOTIFICATION_FIELDS} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Multiline / Adding tag (completed)</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const MultilineAddingTagComplete = () =&gt; (
+  &lt;MergeField
+    layout=&quot;vertical&quot;
+    width={440}
+    defaultValue=&quot;#recordname added to #queuename Please handle with high priority #user at #dateandtime&quot;
+    mergeFields={NOTIFICATION_FIELDS}
+  /&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Multiline / Error</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const MultilineError = () =&gt; &lt;MergeField
+    layout=&quot;vertical&quot;
+    width={320}
+    error
+    helperText=&quot;Cannot be Empty&quot;
+    mergeFields={CRM_FIELDS} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Singleline / Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SinglelineDefault = () =&gt; &lt;MergeField
+    variant=&quot;singleline&quot;
+    layout=&quot;vertical&quot;
+    width={320}
+    defaultValue=&quot;${FirstName}&quot;
+    mergeFields={CRM_FIELDS} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Singleline / Adding tag</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SinglelineAddingTag = () =&gt; &lt;MergeField
+    variant=&quot;singleline&quot;
+    layout=&quot;vertical&quot;
+    width={320}
+    defaultValue=&quot;${FirstName} &quot;
+    mergeFields={CRM_FIELDS} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All States</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AllStates = () =&gt; (
+  &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 24, width: 440 }}&gt;
+    &lt;MergeField layout=&quot;vertical&quot; label=&quot;Multiline&quot; width={440} mergeFields={CRM_FIELDS} /&gt;
+    &lt;MergeField
+      layout=&quot;vertical&quot;
+      label=&quot;Multiline — error&quot;
+      width={440}
+      error
+      helperText=&quot;Cannot be Empty&quot;
+      mergeFields={CRM_FIELDS}
+    /&gt;
+    &lt;MergeField
+      layout=&quot;vertical&quot;
+      label=&quot;Singleline&quot;
+      variant=&quot;singleline&quot;
+      width={440}
+      defaultValue=&quot;${FirstName}&quot;
+      mergeFields={CRM_FIELDS}
+    /&gt;
+    &lt;MergeField
+      layout=&quot;vertical&quot;
+      label=&quot;Singleline — disabled&quot;
+      variant=&quot;singleline&quot;
+      width={440}
+      defaultValue=&quot;${FirstName}&quot;
+      mergeFields={CRM_FIELDS}
+      disabled
+    /&gt;
+  &lt;/div&gt;
+);</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
   has-info 
   no-story-error
   no-doc-error"
@@ -9558,9 +9913,9 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MessageBox</h2>
       <div class="badges">
-        <label for="c-19-design-system-components-messagebox-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-19-design-system-components-messagebox-info" class="badge info as-toggle">1 info</label>
-        <label for="c-19-design-system-components-messagebox-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-20-design-system-components-messagebox-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-20-design-system-components-messagebox-info" class="badge info as-toggle">1 info</label>
+        <label for="c-20-design-system-components-messagebox-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -9573,11 +9928,11 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-19-design-system-components-messagebox-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-19-design-system-components-messagebox-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-20-design-system-components-messagebox-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-20-design-system-components-messagebox-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-19-design-system-components-messagebox-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-20-design-system-components-messagebox-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9748,9 +10103,9 @@ variant?: any = &#39;info&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MessageInfo</h2>
       <div class="badges">
-        <label for="c-20-design-system-components-messageinfo-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-20-design-system-components-messageinfo-info" class="badge info as-toggle">1 info</label>
-        <label for="c-20-design-system-components-messageinfo-stories" class="badge ok as-toggle">12 stories</label>
+        <label for="c-21-design-system-components-messageinfo-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-21-design-system-components-messageinfo-info" class="badge info as-toggle">1 info</label>
+        <label for="c-21-design-system-components-messageinfo-stories" class="badge ok as-toggle">12 stories</label>
         
         
       </div>
@@ -9763,11 +10118,11 @@ variant?: any = &#39;info&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-20-design-system-components-messageinfo-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-20-design-system-components-messageinfo-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-21-design-system-components-messageinfo-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-21-design-system-components-messageinfo-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-20-design-system-components-messageinfo-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-21-design-system-components-messageinfo-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9948,9 +10303,9 @@ variant?: any = &#39;info&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> minimal</h2>
       <div class="badges">
-        <label for="c-21-design-system-patterns-crm-homepage-minimal-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-21-design-system-patterns-crm-homepage-minimal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-21-design-system-patterns-crm-homepage-minimal-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-22-design-system-patterns-crm-homepage-minimal-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-22-design-system-patterns-crm-homepage-minimal-info" class="badge info as-toggle">1 info</label>
+        <label for="c-22-design-system-patterns-crm-homepage-minimal-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -9962,9 +10317,9 @@ variant?: any = &#39;info&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-21-design-system-patterns-crm-homepage-minimal-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-21-design-system-patterns-crm-homepage-minimal-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-21-design-system-patterns-crm-homepage-minimal-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-22-design-system-patterns-crm-homepage-minimal-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-22-design-system-patterns-crm-homepage-minimal-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-22-design-system-patterns-crm-homepage-minimal-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -10929,9 +11284,9 @@ export const ChartDrilldown: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> minimal-drilldown</h2>
       <div class="badges">
-        <label for="c-22-design-system-patterns-crm-homepage-minimal-drilldown-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-22-design-system-patterns-crm-homepage-minimal-drilldown-info" class="badge info as-toggle">1 info</label>
-        <label for="c-22-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-23-design-system-patterns-crm-homepage-minimal-drilldown-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-23-design-system-patterns-crm-homepage-minimal-drilldown-info" class="badge info as-toggle">1 info</label>
+        <label for="c-23-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -10943,9 +11298,9 @@ export const ChartDrilldown: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-22-design-system-patterns-crm-homepage-minimal-drilldown-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-22-design-system-patterns-crm-homepage-minimal-drilldown-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-22-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-23-design-system-patterns-crm-homepage-minimal-drilldown-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-23-design-system-patterns-crm-homepage-minimal-drilldown-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-23-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -11108,9 +11463,9 @@ export const Pipeline: Story = { render: () =&gt; &lt;Preview selection={{ kind:
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Modal</h2>
       <div class="badges">
-        <label for="c-23-design-system-components-modal-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-23-design-system-components-modal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-23-design-system-components-modal-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-24-design-system-components-modal-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-24-design-system-components-modal-info" class="badge info as-toggle">1 info</label>
+        <label for="c-24-design-system-components-modal-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -11122,9 +11477,9 @@ export const Pipeline: Story = { render: () =&gt; &lt;Preview selection={{ kind:
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-23-design-system-components-modal-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-23-design-system-components-modal-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-23-design-system-components-modal-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-24-design-system-components-modal-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-24-design-system-components-modal-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-24-design-system-components-modal-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -11586,9 +11941,9 @@ Used when the message is short and self-explanatory.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> NextGenLeftMenu</h2>
       <div class="badges">
-        <label for="c-24-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-24-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
-        <label for="c-24-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-25-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-25-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
+        <label for="c-25-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -11601,11 +11956,11 @@ Used when the message is short and self-explanatory.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-24-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-24-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-25-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-25-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-24-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-25-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -11729,9 +12084,9 @@ width?: any = 240</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> NextGenTopBand</h2>
       <div class="badges">
-        <label for="c-25-design-system-components-nextgentopband-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-25-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
-        <label for="c-25-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-26-design-system-components-nextgentopband-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-26-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
+        <label for="c-26-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -11744,11 +12099,11 @@ width?: any = 240</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-25-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-25-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-26-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-26-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-25-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-26-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -11868,9 +12223,9 @@ userInitials?: any = &#39;C&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> PortalUI</h2>
       <div class="badges">
-        <label for="c-26-design-system-patterns-portal-ui-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-26-design-system-patterns-portal-ui-info" class="badge info as-toggle">1 info</label>
-        <label for="c-26-design-system-patterns-portal-ui-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-27-design-system-patterns-portal-ui-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-27-design-system-patterns-portal-ui-info" class="badge info as-toggle">1 info</label>
+        <label for="c-27-design-system-patterns-portal-ui-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -11882,9 +12237,9 @@ userInitials?: any = &#39;C&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-26-design-system-patterns-portal-ui-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-26-design-system-patterns-portal-ui-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-26-design-system-patterns-portal-ui-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-27-design-system-patterns-portal-ui-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-27-design-system-patterns-portal-ui-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-27-design-system-patterns-portal-ui-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -13809,9 +14164,9 @@ export const Users = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> ProgressBar</h2>
       <div class="badges">
-        <label for="c-27-design-system-components-progressbar-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-27-design-system-components-progressbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-27-design-system-components-progressbar-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-28-design-system-components-progressbar-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-28-design-system-components-progressbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-28-design-system-components-progressbar-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -13824,11 +14179,11 @@ export const Users = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-27-design-system-components-progressbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-27-design-system-components-progressbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-28-design-system-components-progressbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-28-design-system-components-progressbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-27-design-system-components-progressbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-28-design-system-components-progressbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -14017,8 +14372,8 @@ value?: any = 0</code></pre>
       <h2><span class="status-dot dot-ok"></span> Radio</h2>
       <div class="badges">
         
-        <label for="c-28-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
-        <label for="c-28-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-29-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
+        <label for="c-29-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -14031,8 +14386,8 @@ value?: any = 0</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-28-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-28-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-29-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-29-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -14176,9 +14531,9 @@ value?: any = 0</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> RecordAuthentication</h2>
       <div class="badges">
-        <label for="c-29-design-system-patterns-record-authentication-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-29-design-system-patterns-record-authentication-info" class="badge info as-toggle">1 info</label>
-        <label for="c-29-design-system-patterns-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-30-design-system-patterns-record-authentication-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-30-design-system-patterns-record-authentication-info" class="badge info as-toggle">1 info</label>
+        <label for="c-30-design-system-patterns-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -14190,9 +14545,9 @@ value?: any = 0</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-29-design-system-patterns-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-29-design-system-patterns-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-29-design-system-patterns-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-30-design-system-patterns-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-30-design-system-patterns-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-30-design-system-patterns-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -14204,13 +14559,13 @@ value?: any = 0</code></pre>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  412 | }
-  413 |
-&gt; 414 | const meta = {
+  413 | }
+  414 |
+&gt; 415 | const meta = {
       | ^
-  415 |   title: &#39;Design System/Patterns/Record Authentication&#39;,
-  416 |   parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification combines action, consent type, and shared delivery settings in a single form. No real SMS, email, or authentication requests are made.&#39; } } },
-  417 | } satisfies Meta;
+  416 |   title: &#39;Design System/Patterns/Record Authentication&#39;,
+  417 |   parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification combines action, consent type, and shared delivery settings in a single form. No real SMS, email, or authentication requests are made.&#39; } } },
+  418 | } satisfies Meta;
 
 ./src/design-system/patterns/RecordAuthentication.stories.tsx:
 import { useEffect, useId, useRef, useState } from &#39;react&#39;;
@@ -14347,9 +14702,9 @@ function FormRow({ label, children }: { label: string; children: ReactNode }) {
   return &lt;div className=&quot;record-auth-form__row&quot;&gt;&lt;span className=&quot;record-auth-form__label&quot;&gt;{label}&lt;/span&gt;&lt;div&gt;{children}&lt;/div&gt;&lt;/div&gt;;
 }
 
-function VerificationDialog({ channel, initial, expanded, onClose, onSave, method, lead, onChange }: {
+function VerificationDialog({ channel, initial, expanded, onClose, onSave, method, lead, onChange, showSettings = true, onIncompleteSave }: {
   channel: Channel; initial: VerificationConfig; expanded: boolean;
-  method?: ConfirmationMethod; lead?: ReactNode; onChange?: (config: VerificationConfig) =&gt; void;
+  method?: ConfirmationMethod; showSettings?: boolean; onIncompleteSave?: () =&gt; void; lead?: ReactNode; onChange?: (config: VerificationConfig) =&gt; void;
   onClose: () =&gt; void; onSave: (config: VerificationConfig) =&gt; void;
 }) {
   const id = useId();
@@ -14385,10 +14740,11 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
     &lt;p id={`${id}-${key}-error`} className=&quot;record-auth-form__error&quot; role=&quot;alert&quot;&gt;{errors[key]}&lt;/p&gt;
   ) : null;
   const save = () =&gt; {
+    if (!showSettings) { onIncompleteSave?.(); return; }
     const next: Partial&lt;Record&lt;keyof VerificationConfig, string&gt;&gt; = {};
     const numberKeys = [&#39;validity&#39;, &#39;resendAttempts&#39;, &#39;resetAfter&#39;,
       ...(usesCode ? [&#39;validationAttempts&#39;, &#39;validationReset&#39;] as const : [])] as const;
-    if (!draft.fields.length) next.fields = &#39;Select at least one field to verify.&#39;;
+    if (!method &amp;&amp; !draft.fields.length) next.fields = &#39;Select at least one field to verify.&#39;;
     const numberLabels = {
       validity: usesCode ? &#39;OTP Validity&#39; : &#39;Verification Link Validity&#39;,
       resendAttempts: &#39;Max Resend Attempts&#39;,
@@ -14428,18 +14784,18 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
     &lt;/div&gt;
   );
   return &lt;&gt;&lt;Modal isOpen title={method ? &#39;Record Verification&#39; : `Data Verification via ${phone ? &#39;Phone Number&#39; : &#39;Email Address&#39;}`}
-    className={`record-auth-config-modal${method ? &#39; record-confirmation-modal&#39; : &#39;&#39;}`} width={method ? 760 : 670} onClose={onClose} onSave={save}
+    className={`record-auth-config-modal${method ? &#39; record-confirmation-modal&#39; : &#39;&#39;}`} width={620} onClose={onClose} onSave={save}
     &gt;
     &lt;div className=&quot;record-auth-form&quot;&gt;
       {lead}
-      {!method &amp;&amp; &lt;&gt;&lt;FormRow label=&quot;Fields&quot;&gt;&lt;div role=&quot;group&quot; aria-label=&quot;Fields to verify&quot; aria-invalid={!!errors.fields} aria-describedby={errors.fields ? `${id}-fields-error` : undefined}&gt;
-        &lt;Tags value={draft.fields} options={phone ? PHONE_FIELDS : EMAIL_FIELDS} placeholder=&quot;Add&quot;
+      {!method &amp;&amp; &lt;div className=&quot;record-auth-form__field-selection&quot;&gt;&lt;FormRow label=&quot;Fields&quot;&gt;&lt;div role=&quot;group&quot; aria-label=&quot;Fields to verify&quot; aria-invalid={!!errors.fields} aria-describedby={errors.fields ? `${id}-fields-error` : undefined}&gt;
+        &lt;Tags value={draft.fields} options={phone ? PHONE_FIELDS : EMAIL_FIELDS} placeholder=&quot;Add Fields&quot;
           onChange={(fields: Field[]) =&gt; update(&#39;fields&#39;, fields)} width=&quot;100%&quot; /&gt;
         {fieldError(&#39;fields&#39;)}
       &lt;/div&gt;&lt;/FormRow&gt;
       &lt;Checkbox label={`Restrict outgoing ${phone ? &#39;calls&#39; : &#39;emails&#39;} until verified`} checked={draft.restrict}
-        onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; update(&#39;restrict&#39;, event.target.checked)} /&gt;&lt;/&gt;}
-      &lt;section className=&quot;record-auth-form__section&quot; aria-labelledby={`${id}-settings`}&gt;
+        onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; update(&#39;restrict&#39;, event.target.checked)} /&gt;&lt;/div&gt;}
+      {showSettings &amp;&amp; &lt;&gt;&lt;section className=&quot;record-auth-form__section&quot; aria-labelledby={`${id}-settings`}&gt;
         &lt;h2 id={`${id}-settings`}&gt;{usesCode ? (code ? &#39;Email Code Configuration&#39; : &#39;OTP Configuration&#39;) : &#39;Verification Link Configuration&#39;}&lt;/h2&gt;
         {usesCode &amp;&amp; &lt;FormRow label=&quot;OTP Length&quot;&gt;&lt;div className=&quot;record-auth-form__inline&quot; role=&quot;radiogroup&quot; aria-label=&quot;OTP Length&quot;&gt;
           {([&#39;6&#39;, &#39;4&#39;] as const).map(digits =&gt; &lt;Radio key={digits} label={`${digits} Digits`} name={`${id}-digits`}
@@ -14476,14 +14832,14 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
             &lt;button type=&quot;button&quot; className=&quot;record-auth-form__template-input&quot; aria-haspopup=&quot;dialog&quot;
               onClick={() =&gt; setPreview({ title: &#39;Email Content&#39;, content: &#39;&#39;, kind: &#39;email&#39; })}&gt;
               &lt;span&gt;{EMAIL_TEMPLATES.find(template =&gt; template.value === draft.emailTemplate)?.label}&lt;/span&gt;
-              &lt;Icon name=&quot;CrmEditFilledMd&quot; size={12} /&gt;
+              &lt;Icon name=&quot;CrmEditFilledMd&quot; size={10} /&gt;
             &lt;/button&gt;
           &lt;/FormRow&gt;
           {!code &amp;&amp; &lt;FormRow label=&quot;Verification Page&quot;&gt;
             &lt;button type=&quot;button&quot; className=&quot;record-auth-form__template-input&quot; aria-haspopup=&quot;dialog&quot;
               onClick={() =&gt; setPreview({ title: &#39;Verification Page&#39;, content: &#39;&#39;, kind: &#39;page&#39; })}&gt;
               &lt;span&gt;{VERIFICATION_PAGES.find(page =&gt; page.value === draft.verificationPage)?.label}&lt;/span&gt;
-              &lt;Icon name=&quot;CrmEditFilledMd&quot; size={12} /&gt;
+              &lt;Icon name=&quot;CrmEditFilledMd&quot; size={10} /&gt;
             &lt;/button&gt;
           &lt;/FormRow&gt;}
         &lt;/&gt;}
@@ -14506,7 +14862,7 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
           &lt;FormRow label=&quot;Reset Attempt After&quot;&gt;{numberInput(&#39;validationReset&#39;, &#39;Reset validation attempt after&#39;, &#39;Hour(s)&#39;)}&lt;/FormRow&gt;
         &lt;/section&gt;}
       &lt;/div&gt;}
-      {!method &amp;&amp; !usesCode &amp;&amp; &lt;MessageInfo variant=&quot;info&quot; message=&quot;A new send invalidates the previous link. Latest request wins.&quot; /&gt;}
+      {!method &amp;&amp; !usesCode &amp;&amp; &lt;MessageInfo variant=&quot;info&quot; message=&quot;A new send invalidates the previous link. Latest request wins.&quot; /&gt;}&lt;/&gt;}
     &lt;/div&gt;
   &lt;/Modal&gt;
     {smsNotice &amp;&amp; &lt;MessageBox className=&quot;record-auth__notice&quot; variant=&quot;success&quot; message=&quot;Test SMS sent successfully&quot; onClose={() =&gt; setSmsNotice(false)} /&gt;}
@@ -14551,8 +14907,8 @@ function RecordAuthenticationPage({ initial = &#39;empty&#39;, dialog, expanded 
   const id = useId();
   const [activeTab, setActiveTab] = useState(configuration ? &#39;configuration&#39; : &#39;verification&#39;);
   const [saved, setSaved] = useState&lt;SavedSettings&gt;(() =&gt; initial === &#39;empty&#39; ? {} : {
-    phone: { ...defaultConfig(&#39;phone&#39;), carrier: &#39;twilio&#39; },
-    ...(initial === &#39;both&#39; ? { email: defaultConfig(&#39;email&#39;) } : {}),
+    phone: { ...defaultConfig(&#39;phone&#39;), fields: PHONE_FIELDS.slice(0, 2), carrier: &#39;twilio&#39; },
+    ...(initial === &#39;both&#39; ? { email: { ...defaultConfig(&#39;email&#39;), fields: EMAIL_FIELDS.slice(0, 2) } } : {}),
   });
   const [editing, setEditing] = useState&lt;Channel | undefined&gt;(dialog);
   const [preview, setPreview] = useState&lt;Preview | undefined&gt;();
@@ -14586,12 +14942,12 @@ function RecordAuthenticationPage({ initial = &#39;empty&#39;, dialog, expanded 
           &lt;div className=&quot;record-auth__panel&quot; role=&quot;tabpanel&quot; aria-label={activeTab === &#39;verification&#39; ? &#39;Data Verification&#39; : &#39;Record Verification&#39;}&gt;
             {activeTab === &#39;verification&#39; &amp;&amp; &lt;&gt;
               &lt;div className=&quot;record-auth__intro&quot;&gt;&lt;p&gt;Verify that phone numbers and email addresses belong to the contact.&lt;/p&gt;
-                {configured &amp;&amp; availableChannels.length &gt; 0 &amp;&amp; &lt;Dropdown id={`${id}-verify`} width=&quot;fit-content&quot; placeholder=&quot;Verify via&quot; value=&quot;&quot; triggerButtonVariant=&quot;primary&quot;
+                {configured &amp;&amp; availableChannels.length &gt; 0 &amp;&amp; &lt;Dropdown id={`${id}-verify`} width=&quot;fit-content&quot; placeholder=&quot;Verify as&quot; value=&quot;&quot; triggerButtonVariant=&quot;primary&quot;
                   panelStyle={{ width: &#39;max-content&#39;, maxWidth: &#39;calc(100vw - 24px)&#39; }}
                   options={availableChannels}
                   onChange={(value: string) =&gt; setEditing(value as Channel)} /&gt;}
               &lt;/div&gt;
-              {!configured &amp;&amp; &lt;Dropdown id={`${id}-verify`} width={180} placeholder=&quot;Verify via&quot; value=&quot;&quot; triggerButtonVariant=&quot;primary&quot;
+              {!configured &amp;&amp; &lt;Dropdown id={`${id}-verify`} width={180} placeholder=&quot;Verify as&quot; value=&quot;&quot; triggerButtonVariant=&quot;primary&quot;
                 panelStyle={{ width: &#39;max-content&#39;, maxWidth: &#39;calc(100vw - 24px)&#39; }}
                   options={availableChannels}
                 onChange={(value: string) =&gt; setEditing(value as Channel)} /&gt;}
@@ -14599,8 +14955,8 @@ function RecordAuthenticationPage({ initial = &#39;empty&#39;, dialog, expanded 
                 channel={channel} config={saved[channel]} onEdit={() =&gt; setEditing(channel)} onPreview={setPreview} /&gt;)}
             &lt;/&gt;}
             &lt;div hidden={activeTab !== &#39;configuration&#39;}&gt;&lt;RecordVerification onNotice={message =&gt; setNotice({ message })}
-              renderSettings={({ method, initial, lead, onChange, onClose, onSave }) =&gt; &lt;VerificationDialog
-                channel={method === &#39;otp&#39; ? &#39;phone&#39; : &#39;email&#39;} method={method}
+              renderSettings={({ method, initial, lead, onChange, onClose, onSave, showSettings, onIncompleteSave }) =&gt; &lt;VerificationDialog
+                channel={method === &#39;otp&#39; ? &#39;phone&#39; : &#39;email&#39;} method={method} showSettings={showSettings} onIncompleteSave={onIncompleteSave}
                 initial={initial} expanded={false} lead={lead} onChange={onChange} onClose={onClose} onSave={onSave} /&gt;} /&gt;&lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
@@ -14640,7 +14996,7 @@ export const Default: Story = {
     const body = within(canvasElement.ownerDocument.body);
     await expect(canvasElement.querySelector(&#39;.ngtb-badge&#39;)).not.toBeInTheDocument();
     await expect(within(canvas.getByRole(&#39;button&#39;, { name: &#39;User profile&#39; })).getByRole(&#39;img&#39;, { name: &#39;User&#39; })).toHaveAttribute(&#39;src&#39;, `${import.meta.env.BASE_URL}images/avatars/user_06.jpg`);
-    const verifyButton = canvas.getByRole(&#39;button&#39;, { name: &#39;Verify via&#39; });
+    const verifyButton = canvas.getByRole(&#39;button&#39;, { name: &#39;Verify as&#39; });
     await expect(verifyButton).toHaveAttribute(&#39;data-variant&#39;, &#39;primary&#39;);
     await userEvent.click(verifyButton);
     for (const name of [&#39;Phone Number&#39;, &#39;Email Address&#39;]) {
@@ -14657,11 +15013,53 @@ export const Default: Story = {
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Data Verification&#39; }));
   },
 };
-export const PhoneVerification: Story = { render: () =&gt; &lt;RecordAuthenticationPage dialog=&quot;phone&quot; /&gt; };
+export const PhoneVerification: Story = {
+  render: () =&gt; &lt;RecordAuthenticationPage dialog=&quot;phone&quot; /&gt;,
+  play: async ({ canvasElement }) =&gt; {
+    const body = within(canvasElement.ownerDocument.body);
+    const dialog = await body.findByRole(&#39;dialog&#39;);
+    const form = within(dialog);
+    const fields = form.getByRole(&#39;group&#39;, { name: &#39;Fields to verify&#39; });
+    await expect(fields.querySelectorAll(&#39;.tags-tag&#39;)).toHaveLength(0);
+    await expect(form.getByRole(&#39;checkbox&#39;)).not.toBeChecked();
+    const selection = dialog.querySelector(&#39;.record-auth-form__field-selection&#39;)!;
+    await expect(getComputedStyle(selection).rowGap).toBe(&#39;8px&#39;);
+    for (const root of dialog.querySelectorAll(&#39;.checkbox-root, .radio-root&#39;)) {
+      const control = root.querySelector(&#39;.checkbox-control, .radio-control&#39;)!.getBoundingClientRect();
+      const label = root.querySelector(&#39;.checkbox-label-text, .radio-label-text&#39;)!.getBoundingClientRect();
+      await expect(Math.abs(control.top + control.height / 2 - label.top - label.height / 2)).toBeLessThan(1);
+    }
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
+    await waitFor(() =&gt; expect(form.getByText(&#39;Select at least one field to verify.&#39;)).toBeVisible());
+    await userEvent.click(form.getByRole(&#39;textbox&#39;, { name: &#39;Add Fields&#39; }));
+    await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;Mobile&#39;, exact: true }));
+    await expect(form.getByRole(&#39;button&#39;, { name: &#39;Remove Mobile&#39; })).toBeInTheDocument();
+    await expect(form.queryByText(&#39;Select at least one field to verify.&#39;)).not.toBeInTheDocument();
+  },
+};
 export const PhoneMoreOptions: Story = {
   render: () =&gt; &lt;RecordAuthenticationPage dialog=&quot;phone&quot; expanded /&gt;,
   play: async ({ canvasElement }) =&gt; {
-    const form = within(await within(canvasElement.ownerDocument.body).findByRole(&#39;dialog&#39;));
+    const dialog = await within(canvasElement.ownerDocument.body).findByRole(&#39;dialog&#39;);
+    const form = within(dialog);
+    const scrollArea = dialog.querySelector(&#39;.modal-body&#39;)!;
+    const first = form.getByRole(&#39;textbox&#39;, { name: &#39;Add Fields&#39; });
+    await userEvent.click(first);
+    scrollArea.scrollTop = 0;
+    await waitFor(() =&gt; {
+      const control = first.closest(&#39;.tags-container&#39;)!;
+      expect(control.getBoundingClientRect().top - scrollArea.getBoundingClientRect().top).toBeGreaterThanOrEqual(8);
+      expect(getComputedStyle(control).boxShadow).not.toBe(&#39;none&#39;);
+    });
+    await userEvent.click(form.getByRole(&#39;heading&#39;, { name: &#39;OTP Configuration&#39; }));
+    const last = form.getByRole(&#39;spinbutton&#39;, { name: &#39;Reset validation attempt after&#39; });
+    await userEvent.click(last);
+    await waitFor(() =&gt; {
+      scrollArea.scrollTop = scrollArea.scrollHeight;
+      const control = last.closest(&#39;.input-input-wrapper&#39;)!;
+      expect(scrollArea.getBoundingClientRect().bottom - control.getBoundingClientRect().bottom).toBeGreaterThanOrEqual(8);
+      expect(getComputedStyle(control).boxShadow).not.toBe(&#39;none&#39;);
+    });
     const attempts = form.getByRole(&#39;spinbutton&#39;, { name: &#39;Max Resend Attempts&#39; });
     await userEvent.clear(attempts);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
@@ -14680,6 +15078,9 @@ export const EmailVerification: Story = {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     const form = within(await body.findByRole(&#39;dialog&#39;));
+    await expect(form.queryByRole(&#39;button&#39;, { name: &#39;Remove Email ID&#39; })).not.toBeInTheDocument();
+    await userEvent.click(form.getByRole(&#39;textbox&#39;, { name: &#39;Add Fields&#39; }));
+    await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;Email ID&#39;, exact: true }));
     await expect(form.queryByRole(&#39;heading&#39;, { name: &#39;Resend Options&#39; })).not.toBeInTheDocument();
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;More Options&#39; }));
     await waitFor(() =&gt; expect(form.getByRole(&#39;heading&#39;, { name: &#39;Resend Options&#39; })).toBeVisible());
@@ -14691,7 +15092,7 @@ export const EmailVerification: Story = {
     const validity = form.getByRole(&#39;spinbutton&#39;, { name: &#39;Verification link validity&#39; });
     await userEvent.clear(validity);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
-    await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Verification Link Validity cannot be empty&#39;);
+    await expect(form.getByText(&#39;Verification Link Validity cannot be empty&#39;)).toBeVisible();
     await expect(validity).toHaveAttribute(&#39;aria-invalid&#39;, &#39;true&#39;);
     await expect(validity).toHaveAccessibleDescription(&#39;Day(s) Verification Link Validity cannot be empty&#39;);
     await expect(form.getByRole(&#39;alert&#39;).parentElement).toContainElement(validity);
@@ -14711,7 +15112,11 @@ export const EmailVerification: Story = {
       await expect(getComputedStyle(trigger).backgroundColor).toBe(inputBackground);
       await expect(getComputedStyle(trigger).backgroundImage).toBe(&#39;none&#39;);
       await userEvent.unhover(trigger);
-      await expect(trigger.querySelector(&#39;svg&#39;)).toHaveAttribute(&#39;width&#39;, &#39;12&#39;);
+      const editIcon = trigger.querySelector(&#39;svg&#39;)!;
+      await expect(editIcon).toHaveAttribute(&#39;width&#39;, &#39;10&#39;);
+      const iconBounds = editIcon.getBoundingClientRect();
+      const triggerBounds = trigger.getBoundingClientRect();
+      await expect(Math.abs(iconBounds.top + iconBounds.height / 2 - triggerBounds.top - triggerBounds.height / 2)).toBeLessThanOrEqual(1);
       await userEvent.click(trigger);
       await expect(body.getByRole(&#39;dialog&#39;, { name: &#39;Data Verification via Email Address&#39; })).toBeVisible();
       await expect(body.getAllByRole(&#39;dialog&#39;)).toHaveLength(2);
@@ -14788,7 +15193,7 @@ export const EmailVerification: Story = {
     await userEvent.click(within(await body.findByRole(&#39;dialog&#39;)).getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     await expect(canvas.getByText(&#39;Link valid for 10 days&#39;)).toBeVisible();
-    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify via&#39; }));
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify as&#39; }));
     await expect(body.queryByRole(&#39;option&#39;, { name: &#39;Email Address&#39; })).not.toBeInTheDocument();
     await expect(body.getByRole(&#39;option&#39;, { name: &#39;Phone Number&#39; })).toBeVisible();
     await userEvent.keyboard(&#39;{Escape}&#39;);
@@ -14803,13 +15208,15 @@ export const PhoneConfigured: Story = {
   play: async ({ canvasElement }) =&gt; {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify via&#39; }));
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify as&#39; }));
     await expect(body.queryByRole(&#39;option&#39;, { name: &#39;Phone Number&#39; })).not.toBeInTheDocument();
     await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;Email Address&#39; }));
     const form = within(await body.findByRole(&#39;dialog&#39;));
+    await userEvent.click(form.getByRole(&#39;textbox&#39;, { name: &#39;Add Fields&#39; }));
+    await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;Email ID&#39;, exact: true }));
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
-    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Verify via&#39; })).not.toBeInTheDocument();
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Verify as&#39; })).not.toBeInTheDocument();
     const notice = canvas.getByRole(&#39;status&#39;);
     await expect(notice).toHaveClass(&#39;record-auth__notice&#39;);
     await expect(getComputedStyle(notice).position).toBe(&#39;fixed&#39;);
@@ -14833,7 +15240,7 @@ export const Configured: Story = {
     await expect(getComputedStyle(separator).height).toBe(&#39;6px&#39;);
     await expect(getComputedStyle(separator).backgroundColor).toBe(&#39;rgb(217, 217, 217)&#39;);
     await expect(getComputedStyle(separator.parentElement!).gap).toBe(&#39;10px&#39;);
-    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Verify via&#39; })).not.toBeInTheDocument();
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Verify as&#39; })).not.toBeInTheDocument();
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;SMS Template&#39;, exact: true }));
     const preview = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;SMS Template Preview&#39; }));
     await waitFor(() =&gt; expect(preview.getByText(/Your verification OTP is/)).toBeVisible());
@@ -14909,10 +15316,17 @@ export const RecordConfiguration: Story = {
     const open = async () =&gt; { await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })); return within(await body.findByRole(&#39;dialog&#39;)); };
     const choose = async (name: string) =&gt; { await userEvent.click(body.getByRole(&#39;option&#39;, { name, exact: true })); };
     let form = await open();
+    await expect(form.queryByRole(&#39;heading&#39;, { name: /Configuration/ })).not.toBeInTheDocument();
+    await expect(form.queryByRole(&#39;button&#39;, { name: &#39;Verification Field&#39; })).not.toBeInTheDocument();
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
+    await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Select When and Consent Type.&#39;);
     for (const name of [&#39;When&#39;, &#39;Consent Type&#39;]) {
       const selector = form.getByRole(&#39;button&#39;, { name, exact: true });
       await expect(selector).toHaveTextContent(&#39;Select&#39;);
       await expect(Math.round(selector.getBoundingClientRect().width)).toBe(390);
+      const label = selector.closest(&#39;.record-auth-form__row&#39;)!.firstElementChild!;
+      await expect(getComputedStyle(label).textAlign).toBe(&#39;right&#39;);
+      await expect(label.getBoundingClientRect().width).toBeLessThan(120);
     }
     await expect(canvas.queryByText(&#39;Record Verification Settings&#39;)).not.toBeInTheDocument();
     await expect(canvasElement.querySelector(&#39;.record-confirmation__empty&#39;)).toBeNull();
@@ -14922,11 +15336,17 @@ export const RecordConfiguration: Story = {
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }));
     await expect(await body.findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Choose the event&#39;);
     await expect(body.getByRole(&#39;tooltip&#39;)).toHaveClass(&#39;tooltip-white&#39;);
+    await expect(body.getByRole(&#39;tooltip&#39;).getBoundingClientRect().width).toBeLessThanOrEqual(600);
+    await expect(getComputedStyle(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; })).cursor).toBe(&#39;default&#39;);
     await expect(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }).querySelector(&#39;svg&#39;)).toBeInTheDocument();
     await userEvent.unhover(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }));
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
     await expect(body.getAllByRole(&#39;option&#39;)).toHaveLength(3);
-    await expect(body.getByRole(&#39;option&#39;, { name: /Confirmation Link/ })).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
+    const disabledLink = body.getByRole(&#39;option&#39;, { name: /Confirmation Link/ });
+    await expect(disabledLink).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
+    await userEvent.hover(disabledLink);
+    await expect(body.getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Available only for button actions.&#39;);
+    await userEvent.unhover(disabledLink);
     const secondary = body.getByText(&#39;Send an SMS OTP to confirm the action.&#39;);
     await expect(secondary).toBeVisible();
     await expect(getComputedStyle(secondary).fontSize).toBe(&#39;13px&#39;);
@@ -14943,7 +15363,7 @@ export const RecordConfiguration: Story = {
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     await expect(canvas.getByText(&#39;Record creation&#39;, { exact: true })).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Data Verification&#39; }));
-    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify via&#39; })).toBeVisible();
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify as&#39; })).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Record Verification&#39; }));
     await expect(canvas.getByText(&#39;Record creation&#39;, { exact: true })).toBeVisible();
     form = await open();
@@ -14951,6 +15371,9 @@ export const RecordConfiguration: Story = {
     await expect(body.getByRole(&#39;option&#39;, { name: /Record creation/ })).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
     await choose(&#39;Picklist value Ask for consent when a picklist is set to a value.&#39;);
     await expect(form.getByRole(&#39;button&#39;, { name: &#39;Picklist&#39;, exact: true })).toBeVisible();
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Values&#39;, exact: true }));
+    await choose(&#39;In progress&#39;);
+    await userEvent.click(body.getByRole(&#39;button&#39;, { name: &#39;Done&#39;, exact: true }));
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
     const sameDialog = body.getByRole(&#39;dialog&#39;);
     await choose(&#39;Code on Email Send an email code to confirm the action.&#39;);
@@ -14964,8 +15387,14 @@ export const RecordConfiguration: Story = {
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Verification Field&#39; })); await choose(&#39;Email ID&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
-    await expect(canvas.getByText(&#39;Status is Open&#39;)).toBeVisible();
-    const enabled = canvas.getByRole(&#39;switch&#39;, { name: &#39;Enable Status is Open&#39; });
+    await expect(canvas.getByText(&#39;Status is Open, In progress&#39;)).toBeVisible();
+    await expect(canvas.queryByRole(&#39;table&#39;)).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit Status is Open, In progress&#39; }));
+    const criteriaEdit = within(await body.findByRole(&#39;dialog&#39;));
+    await expect(criteriaEdit.getByRole(&#39;button&#39;, { name: &#39;Values&#39; })).toHaveTextContent(&#39;2 selected&#39;);
+    await userEvent.click(criteriaEdit.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39; }));
+    await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
+    const enabled = canvas.getByRole(&#39;switch&#39;, { name: &#39;Enable Status is Open, In progress&#39; });
     await userEvent.click(enabled); await expect(enabled).not.toBeChecked();
     form = await open();
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
@@ -14980,7 +15409,13 @@ export const RecordConfiguration: Story = {
     const portalUsers = form.getByRole(&#39;checkbox&#39;, { name: &#39;For Portal Users&#39; });
     await userEvent.click(portalUsers);
     await expect(portalUsers).toBeChecked();
-    await userEvent.type(form.getByRole(&#39;textbox&#39;, { name: &#39;Button Name&#39; }), &#39;Approve shipment&#39;);
+    const buttonName = form.getByRole(&#39;textbox&#39;, { name: &#39;Button Name&#39; });
+    const inputBox = buttonName.closest(&#39;.input-input-wrapper&#39;)!;
+    await expect(getComputedStyle(buttonName).paddingInlineStart).toBe(&#39;10px&#39;);
+    await expect(inputBox.getBoundingClientRect().height).toBe(34);
+    await userEvent.click(buttonName);
+    await waitFor(() =&gt; expect(getComputedStyle(inputBox).boxShadow).not.toBe(&#39;none&#39;));
+    await userEvent.type(buttonName, &#39;Approve shipment&#39;);
     // Incompatible actions reset link consent; compatible changes preserve delivery edits.
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
     await choose(&#39;Picklist value Ask for consent when a picklist is set to a value.&#39;);
@@ -15133,9 +15568,9 @@ export const RecordConfiguration: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> RichTextEditor</h2>
       <div class="badges">
-        <label for="c-30-components-richtexteditor-props" class="badge ok as-toggle">7 prop types</label>
-        <label for="c-30-components-richtexteditor-info" class="badge info as-toggle">1 info</label>
-        <label for="c-30-components-richtexteditor-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-31-components-richtexteditor-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-31-components-richtexteditor-info" class="badge info as-toggle">1 info</label>
+        <label for="c-31-components-richtexteditor-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -15148,11 +15583,11 @@ export const RecordConfiguration: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-30-components-richtexteditor-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-30-components-richtexteditor-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-31-components-richtexteditor-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-31-components-richtexteditor-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-30-components-richtexteditor-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-31-components-richtexteditor-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -15295,9 +15730,9 @@ width?: any = 500</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SBConnections</h2>
       <div class="badges">
-        <label for="c-31-design-system-patterns-sb-connections-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-31-design-system-patterns-sb-connections-info" class="badge info as-toggle">1 info</label>
-        <label for="c-31-design-system-patterns-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-32-design-system-patterns-sb-connections-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-32-design-system-patterns-sb-connections-info" class="badge info as-toggle">1 info</label>
+        <label for="c-32-design-system-patterns-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -15309,9 +15744,9 @@ width?: any = 500</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-31-design-system-patterns-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-31-design-system-patterns-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-31-design-system-patterns-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-32-design-system-patterns-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-32-design-system-patterns-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-32-design-system-patterns-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -15635,9 +16070,9 @@ export const DiagramOnly: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Select</h2>
       <div class="badges">
-        <label for="c-32-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-32-design-system-components-select-info" class="badge info as-toggle">1 info</label>
-        <label for="c-32-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-33-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-33-design-system-components-select-info" class="badge info as-toggle">1 info</label>
+        <label for="c-33-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -15650,11 +16085,11 @@ export const DiagramOnly: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-32-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-32-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-33-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-33-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-32-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-33-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -15857,9 +16292,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SendDashboardScheduler</h2>
       <div class="badges">
-        <label for="c-33-design-system-patterns-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-33-design-system-patterns-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
-        <label for="c-33-design-system-patterns-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-34-design-system-patterns-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-34-design-system-patterns-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
+        <label for="c-34-design-system-patterns-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -15871,9 +16306,9 @@ width?: any = 670</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-33-design-system-patterns-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-33-design-system-patterns-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-33-design-system-patterns-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-34-design-system-patterns-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-34-design-system-patterns-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-34-design-system-patterns-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -17146,9 +17581,9 @@ export const SendDashboardScheduler = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SetupTable</h2>
       <div class="badges">
-        <label for="c-34-design-system-components-table-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-34-design-system-components-table-info" class="badge info as-toggle">1 info</label>
-        <label for="c-34-design-system-components-table-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-35-design-system-components-table-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-35-design-system-components-table-info" class="badge info as-toggle">1 info</label>
+        <label for="c-35-design-system-components-table-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -17161,11 +17596,11 @@ export const SendDashboardScheduler = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-34-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-34-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-35-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-35-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-34-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-35-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -17272,9 +17707,9 @@ striped?: any = false</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Slider</h2>
       <div class="badges">
-        <label for="c-35-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
-        <label for="c-35-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
-        <label for="c-35-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
+        <label for="c-36-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-36-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
+        <label for="c-36-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
         
         
       </div>
@@ -17287,11 +17722,11 @@ striped?: any = false</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-35-design-system-components-slider-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-35-design-system-components-slider-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-36-design-system-components-slider-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-36-design-system-components-slider-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-35-design-system-components-slider-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-36-design-system-components-slider-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -17648,9 +18083,9 @@ value?: any = 50</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Stepper</h2>
       <div class="badges">
-        <label for="c-36-design-system-components-stepper-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-36-design-system-components-stepper-info" class="badge info as-toggle">1 info</label>
-        <label for="c-36-design-system-components-stepper-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-37-design-system-components-stepper-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-37-design-system-components-stepper-info" class="badge info as-toggle">1 info</label>
+        <label for="c-37-design-system-components-stepper-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -17663,11 +18098,11 @@ value?: any = 50</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-36-design-system-components-stepper-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-36-design-system-components-stepper-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-37-design-system-components-stepper-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-37-design-system-components-stepper-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-36-design-system-components-stepper-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-37-design-system-components-stepper-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -17861,9 +18296,9 @@ variant?: any = &#39;multi&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Switch</h2>
       <div class="badges">
-        <label for="c-37-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-37-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
-        <label for="c-37-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-38-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-38-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
+        <label for="c-38-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -17876,11 +18311,11 @@ variant?: any = &#39;multi&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-37-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-37-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-38-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-38-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-37-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-38-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -18024,9 +18459,9 @@ variant?: any = &#39;multi&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tabs</h2>
       <div class="badges">
-        <label for="c-38-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-38-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-38-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-39-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-39-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-39-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -18039,11 +18474,11 @@ variant?: any = &#39;multi&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-38-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-38-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-39-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-39-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-38-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-39-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -18185,9 +18620,9 @@ variant?: any = &#39;primary&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tags</h2>
       <div class="badges">
-        <label for="c-39-design-system-components-tags-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-39-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
-        <label for="c-39-design-system-components-tags-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-40-design-system-components-tags-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-40-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
+        <label for="c-40-design-system-components-tags-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -18200,11 +18635,11 @@ variant?: any = &#39;primary&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-39-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-39-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-40-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-40-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-39-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-40-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -18425,9 +18860,9 @@ width?: any = &#39;100%&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Textarea</h2>
       <div class="badges">
-        <label for="c-40-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-40-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
-        <label for="c-40-design-system-components-textarea-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-41-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-41-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
+        <label for="c-41-design-system-components-textarea-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -18440,11 +18875,11 @@ width?: any = &#39;100%&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-40-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-40-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-41-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-41-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-40-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-41-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -18649,9 +19084,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tooltip</h2>
       <div class="badges">
-        <label for="c-41-design-system-components-tooltip-props" class="badge ok as-toggle">7 prop types</label>
-        <label for="c-41-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
-        <label for="c-41-design-system-components-tooltip-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-42-design-system-components-tooltip-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-42-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
+        <label for="c-42-design-system-components-tooltip-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -18664,11 +19099,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-41-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-41-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-42-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-42-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-41-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-42-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -18871,9 +19306,9 @@ variant?: any = &#39;black&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> TypographyPage</h2>
       <div class="badges">
-        <label for="c-42-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-42-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
-        <label for="c-42-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-43-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-43-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
+        <label for="c-43-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -18885,9 +19320,9 @@ variant?: any = &#39;black&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-42-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-42-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-42-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-43-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-43-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-43-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -19332,9 +19767,9 @@ export const AllTypography: StoryObj = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-43-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-43-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-43-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-44-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-44-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-44-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -19346,9 +19781,9 @@ export const AllTypography: StoryObj = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-43-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-43-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-43-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-44-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-44-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-44-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -20723,9 +21158,9 @@ export const CreateNotification: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> UserPicker</h2>
       <div class="badges">
-        <label for="c-44-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-44-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-44-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-45-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-45-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-45-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -20738,11 +21173,11 @@ export const CreateNotification: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-44-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-44-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-45-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-45-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-44-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-45-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -20938,9 +21373,9 @@ width?: any = 390</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> VerticalTabs</h2>
       <div class="badges">
-        <label for="c-45-design-system-components-verticaltabs-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-45-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-45-design-system-components-verticaltabs-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-46-design-system-components-verticaltabs-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-46-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-46-design-system-components-verticaltabs-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -20953,11 +21388,11 @@ width?: any = 390</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-45-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-45-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-46-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-46-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-45-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-46-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21131,9 +21566,9 @@ Figma: Pascal Stone &quot;Setup Left Menu&quot; (79954:198542).</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> WMSBar</h2>
       <div class="badges">
-        <label for="c-46-design-system-components-wmsbar-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-46-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-46-design-system-components-wmsbar-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-47-design-system-components-wmsbar-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-47-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-47-design-system-components-wmsbar-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -21146,11 +21581,11 @@ Figma: Pascal Stone &quot;Setup Left Menu&quot; (79954:198542).</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-46-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-46-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-47-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-47-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-46-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-47-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -29020,13 +29455,13 @@ export const Users = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  412 | }
-  413 |
-&gt; 414 | const meta = {
+  413 | }
+  414 |
+&gt; 415 | const meta = {
       | ^
-  415 |   title: &#39;Design System/Patterns/Record Authentication&#39;,
-  416 |   parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification combines action, consent type, and shared delivery settings in a single form. No real SMS, email, or authentication requests are made.&#39; } } },
-  417 | } satisfies Meta;
+  416 |   title: &#39;Design System/Patterns/Record Authentication&#39;,
+  417 |   parameters: { layout: &#39;fullscreen&#39;, docs: { description: { component: &#39;Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification combines action, consent type, and shared delivery settings in a single form. No real SMS, email, or authentication requests are made.&#39; } } },
+  418 | } satisfies Meta;
 
 ./src/design-system/patterns/RecordAuthentication.stories.tsx:
 import { useEffect, useId, useRef, useState } from &#39;react&#39;;
@@ -29163,9 +29598,9 @@ function FormRow({ label, children }: { label: string; children: ReactNode }) {
   return &lt;div className=&quot;record-auth-form__row&quot;&gt;&lt;span className=&quot;record-auth-form__label&quot;&gt;{label}&lt;/span&gt;&lt;div&gt;{children}&lt;/div&gt;&lt;/div&gt;;
 }
 
-function VerificationDialog({ channel, initial, expanded, onClose, onSave, method, lead, onChange }: {
+function VerificationDialog({ channel, initial, expanded, onClose, onSave, method, lead, onChange, showSettings = true, onIncompleteSave }: {
   channel: Channel; initial: VerificationConfig; expanded: boolean;
-  method?: ConfirmationMethod; lead?: ReactNode; onChange?: (config: VerificationConfig) =&gt; void;
+  method?: ConfirmationMethod; showSettings?: boolean; onIncompleteSave?: () =&gt; void; lead?: ReactNode; onChange?: (config: VerificationConfig) =&gt; void;
   onClose: () =&gt; void; onSave: (config: VerificationConfig) =&gt; void;
 }) {
   const id = useId();
@@ -29201,10 +29636,11 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
     &lt;p id={`${id}-${key}-error`} className=&quot;record-auth-form__error&quot; role=&quot;alert&quot;&gt;{errors[key]}&lt;/p&gt;
   ) : null;
   const save = () =&gt; {
+    if (!showSettings) { onIncompleteSave?.(); return; }
     const next: Partial&lt;Record&lt;keyof VerificationConfig, string&gt;&gt; = {};
     const numberKeys = [&#39;validity&#39;, &#39;resendAttempts&#39;, &#39;resetAfter&#39;,
       ...(usesCode ? [&#39;validationAttempts&#39;, &#39;validationReset&#39;] as const : [])] as const;
-    if (!draft.fields.length) next.fields = &#39;Select at least one field to verify.&#39;;
+    if (!method &amp;&amp; !draft.fields.length) next.fields = &#39;Select at least one field to verify.&#39;;
     const numberLabels = {
       validity: usesCode ? &#39;OTP Validity&#39; : &#39;Verification Link Validity&#39;,
       resendAttempts: &#39;Max Resend Attempts&#39;,
@@ -29244,18 +29680,18 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
     &lt;/div&gt;
   );
   return &lt;&gt;&lt;Modal isOpen title={method ? &#39;Record Verification&#39; : `Data Verification via ${phone ? &#39;Phone Number&#39; : &#39;Email Address&#39;}`}
-    className={`record-auth-config-modal${method ? &#39; record-confirmation-modal&#39; : &#39;&#39;}`} width={method ? 760 : 670} onClose={onClose} onSave={save}
+    className={`record-auth-config-modal${method ? &#39; record-confirmation-modal&#39; : &#39;&#39;}`} width={620} onClose={onClose} onSave={save}
     &gt;
     &lt;div className=&quot;record-auth-form&quot;&gt;
       {lead}
-      {!method &amp;&amp; &lt;&gt;&lt;FormRow label=&quot;Fields&quot;&gt;&lt;div role=&quot;group&quot; aria-label=&quot;Fields to verify&quot; aria-invalid={!!errors.fields} aria-describedby={errors.fields ? `${id}-fields-error` : undefined}&gt;
-        &lt;Tags value={draft.fields} options={phone ? PHONE_FIELDS : EMAIL_FIELDS} placeholder=&quot;Add&quot;
+      {!method &amp;&amp; &lt;div className=&quot;record-auth-form__field-selection&quot;&gt;&lt;FormRow label=&quot;Fields&quot;&gt;&lt;div role=&quot;group&quot; aria-label=&quot;Fields to verify&quot; aria-invalid={!!errors.fields} aria-describedby={errors.fields ? `${id}-fields-error` : undefined}&gt;
+        &lt;Tags value={draft.fields} options={phone ? PHONE_FIELDS : EMAIL_FIELDS} placeholder=&quot;Add Fields&quot;
           onChange={(fields: Field[]) =&gt; update(&#39;fields&#39;, fields)} width=&quot;100%&quot; /&gt;
         {fieldError(&#39;fields&#39;)}
       &lt;/div&gt;&lt;/FormRow&gt;
       &lt;Checkbox label={`Restrict outgoing ${phone ? &#39;calls&#39; : &#39;emails&#39;} until verified`} checked={draft.restrict}
-        onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; update(&#39;restrict&#39;, event.target.checked)} /&gt;&lt;/&gt;}
-      &lt;section className=&quot;record-auth-form__section&quot; aria-labelledby={`${id}-settings`}&gt;
+        onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; update(&#39;restrict&#39;, event.target.checked)} /&gt;&lt;/div&gt;}
+      {showSettings &amp;&amp; &lt;&gt;&lt;section className=&quot;record-auth-form__section&quot; aria-labelledby={`${id}-settings`}&gt;
         &lt;h2 id={`${id}-settings`}&gt;{usesCode ? (code ? &#39;Email Code Configuration&#39; : &#39;OTP Configuration&#39;) : &#39;Verification Link Configuration&#39;}&lt;/h2&gt;
         {usesCode &amp;&amp; &lt;FormRow label=&quot;OTP Length&quot;&gt;&lt;div className=&quot;record-auth-form__inline&quot; role=&quot;radiogroup&quot; aria-label=&quot;OTP Length&quot;&gt;
           {([&#39;6&#39;, &#39;4&#39;] as const).map(digits =&gt; &lt;Radio key={digits} label={`${digits} Digits`} name={`${id}-digits`}
@@ -29292,14 +29728,14 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
             &lt;button type=&quot;button&quot; className=&quot;record-auth-form__template-input&quot; aria-haspopup=&quot;dialog&quot;
               onClick={() =&gt; setPreview({ title: &#39;Email Content&#39;, content: &#39;&#39;, kind: &#39;email&#39; })}&gt;
               &lt;span&gt;{EMAIL_TEMPLATES.find(template =&gt; template.value === draft.emailTemplate)?.label}&lt;/span&gt;
-              &lt;Icon name=&quot;CrmEditFilledMd&quot; size={12} /&gt;
+              &lt;Icon name=&quot;CrmEditFilledMd&quot; size={10} /&gt;
             &lt;/button&gt;
           &lt;/FormRow&gt;
           {!code &amp;&amp; &lt;FormRow label=&quot;Verification Page&quot;&gt;
             &lt;button type=&quot;button&quot; className=&quot;record-auth-form__template-input&quot; aria-haspopup=&quot;dialog&quot;
               onClick={() =&gt; setPreview({ title: &#39;Verification Page&#39;, content: &#39;&#39;, kind: &#39;page&#39; })}&gt;
               &lt;span&gt;{VERIFICATION_PAGES.find(page =&gt; page.value === draft.verificationPage)?.label}&lt;/span&gt;
-              &lt;Icon name=&quot;CrmEditFilledMd&quot; size={12} /&gt;
+              &lt;Icon name=&quot;CrmEditFilledMd&quot; size={10} /&gt;
             &lt;/button&gt;
           &lt;/FormRow&gt;}
         &lt;/&gt;}
@@ -29322,7 +29758,7 @@ function VerificationDialog({ channel, initial, expanded, onClose, onSave, metho
           &lt;FormRow label=&quot;Reset Attempt After&quot;&gt;{numberInput(&#39;validationReset&#39;, &#39;Reset validation attempt after&#39;, &#39;Hour(s)&#39;)}&lt;/FormRow&gt;
         &lt;/section&gt;}
       &lt;/div&gt;}
-      {!method &amp;&amp; !usesCode &amp;&amp; &lt;MessageInfo variant=&quot;info&quot; message=&quot;A new send invalidates the previous link. Latest request wins.&quot; /&gt;}
+      {!method &amp;&amp; !usesCode &amp;&amp; &lt;MessageInfo variant=&quot;info&quot; message=&quot;A new send invalidates the previous link. Latest request wins.&quot; /&gt;}&lt;/&gt;}
     &lt;/div&gt;
   &lt;/Modal&gt;
     {smsNotice &amp;&amp; &lt;MessageBox className=&quot;record-auth__notice&quot; variant=&quot;success&quot; message=&quot;Test SMS sent successfully&quot; onClose={() =&gt; setSmsNotice(false)} /&gt;}
@@ -29367,8 +29803,8 @@ function RecordAuthenticationPage({ initial = &#39;empty&#39;, dialog, expanded 
   const id = useId();
   const [activeTab, setActiveTab] = useState(configuration ? &#39;configuration&#39; : &#39;verification&#39;);
   const [saved, setSaved] = useState&lt;SavedSettings&gt;(() =&gt; initial === &#39;empty&#39; ? {} : {
-    phone: { ...defaultConfig(&#39;phone&#39;), carrier: &#39;twilio&#39; },
-    ...(initial === &#39;both&#39; ? { email: defaultConfig(&#39;email&#39;) } : {}),
+    phone: { ...defaultConfig(&#39;phone&#39;), fields: PHONE_FIELDS.slice(0, 2), carrier: &#39;twilio&#39; },
+    ...(initial === &#39;both&#39; ? { email: { ...defaultConfig(&#39;email&#39;), fields: EMAIL_FIELDS.slice(0, 2) } } : {}),
   });
   const [editing, setEditing] = useState&lt;Channel | undefined&gt;(dialog);
   const [preview, setPreview] = useState&lt;Preview | undefined&gt;();
@@ -29402,12 +29838,12 @@ function RecordAuthenticationPage({ initial = &#39;empty&#39;, dialog, expanded 
           &lt;div className=&quot;record-auth__panel&quot; role=&quot;tabpanel&quot; aria-label={activeTab === &#39;verification&#39; ? &#39;Data Verification&#39; : &#39;Record Verification&#39;}&gt;
             {activeTab === &#39;verification&#39; &amp;&amp; &lt;&gt;
               &lt;div className=&quot;record-auth__intro&quot;&gt;&lt;p&gt;Verify that phone numbers and email addresses belong to the contact.&lt;/p&gt;
-                {configured &amp;&amp; availableChannels.length &gt; 0 &amp;&amp; &lt;Dropdown id={`${id}-verify`} width=&quot;fit-content&quot; placeholder=&quot;Verify via&quot; value=&quot;&quot; triggerButtonVariant=&quot;primary&quot;
+                {configured &amp;&amp; availableChannels.length &gt; 0 &amp;&amp; &lt;Dropdown id={`${id}-verify`} width=&quot;fit-content&quot; placeholder=&quot;Verify as&quot; value=&quot;&quot; triggerButtonVariant=&quot;primary&quot;
                   panelStyle={{ width: &#39;max-content&#39;, maxWidth: &#39;calc(100vw - 24px)&#39; }}
                   options={availableChannels}
                   onChange={(value: string) =&gt; setEditing(value as Channel)} /&gt;}
               &lt;/div&gt;
-              {!configured &amp;&amp; &lt;Dropdown id={`${id}-verify`} width={180} placeholder=&quot;Verify via&quot; value=&quot;&quot; triggerButtonVariant=&quot;primary&quot;
+              {!configured &amp;&amp; &lt;Dropdown id={`${id}-verify`} width={180} placeholder=&quot;Verify as&quot; value=&quot;&quot; triggerButtonVariant=&quot;primary&quot;
                 panelStyle={{ width: &#39;max-content&#39;, maxWidth: &#39;calc(100vw - 24px)&#39; }}
                   options={availableChannels}
                 onChange={(value: string) =&gt; setEditing(value as Channel)} /&gt;}
@@ -29415,8 +29851,8 @@ function RecordAuthenticationPage({ initial = &#39;empty&#39;, dialog, expanded 
                 channel={channel} config={saved[channel]} onEdit={() =&gt; setEditing(channel)} onPreview={setPreview} /&gt;)}
             &lt;/&gt;}
             &lt;div hidden={activeTab !== &#39;configuration&#39;}&gt;&lt;RecordVerification onNotice={message =&gt; setNotice({ message })}
-              renderSettings={({ method, initial, lead, onChange, onClose, onSave }) =&gt; &lt;VerificationDialog
-                channel={method === &#39;otp&#39; ? &#39;phone&#39; : &#39;email&#39;} method={method}
+              renderSettings={({ method, initial, lead, onChange, onClose, onSave, showSettings, onIncompleteSave }) =&gt; &lt;VerificationDialog
+                channel={method === &#39;otp&#39; ? &#39;phone&#39; : &#39;email&#39;} method={method} showSettings={showSettings} onIncompleteSave={onIncompleteSave}
                 initial={initial} expanded={false} lead={lead} onChange={onChange} onClose={onClose} onSave={onSave} /&gt;} /&gt;&lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
@@ -29456,7 +29892,7 @@ export const Default: Story = {
     const body = within(canvasElement.ownerDocument.body);
     await expect(canvasElement.querySelector(&#39;.ngtb-badge&#39;)).not.toBeInTheDocument();
     await expect(within(canvas.getByRole(&#39;button&#39;, { name: &#39;User profile&#39; })).getByRole(&#39;img&#39;, { name: &#39;User&#39; })).toHaveAttribute(&#39;src&#39;, `${import.meta.env.BASE_URL}images/avatars/user_06.jpg`);
-    const verifyButton = canvas.getByRole(&#39;button&#39;, { name: &#39;Verify via&#39; });
+    const verifyButton = canvas.getByRole(&#39;button&#39;, { name: &#39;Verify as&#39; });
     await expect(verifyButton).toHaveAttribute(&#39;data-variant&#39;, &#39;primary&#39;);
     await userEvent.click(verifyButton);
     for (const name of [&#39;Phone Number&#39;, &#39;Email Address&#39;]) {
@@ -29473,11 +29909,53 @@ export const Default: Story = {
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Data Verification&#39; }));
   },
 };
-export const PhoneVerification: Story = { render: () =&gt; &lt;RecordAuthenticationPage dialog=&quot;phone&quot; /&gt; };
+export const PhoneVerification: Story = {
+  render: () =&gt; &lt;RecordAuthenticationPage dialog=&quot;phone&quot; /&gt;,
+  play: async ({ canvasElement }) =&gt; {
+    const body = within(canvasElement.ownerDocument.body);
+    const dialog = await body.findByRole(&#39;dialog&#39;);
+    const form = within(dialog);
+    const fields = form.getByRole(&#39;group&#39;, { name: &#39;Fields to verify&#39; });
+    await expect(fields.querySelectorAll(&#39;.tags-tag&#39;)).toHaveLength(0);
+    await expect(form.getByRole(&#39;checkbox&#39;)).not.toBeChecked();
+    const selection = dialog.querySelector(&#39;.record-auth-form__field-selection&#39;)!;
+    await expect(getComputedStyle(selection).rowGap).toBe(&#39;8px&#39;);
+    for (const root of dialog.querySelectorAll(&#39;.checkbox-root, .radio-root&#39;)) {
+      const control = root.querySelector(&#39;.checkbox-control, .radio-control&#39;)!.getBoundingClientRect();
+      const label = root.querySelector(&#39;.checkbox-label-text, .radio-label-text&#39;)!.getBoundingClientRect();
+      await expect(Math.abs(control.top + control.height / 2 - label.top - label.height / 2)).toBeLessThan(1);
+    }
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
+    await waitFor(() =&gt; expect(form.getByText(&#39;Select at least one field to verify.&#39;)).toBeVisible());
+    await userEvent.click(form.getByRole(&#39;textbox&#39;, { name: &#39;Add Fields&#39; }));
+    await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;Mobile&#39;, exact: true }));
+    await expect(form.getByRole(&#39;button&#39;, { name: &#39;Remove Mobile&#39; })).toBeInTheDocument();
+    await expect(form.queryByText(&#39;Select at least one field to verify.&#39;)).not.toBeInTheDocument();
+  },
+};
 export const PhoneMoreOptions: Story = {
   render: () =&gt; &lt;RecordAuthenticationPage dialog=&quot;phone&quot; expanded /&gt;,
   play: async ({ canvasElement }) =&gt; {
-    const form = within(await within(canvasElement.ownerDocument.body).findByRole(&#39;dialog&#39;));
+    const dialog = await within(canvasElement.ownerDocument.body).findByRole(&#39;dialog&#39;);
+    const form = within(dialog);
+    const scrollArea = dialog.querySelector(&#39;.modal-body&#39;)!;
+    const first = form.getByRole(&#39;textbox&#39;, { name: &#39;Add Fields&#39; });
+    await userEvent.click(first);
+    scrollArea.scrollTop = 0;
+    await waitFor(() =&gt; {
+      const control = first.closest(&#39;.tags-container&#39;)!;
+      expect(control.getBoundingClientRect().top - scrollArea.getBoundingClientRect().top).toBeGreaterThanOrEqual(8);
+      expect(getComputedStyle(control).boxShadow).not.toBe(&#39;none&#39;);
+    });
+    await userEvent.click(form.getByRole(&#39;heading&#39;, { name: &#39;OTP Configuration&#39; }));
+    const last = form.getByRole(&#39;spinbutton&#39;, { name: &#39;Reset validation attempt after&#39; });
+    await userEvent.click(last);
+    await waitFor(() =&gt; {
+      scrollArea.scrollTop = scrollArea.scrollHeight;
+      const control = last.closest(&#39;.input-input-wrapper&#39;)!;
+      expect(scrollArea.getBoundingClientRect().bottom - control.getBoundingClientRect().bottom).toBeGreaterThanOrEqual(8);
+      expect(getComputedStyle(control).boxShadow).not.toBe(&#39;none&#39;);
+    });
     const attempts = form.getByRole(&#39;spinbutton&#39;, { name: &#39;Max Resend Attempts&#39; });
     await userEvent.clear(attempts);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
@@ -29496,6 +29974,9 @@ export const EmailVerification: Story = {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     const form = within(await body.findByRole(&#39;dialog&#39;));
+    await expect(form.queryByRole(&#39;button&#39;, { name: &#39;Remove Email ID&#39; })).not.toBeInTheDocument();
+    await userEvent.click(form.getByRole(&#39;textbox&#39;, { name: &#39;Add Fields&#39; }));
+    await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;Email ID&#39;, exact: true }));
     await expect(form.queryByRole(&#39;heading&#39;, { name: &#39;Resend Options&#39; })).not.toBeInTheDocument();
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;More Options&#39; }));
     await waitFor(() =&gt; expect(form.getByRole(&#39;heading&#39;, { name: &#39;Resend Options&#39; })).toBeVisible());
@@ -29507,7 +29988,7 @@ export const EmailVerification: Story = {
     const validity = form.getByRole(&#39;spinbutton&#39;, { name: &#39;Verification link validity&#39; });
     await userEvent.clear(validity);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
-    await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Verification Link Validity cannot be empty&#39;);
+    await expect(form.getByText(&#39;Verification Link Validity cannot be empty&#39;)).toBeVisible();
     await expect(validity).toHaveAttribute(&#39;aria-invalid&#39;, &#39;true&#39;);
     await expect(validity).toHaveAccessibleDescription(&#39;Day(s) Verification Link Validity cannot be empty&#39;);
     await expect(form.getByRole(&#39;alert&#39;).parentElement).toContainElement(validity);
@@ -29527,7 +30008,11 @@ export const EmailVerification: Story = {
       await expect(getComputedStyle(trigger).backgroundColor).toBe(inputBackground);
       await expect(getComputedStyle(trigger).backgroundImage).toBe(&#39;none&#39;);
       await userEvent.unhover(trigger);
-      await expect(trigger.querySelector(&#39;svg&#39;)).toHaveAttribute(&#39;width&#39;, &#39;12&#39;);
+      const editIcon = trigger.querySelector(&#39;svg&#39;)!;
+      await expect(editIcon).toHaveAttribute(&#39;width&#39;, &#39;10&#39;);
+      const iconBounds = editIcon.getBoundingClientRect();
+      const triggerBounds = trigger.getBoundingClientRect();
+      await expect(Math.abs(iconBounds.top + iconBounds.height / 2 - triggerBounds.top - triggerBounds.height / 2)).toBeLessThanOrEqual(1);
       await userEvent.click(trigger);
       await expect(body.getByRole(&#39;dialog&#39;, { name: &#39;Data Verification via Email Address&#39; })).toBeVisible();
       await expect(body.getAllByRole(&#39;dialog&#39;)).toHaveLength(2);
@@ -29604,7 +30089,7 @@ export const EmailVerification: Story = {
     await userEvent.click(within(await body.findByRole(&#39;dialog&#39;)).getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     await expect(canvas.getByText(&#39;Link valid for 10 days&#39;)).toBeVisible();
-    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify via&#39; }));
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify as&#39; }));
     await expect(body.queryByRole(&#39;option&#39;, { name: &#39;Email Address&#39; })).not.toBeInTheDocument();
     await expect(body.getByRole(&#39;option&#39;, { name: &#39;Phone Number&#39; })).toBeVisible();
     await userEvent.keyboard(&#39;{Escape}&#39;);
@@ -29619,13 +30104,15 @@ export const PhoneConfigured: Story = {
   play: async ({ canvasElement }) =&gt; {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify via&#39; }));
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify as&#39; }));
     await expect(body.queryByRole(&#39;option&#39;, { name: &#39;Phone Number&#39; })).not.toBeInTheDocument();
     await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;Email Address&#39; }));
     const form = within(await body.findByRole(&#39;dialog&#39;));
+    await userEvent.click(form.getByRole(&#39;textbox&#39;, { name: &#39;Add Fields&#39; }));
+    await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;Email ID&#39;, exact: true }));
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39; }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
-    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Verify via&#39; })).not.toBeInTheDocument();
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Verify as&#39; })).not.toBeInTheDocument();
     const notice = canvas.getByRole(&#39;status&#39;);
     await expect(notice).toHaveClass(&#39;record-auth__notice&#39;);
     await expect(getComputedStyle(notice).position).toBe(&#39;fixed&#39;);
@@ -29649,7 +30136,7 @@ export const Configured: Story = {
     await expect(getComputedStyle(separator).height).toBe(&#39;6px&#39;);
     await expect(getComputedStyle(separator).backgroundColor).toBe(&#39;rgb(217, 217, 217)&#39;);
     await expect(getComputedStyle(separator.parentElement!).gap).toBe(&#39;10px&#39;);
-    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Verify via&#39; })).not.toBeInTheDocument();
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Verify as&#39; })).not.toBeInTheDocument();
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;SMS Template&#39;, exact: true }));
     const preview = within(await body.findByRole(&#39;dialog&#39;, { name: &#39;SMS Template Preview&#39; }));
     await waitFor(() =&gt; expect(preview.getByText(/Your verification OTP is/)).toBeVisible());
@@ -29725,10 +30212,17 @@ export const RecordConfiguration: Story = {
     const open = async () =&gt; { await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })); return within(await body.findByRole(&#39;dialog&#39;)); };
     const choose = async (name: string) =&gt; { await userEvent.click(body.getByRole(&#39;option&#39;, { name, exact: true })); };
     let form = await open();
+    await expect(form.queryByRole(&#39;heading&#39;, { name: /Configuration/ })).not.toBeInTheDocument();
+    await expect(form.queryByRole(&#39;button&#39;, { name: &#39;Verification Field&#39; })).not.toBeInTheDocument();
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
+    await expect(form.getByRole(&#39;alert&#39;)).toHaveTextContent(&#39;Select When and Consent Type.&#39;);
     for (const name of [&#39;When&#39;, &#39;Consent Type&#39;]) {
       const selector = form.getByRole(&#39;button&#39;, { name, exact: true });
       await expect(selector).toHaveTextContent(&#39;Select&#39;);
       await expect(Math.round(selector.getBoundingClientRect().width)).toBe(390);
+      const label = selector.closest(&#39;.record-auth-form__row&#39;)!.firstElementChild!;
+      await expect(getComputedStyle(label).textAlign).toBe(&#39;right&#39;);
+      await expect(label.getBoundingClientRect().width).toBeLessThan(120);
     }
     await expect(canvas.queryByText(&#39;Record Verification Settings&#39;)).not.toBeInTheDocument();
     await expect(canvasElement.querySelector(&#39;.record-confirmation__empty&#39;)).toBeNull();
@@ -29738,11 +30232,17 @@ export const RecordConfiguration: Story = {
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }));
     await expect(await body.findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Choose the event&#39;);
     await expect(body.getByRole(&#39;tooltip&#39;)).toHaveClass(&#39;tooltip-white&#39;);
+    await expect(body.getByRole(&#39;tooltip&#39;).getBoundingClientRect().width).toBeLessThanOrEqual(600);
+    await expect(getComputedStyle(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; })).cursor).toBe(&#39;default&#39;);
     await expect(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }).querySelector(&#39;svg&#39;)).toBeInTheDocument();
     await userEvent.unhover(form.getByRole(&#39;button&#39;, { name: &#39;About When&#39; }));
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
     await expect(body.getAllByRole(&#39;option&#39;)).toHaveLength(3);
-    await expect(body.getByRole(&#39;option&#39;, { name: /Confirmation Link/ })).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
+    const disabledLink = body.getByRole(&#39;option&#39;, { name: /Confirmation Link/ });
+    await expect(disabledLink).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
+    await userEvent.hover(disabledLink);
+    await expect(body.getByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Available only for button actions.&#39;);
+    await userEvent.unhover(disabledLink);
     const secondary = body.getByText(&#39;Send an SMS OTP to confirm the action.&#39;);
     await expect(secondary).toBeVisible();
     await expect(getComputedStyle(secondary).fontSize).toBe(&#39;13px&#39;);
@@ -29759,7 +30259,7 @@ export const RecordConfiguration: Story = {
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     await expect(canvas.getByText(&#39;Record creation&#39;, { exact: true })).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Data Verification&#39; }));
-    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify via&#39; })).toBeVisible();
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify as&#39; })).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Record Verification&#39; }));
     await expect(canvas.getByText(&#39;Record creation&#39;, { exact: true })).toBeVisible();
     form = await open();
@@ -29767,6 +30267,9 @@ export const RecordConfiguration: Story = {
     await expect(body.getByRole(&#39;option&#39;, { name: /Record creation/ })).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
     await choose(&#39;Picklist value Ask for consent when a picklist is set to a value.&#39;);
     await expect(form.getByRole(&#39;button&#39;, { name: &#39;Picklist&#39;, exact: true })).toBeVisible();
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Values&#39;, exact: true }));
+    await choose(&#39;In progress&#39;);
+    await userEvent.click(body.getByRole(&#39;button&#39;, { name: &#39;Done&#39;, exact: true }));
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
     const sameDialog = body.getByRole(&#39;dialog&#39;);
     await choose(&#39;Code on Email Send an email code to confirm the action.&#39;);
@@ -29780,8 +30283,14 @@ export const RecordConfiguration: Story = {
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Verification Field&#39; })); await choose(&#39;Email ID&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
-    await expect(canvas.getByText(&#39;Status is Open&#39;)).toBeVisible();
-    const enabled = canvas.getByRole(&#39;switch&#39;, { name: &#39;Enable Status is Open&#39; });
+    await expect(canvas.getByText(&#39;Status is Open, In progress&#39;)).toBeVisible();
+    await expect(canvas.queryByRole(&#39;table&#39;)).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit Status is Open, In progress&#39; }));
+    const criteriaEdit = within(await body.findByRole(&#39;dialog&#39;));
+    await expect(criteriaEdit.getByRole(&#39;button&#39;, { name: &#39;Values&#39; })).toHaveTextContent(&#39;2 selected&#39;);
+    await userEvent.click(criteriaEdit.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39; }));
+    await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
+    const enabled = canvas.getByRole(&#39;switch&#39;, { name: &#39;Enable Status is Open, In progress&#39; });
     await userEvent.click(enabled); await expect(enabled).not.toBeChecked();
     form = await open();
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
@@ -29796,7 +30305,13 @@ export const RecordConfiguration: Story = {
     const portalUsers = form.getByRole(&#39;checkbox&#39;, { name: &#39;For Portal Users&#39; });
     await userEvent.click(portalUsers);
     await expect(portalUsers).toBeChecked();
-    await userEvent.type(form.getByRole(&#39;textbox&#39;, { name: &#39;Button Name&#39; }), &#39;Approve shipment&#39;);
+    const buttonName = form.getByRole(&#39;textbox&#39;, { name: &#39;Button Name&#39; });
+    const inputBox = buttonName.closest(&#39;.input-input-wrapper&#39;)!;
+    await expect(getComputedStyle(buttonName).paddingInlineStart).toBe(&#39;10px&#39;);
+    await expect(inputBox.getBoundingClientRect().height).toBe(34);
+    await userEvent.click(buttonName);
+    await waitFor(() =&gt; expect(getComputedStyle(inputBox).boxShadow).not.toBe(&#39;none&#39;));
+    await userEvent.type(buttonName, &#39;Approve shipment&#39;);
     // Incompatible actions reset link consent; compatible changes preserve delivery edits.
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
     await choose(&#39;Picklist value Ask for consent when a picklist is set to a value.&#39;);
