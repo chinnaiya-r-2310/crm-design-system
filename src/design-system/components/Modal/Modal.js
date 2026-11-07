@@ -50,6 +50,7 @@ export function Modal({
   children,
   width = 569,
   disableAutoFocus = false,
+  closeOnEscape = true,
   // Alert-specific props
   type = 'modal',
   variant = 'info',
@@ -106,14 +107,14 @@ export function Modal({
 
   // Close on Escape key
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || !closeOnEscape) return;
     const handler = (e) => {
       const dialogs = document.querySelectorAll('.modal-dialog');
       if (e.key === 'Escape' && dialogs[dialogs.length - 1] === dialogRef.current) onClose();
     };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
-  }, [isVisible, onClose]);
+  }, [isVisible, onClose, closeOnEscape]);
 
   // Show footer shadow when there is content below the visible area.
   // Hides when the user scrolls to the bottom (the trailing 30px becomes visible).

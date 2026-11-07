@@ -1,0 +1,241 @@
+/* Joined Reports - Revamp: layout-only rules for the story.
+   Controls come from existing design-system components; this sheet only arranges them. */
+
+/* Step 2 is vertically centred; step 1 keeps the Modal default (top aligned). */
+.jr-page {
+  padding: 40px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+}
+
+.jr-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 100%;
+}
+
+.jr-stepper-wrap {
+  margin-bottom: 4px;
+}
+
+.jr-intro {
+  margin: 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  color: var(--ds-text-paragraph);
+}
+
+.jr-section-heading {
+  margin: 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  color: var(--ds-text-paragraph);
+}
+
+.jr-name-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.jr-name-label {
+  flex: none;
+  white-space: nowrap;
+  text-align: right;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-regular);
+  color: var(--ds-text-label);
+}
+
+.jr-toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.jr-table {
+  width: 100%;
+  border: 1px solid var(--ds-border-lighter);
+  border-radius: 8px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+}
+
+.jr-table th,
+.jr-table td {
+  padding: 6px 15px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.jr-table thead th {
+  background: transparent;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-medium);
+  color: var(--ds-text-heading);
+  white-space: nowrap;
+  border-bottom: 2px solid var(--ds-border-lighter);
+}
+
+.jr-table tbody tr:not(:last-child) > td {
+  border-bottom: 1px solid var(--ds-border-lighter);
+}
+
+.jr-cell--input {
+  white-space: nowrap;
+}
+
+.jr-table .jr-cell--input {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+table[aria-label="Reports"] tbody tr:first-child > td.jr-cell--actions {
+  padding-left: 18px;
+}
+
+.jr-col-text {
+  display: block;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jr-table .jr-cell--grip {
+  width: 1%;
+  padding-left: 8px;
+  padding-right: 4px;
+  padding-top: 17px;
+}
+
+.jr-table .jr-cell--actions {
+  padding-top: 15px;
+}
+
+.jr-table .jr-cell--grip,
+.jr-table .jr-cell--actions {
+  vertical-align: top;
+}
+
+.jr-table thead th:nth-child(2) {
+  padding-left: 0;
+}
+
+.jr-cell--grip,
+.jr-cell--actions {
+  white-space: nowrap;
+}
+
+.jr-cell--actions {
+  width: 1%;
+}
+
+.jr-grip {
+  display: inline-flex;
+  color: var(--ds-text-label);
+  opacity: 0;
+  cursor: grab;
+}
+
+.jr-table tbody tr:hover .jr-grip {
+  opacity: 1;
+}
+
+.jr-grip--hidden {
+  visibility: hidden;
+}
+
+.jr-grip--static {
+  opacity: 1;
+}
+
+.jr-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.jr-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.jr-icon-btn--minus {
+  color: var(--ds-components-button-link-red-link-default);
+}
+
+.jr-icon-btn--plus {
+  color: var(--ds-components-button-outline-green-default-text);
+}
+
+.jr-icon-btn:focus-visible {
+  outline: 2px solid var(--ds-components-button-outline-blue-default-border);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.jr-slot {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.jr-slot--hidden {
+  visibility: hidden;
+}
+
+.jr-note-banner {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  max-width: calc(100vw - 32px);
+}
+
+.jr-group-head {
+  margin-top: -20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.jr-preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+}
+
+.jr-preview-table th,
+.jr-preview-table td {
+  padding: 10px 12px;
+  border: 1px solid var(--ds-border-lighter);
+  text-align: left;
+  vertical-align: top;
+}
+
+.jr-preview-table thead th {
+  font-weight: var(--ds-font-weight-medium);
+  color: var(--ds-text-heading);
+}

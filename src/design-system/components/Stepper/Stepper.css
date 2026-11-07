@@ -10,58 +10,41 @@
   user-select: none;
 }
 
-/* ── Outer step (border color layer + chevron clip) ── */
-.stp-step {
-  position: relative;
+/* ── Step group: [head connector][body][tail connector], all same color ──
+   Figma (Pascal Stone, node 80436:427906): the notch ("head") and arrow-tip
+   ("tail") are their own vector pieces, not a clip-path on the whole step. */
+.stp-step-group {
   display: flex;
   align-items: stretch;
-  /* background set inline in JS: border color for bordered states, fill color otherwise */
-  /* non-first steps: notch on left + arrow on right */
-  clip-path: polygon(
-    0 0,
-    calc(100% - 14px) 0,
-    100% 50%,
-    calc(100% - 14px) 100%,
-    0 100%,
-    14px 50%
-  );
-  /* pull next step left so arrow + notch align */
-  margin-right: -14px;
   flex-shrink: 0;
 }
 
-/* First step: no notch on left */
-.stp-step.stp-first {
-  clip-path: polygon(
-    0 0,
-    calc(100% - 14px) 0,
-    100% 50%,
-    calc(100% - 14px) 100%,
-    0 100%
-  );
+/* ── Connectors ── */
+.stp-connector {
+  display: block;
+  flex-shrink: 0;
 }
 
-/* Last step: restore margin */
-.stp-step.stp-last {
-  margin-right: 0;
+/* Pull the head back over the previous step's tail so the tail tip sits 5px
+   short of the notch point (notch point sits ~9.5px into the 11px-wide head). */
+.stp-connector-head {
+  margin-left: -4.4px;
 }
 
-/* ── Inner content layer (fill color) ── */
+/* ── Body (icon + label) ── */
 .stp-inner {
   display: flex;
   align-items: center;
   gap: 8px;
-  /* right pad covers the 14px arrow zone + breathing room */
-  padding: 0 22px 0 22px;
+  padding: 6px 15px;
   background: var(--stp-bg, #F2F3FA);
-  min-height: 30px;
-  white-space: nowrap;
+  height: 30px;
   box-sizing: border-box;
+  white-space: nowrap;
 }
 
-/* First step: no notch so less left padding needed */
-.stp-first .stp-inner {
-  padding-left: 12px;
+.stp-step-group:first-child .stp-inner {
+  padding-left: 14px;
 }
 
 /* ── Icon ── */
@@ -72,14 +55,17 @@
   line-height: 0;
 }
 
-/* ── Label ── */
+/* ── Label ──
+   Figma (Pascal Stone, node 80436:427558): every state shares the same
+   label color; only the active step steps up to Medium weight, completed
+   and pending both stay Regular. */
 .stp-label {
   font-size: 13px;
-  font-weight: 400;
-  color: #313949;
+  font-weight: var(--ds-font-weight-regular, 400);
+  color: var(--ds-text-base, #313949);
   line-height: 1;
 }
 
-.stp-label-bold {
-  font-weight: 600;
+.stp-label-active {
+  font-weight: var(--ds-font-weight-medium, 500);
 }
