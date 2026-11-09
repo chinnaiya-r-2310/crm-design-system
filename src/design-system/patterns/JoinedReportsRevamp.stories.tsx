@@ -655,6 +655,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
 function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReportCount, startOpen = true, saved = true }: Args) {
   const [open, setOpen] = useState(startOpen);
   const [mode, setMode] = useState<'create' | 'edit'>('create');
+  const [isSaved, setIsSaved] = useState(saved);
   const [session, setSession] = useState(0);
   const [banner, setBanner] = useState<Banner | null>(null);
 
@@ -670,7 +671,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
   return (
     <>
       <BuilderBackground
-        saved={saved}
+        saved={isSaved}
         onEdit={() => { setMode('edit'); setSession(current => current + 1); setOpen(true); }}
         onCreate={() => { setMode('create'); setSession(current => current + 1); setOpen(true); }}
       />
@@ -690,6 +691,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
         onClose={() => setOpen(false)}
         onNotify={notify}
         onSaved={name => {
+          setIsSaved(true);
           setOpen(false);
           notify('success', `Joined Report "${name}" saved.`);
         }}
