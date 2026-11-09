@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.7s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.3s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -9887,13 +9887,13 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  703 | // ─────────────────────────────────────────────────────────────────────────────
-  704 |
-&gt; 705 | const meta = {
+  705 | // ─────────────────────────────────────────────────────────────────────────────
+  706 |
+&gt; 707 | const meta = {
       | ^
-  706 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
-  707 |   parameters: {
-  708 |     layout: &#39;fullscreen&#39;,
+  708 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
+  709 |   parameters: {
+  710 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/JoinedReportsRevamp.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -10553,6 +10553,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
 function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReportCount, startOpen = true, saved = true }: Args) {
   const [open, setOpen] = useState(startOpen);
   const [mode, setMode] = useState&lt;&#39;create&#39; | &#39;edit&#39;&gt;(&#39;create&#39;);
+  const [isSaved, setIsSaved] = useState(saved);
   const [session, setSession] = useState(0);
   const [banner, setBanner] = useState&lt;Banner | null&gt;(null);
 
@@ -10568,7 +10569,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
   return (
     &lt;&gt;
       &lt;BuilderBackground
-        saved={saved}
+        saved={isSaved}
         onEdit={() =&gt; { setMode(&#39;edit&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
         onCreate={() =&gt; { setMode(&#39;create&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
       /&gt;
@@ -10588,6 +10589,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
         onClose={() =&gt; setOpen(false)}
         onNotify={notify}
         onSaved={name =&gt; {
+          setIsSaved(true);
           setOpen(false);
           notify(&#39;success&#39;, `Joined Report &quot;${name}&quot; saved.`);
         }}
@@ -27645,13 +27647,13 @@ export const CreateDeal: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  703 | // ─────────────────────────────────────────────────────────────────────────────
-  704 |
-&gt; 705 | const meta = {
+  705 | // ─────────────────────────────────────────────────────────────────────────────
+  706 |
+&gt; 707 | const meta = {
       | ^
-  706 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
-  707 |   parameters: {
-  708 |     layout: &#39;fullscreen&#39;,
+  708 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
+  709 |   parameters: {
+  710 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/JoinedReportsRevamp.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -28311,6 +28313,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
 function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReportCount, startOpen = true, saved = true }: Args) {
   const [open, setOpen] = useState(startOpen);
   const [mode, setMode] = useState&lt;&#39;create&#39; | &#39;edit&#39;&gt;(&#39;create&#39;);
+  const [isSaved, setIsSaved] = useState(saved);
   const [session, setSession] = useState(0);
   const [banner, setBanner] = useState&lt;Banner | null&gt;(null);
 
@@ -28326,7 +28329,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
   return (
     &lt;&gt;
       &lt;BuilderBackground
-        saved={saved}
+        saved={isSaved}
         onEdit={() =&gt; { setMode(&#39;edit&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
         onCreate={() =&gt; { setMode(&#39;create&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
       /&gt;
@@ -28346,6 +28349,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
         onClose={() =&gt; setOpen(false)}
         onNotify={notify}
         onSaved={name =&gt; {
+          setIsSaved(true);
           setOpen(false);
           notify(&#39;success&#39;, `Joined Report &quot;${name}&quot; saved.`);
         }}
