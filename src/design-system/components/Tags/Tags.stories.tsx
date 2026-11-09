@@ -179,3 +179,32 @@ export const WithUserImage: Story = {
     );
   },
 };
+
+// ── Color tags ────────────────────────────────────────────────────────────────
+
+const COLOR_TAG_OPTIONS = [
+  { value: 'tag1', label: 'tag1', color: '#658BA8' },
+  { value: 'tag2', label: 'tag2', color: '#12AA67' },
+  { value: 'tag3', label: 'tag3', color: '#F18E0A' },
+  { value: 'tag4', label: 'tag4', color: '#F564BB' },
+];
+
+export const ColorTags: Story = {
+  render: () => {
+    const [tags, setTags] = useState<TagItem[]>([
+      { value: 'tag1', label: 'tag1', color: '#658BA8' },
+      { value: 'tag2', label: 'tag2', color: '#12AA67' },
+    ]);
+    return (
+      <Tags
+        value={tags}
+        options={COLOR_TAG_OPTIONS}
+        onChange={setTags}
+        placeholder="Enter Tags"
+        width={390}
+        colorTags
+      />
+    );
+  },
+};
+

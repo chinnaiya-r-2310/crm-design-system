@@ -138,3 +138,25 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.ft-table tbody tr {
+  will-change: transform;
+}
+
+.ft-table tbody tr[data-placeholder] > td {
+  background: var(--ds-bg-scale-bg4);
+}
+
+.ft-table tbody tr[data-placeholder] > td > * {
+  visibility: hidden;
+}
+
+.ft-drag-ghost {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  table-layout: fixed;
+  background: var(--ds-bg-common-white);
+  box-shadow: 0 8px 24px var(--ds-shadow-dropdown);
+  border-radius: 8px;
+}

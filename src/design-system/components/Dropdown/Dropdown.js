@@ -125,6 +125,7 @@ export function Dropdown({
   const listRef    = useRef(null);
 
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [submenuState, setSubmenuState] = useState(null);
   const PANEL_MAX_WIDTH = 390;
   const [panelPos, setPanelPos] = useState(null);
   const justOpenedRef  = useRef(false); // true only on the render cycle when panel first appears
@@ -369,7 +370,16 @@ export function Dropdown({
         data-disabled={opt.disabled || undefined}
         data-active={activeIndex === idx || undefined}
         data-option-index={idx}
-        onMouseEnter={() => setActiveIndex(idx)}
+        data-submenu={opt.submenu ? true : undefined}
+        onMouseEnter={event => {
+          setActiveIndex(idx);
+          if (opt.submenu) {
+            const rect = event.currentTarget.getBoundingClientRect();
+            setSubmenuState({ idx, top: rect.top, left: rect.right + 4 });
+          } else {
+            setSubmenuState(null);
+          }
+        }}
         onClick={() => multiSelect ? toggleMulti(opt) : selectSingle(opt)}
       >
         {multiSelect ? (
@@ -382,6 +392,7 @@ export function Dropdown({
           </span>
         )}
         {opt.icon && <span className='dropdown-option-icon' aria-hidden="true">{opt.icon}</span>}
+        {opt.submenu && <ChevronDownFilled className='dropdown-submenu-chevron' aria-hidden="true" />}
         {opt.description ? <span className='dropdown-option-content'>
           <span className='dropdown-option-label'>{opt.label}</span>
           <span className='dropdown-option-description'>{opt.description}</span>
@@ -395,6 +406,29 @@ export function Dropdown({
       </Tooltip>
     ) : option;
   };
+
+  const submenuOption = submenuState ? filtered[submenuState.idx] : null;
+  const submenuFlyout = submenuOption?.submenu && createPortal(
+    <div
+      className='dropdown-submenu-flyout'
+      style={{ top: submenuState.top, left: submenuState.left }}
+      role="menu"
+      onMouseLeave={() => setSubmenuState(null)}
+    >
+      {submenuOption.submenu.map(sub => (
+        <div
+          key={sub.value}
+          className='dropdown-submenu-item'
+          role="menuitem"
+          data-selected={sub.value === resolvedValue || undefined}
+          onClick={() => selectSingle(sub)}
+        >
+          {sub.label}
+        </div>
+      ))}
+    </div>,
+    document.body,
+  );
 
   const optionListEl = (
     <div className='dropdown-option-list' ref={listRef}>
@@ -495,6 +529,7 @@ export function Dropdown({
       )}
 
       {optionListEl}
+      {submenuFlyout}
 
       {(multiSelect || footerAction) && (
         <div className='dropdown-panel-footer'>

@@ -419,3 +419,28 @@ export const InForm: Story = {
     );
   },
 };
+
+export const WithSubmenu = () => {
+  const [value, setValue] = useState('');
+  const options = [
+    { value: 'sum_avg_time', label: 'Sum of Average Time Spent (Minutes)', submenu: [
+      { value: 'sum_avg_time_week', label: 'By Week' },
+      { value: 'sum_avg_time_month', label: 'By Month' },
+      { value: 'sum_avg_time_year', label: 'By Year' },
+    ] },
+    { value: 'min_avg_time', label: 'Minimum of Average Time Spent (Minutes)' },
+    { value: 'max_avg_time', label: 'Maximum of Average Time Spent (Minutes)' },
+  ];
+  return (
+    <Dropdown
+      label="Show Submenu"
+      layout="vertical"
+      width={390}
+      options={options}
+      value={value}
+      onChange={setValue}
+      placeholder="Select"
+    />
+  );
+};
+

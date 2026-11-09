@@ -64,7 +64,7 @@
        label  = 650 × 3/10 = 195px  (30%)
        input  = 650 × 7/10 = 455px  (70%) ← always the reference anchor
      Ratio stays proportional as total width changes.               */
-  grid-template-columns: 3fr 7fr;
+  grid-template-columns: 260px 390px;
   column-gap: 20px;
   align-items: start;   /* label wraps downward; input stays at top of its cell */
 }
@@ -75,6 +75,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  width: 390px;
 }
 
 /* ── Label ──────────────────────────────────────────────────────────────── */
@@ -415,4 +416,59 @@
   font-weight: var(--ds-font-weight-regular);
   line-height: var(--ds-line-height-xs);  /* 15px */
   color: var(--ds-text-base);             /* #313949 */
+}
+
+/* ─────────────────────── Currency variant ──────────────────────────────── */
+
+.input-currency-parts {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  align-items: stretch;
+}
+
+.input-currency-parts .input-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.input-currency-code {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  padding: 0 10px 0 12px;
+  white-space: nowrap;
+  color: var(--ds-text-label);
+}
+
+.input-currency-divider {
+  width: 1px;
+  align-self: stretch;
+  margin: 6px 0;
+  flex-shrink: 0;
+  background: var(--ds-components-input-default-outline);
+}
+
+.input-root[data-variant="disabled"] .input-currency-divider {
+  background: var(--ds-components-input-disable-outline);
+}
+
+/* ─────────────────────── Password variant ──────────────────────────────── */
+
+.input-input-wrapper[data-type="password"] .input-suffix-slot {
+  background: transparent;
+  border-radius: 0;
+}
+
+.input-password-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
 }

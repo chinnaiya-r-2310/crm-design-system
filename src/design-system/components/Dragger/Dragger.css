@@ -1,0 +1,64 @@
+.dragger {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dragger-grip {
+  display: inline-flex;
+}
+
+.dragger-grip--on-hover {
+  opacity: 0;
+}
+
+.dragger-item:hover .dragger-grip--on-hover {
+  opacity: 1;
+}
+
+.dragger-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 0;
+  color: var(--ds-text-base);
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  cursor: grab;
+  touch-action: none;
+}
+
+.dragger-item {
+  transition: background-color 600ms ease;
+}
+
+.dragger-item--highlight {
+  background: var(--ds-icon-bg-orange-yellow);
+  border-radius: 4px;
+}
+
+.dragger-item--placeholder {
+  background: var(--ds-bg-scale-bg4);
+  border-radius: 4px;
+}
+
+.dragger-item--placeholder > * {
+  visibility: hidden;
+}
+
+.dragger-ghost {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+  background: var(--ds-bg-common-white);
+  box-shadow: 0 4px 12px var(--ds-shadow-dropdown);
+  border-radius: 4px;
+}
+
+.dragger-ghost .dragger-item {
+  cursor: grabbing;
+}

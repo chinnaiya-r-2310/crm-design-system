@@ -35,6 +35,80 @@ function FilterPanel({ options, selected, onSelect, top, left }) {
 // Component
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Report variant — single bordered table; columns flagged `merge` span across
+// consecutive rows whose value is empty
+// ─────────────────────────────────────────────────────────────────────────────
+
+function computeSpans(rows, key) {
+  const info = rows.map(() => ({ skip: false, span: 1 }));
+  let start = null;
+  rows.forEach((row, i) => {
+    const value = row[key];
+    const empty = value === undefined || value === null || value === '';
+    if (empty && start !== null) {
+      info[i].skip = true;
+      info[start].span += 1;
+    } else {
+      start = i;
+    }
+  });
+  return info;
+}
+
+function ReportTable({ columns, rows, emptyMessage, width }) {
+  const spans = Object.fromEntries(
+    columns.filter(col => col.merge).map(col => [col.key, computeSpans(rows, col.key)])
+  );
+  const contentOf = (col, row, i) => (col.render ? col.render(row[col.key], row, i) : String(row[col.key] ?? ''));
+
+  return (
+    <div className="table-report-root" style={width ? { width: typeof width === 'number' ? `${width}px` : width } : undefined}>
+      <table className="table-report">
+        <thead>
+          <tr>
+            {columns.map(col => (
+              <th key={col.key} style={{ textAlign: col.align ?? 'left', width: col.width }}>
+                {col.label}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.length === 0 ? (
+            <tr>
+              <td className="table-report-empty" colSpan={columns.length}>{emptyMessage}</td>
+            </tr>
+          ) : rows.map((row, i) => (
+            <tr key={row.id ?? i}>
+              {columns.map(col => {
+                if (!col.merge) {
+                  return (
+                    <td key={col.key} style={{ textAlign: col.align ?? 'left' }}>
+                      {contentOf(col, row, i)}
+                    </td>
+                  );
+                }
+                const info = spans[col.key][i];
+                if (info.skip) return null;
+                return (
+                  <td
+                    key={col.key}
+                    rowSpan={info.span > 1 ? info.span : undefined}
+                    style={{ textAlign: col.align ?? 'left' }}
+                  >
+                    {contentOf(col, row, i)}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function SetupTable({
   columns: columnDefs,
   rows,
@@ -46,6 +120,7 @@ export function SetupTable({
   width,
   maxHeight,
   emptyMessage = 'No data',
+  variant = 'setup',
 }) {
   // ── Resizable column widths ───────────────────────────────────────────────
   const [colWidths, setColWidths] = useState(() =>
@@ -138,6 +213,10 @@ export function SetupTable({
       ))}
     </colgroup>
   );
+
+  if (variant === 'report') {
+    return <ReportTable columns={columnDefs} rows={rows} emptyMessage={emptyMessage} width={width} />;
+  }
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (

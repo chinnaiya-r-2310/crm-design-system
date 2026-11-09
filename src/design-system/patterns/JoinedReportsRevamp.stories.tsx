@@ -5,14 +5,17 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import { Button } from '../components/Button/Button';
 import { Dropdown } from '../components/Dropdown/Dropdown';
+import { NextGenTopBand } from '../components/NextGenTopBand/NextGenTopBand';
 import { FormTable } from '../components/FormTable/FormTable';
 import { Icon } from '../components/Icon/Icon';
 import { Input } from '../components/Input/Input';
 import { MessageBox } from '../components/MessageBox/MessageBox';
 import { Modal } from '../components/Modal/Modal';
 import { Tooltip } from '../components/Tooltip/Tooltip';
+import { Tabs } from '../components/Tabs/Tabs';
+import { Dragger } from '../components/Dragger/Dragger';
 import { Stepper } from '../components/Stepper/Stepper';
-import { ChevronDownFilled } from '../foundations/icons/Icons';
+import { ChevronDownFilled, Info } from '../foundations/icons/Icons';
 import './JoinedReportsRevamp.css';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -74,6 +77,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
 }) {
   const [step, setStep] = useState<JoinStep>(initialStep);
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [errorKeys, setErrorKeys] = useState<Set<string>>(() => new Set());
   const [name, setName] = useState('Untitled Joined Report');
   const [rows, setRows] = useState<ReportRow[]>(() => initialRows(initialReportCount, initialStep));
   const [groups, setGroups] = useState<GroupRow[]>(() =>
@@ -145,7 +149,21 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
       return { ...group, fields };
     }));
 
-  const save = () => onSaved(name.trim() || 'Untitled Joined Report');
+  const save = () => {
+    const keys = new Set<string>();
+    groups.forEach(group => {
+      if (!group.name.trim()) keys.add(`${group.id}:name`);
+      rows.forEach((_, reportIndex) => {
+        if (!group.fields[reportIndex]) keys.add(`${group.id}:${reportIndex}`);
+      });
+    });
+    if (keys.size > 0) {
+      setErrorKeys(keys);
+      return;
+    }
+    setErrorKeys(new Set());
+    onSaved(name.trim() || 'Untitled Joined Report');
+  };
 
   const reportCount = rows.length;
   const lastRowIndex = rows.length - 1;
@@ -301,6 +319,8 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
                   placeholder="Enter name"
                   id={groupIndex === 0 ? 'jr-group-name-first' : undefined}
                   aria-label={`Group ${groupIndex + 1} name`}
+                  error={errorKeys.has(`${group.id}:name`) && !group.name.trim()}
+                  helperText={errorKeys.has(`${group.id}:name`) && !group.name.trim() ? 'Enter a group name' : undefined}
                   value={group.name}
                   onChange={(event: ChangeEvent<HTMLInputElement>) => setGroupName(group.id, event.target.value)}
                 />,
@@ -311,6 +331,8 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
                     placeholder="Select field"
                     triggerAriaLabel={`Group ${groupIndex + 1} field for report ${reportIndex + 1}`}
                     options={FIELD_OPTIONS}
+                    error={errorKeys.has(`${group.id}:${reportIndex}`) && !group.fields[reportIndex]}
+                    helperText={errorKeys.has(`${group.id}:${reportIndex}`) && !group.fields[reportIndex] ? 'Select a field' : undefined}
                     value={group.fields[reportIndex] ?? ''}
                     onChange={(value: string) => setField(group.id, reportIndex, value)}
                   />
@@ -330,12 +352,10 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
     <Modal
       isOpen={previewOpen}
       title="Preview"
-      width={920}
+      width={1180}
+      showClose
+      showFooter={false}
       onClose={() => setPreviewOpen(false)}
-      onCancel={() => setPreviewOpen(false)}
-      cancelLabel="Close"
-      saveLabel="Done"
-      onSave={() => setPreviewOpen(false)}
     >
       <table className="jr-preview-table" aria-label="Joined report preview">
         <thead>
@@ -345,40 +365,130 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
             <th>Owner</th>
             <th>Lookup Field</th>
             <th>{`Report 1 (${primaryReportName})`}</th>
-            <th>{`Report 2 (${reportNameOf(rows[1] ?? rows[0], primaryReportName)})`}</th>
+            <th>{`Report 2 (${rows[1] ? reportNameOf(rows[1], primaryReportName) : 'Report 2'})`}</th>
+            <th>{`Report 3 (${rows[2] ? reportNameOf(rows[2], primaryReportName) : 'Report 3'})`}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td rowSpan={3}>Jan 2026</td>
-            <td rowSpan={3}>Deal</td>
-            <td rowSpan={3}>Selvam</td>
+            <td rowSpan={2}>Jan 2026</td>
+            <td rowSpan={2}>Deal</td>
+            <td rowSpan={2}>Selvam</td>
             <td>Deal 1</td>
             <td>Acme Corp renewal</td>
             <td>Globex upsell</td>
-          </tr>
-          <tr>
-            <td />
             <td>Initech expansion</td>
-            <td />
           </tr>
           <tr>
             <td />
-            <td>Count 2</td>
-            <td>Count 1</td>
+            <td>2</td>
+            <td>1</td>
+            <td>1</td>
           </tr>
           <tr>
             <td rowSpan={2}>Feb 2026</td>
-            <td rowSpan={2} />
-            <td rowSpan={2} />
+            <td rowSpan={2}>Deal</td>
+            <td rowSpan={2}>Maya</td>
             <td>Deal 2</td>
             <td>-</td>
             <td>Umbrella renewal</td>
+            <td>Hooli deal</td>
           </tr>
           <tr>
             <td />
-            <td>Count 0</td>
-            <td>Count 1</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td rowSpan={2}>Mar 2026</td>
+            <td rowSpan={2}>Deal</td>
+            <td rowSpan={2}>Priya</td>
+            <td>Deal 3</td>
+            <td>Nova Labs demo</td>
+            <td>-</td>
+            <td>Vertex pilot</td>
+          </tr>
+          <tr>
+            <td />
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td rowSpan={2}>Apr 2026</td>
+            <td rowSpan={2}>Deal</td>
+            <td rowSpan={2}>Selvam</td>
+            <td>Deal 4</td>
+            <td>Orbit Media expansion</td>
+            <td>Pinnacle renewal</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td />
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td rowSpan={2}>May 2026</td>
+            <td rowSpan={2}>Deal</td>
+            <td rowSpan={2}>Maya</td>
+            <td>Deal 5</td>
+            <td>Stark Industries pilot</td>
+            <td>Wayne Corp upsell</td>
+            <td>Acme Corp renewal</td>
+          </tr>
+          <tr>
+            <td />
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td rowSpan={2}>Jun 2026</td>
+            <td rowSpan={2}>Deal</td>
+            <td rowSpan={2}>Priya</td>
+            <td>Deal 6</td>
+            <td>Contoso renewal</td>
+            <td>Fabrikam demo</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td />
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td rowSpan={2}>Jul 2026</td>
+            <td rowSpan={2}>Deal</td>
+            <td rowSpan={2}>Selvam</td>
+            <td>Deal 7</td>
+            <td>Litware expansion</td>
+            <td>-</td>
+            <td>Northwind pilot</td>
+          </tr>
+          <tr>
+            <td />
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td rowSpan={2}>Aug 2026</td>
+            <td rowSpan={2}>Deal</td>
+            <td rowSpan={2}>Maya</td>
+            <td>Deal 8</td>
+            <td>Adventure Works upsell</td>
+            <td>Tailspin renewal</td>
+            <td>Proseware deal</td>
+          </tr>
+          <tr>
+            <td />
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
           </tr>
         </tbody>
       </table>
@@ -390,6 +500,173 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
 // ─────────────────────────────────────────────────────────────────────────────
 // Page: opener button, notification banner (auto-dismiss) and the flow
 // ─────────────────────────────────────────────────────────────────────────────
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Background page: the report builder the Joined Report modal opens over
+// ─────────────────────────────────────────────────────────────────────────────
+
+const BUILDER_NAV = [
+  { label: 'Home', icon: 'CrmNewhome', color: 'var(--ds-icon-primary-link-blue)' },
+  { label: 'Workqueue', icon: 'CrmNewworkqueue', color: 'var(--ds-icon-primary-orange)' },
+  { label: 'Reports', icon: 'CrmNewReport', color: 'var(--ds-icon-primary-pink)', active: true },
+  { label: 'Dashboards', icon: 'CrmNewDashboard', color: 'var(--ds-icon-primary-purple)' },
+  { label: 'My Requests', icon: 'CrmNewworkqueue', color: 'var(--ds-icon-primary-green)' },
+  { label: 'Agents', icon: 'CrmZiaNewAgent', color: 'var(--ds-icon-primary-orange-yellow)' },
+  { label: 'MCP', icon: 'CrmCpq', color: 'var(--ds-icon-primary-greenish-cyan)' },
+];
+
+const BUILDER_LEADS = [
+  'Karpaska', 'Kipsta', 'Kiosha', 'Kingdom of Calm', 'Killer', 'Kid Cudi', 'Khabardaar.com', 'Keewi',
+  'KeepSake', 'Keepsake', 'Kalenji', 'Karnik Couture', 'Karma T Shirts', 'Karlsburg', 'Kappa', 'Kaplor', 'Kapdaclick.Com',
+];
+
+const BUILDER_COLUMNS = ['Lead Name', 'Email', 'Company', 'Created Time', 'Lead Owner'];
+
+function BuilderBackground({ onEdit }: { onEdit: () => void }) {
+  const [builderTab, setBuilderTab] = useState('columns');
+  const [columns, setColumns] = useState(['Lead Name', 'Email', 'Company', 'Created Time', 'Lead Owner', 'First Name', 'Last Name']);
+  const [aggregates, setAggregates] = useState(['Avg of Annual Revenue', 'Sum of Annual Revenue', 'Count of Unique Leads']);
+  return (
+    <div className="jr-builder">
+      <aside className="jr-builder-nav" aria-label="Main navigation">
+        {BUILDER_NAV.map(item => (
+          <div key={item.label} className={`jr-builder-nav-item${item.active ? ' jr-builder-nav-item--active' : ''}`}>
+            <span className="jr-builder-nav-icon" style={{ color: item.color }}>
+              <Icon name={item.icon} size={20} />
+            </span>
+            <span>{item.label}</span>
+          </div>
+        ))}
+      </aside>
+
+      <div className="jr-builder-main">
+        <NextGenTopBand moduleLabel="Reports" searchPlaceholder="Search records" showTerritory={false} />
+
+        <div className="jr-builder-subbar">
+          <div className="jr-builder-subtitle">
+            <Icon name="CrmArrowBack" size={18} />
+            <span className="jr-builder-name">Untitled Joined Report</span>
+            <button type="button" className="jr-builder-edit" onClick={onEdit}>Edit Joined Report</button>
+          </div>
+          <div className="jr-builder-actions">
+            <Button variant="default">Cancel</Button>
+            <Button variant="default">Run</Button>
+            <Button variant="primary">Save</Button>
+          </div>
+        </div>
+
+        <div className="jr-builder-body">
+          <section className="jr-builder-panel" aria-label="Joined report structure">
+            <h3 className="jr-builder-panel-title">Joined Report</h3>
+
+            <div className="jr-builder-block">
+              <div className="jr-builder-row">
+                <span className="jr-builder-block-title">Row Groups</span>
+                <Icon name="CrmEditFilledMd" size={14} />
+              </div>
+              <div className="jr-builder-item">
+                <span>Lead Source</span>
+                <span className="jr-builder-muted">Asc</span>
+              </div>
+            </div>
+
+            <div className="jr-builder-block">
+              <div className="jr-builder-row">
+                <span className="jr-builder-block-title">Report 1</span>
+              </div>
+              <div className="jr-builder-row">
+                <span>Leads by Source</span>
+                <Icon name="CrmEditFilledMd" size={14} />
+              </div>
+              <div className="jr-builder-tabs">
+                <Tabs
+                  tabs={[{ id: 'columns', label: 'Columns' }, { id: 'filters', label: 'Filters' }]}
+                  activeTab={builderTab}
+                  onChange={setBuilderTab}
+                  variant="secondary"
+                  size="md"
+                />
+              </div>
+              <div className="jr-builder-row">
+                <span className="jr-builder-block-title">Columns</span>
+                <Icon name="CrmEditFilledMd" size={14} />
+              </div>
+              <Dragger items={columns} onChange={setColumns} />
+              <div className="jr-builder-row">
+                <span className="jr-builder-block-title">Aggregate Columns</span>
+                <Icon name="CrmEditFilledMd" size={14} />
+              </div>
+              <Dragger items={aggregates} onChange={setAggregates} />
+            </div>
+
+            <div className="jr-builder-block">
+              <div className="jr-builder-row">
+                <span className="jr-builder-block-title">Report 2</span>
+              </div>
+              <div className="jr-builder-row">
+                <span>Recent Six Month Leads</span>
+                <Icon name="CrmEditFilledMd" size={14} />
+              </div>
+            </div>
+
+            <div className="jr-builder-block">
+              <div className="jr-builder-row">
+                <span className="jr-builder-block-title">Report 3</span>
+              </div>
+              <div className="jr-builder-row">
+                <span>Untitled Report 0</span>
+                <Icon name="CrmEditFilledMd" size={14} />
+              </div>
+            </div>
+          </section>
+
+          <section className="jr-builder-preview" aria-label="Report preview">
+            <p className="jr-builder-notice">
+              <Info aria-hidden="true" />
+              Preview shown with limited number of rows. Run the report to see actual aggregate values.
+              <span className="jr-builder-link">Show Details</span>
+            </p>
+            <table className="jr-builder-table" aria-label="Report 1 leads by source">
+              <thead>
+                <tr>
+                  <th />
+                  <th colSpan={BUILDER_COLUMNS.length} className="jr-builder-group-head">REPORT 1 - LEADS BY SOURCE</th>
+                </tr>
+                <tr>
+                  <th className="jr-builder-source-head">LEAD SOURCE ▲</th>
+                  {BUILDER_COLUMNS.map(column => (
+                    <th key={column}>{column.toUpperCase()}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {BUILDER_LEADS.map((lead, index) => (
+                  <tr key={lead}>
+                    {index === 0 && (
+                      <td className="jr-builder-source" rowSpan={BUILDER_LEADS.length}>Advertisement</td>
+                    )}
+                    <td className="jr-builder-link">{lead}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>21 Oct, 2015 03:06 PM</td>
+                    <td>Maheshva</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td className="jr-builder-source">Grand Total</td>
+                  <td colSpan={BUILDER_COLUMNS.length} />
+                </tr>
+              </tfoot>
+            </table>
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReportCount }: Args) {
   const [open, setOpen] = useState(true);
@@ -406,10 +683,8 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
     setBanner({ id: Date.now(), variant, message });
 
   return (
-    <div className="jr-page">
-      <Button variant="primary" onClick={() => { setSession(current => current + 1); setOpen(true); }}>
-        Create Joined Report
-      </Button>
+    <>
+      <BuilderBackground onEdit={() => { setSession(current => current + 1); setOpen(true); }} />
       {banner && createPortal(
         <div className="jr-note-banner" key={banner.id}>
           <MessageBox variant={banner.variant} message={banner.message} onClose={() => setBanner(null)} />
@@ -429,7 +704,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
           notify('success', `Joined Report "${name}" saved.`);
         }}
       />
-    </div>
+    </>
   );
 }
 
