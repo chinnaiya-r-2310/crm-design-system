@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">17/51 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">47/51 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/338 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">17/51 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">47/51 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/339 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>6.4s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.7s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -8420,7 +8420,7 @@ export const CreateDeal: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> FormTable</h2>
       <div class="badges">
-        <label for="c-17-design-system-components-form-table-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-17-design-system-components-form-table-props" class="badge ok as-toggle">5 prop types</label>
         <label for="c-17-design-system-components-form-table-info" class="badge info as-toggle">1 info</label>
         <label for="c-17-design-system-components-form-table-stories" class="badge ok as-toggle">3 stories</label>
         
@@ -8456,11 +8456,13 @@ export const CreateDeal: Story = {
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">4 prop types</span>
+              <span class="badge ok">5 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/FormTable/FormTable.js::FormTable</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>canReorder?: any = false
+            <pre><code>actionGap?: any = 0
+
+canReorder?: any = false
 
 gapAfter?: any = []
 
@@ -9859,7 +9861,7 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
       <div class="badges">
         <label for="c-21-design-system-patterns-joined-reports-revamp-err" class="badge err as-toggle">prop type error</label>
         <label for="c-21-design-system-patterns-joined-reports-revamp-info" class="badge info as-toggle">1 info</label>
-        <label for="c-21-design-system-patterns-joined-reports-revamp-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-21-design-system-patterns-joined-reports-revamp-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -9885,13 +9887,13 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  713 | // ─────────────────────────────────────────────────────────────────────────────
-  714 |
-&gt; 715 | const meta = {
+  703 | // ─────────────────────────────────────────────────────────────────────────────
+  704 |
+&gt; 705 | const meta = {
       | ^
-  716 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
-  717 |   parameters: {
-  718 |     layout: &#39;fullscreen&#39;,
+  706 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
+  707 |   parameters: {
+  708 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/JoinedReportsRevamp.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -9947,18 +9949,18 @@ type JoinStep = &#39;select&#39; | &#39;group&#39;;
 type ReportRow = { id: number; reportId: string; error?: string };
 type GroupRow = { id: number; name: string; fields: string[] };
 type Banner = { id: number; variant: &#39;info&#39; | &#39;success&#39;; message: string };
-type Args = { primaryReportName: string; initialStep: JoinStep; initialReportCount: number };
+type Args = { primaryReportName: string; initialStep: JoinStep; initialReportCount: number; startOpen?: boolean; saved?: boolean };
 
 function reportNameOf(row: ReportRow, primaryReportName: string) {
   if (row.reportId === PRIMARY_ID) return primaryReportName;
   return REPORT_OPTIONS.find(option =&gt; option.value === row.reportId)?.label ?? &#39;&#39;;
 }
 
-function initialRows(count: number, step: JoinStep): ReportRow[] {
+function initialRows(count: number, step: JoinStep, filled: boolean): ReportRow[] {
   return Array.from({ length: count }, (_, index) =&gt; ({
     id: index + 1,
-    // In the grouping case every row is already filled so the step can be shown directly.
-    reportId: index === 0 ? PRIMARY_ID : step === &#39;group&#39; ? REPORT_OPTIONS[index - 1].value : &#39;&#39;,
+    // Grouping and edit start with every row filled so the step can be shown directly.
+    reportId: index === 0 ? PRIMARY_ID : filled || step === &#39;group&#39; ? REPORT_OPTIONS[index - 1].value : &#39;&#39;,
   }));
 }
 
@@ -9966,18 +9968,32 @@ function initialRows(count: number, step: JoinStep): ReportRow[] {
 // Joined Report flow: the modal, both steps and all row/group state
 // ─────────────────────────────────────────────────────────────────────────────
 
-function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, open, onClose, onNotify, onSaved }: Args &amp; {
-  open: boolean; onClose: () =&gt; void;
+// Step 2 width follows the table: grip + actions + modal padding, plus one 270px column per input.
+const GROUP_MODAL_BASE_WIDTH = 151;
+const GROUP_COLUMN_WIDTH = 270;
+
+function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, open, mode = &#39;create&#39;, onClose, onNotify, onSaved }: Args &amp; {
+  open: boolean; mode?: &#39;create&#39; | &#39;edit&#39;; onClose: () =&gt; void;
   onNotify: (variant: Banner[&#39;variant&#39;], message: string) =&gt; void;
   onSaved: (name: string) =&gt; void;
 }) {
   const [step, setStep] = useState&lt;JoinStep&gt;(initialStep);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [errorKeys, setErrorKeys] = useState&lt;Set&lt;string&gt;&gt;(() =&gt; new Set());
-  const [name, setName] = useState(&#39;Untitled Joined Report&#39;);
-  const [rows, setRows] = useState&lt;ReportRow[]&gt;(() =&gt; initialRows(initialReportCount, initialStep));
-  const [groups, setGroups] = useState&lt;GroupRow[]&gt;(() =&gt;
-    initialStep === &#39;group&#39; ? [{ id: 1, name: &#39;&#39;, fields: [] }] : []);
+  const isEdit = mode === &#39;edit&#39;;
+  const prefilledFields = (offset: number) =&gt;
+    Array.from({ length: initialReportCount }, (_, index) =&gt; FIELD_OPTIONS[(index + offset) % FIELD_OPTIONS.length].value);
+  const [name, setName] = useState(isEdit ? &#39;Leads by Source&#39; : &#39;Untitled Joined Report&#39;);
+  const [rows, setRows] = useState&lt;ReportRow[]&gt;(() =&gt; initialRows(initialReportCount, initialStep, isEdit));
+  const [groups, setGroups] = useState&lt;GroupRow[]&gt;(() =&gt; {
+    if (isEdit) {
+      return [
+        { id: 1, name: &#39;Lead Source&#39;, fields: prefilledFields(0) },
+        { id: 2, name: &#39;Lead Owner&#39;, fields: prefilledFields(3) },
+      ];
+    }
+    return initialStep === &#39;group&#39; ? [{ id: 1, name: &#39;&#39;, fields: [] }] : [];
+  });
   const nextId = useRef(100);
   const newId = () =&gt; {
     nextId.current += 1;
@@ -9998,7 +10014,6 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
 
   const removeReport = (id: number) =&gt; setRows(current =&gt; current.filter(row =&gt; row.id !== id));
 
-  const [dragId, setDragId] = useState&lt;number | null&gt;(null);
   const moveRow = (fromId: number, toId: number) =&gt; setRows(current =&gt; {
     const from = current.findIndex(row =&gt; row.id === fromId);
     const to = current.findIndex(row =&gt; row.id === toId);
@@ -10069,8 +10084,8 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
     &lt;&gt;
     &lt;Modal
       isOpen={open}
-      title=&quot;Create Joined Report&quot;
-      width={step === &#39;group&#39; ? 1240 : 600}
+      title={isEdit ? &#39;Edit Joined Report&#39; : &#39;Create Joined Report&#39;}
+      width={step === &#39;group&#39; ? GROUP_MODAL_BASE_WIDTH + GROUP_COLUMN_WIDTH * (rows.length + 1) : 600}
       className=&quot;jr-modal&quot;
       disableAutoFocus
       closeOnEscape={false}
@@ -10101,82 +10116,44 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
                 onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setName(event.target.value)}
               /&gt;
             &lt;/div&gt;
-            &lt;table className=&quot;jr-table&quot; aria-label=&quot;Reports&quot;&gt;
-              &lt;thead&gt;
-                &lt;tr&gt;
-                  &lt;th aria-hidden=&quot;true&quot; /&gt;
-                  &lt;th scope=&quot;col&quot;&gt;Report&lt;/th&gt;
-                  &lt;th aria-hidden=&quot;true&quot; /&gt;
-                &lt;/tr&gt;
-              &lt;/thead&gt;
-              &lt;tbody&gt;
-                {rows.map((row, index) =&gt; (
-                  &lt;tr
-                    key={row.id}
-                    className={row.error ? &#39;jr-row--error&#39; : undefined}
-                    draggable={rows.length === 3 &amp;&amp; index &gt; 0}
-                    onDragStart={() =&gt; setDragId(row.id)}
-                    onDragOver={event =&gt; {
-                      if (dragId !== null &amp;&amp; index &gt; 0) event.preventDefault();
-                    }}
-                    onDrop={event =&gt; {
-                      event.preventDefault();
-                      if (dragId !== null) moveRow(dragId, row.id);
-                      setDragId(null);
-                    }}
-                    onDragEnd={() =&gt; setDragId(null)}
-                  &gt;
-                    &lt;td className=&quot;jr-cell--grip&quot;&gt;
-                      &lt;span className={`jr-grip${rows.length === 3 &amp;&amp; index &gt; 0 ? &#39;&#39; : &#39; jr-grip--hidden&#39;}`} aria-hidden=&quot;true&quot;&gt;
-                        &lt;Icon name=&quot;CrmMaskDrag&quot; size={12} /&gt;
-                      &lt;/span&gt;
-                    &lt;/td&gt;
-                    &lt;td className=&quot;jr-cell--input&quot;&gt;
-                      {index === 0 ? (
-                        &lt;Input
-                          width=&quot;100%&quot;
-                          disabled
-                          aria-label=&quot;Primary report&quot;
-                          value={primaryReportName}
-                          suffix={&lt;ChevronDownFilled aria-hidden=&quot;true&quot; /&gt;}
-                        /&gt;
-                      ) : (
-                        &lt;Dropdown
-                          width=&quot;100%&quot;
-                          placeholder=&quot;Select Report&quot;
-                          triggerAriaLabel={`Report ${index + 1}`}
-                          options={REPORT_OPTIONS}
-                          value={row.reportId}
-                          error={Boolean(row.error)}
-                          helperText={row.error}
-                          onChange={(value: string) =&gt; selectReport(row.id, value)}
-                        /&gt;
-                      )}
-                    &lt;/td&gt;
-                    &lt;td className=&quot;jr-cell--actions&quot;&gt;
-                      &lt;div className=&quot;jr-actions&quot;&gt;
-                        {index &gt; 0 &amp;&amp; (
-                          &lt;span className=&quot;jr-slot&quot;&gt;
-                            &lt;button type=&quot;button&quot; className=&quot;jr-icon-btn jr-icon-btn--minus&quot; aria-label={`Remove report ${index + 1}`}
-                              onClick={() =&gt; removeReport(row.id)}&gt;
-                              &lt;Icon name=&quot;CriteriaMinus&quot; size={16} /&gt;
-                            &lt;/button&gt;
-                          &lt;/span&gt;
-                        )}
-                        &lt;span className=&quot;jr-slot&quot;&gt;
-                          {index === lastRowIndex &amp;&amp; (
-                            &lt;button type=&quot;button&quot; className=&quot;jr-icon-btn jr-icon-btn--plus&quot; aria-label=&quot;Add report&quot;
-                              onClick={addReport}&gt;
-                              &lt;Icon name=&quot;CriteriaPlus&quot; size={16} /&gt;
-                            &lt;/button&gt;
-                          )}
-                        &lt;/span&gt;
-                      &lt;/div&gt;
-                    &lt;/td&gt;
-                  &lt;/tr&gt;
-                ))}
-              &lt;/tbody&gt;
-            &lt;/table&gt;
+            &lt;FormTable
+              ariaLabel=&quot;Reports&quot;
+              headers={[&#39;Report&#39;]}
+              rows={rows}
+              canReorder={rows.length === 3}
+              onMove={moveRow}
+              actionGap={13}
+              renderCells={(row, index) =&gt; [
+                index === 0 ? (
+                  &lt;Input
+                    key=&quot;primary&quot;
+                    width=&quot;100%&quot;
+                    disabled
+                    aria-label=&quot;Primary report&quot;
+                    value={primaryReportName}
+                    suffix={&lt;ChevronDownFilled aria-hidden=&quot;true&quot; /&gt;}
+                  /&gt;
+                ) : (
+                  &lt;Dropdown
+                    key=&quot;report&quot;
+                    width=&quot;100%&quot;
+                    placeholder=&quot;Select Report&quot;
+                    triggerAriaLabel={`Report ${index + 1}`}
+                    options={REPORT_OPTIONS}
+                    value={row.reportId}
+                    error={Boolean(row.error)}
+                    helperText={row.error}
+                    onChange={(value: string) =&gt; selectReport(row.id, value)}
+                  /&gt;
+                ),
+              ]}
+              renderActions={(row, index) =&gt; ({
+                onRemove: index &gt; 0 ? () =&gt; removeReport(row.id) : undefined,
+                removeLabel: `Remove report ${index + 1}`,
+                onAdd: index === rows.length - 1 ? addReport : undefined,
+                addLabel: &#39;Add report&#39;,
+              })}
+            /&gt;
           &lt;/&gt;
         )}
 
@@ -10419,7 +10396,7 @@ const BUILDER_LEADS = [
 
 const BUILDER_COLUMNS = [&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;];
 
-function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
+function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void; onCreate: () =&gt; void; saved: boolean }) {
   const [builderTab, setBuilderTab] = useState(&#39;columns&#39;);
   const [columns, setColumns] = useState([&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;, &#39;First Name&#39;, &#39;Last Name&#39;]);
   const [aggregates, setAggregates] = useState([&#39;Avg of Annual Revenue&#39;, &#39;Sum of Annual Revenue&#39;, &#39;Count of Unique Leads&#39;]);
@@ -10442,10 +10419,18 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
         &lt;div className=&quot;jr-builder-subbar&quot;&gt;
           &lt;div className=&quot;jr-builder-subtitle&quot;&gt;
             &lt;Icon name=&quot;CrmArrowBack&quot; size={18} /&gt;
-            &lt;span className=&quot;jr-builder-name&quot;&gt;Untitled Joined Report&lt;/span&gt;
-            &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit&quot; onClick={onEdit}&gt;Edit Joined Report&lt;/button&gt;
+            &lt;div className=&quot;jr-builder-title-stack&quot;&gt;
+              &lt;span className=&quot;jr-builder-name&quot;&gt;Leads by Source&lt;/span&gt;
+              &lt;span className=&quot;jr-builder-module&quot;&gt;Leads&lt;/span&gt;
+            &lt;/div&gt;
           &lt;/div&gt;
           &lt;div className=&quot;jr-builder-actions&quot;&gt;
+            {!saved &amp;&amp; (
+            &lt;p className=&quot;jr-builder-cta&quot;&gt;
+              Do you want to join another report?{&#39; &#39;}
+              &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit&quot; onClick={onCreate}&gt;Create Joined Report&lt;/button&gt;
+            &lt;/p&gt;
+            )}
             &lt;Button variant=&quot;default&quot;&gt;Cancel&lt;/Button&gt;
             &lt;Button variant=&quot;default&quot;&gt;Run&lt;/Button&gt;
             &lt;Button variant=&quot;primary&quot;&gt;Save&lt;/Button&gt;
@@ -10454,17 +10439,12 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
 
         &lt;div className=&quot;jr-builder-body&quot;&gt;
           &lt;section className=&quot;jr-builder-panel&quot; aria-label=&quot;Joined report structure&quot;&gt;
-            &lt;h3 className=&quot;jr-builder-panel-title&quot;&gt;Joined Report&lt;/h3&gt;
-
-            &lt;div className=&quot;jr-builder-block&quot;&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Row Groups&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
-              &lt;/div&gt;
-              &lt;div className=&quot;jr-builder-item&quot;&gt;
-                &lt;span&gt;Lead Source&lt;/span&gt;
-                &lt;span className=&quot;jr-builder-muted&quot;&gt;Asc&lt;/span&gt;
-              &lt;/div&gt;
+            {saved &amp;&amp; (&lt;&gt;
+            &lt;div className=&quot;jr-builder-row jr-builder-panel-head&quot;&gt;
+              &lt;span className=&quot;jr-builder-panel-title&quot;&gt;Joined Report&lt;/span&gt;
+              &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit joined report&quot; onClick={onEdit}&gt;
+                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;
+              &lt;/button&gt;
             &lt;/div&gt;
 
             &lt;div className=&quot;jr-builder-block&quot;&gt;
@@ -10473,8 +10453,12 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Leads by Source&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads by Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
+            &lt;/div&gt;
+
+&lt;/&gt;)}
+            &lt;div className=&quot;jr-builder-block&quot;&gt;
               &lt;div className=&quot;jr-builder-tabs&quot;&gt;
                 &lt;Tabs
                   tabs={[{ id: &#39;columns&#39;, label: &#39;Columns&#39; }, { id: &#39;filters&#39;, label: &#39;Filters&#39; }]}
@@ -10486,23 +10470,24 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Columns&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={columns} onChange={setColumns} /&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
+              &lt;div className=&quot;jr-builder-row jr-builder-row--section&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Aggregate Columns&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={aggregates} onChange={setAggregates} /&gt;
             &lt;/div&gt;
 
+            {saved &amp;&amp; (&lt;&gt;
             &lt;div className=&quot;jr-builder-block&quot;&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Report 2&lt;/span&gt;
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Recent Six Month Leads&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Recent Six Month Leads&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 
@@ -10512,9 +10497,10 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Untitled Report 0&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Untitled Report 0&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
+&lt;/&gt;)}
           &lt;/section&gt;
 
           &lt;section className=&quot;jr-builder-preview&quot; aria-label=&quot;Report preview&quot;&gt;
@@ -10564,8 +10550,9 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
   );
 }
 
-function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReportCount }: Args) {
-  const [open, setOpen] = useState(true);
+function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReportCount, startOpen = true, saved = true }: Args) {
+  const [open, setOpen] = useState(startOpen);
+  const [mode, setMode] = useState&lt;&#39;create&#39; | &#39;edit&#39;&gt;(&#39;create&#39;);
   const [session, setSession] = useState(0);
   const [banner, setBanner] = useState&lt;Banner | null&gt;(null);
 
@@ -10580,7 +10567,11 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
 
   return (
     &lt;&gt;
-      &lt;BuilderBackground onEdit={() =&gt; { setSession(current =&gt; current + 1); setOpen(true); }} /&gt;
+      &lt;BuilderBackground
+        saved={saved}
+        onEdit={() =&gt; { setMode(&#39;edit&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
+        onCreate={() =&gt; { setMode(&#39;create&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
+      /&gt;
       {banner &amp;&amp; createPortal(
         &lt;div className=&quot;jr-note-banner&quot; key={banner.id}&gt;
           &lt;MessageBox variant={banner.variant} message={banner.message} onClose={() =&gt; setBanner(null)} /&gt;
@@ -10590,6 +10581,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
       &lt;JoinedReportFlow
         key={session}
         open={open}
+        mode={mode}
         primaryReportName={primaryReportName}
         initialStep={initialStep}
         initialReportCount={initialReportCount}
@@ -10638,7 +10630,13 @@ const meta = {
 export default meta;
 type Story = StoryObj&lt;typeof meta&gt;;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: { startOpen: false, saved: false },
+};
+
+export const SavedJoinedReport: Story = {
+  args: { startOpen: false, saved: true },
+};
 
 export const GroupingStep: Story = {
   args: { initialStep: &#39;group&#39;, initialReportCount: 3 },
@@ -10703,7 +10701,23 @@ export const ReportLimit: Story = {
               <pre><code>const Default = () =&gt; &lt;JoinedReportsRevampPage
     primaryReportName=&quot;Monthly Sales Pipeline&quot;
     initialStep=&quot;select&quot;
-    initialReportCount={2} /&gt;;</code></pre>
+    initialReportCount={2}
+    startOpen={false}
+    saved={false} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Saved Joined Report</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SavedJoinedReport = () =&gt; &lt;JoinedReportsRevampPage
+    primaryReportName=&quot;Monthly Sales Pipeline&quot;
+    initialStep=&quot;select&quot;
+    initialReportCount={2}
+    startOpen={false}
+    saved /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -27605,7 +27619,7 @@ export const CreateDeal: Story = {
       <div class="badges">
         <label for="c-error-6-design-system-patterns-joined-reports-revamp-err" class="badge err as-toggle">prop type error</label>
         <label for="c-error-6-design-system-patterns-joined-reports-revamp-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-6-design-system-patterns-joined-reports-revamp-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-error-6-design-system-patterns-joined-reports-revamp-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -27631,13 +27645,13 @@ export const CreateDeal: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  713 | // ─────────────────────────────────────────────────────────────────────────────
-  714 |
-&gt; 715 | const meta = {
+  703 | // ─────────────────────────────────────────────────────────────────────────────
+  704 |
+&gt; 705 | const meta = {
       | ^
-  716 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
-  717 |   parameters: {
-  718 |     layout: &#39;fullscreen&#39;,
+  706 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
+  707 |   parameters: {
+  708 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/JoinedReportsRevamp.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -27693,18 +27707,18 @@ type JoinStep = &#39;select&#39; | &#39;group&#39;;
 type ReportRow = { id: number; reportId: string; error?: string };
 type GroupRow = { id: number; name: string; fields: string[] };
 type Banner = { id: number; variant: &#39;info&#39; | &#39;success&#39;; message: string };
-type Args = { primaryReportName: string; initialStep: JoinStep; initialReportCount: number };
+type Args = { primaryReportName: string; initialStep: JoinStep; initialReportCount: number; startOpen?: boolean; saved?: boolean };
 
 function reportNameOf(row: ReportRow, primaryReportName: string) {
   if (row.reportId === PRIMARY_ID) return primaryReportName;
   return REPORT_OPTIONS.find(option =&gt; option.value === row.reportId)?.label ?? &#39;&#39;;
 }
 
-function initialRows(count: number, step: JoinStep): ReportRow[] {
+function initialRows(count: number, step: JoinStep, filled: boolean): ReportRow[] {
   return Array.from({ length: count }, (_, index) =&gt; ({
     id: index + 1,
-    // In the grouping case every row is already filled so the step can be shown directly.
-    reportId: index === 0 ? PRIMARY_ID : step === &#39;group&#39; ? REPORT_OPTIONS[index - 1].value : &#39;&#39;,
+    // Grouping and edit start with every row filled so the step can be shown directly.
+    reportId: index === 0 ? PRIMARY_ID : filled || step === &#39;group&#39; ? REPORT_OPTIONS[index - 1].value : &#39;&#39;,
   }));
 }
 
@@ -27712,18 +27726,32 @@ function initialRows(count: number, step: JoinStep): ReportRow[] {
 // Joined Report flow: the modal, both steps and all row/group state
 // ─────────────────────────────────────────────────────────────────────────────
 
-function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, open, onClose, onNotify, onSaved }: Args &amp; {
-  open: boolean; onClose: () =&gt; void;
+// Step 2 width follows the table: grip + actions + modal padding, plus one 270px column per input.
+const GROUP_MODAL_BASE_WIDTH = 151;
+const GROUP_COLUMN_WIDTH = 270;
+
+function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, open, mode = &#39;create&#39;, onClose, onNotify, onSaved }: Args &amp; {
+  open: boolean; mode?: &#39;create&#39; | &#39;edit&#39;; onClose: () =&gt; void;
   onNotify: (variant: Banner[&#39;variant&#39;], message: string) =&gt; void;
   onSaved: (name: string) =&gt; void;
 }) {
   const [step, setStep] = useState&lt;JoinStep&gt;(initialStep);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [errorKeys, setErrorKeys] = useState&lt;Set&lt;string&gt;&gt;(() =&gt; new Set());
-  const [name, setName] = useState(&#39;Untitled Joined Report&#39;);
-  const [rows, setRows] = useState&lt;ReportRow[]&gt;(() =&gt; initialRows(initialReportCount, initialStep));
-  const [groups, setGroups] = useState&lt;GroupRow[]&gt;(() =&gt;
-    initialStep === &#39;group&#39; ? [{ id: 1, name: &#39;&#39;, fields: [] }] : []);
+  const isEdit = mode === &#39;edit&#39;;
+  const prefilledFields = (offset: number) =&gt;
+    Array.from({ length: initialReportCount }, (_, index) =&gt; FIELD_OPTIONS[(index + offset) % FIELD_OPTIONS.length].value);
+  const [name, setName] = useState(isEdit ? &#39;Leads by Source&#39; : &#39;Untitled Joined Report&#39;);
+  const [rows, setRows] = useState&lt;ReportRow[]&gt;(() =&gt; initialRows(initialReportCount, initialStep, isEdit));
+  const [groups, setGroups] = useState&lt;GroupRow[]&gt;(() =&gt; {
+    if (isEdit) {
+      return [
+        { id: 1, name: &#39;Lead Source&#39;, fields: prefilledFields(0) },
+        { id: 2, name: &#39;Lead Owner&#39;, fields: prefilledFields(3) },
+      ];
+    }
+    return initialStep === &#39;group&#39; ? [{ id: 1, name: &#39;&#39;, fields: [] }] : [];
+  });
   const nextId = useRef(100);
   const newId = () =&gt; {
     nextId.current += 1;
@@ -27744,7 +27772,6 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
 
   const removeReport = (id: number) =&gt; setRows(current =&gt; current.filter(row =&gt; row.id !== id));
 
-  const [dragId, setDragId] = useState&lt;number | null&gt;(null);
   const moveRow = (fromId: number, toId: number) =&gt; setRows(current =&gt; {
     const from = current.findIndex(row =&gt; row.id === fromId);
     const to = current.findIndex(row =&gt; row.id === toId);
@@ -27815,8 +27842,8 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
     &lt;&gt;
     &lt;Modal
       isOpen={open}
-      title=&quot;Create Joined Report&quot;
-      width={step === &#39;group&#39; ? 1240 : 600}
+      title={isEdit ? &#39;Edit Joined Report&#39; : &#39;Create Joined Report&#39;}
+      width={step === &#39;group&#39; ? GROUP_MODAL_BASE_WIDTH + GROUP_COLUMN_WIDTH * (rows.length + 1) : 600}
       className=&quot;jr-modal&quot;
       disableAutoFocus
       closeOnEscape={false}
@@ -27847,82 +27874,44 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
                 onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setName(event.target.value)}
               /&gt;
             &lt;/div&gt;
-            &lt;table className=&quot;jr-table&quot; aria-label=&quot;Reports&quot;&gt;
-              &lt;thead&gt;
-                &lt;tr&gt;
-                  &lt;th aria-hidden=&quot;true&quot; /&gt;
-                  &lt;th scope=&quot;col&quot;&gt;Report&lt;/th&gt;
-                  &lt;th aria-hidden=&quot;true&quot; /&gt;
-                &lt;/tr&gt;
-              &lt;/thead&gt;
-              &lt;tbody&gt;
-                {rows.map((row, index) =&gt; (
-                  &lt;tr
-                    key={row.id}
-                    className={row.error ? &#39;jr-row--error&#39; : undefined}
-                    draggable={rows.length === 3 &amp;&amp; index &gt; 0}
-                    onDragStart={() =&gt; setDragId(row.id)}
-                    onDragOver={event =&gt; {
-                      if (dragId !== null &amp;&amp; index &gt; 0) event.preventDefault();
-                    }}
-                    onDrop={event =&gt; {
-                      event.preventDefault();
-                      if (dragId !== null) moveRow(dragId, row.id);
-                      setDragId(null);
-                    }}
-                    onDragEnd={() =&gt; setDragId(null)}
-                  &gt;
-                    &lt;td className=&quot;jr-cell--grip&quot;&gt;
-                      &lt;span className={`jr-grip${rows.length === 3 &amp;&amp; index &gt; 0 ? &#39;&#39; : &#39; jr-grip--hidden&#39;}`} aria-hidden=&quot;true&quot;&gt;
-                        &lt;Icon name=&quot;CrmMaskDrag&quot; size={12} /&gt;
-                      &lt;/span&gt;
-                    &lt;/td&gt;
-                    &lt;td className=&quot;jr-cell--input&quot;&gt;
-                      {index === 0 ? (
-                        &lt;Input
-                          width=&quot;100%&quot;
-                          disabled
-                          aria-label=&quot;Primary report&quot;
-                          value={primaryReportName}
-                          suffix={&lt;ChevronDownFilled aria-hidden=&quot;true&quot; /&gt;}
-                        /&gt;
-                      ) : (
-                        &lt;Dropdown
-                          width=&quot;100%&quot;
-                          placeholder=&quot;Select Report&quot;
-                          triggerAriaLabel={`Report ${index + 1}`}
-                          options={REPORT_OPTIONS}
-                          value={row.reportId}
-                          error={Boolean(row.error)}
-                          helperText={row.error}
-                          onChange={(value: string) =&gt; selectReport(row.id, value)}
-                        /&gt;
-                      )}
-                    &lt;/td&gt;
-                    &lt;td className=&quot;jr-cell--actions&quot;&gt;
-                      &lt;div className=&quot;jr-actions&quot;&gt;
-                        {index &gt; 0 &amp;&amp; (
-                          &lt;span className=&quot;jr-slot&quot;&gt;
-                            &lt;button type=&quot;button&quot; className=&quot;jr-icon-btn jr-icon-btn--minus&quot; aria-label={`Remove report ${index + 1}`}
-                              onClick={() =&gt; removeReport(row.id)}&gt;
-                              &lt;Icon name=&quot;CriteriaMinus&quot; size={16} /&gt;
-                            &lt;/button&gt;
-                          &lt;/span&gt;
-                        )}
-                        &lt;span className=&quot;jr-slot&quot;&gt;
-                          {index === lastRowIndex &amp;&amp; (
-                            &lt;button type=&quot;button&quot; className=&quot;jr-icon-btn jr-icon-btn--plus&quot; aria-label=&quot;Add report&quot;
-                              onClick={addReport}&gt;
-                              &lt;Icon name=&quot;CriteriaPlus&quot; size={16} /&gt;
-                            &lt;/button&gt;
-                          )}
-                        &lt;/span&gt;
-                      &lt;/div&gt;
-                    &lt;/td&gt;
-                  &lt;/tr&gt;
-                ))}
-              &lt;/tbody&gt;
-            &lt;/table&gt;
+            &lt;FormTable
+              ariaLabel=&quot;Reports&quot;
+              headers={[&#39;Report&#39;]}
+              rows={rows}
+              canReorder={rows.length === 3}
+              onMove={moveRow}
+              actionGap={13}
+              renderCells={(row, index) =&gt; [
+                index === 0 ? (
+                  &lt;Input
+                    key=&quot;primary&quot;
+                    width=&quot;100%&quot;
+                    disabled
+                    aria-label=&quot;Primary report&quot;
+                    value={primaryReportName}
+                    suffix={&lt;ChevronDownFilled aria-hidden=&quot;true&quot; /&gt;}
+                  /&gt;
+                ) : (
+                  &lt;Dropdown
+                    key=&quot;report&quot;
+                    width=&quot;100%&quot;
+                    placeholder=&quot;Select Report&quot;
+                    triggerAriaLabel={`Report ${index + 1}`}
+                    options={REPORT_OPTIONS}
+                    value={row.reportId}
+                    error={Boolean(row.error)}
+                    helperText={row.error}
+                    onChange={(value: string) =&gt; selectReport(row.id, value)}
+                  /&gt;
+                ),
+              ]}
+              renderActions={(row, index) =&gt; ({
+                onRemove: index &gt; 0 ? () =&gt; removeReport(row.id) : undefined,
+                removeLabel: `Remove report ${index + 1}`,
+                onAdd: index === rows.length - 1 ? addReport : undefined,
+                addLabel: &#39;Add report&#39;,
+              })}
+            /&gt;
           &lt;/&gt;
         )}
 
@@ -28165,7 +28154,7 @@ const BUILDER_LEADS = [
 
 const BUILDER_COLUMNS = [&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;];
 
-function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
+function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void; onCreate: () =&gt; void; saved: boolean }) {
   const [builderTab, setBuilderTab] = useState(&#39;columns&#39;);
   const [columns, setColumns] = useState([&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;, &#39;First Name&#39;, &#39;Last Name&#39;]);
   const [aggregates, setAggregates] = useState([&#39;Avg of Annual Revenue&#39;, &#39;Sum of Annual Revenue&#39;, &#39;Count of Unique Leads&#39;]);
@@ -28188,10 +28177,18 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
         &lt;div className=&quot;jr-builder-subbar&quot;&gt;
           &lt;div className=&quot;jr-builder-subtitle&quot;&gt;
             &lt;Icon name=&quot;CrmArrowBack&quot; size={18} /&gt;
-            &lt;span className=&quot;jr-builder-name&quot;&gt;Untitled Joined Report&lt;/span&gt;
-            &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit&quot; onClick={onEdit}&gt;Edit Joined Report&lt;/button&gt;
+            &lt;div className=&quot;jr-builder-title-stack&quot;&gt;
+              &lt;span className=&quot;jr-builder-name&quot;&gt;Leads by Source&lt;/span&gt;
+              &lt;span className=&quot;jr-builder-module&quot;&gt;Leads&lt;/span&gt;
+            &lt;/div&gt;
           &lt;/div&gt;
           &lt;div className=&quot;jr-builder-actions&quot;&gt;
+            {!saved &amp;&amp; (
+            &lt;p className=&quot;jr-builder-cta&quot;&gt;
+              Do you want to join another report?{&#39; &#39;}
+              &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit&quot; onClick={onCreate}&gt;Create Joined Report&lt;/button&gt;
+            &lt;/p&gt;
+            )}
             &lt;Button variant=&quot;default&quot;&gt;Cancel&lt;/Button&gt;
             &lt;Button variant=&quot;default&quot;&gt;Run&lt;/Button&gt;
             &lt;Button variant=&quot;primary&quot;&gt;Save&lt;/Button&gt;
@@ -28200,17 +28197,12 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
 
         &lt;div className=&quot;jr-builder-body&quot;&gt;
           &lt;section className=&quot;jr-builder-panel&quot; aria-label=&quot;Joined report structure&quot;&gt;
-            &lt;h3 className=&quot;jr-builder-panel-title&quot;&gt;Joined Report&lt;/h3&gt;
-
-            &lt;div className=&quot;jr-builder-block&quot;&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Row Groups&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
-              &lt;/div&gt;
-              &lt;div className=&quot;jr-builder-item&quot;&gt;
-                &lt;span&gt;Lead Source&lt;/span&gt;
-                &lt;span className=&quot;jr-builder-muted&quot;&gt;Asc&lt;/span&gt;
-              &lt;/div&gt;
+            {saved &amp;&amp; (&lt;&gt;
+            &lt;div className=&quot;jr-builder-row jr-builder-panel-head&quot;&gt;
+              &lt;span className=&quot;jr-builder-panel-title&quot;&gt;Joined Report&lt;/span&gt;
+              &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit joined report&quot; onClick={onEdit}&gt;
+                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;
+              &lt;/button&gt;
             &lt;/div&gt;
 
             &lt;div className=&quot;jr-builder-block&quot;&gt;
@@ -28219,8 +28211,12 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Leads by Source&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads by Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
+            &lt;/div&gt;
+
+&lt;/&gt;)}
+            &lt;div className=&quot;jr-builder-block&quot;&gt;
               &lt;div className=&quot;jr-builder-tabs&quot;&gt;
                 &lt;Tabs
                   tabs={[{ id: &#39;columns&#39;, label: &#39;Columns&#39; }, { id: &#39;filters&#39;, label: &#39;Filters&#39; }]}
@@ -28232,23 +28228,24 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Columns&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={columns} onChange={setColumns} /&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
+              &lt;div className=&quot;jr-builder-row jr-builder-row--section&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Aggregate Columns&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={aggregates} onChange={setAggregates} /&gt;
             &lt;/div&gt;
 
+            {saved &amp;&amp; (&lt;&gt;
             &lt;div className=&quot;jr-builder-block&quot;&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Report 2&lt;/span&gt;
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Recent Six Month Leads&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Recent Six Month Leads&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 
@@ -28258,9 +28255,10 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Untitled Report 0&lt;/span&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Untitled Report 0&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
+&lt;/&gt;)}
           &lt;/section&gt;
 
           &lt;section className=&quot;jr-builder-preview&quot; aria-label=&quot;Report preview&quot;&gt;
@@ -28310,8 +28308,9 @@ function BuilderBackground({ onEdit }: { onEdit: () =&gt; void }) {
   );
 }
 
-function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReportCount }: Args) {
-  const [open, setOpen] = useState(true);
+function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReportCount, startOpen = true, saved = true }: Args) {
+  const [open, setOpen] = useState(startOpen);
+  const [mode, setMode] = useState&lt;&#39;create&#39; | &#39;edit&#39;&gt;(&#39;create&#39;);
   const [session, setSession] = useState(0);
   const [banner, setBanner] = useState&lt;Banner | null&gt;(null);
 
@@ -28326,7 +28325,11 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
 
   return (
     &lt;&gt;
-      &lt;BuilderBackground onEdit={() =&gt; { setSession(current =&gt; current + 1); setOpen(true); }} /&gt;
+      &lt;BuilderBackground
+        saved={saved}
+        onEdit={() =&gt; { setMode(&#39;edit&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
+        onCreate={() =&gt; { setMode(&#39;create&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
+      /&gt;
       {banner &amp;&amp; createPortal(
         &lt;div className=&quot;jr-note-banner&quot; key={banner.id}&gt;
           &lt;MessageBox variant={banner.variant} message={banner.message} onClose={() =&gt; setBanner(null)} /&gt;
@@ -28336,6 +28339,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
       &lt;JoinedReportFlow
         key={session}
         open={open}
+        mode={mode}
         primaryReportName={primaryReportName}
         initialStep={initialStep}
         initialReportCount={initialReportCount}
@@ -28384,7 +28388,13 @@ const meta = {
 export default meta;
 type Story = StoryObj&lt;typeof meta&gt;;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: { startOpen: false, saved: false },
+};
+
+export const SavedJoinedReport: Story = {
+  args: { startOpen: false, saved: true },
+};
 
 export const GroupingStep: Story = {
   args: { initialStep: &#39;group&#39;, initialReportCount: 3 },
@@ -28449,7 +28459,23 @@ export const ReportLimit: Story = {
               <pre><code>const Default = () =&gt; &lt;JoinedReportsRevampPage
     primaryReportName=&quot;Monthly Sales Pipeline&quot;
     initialStep=&quot;select&quot;
-    initialReportCount={2} /&gt;;</code></pre>
+    initialReportCount={2}
+    startOpen={false}
+    saved={false} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Saved Joined Report</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SavedJoinedReport = () =&gt; &lt;JoinedReportsRevampPage
+    primaryReportName=&quot;Monthly Sales Pipeline&quot;
+    initialStep=&quot;select&quot;
+    initialReportCount={2}
+    startOpen={false}
+    saved /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
