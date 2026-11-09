@@ -1,6 +1,7 @@
 /* FormTable — table chrome for rows of form controls. Spacing is tuned for 34px controls. */
 
 .ft-table {
+  position: relative;
   width: 100%;
   table-layout: fixed;
   border: 1px solid var(--ds-border-lighter);

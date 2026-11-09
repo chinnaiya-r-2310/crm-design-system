@@ -15,7 +15,10 @@ import './FormTable.css';
      canReorder  — shows the drag handle and makes rows draggable
      onMove      — (fromId, toId) => void, called when a row is dropped on another
      gapAfter    — padding-right in px after each data column, index-aligned with headers
+     actionGap    — space in px between the data columns and the minus/plus actions
    ─────────────────────────────────────────────────────────────────────────────── */
+
+const ACTIONS_WIDTH = 61;
 
 export function FormTable({
   ariaLabel,
@@ -26,6 +29,7 @@ export function FormTable({
   canReorder = false,
   onMove,
   gapAfter = [],
+  actionGap = 0,
 }) {
   const [dragId, setDragId] = useState(null);
   const [slot, setSlot] = useState(null);
@@ -36,11 +40,12 @@ export function FormTable({
   const slotRef = useRef(null);
 
   // FLIP: rows that changed position glide from their old spot to the new one.
+  // Layout offsets (not bounding rects) are used so a row mid-glide is measured where it belongs.
   useLayoutEffect(() => {
     const next = new Map();
     bodyRef.current?.querySelectorAll('tr[data-row-id]').forEach(tr => {
       const id = tr.dataset.rowId;
-      const top = tr.getBoundingClientRect().top;
+      const top = tr.offsetTop;
       next.set(id, top);
       const previous = positions.current.get(id);
       if (previous !== undefined && Math.abs(previous - top) > 0.5) {
@@ -126,20 +131,12 @@ export function FormTable({
       if (!current) return;
       current.ghost.style.transform = `translateY(${moveEvent.clientY - current.startY}px)`;
       const { remaining: others } = latest.current;
-      const trs = Array.from(bodyRef.current?.querySelectorAll('tr[data-row-id]') ?? [])
+      const body = bodyRef.current;
+      if (!body) return;
+      const pointer = moveEvent.clientY - body.closest('table').getBoundingClientRect().top;
+      const trs = Array.from(body.querySelectorAll('tr[data-row-id]'))
         .filter(item => item.dataset.rowId !== String(current.id));
-      let next = others.length;
-      for (let i = 0; i < trs.length; i += 1) {
-        const box = trs[i].getBoundingClientRect();
-        if (moveEvent.clientY < box.top) {
-          next = i;
-          break;
-        }
-        if (moveEvent.clientY <= box.bottom) {
-          next = i + (moveEvent.clientY > box.top + box.height / 2 ? 1 : 0);
-          break;
-        }
-      }
+      const next = trs.filter(tr => pointer > tr.offsetTop + tr.offsetHeight / 2).length;
       if (next !== slotRef.current) {
         slotRef.current = next;
         setSlot(next);
@@ -166,7 +163,7 @@ export function FormTable({
               {header}
             </th>
           ))}
-          <th aria-hidden="true" />
+          <th aria-hidden="true" style={{ width: ACTIONS_WIDTH + actionGap }} />
         </tr>
       </thead>
       <tbody ref={bodyRef}>
@@ -194,7 +191,7 @@ export function FormTable({
                   {cell}
                 </td>
               ))}
-              <td className="ft-cell--actions">
+              <td className="ft-cell--actions" style={{ paddingLeft: actionGap, width: ACTIONS_WIDTH + actionGap }}>
                 <div className="ft-actions">
                   {actions.onRemove && (
                     <span className="ft-slot">

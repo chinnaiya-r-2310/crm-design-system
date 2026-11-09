@@ -40,7 +40,7 @@
 
 .dragger-item--placeholder {
   background: var(--ds-bg-scale-bg4);
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .dragger-item--placeholder > * {
@@ -55,8 +55,8 @@
   font-size: var(--ds-font-size-base);
   color: var(--ds-text-base);
   background: var(--ds-bg-common-white);
-  box-shadow: 0 4px 12px var(--ds-shadow-dropdown);
-  border-radius: 4px;
+  box-shadow: 0 8px 24px var(--ds-shadow-dropdown);
+  border-radius: 8px;
 }
 
 .dragger-ghost .dragger-item {
