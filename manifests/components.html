@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">17/51 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">47/51 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/339 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">19/55 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">51/55 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/348 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>3.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -4563,14 +4563,130 @@ export const EmptyState: Story = {
   no-story-error
   no-doc-error"
   role="listitem"
+  aria-label="CRMScreens">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> CRMScreens</h2>
+      <div class="badges">
+        <label for="c-10-design-system-patterns-crm-screens-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-10-design-system-patterns-crm-screens-info" class="badge info as-toggle">1 info</label>
+        <label for="c-10-design-system-patterns-crm-screens-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/patterns/CrmScreens.stories.js">design-system-patterns-crm-screens · ./src/design-system/patterns/CrmScreens.stories.js</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-10-design-system-patterns-crm-screens-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-10-design-system-patterns-crm-screens-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-10-design-system-patterns-crm-screens-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+   5 | // ─────────────────────────────────────────────────────────────────────────────
+   6 |
+&gt;  7 | export default {
+     | ^
+   8 |   title: &#39;Design System/Patterns/CRM Screens&#39;,
+   9 |   parameters: {
+  10 |     layout: &#39;fullscreen&#39;,
+
+./src/design-system/patterns/CrmScreens.stories.js:
+import { DetailPage } from &#39;./CrmScreens.page&#39;;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Meta
+// ─────────────────────────────────────────────────────────────────────────────
+
+export default {
+  title: &#39;Design System/Patterns/CRM Screens&#39;,
+  parameters: {
+    layout: &#39;fullscreen&#39;,
+    docs: {
+      description: {
+        component:
+          &#39;CRM record screens built from existing components. The Detail Page variant shows a &#39; +
+          &#39;record header with actions, a related list, and related-record cards.&#39;,
+      },
+    },
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Stories
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const DetailPageVariant = {
+  name: &#39;Detail Page&#39;,
+  render: () =&gt; &lt;DetailPage /&gt;,
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { DetailPage } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Detail Page</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const DetailPageVariant = () =&gt; &lt;DetailPage /&gt;;</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
   aria-label="Cross-moduleReports">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Cross-moduleReports</h2>
       <div class="badges">
-        <label for="c-10-design-system-patterns-cross-module-reports-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-10-design-system-patterns-cross-module-reports-info" class="badge info as-toggle">1 info</label>
-        <label for="c-10-design-system-patterns-cross-module-reports-stories" class="badge ok as-toggle">13 stories</label>
+        <label for="c-11-design-system-patterns-cross-module-reports-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-11-design-system-patterns-cross-module-reports-info" class="badge info as-toggle">1 info</label>
+        <label for="c-11-design-system-patterns-cross-module-reports-stories" class="badge ok as-toggle">13 stories</label>
         
         
       </div>
@@ -4582,9 +4698,9 @@ export const EmptyState: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-10-design-system-patterns-cross-module-reports-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-10-design-system-patterns-cross-module-reports-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-10-design-system-patterns-cross-module-reports-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-11-design-system-patterns-cross-module-reports-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-11-design-system-patterns-cross-module-reports-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-11-design-system-patterns-cross-module-reports-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -6008,9 +6124,9 @@ import { Fragment } from "react";</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> DashboardExport</h2>
       <div class="badges">
-        <label for="c-11-design-system-patterns-dashboard-export-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-11-design-system-patterns-dashboard-export-info" class="badge info as-toggle">1 info</label>
-        <label for="c-11-design-system-patterns-dashboard-export-stories" class="badge err as-toggle">2/3 story errors</label>
+        <label for="c-12-design-system-patterns-dashboard-export-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-12-design-system-patterns-dashboard-export-info" class="badge info as-toggle">1 info</label>
+        <label for="c-12-design-system-patterns-dashboard-export-stories" class="badge err as-toggle">2/3 story errors</label>
         
         
       </div>
@@ -6022,9 +6138,9 @@ import { Fragment } from "react";</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-11-design-system-patterns-dashboard-export-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-11-design-system-patterns-dashboard-export-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-11-design-system-patterns-dashboard-export-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-12-design-system-patterns-dashboard-export-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-12-design-system-patterns-dashboard-export-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-12-design-system-patterns-dashboard-export-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -6587,9 +6703,9 @@ export const Phase1: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> DatePicker</h2>
       <div class="badges">
-        <label for="c-12-design-system-components-datepicker-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-12-design-system-components-datepicker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-12-design-system-components-datepicker-stories" class="badge ok as-toggle">5 stories</label>
+        <label for="c-13-design-system-components-datepicker-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-13-design-system-components-datepicker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-13-design-system-components-datepicker-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
@@ -6602,11 +6718,11 @@ export const Phase1: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-12-design-system-components-datepicker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-12-design-system-components-datepicker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-13-design-system-components-datepicker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-13-design-system-components-datepicker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-12-design-system-components-datepicker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-13-design-system-components-datepicker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6746,9 +6862,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> DateRangePicker</h2>
       <div class="badges">
-        <label for="c-13-design-system-components-calendar-date-range-picker-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-13-design-system-components-calendar-date-range-picker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-13-design-system-components-calendar-date-range-picker-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-14-design-system-components-calendar-date-range-picker-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-14-design-system-components-calendar-date-range-picker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-14-design-system-components-calendar-date-range-picker-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -6761,11 +6877,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-13-design-system-components-calendar-date-range-picker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-13-design-system-components-calendar-date-range-picker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-14-design-system-components-calendar-date-range-picker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-14-design-system-components-calendar-date-range-picker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-13-design-system-components-calendar-date-range-picker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-14-design-system-components-calendar-date-range-picker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6896,9 +7012,9 @@ width?: any = 320</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Dragger</h2>
       <div class="badges">
-        <label for="c-14-design-system-components-dragger-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-14-design-system-components-dragger-info" class="badge info as-toggle">1 info</label>
-        <label for="c-14-design-system-components-dragger-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-15-design-system-components-dragger-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-15-design-system-components-dragger-info" class="badge info as-toggle">1 info</label>
+        <label for="c-15-design-system-components-dragger-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -6911,11 +7027,11 @@ width?: any = 320</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-14-design-system-components-dragger-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-14-design-system-components-dragger-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-15-design-system-components-dragger-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-15-design-system-components-dragger-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-14-design-system-components-dragger-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-15-design-system-components-dragger-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -6996,9 +7112,9 @@ width?: any = 320</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Dropdown</h2>
       <div class="badges">
-        <label for="c-15-design-system-components-dropdown-props" class="badge ok as-toggle">9 prop types</label>
-        <label for="c-15-design-system-components-dropdown-info" class="badge info as-toggle">1 info</label>
-        <label for="c-15-design-system-components-dropdown-stories" class="badge ok as-toggle">17 stories</label>
+        <label for="c-16-design-system-components-dropdown-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-16-design-system-components-dropdown-info" class="badge info as-toggle">1 info</label>
+        <label for="c-16-design-system-components-dropdown-stories" class="badge ok as-toggle">17 stories</label>
         
         
       </div>
@@ -7011,11 +7127,11 @@ width?: any = 320</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-15-design-system-components-dropdown-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-15-design-system-components-dropdown-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-16-design-system-components-dropdown-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-16-design-system-components-dropdown-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-15-design-system-components-dropdown-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-16-design-system-components-dropdown-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -7476,14 +7592,761 @@ width?: any = 670</code></pre>
   no-story-error
   no-doc-error"
   role="listitem"
+  aria-label="FieldHistoryTracking">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> FieldHistoryTracking</h2>
+      <div class="badges">
+        <label for="c-17-design-system-patterns-field-history-tracking-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-17-design-system-patterns-field-history-tracking-info" class="badge info as-toggle">1 info</label>
+        <label for="c-17-design-system-patterns-field-history-tracking-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/patterns/FieldHistoryTracking.stories.js">design-system-patterns-field-history-tracking · ./src/design-system/patterns/FieldHistoryTracking.stories.js</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-17-design-system-patterns-field-history-tracking-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-17-design-system-patterns-field-history-tracking-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-17-design-system-patterns-field-history-tracking-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  19 | // ─────────────────────────────────────────────────────────────────────────────
+  20 |
+&gt; 21 | export default {
+     | ^
+  22 |   title: &#39;Design System/Patterns/Field History Tracking&#39;,
+  23 |   parameters: {
+  24 |     layout: &#39;centered&#39;,
+
+./src/design-system/patterns/FieldHistoryTracking.stories.js:
+import { useState } from &#39;react&#39;;
+import { Modal } from &#39;../components/Modal/Modal&#39;;
+import { ManageColumns } from &#39;../components/ManageColumns/ManageColumns&#39;;
+import { getModuleFields } from &#39;../data/crm-sample-data&#39;;
+import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
+import { Input } from &#39;../components/Input/Input&#39;;
+import { Button } from &#39;../components/Button/Button&#39;;
+import { Dragger } from &#39;../components/Dragger/Dragger&#39;;
+import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
+import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
+import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
+import { SetupTable } from &#39;../components/Table/Table&#39;;
+import { DetailPage, RecordCard } from &#39;./CrmScreens.page&#39;;
+import { SortingHat } from &#39;../components/SortingHat/SortingHat&#39;;
+import { Info as InfoIcon, Lock as LockIcon } from &#39;../foundations/icons/Icons&#39;;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Meta
+// ─────────────────────────────────────────────────────────────────────────────
+
+export default {
+  title: &#39;Design System/Patterns/Field History Tracking&#39;,
+  parameters: {
+    layout: &#39;centered&#39;,
+    docs: {
+      description: {
+        component:
+          &#39;Modal pattern for enabling field history tracking on a field. &#39; +
+          &#39;Required history columns are locked. Up to 10 additional (snapshot) &#39; +
+          &#39;columns can be selected. Opened from the field properties dialog.&#39;,
+      },
+    },
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Data
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MAX_ADDITIONAL = 10;
+
+const ADDITIONAL_COLUMNS = [
+  &#39;Contact Owner&#39;, &#39;Categories&#39;, &#39;Other Phone&#39;, &#39;Phone&#39;, &#39;Mobile&#39;, &#39;Duplicate Check&#39;,
+  &#39;Social Lead ID&#39;, &#39;Assistant&#39;, &#39;Lead Source&#39;, &#39;Countries&#39;, &#39;Department&#39;, &#39;Title&#39;,
+  &#39;Date of Birth&#39;, &#39;Home Phone&#39;, &#39;Email Opt Out&#39;, &#39;Asst Phone&#39;,
+];
+
+// Required history columns, in default display order. They cannot be unchecked, but can be reordered.
+const REQUIRED_COLUMNS = [&#39;Email&#39;, &#39;Changed To&#39;, &#39;Modified By&#39;, &#39;Modified Time&#39;, &#39;Duration&#39;];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Shared styles (tokens only)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const label = {
+  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+  fontSize: &#39;var(--ds-font-size-base)&#39;,
+  color: &#39;var(--ds-text-label)&#39;,
+  lineHeight: &#39;var(--ds-line-height-base)&#39;,
+};
+
+const sectionHeading = {
+  ...label,
+  fontWeight: &#39;var(--ds-font-weight-semibold)&#39;,
+  color: &#39;var(--ds-text-base)&#39;,
+  marginBottom: 12,
+};
+
+const grid2 = {
+  display: &#39;grid&#39;,
+  gridTemplateColumns: &#39;1fr 1fr&#39;,
+  columnGap: 24,
+  rowGap: 16,
+};
+
+const requiredBadge = {
+  display: &#39;inline-flex&#39;,
+  alignItems: &#39;center&#39;,
+  gap: 4,
+  marginLeft: &#39;auto&#39;,
+  padding: &#39;2px 6px&#39;,
+  borderRadius: 4,
+  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+  fontSize: 12,
+  color: &#39;var(--ds-text-muted)&#39;,
+  background: &#39;var(--ds-components-input-disable-bg, #F3F5F8)&#39;,
+  whiteSpace: &#39;nowrap&#39;,
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Building blocks used only by this pattern
+// ─────────────────────────────────────────────────────────────────────────────
+
+function RequiredItem({ text }) {
+  return (
+    &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+      &lt;Checkbox checked disabled readOnly label={text} aria-label={`${text} (required)`} /&gt;
+      &lt;span style={requiredBadge}&gt;
+        &lt;LockIcon width={10} height={10} aria-hidden=&quot;true&quot; /&gt;
+        required
+      &lt;/span&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Pattern
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Controlled modal: opened from the Email Properties dialog (&quot;Manage Column&quot; link)
+// and from the story button. Keeps its own column state while mounted.
+function FieldHistoryTrackingModal({
+  isOpen,
+  onClose,
+  onDone,
+  fieldName = &#39;Email&#39;,
+  initialSelected = [],
+}) {
+  const [requiredOrder, setRequiredOrder] = useState(REQUIRED_COLUMNS);
+  const [selected, setSelected] = useState(initialSelected);
+
+  const limitReached = selected.length &gt;= MAX_ADDITIONAL;
+
+  const toggleColumn = (name) =&gt; {
+    setSelected((prev) =&gt; {
+      if (prev.includes(name)) return prev.filter((c) =&gt; c !== name);
+      if (prev.length &gt;= MAX_ADDITIONAL) return prev;
+      return [...prev, name];
+    });
+  };
+
+  return (
+    &lt;Modal
+        isOpen={isOpen}
+        title={`${fieldName} History Tracking`}
+        description=&quot;Select columns to display.&quot;
+        onClose={onClose}
+        onCancel={onClose}
+        onSave={() =&gt; onDone?.({ requiredOrder, selected })}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Done&quot;
+        width={640}
+        className=&quot;fht-manage-columns&quot;
+      &gt;
+        &lt;style&gt;{`
+          .fht-manage-columns .modal-body { padding-right: 3px; }
+        `}&lt;/style&gt;
+        &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 24, paddingRight: 0 }}&gt;
+
+          {/* ── Required columns (locked, reorderable) ──────────────── */}
+          &lt;section aria-labelledby=&quot;fht-required-heading&quot;&gt;
+            &lt;h3 id=&quot;fht-required-heading&quot; style={sectionHeading}&gt;Required columns&lt;/h3&gt;
+            &lt;Dragger
+              items={requiredOrder}
+              onChange={setRequiredOrder}
+              renderItem={(item) =&gt; &lt;RequiredItem text={item} /&gt;}
+            /&gt;
+          &lt;/section&gt;
+
+          {/* ── Additional (snapshot) columns ───────────────────────── */}
+          &lt;section aria-labelledby=&quot;fht-additional-heading&quot;&gt;
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, justifyContent: &#39;space-between&#39;, marginBottom: 12 }}&gt;
+              &lt;h3 id=&quot;fht-additional-heading&quot; style={{ ...sectionHeading, marginBottom: 0 }}&gt;
+                Additional columns
+              &lt;/h3&gt;
+              &lt;span
+                aria-live=&quot;polite&quot;
+                style={{ ...label, color: limitReached ? &#39;var(--ds-text-base)&#39; : &#39;var(--ds-text-label)&#39; }}
+              &gt;
+                {selected.length} of {MAX_ADDITIONAL} selected
+              &lt;/span&gt;
+            &lt;/div&gt;
+
+            &lt;div style={grid2}&gt;
+              {ADDITIONAL_COLUMNS.map((name) =&gt; {
+                const checked = selected.includes(name);
+                const disabled = !checked &amp;&amp; limitReached;
+                return (
+                  &lt;Checkbox
+                    key={name}
+                    label={name}
+                    checked={checked}
+                    disabled={disabled}
+                    onChange={() =&gt; toggleColumn(name)}
+                  /&gt;
+                );
+              })}
+            &lt;/div&gt;
+          &lt;/section&gt;
+
+          &lt;MessageInfo
+            variant=&quot;info&quot;
+            message={`You can add up to ${MAX_ADDITIONAL} additional columns. Required columns are always included and do not count toward this limit.`}
+          /&gt;
+        &lt;/div&gt;
+    &lt;/Modal&gt;
+  );
+}
+
+// Story wrapper: opens the modal from a button.
+function FieldHistoryTrackingDemo({ fieldName = &#39;Email&#39;, initialSelected = [] }) {
+  const [open, setOpen] = useState(false);
+  const [saved, setSaved] = useState(null);
+
+  return (
+    &lt;&gt;
+      &lt;Button variant=&quot;outline-blue&quot; onClick={() =&gt; { setSaved(null); setOpen(true); }}&gt;
+        Open {fieldName} History Tracking
+      &lt;/Button&gt;
+
+      {saved &amp;&amp; (
+        &lt;p style={{ ...label, marginTop: 16 }}&gt;
+          Saved {fieldName} history columns: {saved.requiredOrder.join(&#39;, &#39;)}
+          {saved.selected.length &gt; 0 &amp;&amp; `, plus ${saved.selected.length} additional`}.
+        &lt;/p&gt;
+      )}
+
+      &lt;FieldHistoryTrackingModal
+        isOpen={open}
+        onClose={() =&gt; setOpen(false)}
+        onDone={(result) =&gt; { setOpen(false); setSaved(result); }}
+        fieldName={fieldName}
+        initialSelected={initialSelected}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Field properties modal (entry point: &quot;Enable field history tracking&quot;)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const PROPERTY_OPTIONS = [
+  { key: &#39;public&#39;, label: &#39;Mark as Public&#39;, info: true },
+  { key: &#39;required&#39;, label: &#39;Required&#39; },
+  { key: &#39;history&#39;, label: &#39;Enable field history tracking&#39; },
+  { key: &#39;duplicates&#39;, label: &#39;Do not allow duplicate values&#39;, info: true },
+  { key: &#39;personal&#39;, label: &#39;Contains Personal Data&#39;, info: true },
+  { key: &#39;health&#39;, label: &#39;Contains Personal Health Data&#39;, info: true },
+  { key: &#39;tooltip&#39;, label: &#39;Show Tooltip&#39; },
+];
+
+// Default columns: always selected, cannot be unchecked, can be reordered.
+// Shown with a red asterisk in the list.
+const REQUIRED_TRACKED_KEYS = [&#39;Email&#39;, &#39;Changed_To&#39;, &#39;Modified_By&#39;, &#39;Modified_Time&#39;, &#39;Duration&#39;];
+const isRequiredKey = key =&gt; REQUIRED_TRACKED_KEYS.includes(key);
+
+// Keeps the required columns selected. Required and user-selected columns can be
+// reordered together; an uncheck of a required column is ignored and it returns to its place.
+function keepRequiredColumns(next, prev) {
+  const result = [...next];
+  prev.forEach((key, index) =&gt; {
+    if (isRequiredKey(key) &amp;&amp; !result.includes(key)) {
+      result.splice(Math.min(index, result.length), 0, key);
+    }
+  });
+  return result;
+}
+
+// Leads fields from the shared CRM sample data (the Manage Columns list for a Lead),
+// plus the history columns that are always included.
+const HISTORY_COLUMN_OPTIONS = [
+  { key: &#39;Changed_To&#39;, label: &#39;Changed To&#39; },
+  { key: &#39;Modified_By&#39;, label: &#39;Modified By&#39; },
+  { key: &#39;Modified_Time&#39;, label: &#39;Modified Time&#39; },
+  { key: &#39;Duration&#39;, label: &#39;Duration&#39; },
+];
+
+const TRACKED_FIELD_OPTIONS = [
+  ...getModuleFields(&#39;Leads&#39;)
+    .filter(field =&gt; !HISTORY_COLUMN_OPTIONS.some(history =&gt; history.label === field.label))
+    .map(field =&gt; ({
+      key: field.key,
+      label: field.label,
+      scope: &#39;lead&#39;,
+      module: &#39;Leads&#39;,
+    })),
+  ...HISTORY_COLUMN_OPTIONS.map(field =&gt; ({ ...field, scope: &#39;history&#39;, module: &#39;History&#39; })),
+].map(field =&gt; ({ ...field, required: isRequiredKey(field.key) }));
+
+
+function FieldPropertiesDemo({ fieldName = &#39;Email&#39; }) {
+  const [open, setOpen] = useState(true);
+  const [labelValue, setLabelValue] = useState(fieldName);
+  const [checked, setChecked] = useState({});
+  const [saved, setSaved] = useState(false);
+  const [manageOpen, setManageOpen] = useState(false);
+  const [trackedColumns, setTrackedColumns] = useState([...REQUIRED_TRACKED_KEYS, &#39;Phone&#39;, &#39;Owner&#39;]);
+  const [limitExceeded, setLimitExceeded] = useState(false);
+
+  // Blocks a selection that would exceed the 10 additional columns and shows the alert.
+  const handleTrackedChange = next =&gt; {
+    const additionalCount = next.filter(key =&gt; !isRequiredKey(key)).length;
+    if (additionalCount &gt; MAX_ADDITIONAL) {
+      setLimitExceeded(true);
+      return;
+    }
+    setLimitExceeded(false);
+    setTrackedColumns(prev =&gt; keepRequiredColumns(next, prev));
+  };
+
+  const closeManageColumns = () =&gt; {
+    setManageOpen(false);
+    setLimitExceeded(false);
+  };
+
+  const setOption = (key, value) =&gt; setChecked((prev) =&gt; ({ ...prev, [key]: value }));
+
+  return (
+    &lt;&gt;
+      {saved &amp;&amp; (
+        &lt;p style={{ ...label, marginTop: 16 }}&gt;
+          Saved properties for {labelValue}.
+        &lt;/p&gt;
+      )}
+
+      &lt;Modal
+        isOpen={open}
+        title={`${fieldName} Properties`}
+        width=&quot;fit-content&quot;
+        onClose={() =&gt; setOpen(false)}
+        onCancel={() =&gt; setOpen(false)}
+        onSave={() =&gt; { setOpen(false); setSaved(true); }}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Done&quot;
+      &gt;
+        &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 24, paddingRight: 20 }}&gt;
+          &lt;Input
+            label=&quot;Field Label&quot;
+            required
+            layout=&quot;vertical&quot;
+            width={400}
+            value={labelValue}
+            onChange={(e) =&gt; setLabelValue(e.target.value)}
+            onFocus={(e) =&gt; e.target.select()}
+          /&gt;
+
+          &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
+            {PROPERTY_OPTIONS.map((opt) =&gt; (
+              &lt;div key={opt.key} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                &lt;Checkbox
+                  label={opt.label}
+                  checked={!!checked[opt.key]}
+                  onChange={(e) =&gt; setOption(opt.key, e.target.checked)}
+                /&gt;
+                {opt.info &amp;&amp; (
+                  &lt;span style={{ display: &#39;inline-flex&#39;, color: &#39;var(--ds-text-label)&#39; }} aria-hidden=&quot;true&quot;&gt;
+                    &lt;InfoIcon width={14} height={14} /&gt;
+                  &lt;/span&gt;
+                )}
+                {opt.key === &#39;history&#39; &amp;&amp; checked[opt.key] &amp;&amp; (
+                  &lt;button
+                    type=&quot;button&quot;
+                    className=&quot;ds-link&quot;
+                    onClick={() =&gt; setManageOpen(true)}
+                    style={{ padding: 0, border: 0, background: &#39;transparent&#39;, fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-base)&#39;, fontWeight: &#39;var(--ds-font-weight-regular)&#39; }}
+                  &gt;
+                    Manage Column
+                  &lt;/button&gt;
+                )}
+              &lt;/div&gt;
+            ))}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/Modal&gt;
+
+      {/* Nested over the Email Properties modal, which stays open behind it. */}
+      &lt;Modal
+        isOpen={manageOpen}
+        className=&quot;mc-modal-dialog&quot;
+        title=&quot;Email History Tracking&quot;
+        description=&quot;Select columns to display.&quot;
+        width={400}
+        onClose={closeManageColumns}
+        onCancel={closeManageColumns}
+        onSave={closeManageColumns}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Done&quot;
+        footerNote={
+          &lt;&gt;
+            &lt;style&gt;{`
+              .fht-mc-info .msg-info-root { display: block; width: 100%; height: auto; min-height: 0; }
+            `}&lt;/style&gt;
+            &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12, width: &#39;100%&#39; }}&gt;
+            {limitExceeded &amp;&amp; (
+              &lt;div style={{ width: &#39;100%&#39; }}&gt;
+                &lt;MessageBox
+                  variant=&quot;info&quot;
+                  title=&quot;Limit reached&quot;
+                  message={`You can add up to ${MAX_ADDITIONAL} additional columns. Remove a column to add another.`}
+                  closable
+                  onClose={() =&gt; setLimitExceeded(false)}
+                  style={{ width: &#39;100%&#39;, maxWidth: &#39;100%&#39;, boxSizing: &#39;border-box&#39; }}
+                /&gt;
+              &lt;/div&gt;
+            )}
+            &lt;div className=&quot;fht-mc-info&quot;&gt;
+              &lt;MessageInfo
+                variant=&quot;info&quot;
+                message={`You can add up to ${MAX_ADDITIONAL} additional columns. Required columns are always included and do not count toward this limit.`}
+              /&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/&gt;
+        }
+      &gt;
+        &lt;style&gt;{`
+          .mc-modal-dialog .modal-body { gap: 0; margin-top: -12px; }
+        `}&lt;/style&gt;
+        &lt;ManageColumns
+          variant=&quot;modal&quot;
+          embedded
+          title=&quot;Email History Tracking&quot;
+          fields={TRACKED_FIELD_OPTIONS}
+          selected={trackedColumns}
+          onChange={handleTrackedChange}
+        /&gt;
+      &lt;/Modal&gt;
+    &lt;/&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Detail Page: Field History section (revamped Stage History)
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Deal Stage rows from the PRD screenshot.
+const FIELD_HISTORY_ROWS = [
+  {
+    id: &#39;fh-1&#39;,
+    from: &#39;Value Prop&#39;,
+    to: &#39;Negotiation&#39;,
+    modifiedBy: &#39;Elijah Morgan&#39;,
+    modifiedTime: &#39;May 20, 2026 3:41 PM&#39;,
+    duration: &#39;5 days&#39;,
+    amount: &#39;$ 1,48,000&#39;,
+    probability: &#39;70%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Manual (UI)&#39;,
+  },
+  {
+    id: &#39;fh-2&#39;,
+    from: &#39;In Progress&#39;,
+    to: &#39;Value Prop&#39;,
+    modifiedBy: &#39;Klaus Weber&#39;,
+    modifiedTime: &#39;May 12, 2026 11:05 AM&#39;,
+    duration: &#39;14 days&#39;,
+    amount: &#39;$ 1,42,000&#39;,
+    probability: &#39;60%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Manual (UI)&#39;,
+  },
+  {
+    id: &#39;fh-3&#39;,
+    from: &#39;Negotiation&#39;,
+    to: &#39;In Progress&#39;,
+    modifiedBy: &#39;Mikasa Chen&#39;,
+    modifiedTime: &#39;Apr 28, 2026 9:22 AM&#39;,
+    duration: &#39;6 days&#39;,
+    amount: &#39;$ 1,38,000&#39;,
+    probability: &#39;50%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Workflow&#39;,
+  },
+  {
+    id: &#39;fh-4&#39;,
+    from: &#39;(Record Created)&#39;,
+    to: &#39;Negotiation&#39;,
+    modifiedBy: &#39;Yren Okafor&#39;,
+    modifiedTime: &#39;Apr 22, 2026 2:17 PM&#39;,
+    duration: &#39;6 days&#39;,
+    amount: &#39;$ 1,30,000&#39;,
+    probability: &#39;40%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Import&#39;,
+  },
+];
+
+const FIELD_HISTORY_TIME_OPTIONS = [
+  { value: &#39;all&#39;, label: &#39;All time&#39; },
+  { value: &#39;7d&#39;, label: &#39;Last 7 days&#39; },
+  { value: &#39;30d&#39;, label: &#39;Last 30 days&#39; },
+  { value: &#39;6m&#39;, label: &#39;Last 6 months&#39; },
+  { value: &#39;1y&#39;, label: &#39;Last 1 year&#39; },
+];
+
+const FIELD_HISTORY_USER_OPTIONS = [
+  { value: &#39;all&#39;, label: &#39;All users&#39; },
+  { value: &#39;elijah&#39;, label: &#39;Elijah Morgan&#39; },
+  { value: &#39;klaus&#39;, label: &#39;Klaus Weber&#39; },
+  { value: &#39;mikasa&#39;, label: &#39;Mikasa Chen&#39; },
+  { value: &#39;yren&#39;, label: &#39;Yren Okafor&#39; },
+  { value: &#39;system&#39;, label: &#39;System / Automation&#39; },
+];
+
+const FIELD_HISTORY_SOURCE_OPTIONS = [
+  { value: &#39;all&#39;, label: &#39;All sources&#39; },
+  { value: &#39;manual&#39;, label: &#39;Manual (UI)&#39; },
+  { value: &#39;workflow&#39;, label: &#39;Workflow&#39; },
+  { value: &#39;api&#39;, label: &#39;API&#39; },
+  { value: &#39;import&#39;, label: &#39;Import&#39; },
+];
+
+const FIELD_HISTORY_COLUMNS = [
+  {
+    key: &#39;from&#39;,
+    label: &#39;Previous Deal Stage ↔ Moved To&#39;,
+    width: 340,
+    render: (value, row) =&gt; (
+      &lt;span className=&quot;crm-screens__transition&quot;&gt;
+        &lt;span className=&quot;crm-screens__stage-pill&quot;&gt;{value}&lt;/span&gt;
+        &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;
+        &lt;span className=&quot;crm-screens__stage-pill&quot;&gt;{row.to}&lt;/span&gt;
+      &lt;/span&gt;
+    ),
+  },
+  {
+    key: &#39;modifiedBy&#39;,
+    label: &#39;Modified By&#39;,
+    width: 200,
+    render: value =&gt; (
+      &lt;span className=&quot;crm-screens__person&quot;&gt;
+        &lt;span className=&quot;crm-screens__mini-avatar&quot; aria-hidden=&quot;true&quot;&gt;{value.charAt(0)}&lt;/span&gt;
+        {value}
+      &lt;/span&gt;
+    ),
+  },
+  { key: &#39;modifiedTime&#39;, label: &#39;Modified Time&#39;, width: 190 },
+  { key: &#39;duration&#39;, label: &#39;Duration&#39;, width: 110 },
+  { key: &#39;amount&#39;, label: &#39;Amount&#39;, width: 130 },
+  { key: &#39;probability&#39;, label: &#39;Probability&#39;, width: 110 },
+  { key: &#39;fieldType&#39;, label: &#39;Field Type&#39;, width: 120 },
+  {
+    key: &#39;source&#39;,
+    label: &#39;Source&#39;,
+    width: 130,
+    render: value =&gt; &lt;span className=&quot;crm-screens__source-pill&quot;&gt;{value}&lt;/span&gt;,
+  },
+];
+
+function FieldHistorySection() {
+  const [timeFilter, setTimeFilter] = useState(&#39;all&#39;);
+  const [userFilter, setUserFilter] = useState(&#39;all&#39;);
+  const [sourceFilter, setSourceFilter] = useState(&#39;all&#39;);
+
+  return (
+    &lt;RecordCard
+      title=&quot;Field History&quot;
+      actions={&lt;Button variant=&quot;outline-blue&quot;&gt;Manage Columns&lt;/Button&gt;}
+    &gt;
+      &lt;div className=&quot;crm-screens__filters&quot;&gt;
+        &lt;span className=&quot;crm-screens__filter-label&quot;&gt;Filter by&lt;/span&gt;
+        &lt;Dropdown value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={160} /&gt;
+        &lt;Dropdown value={userFilter} options={FIELD_HISTORY_USER_OPTIONS} onChange={setUserFilter} width={180} /&gt;
+        &lt;Dropdown value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={160} /&gt;
+      &lt;/div&gt;
+      &lt;SetupTable
+        columns={FIELD_HISTORY_COLUMNS}
+        rows={FIELD_HISTORY_ROWS}
+        emptyMessage=&quot;No records found&quot;
+      /&gt;
+    &lt;/RecordCard&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Stories
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Sorting Hat shortcuts between the Field History screens.
+const FIELD_HISTORY_VARIATIONS = [
+  {
+    label: &#39;Email Properties&#39;,
+    storyId: &#39;design-system-patterns-field-history-tracking--default&#39;,
+  },
+  {
+    label: &#39;Detail Page - Field History&#39;,
+    storyId: &#39;design-system-patterns-field-history-tracking--detail-page-field-history&#39;,
+  },
+];
+
+export const DetailPageFieldHistory = {
+  name: &#39;Detail Page - Field History&#39;,
+  parameters: { layout: &#39;fullscreen&#39; },
+  render: () =&gt; (
+    &lt;&gt;
+      &lt;DetailPage variant=&quot;fieldHistory&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
+      &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
+    &lt;/&gt;
+  ),
+};
+
+export const Default = {
+  render: () =&gt; (
+    &lt;&gt;
+      &lt;FieldPropertiesDemo fieldName=&quot;Email&quot; /&gt;
+      &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
+    &lt;/&gt;
+  ),
+};
+
+export const LimitReached = {
+  name: &#39;Limit reached (10 of 10)&#39;,
+  render: () =&gt; (
+    &lt;FieldHistoryTrackingDemo
+      fieldName=&quot;Amount&quot;
+      initialSelected={ADDITIONAL_COLUMNS.slice(0, MAX_ADDITIONAL)}
+    /&gt;
+  ),
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import {
+    Button,
+    Checkbox,
+    DetailPage,
+    Dragger,
+    Dropdown,
+    Info as InfoIcon,
+    Input,
+    Lock as LockIcon,
+    ManageColumns,
+    MessageBox,
+    MessageInfo,
+    Modal,
+    RecordCard,
+    SetupTable,
+    SortingHat,
+} from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Detail Page - Field History</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const DetailPageFieldHistory = () =&gt; (
+  &lt;&gt;
+    &lt;DetailPage variant=&quot;fieldHistory&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
+    &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
+  &lt;/&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; (
+  &lt;&gt;
+    &lt;FieldPropertiesDemo fieldName=&quot;Email&quot; /&gt;
+    &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
+  &lt;/&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Limit reached (10 of 10)</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const LimitReached = () =&gt; (
+  &lt;FieldHistoryTrackingDemo
+    fieldName=&quot;Amount&quot;
+    initialSelected={ADDITIONAL_COLUMNS.slice(0, MAX_ADDITIONAL)}
+  /&gt;
+);</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
   aria-label="Forms">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Forms</h2>
       <div class="badges">
-        <label for="c-16-design-system-patterns-forms-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-16-design-system-patterns-forms-info" class="badge info as-toggle">1 info</label>
-        <label for="c-16-design-system-patterns-forms-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-18-design-system-patterns-forms-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-18-design-system-patterns-forms-info" class="badge info as-toggle">1 info</label>
+        <label for="c-18-design-system-patterns-forms-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -7495,9 +8358,9 @@ width?: any = 670</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-16-design-system-patterns-forms-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-16-design-system-patterns-forms-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-16-design-system-patterns-forms-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-18-design-system-patterns-forms-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-18-design-system-patterns-forms-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-18-design-system-patterns-forms-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -8420,9 +9283,9 @@ export const CreateDeal: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> FormTable</h2>
       <div class="badges">
-        <label for="c-17-design-system-components-form-table-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-17-design-system-components-form-table-info" class="badge info as-toggle">1 info</label>
-        <label for="c-17-design-system-components-form-table-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-19-design-system-components-form-table-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-19-design-system-components-form-table-info" class="badge info as-toggle">1 info</label>
+        <label for="c-19-design-system-components-form-table-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -8435,11 +9298,11 @@ export const CreateDeal: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-17-design-system-components-form-table-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-17-design-system-components-form-table-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-19-design-system-components-form-table-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-19-design-system-components-form-table-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-17-design-system-components-form-table-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-19-design-system-components-form-table-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -8528,9 +9391,9 @@ rows?: any = []</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> GroupButton</h2>
       <div class="badges">
-        <label for="c-18-design-system-components-groupbutton-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-20-design-system-components-groupbutton-props" class="badge ok as-toggle">7 prop types</label>
         
-        <label for="c-18-design-system-components-groupbutton-stories" class="badge ok as-toggle">5 stories</label>
+        <label for="c-20-design-system-components-groupbutton-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
@@ -8547,10 +9410,10 @@ Multi-select:  pass `value: string[]` + `onChange: (values) =&gt; void`.</div>
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
   
-  <input id="c-18-design-system-components-groupbutton-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-20-design-system-components-groupbutton-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-18-design-system-components-groupbutton-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-20-design-system-components-groupbutton-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -8711,9 +9574,9 @@ showBadge?: any = true</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Icon</h2>
       <div class="badges">
-        <label for="c-19-design-system-foundations-icons-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-21-design-system-foundations-icons-props" class="badge ok as-toggle">1 prop type</label>
         
-        <label for="c-19-design-system-foundations-icons-stories" class="badge ok as-toggle">12 stories</label>
+        <label for="c-21-design-system-foundations-icons-stories" class="badge ok as-toggle">12 stories</label>
         
         
       </div>
@@ -8742,10 +9605,10 @@ Adding icons
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
   
-  <input id="c-19-design-system-foundations-icons-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-21-design-system-foundations-icons-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-19-design-system-foundations-icons-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-21-design-system-foundations-icons-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9401,9 +10264,9 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Input</h2>
       <div class="badges">
-        <label for="c-20-design-system-components-input-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-22-design-system-components-input-props" class="badge ok as-toggle">6 prop types</label>
         
-        <label for="c-20-design-system-components-input-stories" class="badge ok as-toggle">23 stories</label>
+        <label for="c-22-design-system-components-input-stories" class="badge ok as-toggle">23 stories</label>
         
         
       </div>
@@ -9441,10 +10304,10 @@ Extending
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
   
-  <input id="c-20-design-system-components-input-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-22-design-system-components-input-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-20-design-system-components-input-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-22-design-system-components-input-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -9859,9 +10722,9 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> JoinedReports-Revamp</h2>
       <div class="badges">
-        <label for="c-21-design-system-patterns-joined-reports-revamp-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-21-design-system-patterns-joined-reports-revamp-info" class="badge info as-toggle">1 info</label>
-        <label for="c-21-design-system-patterns-joined-reports-revamp-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-23-design-system-patterns-joined-reports-revamp-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-23-design-system-patterns-joined-reports-revamp-info" class="badge info as-toggle">1 info</label>
+        <label for="c-23-design-system-patterns-joined-reports-revamp-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -9873,9 +10736,9 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-21-design-system-patterns-joined-reports-revamp-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-21-design-system-patterns-joined-reports-revamp-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-21-design-system-patterns-joined-reports-revamp-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-23-design-system-patterns-joined-reports-revamp-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-23-design-system-patterns-joined-reports-revamp-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-23-design-system-patterns-joined-reports-revamp-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -9887,13 +10750,13 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  705 | // ─────────────────────────────────────────────────────────────────────────────
-  706 |
-&gt; 707 | const meta = {
+  747 | // ─────────────────────────────────────────────────────────────────────────────
+  748 |
+&gt; 749 | const meta = {
       | ^
-  708 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
-  709 |   parameters: {
-  710 |     layout: &#39;fullscreen&#39;,
+  750 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
+  751 |   parameters: {
+  752 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/JoinedReportsRevamp.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -9915,6 +10778,7 @@ import { Dragger } from &#39;../components/Dragger/Dragger&#39;;
 import { Stepper } from &#39;../components/Stepper/Stepper&#39;;
 import { ChevronDownFilled, Info } from &#39;../foundations/icons/Icons&#39;;
 import &#39;./JoinedReportsRevamp.css&#39;;
+import &#39;./CrossModuleReports.css&#39;;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Sample data (no network; 25 field names for the grouping dropdowns)
@@ -9983,7 +10847,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
   const isEdit = mode === &#39;edit&#39;;
   const prefilledFields = (offset: number) =&gt;
     Array.from({ length: initialReportCount }, (_, index) =&gt; FIELD_OPTIONS[(index + offset) % FIELD_OPTIONS.length].value);
-  const [name, setName] = useState(isEdit ? &#39;Leads by Source&#39; : &#39;Untitled Joined Report&#39;);
+  const [name, setName] = useState(isEdit ? &#39;Monthly Sales Pipeline&#39; : &#39;Untitled Joined Report&#39;);
   const [rows, setRows] = useState&lt;ReportRow[]&gt;(() =&gt; initialRows(initialReportCount, initialStep, isEdit));
   const [groups, setGroups] = useState&lt;GroupRow[]&gt;(() =&gt; {
     if (isEdit) {
@@ -10396,8 +11260,45 @@ const BUILDER_LEADS = [
 
 const BUILDER_COLUMNS = [&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;];
 
+// Filters tab, laid out like the cross module reports Filters panel (heading, edit/delete, empty state).
+function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; onAdd: () =&gt; void; onDelete: () =&gt; void }) {
+  return (
+    &lt;section className=&quot;cmr__panel-body jr-builder-filters&quot; aria-label=&quot;Filters&quot;&gt;
+      &lt;div className=&quot;cmr__panel-heading&quot;&gt;
+        &lt;h2&gt;Filters&lt;/h2&gt;
+        {hasFilters &amp;&amp; (
+          &lt;div className=&quot;cmr__heading-actions&quot;&gt;
+            &lt;Tooltip content=&quot;Edit filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+              &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label=&quot;Edit filters&quot;&gt;
+                &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
+              &lt;/button&gt;
+            &lt;/Tooltip&gt;
+            &lt;Tooltip content=&quot;Delete filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+              &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action criteria-summary__action--delete&quot; aria-label=&quot;Delete filters&quot; onClick={onDelete}&gt;
+                &lt;Icon name=&quot;Delete&quot; size={12} /&gt;
+              &lt;/button&gt;
+            &lt;/Tooltip&gt;
+          &lt;/div&gt;
+        )}
+      &lt;/div&gt;
+      {hasFilters ? (
+        &lt;section className=&quot;cmr__saved&quot; aria-label=&quot;Saved Lead Source filter&quot;&gt;
+          &lt;h3&gt;Lead Source&lt;/h3&gt;
+          &lt;p className=&quot;cmr__saved-sentence&quot;&gt;Lead Source is Advertisement or Partner&lt;/p&gt;
+        &lt;/section&gt;
+      ) : (
+        &lt;div className=&quot;cmr__empty&quot;&gt;
+          &lt;p&gt;No filters applied&lt;/p&gt;
+          &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; className=&quot;cmr__add-filter&quot; onClick={onAdd}&gt;Add Filter&lt;/Button&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/section&gt;
+  );
+}
+
 function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void; onCreate: () =&gt; void; saved: boolean }) {
   const [builderTab, setBuilderTab] = useState(&#39;columns&#39;);
+  const [hasFilters, setHasFilters] = useState(saved);
   const [columns, setColumns] = useState([&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;, &#39;First Name&#39;, &#39;Last Name&#39;]);
   const [aggregates, setAggregates] = useState([&#39;Avg of Annual Revenue&#39;, &#39;Sum of Annual Revenue&#39;, &#39;Count of Unique Leads&#39;]);
   return (
@@ -10420,7 +11321,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
           &lt;div className=&quot;jr-builder-subtitle&quot;&gt;
             &lt;Icon name=&quot;CrmArrowBack&quot; size={18} /&gt;
             &lt;div className=&quot;jr-builder-title-stack&quot;&gt;
-              &lt;span className=&quot;jr-builder-name&quot;&gt;Leads by Source&lt;/span&gt;
+              &lt;span className=&quot;jr-builder-name&quot;&gt;{saved ? &#39;Monthly Sales Pipeline&#39; : &#39;Leads By Source&#39;}&lt;/span&gt;
               &lt;span className=&quot;jr-builder-module&quot;&gt;Leads&lt;/span&gt;
             &lt;/div&gt;
           &lt;/div&gt;
@@ -10452,8 +11353,8 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Report 1&lt;/span&gt;
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span&gt;Leads by Source&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads by Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;span&gt;Leads By Source&lt;/span&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads By Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 
@@ -10468,6 +11369,9 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
                   size=&quot;md&quot;
                 /&gt;
               &lt;/div&gt;
+              {builderTab === &#39;filters&#39; ? (
+                &lt;BuilderFilters hasFilters={hasFilters} onAdd={() =&gt; setHasFilters(true)} onDelete={() =&gt; setHasFilters(false)} /&gt;
+              ) : (&lt;&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Columns&lt;/span&gt;
                 &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
@@ -10478,6 +11382,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
                 &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={aggregates} onChange={setAggregates} /&gt;
+              &lt;/&gt;)}
             &lt;/div&gt;
 
             {saved &amp;&amp; (&lt;&gt;
@@ -10509,7 +11414,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               Preview shown with limited number of rows. Run the report to see actual aggregate values.
               &lt;span className=&quot;jr-builder-link&quot;&gt;Show Details&lt;/span&gt;
             &lt;/p&gt;
-            &lt;table className=&quot;jr-builder-table&quot; aria-label=&quot;Report 1 leads by source&quot;&gt;
+            &lt;table className=&quot;jr-builder-table&quot; aria-label=&quot;Report 1 Leads By Source&quot;&gt;
               &lt;thead&gt;
                 &lt;tr&gt;
                   &lt;th /&gt;
@@ -10753,6 +11658,123 @@ export const ReportLimit: Story = {
 <article
   class="card 
   no-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="ManageColumns">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> ManageColumns</h2>
+      <div class="badges">
+        <label for="c-24-design-system-components-manage-columns-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-24-design-system-components-manage-columns-info" class="badge info as-toggle">1 info</label>
+        <label for="c-24-design-system-components-manage-columns-stories" class="badge ok as-toggle">4 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/components/ManageColumns/ManageColumns.stories.tsx">design-system-components-manage-columns · ./src/design-system/components/ManageColumns/ManageColumns.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-24-design-system-components-manage-columns-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-24-design-system-components-manage-columns-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-24-design-system-components-manage-columns-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">5 prop types</span>
+            </div>
+            <pre><code>Component: src/design-system/components/ManageColumns/ManageColumns.js::ManageColumns</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>embedded?: any = false
+
+fields?: any = []
+
+selected?: any = []
+
+title?: any = &#39;Manage Columns&#39;
+
+variant?: any = &#39;modal&#39;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { ManageColumns } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Modal</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Modal = () =&gt; &lt;ManageColumnsDemo variant=&quot;modal&quot; title=&quot;Manage Columns&quot; /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Field Reorder</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FieldReorder = () =&gt; &lt;ManageColumnsDemo variant=&quot;reorder&quot; title=&quot;Manage Columns&quot; /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Title</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithTitle = () =&gt; &lt;ManageColumnsDemo variant=&quot;withTitle&quot; title=&quot;Manage Columns&quot; /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Page</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Page = () =&gt; &lt;ManageColumnsDemo variant=&quot;page&quot; title=&quot;Manage Columns&quot; /&gt;;</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
   no-info 
   no-story-error
   no-doc-error"
@@ -10762,9 +11784,9 @@ export const ReportLimit: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MergeField</h2>
       <div class="badges">
-        <label for="c-22-design-system-components-mergefield-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-25-design-system-components-mergefield-props" class="badge ok as-toggle">6 prop types</label>
         
-        <label for="c-22-design-system-components-mergefield-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-25-design-system-components-mergefield-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -10788,10 +11810,10 @@ read once, as a fallback initial value.</div>
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
   
-  <input id="c-22-design-system-components-mergefield-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-25-design-system-components-mergefield-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-22-design-system-components-mergefield-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-25-design-system-components-mergefield-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -11166,9 +12188,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MessageBox</h2>
       <div class="badges">
-        <label for="c-23-design-system-components-messagebox-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-23-design-system-components-messagebox-info" class="badge info as-toggle">1 info</label>
-        <label for="c-23-design-system-components-messagebox-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-26-design-system-components-messagebox-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-26-design-system-components-messagebox-info" class="badge info as-toggle">1 info</label>
+        <label for="c-26-design-system-components-messagebox-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -11181,11 +12203,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-23-design-system-components-messagebox-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-23-design-system-components-messagebox-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-26-design-system-components-messagebox-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-26-design-system-components-messagebox-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-23-design-system-components-messagebox-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-26-design-system-components-messagebox-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -11356,9 +12378,9 @@ variant?: any = &#39;info&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MessageInfo</h2>
       <div class="badges">
-        <label for="c-24-design-system-components-messageinfo-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-24-design-system-components-messageinfo-info" class="badge info as-toggle">1 info</label>
-        <label for="c-24-design-system-components-messageinfo-stories" class="badge ok as-toggle">12 stories</label>
+        <label for="c-27-design-system-components-messageinfo-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-27-design-system-components-messageinfo-info" class="badge info as-toggle">1 info</label>
+        <label for="c-27-design-system-components-messageinfo-stories" class="badge ok as-toggle">12 stories</label>
         
         
       </div>
@@ -11371,11 +12393,11 @@ variant?: any = &#39;info&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-24-design-system-components-messageinfo-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-24-design-system-components-messageinfo-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-27-design-system-components-messageinfo-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-27-design-system-components-messageinfo-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-24-design-system-components-messageinfo-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-27-design-system-components-messageinfo-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -11556,9 +12578,9 @@ variant?: any = &#39;info&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> minimal</h2>
       <div class="badges">
-        <label for="c-25-design-system-patterns-crm-homepage-minimal-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-25-design-system-patterns-crm-homepage-minimal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-25-design-system-patterns-crm-homepage-minimal-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-28-design-system-patterns-crm-homepage-minimal-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-28-design-system-patterns-crm-homepage-minimal-info" class="badge info as-toggle">1 info</label>
+        <label for="c-28-design-system-patterns-crm-homepage-minimal-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -11570,9 +12592,9 @@ variant?: any = &#39;info&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-25-design-system-patterns-crm-homepage-minimal-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-25-design-system-patterns-crm-homepage-minimal-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-25-design-system-patterns-crm-homepage-minimal-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-28-design-system-patterns-crm-homepage-minimal-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-28-design-system-patterns-crm-homepage-minimal-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-28-design-system-patterns-crm-homepage-minimal-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -12537,9 +13559,9 @@ export const ChartDrilldown: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> minimal-drilldown</h2>
       <div class="badges">
-        <label for="c-26-design-system-patterns-crm-homepage-minimal-drilldown-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-26-design-system-patterns-crm-homepage-minimal-drilldown-info" class="badge info as-toggle">1 info</label>
-        <label for="c-26-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-29-design-system-patterns-crm-homepage-minimal-drilldown-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-29-design-system-patterns-crm-homepage-minimal-drilldown-info" class="badge info as-toggle">1 info</label>
+        <label for="c-29-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -12551,9 +13573,9 @@ export const ChartDrilldown: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-26-design-system-patterns-crm-homepage-minimal-drilldown-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-26-design-system-patterns-crm-homepage-minimal-drilldown-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-26-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-29-design-system-patterns-crm-homepage-minimal-drilldown-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-29-design-system-patterns-crm-homepage-minimal-drilldown-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-29-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -12716,9 +13738,9 @@ export const Pipeline: Story = { render: () =&gt; &lt;Preview selection={{ kind:
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Modal</h2>
       <div class="badges">
-        <label for="c-27-design-system-components-modal-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-27-design-system-components-modal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-27-design-system-components-modal-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-30-design-system-components-modal-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-30-design-system-components-modal-info" class="badge info as-toggle">1 info</label>
+        <label for="c-30-design-system-components-modal-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -12730,9 +13752,9 @@ export const Pipeline: Story = { render: () =&gt; &lt;Preview selection={{ kind:
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-27-design-system-components-modal-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-27-design-system-components-modal-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-27-design-system-components-modal-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-30-design-system-components-modal-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-30-design-system-components-modal-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-30-design-system-components-modal-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -13195,9 +14217,9 @@ Used when the message is short and self-explanatory.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> NextGenLeftMenu</h2>
       <div class="badges">
-        <label for="c-28-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-28-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
-        <label for="c-28-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-31-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-31-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
+        <label for="c-31-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -13210,11 +14232,11 @@ Used when the message is short and self-explanatory.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-28-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-28-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-31-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-31-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-28-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-31-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -13338,9 +14360,9 @@ width?: any = 240</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> NextGenTopBand</h2>
       <div class="badges">
-        <label for="c-29-design-system-components-nextgentopband-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-29-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
-        <label for="c-29-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-32-design-system-components-nextgentopband-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-32-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
+        <label for="c-32-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -13353,11 +14375,11 @@ width?: any = 240</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-29-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-29-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-32-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-32-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-29-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-32-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -13477,9 +14499,9 @@ userInitials?: any = &#39;C&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> PortalUI</h2>
       <div class="badges">
-        <label for="c-30-design-system-patterns-portal-ui-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-30-design-system-patterns-portal-ui-info" class="badge info as-toggle">1 info</label>
-        <label for="c-30-design-system-patterns-portal-ui-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-33-design-system-patterns-portal-ui-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-33-design-system-patterns-portal-ui-info" class="badge info as-toggle">1 info</label>
+        <label for="c-33-design-system-patterns-portal-ui-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -13491,9 +14513,9 @@ userInitials?: any = &#39;C&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-30-design-system-patterns-portal-ui-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-30-design-system-patterns-portal-ui-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-30-design-system-patterns-portal-ui-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-33-design-system-patterns-portal-ui-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-33-design-system-patterns-portal-ui-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-33-design-system-patterns-portal-ui-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -15418,9 +16440,9 @@ export const Users = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> ProgressBar</h2>
       <div class="badges">
-        <label for="c-31-design-system-components-progressbar-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-31-design-system-components-progressbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-31-design-system-components-progressbar-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-34-design-system-components-progressbar-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-34-design-system-components-progressbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-34-design-system-components-progressbar-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -15433,11 +16455,11 @@ export const Users = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-31-design-system-components-progressbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-31-design-system-components-progressbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-34-design-system-components-progressbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-34-design-system-components-progressbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-31-design-system-components-progressbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-34-design-system-components-progressbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -15626,8 +16648,8 @@ value?: any = 0</code></pre>
       <h2><span class="status-dot dot-ok"></span> Radio</h2>
       <div class="badges">
         
-        <label for="c-32-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
-        <label for="c-32-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-35-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
+        <label for="c-35-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -15640,8 +16662,8 @@ value?: any = 0</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-32-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-32-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-35-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-35-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -15785,9 +16807,9 @@ value?: any = 0</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> RecordAuthentication</h2>
       <div class="badges">
-        <label for="c-33-design-system-patterns-record-authentication-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-33-design-system-patterns-record-authentication-info" class="badge info as-toggle">1 info</label>
-        <label for="c-33-design-system-patterns-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-36-design-system-patterns-record-authentication-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-36-design-system-patterns-record-authentication-info" class="badge info as-toggle">1 info</label>
+        <label for="c-36-design-system-patterns-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -15799,9 +16821,9 @@ value?: any = 0</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-33-design-system-patterns-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-33-design-system-patterns-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-33-design-system-patterns-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-36-design-system-patterns-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-36-design-system-patterns-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-36-design-system-patterns-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -16822,14 +17844,14 @@ export const RecordConfiguration: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> RichTextEditor</h2>
       <div class="badges">
-        <label for="c-34-components-richtexteditor-props" class="badge ok as-toggle">7 prop types</label>
-        <label for="c-34-components-richtexteditor-info" class="badge info as-toggle">1 info</label>
-        <label for="c-34-components-richtexteditor-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-37-design-system-components-richtexteditor-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-37-design-system-components-richtexteditor-info" class="badge info as-toggle">1 info</label>
+        <label for="c-37-design-system-components-richtexteditor-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/design-system/components/RichTextEditor/RichTextEditor.stories.tsx">components-richtexteditor · ./src/design-system/components/RichTextEditor/RichTextEditor.stories.tsx</div>
+    <div class="meta" title="./src/design-system/components/RichTextEditor/RichTextEditor.stories.tsx">design-system-components-richtexteditor · ./src/design-system/components/RichTextEditor/RichTextEditor.stories.tsx</div>
     
     
     
@@ -16837,11 +17859,11 @@ export const RecordConfiguration: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-34-components-richtexteditor-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-34-components-richtexteditor-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-37-design-system-components-richtexteditor-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-37-design-system-components-richtexteditor-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-34-components-richtexteditor-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-37-design-system-components-richtexteditor-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -16984,9 +18006,9 @@ width?: any = 500</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SBConnections</h2>
       <div class="badges">
-        <label for="c-35-design-system-patterns-sb-connections-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-35-design-system-patterns-sb-connections-info" class="badge info as-toggle">1 info</label>
-        <label for="c-35-design-system-patterns-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-38-design-system-patterns-sb-connections-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-38-design-system-patterns-sb-connections-info" class="badge info as-toggle">1 info</label>
+        <label for="c-38-design-system-patterns-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -16998,9 +18020,9 @@ width?: any = 500</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-35-design-system-patterns-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-35-design-system-patterns-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-35-design-system-patterns-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-38-design-system-patterns-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-38-design-system-patterns-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-38-design-system-patterns-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -17324,9 +18346,9 @@ export const DiagramOnly: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Select</h2>
       <div class="badges">
-        <label for="c-36-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-36-design-system-components-select-info" class="badge info as-toggle">1 info</label>
-        <label for="c-36-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-39-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-39-design-system-components-select-info" class="badge info as-toggle">1 info</label>
+        <label for="c-39-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -17339,11 +18361,11 @@ export const DiagramOnly: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-36-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-36-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-39-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-39-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-36-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-39-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -17546,9 +18568,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SendDashboardScheduler</h2>
       <div class="badges">
-        <label for="c-37-design-system-patterns-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-37-design-system-patterns-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
-        <label for="c-37-design-system-patterns-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-40-design-system-patterns-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-40-design-system-patterns-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
+        <label for="c-40-design-system-patterns-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -17560,9 +18582,9 @@ width?: any = 670</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-37-design-system-patterns-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-37-design-system-patterns-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-37-design-system-patterns-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-40-design-system-patterns-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-40-design-system-patterns-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-40-design-system-patterns-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -18835,9 +19857,9 @@ export const SendDashboardScheduler = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SetupTable</h2>
       <div class="badges">
-        <label for="c-38-design-system-components-table-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-38-design-system-components-table-info" class="badge info as-toggle">1 info</label>
-        <label for="c-38-design-system-components-table-stories" class="badge ok as-toggle">5 stories</label>
+        <label for="c-41-design-system-components-table-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-41-design-system-components-table-info" class="badge info as-toggle">1 info</label>
+        <label for="c-41-design-system-components-table-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
@@ -18850,11 +19872,11 @@ export const SendDashboardScheduler = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-38-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-38-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-41-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-41-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-38-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-41-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -18974,9 +19996,9 @@ variant?: any = &#39;setup&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Slider</h2>
       <div class="badges">
-        <label for="c-39-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
-        <label for="c-39-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
-        <label for="c-39-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
+        <label for="c-42-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-42-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
+        <label for="c-42-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
         
         
       </div>
@@ -18989,11 +20011,11 @@ variant?: any = &#39;setup&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-39-design-system-components-slider-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-39-design-system-components-slider-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-42-design-system-components-slider-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-42-design-system-components-slider-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-39-design-system-components-slider-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-42-design-system-components-slider-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -19345,14 +20367,109 @@ value?: any = 50</code></pre>
   no-story-error
   no-doc-error"
   role="listitem"
+  aria-label="SortingHat">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> SortingHat</h2>
+      <div class="badges">
+        <label for="c-43-design-system-components-sorting-hat-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-43-design-system-components-sorting-hat-info" class="badge info as-toggle">1 info</label>
+        <label for="c-43-design-system-components-sorting-hat-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/components/SortingHat/SortingHat.stories.js">design-system-components-sorting-hat · ./src/design-system/components/SortingHat/SortingHat.stories.js</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-43-design-system-components-sorting-hat-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-43-design-system-components-sorting-hat-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-43-design-system-components-sorting-hat-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">4 prop types</span>
+            </div>
+            <pre><code>Component: src/design-system/components/SortingHat/SortingHat.js::SortingHat</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>idleMs?: any = 10000
+
+size?: any = 48
+
+title?: any = &#39;Sorting Hat&#39;
+
+variations?: any = []</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { SortingHat } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; (
+  &lt;div style={{ minHeight: &#39;100vh&#39;, padding: 24, fontFamily: &#39;var(--ds-font-family-base)&#39; }}&gt;
+    &lt;p style={{ color: &#39;var(--ds-text-label)&#39; }}&gt;
+      Drag the hat anywhere. Click it to open the design screens menu.
+    &lt;/p&gt;
+    &lt;SortingHat variations={VARIATIONS} /&gt;
+  &lt;/div&gt;
+);</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
   aria-label="Stepper">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Stepper</h2>
       <div class="badges">
-        <label for="c-40-design-system-components-stepper-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-40-design-system-components-stepper-info" class="badge info as-toggle">1 info</label>
-        <label for="c-40-design-system-components-stepper-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-44-design-system-components-stepper-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-44-design-system-components-stepper-info" class="badge info as-toggle">1 info</label>
+        <label for="c-44-design-system-components-stepper-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -19365,11 +20482,11 @@ value?: any = 50</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-40-design-system-components-stepper-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-40-design-system-components-stepper-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-44-design-system-components-stepper-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-44-design-system-components-stepper-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-40-design-system-components-stepper-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-44-design-system-components-stepper-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -19563,9 +20680,9 @@ variant?: any = &#39;multi&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Switch</h2>
       <div class="badges">
-        <label for="c-41-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-41-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
-        <label for="c-41-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-45-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-45-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
+        <label for="c-45-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -19578,11 +20695,11 @@ variant?: any = &#39;multi&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-41-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-41-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-45-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-45-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-41-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-45-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -19726,9 +20843,9 @@ variant?: any = &#39;multi&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tabs</h2>
       <div class="badges">
-        <label for="c-42-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-42-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-42-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-46-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-46-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-46-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -19741,11 +20858,11 @@ variant?: any = &#39;multi&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-42-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-42-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-46-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-46-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-42-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-46-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -19887,9 +21004,9 @@ variant?: any = &#39;primary&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tags</h2>
       <div class="badges">
-        <label for="c-43-design-system-components-tags-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-43-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
-        <label for="c-43-design-system-components-tags-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-47-design-system-components-tags-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-47-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
+        <label for="c-47-design-system-components-tags-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -19902,11 +21019,11 @@ variant?: any = &#39;primary&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-43-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-43-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-47-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-47-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-43-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-47-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -20153,9 +21270,9 @@ width?: any = &#39;100%&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Textarea</h2>
       <div class="badges">
-        <label for="c-44-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-44-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
-        <label for="c-44-design-system-components-textarea-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-48-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-48-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
+        <label for="c-48-design-system-components-textarea-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -20168,11 +21285,11 @@ width?: any = &#39;100%&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-44-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-44-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-48-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-48-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-44-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-48-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -20377,9 +21494,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tooltip</h2>
       <div class="badges">
-        <label for="c-45-design-system-components-tooltip-props" class="badge ok as-toggle">7 prop types</label>
-        <label for="c-45-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
-        <label for="c-45-design-system-components-tooltip-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-49-design-system-components-tooltip-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-49-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
+        <label for="c-49-design-system-components-tooltip-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -20392,11 +21509,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-45-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-45-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-49-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-49-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-45-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-49-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -20599,9 +21716,9 @@ variant?: any = &#39;black&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> TypographyPage</h2>
       <div class="badges">
-        <label for="c-46-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-46-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
-        <label for="c-46-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-50-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-50-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
+        <label for="c-50-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -20613,9 +21730,9 @@ variant?: any = &#39;black&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-46-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-46-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-46-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-50-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-50-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-50-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -21060,9 +22177,9 @@ export const AllTypography: StoryObj = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-47-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-47-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-47-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-51-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-51-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-51-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -21074,9 +22191,9 @@ export const AllTypography: StoryObj = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-47-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-47-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-47-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-51-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-51-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-51-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -22451,9 +23568,9 @@ export const CreateNotification: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> UserPicker</h2>
       <div class="badges">
-        <label for="c-48-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-48-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-48-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-52-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-52-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-52-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -22466,11 +23583,11 @@ export const CreateNotification: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-48-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-48-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-52-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-52-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-48-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-52-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -22666,9 +23783,9 @@ width?: any = 390</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> VerticalTabs</h2>
       <div class="badges">
-        <label for="c-49-design-system-components-verticaltabs-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-49-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-49-design-system-components-verticaltabs-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-53-design-system-components-verticaltabs-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-53-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-53-design-system-components-verticaltabs-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -22681,11 +23798,11 @@ width?: any = 390</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-49-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-49-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-53-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-53-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-49-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-53-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -22859,9 +23976,9 @@ Figma: Pascal Stone &quot;Setup Left Menu&quot; (79954:198542).</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> WMSBar</h2>
       <div class="badges">
-        <label for="c-50-design-system-components-wmsbar-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-50-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-50-design-system-components-wmsbar-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-54-design-system-components-wmsbar-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-54-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-54-design-system-components-wmsbar-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -22874,11 +23991,11 @@ Figma: Pascal Stone &quot;Setup Left Menu&quot; (79954:198542).</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-50-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-50-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-54-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-54-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-50-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-54-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -22985,7 +24102,7 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
           <label for="no-component-found-toggle" class="group-header">
             <span class="caret">▸</span>
             <span class="group-title">No component found</span>
-            <span class="group-count">14</span>
+            <span class="group-count">16</span>
           </label>
           <div class="group-cards">
 <article
@@ -24656,14 +25773,130 @@ export const EmptyState: Story = {
   no-story-error
   no-doc-error"
   role="listitem"
+  aria-label="CRMScreens">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> CRMScreens</h2>
+      <div class="badges">
+        <label for="c-error-3-design-system-patterns-crm-screens-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-3-design-system-patterns-crm-screens-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-3-design-system-patterns-crm-screens-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/patterns/CrmScreens.stories.js">design-system-patterns-crm-screens · ./src/design-system/patterns/CrmScreens.stories.js</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-3-design-system-patterns-crm-screens-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-3-design-system-patterns-crm-screens-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-3-design-system-patterns-crm-screens-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+   5 | // ─────────────────────────────────────────────────────────────────────────────
+   6 |
+&gt;  7 | export default {
+     | ^
+   8 |   title: &#39;Design System/Patterns/CRM Screens&#39;,
+   9 |   parameters: {
+  10 |     layout: &#39;fullscreen&#39;,
+
+./src/design-system/patterns/CrmScreens.stories.js:
+import { DetailPage } from &#39;./CrmScreens.page&#39;;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Meta
+// ─────────────────────────────────────────────────────────────────────────────
+
+export default {
+  title: &#39;Design System/Patterns/CRM Screens&#39;,
+  parameters: {
+    layout: &#39;fullscreen&#39;,
+    docs: {
+      description: {
+        component:
+          &#39;CRM record screens built from existing components. The Detail Page variant shows a &#39; +
+          &#39;record header with actions, a related list, and related-record cards.&#39;,
+      },
+    },
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Stories
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const DetailPageVariant = {
+  name: &#39;Detail Page&#39;,
+  render: () =&gt; &lt;DetailPage /&gt;,
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { DetailPage } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Detail Page</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const DetailPageVariant = () =&gt; &lt;DetailPage /&gt;;</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
   aria-label="Cross-moduleReports">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Cross-moduleReports</h2>
       <div class="badges">
-        <label for="c-error-3-design-system-patterns-cross-module-reports-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-3-design-system-patterns-cross-module-reports-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-3-design-system-patterns-cross-module-reports-stories" class="badge ok as-toggle">13 stories</label>
+        <label for="c-error-4-design-system-patterns-cross-module-reports-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-4-design-system-patterns-cross-module-reports-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-4-design-system-patterns-cross-module-reports-stories" class="badge ok as-toggle">13 stories</label>
         
         
       </div>
@@ -24675,9 +25908,9 @@ export const EmptyState: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-3-design-system-patterns-cross-module-reports-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-3-design-system-patterns-cross-module-reports-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-3-design-system-patterns-cross-module-reports-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-4-design-system-patterns-cross-module-reports-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-4-design-system-patterns-cross-module-reports-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-4-design-system-patterns-cross-module-reports-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -26101,9 +27334,9 @@ import { Fragment } from "react";</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> DashboardExport</h2>
       <div class="badges">
-        <label for="c-error-4-design-system-patterns-dashboard-export-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-4-design-system-patterns-dashboard-export-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-4-design-system-patterns-dashboard-export-stories" class="badge err as-toggle">2/3 story errors</label>
+        <label for="c-error-5-design-system-patterns-dashboard-export-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-5-design-system-patterns-dashboard-export-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-5-design-system-patterns-dashboard-export-stories" class="badge err as-toggle">2/3 story errors</label>
         
         
       </div>
@@ -26115,9 +27348,9 @@ import { Fragment } from "react";</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-4-design-system-patterns-dashboard-export-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-4-design-system-patterns-dashboard-export-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-4-design-system-patterns-dashboard-export-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-5-design-system-patterns-dashboard-export-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-5-design-system-patterns-dashboard-export-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-5-design-system-patterns-dashboard-export-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -26675,14 +27908,761 @@ export const Phase1: Story = {
   no-story-error
   no-doc-error"
   role="listitem"
+  aria-label="FieldHistoryTracking">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> FieldHistoryTracking</h2>
+      <div class="badges">
+        <label for="c-error-6-design-system-patterns-field-history-tracking-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-6-design-system-patterns-field-history-tracking-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-6-design-system-patterns-field-history-tracking-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/patterns/FieldHistoryTracking.stories.js">design-system-patterns-field-history-tracking · ./src/design-system/patterns/FieldHistoryTracking.stories.js</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-6-design-system-patterns-field-history-tracking-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-6-design-system-patterns-field-history-tracking-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-6-design-system-patterns-field-history-tracking-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  19 | // ─────────────────────────────────────────────────────────────────────────────
+  20 |
+&gt; 21 | export default {
+     | ^
+  22 |   title: &#39;Design System/Patterns/Field History Tracking&#39;,
+  23 |   parameters: {
+  24 |     layout: &#39;centered&#39;,
+
+./src/design-system/patterns/FieldHistoryTracking.stories.js:
+import { useState } from &#39;react&#39;;
+import { Modal } from &#39;../components/Modal/Modal&#39;;
+import { ManageColumns } from &#39;../components/ManageColumns/ManageColumns&#39;;
+import { getModuleFields } from &#39;../data/crm-sample-data&#39;;
+import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
+import { Input } from &#39;../components/Input/Input&#39;;
+import { Button } from &#39;../components/Button/Button&#39;;
+import { Dragger } from &#39;../components/Dragger/Dragger&#39;;
+import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
+import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
+import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
+import { SetupTable } from &#39;../components/Table/Table&#39;;
+import { DetailPage, RecordCard } from &#39;./CrmScreens.page&#39;;
+import { SortingHat } from &#39;../components/SortingHat/SortingHat&#39;;
+import { Info as InfoIcon, Lock as LockIcon } from &#39;../foundations/icons/Icons&#39;;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Meta
+// ─────────────────────────────────────────────────────────────────────────────
+
+export default {
+  title: &#39;Design System/Patterns/Field History Tracking&#39;,
+  parameters: {
+    layout: &#39;centered&#39;,
+    docs: {
+      description: {
+        component:
+          &#39;Modal pattern for enabling field history tracking on a field. &#39; +
+          &#39;Required history columns are locked. Up to 10 additional (snapshot) &#39; +
+          &#39;columns can be selected. Opened from the field properties dialog.&#39;,
+      },
+    },
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Data
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MAX_ADDITIONAL = 10;
+
+const ADDITIONAL_COLUMNS = [
+  &#39;Contact Owner&#39;, &#39;Categories&#39;, &#39;Other Phone&#39;, &#39;Phone&#39;, &#39;Mobile&#39;, &#39;Duplicate Check&#39;,
+  &#39;Social Lead ID&#39;, &#39;Assistant&#39;, &#39;Lead Source&#39;, &#39;Countries&#39;, &#39;Department&#39;, &#39;Title&#39;,
+  &#39;Date of Birth&#39;, &#39;Home Phone&#39;, &#39;Email Opt Out&#39;, &#39;Asst Phone&#39;,
+];
+
+// Required history columns, in default display order. They cannot be unchecked, but can be reordered.
+const REQUIRED_COLUMNS = [&#39;Email&#39;, &#39;Changed To&#39;, &#39;Modified By&#39;, &#39;Modified Time&#39;, &#39;Duration&#39;];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Shared styles (tokens only)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const label = {
+  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+  fontSize: &#39;var(--ds-font-size-base)&#39;,
+  color: &#39;var(--ds-text-label)&#39;,
+  lineHeight: &#39;var(--ds-line-height-base)&#39;,
+};
+
+const sectionHeading = {
+  ...label,
+  fontWeight: &#39;var(--ds-font-weight-semibold)&#39;,
+  color: &#39;var(--ds-text-base)&#39;,
+  marginBottom: 12,
+};
+
+const grid2 = {
+  display: &#39;grid&#39;,
+  gridTemplateColumns: &#39;1fr 1fr&#39;,
+  columnGap: 24,
+  rowGap: 16,
+};
+
+const requiredBadge = {
+  display: &#39;inline-flex&#39;,
+  alignItems: &#39;center&#39;,
+  gap: 4,
+  marginLeft: &#39;auto&#39;,
+  padding: &#39;2px 6px&#39;,
+  borderRadius: 4,
+  fontFamily: &#39;var(--ds-font-family-base)&#39;,
+  fontSize: 12,
+  color: &#39;var(--ds-text-muted)&#39;,
+  background: &#39;var(--ds-components-input-disable-bg, #F3F5F8)&#39;,
+  whiteSpace: &#39;nowrap&#39;,
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Building blocks used only by this pattern
+// ─────────────────────────────────────────────────────────────────────────────
+
+function RequiredItem({ text }) {
+  return (
+    &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+      &lt;Checkbox checked disabled readOnly label={text} aria-label={`${text} (required)`} /&gt;
+      &lt;span style={requiredBadge}&gt;
+        &lt;LockIcon width={10} height={10} aria-hidden=&quot;true&quot; /&gt;
+        required
+      &lt;/span&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Pattern
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Controlled modal: opened from the Email Properties dialog (&quot;Manage Column&quot; link)
+// and from the story button. Keeps its own column state while mounted.
+function FieldHistoryTrackingModal({
+  isOpen,
+  onClose,
+  onDone,
+  fieldName = &#39;Email&#39;,
+  initialSelected = [],
+}) {
+  const [requiredOrder, setRequiredOrder] = useState(REQUIRED_COLUMNS);
+  const [selected, setSelected] = useState(initialSelected);
+
+  const limitReached = selected.length &gt;= MAX_ADDITIONAL;
+
+  const toggleColumn = (name) =&gt; {
+    setSelected((prev) =&gt; {
+      if (prev.includes(name)) return prev.filter((c) =&gt; c !== name);
+      if (prev.length &gt;= MAX_ADDITIONAL) return prev;
+      return [...prev, name];
+    });
+  };
+
+  return (
+    &lt;Modal
+        isOpen={isOpen}
+        title={`${fieldName} History Tracking`}
+        description=&quot;Select columns to display.&quot;
+        onClose={onClose}
+        onCancel={onClose}
+        onSave={() =&gt; onDone?.({ requiredOrder, selected })}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Done&quot;
+        width={640}
+        className=&quot;fht-manage-columns&quot;
+      &gt;
+        &lt;style&gt;{`
+          .fht-manage-columns .modal-body { padding-right: 3px; }
+        `}&lt;/style&gt;
+        &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 24, paddingRight: 0 }}&gt;
+
+          {/* ── Required columns (locked, reorderable) ──────────────── */}
+          &lt;section aria-labelledby=&quot;fht-required-heading&quot;&gt;
+            &lt;h3 id=&quot;fht-required-heading&quot; style={sectionHeading}&gt;Required columns&lt;/h3&gt;
+            &lt;Dragger
+              items={requiredOrder}
+              onChange={setRequiredOrder}
+              renderItem={(item) =&gt; &lt;RequiredItem text={item} /&gt;}
+            /&gt;
+          &lt;/section&gt;
+
+          {/* ── Additional (snapshot) columns ───────────────────────── */}
+          &lt;section aria-labelledby=&quot;fht-additional-heading&quot;&gt;
+            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, justifyContent: &#39;space-between&#39;, marginBottom: 12 }}&gt;
+              &lt;h3 id=&quot;fht-additional-heading&quot; style={{ ...sectionHeading, marginBottom: 0 }}&gt;
+                Additional columns
+              &lt;/h3&gt;
+              &lt;span
+                aria-live=&quot;polite&quot;
+                style={{ ...label, color: limitReached ? &#39;var(--ds-text-base)&#39; : &#39;var(--ds-text-label)&#39; }}
+              &gt;
+                {selected.length} of {MAX_ADDITIONAL} selected
+              &lt;/span&gt;
+            &lt;/div&gt;
+
+            &lt;div style={grid2}&gt;
+              {ADDITIONAL_COLUMNS.map((name) =&gt; {
+                const checked = selected.includes(name);
+                const disabled = !checked &amp;&amp; limitReached;
+                return (
+                  &lt;Checkbox
+                    key={name}
+                    label={name}
+                    checked={checked}
+                    disabled={disabled}
+                    onChange={() =&gt; toggleColumn(name)}
+                  /&gt;
+                );
+              })}
+            &lt;/div&gt;
+          &lt;/section&gt;
+
+          &lt;MessageInfo
+            variant=&quot;info&quot;
+            message={`You can add up to ${MAX_ADDITIONAL} additional columns. Required columns are always included and do not count toward this limit.`}
+          /&gt;
+        &lt;/div&gt;
+    &lt;/Modal&gt;
+  );
+}
+
+// Story wrapper: opens the modal from a button.
+function FieldHistoryTrackingDemo({ fieldName = &#39;Email&#39;, initialSelected = [] }) {
+  const [open, setOpen] = useState(false);
+  const [saved, setSaved] = useState(null);
+
+  return (
+    &lt;&gt;
+      &lt;Button variant=&quot;outline-blue&quot; onClick={() =&gt; { setSaved(null); setOpen(true); }}&gt;
+        Open {fieldName} History Tracking
+      &lt;/Button&gt;
+
+      {saved &amp;&amp; (
+        &lt;p style={{ ...label, marginTop: 16 }}&gt;
+          Saved {fieldName} history columns: {saved.requiredOrder.join(&#39;, &#39;)}
+          {saved.selected.length &gt; 0 &amp;&amp; `, plus ${saved.selected.length} additional`}.
+        &lt;/p&gt;
+      )}
+
+      &lt;FieldHistoryTrackingModal
+        isOpen={open}
+        onClose={() =&gt; setOpen(false)}
+        onDone={(result) =&gt; { setOpen(false); setSaved(result); }}
+        fieldName={fieldName}
+        initialSelected={initialSelected}
+      /&gt;
+    &lt;/&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Field properties modal (entry point: &quot;Enable field history tracking&quot;)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const PROPERTY_OPTIONS = [
+  { key: &#39;public&#39;, label: &#39;Mark as Public&#39;, info: true },
+  { key: &#39;required&#39;, label: &#39;Required&#39; },
+  { key: &#39;history&#39;, label: &#39;Enable field history tracking&#39; },
+  { key: &#39;duplicates&#39;, label: &#39;Do not allow duplicate values&#39;, info: true },
+  { key: &#39;personal&#39;, label: &#39;Contains Personal Data&#39;, info: true },
+  { key: &#39;health&#39;, label: &#39;Contains Personal Health Data&#39;, info: true },
+  { key: &#39;tooltip&#39;, label: &#39;Show Tooltip&#39; },
+];
+
+// Default columns: always selected, cannot be unchecked, can be reordered.
+// Shown with a red asterisk in the list.
+const REQUIRED_TRACKED_KEYS = [&#39;Email&#39;, &#39;Changed_To&#39;, &#39;Modified_By&#39;, &#39;Modified_Time&#39;, &#39;Duration&#39;];
+const isRequiredKey = key =&gt; REQUIRED_TRACKED_KEYS.includes(key);
+
+// Keeps the required columns selected. Required and user-selected columns can be
+// reordered together; an uncheck of a required column is ignored and it returns to its place.
+function keepRequiredColumns(next, prev) {
+  const result = [...next];
+  prev.forEach((key, index) =&gt; {
+    if (isRequiredKey(key) &amp;&amp; !result.includes(key)) {
+      result.splice(Math.min(index, result.length), 0, key);
+    }
+  });
+  return result;
+}
+
+// Leads fields from the shared CRM sample data (the Manage Columns list for a Lead),
+// plus the history columns that are always included.
+const HISTORY_COLUMN_OPTIONS = [
+  { key: &#39;Changed_To&#39;, label: &#39;Changed To&#39; },
+  { key: &#39;Modified_By&#39;, label: &#39;Modified By&#39; },
+  { key: &#39;Modified_Time&#39;, label: &#39;Modified Time&#39; },
+  { key: &#39;Duration&#39;, label: &#39;Duration&#39; },
+];
+
+const TRACKED_FIELD_OPTIONS = [
+  ...getModuleFields(&#39;Leads&#39;)
+    .filter(field =&gt; !HISTORY_COLUMN_OPTIONS.some(history =&gt; history.label === field.label))
+    .map(field =&gt; ({
+      key: field.key,
+      label: field.label,
+      scope: &#39;lead&#39;,
+      module: &#39;Leads&#39;,
+    })),
+  ...HISTORY_COLUMN_OPTIONS.map(field =&gt; ({ ...field, scope: &#39;history&#39;, module: &#39;History&#39; })),
+].map(field =&gt; ({ ...field, required: isRequiredKey(field.key) }));
+
+
+function FieldPropertiesDemo({ fieldName = &#39;Email&#39; }) {
+  const [open, setOpen] = useState(true);
+  const [labelValue, setLabelValue] = useState(fieldName);
+  const [checked, setChecked] = useState({});
+  const [saved, setSaved] = useState(false);
+  const [manageOpen, setManageOpen] = useState(false);
+  const [trackedColumns, setTrackedColumns] = useState([...REQUIRED_TRACKED_KEYS, &#39;Phone&#39;, &#39;Owner&#39;]);
+  const [limitExceeded, setLimitExceeded] = useState(false);
+
+  // Blocks a selection that would exceed the 10 additional columns and shows the alert.
+  const handleTrackedChange = next =&gt; {
+    const additionalCount = next.filter(key =&gt; !isRequiredKey(key)).length;
+    if (additionalCount &gt; MAX_ADDITIONAL) {
+      setLimitExceeded(true);
+      return;
+    }
+    setLimitExceeded(false);
+    setTrackedColumns(prev =&gt; keepRequiredColumns(next, prev));
+  };
+
+  const closeManageColumns = () =&gt; {
+    setManageOpen(false);
+    setLimitExceeded(false);
+  };
+
+  const setOption = (key, value) =&gt; setChecked((prev) =&gt; ({ ...prev, [key]: value }));
+
+  return (
+    &lt;&gt;
+      {saved &amp;&amp; (
+        &lt;p style={{ ...label, marginTop: 16 }}&gt;
+          Saved properties for {labelValue}.
+        &lt;/p&gt;
+      )}
+
+      &lt;Modal
+        isOpen={open}
+        title={`${fieldName} Properties`}
+        width=&quot;fit-content&quot;
+        onClose={() =&gt; setOpen(false)}
+        onCancel={() =&gt; setOpen(false)}
+        onSave={() =&gt; { setOpen(false); setSaved(true); }}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Done&quot;
+      &gt;
+        &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 24, paddingRight: 20 }}&gt;
+          &lt;Input
+            label=&quot;Field Label&quot;
+            required
+            layout=&quot;vertical&quot;
+            width={400}
+            value={labelValue}
+            onChange={(e) =&gt; setLabelValue(e.target.value)}
+            onFocus={(e) =&gt; e.target.select()}
+          /&gt;
+
+          &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
+            {PROPERTY_OPTIONS.map((opt) =&gt; (
+              &lt;div key={opt.key} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 8 }}&gt;
+                &lt;Checkbox
+                  label={opt.label}
+                  checked={!!checked[opt.key]}
+                  onChange={(e) =&gt; setOption(opt.key, e.target.checked)}
+                /&gt;
+                {opt.info &amp;&amp; (
+                  &lt;span style={{ display: &#39;inline-flex&#39;, color: &#39;var(--ds-text-label)&#39; }} aria-hidden=&quot;true&quot;&gt;
+                    &lt;InfoIcon width={14} height={14} /&gt;
+                  &lt;/span&gt;
+                )}
+                {opt.key === &#39;history&#39; &amp;&amp; checked[opt.key] &amp;&amp; (
+                  &lt;button
+                    type=&quot;button&quot;
+                    className=&quot;ds-link&quot;
+                    onClick={() =&gt; setManageOpen(true)}
+                    style={{ padding: 0, border: 0, background: &#39;transparent&#39;, fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-base)&#39;, fontWeight: &#39;var(--ds-font-weight-regular)&#39; }}
+                  &gt;
+                    Manage Column
+                  &lt;/button&gt;
+                )}
+              &lt;/div&gt;
+            ))}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/Modal&gt;
+
+      {/* Nested over the Email Properties modal, which stays open behind it. */}
+      &lt;Modal
+        isOpen={manageOpen}
+        className=&quot;mc-modal-dialog&quot;
+        title=&quot;Email History Tracking&quot;
+        description=&quot;Select columns to display.&quot;
+        width={400}
+        onClose={closeManageColumns}
+        onCancel={closeManageColumns}
+        onSave={closeManageColumns}
+        cancelLabel=&quot;Cancel&quot;
+        saveLabel=&quot;Done&quot;
+        footerNote={
+          &lt;&gt;
+            &lt;style&gt;{`
+              .fht-mc-info .msg-info-root { display: block; width: 100%; height: auto; min-height: 0; }
+            `}&lt;/style&gt;
+            &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12, width: &#39;100%&#39; }}&gt;
+            {limitExceeded &amp;&amp; (
+              &lt;div style={{ width: &#39;100%&#39; }}&gt;
+                &lt;MessageBox
+                  variant=&quot;info&quot;
+                  title=&quot;Limit reached&quot;
+                  message={`You can add up to ${MAX_ADDITIONAL} additional columns. Remove a column to add another.`}
+                  closable
+                  onClose={() =&gt; setLimitExceeded(false)}
+                  style={{ width: &#39;100%&#39;, maxWidth: &#39;100%&#39;, boxSizing: &#39;border-box&#39; }}
+                /&gt;
+              &lt;/div&gt;
+            )}
+            &lt;div className=&quot;fht-mc-info&quot;&gt;
+              &lt;MessageInfo
+                variant=&quot;info&quot;
+                message={`You can add up to ${MAX_ADDITIONAL} additional columns. Required columns are always included and do not count toward this limit.`}
+              /&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/&gt;
+        }
+      &gt;
+        &lt;style&gt;{`
+          .mc-modal-dialog .modal-body { gap: 0; margin-top: -12px; }
+        `}&lt;/style&gt;
+        &lt;ManageColumns
+          variant=&quot;modal&quot;
+          embedded
+          title=&quot;Email History Tracking&quot;
+          fields={TRACKED_FIELD_OPTIONS}
+          selected={trackedColumns}
+          onChange={handleTrackedChange}
+        /&gt;
+      &lt;/Modal&gt;
+    &lt;/&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Detail Page: Field History section (revamped Stage History)
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Deal Stage rows from the PRD screenshot.
+const FIELD_HISTORY_ROWS = [
+  {
+    id: &#39;fh-1&#39;,
+    from: &#39;Value Prop&#39;,
+    to: &#39;Negotiation&#39;,
+    modifiedBy: &#39;Elijah Morgan&#39;,
+    modifiedTime: &#39;May 20, 2026 3:41 PM&#39;,
+    duration: &#39;5 days&#39;,
+    amount: &#39;$ 1,48,000&#39;,
+    probability: &#39;70%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Manual (UI)&#39;,
+  },
+  {
+    id: &#39;fh-2&#39;,
+    from: &#39;In Progress&#39;,
+    to: &#39;Value Prop&#39;,
+    modifiedBy: &#39;Klaus Weber&#39;,
+    modifiedTime: &#39;May 12, 2026 11:05 AM&#39;,
+    duration: &#39;14 days&#39;,
+    amount: &#39;$ 1,42,000&#39;,
+    probability: &#39;60%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Manual (UI)&#39;,
+  },
+  {
+    id: &#39;fh-3&#39;,
+    from: &#39;Negotiation&#39;,
+    to: &#39;In Progress&#39;,
+    modifiedBy: &#39;Mikasa Chen&#39;,
+    modifiedTime: &#39;Apr 28, 2026 9:22 AM&#39;,
+    duration: &#39;6 days&#39;,
+    amount: &#39;$ 1,38,000&#39;,
+    probability: &#39;50%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Workflow&#39;,
+  },
+  {
+    id: &#39;fh-4&#39;,
+    from: &#39;(Record Created)&#39;,
+    to: &#39;Negotiation&#39;,
+    modifiedBy: &#39;Yren Okafor&#39;,
+    modifiedTime: &#39;Apr 22, 2026 2:17 PM&#39;,
+    duration: &#39;6 days&#39;,
+    amount: &#39;$ 1,30,000&#39;,
+    probability: &#39;40%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Import&#39;,
+  },
+];
+
+const FIELD_HISTORY_TIME_OPTIONS = [
+  { value: &#39;all&#39;, label: &#39;All time&#39; },
+  { value: &#39;7d&#39;, label: &#39;Last 7 days&#39; },
+  { value: &#39;30d&#39;, label: &#39;Last 30 days&#39; },
+  { value: &#39;6m&#39;, label: &#39;Last 6 months&#39; },
+  { value: &#39;1y&#39;, label: &#39;Last 1 year&#39; },
+];
+
+const FIELD_HISTORY_USER_OPTIONS = [
+  { value: &#39;all&#39;, label: &#39;All users&#39; },
+  { value: &#39;elijah&#39;, label: &#39;Elijah Morgan&#39; },
+  { value: &#39;klaus&#39;, label: &#39;Klaus Weber&#39; },
+  { value: &#39;mikasa&#39;, label: &#39;Mikasa Chen&#39; },
+  { value: &#39;yren&#39;, label: &#39;Yren Okafor&#39; },
+  { value: &#39;system&#39;, label: &#39;System / Automation&#39; },
+];
+
+const FIELD_HISTORY_SOURCE_OPTIONS = [
+  { value: &#39;all&#39;, label: &#39;All sources&#39; },
+  { value: &#39;manual&#39;, label: &#39;Manual (UI)&#39; },
+  { value: &#39;workflow&#39;, label: &#39;Workflow&#39; },
+  { value: &#39;api&#39;, label: &#39;API&#39; },
+  { value: &#39;import&#39;, label: &#39;Import&#39; },
+];
+
+const FIELD_HISTORY_COLUMNS = [
+  {
+    key: &#39;from&#39;,
+    label: &#39;Previous Deal Stage ↔ Moved To&#39;,
+    width: 340,
+    render: (value, row) =&gt; (
+      &lt;span className=&quot;crm-screens__transition&quot;&gt;
+        &lt;span className=&quot;crm-screens__stage-pill&quot;&gt;{value}&lt;/span&gt;
+        &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;
+        &lt;span className=&quot;crm-screens__stage-pill&quot;&gt;{row.to}&lt;/span&gt;
+      &lt;/span&gt;
+    ),
+  },
+  {
+    key: &#39;modifiedBy&#39;,
+    label: &#39;Modified By&#39;,
+    width: 200,
+    render: value =&gt; (
+      &lt;span className=&quot;crm-screens__person&quot;&gt;
+        &lt;span className=&quot;crm-screens__mini-avatar&quot; aria-hidden=&quot;true&quot;&gt;{value.charAt(0)}&lt;/span&gt;
+        {value}
+      &lt;/span&gt;
+    ),
+  },
+  { key: &#39;modifiedTime&#39;, label: &#39;Modified Time&#39;, width: 190 },
+  { key: &#39;duration&#39;, label: &#39;Duration&#39;, width: 110 },
+  { key: &#39;amount&#39;, label: &#39;Amount&#39;, width: 130 },
+  { key: &#39;probability&#39;, label: &#39;Probability&#39;, width: 110 },
+  { key: &#39;fieldType&#39;, label: &#39;Field Type&#39;, width: 120 },
+  {
+    key: &#39;source&#39;,
+    label: &#39;Source&#39;,
+    width: 130,
+    render: value =&gt; &lt;span className=&quot;crm-screens__source-pill&quot;&gt;{value}&lt;/span&gt;,
+  },
+];
+
+function FieldHistorySection() {
+  const [timeFilter, setTimeFilter] = useState(&#39;all&#39;);
+  const [userFilter, setUserFilter] = useState(&#39;all&#39;);
+  const [sourceFilter, setSourceFilter] = useState(&#39;all&#39;);
+
+  return (
+    &lt;RecordCard
+      title=&quot;Field History&quot;
+      actions={&lt;Button variant=&quot;outline-blue&quot;&gt;Manage Columns&lt;/Button&gt;}
+    &gt;
+      &lt;div className=&quot;crm-screens__filters&quot;&gt;
+        &lt;span className=&quot;crm-screens__filter-label&quot;&gt;Filter by&lt;/span&gt;
+        &lt;Dropdown value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={160} /&gt;
+        &lt;Dropdown value={userFilter} options={FIELD_HISTORY_USER_OPTIONS} onChange={setUserFilter} width={180} /&gt;
+        &lt;Dropdown value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={160} /&gt;
+      &lt;/div&gt;
+      &lt;SetupTable
+        columns={FIELD_HISTORY_COLUMNS}
+        rows={FIELD_HISTORY_ROWS}
+        emptyMessage=&quot;No records found&quot;
+      /&gt;
+    &lt;/RecordCard&gt;
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Stories
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Sorting Hat shortcuts between the Field History screens.
+const FIELD_HISTORY_VARIATIONS = [
+  {
+    label: &#39;Email Properties&#39;,
+    storyId: &#39;design-system-patterns-field-history-tracking--default&#39;,
+  },
+  {
+    label: &#39;Detail Page - Field History&#39;,
+    storyId: &#39;design-system-patterns-field-history-tracking--detail-page-field-history&#39;,
+  },
+];
+
+export const DetailPageFieldHistory = {
+  name: &#39;Detail Page - Field History&#39;,
+  parameters: { layout: &#39;fullscreen&#39; },
+  render: () =&gt; (
+    &lt;&gt;
+      &lt;DetailPage variant=&quot;fieldHistory&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
+      &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
+    &lt;/&gt;
+  ),
+};
+
+export const Default = {
+  render: () =&gt; (
+    &lt;&gt;
+      &lt;FieldPropertiesDemo fieldName=&quot;Email&quot; /&gt;
+      &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
+    &lt;/&gt;
+  ),
+};
+
+export const LimitReached = {
+  name: &#39;Limit reached (10 of 10)&#39;,
+  render: () =&gt; (
+    &lt;FieldHistoryTrackingDemo
+      fieldName=&quot;Amount&quot;
+      initialSelected={ADDITIONAL_COLUMNS.slice(0, MAX_ADDITIONAL)}
+    /&gt;
+  ),
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import {
+    Button,
+    Checkbox,
+    DetailPage,
+    Dragger,
+    Dropdown,
+    Info as InfoIcon,
+    Input,
+    Lock as LockIcon,
+    ManageColumns,
+    MessageBox,
+    MessageInfo,
+    Modal,
+    RecordCard,
+    SetupTable,
+    SortingHat,
+} from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Detail Page - Field History</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const DetailPageFieldHistory = () =&gt; (
+  &lt;&gt;
+    &lt;DetailPage variant=&quot;fieldHistory&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
+    &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
+  &lt;/&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; (
+  &lt;&gt;
+    &lt;FieldPropertiesDemo fieldName=&quot;Email&quot; /&gt;
+    &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
+  &lt;/&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Limit reached (10 of 10)</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const LimitReached = () =&gt; (
+  &lt;FieldHistoryTrackingDemo
+    fieldName=&quot;Amount&quot;
+    initialSelected={ADDITIONAL_COLUMNS.slice(0, MAX_ADDITIONAL)}
+  /&gt;
+);</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
   aria-label="Forms">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Forms</h2>
       <div class="badges">
-        <label for="c-error-5-design-system-patterns-forms-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-5-design-system-patterns-forms-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-5-design-system-patterns-forms-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-error-7-design-system-patterns-forms-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-7-design-system-patterns-forms-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-7-design-system-patterns-forms-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -26694,9 +28674,9 @@ export const Phase1: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-5-design-system-patterns-forms-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-5-design-system-patterns-forms-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-5-design-system-patterns-forms-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-7-design-system-patterns-forms-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-7-design-system-patterns-forms-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-7-design-system-patterns-forms-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -27619,9 +29599,9 @@ export const CreateDeal: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> JoinedReports-Revamp</h2>
       <div class="badges">
-        <label for="c-error-6-design-system-patterns-joined-reports-revamp-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-6-design-system-patterns-joined-reports-revamp-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-6-design-system-patterns-joined-reports-revamp-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-error-8-design-system-patterns-joined-reports-revamp-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-8-design-system-patterns-joined-reports-revamp-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-8-design-system-patterns-joined-reports-revamp-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -27633,9 +29613,9 @@ export const CreateDeal: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-6-design-system-patterns-joined-reports-revamp-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-6-design-system-patterns-joined-reports-revamp-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-6-design-system-patterns-joined-reports-revamp-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-8-design-system-patterns-joined-reports-revamp-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-8-design-system-patterns-joined-reports-revamp-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-8-design-system-patterns-joined-reports-revamp-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -27647,13 +29627,13 @@ export const CreateDeal: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  705 | // ─────────────────────────────────────────────────────────────────────────────
-  706 |
-&gt; 707 | const meta = {
+  747 | // ─────────────────────────────────────────────────────────────────────────────
+  748 |
+&gt; 749 | const meta = {
       | ^
-  708 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
-  709 |   parameters: {
-  710 |     layout: &#39;fullscreen&#39;,
+  750 |   title: &#39;Design System/Patterns/Joined Reports - Revamp&#39;,
+  751 |   parameters: {
+  752 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/JoinedReportsRevamp.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -27675,6 +29655,7 @@ import { Dragger } from &#39;../components/Dragger/Dragger&#39;;
 import { Stepper } from &#39;../components/Stepper/Stepper&#39;;
 import { ChevronDownFilled, Info } from &#39;../foundations/icons/Icons&#39;;
 import &#39;./JoinedReportsRevamp.css&#39;;
+import &#39;./CrossModuleReports.css&#39;;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Sample data (no network; 25 field names for the grouping dropdowns)
@@ -27743,7 +29724,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
   const isEdit = mode === &#39;edit&#39;;
   const prefilledFields = (offset: number) =&gt;
     Array.from({ length: initialReportCount }, (_, index) =&gt; FIELD_OPTIONS[(index + offset) % FIELD_OPTIONS.length].value);
-  const [name, setName] = useState(isEdit ? &#39;Leads by Source&#39; : &#39;Untitled Joined Report&#39;);
+  const [name, setName] = useState(isEdit ? &#39;Monthly Sales Pipeline&#39; : &#39;Untitled Joined Report&#39;);
   const [rows, setRows] = useState&lt;ReportRow[]&gt;(() =&gt; initialRows(initialReportCount, initialStep, isEdit));
   const [groups, setGroups] = useState&lt;GroupRow[]&gt;(() =&gt; {
     if (isEdit) {
@@ -28156,8 +30137,45 @@ const BUILDER_LEADS = [
 
 const BUILDER_COLUMNS = [&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;];
 
+// Filters tab, laid out like the cross module reports Filters panel (heading, edit/delete, empty state).
+function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; onAdd: () =&gt; void; onDelete: () =&gt; void }) {
+  return (
+    &lt;section className=&quot;cmr__panel-body jr-builder-filters&quot; aria-label=&quot;Filters&quot;&gt;
+      &lt;div className=&quot;cmr__panel-heading&quot;&gt;
+        &lt;h2&gt;Filters&lt;/h2&gt;
+        {hasFilters &amp;&amp; (
+          &lt;div className=&quot;cmr__heading-actions&quot;&gt;
+            &lt;Tooltip content=&quot;Edit filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+              &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label=&quot;Edit filters&quot;&gt;
+                &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
+              &lt;/button&gt;
+            &lt;/Tooltip&gt;
+            &lt;Tooltip content=&quot;Delete filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+              &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action criteria-summary__action--delete&quot; aria-label=&quot;Delete filters&quot; onClick={onDelete}&gt;
+                &lt;Icon name=&quot;Delete&quot; size={12} /&gt;
+              &lt;/button&gt;
+            &lt;/Tooltip&gt;
+          &lt;/div&gt;
+        )}
+      &lt;/div&gt;
+      {hasFilters ? (
+        &lt;section className=&quot;cmr__saved&quot; aria-label=&quot;Saved Lead Source filter&quot;&gt;
+          &lt;h3&gt;Lead Source&lt;/h3&gt;
+          &lt;p className=&quot;cmr__saved-sentence&quot;&gt;Lead Source is Advertisement or Partner&lt;/p&gt;
+        &lt;/section&gt;
+      ) : (
+        &lt;div className=&quot;cmr__empty&quot;&gt;
+          &lt;p&gt;No filters applied&lt;/p&gt;
+          &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; className=&quot;cmr__add-filter&quot; onClick={onAdd}&gt;Add Filter&lt;/Button&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/section&gt;
+  );
+}
+
 function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void; onCreate: () =&gt; void; saved: boolean }) {
   const [builderTab, setBuilderTab] = useState(&#39;columns&#39;);
+  const [hasFilters, setHasFilters] = useState(saved);
   const [columns, setColumns] = useState([&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;, &#39;First Name&#39;, &#39;Last Name&#39;]);
   const [aggregates, setAggregates] = useState([&#39;Avg of Annual Revenue&#39;, &#39;Sum of Annual Revenue&#39;, &#39;Count of Unique Leads&#39;]);
   return (
@@ -28180,7 +30198,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
           &lt;div className=&quot;jr-builder-subtitle&quot;&gt;
             &lt;Icon name=&quot;CrmArrowBack&quot; size={18} /&gt;
             &lt;div className=&quot;jr-builder-title-stack&quot;&gt;
-              &lt;span className=&quot;jr-builder-name&quot;&gt;Leads by Source&lt;/span&gt;
+              &lt;span className=&quot;jr-builder-name&quot;&gt;{saved ? &#39;Monthly Sales Pipeline&#39; : &#39;Leads By Source&#39;}&lt;/span&gt;
               &lt;span className=&quot;jr-builder-module&quot;&gt;Leads&lt;/span&gt;
             &lt;/div&gt;
           &lt;/div&gt;
@@ -28212,8 +30230,8 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Report 1&lt;/span&gt;
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span&gt;Leads by Source&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads by Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;span&gt;Leads By Source&lt;/span&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads By Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 
@@ -28228,6 +30246,9 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
                   size=&quot;md&quot;
                 /&gt;
               &lt;/div&gt;
+              {builderTab === &#39;filters&#39; ? (
+                &lt;BuilderFilters hasFilters={hasFilters} onAdd={() =&gt; setHasFilters(true)} onDelete={() =&gt; setHasFilters(false)} /&gt;
+              ) : (&lt;&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Columns&lt;/span&gt;
                 &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
@@ -28238,6 +30259,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
                 &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={aggregates} onChange={setAggregates} /&gt;
+              &lt;/&gt;)}
             &lt;/div&gt;
 
             {saved &amp;&amp; (&lt;&gt;
@@ -28269,7 +30291,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               Preview shown with limited number of rows. Run the report to see actual aggregate values.
               &lt;span className=&quot;jr-builder-link&quot;&gt;Show Details&lt;/span&gt;
             &lt;/p&gt;
-            &lt;table className=&quot;jr-builder-table&quot; aria-label=&quot;Report 1 leads by source&quot;&gt;
+            &lt;table className=&quot;jr-builder-table&quot; aria-label=&quot;Report 1 Leads By Source&quot;&gt;
               &lt;thead&gt;
                 &lt;tr&gt;
                   &lt;th /&gt;
@@ -28522,9 +30544,9 @@ export const ReportLimit: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> minimal</h2>
       <div class="badges">
-        <label for="c-error-7-design-system-patterns-crm-homepage-minimal-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-7-design-system-patterns-crm-homepage-minimal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-7-design-system-patterns-crm-homepage-minimal-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-error-9-design-system-patterns-crm-homepage-minimal-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-9-design-system-patterns-crm-homepage-minimal-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-9-design-system-patterns-crm-homepage-minimal-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -28536,9 +30558,9 @@ export const ReportLimit: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-7-design-system-patterns-crm-homepage-minimal-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-7-design-system-patterns-crm-homepage-minimal-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-7-design-system-patterns-crm-homepage-minimal-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-9-design-system-patterns-crm-homepage-minimal-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-9-design-system-patterns-crm-homepage-minimal-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-9-design-system-patterns-crm-homepage-minimal-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -29503,9 +31525,9 @@ export const ChartDrilldown: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> minimal-drilldown</h2>
       <div class="badges">
-        <label for="c-error-8-design-system-patterns-crm-homepage-minimal-drilldown-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-8-design-system-patterns-crm-homepage-minimal-drilldown-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-8-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-error-10-design-system-patterns-crm-homepage-minimal-drilldown-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-10-design-system-patterns-crm-homepage-minimal-drilldown-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-10-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -29517,9 +31539,9 @@ export const ChartDrilldown: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-8-design-system-patterns-crm-homepage-minimal-drilldown-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-8-design-system-patterns-crm-homepage-minimal-drilldown-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-8-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-10-design-system-patterns-crm-homepage-minimal-drilldown-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-10-design-system-patterns-crm-homepage-minimal-drilldown-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-10-design-system-patterns-crm-homepage-minimal-drilldown-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -29682,9 +31704,9 @@ export const Pipeline: Story = { render: () =&gt; &lt;Preview selection={{ kind:
     <div class="title">
       <h2><span class="status-dot dot-err"></span> PortalUI</h2>
       <div class="badges">
-        <label for="c-error-9-design-system-patterns-portal-ui-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-9-design-system-patterns-portal-ui-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-9-design-system-patterns-portal-ui-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-error-11-design-system-patterns-portal-ui-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-11-design-system-patterns-portal-ui-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-11-design-system-patterns-portal-ui-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -29696,9 +31718,9 @@ export const Pipeline: Story = { render: () =&gt; &lt;Preview selection={{ kind:
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-9-design-system-patterns-portal-ui-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-9-design-system-patterns-portal-ui-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-9-design-system-patterns-portal-ui-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-11-design-system-patterns-portal-ui-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-11-design-system-patterns-portal-ui-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-11-design-system-patterns-portal-ui-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -31623,9 +33645,9 @@ export const Users = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> RecordAuthentication</h2>
       <div class="badges">
-        <label for="c-error-10-design-system-patterns-record-authentication-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-10-design-system-patterns-record-authentication-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-10-design-system-patterns-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-error-12-design-system-patterns-record-authentication-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-12-design-system-patterns-record-authentication-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-12-design-system-patterns-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -31637,9 +33659,9 @@ export const Users = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-10-design-system-patterns-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-10-design-system-patterns-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-10-design-system-patterns-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-12-design-system-patterns-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-12-design-system-patterns-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-12-design-system-patterns-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -32660,9 +34682,9 @@ export const RecordConfiguration: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SBConnections</h2>
       <div class="badges">
-        <label for="c-error-11-design-system-patterns-sb-connections-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-11-design-system-patterns-sb-connections-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-11-design-system-patterns-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-error-13-design-system-patterns-sb-connections-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-13-design-system-patterns-sb-connections-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-13-design-system-patterns-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -32674,9 +34696,9 @@ export const RecordConfiguration: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-11-design-system-patterns-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-11-design-system-patterns-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-11-design-system-patterns-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-13-design-system-patterns-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-13-design-system-patterns-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-13-design-system-patterns-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -33000,9 +35022,9 @@ export const DiagramOnly: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SendDashboardScheduler</h2>
       <div class="badges">
-        <label for="c-error-12-design-system-patterns-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-12-design-system-patterns-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-12-design-system-patterns-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-error-14-design-system-patterns-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-14-design-system-patterns-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-14-design-system-patterns-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -33014,9 +35036,9 @@ export const DiagramOnly: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-12-design-system-patterns-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-12-design-system-patterns-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-12-design-system-patterns-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-14-design-system-patterns-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-14-design-system-patterns-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-14-design-system-patterns-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -34289,9 +36311,9 @@ export const SendDashboardScheduler = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-error-13-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-13-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-13-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-error-15-design-system-patterns-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-15-design-system-patterns-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-15-design-system-patterns-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -34303,9 +36325,9 @@ export const SendDashboardScheduler = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-13-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-13-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-13-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-15-design-system-patterns-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-15-design-system-patterns-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-15-design-system-patterns-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
