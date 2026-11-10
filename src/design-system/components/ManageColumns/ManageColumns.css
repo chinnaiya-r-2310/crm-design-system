@@ -1,0 +1,330 @@
+.mc {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 300px;
+  padding: 20px;
+  box-sizing: border-box;
+  background: var(--ds-bg-common-white);
+  border: 1px solid var(--ds-border-lighter);
+  border-radius: 8px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+}
+
+.mc--withTitle {
+  width: 340px;
+}
+
+/* Embedded inside a Modal: the Modal supplies the frame, title and footer. */
+.mc--embedded {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+
+/* Inside a Modal (className "mc-modal-dialog"): the dialog keeps its standard 30px side
+   padding, so title, search, list and footer all sit 30px from the modal edges. The body
+   box starts 8px inside the dialog edge and holds the drag grip in its left padding, so
+   the body does not clip it. */
+.modal-dialog.mc-modal-dialog .modal-body {
+  padding-left: 22px;
+  padding-right: 25px;
+  margin-left: -22px;
+  margin-right: -25px;
+  scrollbar-gutter: auto;
+}
+
+.mc--embedded .mc-row {
+  position: relative;
+  isolation: isolate;
+  padding-left: 0;
+}
+
+.mc--embedded .mc-row::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -24px;
+  right: 0;
+  z-index: -1;
+  border-radius: 8px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.mc--embedded .mc-grip {
+  position: absolute;
+  top: 50%;
+  left: -16px;
+  transform: translateY(-50%);
+  cursor: move;
+}
+
+/* Checked fields: a Dragger block. Each row matches the 35px list row; the whole row
+   drags, and the grip hangs left of the checkbox. */
+.mc-selected .dragger {
+  gap: 0;
+}
+
+.mc-selected .dragger-item {
+  position: relative;
+  isolation: isolate;
+  height: 35px;
+  padding: 0;
+  gap: 3px;
+  cursor: move;
+  transition: none;
+}
+
+.mc-selected .dragger-item--highlight {
+  background: transparent;
+}
+
+.mc-selected .dragger-item--highlight::before {
+  background: var(--ds-icon-bg-orange-yellow);
+}
+
+.mc-selected .dragger-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -16px;
+  right: 0;
+  z-index: -1;
+  border-radius: 8px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.mc-selected .dragger-item:hover::before {
+  background: var(--ds-bg-scale-bg4);
+}
+
+.mc-selected .dragger-item--placeholder::before {
+  background: transparent;
+}
+
+.mc-selected .dragger-item .checkbox-root {
+  align-self: center;
+  gap: 6px;
+}
+
+/* Checkbox and label read as clickable (hand); the rest of the selected row drags (4-way). */
+.mc-selected .dragger-item .checkbox-root,
+.mc-selected .dragger-item .checkbox-root * {
+  cursor: pointer;
+}
+
+.mc-selected .dragger-grip {
+  position: absolute;
+  top: 50%;
+  left: -12px;
+  transform: translateY(-50%);
+  color: var(--ds-text-label);
+  cursor: move;
+}
+
+/* Embedded search floats: it stays pinned at the top while the list scrolls. The
+   bottom padding cancels the section gap, so the layout is unchanged. */
+.mc--embedded .mc-search {
+  position: sticky;
+  top: -4px;
+  z-index: 2;
+  padding-top: 4px;
+  padding-bottom: 10px;
+  margin-top: -4px;
+  margin-bottom: -16px;
+  background: var(--ds-bg-common-white);
+}
+
+/* The icon centres on the input, inside the floating box. */
+.mc--embedded .mc-search-icon {
+  top: 21px;
+}
+
+/* The Modal body scrolls, so the list grows with its entries instead of capping at 340px. */
+.mc--embedded .mc-list {
+  max-height: none;
+  overflow: visible;
+}
+
+.mc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mc-title {
+  margin: 0;
+  font-size: var(--ds-font-size-h2);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
+
+.mc-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-text-label);
+  cursor: pointer;
+}
+
+.mc-icon-btn:hover {
+  background: var(--ds-bg-scale-bg4);
+}
+
+.mc-toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mc-search {
+  position: relative;
+  width: 100%;
+}
+
+.mc-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  z-index: 1;
+  display: inline-flex;
+  color: var(--ds-text-muted, #8C9BAB);
+  pointer-events: none;
+}
+
+.mc-search .input-input {
+  padding-left: 34px;
+}
+
+.mc-count {
+  margin: 0;
+  color: var(--ds-text-label);
+  font-size: var(--ds-font-size-sm);
+}
+
+.mc-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.mc-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Module groups are separated by 12px; the checked block sits flush above the first group. */
+.mc-group + .mc-group {
+  margin-top: 12px;
+}
+
+.mc-group-title {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
+
+/* Row: 35px pitch. Hover shows a light band with the drag grip revealed. */
+.mc-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 35px;
+  padding: 0 8px 0 7px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* The checkbox control defaults to top alignment; centre it on the row band. */
+.mc-row .checkbox-root {
+  align-self: center;
+  gap: 6px;
+}
+
+.mc-grip {
+  display: inline-flex;
+  color: var(--ds-text-label);
+  cursor: grab;
+  visibility: hidden;
+}
+
+.mc-row:hover .mc-grip {
+  visibility: visible;
+}
+
+.mc-module {
+  color: var(--ds-text-label);
+}
+
+.mc-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Required field marker (fields with `required: true`). */
+.mc-required {
+  color: var(--ds-text-error, #E5484D);
+}
+
+/* Clear-search (✕) button, matching the Dropdown search clear control. */
+.mc-clear-btn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 4px;
+  border: none;
+  border-radius: 100px;
+  background: var(--ds-bg-muted, #EAF0F4);
+  color: var(--ds-text-label);
+  cursor: pointer;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.mc-clear-btn:hover {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+}
+
+.mc-clear-btn:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline);
+  outline-offset: 1px;
+}
+
+.mc-search[data-has-query] .input-input {
+  padding-right: 34px;
+}
+
+/* Hide the browser's own search clear button; .mc-clear-btn replaces it. */
+.mc-search input[type="search"]::-webkit-search-cancel-button,
+.mc-search input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  display: none;
+}

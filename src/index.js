@@ -1,5 +1,6 @@
 // ── CSS — consumers must import this for design tokens and component styles ──
 import './design-system/foundations/design-tokens.css';
+import './design-system/foundations/interaction.css';
 
 // ── Components ────────────────────────────────────────────────────────────────
 

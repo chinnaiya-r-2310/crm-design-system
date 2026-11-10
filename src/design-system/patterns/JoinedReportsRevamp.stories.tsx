@@ -17,6 +17,7 @@ import { Dragger } from '../components/Dragger/Dragger';
 import { Stepper } from '../components/Stepper/Stepper';
 import { ChevronDownFilled, Info } from '../foundations/icons/Icons';
 import './JoinedReportsRevamp.css';
+import './CrossModuleReports.css';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Sample data (no network; 25 field names for the grouping dropdowns)
@@ -85,7 +86,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
   const isEdit = mode === 'edit';
   const prefilledFields = (offset: number) =>
     Array.from({ length: initialReportCount }, (_, index) => FIELD_OPTIONS[(index + offset) % FIELD_OPTIONS.length].value);
-  const [name, setName] = useState(isEdit ? 'Leads by Source' : 'Untitled Joined Report');
+  const [name, setName] = useState(isEdit ? 'Monthly Sales Pipeline' : 'Untitled Joined Report');
   const [rows, setRows] = useState<ReportRow[]>(() => initialRows(initialReportCount, initialStep, isEdit));
   const [groups, setGroups] = useState<GroupRow[]>(() => {
     if (isEdit) {
@@ -498,8 +499,45 @@ const BUILDER_LEADS = [
 
 const BUILDER_COLUMNS = ['Lead Name', 'Email', 'Company', 'Created Time', 'Lead Owner'];
 
+// Filters tab, laid out like the cross module reports Filters panel (heading, edit/delete, empty state).
+function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; onAdd: () => void; onDelete: () => void }) {
+  return (
+    <section className="cmr__panel-body jr-builder-filters" aria-label="Filters">
+      <div className="cmr__panel-heading">
+        <h2>Filters</h2>
+        {hasFilters && (
+          <div className="cmr__heading-actions">
+            <Tooltip content="Edit filters" variant="black" placement="top" followCursor>
+              <button type="button" className="criteria-summary__action" aria-label="Edit filters">
+                <Icon name="Edit" size={12} />
+              </button>
+            </Tooltip>
+            <Tooltip content="Delete filters" variant="black" placement="top" followCursor>
+              <button type="button" className="criteria-summary__action criteria-summary__action--delete" aria-label="Delete filters" onClick={onDelete}>
+                <Icon name="Delete" size={12} />
+              </button>
+            </Tooltip>
+          </div>
+        )}
+      </div>
+      {hasFilters ? (
+        <section className="cmr__saved" aria-label="Saved Lead Source filter">
+          <h3>Lead Source</h3>
+          <p className="cmr__saved-sentence">Lead Source is Advertisement or Partner</p>
+        </section>
+      ) : (
+        <div className="cmr__empty">
+          <p>No filters applied</p>
+          <Button variant="outline-blue" size="sm" className="cmr__add-filter" onClick={onAdd}>Add Filter</Button>
+        </div>
+      )}
+    </section>
+  );
+}
+
 function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; onCreate: () => void; saved: boolean }) {
   const [builderTab, setBuilderTab] = useState('columns');
+  const [hasFilters, setHasFilters] = useState(saved);
   const [columns, setColumns] = useState(['Lead Name', 'Email', 'Company', 'Created Time', 'Lead Owner', 'First Name', 'Last Name']);
   const [aggregates, setAggregates] = useState(['Avg of Annual Revenue', 'Sum of Annual Revenue', 'Count of Unique Leads']);
   return (
@@ -522,7 +560,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
           <div className="jr-builder-subtitle">
             <Icon name="CrmArrowBack" size={18} />
             <div className="jr-builder-title-stack">
-              <span className="jr-builder-name">Leads by Source</span>
+              <span className="jr-builder-name">{saved ? 'Monthly Sales Pipeline' : 'Leads By Source'}</span>
               <span className="jr-builder-module">Leads</span>
             </div>
           </div>
@@ -554,8 +592,8 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
                 <span className="jr-builder-block-title">Report 1</span>
               </div>
               <div className="jr-builder-row">
-                <span>Leads by Source</span>
-                <button type="button" className="jr-builder-edit-btn" aria-label="Edit Leads by Source"><Icon name="CrmEditFilledMd" size={14} className="jr-builder-edit-icon" /></button>
+                <span>Leads By Source</span>
+                <button type="button" className="jr-builder-edit-btn" aria-label="Edit Leads By Source"><Icon name="CrmEditFilledMd" size={14} className="jr-builder-edit-icon" /></button>
               </div>
             </div>
 
@@ -570,6 +608,9 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
                   size="md"
                 />
               </div>
+              {builderTab === 'filters' ? (
+                <BuilderFilters hasFilters={hasFilters} onAdd={() => setHasFilters(true)} onDelete={() => setHasFilters(false)} />
+              ) : (<>
               <div className="jr-builder-row">
                 <span className="jr-builder-block-title">Columns</span>
                 <button type="button" className="jr-builder-edit-btn" aria-label="Edit columns"><Icon name="CrmEditFilledMd" size={14} className="jr-builder-edit-icon" /></button>
@@ -580,6 +621,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
                 <button type="button" className="jr-builder-edit-btn" aria-label="Edit aggregate columns"><Icon name="CrmEditFilledMd" size={14} className="jr-builder-edit-icon" /></button>
               </div>
               <Dragger items={aggregates} onChange={setAggregates} />
+              </>)}
             </div>
 
             {saved && (<>
@@ -611,7 +653,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
               Preview shown with limited number of rows. Run the report to see actual aggregate values.
               <span className="jr-builder-link">Show Details</span>
             </p>
-            <table className="jr-builder-table" aria-label="Report 1 leads by source">
+            <table className="jr-builder-table" aria-label="Report 1 Leads By Source">
               <thead>
                 <tr>
                   <th />

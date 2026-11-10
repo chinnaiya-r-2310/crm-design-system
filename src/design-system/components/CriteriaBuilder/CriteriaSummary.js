@@ -35,8 +35,9 @@ function Chip({ children }) {
   return <span className="criteria-summary__chip">{children}</span>;
 }
 
-function Pattern({ pattern, nested }) {
-  if (!pattern) return null;
+/** The criteria pattern only exists for two or more criteria; a single criterion shows none. */
+function Pattern({ pattern, nested, rowCount = 0 }) {
+  if (!pattern || rowCount < 2) return null;
   return (
     <div className={`criteria-summary__pattern${nested ? ' criteria-summary__pattern--nested' : ''}`}>
       <span className="criteria-summary__pattern-label">Criteria Pattern</span>
@@ -79,7 +80,7 @@ function RelationRow({ row, index }) {
         <div className="criteria-summary__branch">
           <div className="criteria-summary__branch-body">
             <RowList rows={row.criteria} />
-            <Pattern pattern={row.pattern} nested />
+            <Pattern pattern={row.pattern} nested rowCount={row.criteria.length} />
           </div>
         </div>
       )}
@@ -166,7 +167,7 @@ export function CriteriaSummary({
           {section.title && <h4 className="criteria-summary__section-title">{section.title}</h4>}
           <div className="criteria-summary__section-body">
             <RowList rows={section.rows} />
-            <Pattern pattern={section.pattern} />
+            <Pattern pattern={section.pattern} rowCount={section.rows?.length ?? 0} />
           </div>
         </section>
       </div>
@@ -174,7 +175,7 @@ export function CriteriaSummary({
   ) : (
     <>
       <RowList rows={rows} />
-      <Pattern pattern={pattern} />
+      <Pattern pattern={pattern} rowCount={rows.length} />
     </>
   );
 

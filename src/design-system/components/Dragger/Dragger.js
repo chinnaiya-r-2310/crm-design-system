@@ -21,7 +21,7 @@ import './Dragger.css';
      gripperOnHover — when true, the drag icon is shown only while the entity is hovered
    ─────────────────────────────────────────────────────────────────────────────── */
 
-export function Dragger({ items, onChange, gripperOnHover = false }) {
+export function Dragger({ items, onChange, gripperOnHover = false, renderItem }) {
   const [dragging, setDragging] = useState(null);
   const [highlighted, setHighlighted] = useState(null);
   const containerRef = useRef(null);
@@ -70,10 +70,28 @@ export function Dragger({ items, onChange, gripperOnHover = false }) {
     if (latest.current.items.join('|') !== drag.startOrder) setHighlighted(drag.id);
   };
 
+  // A press becomes a drag only after the pointer moves a few pixels, so a plain click
+  // inside the entity (for example a checkbox) still reaches its control.
+  const DRAG_THRESHOLD = 4;
+
   const startDrag = (event, item) => {
     if (latest.current.items.length < 2 || event.button !== 0) return;
-    event.preventDefault();
     const source = event.currentTarget;
+    const startY = event.clientY;
+    const disarm = () => {
+      window.removeEventListener('pointermove', arm);
+      window.removeEventListener('pointerup', disarm);
+    };
+    const arm = moveEvent => {
+      if (Math.abs(moveEvent.clientY - startY) < DRAG_THRESHOLD) return;
+      disarm();
+      beginDrag(source, item, startY);
+    };
+    window.addEventListener('pointermove', arm);
+    window.addEventListener('pointerup', disarm);
+  };
+
+  const beginDrag = (source, item, startY) => {
     const rect = source.getBoundingClientRect();
 
     const ghost = document.createElement('div');
@@ -84,6 +102,13 @@ export function Dragger({ items, onChange, gripperOnHover = false }) {
     const clone = source.cloneNode(true);
     clone.removeAttribute('data-item');
     clone.classList.remove('dragger-item--placeholder');
+    // The copy sits outside the list's scoped styles, so it takes the row's own box
+    // (height, padding, gap) to match the slot it was picked from.
+    const sourceStyle = getComputedStyle(source);
+    clone.style.height = `${rect.height}px`;
+    clone.style.padding = sourceStyle.padding;
+    clone.style.gap = sourceStyle.gap;
+    Array.from(clone.children).forEach(child => { child.style.alignSelf = 'center'; });
     // Icon masks are referenced by id. Give the copy its own ids so it does not
     // pick up the hidden masks of the placeholder in the list.
     let html = clone.outerHTML;
@@ -116,7 +141,7 @@ export function Dragger({ items, onChange, gripperOnHover = false }) {
 
     dragRef.current = {
       id: item,
-      startY: event.clientY,
+      startY,
       startOrder: latest.current.items.join('|'),
       ghost,
       move,
@@ -143,7 +168,7 @@ export function Dragger({ items, onChange, gripperOnHover = false }) {
               <Icon name="CrmMaskDrag" size={12} />
             </span>
           )}
-          <span>{item}</span>
+          {renderItem ? renderItem(item) : <span>{item}</span>}
         </div>
       ))}
     </div>

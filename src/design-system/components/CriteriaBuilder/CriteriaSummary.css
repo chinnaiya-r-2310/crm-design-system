@@ -149,9 +149,13 @@
   display: flex;
   flex-direction: column;
   padding-top: 8px;
-  padding-bottom: 20px;
   padding-inline-start: 17px;
   border-inline-start: 1px solid var(--ds-border-lighter, #DCDBEE);
+}
+
+/* Space under the branch is reserved only when a criteria pattern follows the rows. */
+.criteria-summary__branch-body:has(> .criteria-summary__pattern) {
+  padding-bottom: 20px;
 }
 
 .criteria-summary__branch-body > .criteria-summary__list {
