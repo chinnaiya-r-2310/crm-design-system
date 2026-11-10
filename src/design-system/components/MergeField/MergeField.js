@@ -1,5 +1,6 @@
-import { useId, useRef, useState, useEffect } from 'react';
+import { useId, useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { Tooltip } from '../Tooltip/Tooltip';
 import { ResizeHandle, ChevronDownFilled, Search, Check, Lock } from '../../foundations/icons/Icons';
 import './MergeField.css';
 
@@ -222,9 +223,22 @@ function buildInitialContent(root, text, mergeFields) {
 function MergeFieldPopup({
   panelRef, pos, modules, selectedModule, onModuleChange, options, query, onQueryChange,
   searchRef, onSearchKeyDown, showSearch, currentValue, activeIndex, onHover, onSelect, onDismiss,
+  moduleEntries, selectedEntry, entryLabel, onEntrySelect,
 }) {
   const [moduleOpen, setModuleOpen] = useState(false);
+  // Full filter name goes in a tooltip only while the trigger label is cut off.
+  const labelRef = useRef(null);
+  const [labelTruncated, setLabelTruncated] = useState(false);
+  useLayoutEffect(() => {
+    const el = labelRef.current;
+    setLabelTruncated(!!el && el.scrollWidth > el.clientWidth);
+  });
   const filtered = filterFields(options, query, selectedModule);
+  // A new filter shows a different field list; start it at the top, not at the old scroll position.
+  const listRef = useRef(null);
+  useEffect(() => {
+    if (listRef.current) listRef.current.scrollTop = 0;
+  }, [selectedModule]);
 
   return createPortal(
     <>
@@ -255,25 +269,65 @@ function MergeFieldPopup({
                 aria-expanded={moduleOpen}
                 onClick={() => setModuleOpen((o) => !o)}
               >
-                <span>{selectedModule}</span>
+                <Tooltip content={entryLabel ?? selectedModule} disabled={!labelTruncated} variant="black" wrapperStyle={{ display: 'block', minWidth: 0, maxWidth: '100%' }}>
+                  <span ref={labelRef} className="mergefield-popup-module-label">{entryLabel ?? selectedModule}</span>
+                </Tooltip>
                 <ChevronDownFilled aria-hidden="true" />
               </button>
               {moduleOpen && (
                 <div className="mergefield-popup-module-list" role="listbox" aria-label="Module">
-                  {modules.map((m) => (
-                    <div
-                      key={m}
-                      role="option"
-                      aria-selected={m === selectedModule}
-                      className="mergefield-popup-option mergefield-popup-module-option"
-                      onClick={() => { onModuleChange(m); setModuleOpen(false); }}
-                    >
-                      <span className="mergefield-popup-module-check" aria-hidden="true">
-                        {m === selectedModule && <Check />}
-                      </span>
-                      {m}
+                  {/* Every entry is a module and is selectable (tick on the chosen one).
+                      The first group has no heading; later groups (Accounts, Vendors) are
+                      non-selectable section headers over their entries. */}
+                  {moduleEntries ? moduleEntries.map((group, gi) => (
+                    <div key={group.module} className="mergefield-popup-module-group">
+                      {gi > 0 && <div className="mergefield-popup-group-title">{group.module}</div>}
+                      {group.items.map((item) => (
+                        <div
+                          key={item.value}
+                          role="option"
+                          aria-selected={item.value === selectedEntry}
+                          className="mergefield-popup-option mergefield-popup-module-option"
+                          onClick={() => { setModuleOpen(false); onEntrySelect(item, group.module); }}
+                        >
+                          <span className="mergefield-popup-module-check" aria-hidden="true">
+                            {item.value === selectedEntry && <Check />}
+                          </span>
+                          {item.label}
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  )) : modules.map((m) => {
+                    const isSelected = m === selectedModule;
+                    return (
+                      <div key={m} className="mergefield-popup-module-group">
+                        {isSelected ? (
+                          <div
+                            role="option"
+                            aria-selected="true"
+                            className="mergefield-popup-option mergefield-popup-module-option"
+                            onClick={() => setModuleOpen(false)}
+                          >
+                            <span className="mergefield-popup-module-check" aria-hidden="true"><Check /></span>
+                            {m}
+                          </div>
+                        ) : (
+                          <div className="mergefield-popup-group-title">{m}</div>
+                        )}
+                        {filterFields(options, query, m).map((opt) => (
+                          <div
+                            key={`${m}:${opt.value}`}
+                            role="option"
+                            aria-selected={isSelected && opt.value === currentValue}
+                            className="mergefield-popup-option mergefield-popup-group-option"
+                            onClick={() => { setModuleOpen(false); onModuleChange(m); }}
+                          >
+                            {opt.label}
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -294,7 +348,7 @@ function MergeFieldPopup({
           )}
         </div>
       )}
-      <div className="mergefield-popup-list">
+      <div className="mergefield-popup-list" ref={listRef}>
         {filtered.length === 0 ? (
           <div className="mergefield-popup-empty">No results found</div>
         ) : (
@@ -331,15 +385,27 @@ function MergeFieldPopup({
 // and swallows Enter instead of inserting a line break.
 // ─────────────────────────────────────────────────────────────────────────────
 
-function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields, defaultValue, onChange, disabled, readOnly, required, singleLine }) {
+function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields, moduleEntries, defaultValue, onChange, disabled, readOnly, required, singleLine }) {
   const rootRef = useRef(null);
   const panelRef = useRef(null);
   const matchRef = useRef(null);
   const selectedChipRef = useRef(null); // chip pending removal on a second Backspace
   const searchRef = useRef(null);
 
-  const modules = getModules(mergeFields);
+  // With moduleEntries, the filter dropdown lists those entries; otherwise it lists the field modules.
+  const modules = moduleEntries ? moduleEntries.map((g) => g.module) : getModules(mergeFields);
   const [selectedModule, setSelectedModule] = useState(() => (modules.includes('Leads') ? 'Leads' : modules[0]));
+  // With moduleEntries, the chosen entry (its value and label) is what the dropdown shows as selected.
+  const firstEntry = moduleEntries?.[0]?.items?.[0];
+  const [selectedEntry, setSelectedEntry] = useState(() => firstEntry?.value);
+  const entryLabel = moduleEntries
+    ? moduleEntries.flatMap((g) => g.items).find((item) => item.value === selectedEntry)?.label
+    : undefined;
+  // Choosing an entry shows the field list of its source module (e.g. Primary Account Name -> Accounts fields).
+  const onEntrySelect = (item, groupModule) => {
+    setSelectedEntry(item.value);
+    setSelectedModule(item.source ?? groupModule);
+  };
 
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -418,6 +484,13 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
     setPos({ top: rect.bottom, left: rect.left });
     setMode('replace');
     setCurrentValue(chip.dataset.value);
+    // Apply the filter that matches the tag's own field, so its list and tick are shown.
+    const chipField = mergeFields.find((f) => f.value === chip.dataset.value);
+    if (chipField?.module) {
+      setSelectedModule(chipField.module);
+      const entry = moduleEntries?.flatMap((g) => g.items).find((item) => item.source === chipField.module);
+      if (entry) setSelectedEntry(entry.value);
+    }
     setQuery('');
     setActiveIndex(0);
     setOpen(true);
@@ -578,6 +651,10 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
           panelRef={panelRef}
           pos={pos}
           modules={modules}
+          moduleEntries={moduleEntries}
+          selectedEntry={selectedEntry}
+          entryLabel={entryLabel}
+          onEntrySelect={onEntrySelect}
           selectedModule={selectedModule}
           onModuleChange={setSelectedModule}
           options={mergeFields}
@@ -623,6 +700,7 @@ export function MergeField({
   variant = 'multiline',
   minHeight = 70,
   mergeFields = [],
+  moduleEntries,
   hint = 'Type # to insert merge field',
   placeholder,
   defaultValue,
@@ -649,6 +727,7 @@ export function MergeField({
       placeholder={placeholder}
       minHeight={minHeight}
       mergeFields={mergeFields}
+      moduleEntries={moduleEntries}
       defaultValue={defaultValue ?? value}
       onChange={onChange}
       disabled={disabled}

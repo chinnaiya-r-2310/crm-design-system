@@ -11,6 +11,29 @@ const preview: Preview = {
       },
     },
 
+    // Work Items: most recently created first (order of first git commit).
+    options: {
+      storySort: {
+        order: [
+          'Design System',
+          'Work Items',
+          [
+            'Field History Tracking',
+            'Joined Reports - Revamp',
+            'Cross-module Reports',
+            'SB Connections',
+            'Dashboard Export',
+            'Portal UI',
+            'crm-homepage',
+            'Record Authentication',
+            'Send Dashboard Scheduler',
+            'Audit Log Duration',
+            'Usage Limit Notification',
+          ],
+        ],
+      },
+    },
+
     a11y: {
       // 'todo' - show a11y violations in the test UI only
       // 'error' - fail CI on a11y violations

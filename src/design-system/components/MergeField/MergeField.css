@@ -477,18 +477,20 @@
   min-width: 0;
 }
 
-/* With a search box beside it, the module trigger shrinks to its label. */
+/* With a search box beside it, the filter and search split the row 60:40. */
 .mergefield-popup-module[data-has-search] {
-  flex: 0 0 auto;
+  flex: 0 0 40%;
+  width: 40%;
 }
 
 .mergefield-popup-module[data-has-search] .mergefield-popup-module-trigger {
-  width: auto;
+  width: 100%;
   border-radius: 6px 0 0 6px;
 }
 
 .mergefield-popup-search {
-  flex: 1 1 auto;
+  flex: 0 0 60%;
+  width: 60%;
   min-width: 0;
   display: flex;
   align-items: center;
@@ -536,6 +538,19 @@
   color: var(--ds-components-input-placeholder-text, #B0B7C4);
 }
 
+/* Filter label truncates with an ellipsis; the full name shows in a tooltip (see JS). */
+.mergefield-popup-module-label {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mergefield-popup-module-trigger > svg {
+  flex-shrink: 0;
+}
+
 .mergefield-popup-module-trigger {
   display: flex;
   align-items: center;
@@ -576,7 +591,12 @@
 }
 
 .mergefield-popup-module-option {
-  gap: 8px;
+  gap: 0;
+}
+
+/* Selected module row: no inset, so its check column starts at the entry edge (Dropdown spacing). */
+.mergefield-popup-module-list .mergefield-popup-module-option {
+  padding-left: 0;
 }
 
 .mergefield-popup-module-list .mergefield-popup-option:hover {
@@ -597,8 +617,10 @@
 }
 
 .mergefield-popup-module-check {
-  display: inline-flex;
-  width: 12px;
+  display: flex; /* same tick column as the Dropdown: 25px, icon centred */
+  align-items: center;
+  justify-content: center;
+  width: 25px;
   flex-shrink: 0;
   color: var(--ds-text-base);
 }
@@ -615,10 +637,29 @@
   border-radius: 6px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
-  max-height: 160px;
+  max-height: 360px;
   overflow-y: auto;
   padding: 6px 0;
   z-index: 1;
+}
+
+/* Module heading inside the grouped list (non-selected modules). */
+.mergefield-popup-group-title {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  margin: 12px 6px 0; /* a little more space above each section header */
+  padding: 0; /* section headers sit flush with the list edge, no extra left spacing */
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-base);
+  user-select: none;
+}
+
+/* Fields of a module in the grouped list. */
+.mergefield-popup-module-list .mergefield-popup-group-option {
+  padding-left: 25px; /* entry text at 31px from the panel edge (6px margin + 25px), as in the Dropdown */
 }
 
 .mergefield-popup-list {
