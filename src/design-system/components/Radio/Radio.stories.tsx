@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within } from 'storybook/test';
 import { Radio } from './Radio';
 
 const meta: Meta<typeof Radio> = {
@@ -41,6 +42,18 @@ export const Hover: Story = {
 
 export const Checked: Story = {
   args: { label: 'Option A', defaultChecked: true },
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole('radio');
+    await expect(input).toBeChecked();
+    const circle = input.nextElementSibling as HTMLElement;
+    const style = getComputedStyle(circle);
+    const dot = getComputedStyle(circle, '::after');
+    await expect(style.display).toBe('grid');
+    await expect(style.alignItems).toBe('center');
+    await expect(style.justifyItems).toBe('center');
+    await expect(dot.position).toBe('static');
+    await expect(dot.width).toBe(dot.height);
+  },
 };
 
 export const Focus: Story = {

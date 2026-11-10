@@ -1,5 +1,6 @@
 // Type shims used only during `tsc -p tsconfig.lib.json` declaration generation.
 // Vite handles these at runtime; tsc needs explicit declarations when run standalone.
+/// <reference types="vite/client" />
 
 declare module '*.module.css' {
   const classes: Record<string, string>;

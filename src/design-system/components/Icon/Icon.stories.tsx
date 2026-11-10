@@ -1,6 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useEffect, useState } from 'react';
+import { MessageBox } from '../MessageBox/MessageBox';
+import { expect, userEvent, within } from 'storybook/test';
+import { Input } from '../Input/Input';
 import { Icon } from './Icon';
 import { iconMap } from './iconMap';
+import { crmIconMetadata } from '../../foundations/icons/CrmCatalog';
+import { Tooltip } from '../Tooltip/Tooltip';
 import type { IconName } from './iconMap';
 import {
   AlertError, AlertInfo, AlertSuccess, AlertWarning,
@@ -28,6 +34,40 @@ import {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const galleryIcons = (Object.keys(iconMap) as IconName[]).sort();
+
+type CopyFeedback = { message: string; variant: 'success' | 'error' };
+
+function CopyIconId({ name, onFeedback }: { name: string; onFeedback: (feedback: CopyFeedback) => void }) {
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(name);
+      onFeedback({ message: 'Copied', variant: 'success' });
+    } catch {
+      onFeedback({ message: `Could not copy ${name}. Please copy the ID below manually.`, variant: 'error' });
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      aria-label={`Copy icon ID: ${name}`}
+      title="Copy icon ID"
+      onClick={copy}
+      style={{
+        position: 'absolute', top: 4, right: 4, padding: 5,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        border: '1px solid var(--ds-components-input-default-outline)',
+        borderRadius: 4, background: 'var(--ds-bg-common-card)',
+        color: 'var(--ds-text-label)', cursor: 'pointer',
+      }}
+    >
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
+        <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+        <path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2" />
+      </svg>
+    </button>
+  );
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -108,6 +148,47 @@ export const Playground: Story = {
   ),
 };
 
+/** Only the two requested icons from the CRM Icon Help document. */
+export const MobileAndEmail: Story = {
+  name: 'Mobile and Email',
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: 'Mobile and Email imported from the CRM Icon Help document (zcicn-mobile and zcicn-emails). Assets are bundled locally; no internal server is required at runtime. Shown at 16, 20, and 24px.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--ds-line-height-base)', color: 'var(--ds-text-base)', fontFamily: 'var(--ds-font-family-base)' }}>
+      {(['Mobile', 'Email'] as const).map((name) => (
+        <div key={name}>
+          <p>{name}</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--ds-line-height-base)' }}>
+            {[16, 20, 24].map((size) => (
+              <Icon key={size} name={name} size={size} aria-label={`${name} ${size}px`} />
+            ))}
+          </div>
+          <Icon name={name} size={16} />
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const name of ['Mobile', 'Email']) {
+      for (const size of [16, 20, 24]) {
+        const icon = canvas.getByRole('img', { name: `${name} ${size}px` });
+        await expect(icon).toHaveAttribute('width', String(size));
+        await expect(icon).toHaveAttribute('height', String(size));
+        await expect(icon.querySelector('path')).not.toBeNull();
+        await expect(icon.querySelector('use')).toBeNull();
+      }
+    }
+    await expect(canvasElement.querySelectorAll('svg[aria-hidden="true"]')).toHaveLength(2);
+  },
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Gallery — every registered icon
 // ─────────────────────────────────────────────────────────────────────────────
@@ -119,16 +200,47 @@ export const Playground: Story = {
 export const Gallery: Story = {
   name: 'Gallery',
   parameters: { controls: { disable: true } },
-  render: () => (
-    <div style={{ fontFamily: 'var(--ds-font-family-base)' }}>
-      <div style={{
-        fontSize: '11px',
+  render: function GalleryRender() {
+    const [query, setQuery] = useState('');
+    const [page, setPage] = useState(0);
+    const [feedback, setFeedback] = useState<CopyFeedback | null>(null);
+    useEffect(() => {
+      if (!feedback) return;
+      const timeout = window.setTimeout(() => setFeedback(null), 3000);
+      return () => window.clearTimeout(timeout);
+    }, [feedback]);
+    const pageSize = 120;
+    const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const filteredIcons = galleryIcons.filter((name) => {
+      const keywords = crmIconMetadata[name]?.keywords ?? '';
+      return terms.every(term => `${name} ${keywords}`.toLowerCase().includes(term));
+    });
+    const shownIcons = filteredIcons.slice(page * pageSize, (page + 1) * pageSize);
+
+    return (
+    <div style={{ fontFamily: 'var(--ds-font-family-base)', width: '800px', maxWidth: '100%' }}>
+      {feedback && <MessageBox variant={feedback.variant} message={feedback.message}
+        onClose={() => setFeedback(null)}
+        style={{ position: 'fixed', top: 20, left: '50%', transform: 'translateX(-50%)', zIndex: 10000, maxWidth: 'calc(100vw - 32px)' }} />}
+      <Input
+        type="search"
+        label="Search icons"
+        layout="vertical"
+        width="100%"
+        placeholder="Search icons by name or keyword"
+        value={query}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setQuery(event.target.value); setPage(0); }}
+      />
+      <p role="status" style={{
+        fontSize: 'var(--ds-font-size-base)',
         color: 'var(--ds-text-label)',
-        marginBottom: '16px',
-        letterSpacing: '0.02em',
+        marginBlock: 'var(--ds-line-height-base)',
       }}>
-        {galleryIcons.length} icons
-      </div>
+        {filteredIcons.length} of {galleryIcons.length} icons
+      </p>
+      {filteredIcons.length === 0 && (
+        <p style={{ color: 'var(--ds-text-base)' }}>No icons found. Try another name.</p>
+      )}
 
       <div style={{
         display: 'grid',
@@ -137,17 +249,23 @@ export const Gallery: Story = {
         width: '800px',
         maxWidth: '100%',
       }}>
-        {galleryIcons.map((name) => (
+        {shownIcons.map((name) => {
+          const GalleryIcon = iconMap[name];
+          const dimensions = crmIconMetadata[name];
+          const scale = dimensions ? Math.min(1, 64 / Math.max(dimensions.width, dimensions.height)) : 1;
+          return (
+          <Tooltip key={name} content={crmIconMetadata[name]?.keywords ?? name} variant="black" wrapperStyle={{ display: 'block' }}>
           <div
-            key={name}
-            title={name}
+            tabIndex={0}
+            aria-label={name}
             style={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '10px',
-              padding: '20px 8px 14px',
+              position: 'relative',
+              padding: '36px 8px 14px',
               border: '1px solid var(--ds-components-input-default-outline)',
               borderRadius: '8px',
               background: 'var(--ds-bg-common-card)',
@@ -156,7 +274,12 @@ export const Gallery: Story = {
               transition: 'background 120ms',
             }}
           >
-            <Icon name={name} size={20} />
+            <GalleryIcon
+              width={dimensions ? dimensions.width * scale : undefined}
+              height={dimensions ? dimensions.height * scale : undefined}
+              aria-hidden="true"
+              style={{ flexShrink: 0, maxWidth: 64, maxHeight: 64, objectFit: 'contain' }}
+            />
             <span style={{
               fontSize: '11px',
               color: 'var(--ds-text-label)',
@@ -166,11 +289,101 @@ export const Gallery: Story = {
             }}>
               {name}
             </span>
+            <CopyIconId name={name} onFeedback={setFeedback} />
           </div>
-        ))}
+          </Tooltip>
+          );
+        })}
       </div>
+      <nav aria-label="Icon gallery pages" style={{ display: 'flex', gap: 16, alignItems: 'center', marginTop: 16 }}>
+        <button type="button" disabled={page === 0} onClick={() => setPage(value => value - 1)}>Previous</button>
+        <span>Page {page + 1} of {Math.max(1, Math.ceil(filteredIcons.length / pageSize))}</span>
+        <button type="button" disabled={(page + 1) * pageSize >= filteredIcons.length} onClick={() => setPage(value => value + 1)}>Next</button>
+      </nav>
     </div>
-  ),
+    );
+  },
+};
+
+/** Search checks run separately so browsing Gallery never types automatically. */
+export const GallerySearch: Story = {
+  ...Gallery,
+  name: 'Gallery Search',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Search icons' });
+    await userEvent.type(search, '  mObIlE  ');
+    await expect(canvas.getByText('Mobile', { exact: true })).toBeVisible();
+    await expect(canvas.queryByText('Email', { exact: true })).not.toBeInTheDocument();
+    await userEvent.clear(search);
+    await userEvent.type(search, 'no-matching-icon');
+    await expect(canvas.getByText('No icons found. Try another name.')).toBeVisible();
+    await userEvent.clear(search);
+    await userEvent.type(search, 'CrmArrowBack');
+    const nativeIcon = canvas.getByLabelText('CrmArrowBack', { exact: true }).querySelector('svg');
+    await expect(nativeIcon).toHaveAttribute('width', String(crmIconMetadata.CrmArrowBack.width));
+    await expect(nativeIcon).toHaveAttribute('height', String(crmIconMetadata.CrmArrowBack.height));
+    const largeName = galleryIcons.find(name => {
+      const dimensions = crmIconMetadata[name];
+      return dimensions && Math.max(dimensions.width, dimensions.height) > 64;
+    });
+    if (largeName) {
+      await userEvent.clear(search);
+      await userEvent.type(search, largeName);
+      const largeIcon = canvas.getByLabelText(largeName, { exact: true }).querySelector('svg')!;
+      const bounds = largeIcon.getBoundingClientRect();
+      await expect(Math.max(bounds.width, bounds.height)).toBeLessThanOrEqual(64);
+      const dimensions = crmIconMetadata[largeName];
+      await expect(bounds.width / bounds.height).toBeCloseTo(dimensions.width / dimensions.height, 1);
+    }
+    await userEvent.clear(search);
+    await userEvent.type(search, 'arrow sort');
+    await expect(canvas.getByText('CrmArrowSort', { exact: true })).toBeVisible();
+    const tile = canvas.getByLabelText('CrmArrowSort', { exact: true });
+    await userEvent.hover(tile);
+    await expect(await within(canvasElement.ownerDocument.body).findByRole('tooltip')).toBeVisible();
+    await userEvent.unhover(tile);
+    await userEvent.clear(search);
+    await userEvent.type(search, 'Email');
+    await expect(canvas.getByText('Email', { exact: true })).toBeVisible();
+    await userEvent.clear(search);
+    await expect(canvas.getByRole('status')).toHaveTextContent(`${galleryIcons.length} of ${galleryIcons.length} icons`);
+  },
+};
+
+export const GalleryCopy: Story = {
+  ...Gallery,
+  name: 'Gallery Copy',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Search icons' });
+    await userEvent.type(search, 'Mobile');
+    const clipboardDescriptor = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+    let copied = '';
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: async (value: string) => { copied = value; } },
+    });
+    try {
+      const copyButton = canvas.getByRole('button', { name: 'Copy icon ID: Mobile', exact: true });
+      const copyArtwork = copyButton.innerHTML;
+      await userEvent.click(copyButton);
+      await expect(copied).toBe('Mobile');
+      await expect(canvas.getByText('Copied', { exact: true })).toBeVisible();
+      await expect(copyButton.innerHTML).toBe(copyArtwork);
+      await userEvent.click(canvas.getByRole('button', { name: 'Dismiss', exact: true }));
+      await expect(canvas.queryByText('Copied', { exact: true })).not.toBeInTheDocument();
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: { writeText: async () => { throw new Error('Clipboard denied'); } },
+      });
+      await userEvent.click(canvas.getByRole('button', { name: 'Copy icon ID: Mobile', exact: true }));
+      await expect(canvas.getByText('Could not copy Mobile. Please copy the ID below manually.')).toBeVisible();
+    } finally {
+      if (clipboardDescriptor) Object.defineProperty(navigator, 'clipboard', clipboardDescriptor);
+      else Reflect.deleteProperty(navigator, 'clipboard');
+    }
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────

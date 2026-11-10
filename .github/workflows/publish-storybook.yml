@@ -1,0 +1,29 @@
+name: Publish pattern-free Storybook
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@chinnaiya-2310'
+          cache: npm
+      - run: npm ci
+      - run: npm run test:storybook-package
+      - run: npm run build:storybook-package
+      - name: Inspect package contents
+        run: npm pack --dry-run
+        working-directory: packages/storybook
+      - name: Publish public gallery to npm
+        run: npm publish --access public --registry=https://registry.npmjs.org/
+        working-directory: packages/storybook
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

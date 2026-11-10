@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, waitFor, within } from 'storybook/test';
 import { Modal } from './Modal';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
@@ -117,6 +118,35 @@ export const Default: Story = {
     width: 569,
     cancelLabel: 'Cancel',
     saveLabel: 'Save',
+  },
+};
+
+/** Regression coverage for controls reaching the fixed footer on short screens. */
+export const ScrollableForm: Story = {
+  render: () => (
+    <Modal isOpen title="Scrollable form" onClose={() => {}} disableAutoFocus>
+      {Array.from({ length: 20 }, (_, index) => (
+        <Input key={index} label={`Field ${index + 1}`} width="100%" />
+      ))}
+    </Modal>
+  ),
+  play: async ({ canvasElement }) => {
+    const dialog = await within(canvasElement.ownerDocument.body).findByRole('dialog', { name: 'Scrollable form' });
+    const body = dialog.querySelector('.modal-body') as HTMLElement;
+    const footer = dialog.querySelector('.modal-footer-area') as HTMLElement;
+    const lastInput = within(dialog).getAllByRole('textbox').at(-1) as HTMLInputElement;
+    await waitFor(() => {
+      expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
+      expect(footer).toHaveAttribute('data-shadow');
+    });
+    expect(footer.getBoundingClientRect().top - body.getBoundingClientRect().bottom).toBeGreaterThanOrEqual(6);
+    expect(getComputedStyle(footer).backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    lastInput.focus();
+    body.scrollTop = body.scrollHeight;
+    body.dispatchEvent(new Event('scroll'));
+    await waitFor(() => expect(footer).not.toHaveAttribute('data-shadow'));
+    expect(lastInput).toHaveFocus();
+    expect(lastInput.getBoundingClientRect().bottom).toBeLessThan(footer.getBoundingClientRect().top - 4);
   },
 };
 

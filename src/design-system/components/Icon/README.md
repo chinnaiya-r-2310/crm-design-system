@@ -1,5 +1,13 @@
 # Icon  `v1.0`
 
+## CRM documentation catalog
+
+The Gallery includes the common SVG, mask, logo, and feature-specific collections from the internal CRM Icon Help document. Imported names start with `Crm` (vectors) or `CrmMask` (mask artwork), preserving existing icon names. Assets are local and do not depend on the internal server at runtime.
+
+Search matches icon names and source/category keywords. Keywords appear only in hover or keyboard-focus tooltips. The gallery paginates in groups of 120 icons.
+
+To refresh the imported catalog while connected to the source network, run `node scripts/import-crm-icons.mjs`. The generated `foundations/icons/catalog/catalog.json` records each source class and searchable keywords; SVG sprites are bundled beside it.
+
 Renders a design-system SVG icon as a React component. Icons use `currentColor` for color, scale via the `size` prop, and handle accessibility automatically.
 
 ---

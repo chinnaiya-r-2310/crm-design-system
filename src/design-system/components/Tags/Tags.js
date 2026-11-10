@@ -93,6 +93,8 @@ function TruncatedLabel({ text, style, className, children }) {
 // Component
 // ─────────────────────────────────────────────────────────────────────────────
 
+const COLOR_TAG_CLIP = 'polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%, 8px 50%)';
+
 export function Tags({
   value = [],
   options = [],
@@ -103,6 +105,7 @@ export function Tags({
   disabled,
   error,
   noBorder,
+  colorTags = false,
 }) {
   const [search,        setSearch]        = useState('');
   const [open,          setOpen]          = useState(false);
@@ -228,6 +231,15 @@ export function Tags({
             key={tag.value}
             className={'tags-tag'}
             data-selected={i === selectedIndex || undefined}
+            style={colorTags ? (tag.color ? {
+              color: 'var(--ds-icon-primary-white)',
+              backgroundColor: tag.color,
+              borderColor: tag.color,
+              clipPath: COLOR_TAG_CLIP,
+            } : {
+              backgroundColor: 'var(--ds-bg-common-white)',
+              clipPath: COLOR_TAG_CLIP,
+            }) : undefined}
           >
             {tag.imageUrl && (
               <img
@@ -316,12 +328,12 @@ export function Tags({
             overflow:     'hidden',
           }}
         >
-          <div style={{ overflowY: 'auto', padding: '6px 0', flex: 1 }}>
+          <div style={{ overflowY: 'auto', padding: filtered.length === 0 ? 0 : '6px 0', flex: 1 }}>
           {(() => {
             if (filtered.length === 0) {
               return (
                 <div style={{
-                  height:     50,
+                  height:     32,
                   display:    'flex',
                   alignItems: 'center',
                   padding:    '0 25px',

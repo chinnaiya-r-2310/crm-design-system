@@ -1,6 +1,13 @@
 import { useState, useMemo } from 'react';
-import { ChevronDownFilled, Search as SearchIcon, CloseSmall } from '../../foundations/icons/Icons';
+import {
+  ChevronDownFilled, Search as SearchIcon, CloseSmall,
+  SetupBack, SetupCustomise, SetupChevron,
+} from '../../foundations/icons/Icons';
+import { crmIconMap } from '../../foundations/icons/CrmCatalog';
 import './VerticalTabs.css';
+
+// "New" sparkle from the CRM icon gallery (zcicn-sparkle).
+const CrmSparkle = crmIconMap.CrmSparkle;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Component
@@ -14,11 +21,17 @@ export function VerticalTabs({
   onSelect,
   variant = '1',
   width = 275,
+  // Setup variant only — "← Setup Home" header with a customise action
+  homeLabel = 'Setup Home',
+  onHomeClick,
+  onCustomise,
+  defaultExpanded = [],
 }) {
+  const isSetup = variant === 'setup';
   const [search, setSearch] = useState('');
 
   const [expanded, setExpanded] = useState(() => {
-    const set = new Set();
+    const set = new Set(defaultExpanded);
     items.forEach(item => {
       if (item.children?.some(c => c.id === activeId)) set.add(item.id);
     });
@@ -59,7 +72,25 @@ export function VerticalTabs({
 
   return (
     <div className="vtabs-panel" data-variant={variant} style={containerStyle}>
-      {title && <div className="vtabs-title">{title}</div>}
+      {isSetup ? (
+        <div className="vtabs-setup-header">
+          <button type="button" className="vtabs-setup-home" onClick={onHomeClick}>
+            <SetupBack className="vtabs-setup-back" />
+            <span>{homeLabel}</span>
+          </button>
+          <button
+            type="button"
+            className="vtabs-setup-customise"
+            onClick={onCustomise}
+            aria-label="Customise Setup"
+            title="Customise Setup"
+          >
+            <SetupCustomise />
+          </button>
+        </div>
+      ) : (
+        title && <div className="vtabs-title">{title}</div>
+      )}
 
       {searchable && (
         <div className="vtabs-search-box">
@@ -91,7 +122,7 @@ export function VerticalTabs({
           <span>No Results Found</span>
         </div>
       ) : (
-        <nav className="vtabs-list" aria-label={title ?? 'Navigation'}>
+        <nav className="vtabs-list" aria-label={title ?? (isSetup ? 'Setup' : 'Navigation')}>
           {filteredItems.map(item => {
             if (item.children) {
               const isOpen = q ? true : expanded.has(item.id);
@@ -103,10 +134,22 @@ export function VerticalTabs({
                     aria-expanded={isOpen}
                     onClick={() => { if (!q) toggleGroup(item.id); }}
                   >
-                    <span className="vtabs-group-arrow" data-open={isOpen || undefined}>
-                      <ChevronDownFilled />
-                    </span>
-                    {item.label}
+                    {isSetup ? (
+                      <>
+                        {item.icon && <span className="vtabs-group-icon">{item.icon}</span>}
+                        <span className="vtabs-group-label">{item.label}</span>
+                        <span className="vtabs-group-chevron" data-open={isOpen || undefined}>
+                          <SetupChevron />
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="vtabs-group-arrow" data-open={isOpen || undefined}>
+                          <ChevronDownFilled />
+                        </span>
+                        {item.label}
+                      </>
+                    )}
                   </button>
 
                   <div className="vtabs-children-wrap" data-open={isOpen || undefined}>
@@ -120,6 +163,12 @@ export function VerticalTabs({
                           onClick={() => onSelect?.(child.id)}
                         >
                           {child.label}
+                          {isSetup && child.isNew && (
+                            <span className="vtabs-item-new" title="New">
+                              <CrmSparkle width={14} height={14} aria-hidden="true" />
+                              <span className="vtabs-sr-only">(new)</span>
+                            </span>
+                          )}
                         </button>
                       ))}
                     </div>

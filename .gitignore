@@ -28,3 +28,7 @@ storybook-static
 
 coverage/
 .env
+
+# Generated installable Storybook gallery and package tarballs
+packages/storybook/site/
+*.tgz

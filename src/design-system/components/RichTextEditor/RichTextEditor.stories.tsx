@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { RichTextEditor } from './RichTextEditor';
 
 const meta: Meta<typeof RichTextEditor> = {
-  title: 'Components/RichTextEditor',
+  title: 'Design System/Components/RichTextEditor',
   component: RichTextEditor,
   parameters: { layout: 'padded' },
   argTypes: {

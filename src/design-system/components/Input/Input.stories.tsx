@@ -454,3 +454,43 @@ export const DateTimeInputStory: Story = {
     );
   },
 };
+
+export const Currency: Story = {
+  args: {
+    label: 'Annual Revenue',
+    layout: 'vertical',
+    variant: 'currency',
+    currencyCode: 'INR',
+    displayCurrency: true,
+    placeholder: '0.00',
+    required: false,
+    readOnly: false,
+    disabled: false,
+  },
+  argTypes: {
+    displayCurrency: { control: 'boolean' },
+    required: { control: 'boolean', name: 'Mandatory' },
+    readOnly: { control: 'boolean', name: 'Readonly' },
+    disabled: { control: 'boolean' },
+  },
+};
+
+export const Password: Story = {
+  args: {
+    label: 'Password',
+    layout: 'vertical',
+    variant: 'password',
+    showPasswordToggle: true,
+    placeholder: 'Enter password',
+    required: false,
+    readOnly: false,
+    disabled: false,
+  },
+  argTypes: {
+    showPasswordToggle: { control: 'boolean', name: 'Hide/Show Icon' },
+    required: { control: 'boolean', name: 'Mandatory' },
+    readOnly: { control: 'boolean', name: 'Readonly' },
+    disabled: { control: 'boolean' },
+  },
+};
+

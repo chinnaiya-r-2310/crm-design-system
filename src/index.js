@@ -1,5 +1,6 @@
 // ── CSS — consumers must import this for design tokens and component styles ──
 import './design-system/foundations/design-tokens.css';
+import './design-system/foundations/interaction.css';
 
 // ── Components ────────────────────────────────────────────────────────────────
 
@@ -7,12 +8,13 @@ export { Breadcrumb } from './design-system/components/Breadcrumb';
 export { Button, ButtonGroup } from './design-system/components/Button';
 export { Calendar, DateRangePicker } from './design-system/components/Calendar';
 export { Checkbox } from './design-system/components/Checkbox';
-export { CriteriaBuilder } from './design-system/components/CriteriaBuilder';
+export { CriteriaBuilder, CriteriaSummary, NestedCriteria } from './design-system/components/CriteriaBuilder';
 export { DatePicker } from './design-system/components/DatePicker';
 export { Dropdown } from './design-system/components/Dropdown';
 export { FormSection } from './design-system/components/FormSection';
 export { Icon, iconMap } from './design-system/components/Icon';
 export { Input, DateTimeInput } from './design-system/components/Input';
+export { MergeField } from './design-system/components/MergeField';
 export { MessageBox } from './design-system/components/MessageBox';
 export { Modal } from './design-system/components/Modal';
 export { Radio } from './design-system/components/Radio';
@@ -51,6 +53,7 @@ export {
   CriteriaPlus,
   HelpCircle,
   Edit,
+  Delete,
   Close,
   UserAvatar,
   GroupAvatar,

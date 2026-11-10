@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { CriteriaBuilder } from './CriteriaBuilder';
+import { CriteriaSummary } from './CriteriaSummary';
+import { NestedCriteria } from './NestedCriteria';
 import type { CriteriaRow } from './CriteriaBuilder';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -340,4 +343,184 @@ export const LimitReached: Story = {
       initialPattern="1 and 2 and 3 and 4 and 5"
     />
   ),
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Criteria Summary — read-only view of saved criteria
+// Figma: Pascal Stone node 79998-20593
+// ─────────────────────────────────────────────────────────────────────────────
+
+const SUMMARY_STANDARD_ROWS = [
+  { id: 's1', field: 'Contact Owner', operator: 'IS', value: 'Patricia Boyle' },
+  { id: 's2', field: 'City', operator: 'CONTAINS', value: 'Chennai, Pune, Bengaluru' },
+  { id: 's3', field: 'Lead Status', operator: 'IS', value: '${EMPTY}' },
+];
+
+const SUMMARY_RELATION_ROWS = [
+  {
+    id: 'n1',
+    module: 'Accounts',
+    relation: 'WITH',
+    relatedModule: 'Deals',
+    pattern: '(1 and 2)',
+    criteria: [
+      { id: 'n1a', field: 'Amount', operator: 'IS GREATER THAN', value: '$1000' },
+      { id: 'n1b', field: 'Contact Owner', operator: 'IS', value: 'Hongkong Bank Corporation' },
+    ],
+  },
+  {
+    id: 'n2',
+    module: 'Accounts',
+    relation: 'WITHOUT',
+    relatedModule: 'Vendors',
+    pattern: '(1 and 2)',
+    criteria: [
+      { id: 'n2a', field: 'Offer value', operator: 'IS', value: '$1000' },
+      { id: 'n2b', field: 'City', operator: 'CONTAINS', value: 'Chennai, Bengaluru, Kochi' },
+    ],
+  },
+];
+
+const SUMMARY_SECTIONS = [
+  {
+    title: 'Primary Module',
+    pattern: '(1 and 2)',
+    rows: [
+      { id: 'p1', module: 'Accounts', field: 'Contact Owner', operator: 'IS', value: 'Patricia Boyle' },
+      { id: 'p2', module: 'Accounts', field: 'Billing City', operator: 'IS', valueModule: 'Vendors', value: 'Billing City' },
+    ],
+  },
+  {
+    title: 'Related Module',
+    pattern: '(1 and 2)',
+    rows: SUMMARY_RELATION_ROWS,
+  },
+];
+
+const summaryCanvas = { display: 'flex', flexWrap: 'wrap' as const, alignItems: 'flex-start', gap: 60, padding: 24, background: '#fff' };
+const summaryCaption = { margin: '0 0 12px', fontFamily: 'var(--ds-font-family-base)', fontSize: 12, color: '#616E88' };
+
+/** Criteria Summary · Standard — numbered "Field OPERATOR Value" rows and the
+ *  Criteria Pattern. Shown as a card (with hover Edit / Delete) and plain. */
+export const CriteriaSummaryStandard: Story = {
+  name: 'Criteria Summary · Standard',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={summaryCanvas}>
+      <div>
+        <p style={summaryCaption}>Card · hover for Edit / Delete</p>
+        <CriteriaSummary
+          variant="standard"
+          rows={SUMMARY_STANDARD_ROWS}
+          pattern="(1 and 2)"
+          onEdit={() => {}}
+          onDelete={() => {}}
+        />
+      </div>
+      <div>
+        <p style={summaryCaption}>Plain</p>
+        <CriteriaSummary variant="standard" appearance="plain" rows={SUMMARY_STANDARD_ROWS} pattern="(1 and 2)" />
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getAllByText('Contact Owner')).toHaveLength(2);
+    await expect(canvas.getAllByText('EMPTY')).toHaveLength(2);
+    await expect(canvas.getAllByText('Criteria Pattern')).toHaveLength(2);
+    await expect(canvas.getAllByRole('button', { name: 'Edit criteria' })).toHaveLength(1);
+  },
+};
+
+/** Criteria Summary · Nested Criteria — module relations ("Accounts WITH Deals")
+ *  each holding their own numbered criteria and pattern under a guide line.
+ *  Also shown with Primary / Related Module sections joined by AND. */
+export const CriteriaSummaryNested: Story = {
+  name: 'Criteria Summary · Nested Criteria',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={summaryCanvas}>
+      <div>
+        <p style={summaryCaption}>Card · hover for Edit / Delete</p>
+        <CriteriaSummary
+          variant="nested"
+          rows={SUMMARY_RELATION_ROWS}
+          pattern="(1 and 2)"
+          onEdit={() => {}}
+          onDelete={() => {}}
+        />
+      </div>
+      <div>
+        <p style={summaryCaption}>Plain</p>
+        <CriteriaSummary variant="nested" appearance="plain" rows={SUMMARY_RELATION_ROWS} pattern="(1 and 2)" />
+      </div>
+      <div>
+        <p style={summaryCaption}>Outline · Primary and Related Module</p>
+        <CriteriaSummary variant="nested" appearance="outline" sections={SUMMARY_SECTIONS} />
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getAllByText('WITHOUT')).toHaveLength(3);
+    await expect(canvas.getByText('Primary Module')).toBeVisible();
+    await expect(canvas.getByRole('separator')).toHaveTextContent('AND');
+    const del = canvas.getByRole('button', { name: 'Delete criteria' });
+    // Keyboard focus reveals the pill (:focus-within), same as mouse hover.
+    del.focus();
+    await waitFor(() => expect(getComputedStyle(del.closest('.criteria-summary__actions') as HTMLElement).opacity).toBe('1'));
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Nested Criteria (editable) — UI from Cross-module Reports › Base Filter
+// ─────────────────────────────────────────────────────────────────────────────
+
+const NESTED_MODULE_OPTIONS = [
+  { value: 'contacts', label: 'Contact' },
+  { value: 'accounts', label: 'Account' },
+];
+const NESTED_RELATED_CONDITIONS = [
+  { value: 'with', label: 'with' },
+  { value: 'without', label: 'without' },
+];
+const NESTED_RELATED_MODULES = [
+  { value: 'accounts', label: 'Accounts' },
+  { value: 'deals', label: 'Deals' },
+  { value: 'tasks', label: 'Tasks' },
+  { value: 'calls', label: 'Calls' },
+];
+
+/** Nested Criteria — Specify Criteria (with module picker), AND, then
+ *  Related Modules Criteria (switch off by default; with / without + module,
+ *  "Specify Criteria - <Module>" checkbox, AND / OR between rows, Add Condition). */
+export const NestedCriteriaStory: Story = {
+  name: 'Nested Criteria',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ width: 1020, padding: 24, background: '#fff' }}>
+      <NestedCriteria
+        moduleLabel="Contact"
+        moduleOptions={NESTED_MODULE_OPTIONS}
+        relatedConditions={NESTED_RELATED_CONDITIONS}
+        relatedModules={NESTED_RELATED_MODULES}
+        fieldOptions={FIELD_OPTIONS}
+        getOperatorOptions={getOperatorOptions}
+        getDefaultOperator={getDefaultOperator}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Specify Criteria')).toBeVisible();
+    await expect(canvas.getByText('It helps to filter record based on related module values.')).toBeVisible();
+    await userEvent.click(canvas.getByRole('switch', { name: 'Enable Related Modules Criteria' }));
+    await expect(canvas.getByRole('checkbox', { name: 'Specify Criteria' })).toBeDisabled();
+    await userEvent.click(canvas.getByRole('button', { name: 'Add Condition' }));
+    const toggle = canvas.getByRole('button', { name: /Toggle related connector 1/ });
+    await expect(toggle).toHaveTextContent('AND');
+    await userEvent.click(toggle);
+    await expect(canvas.getByRole('button', { name: /Toggle related connector 1/ })).toHaveTextContent('OR');
+    await expect(canvas.getAllByRole('button', { name: /Remove related module/ })).toHaveLength(2);
+  },
 };

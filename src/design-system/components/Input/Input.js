@@ -1,4 +1,5 @@
-import { useId } from 'react';
+import { Icon } from '../Icon/Icon';
+import { useId, useState } from 'react';
 import './Input.css';
 import { Info, Lock } from '../../foundations/icons/Icons';
 
@@ -32,7 +33,7 @@ import { Info, Lock } from '../../foundations/icons/Icons';
 export function Input({
   label,
   helperText,
-  width = 670,
+  width = 390,
   type = 'text',
   layout = 'horizontal',
   suffix,
@@ -46,6 +47,10 @@ export function Input({
   readOnly,
   timeValue,
   onTimeChange,
+  variant,
+  currencyCode = 'INR',
+  displayCurrency = true,
+  showPasswordToggle = true,
   ...inputProps
 }) {
   const autoId = useId();
@@ -54,6 +59,9 @@ export function Input({
   const isLookup = type === 'lookup';
   const isDate = type === 'date';
   const isDatetime = type === 'datetime';
+  const isCurrency = variant === 'currency';
+  const isPassword = variant === 'password';
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const rootStyle = {
     width: typeof width === 'number' ? `${width}px` : width,
@@ -73,13 +81,27 @@ export function Input({
 
   // lookup: render as text, read-only, auto-inject Info icon + "Select" placeholder
   // date / datetime: render as text with date placeholder; no browser calendar picker
-  const resolvedType = (isLookup || isDate || isDatetime) ? 'text' : type;
+  const resolvedType = isPassword
+    ? (passwordVisible ? 'text' : 'password')
+    : (isLookup || isDate || isDatetime) ? 'text' : type;
   const lockIcon = <Lock aria-hidden="true" />;
-  const resolvedSuffix =
+  const passwordToggle = isPassword && readOnly ? lockIcon : isPassword && showPasswordToggle && !inputProps.disabled ? (
+    <button
+      type="button"
+      className="input-password-toggle"
+      aria-label={passwordVisible ? 'Hide password' : 'Show password'}
+      aria-pressed={passwordVisible}
+      onClick={() => setPasswordVisible(current => !current)}
+    >
+      <Icon name={passwordVisible ? 'CrmEyeClosed' : 'CrmEyeOpen'} size={16} />
+    </button>
+  ) : null;
+  const resolvedSuffix = passwordToggle || (
     readOnly ? lockIcon :
     (isLookup && inputProps.disabled) ? lockIcon :
-    isLookup ? <Info aria-hidden="true" /> :
-    suffix;
+    isLookup ? <Icon name="CrmLookupsearch" size={16} /> :
+    suffix
+  );
   const resolvedPlaceholder =
     isLookup && !inputProps.placeholder ? 'Select' :
     (isDate || isDatetime) && !inputProps.placeholder ? 'DD/MM/YYYY' :
@@ -143,12 +165,22 @@ export function Input({
       className="input-input-wrapper"
       data-required={inputProps.required || undefined}
       data-has-suffix={resolvedSuffix ? true : undefined}
-      data-type={isLookup ? 'lookup' : undefined}
+      data-type={isLookup ? 'lookup' : isPassword ? 'password' : undefined}
       {...wrapperStateProps}
     >
-      {inputEl}
+      {isCurrency ? (
+        <div className="input-currency-parts">
+          {displayCurrency && (
+            <>
+              <span className="input-currency-code">{currencyCode}</span>
+              <span className="input-currency-divider" aria-hidden="true" />
+            </>
+          )}
+          {inputEl}
+        </div>
+      ) : inputEl}
       {resolvedSuffix && (
-        <span className="input-suffix-slot" aria-hidden="true">
+        <span className="input-suffix-slot" aria-hidden={isPassword ? undefined : 'true'}>
           {resolvedSuffix}
         </span>
       )}
@@ -159,7 +191,7 @@ export function Input({
   if (layout === 'horizontal' && label) {
     const formRowStyle = columns ? { gridTemplateColumns: columns } : undefined;
     return (
-      <div className="input-root" style={rootStyle} data-variant={rootVariant} data-type={isLookup ? 'lookup' : undefined}>
+      <div className="input-root" style={style} data-variant={rootVariant} data-type={isLookup ? 'lookup' : undefined}>
         <div className="input-form-row" style={formRowStyle}>
           {labelEl}
           <div className="input-field-column">

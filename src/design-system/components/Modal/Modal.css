@@ -90,8 +90,10 @@
 
 .modal-header {
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   gap: 4px;
+  margin-bottom: -10px;
 }
 
 .modal-header-title-row {
@@ -127,6 +129,24 @@
   color: var(--ds-text-heading, #20212A);
 }
 
+.modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin-inline-start: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-text-label);
+  cursor: pointer;
+}
+.modal-close:hover { background: var(--ds-bg-scale-bg3, #e9ebef); }
+.modal-close:focus-visible { outline: 2px solid var(--ds-text-link); outline-offset: 2px; }
+
 /* ── Body ────────────────────────────────────────────────────────────────── */
 
 .modal-body {
@@ -137,9 +157,10 @@
   min-height: 0;
   overflow-y: auto;
   scrollbar-gutter: stable;
-  /* Prevent scroll container from clipping focus box-shadows on right edge */
-  padding: 4px 30px 0 4px;
-  margin: -4px -30px 0 -4px;
+  /* Leave clearance on every edge so the first and last controls' focus
+     shadows remain visible, including at the end of the scroll area. */
+  padding: 4px 30px 4px 4px;
+  margin: -4px -30px -4px -4px;
 }
 
 /* ── Footer area (note + buttons) ────────────────────────────────────────── */
@@ -148,11 +169,14 @@
    the box-shadow spans the full dialog width, not just the padded content area. */
 .modal-footer-area {
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   gap: 30px;
-  /* Cancel the dialog's gap above, then add the spec'd top padding */
-  margin-top: -30px;
+  /* Keep 10px of the dialog gap clear of scrolling controls and their
+     focus rings so they cannot intersect the footer's upward shadow. */
+  margin-top: -20px;
   padding-top: 20px;
+  background: var(--ds-bg-common-card, #ffffff);
   /* Extend edge-to-edge for the box-shadow */
   margin-left: -30px;
   margin-right: -30px;
@@ -205,3 +229,6 @@
   margin-top: 10px;
 }
 
+
+/* Optional leading footer action; existing modal actions remain right-aligned. */
+.modal-footer-start { margin-inline-end: auto; }

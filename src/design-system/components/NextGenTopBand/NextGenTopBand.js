@@ -40,7 +40,7 @@ export function NextGenTopBand({
   showTerritory = true,
   notificationCount,
   userInitials = 'C',
-  userAvatarSrc,
+  userAvatarSrc = `${import.meta.env.BASE_URL}images/avatars/user_06.jpg`,
   onModuleClick,
   onSearch,
   onTerritoryChange,
@@ -107,9 +107,9 @@ export function NextGenTopBand({
   return (
     <div className="ngtb-root">
       <div className="ngtb-left">
-        <button type="button" className="ngtb-module-btn" onClick={onModuleClick}>
+        {moduleLabel && <button type="button" className="ngtb-module-btn" onClick={onModuleClick}>
           {moduleLabel}
-        </button>
+        </button>}
 
         {showTerritory && <div className="ngtb-territory-wrap">
           <Dropdown

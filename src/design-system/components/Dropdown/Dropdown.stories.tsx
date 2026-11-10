@@ -209,6 +209,40 @@ export const WithDisabledOptions: Story = {
 };
 
 /** Searchable — filter options by typing. */
+const MODULE_FIELDS = [
+  // Deals — lookups to related modules are bracketed; grouped by module.
+  { value: 'Lookup1', label: 'Lookup 1 (Contacts)', module: 'Deals' },
+  { value: 'DealAccountName', label: 'Account Name (Accounts)', module: 'Deals' },
+  { value: 'DealNotes', label: 'Notes', module: 'Deals' },
+  { value: 'PrimaryAccountName', label: 'Primary Account Name', module: 'Deals', group: 'Accounts' },
+  { value: 'SecondaryAccountName', label: 'Secondary Account Name', module: 'Deals', group: 'Accounts' },
+  { value: 'VendorName', label: 'Vendor Name', module: 'Deals', group: 'Vendors' },
+  // Other modules
+  { value: 'ContactEmail', label: 'Email', module: 'Contacts' },
+  { value: 'ContactPhone', label: 'Phone', module: 'Contacts' },
+  { value: 'AccountName', label: 'Account Name', module: 'Accounts' },
+  { value: 'AccountSite', label: 'Account Site', module: 'Accounts' },
+  { value: 'VendorContact', label: 'Vendor Contact', module: 'Vendors' },
+  { value: 'VendorPhone', label: 'Vendor Phone', module: 'Vendors' },
+];
+
+/** Module-filter variant: module trigger joined to the search box; options follow the selected module. */
+export const ModuleFilter: Story = {
+  render: () => {
+    const [val, setVal] = useState('');
+    return (
+      <Dropdown
+        label="Field"
+        options={MODULE_FIELDS}
+        value={val}
+        onChange={setVal}
+        moduleFilter={['Deals', 'Contacts', 'Accounts', 'Vendors']}
+        width={622}
+      />
+    );
+  },
+};
+
 export const Searchable: Story = {
   render: () => {
     const [val, setVal] = useState('');
@@ -385,3 +419,28 @@ export const InForm: Story = {
     );
   },
 };
+
+export const WithSubmenu = () => {
+  const [value, setValue] = useState('');
+  const options = [
+    { value: 'sum_avg_time', label: 'Sum of Average Time Spent (Minutes)', submenu: [
+      { value: 'sum_avg_time_week', label: 'By Week' },
+      { value: 'sum_avg_time_month', label: 'By Month' },
+      { value: 'sum_avg_time_year', label: 'By Year' },
+    ] },
+    { value: 'min_avg_time', label: 'Minimum of Average Time Spent (Minutes)' },
+    { value: 'max_avg_time', label: 'Maximum of Average Time Spent (Minutes)' },
+  ];
+  return (
+    <Dropdown
+      label="Show Submenu"
+      layout="vertical"
+      width={390}
+      options={options}
+      value={value}
+      onChange={setValue}
+      placeholder="Select"
+    />
+  );
+};
+

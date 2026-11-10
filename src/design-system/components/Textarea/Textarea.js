@@ -87,7 +87,8 @@ export function Textarea({
         ref={textareaRef}
         className='textarea-textarea'
         aria-describedby={helperText ? `${inputId}-helper` : undefined}
-        style={customHeight ? { minHeight: `${customHeight}px`, maxHeight: `${customHeight}px` } : undefined}
+        // Manual resizing must follow the pointer, not the focus-expansion animation.
+        style={customHeight !== null ? { minHeight: `${customHeight}px`, maxHeight: `${customHeight}px`, transition: 'none' } : undefined}
         readOnly={readOnly}
         {...textareaProps}
         onChange={handleChange}

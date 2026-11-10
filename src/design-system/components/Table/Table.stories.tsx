@@ -199,3 +199,35 @@ export const Empty: Story = {
     </div>
   ),
 };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Report Table variant
+// ─────────────────────────────────────────────────────────────────────────────
+
+const REPORT_COLUMNS = [
+  { key: 'month', label: 'Month & Year', merge: true, width: 130 },
+  { key: 'module', label: 'Parent Module', merge: true, width: 130 },
+  { key: 'owner', label: 'Owner', merge: true, width: 120 },
+  { key: 'lookup', label: 'Lookup Field', width: 120 },
+  { key: 'report1', label: 'Report 1 (Monthly Sales Pipeline)', width: 200 },
+  { key: 'report2', label: 'Report 2 (Sales Pipeline by Region)', width: 200 },
+  { key: 'report3', label: 'Report 3 (Won Deals This Quarter)', width: 200 },
+];
+
+const REPORT_ROWS = [
+  { id: 1, month: 'Jan 2026', module: 'Deal', owner: 'Selvam', lookup: 'Deal 1', report1: 'Acme Corp renewal', report2: 'Globex upsell', report3: 'Initech expansion' },
+  { id: 2, month: '', module: '', owner: '', lookup: '', report1: 'Count 2', report2: 'Count 1', report3: 'Count 1' },
+  { id: 3, month: 'Feb 2026', module: 'Deal', owner: 'Maya', lookup: 'Deal 2', report1: '-', report2: 'Umbrella renewal', report3: 'Hooli deal' },
+  { id: 4, month: '', module: '', owner: '', lookup: '', report1: 'Count 0', report2: 'Count 1', report3: 'Count 1' },
+  { id: 5, month: 'Mar 2026', module: 'Deal', owner: 'Priya', lookup: 'Deal 3', report1: 'Nova Labs demo', report2: '-', report3: 'Vertex pilot' },
+  { id: 6, month: '', module: '', owner: '', lookup: '', report1: 'Count 1', report2: 'Count 0', report3: 'Count 1' },
+];
+
+export const ReportTable: Story = {
+  name: 'Report Table',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <SetupTable variant="report" columns={REPORT_COLUMNS} rows={REPORT_ROWS} width={1100} />
+  ),
+};
+

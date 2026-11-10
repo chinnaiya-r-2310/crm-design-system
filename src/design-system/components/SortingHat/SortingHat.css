@@ -1,0 +1,101 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Sorting Hat — floating, draggable variations switcher
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.sorting-hat {
+  position: fixed;
+  z-index: 2000;
+  transition: opacity 300ms ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sorting-hat-button {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+  border-radius: 50%;
+}
+
+.sorting-hat-button[data-dragging] {
+  cursor: grabbing;
+}
+
+.sorting-hat-button:focus-visible {
+  outline: 2px solid var(--ds-brand-primary, #5464F2);
+  outline-offset: 2px;
+}
+
+.sorting-hat-button img {
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 10px rgba(49, 57, 73, 0.35));
+}
+
+/* ── Design screens menu ───────────────────────────────────────────────────────── */
+
+.sorting-hat-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 240px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-sizing: border-box;
+  background: var(--ds-bg-common-card, #ffffff);
+  border: 1px solid var(--ds-components-input-default-outline, #DCDBEE);
+  border-radius: 8px;
+  box-shadow: 0 4px 18px 0 rgba(49, 57, 73, 0.6);
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  font-size: var(--ds-font-size-base, 13px);
+  color: var(--ds-text-base, #313949);
+}
+
+.sorting-hat-menu[data-open-left] {
+  left: auto;
+  right: 0;
+}
+
+.sorting-hat-menu[data-open-up] {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+
+.sorting-hat-menu-title {
+  padding: 6px 10px 8px;
+  font-weight: var(--ds-font-weight-semibold, 600);
+  color: var(--ds-text-label, #6B7280);
+}
+
+.sorting-hat-menu-empty {
+  padding: 8px 10px;
+  color: var(--ds-text-label, #6B7280);
+}
+
+.sorting-hat-menu-item {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sorting-hat-menu-item:hover,
+.sorting-hat-menu-item:focus-visible {
+  background: var(--ds-bg-scale-bg3, #F3F5F8);
+  outline: none;
+}

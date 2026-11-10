@@ -3,6 +3,35 @@ import { useId } from 'react';
 
 type P = SVGProps<SVGSVGElement>;
 
+// CRM Icon Help document: zcicn-close-9 and zcicn-expand-sm.
+export const SourceClose: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="7 558 9 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M15,565.1c0.3,0.3,0.3,0.8,0,1.1c-0.1,0.1-0.3,0.2-0.5,0.2s-0.4-0.1-0.5-0.2l-2.7-2.7l-2.7,2.7c-0.1,0.1-0.3,0.2-0.5,0.2s-0.4-0.1-0.5-0.2c-0.3-0.3-0.3-0.8,0-1.1l2.7-2.7l-2.7-2.7c-0.3-0.3-0.3-0.8,0-1.1c0.3-0.3,0.8-0.3,1.1,0l2.7,2.7l2.7-2.7c0.3-0.3,0.8-0.3,1.1,0c0.3,0.3,0.3,0.8,0,1.1l-2.7,2.7L15,565.1z" />
+  </svg>
+);
+
+export const OpenInNewTab: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="139 338 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path fill="white" d="M140.6,342.1h7.4v7.4h-7.4V342.1z" />
+    <path d="M151.2,345.6v2.6c0,0.6-0.2,1.1-0.6,1.5c-0.4,0.4-0.9,0.6-1.5,0.6h-7.3c-0.5,0-1.1-0.2-1.5-0.6s-0.6-0.9-0.6-1.5v-7.3c0-0.5,0.2-1.1,0.6-1.5c0.4-0.4,0.9-0.6,1.5-0.6h2.6c0.4,0,0.8,0.3,0.8,0.8s-0.3,0.8-0.8,0.8h-2.6c-0.2,0-0.3,0.1-0.4,0.2c-0.1,0.1-0.2,0.3-0.2,0.4v7.3c0,0.2,0.1,0.3,0.2,0.4c0.1,0.1,0.3,0.2,0.4,0.2h7.3c0.2,0,0.3-0.1,0.4-0.2c0.1-0.1,0.2-0.3,0.2-0.4v-2.6c0-0.4,0.3-0.8,0.8-0.8S151.2,345.2,151.2,345.6z M151.1,339.2c-0.1-0.2-0.2-0.3-0.4-0.4c-0.1,0-0.2-0.1-0.3-0.1h-2.6c-0.4,0-0.8,0.3-0.8,0.8s0.3,0.8,0.8,0.8h0.8l-3.1,3.1c-0.3,0.3-0.3,0.8,0,1.1c0.1,0.1,0.3,0.2,0.5,0.2s0.4-0.1,0.5-0.2l3.1-3.1v0.8c0,0.4,0.3,0.8,0.8,0.8s0.8-0.3,0.8-0.8v-2.6C151.2,339.4,151.1,339.3,151.1,339.2z" />
+  </svg>
+);
+
+// CRM Icon Help document: zcicn-mobile and zcicn-emails.
+export const Mobile: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="311 114 10 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path fill="white" d="M314.1,116.8h6v8h-6V116.8z" />
+    <path d="M319,114h-5.7c-0.9,0-1.9,0.7-1.9,1.6v10.3c0,0.9,1,1.6,1.9,1.6h5.7c1,0,1.9-0.8,1.9-1.6v-10.3 C320.9,114.8,320,114,319,114z M312.9,124.5v-8.8c0-0.1,0.2-0.2,0.4-0.2h5.7c0.2,0,0.4,0.1,0.4,0.1v8.9H312.9z" />
+    <path fill="white" d="M317.1,125.8c0,0.6-0.4,1-1,1s-1-0.4-1-1s0.4-1,1-1S317.1,125.2,317.1,125.8z" />
+  </svg>
+);
+
+export const Email: FC<P> = (props) => (
+  <svg width="16" height="16" viewBox="66 7 19 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M68.4,8.8c-0.1,0.1-0.2,0.3-0.2,0.4v0.5l7.6,4.6l7.6-4.7V9.3c0-0.4-0.3-0.6-0.5-0.6H68.7 C68.6,8.7,68.5,8.7,68.4,8.8z M83.3,11.5L76.2,16c-0.2,0.1-0.5,0.2-0.8,0l-7.2-4.3v8.6c0,0.4,0.3,0.6,0.5,0.6h14.2 c0.1,0,0.2,0,0.3-0.2c0.1-0.1,0.2-0.3,0.2-0.4L83.3,11.5L83.3,11.5z M67.3,7.8c0.3-0.4,0.8-0.6,1.4-0.6h14.2c1.2,0,2,1.1,2,2.1v10.9 c0,0.6-0.2,1.1-0.6,1.5c-0.3,0.4-0.8,0.6-1.4,0.6H68.7c-1.2,0-2-1.1-2-2.1V9.3C66.7,8.7,66.9,8.2,67.3,7.8z" />
+  </svg>
+);
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Icon components — from crm-icon-library (node 91-19)
 // ─────────────────────────────────────────────────────────────────────────────
@@ -170,6 +199,13 @@ export const Edit: FC<P> = (props) => (
       <path d="M0.733055 7.95984L0.0178966 11.0529C-0.00677392 11.166 -0.00592819 11.2831 0.020372 11.3958C0.0466721 11.5085 0.0977623 11.6139 0.16991 11.7043C0.242058 11.7947 0.333442 11.8678 0.437385 11.9182C0.541327 11.9687 0.655204 11.9952 0.770695 11.9959C0.824509 12.0014 0.878733 12.0014 0.932546 11.9959L4.03784 11.2792L9.5 5.82694L6.17263 2.5L0.733055 7.95984Z" fill="currentColor"/>
       <path d="M11.7591 2.55754L9.43853 0.237004C9.28596 0.0852117 9.07951 0 8.86429 0C8.64908 0 8.44262 0.0852117 8.29006 0.237004L7 1.52706L10.4729 5L11.763 3.70994C11.8385 3.63406 11.8983 3.54404 11.9389 3.44503C11.9796 3.34602 12.0004 3.23996 12 3.13292C11.9996 3.02589 11.9782 2.91997 11.9368 2.82124C11.8955 2.72251 11.8351 2.6329 11.7591 2.55754Z" fill="currentColor"/>
     </g>
+  </svg>
+);
+
+// Figma: Pascal Stone "icon/ standard/ delete" (node 79998:20825). Uses currentColor.
+export const Delete: FC<P> = (props) => (
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path fillRule="evenodd" clipRule="evenodd" d="M1.75 10.5C1.75 11.325 2.425 12 3.25 12H8.75C9.575 12 10.25 11.325 10.25 10.5V3H1.75V10.5ZM11 0.75H8.75L8 0H4L3.25 0.75H1V2.25H11V0.75ZM4 8.77246V5.5C4 5.22386 4.22386 5 4.5 5C4.77614 5 5 5.22386 5 5.5V8.77246C5 9.0486 4.77614 9.27246 4.5 9.27246C4.2582 9.27246 4.05619 9.10114 4.00977 8.87305L4 8.77246ZM7 5.5V8.77246L7.00977 8.87305C7.05619 9.10114 7.2582 9.27246 7.5 9.27246C7.77614 9.27246 8 9.0486 8 8.77246V5.5C8 5.22386 7.77614 5 7.5 5C7.22386 5 7 5.22386 7 5.5Z" fill="currentColor"/>
   </svg>
 );
 
@@ -784,5 +820,26 @@ export const RtAlignRight: FC<P> = (props) => (
 export const RtAlignJustify: FC<P> = (props) => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path d="M2 4h12M2 7h12M2 10h12M2 13h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+// ─────────────────────────────────────────────────────────────────────────────
+// Setup menu icons — exported from Figma Pascal Stone "Setup Left Menu" (79954:198542)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const SetupBack: FC<P> = (props) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
+  <path d="M11.375 8.25L7.625 12L11.375 15.75M7.9375 12H16.6875" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" stroke="currentColor" />
+  </svg>
+);
+
+export const SetupCustomise: FC<P> = (props) => (
+  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
+  <path d="M18.75 8L18.75 10.25M18.75 10.25C17.5074 10.25 16.5 11.2574 16.5 12.5C16.5 13.7426 17.5074 14.75 18.75 14.75C19.9926 14.75 21 13.7426 21 12.5C21 11.2574 19.9926 10.25 18.75 10.25ZM11.25 8L11.25 12.5M11.25 19.25L11.25 21.5M11.25 19.25C10.0074 19.25 9 18.2426 9 17C9 15.7574 10.0074 14.75 11.25 14.75C12.4926 14.75 13.5 15.7574 13.5 17C13.5 18.2426 12.4926 19.25 11.25 19.25ZM18.75 17L18.75 21.5" strokeWidth="1.5" strokeLinecap="round" stroke="currentColor" />
+  </svg>
+);
+
+export const SetupChevron: FC<P> = (props) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" {...props}>
+    <path d="M8 10L12 14L16 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );

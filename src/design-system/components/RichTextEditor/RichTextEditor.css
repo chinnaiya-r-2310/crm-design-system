@@ -336,3 +336,12 @@
 .rte-dd-item--active:hover {
   background: rgba(84, 100, 242, 0.08);
 }
+
+/* Template editors can keep their toolbar visible above the document. */
+.rte-field[data-toolbar-position="top"] { display: flex; flex-direction: column; }
+.rte-field[data-toolbar-position="top"] > .rte-toolbar {
+  order: -1;
+  border-top: 0;
+  border-bottom: thin solid var(--ds-components-input-default-outline);
+  background: var(--ds-bg-common-card);
+}

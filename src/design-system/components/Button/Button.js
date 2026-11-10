@@ -56,6 +56,7 @@ export function Button({
   onClick,
   id,
   style,
+  className: customClassName,
   ...rest
 }) {
   const isLink = LINK_VARIANTS.has(variant);
@@ -75,7 +76,7 @@ export function Button({
   if (showSeparator) {
     return (
       <div
-        className={'button-split-btn'}
+        className={['button-split-btn', customClassName].filter(Boolean).join(' ')}
         data-variant={variant}
         data-size={size}
         data-open={isOpen || undefined}
@@ -125,7 +126,7 @@ export function Button({
   }
 
   // ── Single button (plain, More Button, ghost, link) ───────────────────────
-  const className = ['button-btn', isLink ? 'button-link-btn' : ''].filter(Boolean).join(' ');
+  const className = ['button-btn', isLink ? 'button-link-btn' : '', customClassName].filter(Boolean).join(' ');
 
   return (
     <button

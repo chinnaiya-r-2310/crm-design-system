@@ -337,3 +337,55 @@
   font-size: var(--ds-font-size-base, 13px);
   color: var(--ds-text-muted, #8C9BAB);
 }
+
+/* ── Report variant ───────────────────────────────────────────────────────── */
+
+.table-report-root {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.table-report {
+  width: 100%;
+  border: 1px solid var(--ds-border-lighter);
+  border-radius: 8px;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+}
+
+.table-report th,
+.table-report td {
+  padding: 10px 12px;
+  border-right: 1px solid var(--ds-border-lighter);
+  border-bottom: 1px solid var(--ds-border-lighter);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table-report th:last-child,
+.table-report td:last-child {
+  border-right: 0;
+}
+
+.table-report thead th {
+  background: var(--ds-components-table-header-bg);
+  font-weight: var(--ds-font-weight-medium);
+  color: var(--ds-text-heading);
+}
+
+.table-report tbody tr:last-child > td {
+  border-bottom: 0;
+}
+
+.table-report tbody tr:nth-last-child(2) > td[rowspan] {
+  border-bottom: 0;
+}
+
+.table-report-empty {
+  text-align: center;
+  color: var(--ds-text-label);
+}

@@ -11,7 +11,7 @@
   display: flex;
   align-items: stretch;
   height: 34px;
-  background: var(--ds-bg-common-bg, #EEF1F9);
+  background: var(--ds-bg-common-card, #fff);
   border-top: 1px solid #E5E8F0;
   padding: 0 10px;
   box-sizing: border-box;
@@ -138,7 +138,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
+  width: 36px;
   height: 100%;
   border: none;
   border-left: 1px solid #D6D6E3;

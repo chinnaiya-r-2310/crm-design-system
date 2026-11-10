@@ -1,0 +1,6784 @@
+{
+  "accessibility": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "angry": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 3
+  },
+  "announcement-horn-sound": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "announcement": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "anomaly-finder": {
+    "kind": "proper",
+    "shapes": 8,
+    "ds_count": 7
+  },
+  "api-v2": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "api": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "apps-dots": {
+    "kind": "proper",
+    "shapes": 9,
+    "ds_count": 9
+  },
+  "argument": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "assign-owner": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "backgrounds-patterns": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 2
+  },
+  "bracket-open": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "broken-video-disable-cross": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "bulb-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "bulb": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "buttons-v2": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "buttons": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "call-v2": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "call": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "canvas-custom-list-v2": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 4
+  },
+  "canvas-custom-list": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 4
+  },
+  "canvas-table": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "canvas-tile": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "canvas-view": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 1
+  },
+  "card-view": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "caution-equal": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "clear-text": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "clone-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "clone": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "cloud": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "code-html": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "code-language-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "code-language": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "color-bulb-v2": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "color-bulb": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 7
+  },
+  "color-call-duration": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 3
+  },
+  "color-call": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "color-color-picker": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 2
+  },
+  "color-components": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 6
+  },
+  "color-contrast-bright": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "color-contrast": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "color-desktop-sharing": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "color-detail-view": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 4
+  },
+  "color-fax-print-v2": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "color-fax-print": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "color-form": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "color-functions": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "color-gift": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 1
+  },
+  "color-hierarchy": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 5
+  },
+  "color-image-validation": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "color-image": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "color-input-type": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "color-list-view": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 3
+  },
+  "color-module-appoinments": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "color-module-apps": {
+    "kind": "hardcoded-rects",
+    "colors": [
+      "#AAD7FF",
+      "#FFB2B7"
+    ]
+  },
+  "color-module-calculator": {
+    "kind": "proper",
+    "shapes": 8,
+    "ds_count": 1
+  },
+  "color-module-cases": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "color-module-cpq": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 6
+  },
+  "color-module-custom-view": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 3
+  },
+  "color-module-meeting": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 2
+  },
+  "color-module-mics": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 3
+  },
+  "color-module-my-jobs": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 5
+  },
+  "color-module-notes": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 5
+  },
+  "color-module-social": {
+    "kind": "proper",
+    "shapes": 9,
+    "ds_count": 1
+  },
+  "color-picker": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 1
+  },
+  "color-review-process": {
+    "kind": "proper",
+    "shapes": 8,
+    "ds_count": 8
+  },
+  "color-review-stage": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 3
+  },
+  "color-tags-outline": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "color-transfer-swap-v2": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 7
+  },
+  "color-transfer-swap": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 7
+  },
+  "color-videofile": {
+    "kind": "proper",
+    "shapes": 9,
+    "ds_count": 9
+  },
+  "command-v2": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 4
+  },
+  "command": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 4
+  },
+  "comment-v2": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "comment": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "company": {
+    "kind": "proper",
+    "shapes": 13,
+    "ds_count": 3
+  },
+  "compose": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "consicutive-angry-layer-v2": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 4
+  },
+  "consicutive-angry-layer": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 4
+  },
+  "control": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "convert-action": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "criteria-minus-remove": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "cup-v2": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "cup": {
+    "kind": "proper",
+    "shapes": 8,
+    "ds_count": 7
+  },
+  "customized-view": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 3
+  },
+  "dailpad-keys": {
+    "kind": "proper",
+    "shapes": 10,
+    "ds_count": 0
+  },
+  "data-connection": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "demo": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "detail-view": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 3
+  },
+  "dislike-outline": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "dislike": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "double-equal": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "dropdowns": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "ecg-heartbeat-rounded": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "experience-center-v2": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 4
+  },
+  "experience-center": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 4
+  },
+  "favourite-star-v2": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "favourite-star": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "feather": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "follow-up-action-v2": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "follow-up-action": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "font": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "form-elements": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "form": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "functions": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "gap-analyzer-v2": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 3
+  },
+  "gap-analyzer": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 3
+  },
+  "gift-pack-v2": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "gift-pack": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "greaterthan-or-equal": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "greaterthan": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "guided-selling": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "heart-fill": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "heart": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "hierarchy": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 5
+  },
+  "icon-stroke-v2": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "icon-stroke": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "icon-v2": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "icon": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 1
+  },
+  "icons-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "icons": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 1
+  },
+  "image-validation": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "incoming-call-v2": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "incoming-call": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "increase-contrast": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "instant-actions": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "key": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "keyboard": {
+    "kind": "proper",
+    "shapes": 11,
+    "ds_count": 11
+  },
+  "kiosk": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 3
+  },
+  "layers": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "left-panel": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "lessthan-or-equal": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "lessthan": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "like-outline": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "like": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "linking-module": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 1
+  },
+  "list-view": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 3
+  },
+  "loader": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "logs": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "maps-area": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "mic-sound-mute-v2": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "mic-sound-mute": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "mic-sound-v2": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "mic-sound": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "mics": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "minus-v2": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "minus": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "missed-call": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "module": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "more": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "new-feature": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 3
+  },
+  "new-tab": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 3
+  },
+  "next-action-flow-v2": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "next-action-flow": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "no-response-call": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 2
+  },
+  "non-target": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "open-in-window-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "open-in-window": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "option": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "organization": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 6
+  },
+  "outgoing-call-v2": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "outgoing-call": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "pause": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "placeholder-12": {
+    "kind": "solid-rect",
+    "coverage": 1.0
+  },
+  "placeholder-16": {
+    "kind": "solid-rect",
+    "coverage": 1.0
+  },
+  "placeholder-8": {
+    "kind": "solid-rect",
+    "coverage": 1.0
+  },
+  "play-v2": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "play": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "plug": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "plus-circle": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "plus-v2": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "plus": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "podium": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "portals": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "predictor": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 5
+  },
+  "primary-color-fill": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "print-fax-machine-typing-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "print-fax-machine-typing": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "progress": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "publishers": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "recent": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "relatedlist-list-slide": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 3
+  },
+  "relatedlist-rl-related-list": {
+    "kind": "hardcoded-rects",
+    "colors": [
+      "#313949",
+      "#313949"
+    ]
+  },
+  "reply": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "requirements": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "rest-api": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "retweet-color": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "retweet": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "review-process": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 7
+  },
+  "review-stage": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "rocket-launch-quick": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "route-iq": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "rules": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sad-color": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 3
+  },
+  "sad-smiliey": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sections": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sessions": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 1
+  },
+  "set-field-value": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "shapes-color-icon": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "share": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "slash-divide-division": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "small-appoinment-v2": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 7
+  },
+  "small-appoinment": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 7
+  },
+  "small-bulb-filled": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "small-color-field": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "small-color-picker": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "small-down-dropdown": {
+    "kind": "solid-simple",
+    "cmds": "MHCLCLCZ",
+    "coverage": 0.752776671683875,
+    "n_cmds": 8
+  },
+  "small-favourite": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "small-left": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "small-minus": {
+    "kind": "solid-simple",
+    "cmds": "MCHCCHCZ",
+    "coverage": 0.8025173611111112,
+    "n_cmds": 8
+  },
+  "small-plus-v2": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "small-plus": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "small-popout": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "small-reply": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "small-right": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "small-square-minus": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "small-square-plus": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "small-sync": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "small-up-dropdown": {
+    "kind": "solid-simple",
+    "cmds": "MHCLCLCZ",
+    "coverage": 0.752776671683875,
+    "n_cmds": 8
+  },
+  "smile-color": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 3
+  },
+  "smile-smiliey-v2": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "smile-smiliey": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sparkle-notes-multicolor": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "speechless": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 3
+  },
+  "spell-check-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "spell-check": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "split-view": {
+    "kind": "hardcoded-rects",
+    "colors": [
+      "#313949",
+      "#313949"
+    ]
+  },
+  "sprite-icon-1": {
+    "kind": "solid-simple",
+    "cmds": "MHVHVZ",
+    "coverage": 710.0892857142857,
+    "n_cmds": 6
+  },
+  "sprite-icon-10": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-100": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1000": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1001": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1002": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1003": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1004": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1005": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1006": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1007": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1008": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1009": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-101": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1010": {
+    "kind": "solid-simple",
+    "cmds": "MCHVHVZ",
+    "coverage": 2698.4544,
+    "n_cmds": 7
+  },
+  "sprite-icon-1011": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1012": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1013": {
+    "kind": "solid-simple",
+    "cmds": "MCHVHCVZ",
+    "coverage": 2695.1959763313607,
+    "n_cmds": 8
+  },
+  "sprite-icon-1014": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1015": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1016": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1017": {
+    "kind": "solid-simple",
+    "cmds": "MLHZ",
+    "coverage": 427.13888888888886,
+    "n_cmds": 4
+  },
+  "sprite-icon-1018": {
+    "kind": "solid-simple",
+    "cmds": "MHVLHLVZ",
+    "coverage": 134.544578313253,
+    "n_cmds": 8
+  },
+  "sprite-icon-1019": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-102": {
+    "kind": "solid-simple",
+    "cmds": "MCSCZ",
+    "coverage": 402.22843578675264,
+    "n_cmds": 5
+  },
+  "sprite-icon-1020": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1021": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1022": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1023": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1024": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1025": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1026": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1027": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1028": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1029": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-103": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1030": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1031": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1032": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-1033": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-1034": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "sprite-icon-1035": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-1036": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-1037": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-1038": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-1039": {
+    "kind": "hardcoded-rects",
+    "colors": []
+  },
+  "sprite-icon-104": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1040": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-1041": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "sprite-icon-1042": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "sprite-icon-1043": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1044": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-1045": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1046": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1047": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-1048": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1049": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-105": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1050": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1051": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "sprite-icon-1052": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1053": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1054": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "sprite-icon-1055": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1056": {
+    "kind": "solid-simple",
+    "cmds": "MCZ",
+    "coverage": 55.11452991452991,
+    "n_cmds": 3
+  },
+  "sprite-icon-1057": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1058": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1059": {
+    "kind": "solid-simple",
+    "cmds": "MCSZML",
+    "coverage": 325.8604821037253,
+    "n_cmds": 6
+  },
+  "sprite-icon-106": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1060": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1061": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-1062": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-1063": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-1064": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-1065": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1066": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1067": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1068": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 3
+  },
+  "sprite-icon-1069": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-107": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1070": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1071": {
+    "kind": "proper",
+    "shapes": 27,
+    "ds_count": 27
+  },
+  "sprite-icon-1072": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-1073": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-1074": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1075": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-1076": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1077": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-1078": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "sprite-icon-1079": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-108": {
+    "kind": "solid-simple",
+    "cmds": "MLCHVHVZ",
+    "coverage": 629.587819947043,
+    "n_cmds": 8
+  },
+  "sprite-icon-1080": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-1081": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-1082": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-109": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-110": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-111": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-112": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-113": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-114": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-115": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-116": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-117": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-118": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-119": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-120": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-121": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-122": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-123": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-124": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-125": {
+    "kind": "solid-simple",
+    "cmds": "MLHLHLZ",
+    "coverage": 206.32117318435752,
+    "n_cmds": 7
+  },
+  "sprite-icon-126": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-127": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-128": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-129": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-130": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-131": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-132": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-133": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-134": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-135": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-136": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-137": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-138": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-139": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-140": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-141": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-142": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-143": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-144": {
+    "kind": "solid-simple",
+    "cmds": "MCSCHZ",
+    "coverage": 705.7271818157247,
+    "n_cmds": 6
+  },
+  "sprite-icon-145": {
+    "kind": "solid-simple",
+    "cmds": "MCSCZ",
+    "coverage": 1538.5486679370745,
+    "n_cmds": 5
+  },
+  "sprite-icon-146": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-147": {
+    "kind": "solid-simple",
+    "cmds": "MCSZMH",
+    "coverage": 97.91727272727273,
+    "n_cmds": 6
+  },
+  "sprite-icon-148": {
+    "kind": "solid-simple",
+    "cmds": "MCSZMHMV",
+    "coverage": 153.64727272727276,
+    "n_cmds": 8
+  },
+  "sprite-icon-149": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-150": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-151": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-152": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-153": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-154": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-155": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-157": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-158": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-159": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-160": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-161": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-162": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-163": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-164": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-165": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-166": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-167": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-168": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-169": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-17": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-170": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-171": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-172": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-173": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-174": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-175": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-176": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-177": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-178": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-179": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-180": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-181": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-182": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-183": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-184": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-185": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-186": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-187": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-188": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-189": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-190": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-191": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-192": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-193": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-194": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-195": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-196": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-197": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-198": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-199": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-2": {
+    "kind": "solid-simple",
+    "cmds": "MCSCSCZ",
+    "coverage": 310.02605363984674,
+    "n_cmds": 7
+  },
+  "sprite-icon-200": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-201": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-202": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-205": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-206": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-207": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-208": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-209": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-210": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-211": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-212": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-213": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-214": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-215": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-216": {
+    "kind": "solid-simple",
+    "cmds": "MCSHZ",
+    "coverage": 2812.670380905893,
+    "n_cmds": 5
+  },
+  "sprite-icon-217": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-218": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-219": {
+    "kind": "solid-simple",
+    "cmds": "MVHVCHCZ",
+    "coverage": 1113.5999999999997,
+    "n_cmds": 8
+  },
+  "sprite-icon-220": {
+    "kind": "solid-simple",
+    "cmds": "MVHVCHCZ",
+    "coverage": 1894.8794326241139,
+    "n_cmds": 8
+  },
+  "sprite-icon-221": {
+    "kind": "solid-simple",
+    "cmds": "MVHVCHCZ",
+    "coverage": 1449.659574468085,
+    "n_cmds": 8
+  },
+  "sprite-icon-222": {
+    "kind": "solid-simple",
+    "cmds": "MLCLZ",
+    "coverage": 855.1102518459002,
+    "n_cmds": 5
+  },
+  "sprite-icon-223": {
+    "kind": "solid-simple",
+    "cmds": "MLCLZ",
+    "coverage": 1536.0180538555694,
+    "n_cmds": 5
+  },
+  "sprite-icon-224": {
+    "kind": "solid-simple",
+    "cmds": "MCSLHZ",
+    "coverage": 944.5084072431631,
+    "n_cmds": 6
+  },
+  "sprite-icon-225": {
+    "kind": "solid-simple",
+    "cmds": "MLCLCSZ",
+    "coverage": 974.3317597235666,
+    "n_cmds": 7
+  },
+  "sprite-icon-226": {
+    "kind": "solid-simple",
+    "cmds": "MLCLCZ",
+    "coverage": 1701.1814272061165,
+    "n_cmds": 6
+  },
+  "sprite-icon-227": {
+    "kind": "solid-simple",
+    "cmds": "MCSLCLHZ",
+    "coverage": 1017.7601626016259,
+    "n_cmds": 8
+  },
+  "sprite-icon-228": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-229": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-23": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-230": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-231": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-232": {
+    "kind": "solid-simple",
+    "cmds": "MCSZMCSZ",
+    "coverage": 417.5163698241634,
+    "n_cmds": 8
+  },
+  "sprite-icon-233": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-234": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-235": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-236": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-237": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-238": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-239": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-240": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-241": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-242": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-243": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-244": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-245": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-247": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-248": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-249": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-25": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-250": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-251": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-252": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-253": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-254": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-255": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-256": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-257": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-258": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-259": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-26": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 840.25,
+    "n_cmds": 4
+  },
+  "sprite-icon-260": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-261": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-262": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-263": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-264": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-265": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-266": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-267": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-268": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-269": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-270": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-271": {
+    "kind": "solid-simple",
+    "cmds": "MVHVHZ",
+    "coverage": 3139.9409523809527,
+    "n_cmds": 6
+  },
+  "sprite-icon-272": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-273": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-274": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-275": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-276": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-277": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-278": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-279": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-280": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-281": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-282": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-283": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-284": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-285": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-286": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-287": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-288": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-289": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-290": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-291": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-292": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-293": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-294": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-295": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-296": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-297": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-298": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-299": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-3": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-300": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-301": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-302": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-303": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-304": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-305": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-306": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-307": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-308": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-309": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-31": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-310": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-311": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-312": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-313": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-314": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-315": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-316": {
+    "kind": "solid-simple",
+    "cmds": "MLHZ",
+    "coverage": 777.850730197187,
+    "n_cmds": 4
+  },
+  "sprite-icon-317": {
+    "kind": "solid-simple",
+    "cmds": "MLCLCVCZ",
+    "coverage": 508.7853136487286,
+    "n_cmds": 8
+  },
+  "sprite-icon-318": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-319": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-32": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-320": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-321": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-322": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-323": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-324": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-325": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-326": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 3361.7556586690803,
+    "n_cmds": 4
+  },
+  "sprite-icon-327": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-328": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-329": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-33": {
+    "kind": "solid-simple",
+    "cmds": "MCHVLVZ",
+    "coverage": 15.127346938775508,
+    "n_cmds": 7
+  },
+  "sprite-icon-330": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-331": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-332": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-333": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-334": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-335": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-336": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-337": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 55.85555090071219,
+    "n_cmds": 4
+  },
+  "sprite-icon-338": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 129.76404115365153,
+    "n_cmds": 4
+  },
+  "sprite-icon-339": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-34": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-340": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-341": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-342": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-343": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-344": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-345": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-346": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-347": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-348": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-349": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 254.57579881656804,
+    "n_cmds": 4
+  },
+  "sprite-icon-35": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-350": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-351": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 277.7026627218935,
+    "n_cmds": 4
+  },
+  "sprite-icon-352": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-353": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 297.7852071005917,
+    "n_cmds": 4
+  },
+  "sprite-icon-354": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-355": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 350.5118343195266,
+    "n_cmds": 4
+  },
+  "sprite-icon-356": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-357": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 880.1197633136094,
+    "n_cmds": 4
+  },
+  "sprite-icon-358": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-359": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-36": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-360": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-361": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-362": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-363": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-364": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-365": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-366": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-367": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-368": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-369": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-37": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-370": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 14146.0332,
+    "n_cmds": 4
+  },
+  "sprite-icon-371": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-372": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-373": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-374": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-375": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-376": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-377": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-378": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-379": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-38": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-380": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-381": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-382": {
+    "kind": "solid-simple",
+    "cmds": "MCSLVHZ",
+    "coverage": 1517.833505030976,
+    "n_cmds": 7
+  },
+  "sprite-icon-383": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 585.99016,
+    "n_cmds": 4
+  },
+  "sprite-icon-384": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-385": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 6.591065088757397,
+    "n_cmds": 4
+  },
+  "sprite-icon-386": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-387": {
+    "kind": "solid-simple",
+    "cmds": "MCVHVSZ",
+    "coverage": 23.91892976588629,
+    "n_cmds": 7
+  },
+  "sprite-icon-388": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-389": {
+    "kind": "solid-simple",
+    "cmds": "MVHVCZ",
+    "coverage": 81.20125687352711,
+    "n_cmds": 6
+  },
+  "sprite-icon-39": {
+    "kind": "hardcoded-rects",
+    "colors": []
+  },
+  "sprite-icon-390": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-391": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-392": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-393": {
+    "kind": "solid-simple",
+    "cmds": "MLZ",
+    "coverage": 1667.1841333333332,
+    "n_cmds": 3
+  },
+  "sprite-icon-394": {
+    "kind": "solid-simple",
+    "cmds": "MCSCHCZ",
+    "coverage": 46.79382239382239,
+    "n_cmds": 7
+  },
+  "sprite-icon-395": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-396": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-397": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-398": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-399": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-4": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-40": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-400": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-401": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-402": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 280.6925443786983,
+    "n_cmds": 4
+  },
+  "sprite-icon-403": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-404": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 226.21029585798817,
+    "n_cmds": 4
+  },
+  "sprite-icon-405": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-406": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-407": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-408": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-409": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-41": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 2
+  },
+  "sprite-icon-410": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-411": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-412": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-413": {
+    "kind": "solid-simple",
+    "cmds": "MLHLVHVZ",
+    "coverage": 165.24878787878788,
+    "n_cmds": 8
+  },
+  "sprite-icon-414": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-415": {
+    "kind": "solid-simple",
+    "cmds": "MCHVHVZ",
+    "coverage": 159.22090909090906,
+    "n_cmds": 7
+  },
+  "sprite-icon-416": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-417": {
+    "kind": "solid-simple",
+    "cmds": "MLHLVHVZ",
+    "coverage": 171.37134545454546,
+    "n_cmds": 8
+  },
+  "sprite-icon-418": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-419": {
+    "kind": "solid-simple",
+    "cmds": "MLHLHCHZ",
+    "coverage": 598.5411558486276,
+    "n_cmds": 8
+  },
+  "sprite-icon-42": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-420": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-421": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-422": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-423": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-424": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-425": {
+    "kind": "solid-simple",
+    "cmds": "MLVHLZ",
+    "coverage": 88.08941538461538,
+    "n_cmds": 6
+  },
+  "sprite-icon-426": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-427": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-428": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-429": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-43": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-430": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-431": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-432": {
+    "kind": "solid-simple",
+    "cmds": "MCLSZ",
+    "coverage": 648.3738777334873,
+    "n_cmds": 5
+  },
+  "sprite-icon-433": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-434": {
+    "kind": "solid-simple",
+    "cmds": "MVHCVCZ",
+    "coverage": 212.19368421052636,
+    "n_cmds": 7
+  },
+  "sprite-icon-435": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-436": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-437": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 3990.094521604938,
+    "n_cmds": 4
+  },
+  "sprite-icon-438": {
+    "kind": "solid-simple",
+    "cmds": "MCSCHZ",
+    "coverage": 8681.654418634687,
+    "n_cmds": 6
+  },
+  "sprite-icon-439": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-44": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-440": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-441": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-442": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-443": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-444": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-445": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-446": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-447": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-448": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-449": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-45": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-450": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-452": {
+    "kind": "solid-simple",
+    "cmds": "MLCLHCHZ",
+    "coverage": 4445.1572085889575,
+    "n_cmds": 8
+  },
+  "sprite-icon-453": {
+    "kind": "solid-simple",
+    "cmds": "MLCLCHVZ",
+    "coverage": 8562.21119817998,
+    "n_cmds": 8
+  },
+  "sprite-icon-454": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 0
+  },
+  "sprite-icon-455": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-456": {
+    "kind": "solid-simple",
+    "cmds": "MCHVHVZ",
+    "coverage": 2278.0523076923077,
+    "n_cmds": 7
+  },
+  "sprite-icon-457": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-458": {
+    "kind": "solid-simple",
+    "cmds": "MCHVLHVZ",
+    "coverage": 2240.6036363636363,
+    "n_cmds": 8
+  },
+  "sprite-icon-459": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-46": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-460": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-461": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-462": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-463": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-464": {
+    "kind": "solid-simple",
+    "cmds": "MLZ",
+    "coverage": 12118.151404958679,
+    "n_cmds": 3
+  },
+  "sprite-icon-465": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-466": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-467": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-468": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-469": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-47": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-470": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-471": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-472": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-473": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-474": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-475": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-477": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-478": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-479": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-48": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-480": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-482": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-483": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-484": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-485": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-486": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-487": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-488": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-489": {
+    "kind": "solid-simple",
+    "cmds": "MVCVCZ",
+    "coverage": 1389.296780986763,
+    "n_cmds": 6
+  },
+  "sprite-icon-49": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-490": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-491": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-492": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-493": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-494": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-495": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-496": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-497": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-498": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-499": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-5": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-50": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-500": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-501": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-502": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-503": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-504": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-505": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-506": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-507": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-508": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-509": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-51": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-510": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-511": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-512": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-513": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-514": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-515": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-516": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-517": {
+    "kind": "solid-simple",
+    "cmds": "MHVHVZ",
+    "coverage": 3493.3891578947373,
+    "n_cmds": 6
+  },
+  "sprite-icon-518": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-519": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-52": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-520": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-521": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-522": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-523": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-524": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-525": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-526": {
+    "kind": "solid-simple",
+    "cmds": "MHVHVZ",
+    "coverage": 612.2866666666666,
+    "n_cmds": 6
+  },
+  "sprite-icon-527": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-528": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-529": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-53": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-530": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-531": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-532": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-533": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-534": {
+    "kind": "solid-simple",
+    "cmds": "MLSLCLCZ",
+    "coverage": 493.29155051427483,
+    "n_cmds": 8
+  },
+  "sprite-icon-535": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-536": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-537": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-538": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-539": {
+    "kind": "solid-simple",
+    "cmds": "MCSCZ",
+    "coverage": 1324.3663757962709,
+    "n_cmds": 5
+  },
+  "sprite-icon-54": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-540": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-541": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-542": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-543": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-544": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-545": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-546": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-547": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-548": {
+    "kind": "solid-simple",
+    "cmds": "MCLCSLCZ",
+    "coverage": 5274.013578164462,
+    "n_cmds": 8
+  },
+  "sprite-icon-549": {
+    "kind": "solid-simple",
+    "cmds": "MLHLHZ",
+    "coverage": 2630.0743181818184,
+    "n_cmds": 6
+  },
+  "sprite-icon-55": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-550": {
+    "kind": "solid-simple",
+    "cmds": "MLHLCHZ",
+    "coverage": 8190.706250000002,
+    "n_cmds": 7
+  },
+  "sprite-icon-551": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-552": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-553": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 0
+  },
+  "sprite-icon-554": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-555": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-556": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-557": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-558": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-559": {
+    "kind": "solid-circle",
+    "coverage": 0.6692150031315536,
+    "r": 6.0
+  },
+  "sprite-icon-56": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-560": {
+    "kind": "solid-simple",
+    "cmds": "MCSZMCSZ",
+    "coverage": 1541.6239657424878,
+    "n_cmds": 8
+  },
+  "sprite-icon-561": {
+    "kind": "solid-simple",
+    "cmds": "MCSVHZ",
+    "coverage": 6602.712812499999,
+    "n_cmds": 6
+  },
+  "sprite-icon-562": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-563": {
+    "kind": "solid-simple",
+    "cmds": "MCSZMCSZ",
+    "coverage": 1631.502975758455,
+    "n_cmds": 8
+  },
+  "sprite-icon-564": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-565": {
+    "kind": "solid-simple",
+    "cmds": "MCHVHVHZ",
+    "coverage": 1242.4676363246028,
+    "n_cmds": 8
+  },
+  "sprite-icon-566": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-567": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-568": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "sprite-icon-569": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-57": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-570": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-571": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "sprite-icon-572": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "sprite-icon-573": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-574": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 1170.5500000000002,
+    "n_cmds": 4
+  },
+  "sprite-icon-575": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-576": {
+    "kind": "solid-simple",
+    "cmds": "MVHVLHCZ",
+    "coverage": 310.0331078904992,
+    "n_cmds": 8
+  },
+  "sprite-icon-577": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 7
+  },
+  "sprite-icon-578": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-579": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-58": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-580": {
+    "kind": "solid-simple",
+    "cmds": "MCHVHVHZ",
+    "coverage": 413.62069930069924,
+    "n_cmds": 8
+  },
+  "sprite-icon-581": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-582": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-583": {
+    "kind": "solid-simple",
+    "cmds": "MVHVLHCZ",
+    "coverage": 410.69082125603865,
+    "n_cmds": 8
+  },
+  "sprite-icon-584": {
+    "kind": "solid-simple",
+    "cmds": "MVCLZ",
+    "coverage": 1812.3495163199177,
+    "n_cmds": 5
+  },
+  "sprite-icon-585": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-586": {
+    "kind": "solid-simple",
+    "cmds": "MVHVLHCZ",
+    "coverage": 442.64154589371975,
+    "n_cmds": 8
+  },
+  "sprite-icon-587": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-588": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-589": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-59": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-590": {
+    "kind": "solid-simple",
+    "cmds": "MCSZMCSZ",
+    "coverage": 540.3956250000001,
+    "n_cmds": 8
+  },
+  "sprite-icon-591": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-592": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-593": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-594": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-595": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-596": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-597": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-598": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-599": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-6": {
+    "kind": "solid-simple",
+    "cmds": "MHVHVZ",
+    "coverage": 122.57077240344958,
+    "n_cmds": 6
+  },
+  "sprite-icon-60": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-600": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-601": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-602": {
+    "kind": "solid-simple",
+    "cmds": "MCSCLCLZ",
+    "coverage": 1378.7261410230556,
+    "n_cmds": 8
+  },
+  "sprite-icon-603": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-604": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-605": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-606": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-607": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-608": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-609": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-61": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-610": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-611": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-612": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-613": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-614": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-615": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-616": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-617": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-618": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-619": {
+    "kind": "solid-circle",
+    "coverage": 0.7168386138980696,
+    "r": 10.7
+  },
+  "sprite-icon-62": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-620": {
+    "kind": "solid-simple",
+    "cmds": "MCSZMCSZ",
+    "coverage": 102.45491200000001,
+    "n_cmds": 8
+  },
+  "sprite-icon-621": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-622": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-623": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-624": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-625": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-626": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-627": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-628": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-629": {
+    "kind": "solid-simple",
+    "cmds": "MCHVHVHZ",
+    "coverage": 358.08875848156976,
+    "n_cmds": 8
+  },
+  "sprite-icon-63": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 0
+  },
+  "sprite-icon-630": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-631": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-632": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-633": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-634": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-635": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-636": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-637": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-638": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-639": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-64": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-640": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-641": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-642": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-643": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-644": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-645": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-646": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-647": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-648": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-649": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-65": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-650": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "sprite-icon-651": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-652": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-653": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-654": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-655": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-656": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-657": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-658": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-659": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-66": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-660": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-661": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-662": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-663": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-664": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-665": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-666": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-667": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-668": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-669": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-67": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-670": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-671": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-672": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-673": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-674": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-675": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-676": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-677": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-678": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-679": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-68": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-680": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-681": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-682": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-683": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-684": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-685": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-686": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-687": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-688": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-689": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-69": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-690": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-691": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-692": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-693": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-694": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-695": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-696": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-697": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-698": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-699": {
+    "kind": "solid-circle",
+    "coverage": 0.6741447470857423,
+    "r": 6.3
+  },
+  "sprite-icon-7": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-70": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-700": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-701": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-702": {
+    "kind": "solid-simple",
+    "cmds": "MCLCZ",
+    "coverage": 1197.9557307459065,
+    "n_cmds": 5
+  },
+  "sprite-icon-703": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-704": {
+    "kind": "solid-circle",
+    "coverage": 0.6514096374351923,
+    "r": 5.1
+  },
+  "sprite-icon-705": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-706": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-707": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-708": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 1027.5548520710058,
+    "n_cmds": 4
+  },
+  "sprite-icon-709": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-71": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-710": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-711": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-712": {
+    "kind": "solid-simple",
+    "cmds": "MCHZ",
+    "coverage": 296.5126673421741,
+    "n_cmds": 4
+  },
+  "sprite-icon-713": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-714": {
+    "kind": "solid-simple",
+    "cmds": "MCHVHVZ",
+    "coverage": 338.6439297231928,
+    "n_cmds": 7
+  },
+  "sprite-icon-715": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-716": {
+    "kind": "solid-circle",
+    "coverage": 0.7130515009627421,
+    "r": 10.1
+  },
+  "sprite-icon-717": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-718": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-719": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-72": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-720": {
+    "kind": "solid-simple",
+    "cmds": "MCSZ",
+    "coverage": 485.99740484429066,
+    "n_cmds": 4
+  },
+  "sprite-icon-721": {
+    "kind": "solid-simple",
+    "cmds": "MCHCSHCZ",
+    "coverage": 219.85930867192243,
+    "n_cmds": 8
+  },
+  "sprite-icon-722": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-723": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-724": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-725": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-726": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-727": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-728": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-729": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-73": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-730": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-731": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-732": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-733": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-734": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-735": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-736": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-737": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-738": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-739": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-74": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-740": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-741": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-742": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-743": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-744": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-745": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-746": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-747": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-748": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-749": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-75": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-750": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-751": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-752": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-753": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-754": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-755": {
+    "kind": "proper",
+    "shapes": 8,
+    "ds_count": 8
+  },
+  "sprite-icon-756": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "sprite-icon-757": {
+    "kind": "hardcoded-rects",
+    "colors": []
+  },
+  "sprite-icon-758": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-759": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "sprite-icon-76": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-760": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-761": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 1
+  },
+  "sprite-icon-762": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "sprite-icon-763": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "sprite-icon-764": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "sprite-icon-765": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-766": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-767": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "sprite-icon-768": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-769": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-77": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-770": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-771": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-772": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-773": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-774": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-775": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "sprite-icon-776": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-777": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-778": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-779": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "sprite-icon-78": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-780": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-781": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-782": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-783": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-784": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-785": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-786": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-787": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-788": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-789": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-79": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-790": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-791": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "sprite-icon-792": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-793": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-794": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-795": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-796": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-797": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 3
+  },
+  "sprite-icon-798": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-799": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-8": {
+    "kind": "solid-simple",
+    "cmds": "MVLVHCZ",
+    "coverage": 421.12436974789915,
+    "n_cmds": 7
+  },
+  "sprite-icon-80": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-800": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-801": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 4
+  },
+  "sprite-icon-802": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-803": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 7
+  },
+  "sprite-icon-804": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "sprite-icon-805": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-806": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-807": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-808": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-809": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-81": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-810": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-811": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-812": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-813": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-814": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-815": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-816": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-817": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-819": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-82": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-820": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-821": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-822": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-823": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-824": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-825": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-826": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-827": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-828": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-829": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-83": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-830": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-831": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-832": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-833": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-834": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-835": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-836": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-837": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-838": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-839": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-84": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-840": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-841": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-842": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-843": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-844": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-845": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-846": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-847": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-848": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-849": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "sprite-icon-85": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-850": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-851": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-852": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-853": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-854": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-855": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-856": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-857": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-858": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-859": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-86": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-860": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-861": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-862": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-863": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-864": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-865": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sprite-icon-866": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-867": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-868": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-869": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-87": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-870": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-871": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-872": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "sprite-icon-873": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-874": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-875": {
+    "kind": "solid-simple",
+    "cmds": "MHLVHLVZ",
+    "coverage": 1599.7210630353618,
+    "n_cmds": 8
+  },
+  "sprite-icon-876": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-877": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-878": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-879": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-88": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-880": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-881": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-882": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-883": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-884": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-885": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-886": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-887": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-888": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "sprite-icon-889": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "sprite-icon-89": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-890": {
+    "kind": "solid-simple",
+    "cmds": "MVCLHVHZ",
+    "coverage": 5119.9692877150865,
+    "n_cmds": 8
+  },
+  "sprite-icon-891": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "sprite-icon-892": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-893": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-894": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-895": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-896": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-897": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-898": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-899": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-9": {
+    "kind": "solid-simple",
+    "cmds": "MLVLVLZ",
+    "coverage": 194.0349037037037,
+    "n_cmds": 7
+  },
+  "sprite-icon-90": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-900": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-901": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-902": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-903": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-904": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-905": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-906": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-907": {
+    "kind": "solid-simple",
+    "cmds": "MCSZMCSZ",
+    "coverage": 269.7612244897959,
+    "n_cmds": 8
+  },
+  "sprite-icon-908": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-909": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-91": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-910": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-911": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-912": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-913": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-914": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-915": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-916": {
+    "kind": "solid-simple",
+    "cmds": "MCSCHZ",
+    "coverage": 3269.728432948877,
+    "n_cmds": 6
+  },
+  "sprite-icon-917": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-918": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-919": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-92": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-920": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-921": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-922": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-923": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-924": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-925": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-926": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-927": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-928": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-929": {
+    "kind": "solid-simple",
+    "cmds": "MLHZ",
+    "coverage": 3761.488354549741,
+    "n_cmds": 4
+  },
+  "sprite-icon-93": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-930": {
+    "kind": "solid-simple",
+    "cmds": "MCHVCHVZ",
+    "coverage": 1345.1379166666666,
+    "n_cmds": 8
+  },
+  "sprite-icon-931": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-932": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-933": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-934": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-935": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-936": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-937": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-938": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-939": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-94": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-940": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-941": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-942": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-943": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-944": {
+    "kind": "solid-simple",
+    "cmds": "MCHZ",
+    "coverage": 494.06296080061406,
+    "n_cmds": 4
+  },
+  "sprite-icon-945": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-946": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-947": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-948": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-949": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-95": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-950": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-951": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-952": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-953": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-954": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-955": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-956": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-957": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-958": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-959": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-96": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-960": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-961": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-962": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-963": {
+    "kind": "solid-simple",
+    "cmds": "MLVLHZ",
+    "coverage": 4066.3546798029556,
+    "n_cmds": 6
+  },
+  "sprite-icon-964": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-965": {
+    "kind": "solid-simple",
+    "cmds": "MVHVHCZ",
+    "coverage": 4031.2491560726853,
+    "n_cmds": 7
+  },
+  "sprite-icon-966": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-967": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "sprite-icon-968": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-969": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-97": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sprite-icon-970": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-971": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-972": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-973": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-974": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-975": {
+    "kind": "solid-simple",
+    "cmds": "MLHLHZ",
+    "coverage": 1185.3673965936741,
+    "n_cmds": 6
+  },
+  "sprite-icon-976": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-977": {
+    "kind": "solid-simple",
+    "cmds": "MLHZ",
+    "coverage": 977.5964523281596,
+    "n_cmds": 4
+  },
+  "sprite-icon-978": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-979": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-98": {
+    "kind": "solid-simple",
+    "cmds": "MLHLCHCZ",
+    "coverage": 462.72755039706766,
+    "n_cmds": 8
+  },
+  "sprite-icon-980": {
+    "kind": "solid-simple",
+    "cmds": "MLZ",
+    "coverage": 7087.294400000001,
+    "n_cmds": 3
+  },
+  "sprite-icon-981": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-982": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-983": {
+    "kind": "solid-simple",
+    "cmds": "MCHVHVZ",
+    "coverage": 1518.1578330206378,
+    "n_cmds": 7
+  },
+  "sprite-icon-984": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-985": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-986": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-987": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-988": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-989": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-99": {
+    "kind": "solid-simple",
+    "cmds": "MHVHVZ",
+    "coverage": 31.099498926270577,
+    "n_cmds": 6
+  },
+  "sprite-icon-990": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-991": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-992": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-993": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-994": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-995": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-996": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-997": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-998": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "sprite-icon-999": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "stage-meter-stop-watch": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 6
+  },
+  "star-favourite-fav": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "star-multiply": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "stop": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "sub-tab": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 1
+  },
+  "suitcase": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "support-new-comment-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "support-new-comment": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "support-new-mention": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "support-new-rating-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "support-new-rating": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "support-new-response": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "support-new-ticket": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "support-ticket-escalated-new-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "support-ticket-escalated-new": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "support-ticket-overdue": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 2
+  },
+  "survey-responded": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "swap": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "symbol": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "sync": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "table-column-header-dropdown": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "table-column": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 4
+  },
+  "table-row-column-v2": {
+    "kind": "proper",
+    "shapes": 8,
+    "ds_count": 7
+  },
+  "table-row-column": {
+    "kind": "proper",
+    "shapes": 7,
+    "ds_count": 4
+  },
+  "table-row": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 4
+  },
+  "table": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 4
+  },
+  "tags-outline": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "target": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "text-templates": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 6
+  },
+  "theme-v2": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "theme": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "time-cycle-recycle": {
+    "kind": "proper",
+    "shapes": 4,
+    "ds_count": 4
+  },
+  "time-cycle": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "time-running-speedup": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "trigger-action": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "twitter-bird": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "twitter-social": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "twitter": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "type-input-field-color": {
+    "kind": "proper",
+    "shapes": 6,
+    "ds_count": 5
+  },
+  "type-input-field": {
+    "kind": "proper",
+    "shapes": 5,
+    "ds_count": 5
+  },
+  "unpin-v2": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "unpin": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "unused": {
+    "kind": "proper",
+    "shapes": 3,
+    "ds_count": 3
+  },
+  "up-down": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "upcoming-opportunities": {
+    "kind": "proper",
+    "shapes": 1,
+    "ds_count": 1
+  },
+  "webinar": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 2
+  },
+  "windows": {
+    "kind": "proper",
+    "shapes": 2,
+    "ds_count": 1
+  },
+  "workdrive-v2": {
+    "kind": "proper",
+    "shapes": 8,
+    "ds_count": 8
+  },
+  "workdrive": {
+    "kind": "proper",
+    "shapes": 8,
+    "ds_count": 8
+  }
+}

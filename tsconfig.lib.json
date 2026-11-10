@@ -24,6 +24,7 @@
     "**/*.stories.ts",
     "**/*.test.tsx",
     "**/*.test.ts",
-    "node_modules"
+    "node_modules",
+    "src/design-system/patterns/**"
   ]
 }
