@@ -8,7 +8,6 @@ import { Button } from '../components/Button/Button';
 import { Dragger } from '../components/Dragger/Dragger';
 import { MessageInfo } from '../components/MessageInfo/MessageInfo';
 import { MessageBox } from '../components/MessageBox/MessageBox';
-import { Tabs } from '../components/Tabs/Tabs';
 import { Dropdown } from '../components/Dropdown/Dropdown';
 import { SetupTable } from '../components/Table/Table';
 import { DetailPage, RecordCard } from './CrmScreens.page';
@@ -425,16 +424,7 @@ function FieldPropertiesDemo({ fieldName = 'Email' }) {
 // Detail Page: Field History section (revamped Stage History)
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Tracked fields as tabs, with the Deal Stage rows from the PRD screenshot.
-const FIELD_HISTORY_TABS = [
-  { id: 'deal-stage', label: 'Deal Stage', count: 4 },
-  { id: 'priority', label: 'Priority', count: 2 },
-  { id: 'email', label: 'Email', count: 3 },
-  { id: 'lead-owner', label: 'Lead Owner', count: 3 },
-  { id: 'annual-revenue', label: 'Annual Revenue', count: 3 },
-  { id: 'deal-name', label: 'Deal Name', count: 3 },
-];
-
+// Deal Stage rows from the PRD screenshot.
 const FIELD_HISTORY_ROWS = [
   {
     id: 'fh-1',
@@ -549,7 +539,6 @@ const FIELD_HISTORY_COLUMNS = [
 ];
 
 function FieldHistorySection() {
-  const [trackedField, setTrackedField] = useState('deal-stage');
   const [timeFilter, setTimeFilter] = useState('all');
   const [userFilter, setUserFilter] = useState('all');
   const [sourceFilter, setSourceFilter] = useState('all');
@@ -559,14 +548,6 @@ function FieldHistorySection() {
       title="Field History"
       actions={<Button variant="outline-blue">Manage Columns</Button>}
     >
-      <div className="crm-screens__card-body" style={{ paddingBottom: 0 }}>
-        <Tabs
-          tabs={FIELD_HISTORY_TABS}
-          activeTab={trackedField}
-          onChange={setTrackedField}
-          showCount
-        />
-      </div>
       <div className="crm-screens__filters">
         <span className="crm-screens__filter-label">Filter by</span>
         <Dropdown value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={160} />
@@ -603,7 +584,7 @@ export const DetailPageFieldHistory = {
   parameters: { layout: 'fullscreen' },
   render: () => (
     <>
-      <DetailPage historySection={<FieldHistorySection />} />
+      <DetailPage variant="fieldHistory" historySection={<FieldHistorySection />} />
       <SortingHat variations={FIELD_HISTORY_VARIATIONS} />
     </>
   ),
