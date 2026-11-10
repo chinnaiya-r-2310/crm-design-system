@@ -281,15 +281,16 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  box-sizing: border-box;
   height: 22px; /* 24px less 1px top and bottom */
   padding: 0 4px; /* Figma Merge Tag: 4px inset */
-  /* Flush with the text on the left; 6px gap to the next capsule, same as .tags-container.
+  /* Flush with the text on the left; 3px gap to the next capsule.
      The 1px bottom margin makes each capsule's margin box 23px (the line height), so
      capsule rows sit 1px apart and lines with capsules match text-only lines. */
-  margin: -3px 6px 0 0;
+  margin: -3px 3px 0 0;
   vertical-align: baseline; /* keeps lines with capsules the same height as text-only lines */
   background: #F4F7FF; /* Figma Merge Tag fill */
-  border: none;
+  border: 1px solid #E3E8F5; /* subtle capsule border */
   border-radius: 4px; /* Figma Merge Tag radius */
   color: var(--ds-text-label, #616E88); /* Figma Merge Tag label color */
   font-size: calc(var(--ds-font-size-base) - 1px); /* 1px smaller than body text */
@@ -313,8 +314,8 @@
    top-aligned with a 4px top margin sits precisely in the middle. */
 .mergefield-editable[data-singleline] .mergefield-token {
   vertical-align: top;
-  margin: 5px 6px 0 0; /* centers the 22px capsule in the 32px line; flush left with the text */
-  top: 0; /* same 6px gap between capsules as the Tags container */
+  margin: 5px 3px 0 0; /* centers the 22px capsule in the 32px line; flush left with the text */
+  top: 0; /* 3px gap between capsules */
 }
 
 /* No space before a capsule that opens the field. */
@@ -379,13 +380,15 @@
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: var(--ds-brand-primary, #5464F2);
-  color: #fff;
+  background: transparent;
+  color: var(--ds-text-label, #616E88);
   cursor: pointer;
 }
 
+/* Hovering the close icon: white icon on a blue circle. */
 .mergefield-token-remove:hover {
-  background: #4354D4;
+  background: var(--ds-brand-primary, #5464F2);
+  color: #fff;
 }
 
 /* Close icon only on hover of the capsule (not while it is being changed).
