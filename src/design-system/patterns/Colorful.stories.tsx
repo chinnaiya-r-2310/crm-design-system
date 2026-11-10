@@ -15,7 +15,7 @@ import { KPI_TRENDS, LEADERBOARD, SALES_CHARTS } from './Colorful.data';
 import './Colorful.css';
 
 const meta = {
-  title: 'Design System/Patterns/crm-homepage/colorful',
+  title: 'Work Items/crm-homepage/colorful',
   parameters: {
     layout: 'fullscreen',
     docs: { description: { component: 'A colorful sales workspace with exactly 20 widgets: six KPI cards with mini charts, eight accessible charts, and six daily-work sections. Reuses the CRM shell and existing controls. SVG data illustrations are local to this story, not new design-system components. Chart detail tables expose every plotted value. All data is illustrative and actions are local.' } },

@@ -13,7 +13,7 @@ import { Radio } from "../components/Radio/Radio";
 import { GroupButton } from "../components/GroupButton/GroupButton";
 import { Info } from "../foundations/icons/Icons";
 const meta = {
-  title: "Design System/Patterns/Send Dashboard Scheduler",
+  title: "Work Items/Send Dashboard Scheduler",
   parameters: {
     layout: "centered",
     docs: {

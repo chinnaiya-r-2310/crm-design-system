@@ -21,7 +21,7 @@ import type { DrilldownSelection } from './Minimal.drilldown';
 import './Minimal.css';
 
 const meta = {
-  title: 'Design System/Patterns/crm-homepage/minimal',
+  title: 'Work Items/crm-homepage/minimal',
   parameters: {
     layout: 'fullscreen',
     docs: { description: { component: 'A minimal CRM homepage inside the existing CRM shell. Preserves the floating page header, with 30px horizontal content padding, four headline metrics, open deals, and tasks. Uses existing components and shared CRM sample data; all interactions are local.' } },

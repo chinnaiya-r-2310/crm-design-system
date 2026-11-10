@@ -15,7 +15,7 @@ import { SetupTable } from '../components/Table/Table';
 import './CrmHomepage.css';
 
 const meta = {
-  title: 'Design System/Patterns/crm-homepage',
+  title: 'Work Items/crm-homepage',
   includeStories: ['Default', 'EmptyState'],
   parameters: {
     layout: 'fullscreen',

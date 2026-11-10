@@ -105,7 +105,74 @@ const DEALS_FIELDS = [
   { value: 'DealTag', label: 'Tag' },
 ].map((f) => ({ ...f, module: 'Deals' }));
 
-const CRM_FIELDS = [...LEADS_FIELDS, ...ACCOUNTS_FIELDS, ...CONTACTS_FIELDS, ...DEALS_FIELDS];
+// Field sets for the related entries (sample data). Each entry's `source` picks which set the list shows.
+const NOTES_FIELDS = [
+  { value: 'NoteTitle', label: 'Note Title' },
+  { value: 'NoteContent', label: 'Note Content' },
+  { value: 'NoteCreatedBy', label: 'Created By' },
+  { value: 'NoteCreatedTime', label: 'Created Time' },
+  { value: 'NoteModifiedTime', label: 'Modified Time' },
+].map((f) => ({ ...f, module: 'Notes' }));
+
+const VENDORS_FIELDS = [
+  { value: 'VendorName', label: 'Vendor Name' },
+  { value: 'VendorEmail', label: 'Email' },
+  { value: 'VendorPhone', label: 'Phone' },
+  { value: 'VendorWebsite', label: 'Website' },
+  { value: 'VendorCategory', label: 'Category' },
+].map((f) => ({ ...f, module: 'Vendors' }));
+
+const PRODUCT_LINE_ITEM_FIELDS = [
+  { value: 'LineItemProduct', label: 'Product Name' },
+  { value: 'LineItemQuantity', label: 'Quantity' },
+  { value: 'LineItemUnitPrice', label: 'Unit Price' },
+  { value: 'LineItemDiscount', label: 'Discount' },
+  { value: 'LineItemTotal', label: 'Total' },
+].map((f) => ({ ...f, module: 'Product Line Items' }));
+
+const QUOTED_ITEM_FIELDS = [
+  { value: 'QuotedItemProduct', label: 'Product Name' },
+  { value: 'QuotedItemQuantity', label: 'Quantity' },
+  { value: 'QuotedItemAmount', label: 'Amount' },
+].map((f) => ({ ...f, module: 'Quoted Items' }));
+
+const CRM_FIELDS = [
+  ...LEADS_FIELDS,
+  ...ACCOUNTS_FIELDS,
+  ...CONTACTS_FIELDS,
+  ...DEALS_FIELDS,
+  ...NOTES_FIELDS,
+  ...VENDORS_FIELDS,
+  ...PRODUCT_LINE_ITEM_FIELDS,
+  ...QUOTED_ITEM_FIELDS,
+];
+
+// Filter dropdown entries. Every entry is a selectable module; `source` is the field set it shows.
+// Section headers (Accounts, Vendors) are labels only.
+const CRM_MODULE_ENTRIES = [
+  {
+    module: 'Deals',
+    items: [
+      { value: 'Deals', label: 'Deals', source: 'Deals' },
+      { value: 'Lookup1Contacts', label: 'Lookup 1 (Contacts)', source: 'Contacts' },
+      { value: 'AccountNameAccounts', label: 'Account Name (Accounts)', source: 'Accounts' },
+      { value: 'Notes', label: 'Notes', source: 'Notes' },
+      { value: 'DealProductLineItems', label: 'Product Line Items (Subform)', source: 'Product Line Items' },
+      { value: 'DealQuotedItems', label: 'Quoted Items (Subform)', source: 'Quoted Items' },
+    ],
+  },
+  {
+    module: 'Accounts',
+    items: [
+      { value: 'PrimaryAccountName', label: 'Primary Account Name', source: 'Accounts' },
+      { value: 'SecondaryAccountName', label: 'Secondary Account Name', source: 'Accounts' },
+    ],
+  },
+  {
+    module: 'Vendors',
+    items: [{ value: 'VendorName', label: 'Vendor Name', source: 'Vendors' }],
+  },
+];
 
 const meta: Meta<typeof MergeField> = {
   title: 'Design System/Components/MergeField',
@@ -309,7 +376,7 @@ export const Default: Story = {
           layout="vertical"
           variant="singleline"
           width={440}
-          mergeFields={CRM_FIELDS}
+          mergeFields={CRM_FIELDS} moduleEntries={CRM_MODULE_ENTRIES}
           key={`single-${seed}`}
           readOnly={mode === 'readonly'}
           defaultValue={prompts.single}
@@ -318,7 +385,7 @@ export const Default: Story = {
           label="Multiline"
           layout="vertical"
           width={440}
-          mergeFields={CRM_FIELDS}
+          mergeFields={CRM_FIELDS} moduleEntries={CRM_MODULE_ENTRIES}
           key={`multi-${seed}`}
           readOnly={mode === 'readonly'}
           defaultValue={prompts.multi}
@@ -387,7 +454,7 @@ export const ReadOnly: Story = {
         layout="vertical"
         variant="singleline"
         width={440}
-        mergeFields={CRM_FIELDS}
+        mergeFields={CRM_FIELDS} moduleEntries={CRM_MODULE_ENTRIES}
         defaultValue={READ_ONLY_SAMPLE.single}
         readOnly={mode === 'readonly'}
       />
@@ -395,7 +462,7 @@ export const ReadOnly: Story = {
         label="Multiline"
         layout="vertical"
         width={440}
-        mergeFields={CRM_FIELDS}
+        mergeFields={CRM_FIELDS} moduleEntries={CRM_MODULE_ENTRIES}
         defaultValue={READ_ONLY_SAMPLE.multi}
         readOnly={mode === 'readonly'}
       />
@@ -442,6 +509,7 @@ export const MultilineError: Story = {
     error: true,
     helperText: 'Cannot be Empty',
     mergeFields: CRM_FIELDS,
+    moduleEntries: CRM_MODULE_ENTRIES,
   },
 };
 
@@ -453,6 +521,7 @@ export const SinglelineDefault: Story = {
     width: 320,
     defaultValue: '${FirstName}',
     mergeFields: CRM_FIELDS,
+    moduleEntries: CRM_MODULE_ENTRIES,
   },
 };
 
@@ -464,6 +533,7 @@ export const SinglelineAddingTag: Story = {
     width: 320,
     defaultValue: '${FirstName} ',
     mergeFields: CRM_FIELDS,
+    moduleEntries: CRM_MODULE_ENTRIES,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -477,14 +547,14 @@ export const AllStates: Story = {
   name: 'All States',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: 440 }}>
-      <MergeField layout="vertical" label="Multiline" width={440} mergeFields={CRM_FIELDS} />
+      <MergeField layout="vertical" label="Multiline" width={440} mergeFields={CRM_FIELDS} moduleEntries={CRM_MODULE_ENTRIES} />
       <MergeField
         layout="vertical"
         label="Multiline — error"
         width={440}
         error
         helperText="Cannot be Empty"
-        mergeFields={CRM_FIELDS}
+        mergeFields={CRM_FIELDS} moduleEntries={CRM_MODULE_ENTRIES}
       />
       <MergeField
         layout="vertical"
@@ -492,7 +562,7 @@ export const AllStates: Story = {
         variant="singleline"
         width={440}
         defaultValue="${FirstName}"
-        mergeFields={CRM_FIELDS}
+        mergeFields={CRM_FIELDS} moduleEntries={CRM_MODULE_ENTRIES}
       />
       <MergeField
         layout="vertical"
@@ -500,7 +570,7 @@ export const AllStates: Story = {
         variant="singleline"
         width={440}
         defaultValue="${FirstName}"
-        mergeFields={CRM_FIELDS}
+        mergeFields={CRM_FIELDS} moduleEntries={CRM_MODULE_ENTRIES}
         disabled
       />
     </div>

@@ -14,7 +14,7 @@ import { Info as InfoIcon } from '../foundations/icons/Icons';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const meta: Meta = {
-  title: 'Design System/Patterns/Audit Log Duration',
+  title: 'Work Items/Audit Log Duration',
   parameters: {
     layout: 'centered',
     docs: {

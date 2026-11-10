@@ -13,7 +13,7 @@ import { Textarea } from '../components/Textarea/Textarea';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const meta: Meta = {
-  title: 'Design System/Patterns/Usage Limit Notification',
+  title: 'Work Items/Usage Limit Notification',
   parameters: {
     layout: 'centered',
     docs: {

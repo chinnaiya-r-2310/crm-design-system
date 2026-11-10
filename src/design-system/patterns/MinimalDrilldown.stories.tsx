@@ -5,7 +5,7 @@ import { MinimalDrilldown } from './MinimalDrilldown';
 import { getDrilldownData } from './Minimal.drilldown';
 import type { DrilldownSelection } from './Minimal.drilldown';
 
-const meta = { title: 'Design System/Patterns/crm-homepage/minimal-drilldown', parameters: { layout: 'fullscreen' } } satisfies Meta;
+const meta = { title: 'Work Items/crm-homepage/minimal-drilldown', parameters: { layout: 'fullscreen' } } satisfies Meta;
 export default meta;
 type Story = StoryObj<typeof meta>;
 function Preview({ selection }: { selection: DrilldownSelection }) {

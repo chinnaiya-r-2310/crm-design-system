@@ -18,15 +18,15 @@ export default {
 const VARIATIONS = [
   {
     label: 'Email Properties',
-    storyId: 'design-system-patterns-field-history-tracking--default',
+    storyId: 'work-items-field-history-tracking--default',
   },
   {
     label: 'Email History Tracking (10 of 10)',
-    storyId: 'design-system-patterns-field-history-tracking--limit-reached',
+    storyId: 'work-items-field-history-tracking--limit-reached',
   },
   {
     label: 'Audit Log Retention',
-    storyId: 'design-system-patterns-audit-log-duration--manage-log-retention-settings',
+    storyId: 'work-items-audit-log-duration--manage-log-retention-settings',
   },
 ];
 

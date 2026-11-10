@@ -413,7 +413,7 @@ function RecordAuthenticationPage({ initial = 'empty', dialog, expanded = false,
 }
 
 const meta = {
-  title: 'Design System/Patterns/Record Authentication',
+  title: 'Work Items/Record Authentication',
   parameters: { layout: 'fullscreen', docs: { description: { component: 'Data Verification configuration based on the six provided PDF frames. Phone OTP, email verification links, template previews, and in-memory saved summaries. Record Verification combines action, consent type, and shared delivery settings in a single form. No real SMS, email, or authentication requests are made.' } } },
 } satisfies Meta;
 export default meta;

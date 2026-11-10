@@ -899,7 +899,7 @@ const SAMPLE_SAVED: FilterSnapshot = {
 };
 
 const meta = {
-  title: 'Design System/Patterns/Cross-module Reports',
+  title: 'Work Items/Cross-module Reports',
   parameters: {
     layout: 'fullscreen',
     docs: {

@@ -19,7 +19,7 @@ import {
 } from '../foundations/icons/Icons';
 
 const meta = {
-  title: 'Design System/Patterns/Portal UI',
+  title: 'Work Items/Portal UI',
   parameters: {
     layout: 'fullscreen',
     docs: {

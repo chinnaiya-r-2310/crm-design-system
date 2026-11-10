@@ -22,7 +22,7 @@ const formats = [
 const paperSizes = ['Letter', 'Legal', 'Tabloid', 'A3', 'A4'].map(value => ({ value, label: value }));
 
 const meta = {
-  title: 'Design System/Patterns/Dashboard Export',
+  title: 'Work Items/Dashboard Export',
   parameters: {
     layout: 'centered',
     docs: {

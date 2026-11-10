@@ -19,7 +19,7 @@ import { Info as InfoIcon, Lock as LockIcon } from '../foundations/icons/Icons';
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default {
-  title: 'Design System/Patterns/Field History Tracking',
+  title: 'Work Items/Field History Tracking',
   parameters: {
     layout: 'centered',
     docs: {
@@ -571,11 +571,11 @@ function FieldHistorySection() {
 const FIELD_HISTORY_VARIATIONS = [
   {
     label: 'Email Properties',
-    storyId: 'design-system-patterns-field-history-tracking--default',
+    storyId: 'work-items-field-history-tracking--default',
   },
   {
     label: 'Detail Page - Field History',
-    storyId: 'design-system-patterns-field-history-tracking--detail-page-field-history',
+    storyId: 'work-items-field-history-tracking--detail-page-field-history',
   },
 ];
 

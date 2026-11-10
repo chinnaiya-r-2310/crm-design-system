@@ -148,7 +148,7 @@ function SbConnectionsPage({ initialTab = 'connections' }: { initialTab?: string
 }
 
 const meta = {
-  title: 'Design System/Patterns/SB Connections',
+  title: 'Work Items/SB Connections',
   parameters: {
     layout: 'fullscreen',
     docs: {

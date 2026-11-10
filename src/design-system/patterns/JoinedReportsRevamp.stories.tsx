@@ -747,7 +747,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
 // ─────────────────────────────────────────────────────────────────────────────
 
 const meta = {
-  title: 'Design System/Patterns/Joined Reports - Revamp',
+  title: 'Work Items/Joined Reports - Revamp',
   parameters: {
     layout: 'fullscreen',
     docs: {
