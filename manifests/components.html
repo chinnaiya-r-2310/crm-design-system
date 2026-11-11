@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">19/55 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">51/55 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/349 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">20/56 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">52/56 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/352 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.0s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -6703,7 +6703,7 @@ export const Phase1: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> DatePicker</h2>
       <div class="badges">
-        <label for="c-13-design-system-components-datepicker-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-13-design-system-components-datepicker-props" class="badge ok as-toggle">4 prop types</label>
         <label for="c-13-design-system-components-datepicker-info" class="badge info as-toggle">1 info</label>
         <label for="c-13-design-system-components-datepicker-stories" class="badge ok as-toggle">5 stories</label>
         
@@ -6739,13 +6739,15 @@ export const Phase1: Story = {
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">3 prop types</span>
+              <span class="badge ok">4 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/DatePicker/DatePicker.js::DatePicker</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>layout?: any = &#39;horizontal&#39;
 
 placeholder?: any = &#39;DD/MM/YYYY&#39;
+
+size?: any = &#39;md&#39;
 
 width?: any = 670</code></pre>
           </div>
@@ -6862,7 +6864,7 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> DateRangePicker</h2>
       <div class="badges">
-        <label for="c-14-design-system-components-calendar-date-range-picker-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-14-design-system-components-calendar-date-range-picker-props" class="badge ok as-toggle">4 prop types</label>
         <label for="c-14-design-system-components-calendar-date-range-picker-info" class="badge info as-toggle">1 info</label>
         <label for="c-14-design-system-components-calendar-date-range-picker-stories" class="badge ok as-toggle">4 stories</label>
         
@@ -6898,13 +6900,15 @@ width?: any = 670</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">3 prop types</span>
+              <span class="badge ok">4 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/Calendar/DateRangePicker.js::DateRangePicker</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>disabled?: any = false
 
 placeholder?: any = &#39;Select date range&#39;
+
+size?: any = &#39;md&#39;
 
 width?: any = 320</code></pre>
           </div>
@@ -7112,9 +7116,9 @@ width?: any = 320</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Dropdown</h2>
       <div class="badges">
-        <label for="c-16-design-system-components-dropdown-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-16-design-system-components-dropdown-props" class="badge ok as-toggle">10 prop types</label>
         <label for="c-16-design-system-components-dropdown-info" class="badge info as-toggle">1 info</label>
-        <label for="c-16-design-system-components-dropdown-stories" class="badge ok as-toggle">17 stories</label>
+        <label for="c-16-design-system-components-dropdown-stories" class="badge ok as-toggle">18 stories</label>
         
         
       </div>
@@ -7148,7 +7152,7 @@ width?: any = 320</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">9 prop types</span>
+              <span class="badge ok">10 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/Dropdown/Dropdown.js::Dropdown</code></pre>
             <pre><code>Props:</code></pre>
@@ -7167,6 +7171,8 @@ placeholder?: any = &#39;Select&#39;
 searchable?: any = false
 
 selectedValues?: any = []
+
+size?: any = &#39;md&#39;
 
 width?: any = 670</code></pre>
           </div>
@@ -7206,11 +7212,33 @@ width?: any = 670</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
+                <span class="ex-name">Small</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Default state — no value selected.
+Small size: 27px tall with 13px text, for compact toolbars and section headers.</div>
+              <pre><code>const Small = () =&gt; {
+  const [val, setVal] = useState(&#39;&#39;);
+  return (
+    &lt;Dropdown
+      size=&quot;sm&quot;
+      options={LEAD_STATUS}
+      value={val}
+      onChange={setVal}
+      placeholder=&quot;Lead Status&quot;
+      width={200}
+    /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
                 <span class="ex-name">Default</span>
                 <span class="badge ok">story ok</span>
               </div>
               
-              <div class="hint">Default state — no value selected.</div>
+              
               <pre><code>const Default = () =&gt; {
   const [val, setVal] = useState(&#39;&#39;);
   return (
@@ -7625,13 +7653,13 @@ width?: any = 670</code></pre>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  25 | // ─────────────────────────────────────────────────────────────────────────────
-  26 |
-&gt; 27 | export default {
+  29 | // ─────────────────────────────────────────────────────────────────────────────
+  30 |
+&gt; 31 | export default {
      | ^
-  28 |   title: &#39;Work Items/Field History Tracking&#39;,
-  29 |   parameters: {
-  30 |     layout: &#39;centered&#39;,
+  32 |   title: &#39;Work Items/Field History Tracking&#39;,
+  33 |   parameters: {
+  34 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/FieldHistoryTracking.stories.js:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -7646,12 +7674,16 @@ import { Dragger } from &#39;../components/Dragger/Dragger&#39;;
 import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
 import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
+import { UserPicker } from &#39;../components/UserPicker/UserPicker&#39;;
+import { DatePicker } from &#39;../components/DatePicker/DatePicker&#39;;
+import { DateRangePicker } from &#39;../components/Calendar/DateRangePicker&#39;;
 import { SetupTable } from &#39;../components/Table/Table&#39;;
 import { DetailPage, RecordCard } from &#39;./CrmScreens.page&#39;;
 import { SortingHat } from &#39;../components/SortingHat/SortingHat&#39;;
 import { Info as InfoIcon, Lock as LockIcon } from &#39;../foundations/icons/Icons&#39;;
 import { crmIconMap } from &#39;../foundations/icons/CrmCatalog&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
+import &#39;../components/Tags/Tags.css&#39;;
 
 // Column settings icon from the icon gallery (CrmColumnArrange).
 const ColumnArrangeIcon = crmIconMap.CrmColumnArrange;
@@ -8077,7 +8109,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;5 days&#39;,
     amount: &#39;$ 1,48,000&#39;,
     probability: &#39;70%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Manual (UI)&#39;,
   },
   {
@@ -8089,7 +8123,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;14 days&#39;,
     amount: &#39;$ 1,42,000&#39;,
     probability: &#39;60%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Manual (UI)&#39;,
   },
   {
@@ -8101,19 +8137,23 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;6 days&#39;,
     amount: &#39;$ 1,38,000&#39;,
     probability: &#39;50%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Workflow&#39;,
   },
   {
     id: &#39;fh-4&#39;,
-    from: &#39;Record Created&#39;,
+    from: &#39;Value Prop&#39;,
     to: &#39;Negotiation&#39;,
     modifiedBy: &#39;Yren Okafor&#39;,
     modifiedTime: &#39;Apr 22, 2026 2:17 PM&#39;,
     duration: &#39;6 days&#39;,
     amount: &#39;$ 1,30,000&#39;,
     probability: &#39;40%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Import&#39;,
   },
   {
@@ -8125,7 +8165,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;9 days&#39;,
     amount: &#39;$ 1,50,000&#39;,
     probability: &#39;90%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Manual (UI)&#39;,
   },
   {
@@ -8137,7 +8179,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;4 days&#39;,
     amount: &#39;$ 1,25,000&#39;,
     probability: &#39;35%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Workflow&#39;,
   },
   {
@@ -8149,7 +8193,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;6 days&#39;,
     amount: &#39;$ 1,20,000&#39;,
     probability: &#39;30%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;API&#39;,
   },
   {
@@ -8161,7 +8207,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;3 days&#39;,
     amount: &#39;$ 1,10,000&#39;,
     probability: &#39;25%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Import&#39;,
   },
   {
@@ -8173,7 +8221,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;5 days&#39;,
     amount: &#39;$ 1,05,000&#39;,
     probability: &#39;20%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Manual (UI)&#39;,
   },
 ];
@@ -8184,16 +8234,47 @@ const FIELD_HISTORY_TIME_OPTIONS = [
   { value: &#39;30d&#39;, label: &#39;Last 30 days&#39; },
   { value: &#39;6m&#39;, label: &#39;Last 6 months&#39; },
   { value: &#39;1y&#39;, label: &#39;Last 1 year&#39; },
+  { value: &#39;date&#39;, label: &#39;Specific Date&#39; },
+  { value: &#39;range&#39;, label: &#39;Custom Range&#39; },
 ];
 
-const FIELD_HISTORY_USER_OPTIONS = [
-  { value: &#39;all&#39;, label: &#39;All users&#39; },
-  { value: &#39;elijah&#39;, label: &#39;Elijah Morgan&#39; },
-  { value: &#39;klaus&#39;, label: &#39;Klaus Weber&#39; },
-  { value: &#39;mikasa&#39;, label: &#39;Mikasa Chen&#39; },
-  { value: &#39;yren&#39;, label: &#39;Yren Okafor&#39; },
-  { value: &#39;system&#39;, label: &#39;System / Automation&#39; },
+// Users for the user filter (UserPicker). The first entry clears the filter.
+const FIELD_HISTORY_USERS = [
+  { id: &#39;all&#39;, name: &#39;All users&#39;, subLabel: &#39;Every user and system&#39; },
+  { id: &#39;elijah&#39;, name: &#39;Elijah Morgan&#39;, subLabel: &#39;elijah.morgan@zohocorp.com&#39; },
+  { id: &#39;klaus&#39;, name: &#39;Klaus Weber&#39;, subLabel: &#39;klaus.weber@zohocorp.com&#39; },
+  { id: &#39;mikasa&#39;, name: &#39;Mikasa Chen&#39;, subLabel: &#39;mikasa.chen@zohocorp.com&#39; },
+  { id: &#39;yren&#39;, name: &#39;Yren Okafor&#39;, subLabel: &#39;yren.okafor@zohocorp.com&#39; },
+  { id: &#39;system&#39;, name: &#39;System / Automation&#39;, subLabel: &#39;Workflows, API and imports&#39; },
 ];
+
+// &quot;Today&quot; for the sample data, so Last 7 days / 30 days / 6 months show different rows.
+const FIELD_HISTORY_TODAY = new Date(2026, 5, 3, 12, 0);
+
+const startOfDay = (d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate());
+const endOfDay = (d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
+const sameDay = (a, b) =&gt; startOfDay(a).getTime() === startOfDay(b).getTime();
+
+function matchesTime(row, filter, date, range) {
+  const when = new Date(row.modifiedTime);
+  const since = (days, months = 0) =&gt; {
+    const d = new Date(FIELD_HISTORY_TODAY);
+    d.setDate(d.getDate() - days);
+    d.setMonth(d.getMonth() - months);
+    return d;
+  };
+  switch (filter) {
+    case &#39;7d&#39;: return when &gt;= since(7);
+    case &#39;30d&#39;: return when &gt;= since(30);
+    case &#39;6m&#39;: return when &gt;= since(0, 6);
+    case &#39;1y&#39;: return when &gt;= since(0, 12);
+    case &#39;date&#39;: return !date || sameDay(when, date);
+    case &#39;range&#39;: return !range.start || !range.end || (when &gt;= startOfDay(range.start) &amp;&amp; when &lt;= endOfDay(range.end));
+    default: return true;
+  }
+}
+
+const SOURCE_FILTER_LABELS = { manual: &#39;Manual (UI)&#39;, workflow: &#39;Workflow&#39;, api: &#39;API&#39;, import: &#39;Import&#39; };
 
 const FIELD_HISTORY_SOURCE_OPTIONS = [
   { value: &#39;all&#39;, label: &#39;All sources&#39; },
@@ -8202,6 +8283,26 @@ const FIELD_HISTORY_SOURCE_OPTIONS = [
   { value: &#39;api&#39;, label: &#39;API&#39; },
   { value: &#39;import&#39;, label: &#39;Import&#39; },
 ];
+
+// Subdued pastel tokens distinguish stages without vibrant fills.
+const STAGE_COLORS = {
+  &#39;Value Prop&#39;: [&#39;--ds-neutral-pastel6&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Negotiation&#39;: [&#39;--ds-neutral-pastel2&#39;, &#39;--ds-text-heading&#39;],
+  &#39;In Progress&#39;: [&#39;--ds-neutral-pastel5&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Closed Won&#39;: [&#39;--ds-neutral-pastel3&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Proposal&#39;: [&#39;--ds-neutral-pastel7&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Qualification&#39;: [&#39;--ds-neutral-pastel1&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Needs Analysis&#39;: [&#39;--ds-neutral-pastel8&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Record Created&#39;: [&#39;--ds-bg-scale-bg5&#39;, &#39;--ds-text-heading&#39;],
+};
+
+function stageStyle(stage) {
+  const [background, foreground] = STAGE_COLORS[stage] ?? STAGE_COLORS[&#39;Record Created&#39;];
+  return {
+    &#39;--fht-stage-color&#39;: `oklch(from var(${background}) calc(l * 0.98) calc(c * 1.15) h)`,
+    color: `var(${foreground})`,
+  };
+}
 
 const FIELD_HISTORY_COLUMNS = [
   {
@@ -8214,22 +8315,24 @@ const FIELD_HISTORY_COLUMNS = [
     width: 340,
     render: (value, row) =&gt; (
       &lt;span className=&quot;crm-screens__transition&quot;&gt;
-        &lt;span className={value === &#39;Record Created&#39; ? &#39;crm-screens__stage-pill crm-screens__stage-pill--muted&#39; : &#39;crm-screens__stage-pill&#39;}&gt;{value}&lt;/span&gt;
+        &lt;span className=&quot;tags-tag crm-screens__stage-pill&quot; style={stageStyle(value)}&gt;{value}&lt;/span&gt;
         &lt;span className=&quot;crm-screens__arrow&quot; aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;
-        &lt;span className=&quot;crm-screens__stage-pill&quot;&gt;{row.to}&lt;/span&gt;
+        &lt;span className=&quot;tags-tag crm-screens__stage-pill&quot; style={stageStyle(row.to)}&gt;{row.to}&lt;/span&gt;
       &lt;/span&gt;
     ),
   },
   {
     key: &#39;modifiedBy&#39;,
-    label: &#39;Modified By&#39;,
+    label: &#39;Moved By&#39;,
     width: 200,
   },
-  { key: &#39;modifiedTime&#39;, label: &#39;Modified Time&#39;, width: 190 },
+  { key: &#39;modifiedTime&#39;, label: &#39;Moved Time&#39;, width: 190 },
   { key: &#39;duration&#39;, label: &#39;Duration&#39;, width: 110 },
   { key: &#39;amount&#39;, label: &#39;Amount&#39;, width: 130 },
   { key: &#39;probability&#39;, label: &#39;Probability&#39;, width: 110 },
-  { key: &#39;fieldType&#39;, label: &#39;Field Type&#39;, width: 120 },
+  { key: &#39;closingDate&#39;, label: &#39;Closing Date&#39;, width: 150 },
+  { key: &#39;dealOwner&#39;, label: &#39;Deal Owner&#39;, width: 180 },
+  { key: &#39;dealType&#39;, label: &#39;Deal Type&#39;, width: 150 },
   {
     key: &#39;source&#39;,
     label: &#39;Source&#39;,
@@ -8240,11 +8343,11 @@ const FIELD_HISTORY_COLUMNS = [
     // End-of-header column: column settings icon, no body content.
     key: &#39;columnSettings&#39;,
     label: (
-      &lt;button type=&quot;button&quot; className=&quot;crm-screens__header-icon&quot; aria-label=&quot;Column settings&quot;&gt;
+      &lt;button type=&quot;button&quot; className=&quot;crm-screens__header-icon&quot; aria-label=&quot;Manage Column&quot;&gt;
         &lt;ColumnArrangeIcon width={16} height={16} aria-hidden=&quot;true&quot; /&gt;
       &lt;/button&gt;
     ),
-    width: 52,
+    width: 36,
     render: () =&gt; null,
   },
 ];
@@ -8253,27 +8356,31 @@ const FIELD_HISTORY_COLUMNS = [
 // The first five columns are mandatory.
 const SETTINGS_REQUIRED_KEYS = [&#39;from&#39;, &#39;modifiedBy&#39;, &#39;modifiedTime&#39;, &#39;duration&#39;, &#39;source&#39;];
 // Column order: Deal Stage -&gt; Moved To, Modified By, Modified Time, Duration, Source, then the rest.
-const COLUMN_ORDER = [&#39;from&#39;, &#39;modifiedBy&#39;, &#39;modifiedTime&#39;, &#39;duration&#39;, &#39;source&#39;, &#39;amount&#39;, &#39;probability&#39;, &#39;fieldType&#39;, &#39;columnSettings&#39;];
+const DEFAULT_COLUMN_KEYS = [&#39;from&#39;, &#39;modifiedBy&#39;, &#39;modifiedTime&#39;, &#39;duration&#39;, &#39;source&#39;, &#39;amount&#39;, &#39;probability&#39;];
 const SETTINGS_FIELDS = [
-  { key: &#39;from&#39;, label: &#39;Deal Stage → Moved To&#39; },
-  { key: &#39;modifiedBy&#39;, label: &#39;Modified By&#39; },
-  { key: &#39;modifiedTime&#39;, label: &#39;Modified Time&#39; },
+  // En spaces keep a visible gap on both sides of the arrow (the label is plain text in the list).
+  { key: &#39;from&#39;, label: &#39;Deal Stage\u2002→\u2002Moved To&#39; },
+  { key: &#39;modifiedBy&#39;, label: &#39;Moved By&#39; },
+  { key: &#39;modifiedTime&#39;, label: &#39;Moved Time&#39; },
   { key: &#39;duration&#39;, label: &#39;Duration&#39; },
   { key: &#39;source&#39;, label: &#39;Source&#39; },
   { key: &#39;amount&#39;, label: &#39;Amount&#39; },
   { key: &#39;probability&#39;, label: &#39;Probability (%)&#39; },
-  { key: &#39;fieldType&#39;, label: &#39;Field Type&#39; },
+  { key: &#39;closingDate&#39;, label: &#39;Closing Date&#39; },
+  { key: &#39;dealOwner&#39;, label: &#39;Deal Owner&#39; },
+  { key: &#39;dealType&#39;, label: &#39;Deal Type&#39; },
 ].map((f) =&gt; ({ ...f, required: SETTINGS_REQUIRED_KEYS.includes(f.key) }));
-const ALL_COLUMN_KEYS = SETTINGS_FIELDS.map((f) =&gt; f.key);
-const SETTINGS_PANEL_WIDTH = 340;
+// Additional snapshot fields are available without crowding the default table.
 
 // plainFirstColumn: the first column shows the stage transition as plain text, without capsules.
 function FieldHistorySection({ plainFirstColumn = false }) {
   const [timeFilter, setTimeFilter] = useState(&#39;all&#39;);
   const [userFilter, setUserFilter] = useState(&#39;all&#39;);
   const [sourceFilter, setSourceFilter] = useState(&#39;all&#39;);
-  const [applied, setApplied] = useState(ALL_COLUMN_KEYS); // columns shown in the table
-  const [draft, setDraft] = useState(ALL_COLUMN_KEYS); // selection while the panel is open
+  const [specificDate, setSpecificDate] = useState(null);
+  const [customRange, setCustomRange] = useState({ start: null, end: null });
+  const [applied, setApplied] = useState(DEFAULT_COLUMN_KEYS); // columns shown in the table
+  const [draft, setDraft] = useState(DEFAULT_COLUMN_KEYS); // selection while the panel is open
   const [panel, setPanel] = useState(null); // { top, right } when the settings panel is open
   const settingsRef = useRef(null);
   const panelRef = useRef(null);
@@ -8299,6 +8406,14 @@ function FieldHistorySection({ plainFirstColumn = false }) {
     };
   }, [panel]);
 
+  // While the panel is open the page behind it does not scroll (the backdrop also blocks clicks).
+  useEffect(() =&gt; {
+    if (!panel) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = &#39;hidden&#39;;
+    return () =&gt; { document.body.style.overflow = previous; };
+  }, [panel]);
+
   // Table columns follow the order chosen in the Manage Columns panel; the icon column stays last.
   const columns = [...applied.map((k) =&gt; FIELD_HISTORY_COLUMNS.find((c) =&gt; c.key === k)), FIELD_HISTORY_COLUMNS.find((c) =&gt; c.key === &#39;columnSettings&#39;)]
     .map((c) =&gt; {
@@ -8306,12 +8421,12 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         return {
           ...c,
           label: (
-            &lt;Tooltip content=&quot;Column settings&quot; placement=&quot;bottom&quot; variant=&quot;black&quot;&gt;
+            &lt;Tooltip content=&quot;Manage Column&quot; placement=&quot;top&quot; followCursor variant=&quot;black&quot; disabled={!!panel}&gt;
               &lt;button
                 ref={settingsRef}
                 type=&quot;button&quot;
                 className=&quot;crm-screens__header-icon&quot;
-                aria-label=&quot;Column settings&quot;
+                aria-label=&quot;Manage Column&quot;
                 aria-haspopup=&quot;dialog&quot;
                 aria-expanded={!!panel}
                 onClick={openPanel}
@@ -8327,7 +8442,7 @@ function FieldHistorySection({ plainFirstColumn = false }) {
           ...c,
           render: (value, row) =&gt; (
             &lt;span&gt;
-              {value}
+              {value === &#39;Record Created&#39; ? &lt;span className=&quot;crm-screens__stage-pill--muted&quot;&gt;{value}&lt;/span&gt; : value}
               &lt;span className=&quot;crm-screens__arrow&quot; aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;
               {row.to}
             &lt;/span&gt;
@@ -8337,43 +8452,60 @@ function FieldHistorySection({ plainFirstColumn = false }) {
       return c;
     });
 
+  // The filters narrow the rows shown in the table.
+  const userName = FIELD_HISTORY_USERS.find((u) =&gt; u.id === userFilter)?.name;
+  const visibleRows = FIELD_HISTORY_ROWS.filter((row) =&gt; (
+    matchesTime(row, timeFilter, specificDate, customRange)
+    &amp;&amp; (userFilter === &#39;all&#39; || row.modifiedBy === userName)
+    &amp;&amp; (sourceFilter === &#39;all&#39; || row.source === SOURCE_FILTER_LABELS[sourceFilter])
+  )).sort((a, b) =&gt; new Date(b.modifiedTime) - new Date(a.modifiedTime));
+
   return (
     &lt;RecordCard
       title=&quot;Field History - Stage&quot;
       actions={
         &lt;&gt;
-          &lt;Dropdown value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={140} /&gt;
-          &lt;Dropdown value={userFilter} options={FIELD_HISTORY_USER_OPTIONS} onChange={setUserFilter} width={160} /&gt;
-          &lt;Dropdown value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={140} /&gt;
-          &lt;Button variant=&quot;outline-blue&quot;&gt;Manage Columns&lt;/Button&gt;
+          &lt;Dropdown size=&quot;sm&quot; value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={140} /&gt;
+          {timeFilter === &#39;date&#39; &amp;&amp; (
+            &lt;DatePicker size=&quot;sm&quot; layout=&quot;vertical&quot; width={130} placeholder=&quot;Select date&quot; value={specificDate} onChange={setSpecificDate} /&gt;
+          )}
+          {timeFilter === &#39;range&#39; &amp;&amp; (
+            &lt;DateRangePicker size=&quot;sm&quot; width={210} startDate={customRange.start} endDate={customRange.end} onChange={(start, end) =&gt; setCustomRange({ start, end })} /&gt;
+          )}
+          &lt;UserPicker size=&quot;sm&quot; layout=&quot;vertical&quot; width={220} placeholder=&quot;All users&quot; users={FIELD_HISTORY_USERS} value={userFilter} onChange={setUserFilter} /&gt;
+          &lt;Dropdown size=&quot;sm&quot; value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={140} /&gt;
         &lt;/&gt;
       }
     &gt;
       &lt;div className=&quot;crm-screens__fh-table&quot;&gt;
         &lt;SetupTable
           columns={columns}
-          rows={FIELD_HISTORY_ROWS}
+          rows={visibleRows}
           emptyMessage=&quot;No records found&quot;
         /&gt;
       &lt;/div&gt;
       {panel &amp;&amp; createPortal(
-        &lt;div
-          ref={panelRef}
-          className=&quot;fht-settings-panel&quot;
-          role=&quot;dialog&quot;
-          aria-label=&quot;Manage columns&quot;
-          style={{ top: panel.top, right: panel.right, width: SETTINGS_PANEL_WIDTH }}
-        &gt;
-          &lt;ManageColumns
-            variant=&quot;modal&quot;
-            fields={SETTINGS_FIELDS}
-            selected={draft}
-            onChange={setDraft}
-            saveLabel=&quot;Done&quot;
-            onSave={() =&gt; { setApplied(draft); setPanel(null); }}
-            onCancel={() =&gt; setPanel(null)}
-          /&gt;
-        &lt;/div&gt;,
+        &lt;&gt;
+          {/* Transparent layer: blocks clicks and hover on the page behind the panel. */}
+          &lt;div className=&quot;fht-settings-backdrop&quot; aria-hidden=&quot;true&quot; /&gt;
+          &lt;div
+            ref={panelRef}
+            className=&quot;fht-settings-panel&quot;
+            role=&quot;dialog&quot;
+            aria-label=&quot;Manage columns&quot;
+            style={{ top: panel.top, right: panel.right }}
+          &gt;
+            &lt;ManageColumns
+              variant=&quot;modal&quot;
+              fields={SETTINGS_FIELDS}
+              selected={draft}
+              onChange={setDraft}
+              saveLabel=&quot;Done&quot;
+              onSave={() =&gt; { setApplied(draft); setPanel(null); }}
+              onCancel={() =&gt; setPanel(null)}
+            /&gt;
+          &lt;/div&gt;
+        &lt;/&gt;,
         document.body,
       )}
     &lt;/RecordCard&gt;
@@ -8464,6 +8596,8 @@ export const LimitReached = {
                 <pre><code>import {
     Button,
     Checkbox,
+    DatePicker,
+    DateRangePicker,
     DetailPage,
     Dragger,
     Dropdown,
@@ -8478,6 +8612,7 @@ export const LimitReached = {
     SetupTable,
     SortingHat,
     Tooltip,
+    UserPicker,
 } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
@@ -10475,9 +10610,9 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Input</h2>
       <div class="badges">
-        <label for="c-22-design-system-components-input-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-22-design-system-components-input-props" class="badge ok as-toggle">7 prop types</label>
         
-        <label for="c-22-design-system-components-input-stories" class="badge ok as-toggle">23 stories</label>
+        <label for="c-22-design-system-components-input-stories" class="badge ok as-toggle">24 stories</label>
         
         
       </div>
@@ -10528,7 +10663,7 @@ Extending
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">6 prop types</span>
+              <span class="badge ok">7 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/Input/Input.js::Input</code></pre>
             <pre><code>Props:</code></pre>
@@ -10539,6 +10674,8 @@ displayCurrency?: any = true
 layout?: any = &#39;horizontal&#39;
 
 showPasswordToggle?: any = true
+
+size?: any = &#39;md&#39;
 
 type?: any = &#39;text&#39;
 
@@ -10567,6 +10704,21 @@ width?: any = 390</code></pre>
               <div class="hint">Default state — horizontal layout, label present, no placeholder.
 Shows the standard form row at rest.</div>
               <pre><code>const Default = () =&gt; &lt;Input label=&quot;First Name&quot; width={670} layout=&quot;horizontal&quot; type=&quot;text&quot; /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Small</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Small size: 27px tall with 13px text, for compact toolbars and section headers.</div>
+              <pre><code>const Small = () =&gt; &lt;Input
+    label=&quot;First Name&quot;
+    width={400}
+    layout=&quot;vertical&quot;
+    type=&quot;text&quot;
+    size=&quot;sm&quot;
+    placeholder=&quot;Enter name&quot; /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -11878,7 +12030,7 @@ export const ReportLimit: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> ManageColumns</h2>
       <div class="badges">
-        <label for="c-24-design-system-components-manage-columns-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-24-design-system-components-manage-columns-props" class="badge ok as-toggle">7 prop types</label>
         <label for="c-24-design-system-components-manage-columns-info" class="badge info as-toggle">1 info</label>
         <label for="c-24-design-system-components-manage-columns-stories" class="badge ok as-toggle">4 stories</label>
         
@@ -11914,13 +12066,15 @@ export const ReportLimit: Story = {
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">6 prop types</span>
+              <span class="badge ok">7 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/ManageColumns/ManageColumns.js::ManageColumns</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>embedded?: any = false
 
 fields?: any = []
+
+gripperOnHover?: any = true
 
 saveLabel?: any = &#39;Save&#39;
 
@@ -16646,6 +16800,303 @@ export const Users = {
 </article>
 <article
   class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="PortalUserinFilters">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PortalUserinFilters</h2>
+      <div class="badges">
+        <label for="c-34-work-items-portal-user-in-filters-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-34-work-items-portal-user-in-filters-info" class="badge info as-toggle">1 info</label>
+        <label for="c-34-work-items-portal-user-in-filters-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/patterns/PortalUserInFilters.stories.tsx">work-items-portal-user-in-filters · ./src/design-system/patterns/PortalUserInFilters.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-34-work-items-portal-user-in-filters-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-34-work-items-portal-user-in-filters-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-34-work-items-portal-user-in-filters-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  23 | import &#39;./PortalUserInFilters.css&#39;;
+  24 |
+&gt; 25 | const meta = {
+     | ^
+  26 |   title: &#39;Work Items/Portal User in Filters&#39;,
+  27 |   parameters: { layout: &#39;fullscreen&#39; },
+  28 | } satisfies Meta;
+
+./src/design-system/patterns/PortalUserInFilters.stories.tsx:
+import { useRef, useState, type ChangeEvent } from &#39;react&#39;;
+import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
+import { NextGenLeftMenu } from &#39;../components/NextGenLeftMenu/NextGenLeftMenu&#39;;
+import { NextGenTopBand } from &#39;../components/NextGenTopBand/NextGenTopBand&#39;;
+import { WMSBar } from &#39;../components/WMSBar/WMSBar&#39;;
+import { Button } from &#39;../components/Button/Button&#39;;
+import { Icon } from &#39;../components/Icon/Icon&#39;;
+import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
+import { Tags } from &#39;../components/Tags/Tags&#39;;
+import { UserPicker } from &#39;../components/UserPicker/UserPicker&#39;;
+import { Input } from &#39;../components/Input/Input&#39;;
+import { Switch } from &#39;../components/Switch/Switch&#39;;
+import { Dragger } from &#39;../components/Dragger/Dragger&#39;;
+import { NestedCriteria } from &#39;../components/CriteriaBuilder/NestedCriteria&#39;;
+import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
+import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
+import {
+  CriteriaPlus, CriteriaMinus, HelpCircle, Info, More, Search,
+  ModuleHome, ModuleMyJobs, ModuleReports, ModuleAnalytics, ModuleCustom,
+  ModuleLeads, ModuleContacts, ModuleDeals, ModuleSocial,
+} from &#39;../foundations/icons/Icons&#39;;
+import &#39;../components/CriteriaBuilder/NestedCriteria.css&#39;;
+import &#39;./PortalUserInFilters.css&#39;;
+
+const meta = {
+  title: &#39;Work Items/Portal User in Filters&#39;,
+  parameters: { layout: &#39;fullscreen&#39; },
+} satisfies Meta;
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+const modules = [{ value: &#39;leads&#39;, label: &#39;Leads&#39; }];
+const fields = [&#39;Modified By&#39;, &#39;Created By&#39;, &#39;Lead Owner&#39;].map(label =&gt; ({ value: label, label }));
+const operators = [
+  { value: &#39;is&#39;, label: &#39;is&#39; },
+  { value: &#39;is_not&#39;, label: &quot;isn&#39;t&quot; },
+  { value: &#39;is_empty&#39;, label: &#39;is empty&#39; },
+  { value: &#39;is_not_empty&#39;, label: &#39;is not empty&#39; },
+  { value: &#39;portal&#39;, label: &#39;belongs to Portal&#39; },
+  { value: &#39;not_portal&#39;, label: &#39;does not belongs to Portal&#39; },
+  { value: &#39;role&#39;, label: &#39;belongs to Role&#39; },
+  { value: &#39;not_role&#39;, label: &#39;does not belong to Role&#39; },
+];
+const portals = [&#39;Customer Portal&#39;, &#39;Partner Portal&#39;, &#39;Vendor Portal&#39;, &#39;Support Portal&#39;, &#39;Distributor Portal&#39;].map(label =&gt; ({ value: label, label }));
+const roles = [&#39;Administrator&#39;, &#39;Sales Manager&#39;, &#39;Sales Representative&#39;].map(label =&gt; ({ value: label, label }));
+const users = [
+  { id: &#39;ananya&#39;, name: &#39;Ananya Nair&#39;, subLabel: &#39;ananya.nair@zylker.com&#39; },
+  { id: &#39;arjun&#39;, name: &#39;Arjun Menon&#39;, subLabel: &#39;arjun.menon@zylker.com&#39; },
+  { id: &#39;meera&#39;, name: &#39;Meera Krishnan&#39;, subLabel: &#39;meera.krishnan@zylker.com&#39; },
+];
+const initialSelected = [&#39;Lead Name&#39;, &#39;Company&#39;, &#39;Email&#39;, &#39;Industry&#39;, &#39;City&#39;, &#39;Country&#39;, &#39;Annual Revenue&#39;];
+const allColumns = [&#39;902323222&#39;, &#39;Aggregate Field 4&#39;, &#39;Aggregate Field 5&#39;, &#39;Aggregate Field 6&#39;, &#39;Aggregate Field 7&#39;, &#39;Auto-Number 1&#39;, &#39;Availability test&#39;, ...initialSelected];
+const topNavItems = [
+  { id: &#39;home&#39;, label: &#39;Home&#39;, icon: ModuleHome },
+  { id: &#39;workqueue&#39;, label: &#39;Workqueue&#39;, icon: ModuleMyJobs },
+  { id: &#39;reports&#39;, label: &#39;Reports&#39;, icon: ModuleReports },
+  { id: &#39;dashboards&#39;, label: &#39;Dashboards&#39;, icon: ModuleAnalytics },
+  { id: &#39;requests&#39;, label: &#39;My Requests&#39;, icon: ModuleMyJobs },
+  { id: &#39;agents&#39;, label: &#39;Agents&#39;, icon: ModuleCustom },
+  { id: &#39;vibe&#39;, label: &#39;Vibe ✨&#39;, icon: ModuleSocial },
+  { id: &#39;mcp&#39;, label: &#39;MCP&#39;, icon: ModuleCustom },
+];
+const navigationModules = [
+  { id: &#39;leads&#39;, label: &#39;Leads&#39;, icon: ModuleLeads },
+  { id: &#39;contacts&#39;, label: &#39;Contact&#39;, icon: ModuleContacts },
+  { id: &#39;deals&#39;, label: &#39;Deals&#39;, icon: ModuleDeals },
+  ...[&#39;Live Camera Assistance&#39;, &#39;SalesInbox&#39;, &#39;Leads/Contacts&#39;, &#39;RL Test Modules&#39;, &#39;Google Ads&#39;, &#39;Prakashghf&#39;, &#39;Artist Page Detail&#39;, &#39;Dummy Module&#39;].map(label =&gt; ({ id: label, label, icon: ModuleCustom })),
+];
+const newCriterion = (id: number) =&gt; ({ id, field: &#39;Modified By&#39;, operator: &#39;is&#39;, value: &#39;&#39;, portalValues: [] as string[] });
+
+function CustomView() {
+  const [criteriaOn, setCriteriaOn] = useState(true);
+  const [relatedOn, setRelatedOn] = useState(false);
+  const [rows, setRows] = useState([newCriterion(1)]);
+  const [selected, setSelected] = useState(initialSelected);
+  const [query, setQuery] = useState(&#39;&#39;);
+  const [message, setMessage] = useState(&#39;&#39;);
+  const contentRef = useRef&lt;HTMLDivElement&gt;(null);
+  const update = (id: number, patch: Partial&lt;ReturnType&lt;typeof newCriterion&gt;&gt;) =&gt; {
+    setMessage(&#39;&#39;);
+    setRows(current =&gt; current.map(row =&gt; row.id === id ? { ...row, ...patch } : row));
+  };
+  const reset = () =&gt; {
+    setRows([newCriterion(1)]);
+    setCriteriaOn(true);
+    setRelatedOn(false);
+    setSelected([...initialSelected]);
+    setQuery(&#39;&#39;);
+    setMessage(&#39;Changes discarded.&#39;);
+  };
+  const save = () =&gt; {
+    const incomplete = criteriaOn &amp;&amp; rows.some(row =&gt;
+      [&#39;portal&#39;, &#39;not_portal&#39;].includes(row.operator)
+        ? row.portalValues.length === 0
+        : [&#39;is&#39;, &#39;is_not&#39;, &#39;role&#39;, &#39;not_role&#39;].includes(row.operator) &amp;&amp; !row.value
+    );
+    setMessage(incomplete ? &#39;Select a user, portal, or role for each criterion before saving.&#39; : &#39;Custom view “Kerala Leads” saved.&#39;);
+    contentRef.current?.scrollTo({ top: 0, behavior: &#39;instant&#39; });
+  };
+
+  return (
+    &lt;div className=&quot;puf-page&quot;&gt;
+      &lt;div className=&quot;puf-shell&quot;&gt;
+        &lt;NextGenLeftMenu width={235} activeId=&quot;leads&quot; topNavItems={topNavItems} modules={navigationModules} /&gt;
+        &lt;main className=&quot;puf-main&quot;&gt;
+          &lt;NextGenTopBand moduleLabel=&quot;Leads&quot; searchPlaceholder=&quot;Search records&quot; showTerritory={false} /&gt;
+          &lt;header className=&quot;puf-header&quot;&gt;
+            &lt;Button variant=&quot;link-default&quot; className=&quot;puf-back&quot; aria-label=&quot;Back to Leads&quot; onClick={reset}&gt;&lt;Icon name=&quot;CrmArrowBack&quot; size=&quot;var(--ds-line-height-h2)&quot; /&gt;&lt;/Button&gt;
+            &lt;h1&gt;Kerala Leads&lt;/h1&gt;
+            &lt;div className=&quot;puf-header-actions&quot;&gt;
+              &lt;Tooltip content=&quot;Create a custom view using criteria and selected columns.&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+                &lt;Button variant=&quot;link-default&quot; aria-label=&quot;Custom view information&quot;&gt;&lt;Info /&gt;&lt;/Button&gt;
+              &lt;/Tooltip&gt;
+              &lt;Dropdown width={48} triggerIcon={&lt;More /&gt;} triggerAriaLabel=&quot;More custom view actions&quot; triggerButtonVariant=&quot;default&quot; options={[{ value: &#39;reset&#39;, label: &#39;Reset changes&#39; }]} onChange={reset} /&gt;
+              &lt;Button variant=&quot;default&quot; onClick={reset}&gt;Cancel&lt;/Button&gt;
+              &lt;Button onClick={save}&gt;Save&lt;/Button&gt;
+              &lt;Tooltip content=&quot;Custom view help&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+                &lt;Button variant=&quot;link-default&quot; aria-label=&quot;Custom view help&quot;&gt;&lt;HelpCircle /&gt;&lt;/Button&gt;
+              &lt;/Tooltip&gt;
+            &lt;/div&gt;
+          &lt;/header&gt;
+          &lt;div className=&quot;puf-canvas&quot;&gt;
+            &lt;div className=&quot;puf-content&quot; ref={contentRef}&gt;
+              {message &amp;&amp; &lt;MessageBox variant={message.startsWith(&#39;Select&#39;) ? &#39;error&#39; : &#39;success&#39;} message={message} onClose={() =&gt; setMessage(&#39;&#39;)} /&gt;}
+              &lt;div className=&quot;puf-criteria&quot;&gt;
+                &lt;section className=&quot;nested-criteria__card&quot; aria-label=&quot;Specify Criteria - Leads&quot;&gt;
+                  &lt;div className=&quot;nested-criteria__card-title&quot;&gt;
+                    &lt;h4&gt;Specify Criteria - &amp;quot;Leads&amp;quot;&lt;/h4&gt;
+                    &lt;Switch aria-label=&quot;Enable lead criteria&quot; checked={criteriaOn} onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setCriteriaOn(event.target.checked)} /&gt;
+                  &lt;/div&gt;
+                  {criteriaOn &amp;&amp; rows.map((row, index) =&gt; (
+                    &lt;div key={row.id} className=&quot;puf-criterion-group&quot;&gt;
+                      &lt;div className=&quot;puf-criterion&quot;&gt;
+                        &lt;span className=&quot;nested-criteria__circle&quot;&gt;{index + 1}&lt;/span&gt;
+                        &lt;Dropdown layout=&quot;vertical&quot; width={150} triggerAriaLabel={`Module ${index + 1}`} options={modules} value=&quot;leads&quot; /&gt;
+                        &lt;Dropdown layout=&quot;vertical&quot; width={200} triggerAriaLabel={`Field ${index + 1}`} options={fields} value={row.field} onChange={(value: string) =&gt; update(row.id, { field: value, value: &#39;&#39;, portalValues: [] })} /&gt;
+                        &lt;Dropdown layout=&quot;vertical&quot; width={150} panelStyle={{ minWidth: 218 }} triggerAriaLabel={`Operator ${index + 1}`} options={operators} value={row.operator} onChange={(value: string) =&gt; update(row.id, { operator: value, value: &#39;&#39;, portalValues: [] })} /&gt;
+                        {[&#39;is&#39;, &#39;is_not&#39;].includes(row.operator) &amp;&amp; &lt;UserPicker layout=&quot;vertical&quot; width={343} placeholder=&quot;Click to Select Users.&quot; users={users} value={row.value} onChange={(value: string) =&gt; update(row.id, { value })} /&gt;}
+                        {[&#39;portal&#39;, &#39;not_portal&#39;].includes(row.operator) &amp;&amp; &lt;Tags width={343} placeholder=&quot;Select Portal&quot; options={portals} value={portals.filter(portal =&gt; row.portalValues.includes(portal.value))} onChange={(values: { value: string; label: string }[]) =&gt; update(row.id, { portalValues: values.map(portal =&gt; portal.value) })} /&gt;}
+                        {[&#39;role&#39;, &#39;not_role&#39;].includes(row.operator) &amp;&amp; &lt;Dropdown layout=&quot;vertical&quot; width={343} triggerAriaLabel={`Role ${index + 1}`} placeholder=&quot;Select Role&quot; options={roles} value={row.value} onChange={(value: string) =&gt; update(row.id, { value })} /&gt;}
+                        {[&#39;is_empty&#39;, &#39;is_not_empty&#39;].includes(row.operator) &amp;&amp; &lt;Input layout=&quot;vertical&quot; width={343} aria-label={`Value ${index + 1}`} value=&quot;&quot; disabled /&gt;}
+                        {rows.length &gt; 1 &amp;&amp; &lt;Button variant=&quot;link-red&quot; className=&quot;puf-icon-action&quot; aria-label={`Remove criterion ${index + 1}`} onClick={() =&gt; setRows(current =&gt; current.filter(item =&gt; item.id !== row.id))}&gt;&lt;CriteriaMinus /&gt;&lt;/Button&gt;}
+                        {index === rows.length - 1 &amp;&amp; &lt;Button variant=&quot;link-default&quot; className=&quot;puf-icon-action puf-add&quot; aria-label=&quot;Add criterion&quot; disabled={rows.length &gt;= 25} onClick={() =&gt; setRows(current =&gt; [...current, newCriterion(Math.max(...current.map(item =&gt; item.id)) + 1)])}&gt;&lt;CriteriaPlus /&gt;&lt;/Button&gt;}
+                      &lt;/div&gt;
+                      {index &lt; rows.length - 1 &amp;&amp; &lt;div className=&quot;puf-row-connector&quot;&gt;&lt;span&gt;AND&lt;/span&gt;&lt;/div&gt;}
+                    &lt;/div&gt;
+                  ))}
+                &lt;/section&gt;
+                &lt;div className=&quot;nested-criteria__and&quot; aria-hidden=&quot;true&quot;&gt;&lt;span&gt;AND&lt;/span&gt;&lt;/div&gt;
+                &lt;section className=&quot;nested-criteria__card puf-related&quot; aria-label=&quot;Related Modules Criteria&quot;&gt;
+                  &lt;div className=&quot;nested-criteria__card-title&quot;&gt;
+                    &lt;h4&gt;Related Modules Criteria&lt;/h4&gt;
+                    &lt;Switch aria-label=&quot;Enable related modules criteria&quot; checked={relatedOn} onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setRelatedOn(event.target.checked)} /&gt;
+                  &lt;/div&gt;
+                  {relatedOn ? &lt;NestedCriteria moduleLabel=&quot;Leads&quot; specifyTitle={&#39;Specify Criteria - &quot;Leads&quot;&#39;} moduleOptions={modules} fieldOptions={fields} operatorOptions={operators} relatedModules={[{ value: &#39;contacts&#39;, label: &#39;Contacts&#39; }, { value: &#39;deals&#39;, label: &#39;Deals&#39; }]} relatedConditions={[{ value: &#39;with&#39;, label: &#39;with&#39; }, { value: &#39;without&#39;, label: &#39;without&#39; }]} valueWidth={200} defaultRelatedOn /&gt; : &lt;p className=&quot;nested-criteria__card-off&quot;&gt;It helps to filter record based on related module values.&lt;/p&gt;}
+                &lt;/section&gt;
+              &lt;/div&gt;
+              &lt;section className=&quot;puf-columns&quot; aria-labelledby=&quot;puf-columns-title&quot;&gt;
+                &lt;h2 id=&quot;puf-columns-title&quot;&gt;Choose Column for Default List View &lt;Tooltip content=&quot;Choose the fields and drag selected columns to set their order. Lead Name is required.&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;&lt;Button variant=&quot;link-default&quot; aria-label=&quot;Column selection information&quot;&gt;&lt;Info /&gt;&lt;/Button&gt;&lt;/Tooltip&gt;&lt;/h2&gt;
+                &lt;div className=&quot;puf-column-lists&quot;&gt;
+                  &lt;div&gt;
+                    &lt;h3&gt;Available&lt;/h3&gt;
+                    &lt;div className=&quot;puf-list-box&quot;&gt;
+                      &lt;Input layout=&quot;vertical&quot; type=&quot;search&quot; width=&quot;100%&quot; aria-label=&quot;Search available columns&quot; suffix={&lt;Search /&gt;} value={query} onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setQuery(event.target.value)} /&gt;
+                      &lt;div className=&quot;puf-available&quot;&gt;
+                        {allColumns.filter(label =&gt; !selected.includes(label) &amp;&amp; label.toLowerCase().includes(query.toLowerCase())).map(label =&gt; &lt;Button variant=&quot;link-default&quot; key={label} onClick={() =&gt; setSelected(current =&gt; [...current, label])}&gt;{label}&lt;/Button&gt;)}
+                        {!allColumns.some(label =&gt; !selected.includes(label) &amp;&amp; label.toLowerCase().includes(query.toLowerCase())) &amp;&amp; &lt;p&gt;No matching columns&lt;/p&gt;}
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div&gt;
+                    &lt;h3&gt;Selected&lt;/h3&gt;
+                    &lt;div className=&quot;puf-list-box puf-selected&quot;&gt;
+                      &lt;Dragger items={selected} onChange={setSelected} gripperOnHover renderItem={(label: string) =&gt; &lt;Button variant=&quot;link-default&quot; aria-label={label === &#39;Lead Name&#39; ? &#39;Lead Name (required)&#39; : `Remove ${label}`} aria-disabled={label === &#39;Lead Name&#39;} onClick={() =&gt; label !== &#39;Lead Name&#39; &amp;&amp; setSelected(current =&gt; current.filter(item =&gt; item !== label))}&gt;{label}{label === &#39;Lead Name&#39; &amp;&amp; &lt;span className=&quot;puf-required&quot;&gt; *&lt;/span&gt;}&lt;/Button&gt;} /&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/section&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/main&gt;
+      &lt;/div&gt;
+      &lt;WMSBar /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export const InCustomView: Story = { render: () =&gt; &lt;CustomView /&gt; };
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import {
+    Button,
+    CriteriaMinus,
+    CriteriaPlus,
+    Dragger,
+    Dropdown,
+    HelpCircle,
+    Icon,
+    Info,
+    Input,
+    MessageBox,
+    More,
+    NestedCriteria,
+    NextGenLeftMenu,
+    NextGenTopBand,
+    Search,
+    Switch,
+    Tags,
+    Tooltip,
+    UserPicker,
+    WMSBar,
+} from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">In Custom View</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const InCustomView = () =&gt; &lt;CustomView /&gt;;</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
   no-error 
   has-info 
   no-story-error
@@ -16656,9 +17107,9 @@ export const Users = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> ProgressBar</h2>
       <div class="badges">
-        <label for="c-34-design-system-components-progressbar-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-34-design-system-components-progressbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-34-design-system-components-progressbar-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-35-design-system-components-progressbar-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-35-design-system-components-progressbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-35-design-system-components-progressbar-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -16671,11 +17122,11 @@ export const Users = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-34-design-system-components-progressbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-34-design-system-components-progressbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-35-design-system-components-progressbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-35-design-system-components-progressbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-34-design-system-components-progressbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-35-design-system-components-progressbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -16864,8 +17315,8 @@ value?: any = 0</code></pre>
       <h2><span class="status-dot dot-ok"></span> Radio</h2>
       <div class="badges">
         
-        <label for="c-35-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
-        <label for="c-35-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-36-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
+        <label for="c-36-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -16878,8 +17329,8 @@ value?: any = 0</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-35-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-35-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-36-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-36-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -17023,9 +17474,9 @@ value?: any = 0</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> RecordAuthentication</h2>
       <div class="badges">
-        <label for="c-36-work-items-record-authentication-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-36-work-items-record-authentication-info" class="badge info as-toggle">1 info</label>
-        <label for="c-36-work-items-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-37-work-items-record-authentication-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-37-work-items-record-authentication-info" class="badge info as-toggle">1 info</label>
+        <label for="c-37-work-items-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -17037,9 +17488,9 @@ value?: any = 0</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-36-work-items-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-36-work-items-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-36-work-items-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-37-work-items-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-37-work-items-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-37-work-items-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -18060,9 +18511,9 @@ export const RecordConfiguration: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> RichTextEditor</h2>
       <div class="badges">
-        <label for="c-37-design-system-components-richtexteditor-props" class="badge ok as-toggle">7 prop types</label>
-        <label for="c-37-design-system-components-richtexteditor-info" class="badge info as-toggle">1 info</label>
-        <label for="c-37-design-system-components-richtexteditor-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-38-design-system-components-richtexteditor-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-38-design-system-components-richtexteditor-info" class="badge info as-toggle">1 info</label>
+        <label for="c-38-design-system-components-richtexteditor-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -18075,11 +18526,11 @@ export const RecordConfiguration: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-37-design-system-components-richtexteditor-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-37-design-system-components-richtexteditor-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-38-design-system-components-richtexteditor-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-38-design-system-components-richtexteditor-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-37-design-system-components-richtexteditor-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-38-design-system-components-richtexteditor-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -18222,9 +18673,9 @@ width?: any = 500</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SBConnections</h2>
       <div class="badges">
-        <label for="c-38-work-items-sb-connections-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-38-work-items-sb-connections-info" class="badge info as-toggle">1 info</label>
-        <label for="c-38-work-items-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-39-work-items-sb-connections-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-39-work-items-sb-connections-info" class="badge info as-toggle">1 info</label>
+        <label for="c-39-work-items-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -18236,9 +18687,9 @@ width?: any = 500</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-38-work-items-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-38-work-items-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-38-work-items-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-39-work-items-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-39-work-items-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-39-work-items-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -18562,9 +19013,9 @@ export const DiagramOnly: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Select</h2>
       <div class="badges">
-        <label for="c-39-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-39-design-system-components-select-info" class="badge info as-toggle">1 info</label>
-        <label for="c-39-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-40-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-40-design-system-components-select-info" class="badge info as-toggle">1 info</label>
+        <label for="c-40-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -18577,11 +19028,11 @@ export const DiagramOnly: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-39-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-39-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-40-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-40-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-39-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-40-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -18784,9 +19235,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SendDashboardScheduler</h2>
       <div class="badges">
-        <label for="c-40-work-items-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-40-work-items-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
-        <label for="c-40-work-items-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-41-work-items-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-41-work-items-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
+        <label for="c-41-work-items-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -18798,9 +19249,9 @@ width?: any = 670</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-40-work-items-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-40-work-items-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-40-work-items-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-41-work-items-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-41-work-items-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-41-work-items-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -20073,9 +20524,9 @@ export const SendDashboardScheduler = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SetupTable</h2>
       <div class="badges">
-        <label for="c-41-design-system-components-table-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-41-design-system-components-table-info" class="badge info as-toggle">1 info</label>
-        <label for="c-41-design-system-components-table-stories" class="badge ok as-toggle">5 stories</label>
+        <label for="c-42-design-system-components-table-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-42-design-system-components-table-info" class="badge info as-toggle">1 info</label>
+        <label for="c-42-design-system-components-table-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
@@ -20088,11 +20539,11 @@ export const SendDashboardScheduler = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-41-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-41-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-42-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-42-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-41-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-42-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -20212,9 +20663,9 @@ variant?: any = &#39;setup&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Slider</h2>
       <div class="badges">
-        <label for="c-42-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
-        <label for="c-42-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
-        <label for="c-42-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
+        <label for="c-43-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-43-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
+        <label for="c-43-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
         
         
       </div>
@@ -20227,11 +20678,11 @@ variant?: any = &#39;setup&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-42-design-system-components-slider-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-42-design-system-components-slider-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-43-design-system-components-slider-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-43-design-system-components-slider-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-42-design-system-components-slider-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-43-design-system-components-slider-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -20588,9 +21039,9 @@ value?: any = 50</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SortingHat</h2>
       <div class="badges">
-        <label for="c-43-design-system-components-sorting-hat-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-43-design-system-components-sorting-hat-info" class="badge info as-toggle">1 info</label>
-        <label for="c-43-design-system-components-sorting-hat-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-44-design-system-components-sorting-hat-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-44-design-system-components-sorting-hat-info" class="badge info as-toggle">1 info</label>
+        <label for="c-44-design-system-components-sorting-hat-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -20603,11 +21054,11 @@ value?: any = 50</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-43-design-system-components-sorting-hat-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-43-design-system-components-sorting-hat-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-44-design-system-components-sorting-hat-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-44-design-system-components-sorting-hat-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-43-design-system-components-sorting-hat-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-44-design-system-components-sorting-hat-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -20683,9 +21134,9 @@ variations?: any = []</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Stepper</h2>
       <div class="badges">
-        <label for="c-44-design-system-components-stepper-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-44-design-system-components-stepper-info" class="badge info as-toggle">1 info</label>
-        <label for="c-44-design-system-components-stepper-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-45-design-system-components-stepper-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-45-design-system-components-stepper-info" class="badge info as-toggle">1 info</label>
+        <label for="c-45-design-system-components-stepper-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -20698,11 +21149,11 @@ variations?: any = []</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-44-design-system-components-stepper-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-44-design-system-components-stepper-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-45-design-system-components-stepper-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-45-design-system-components-stepper-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-44-design-system-components-stepper-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-45-design-system-components-stepper-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -20896,9 +21347,9 @@ variant?: any = &#39;multi&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Switch</h2>
       <div class="badges">
-        <label for="c-45-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-45-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
-        <label for="c-45-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-46-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-46-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
+        <label for="c-46-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -20911,11 +21362,11 @@ variant?: any = &#39;multi&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-45-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-45-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-46-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-46-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-45-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-46-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21059,9 +21510,9 @@ variant?: any = &#39;multi&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tabs</h2>
       <div class="badges">
-        <label for="c-46-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-46-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-46-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-47-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-47-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-47-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -21074,11 +21525,11 @@ variant?: any = &#39;multi&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-46-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-46-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-47-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-47-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-46-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-47-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21220,9 +21671,9 @@ variant?: any = &#39;primary&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tags</h2>
       <div class="badges">
-        <label for="c-47-design-system-components-tags-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-47-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
-        <label for="c-47-design-system-components-tags-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-48-design-system-components-tags-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-48-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
+        <label for="c-48-design-system-components-tags-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -21235,11 +21686,11 @@ variant?: any = &#39;primary&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-47-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-47-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-48-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-48-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-47-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-48-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21486,9 +21937,9 @@ width?: any = &#39;100%&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Textarea</h2>
       <div class="badges">
-        <label for="c-48-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-48-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
-        <label for="c-48-design-system-components-textarea-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-49-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-49-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
+        <label for="c-49-design-system-components-textarea-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -21501,11 +21952,11 @@ width?: any = &#39;100%&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-48-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-48-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-49-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-49-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-48-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-49-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21710,9 +22161,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tooltip</h2>
       <div class="badges">
-        <label for="c-49-design-system-components-tooltip-props" class="badge ok as-toggle">7 prop types</label>
-        <label for="c-49-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
-        <label for="c-49-design-system-components-tooltip-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-50-design-system-components-tooltip-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-50-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
+        <label for="c-50-design-system-components-tooltip-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -21725,11 +22176,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-49-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-49-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-50-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-50-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-49-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-50-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21932,9 +22383,9 @@ variant?: any = &#39;black&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> TypographyPage</h2>
       <div class="badges">
-        <label for="c-50-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-50-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
-        <label for="c-50-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-51-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-51-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
+        <label for="c-51-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -21946,9 +22397,9 @@ variant?: any = &#39;black&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-50-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-50-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-50-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-51-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-51-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-51-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -22393,9 +22844,9 @@ export const AllTypography: StoryObj = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-51-work-items-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-51-work-items-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-51-work-items-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-52-work-items-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-52-work-items-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-52-work-items-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -22407,9 +22858,9 @@ export const AllTypography: StoryObj = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-51-work-items-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-51-work-items-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-51-work-items-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-52-work-items-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-52-work-items-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-52-work-items-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -23784,9 +24235,9 @@ export const CreateNotification: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> UserPicker</h2>
       <div class="badges">
-        <label for="c-52-design-system-components-userpicker-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-52-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-52-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-53-design-system-components-userpicker-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-53-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-53-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -23799,11 +24250,11 @@ export const CreateNotification: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-52-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-52-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-53-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-53-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-52-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-53-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -23820,13 +24271,15 @@ export const CreateNotification: Story = {
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">4 prop types</span>
+              <span class="badge ok">5 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/UserPicker/UserPicker.js::UserPicker</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>layout?: any = &#39;horizontal&#39;
 
 placeholder?: any = &#39;Select user&#39;
+
+size?: any = &#39;md&#39;
 
 users?: any = []
 
@@ -23999,9 +24452,9 @@ width?: any = 390</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> VerticalTabs</h2>
       <div class="badges">
-        <label for="c-53-design-system-components-verticaltabs-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-53-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-53-design-system-components-verticaltabs-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-54-design-system-components-verticaltabs-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-54-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-54-design-system-components-verticaltabs-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -24014,11 +24467,11 @@ width?: any = 390</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-53-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-53-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-54-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-54-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-53-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-54-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -24192,9 +24645,9 @@ Figma: Pascal Stone &quot;Setup Left Menu&quot; (79954:198542).</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> WMSBar</h2>
       <div class="badges">
-        <label for="c-54-design-system-components-wmsbar-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-54-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-54-design-system-components-wmsbar-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-55-design-system-components-wmsbar-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-55-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-55-design-system-components-wmsbar-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -24207,11 +24660,11 @@ Figma: Pascal Stone &quot;Setup Left Menu&quot; (79954:198542).</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-54-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-54-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-55-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-55-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-54-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-55-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -24318,7 +24771,7 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
           <label for="no-component-found-toggle" class="group-header">
             <span class="caret">▸</span>
             <span class="group-title">No component found</span>
-            <span class="group-count">16</span>
+            <span class="group-count">17</span>
           </label>
           <div class="group-cards">
 <article
@@ -28157,13 +28610,13 @@ export const Phase1: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  25 | // ─────────────────────────────────────────────────────────────────────────────
-  26 |
-&gt; 27 | export default {
+  29 | // ─────────────────────────────────────────────────────────────────────────────
+  30 |
+&gt; 31 | export default {
      | ^
-  28 |   title: &#39;Work Items/Field History Tracking&#39;,
-  29 |   parameters: {
-  30 |     layout: &#39;centered&#39;,
+  32 |   title: &#39;Work Items/Field History Tracking&#39;,
+  33 |   parameters: {
+  34 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/FieldHistoryTracking.stories.js:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -28178,12 +28631,16 @@ import { Dragger } from &#39;../components/Dragger/Dragger&#39;;
 import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
 import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
+import { UserPicker } from &#39;../components/UserPicker/UserPicker&#39;;
+import { DatePicker } from &#39;../components/DatePicker/DatePicker&#39;;
+import { DateRangePicker } from &#39;../components/Calendar/DateRangePicker&#39;;
 import { SetupTable } from &#39;../components/Table/Table&#39;;
 import { DetailPage, RecordCard } from &#39;./CrmScreens.page&#39;;
 import { SortingHat } from &#39;../components/SortingHat/SortingHat&#39;;
 import { Info as InfoIcon, Lock as LockIcon } from &#39;../foundations/icons/Icons&#39;;
 import { crmIconMap } from &#39;../foundations/icons/CrmCatalog&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
+import &#39;../components/Tags/Tags.css&#39;;
 
 // Column settings icon from the icon gallery (CrmColumnArrange).
 const ColumnArrangeIcon = crmIconMap.CrmColumnArrange;
@@ -28609,7 +29066,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;5 days&#39;,
     amount: &#39;$ 1,48,000&#39;,
     probability: &#39;70%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Manual (UI)&#39;,
   },
   {
@@ -28621,7 +29080,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;14 days&#39;,
     amount: &#39;$ 1,42,000&#39;,
     probability: &#39;60%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Manual (UI)&#39;,
   },
   {
@@ -28633,19 +29094,23 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;6 days&#39;,
     amount: &#39;$ 1,38,000&#39;,
     probability: &#39;50%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Workflow&#39;,
   },
   {
     id: &#39;fh-4&#39;,
-    from: &#39;Record Created&#39;,
+    from: &#39;Value Prop&#39;,
     to: &#39;Negotiation&#39;,
     modifiedBy: &#39;Yren Okafor&#39;,
     modifiedTime: &#39;Apr 22, 2026 2:17 PM&#39;,
     duration: &#39;6 days&#39;,
     amount: &#39;$ 1,30,000&#39;,
     probability: &#39;40%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Import&#39;,
   },
   {
@@ -28657,7 +29122,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;9 days&#39;,
     amount: &#39;$ 1,50,000&#39;,
     probability: &#39;90%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Manual (UI)&#39;,
   },
   {
@@ -28669,7 +29136,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;4 days&#39;,
     amount: &#39;$ 1,25,000&#39;,
     probability: &#39;35%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Workflow&#39;,
   },
   {
@@ -28681,7 +29150,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;6 days&#39;,
     amount: &#39;$ 1,20,000&#39;,
     probability: &#39;30%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;API&#39;,
   },
   {
@@ -28693,7 +29164,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;3 days&#39;,
     amount: &#39;$ 1,10,000&#39;,
     probability: &#39;25%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Import&#39;,
   },
   {
@@ -28705,7 +29178,9 @@ const FIELD_HISTORY_ROWS = [
     duration: &#39;5 days&#39;,
     amount: &#39;$ 1,05,000&#39;,
     probability: &#39;20%&#39;,
-    fieldType: &#39;Pick List&#39;,
+    closingDate: &#39;Jun 30, 2026&#39;,
+    dealOwner: &#39;Elijah Morgan&#39;,
+    dealType: &#39;New Business&#39;,
     source: &#39;Manual (UI)&#39;,
   },
 ];
@@ -28716,16 +29191,47 @@ const FIELD_HISTORY_TIME_OPTIONS = [
   { value: &#39;30d&#39;, label: &#39;Last 30 days&#39; },
   { value: &#39;6m&#39;, label: &#39;Last 6 months&#39; },
   { value: &#39;1y&#39;, label: &#39;Last 1 year&#39; },
+  { value: &#39;date&#39;, label: &#39;Specific Date&#39; },
+  { value: &#39;range&#39;, label: &#39;Custom Range&#39; },
 ];
 
-const FIELD_HISTORY_USER_OPTIONS = [
-  { value: &#39;all&#39;, label: &#39;All users&#39; },
-  { value: &#39;elijah&#39;, label: &#39;Elijah Morgan&#39; },
-  { value: &#39;klaus&#39;, label: &#39;Klaus Weber&#39; },
-  { value: &#39;mikasa&#39;, label: &#39;Mikasa Chen&#39; },
-  { value: &#39;yren&#39;, label: &#39;Yren Okafor&#39; },
-  { value: &#39;system&#39;, label: &#39;System / Automation&#39; },
+// Users for the user filter (UserPicker). The first entry clears the filter.
+const FIELD_HISTORY_USERS = [
+  { id: &#39;all&#39;, name: &#39;All users&#39;, subLabel: &#39;Every user and system&#39; },
+  { id: &#39;elijah&#39;, name: &#39;Elijah Morgan&#39;, subLabel: &#39;elijah.morgan@zohocorp.com&#39; },
+  { id: &#39;klaus&#39;, name: &#39;Klaus Weber&#39;, subLabel: &#39;klaus.weber@zohocorp.com&#39; },
+  { id: &#39;mikasa&#39;, name: &#39;Mikasa Chen&#39;, subLabel: &#39;mikasa.chen@zohocorp.com&#39; },
+  { id: &#39;yren&#39;, name: &#39;Yren Okafor&#39;, subLabel: &#39;yren.okafor@zohocorp.com&#39; },
+  { id: &#39;system&#39;, name: &#39;System / Automation&#39;, subLabel: &#39;Workflows, API and imports&#39; },
 ];
+
+// &quot;Today&quot; for the sample data, so Last 7 days / 30 days / 6 months show different rows.
+const FIELD_HISTORY_TODAY = new Date(2026, 5, 3, 12, 0);
+
+const startOfDay = (d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate());
+const endOfDay = (d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
+const sameDay = (a, b) =&gt; startOfDay(a).getTime() === startOfDay(b).getTime();
+
+function matchesTime(row, filter, date, range) {
+  const when = new Date(row.modifiedTime);
+  const since = (days, months = 0) =&gt; {
+    const d = new Date(FIELD_HISTORY_TODAY);
+    d.setDate(d.getDate() - days);
+    d.setMonth(d.getMonth() - months);
+    return d;
+  };
+  switch (filter) {
+    case &#39;7d&#39;: return when &gt;= since(7);
+    case &#39;30d&#39;: return when &gt;= since(30);
+    case &#39;6m&#39;: return when &gt;= since(0, 6);
+    case &#39;1y&#39;: return when &gt;= since(0, 12);
+    case &#39;date&#39;: return !date || sameDay(when, date);
+    case &#39;range&#39;: return !range.start || !range.end || (when &gt;= startOfDay(range.start) &amp;&amp; when &lt;= endOfDay(range.end));
+    default: return true;
+  }
+}
+
+const SOURCE_FILTER_LABELS = { manual: &#39;Manual (UI)&#39;, workflow: &#39;Workflow&#39;, api: &#39;API&#39;, import: &#39;Import&#39; };
 
 const FIELD_HISTORY_SOURCE_OPTIONS = [
   { value: &#39;all&#39;, label: &#39;All sources&#39; },
@@ -28734,6 +29240,26 @@ const FIELD_HISTORY_SOURCE_OPTIONS = [
   { value: &#39;api&#39;, label: &#39;API&#39; },
   { value: &#39;import&#39;, label: &#39;Import&#39; },
 ];
+
+// Subdued pastel tokens distinguish stages without vibrant fills.
+const STAGE_COLORS = {
+  &#39;Value Prop&#39;: [&#39;--ds-neutral-pastel6&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Negotiation&#39;: [&#39;--ds-neutral-pastel2&#39;, &#39;--ds-text-heading&#39;],
+  &#39;In Progress&#39;: [&#39;--ds-neutral-pastel5&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Closed Won&#39;: [&#39;--ds-neutral-pastel3&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Proposal&#39;: [&#39;--ds-neutral-pastel7&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Qualification&#39;: [&#39;--ds-neutral-pastel1&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Needs Analysis&#39;: [&#39;--ds-neutral-pastel8&#39;, &#39;--ds-text-heading&#39;],
+  &#39;Record Created&#39;: [&#39;--ds-bg-scale-bg5&#39;, &#39;--ds-text-heading&#39;],
+};
+
+function stageStyle(stage) {
+  const [background, foreground] = STAGE_COLORS[stage] ?? STAGE_COLORS[&#39;Record Created&#39;];
+  return {
+    &#39;--fht-stage-color&#39;: `oklch(from var(${background}) calc(l * 0.98) calc(c * 1.15) h)`,
+    color: `var(${foreground})`,
+  };
+}
 
 const FIELD_HISTORY_COLUMNS = [
   {
@@ -28746,22 +29272,24 @@ const FIELD_HISTORY_COLUMNS = [
     width: 340,
     render: (value, row) =&gt; (
       &lt;span className=&quot;crm-screens__transition&quot;&gt;
-        &lt;span className={value === &#39;Record Created&#39; ? &#39;crm-screens__stage-pill crm-screens__stage-pill--muted&#39; : &#39;crm-screens__stage-pill&#39;}&gt;{value}&lt;/span&gt;
+        &lt;span className=&quot;tags-tag crm-screens__stage-pill&quot; style={stageStyle(value)}&gt;{value}&lt;/span&gt;
         &lt;span className=&quot;crm-screens__arrow&quot; aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;
-        &lt;span className=&quot;crm-screens__stage-pill&quot;&gt;{row.to}&lt;/span&gt;
+        &lt;span className=&quot;tags-tag crm-screens__stage-pill&quot; style={stageStyle(row.to)}&gt;{row.to}&lt;/span&gt;
       &lt;/span&gt;
     ),
   },
   {
     key: &#39;modifiedBy&#39;,
-    label: &#39;Modified By&#39;,
+    label: &#39;Moved By&#39;,
     width: 200,
   },
-  { key: &#39;modifiedTime&#39;, label: &#39;Modified Time&#39;, width: 190 },
+  { key: &#39;modifiedTime&#39;, label: &#39;Moved Time&#39;, width: 190 },
   { key: &#39;duration&#39;, label: &#39;Duration&#39;, width: 110 },
   { key: &#39;amount&#39;, label: &#39;Amount&#39;, width: 130 },
   { key: &#39;probability&#39;, label: &#39;Probability&#39;, width: 110 },
-  { key: &#39;fieldType&#39;, label: &#39;Field Type&#39;, width: 120 },
+  { key: &#39;closingDate&#39;, label: &#39;Closing Date&#39;, width: 150 },
+  { key: &#39;dealOwner&#39;, label: &#39;Deal Owner&#39;, width: 180 },
+  { key: &#39;dealType&#39;, label: &#39;Deal Type&#39;, width: 150 },
   {
     key: &#39;source&#39;,
     label: &#39;Source&#39;,
@@ -28772,11 +29300,11 @@ const FIELD_HISTORY_COLUMNS = [
     // End-of-header column: column settings icon, no body content.
     key: &#39;columnSettings&#39;,
     label: (
-      &lt;button type=&quot;button&quot; className=&quot;crm-screens__header-icon&quot; aria-label=&quot;Column settings&quot;&gt;
+      &lt;button type=&quot;button&quot; className=&quot;crm-screens__header-icon&quot; aria-label=&quot;Manage Column&quot;&gt;
         &lt;ColumnArrangeIcon width={16} height={16} aria-hidden=&quot;true&quot; /&gt;
       &lt;/button&gt;
     ),
-    width: 52,
+    width: 36,
     render: () =&gt; null,
   },
 ];
@@ -28785,27 +29313,31 @@ const FIELD_HISTORY_COLUMNS = [
 // The first five columns are mandatory.
 const SETTINGS_REQUIRED_KEYS = [&#39;from&#39;, &#39;modifiedBy&#39;, &#39;modifiedTime&#39;, &#39;duration&#39;, &#39;source&#39;];
 // Column order: Deal Stage -&gt; Moved To, Modified By, Modified Time, Duration, Source, then the rest.
-const COLUMN_ORDER = [&#39;from&#39;, &#39;modifiedBy&#39;, &#39;modifiedTime&#39;, &#39;duration&#39;, &#39;source&#39;, &#39;amount&#39;, &#39;probability&#39;, &#39;fieldType&#39;, &#39;columnSettings&#39;];
+const DEFAULT_COLUMN_KEYS = [&#39;from&#39;, &#39;modifiedBy&#39;, &#39;modifiedTime&#39;, &#39;duration&#39;, &#39;source&#39;, &#39;amount&#39;, &#39;probability&#39;];
 const SETTINGS_FIELDS = [
-  { key: &#39;from&#39;, label: &#39;Deal Stage → Moved To&#39; },
-  { key: &#39;modifiedBy&#39;, label: &#39;Modified By&#39; },
-  { key: &#39;modifiedTime&#39;, label: &#39;Modified Time&#39; },
+  // En spaces keep a visible gap on both sides of the arrow (the label is plain text in the list).
+  { key: &#39;from&#39;, label: &#39;Deal Stage\u2002→\u2002Moved To&#39; },
+  { key: &#39;modifiedBy&#39;, label: &#39;Moved By&#39; },
+  { key: &#39;modifiedTime&#39;, label: &#39;Moved Time&#39; },
   { key: &#39;duration&#39;, label: &#39;Duration&#39; },
   { key: &#39;source&#39;, label: &#39;Source&#39; },
   { key: &#39;amount&#39;, label: &#39;Amount&#39; },
   { key: &#39;probability&#39;, label: &#39;Probability (%)&#39; },
-  { key: &#39;fieldType&#39;, label: &#39;Field Type&#39; },
+  { key: &#39;closingDate&#39;, label: &#39;Closing Date&#39; },
+  { key: &#39;dealOwner&#39;, label: &#39;Deal Owner&#39; },
+  { key: &#39;dealType&#39;, label: &#39;Deal Type&#39; },
 ].map((f) =&gt; ({ ...f, required: SETTINGS_REQUIRED_KEYS.includes(f.key) }));
-const ALL_COLUMN_KEYS = SETTINGS_FIELDS.map((f) =&gt; f.key);
-const SETTINGS_PANEL_WIDTH = 340;
+// Additional snapshot fields are available without crowding the default table.
 
 // plainFirstColumn: the first column shows the stage transition as plain text, without capsules.
 function FieldHistorySection({ plainFirstColumn = false }) {
   const [timeFilter, setTimeFilter] = useState(&#39;all&#39;);
   const [userFilter, setUserFilter] = useState(&#39;all&#39;);
   const [sourceFilter, setSourceFilter] = useState(&#39;all&#39;);
-  const [applied, setApplied] = useState(ALL_COLUMN_KEYS); // columns shown in the table
-  const [draft, setDraft] = useState(ALL_COLUMN_KEYS); // selection while the panel is open
+  const [specificDate, setSpecificDate] = useState(null);
+  const [customRange, setCustomRange] = useState({ start: null, end: null });
+  const [applied, setApplied] = useState(DEFAULT_COLUMN_KEYS); // columns shown in the table
+  const [draft, setDraft] = useState(DEFAULT_COLUMN_KEYS); // selection while the panel is open
   const [panel, setPanel] = useState(null); // { top, right } when the settings panel is open
   const settingsRef = useRef(null);
   const panelRef = useRef(null);
@@ -28831,6 +29363,14 @@ function FieldHistorySection({ plainFirstColumn = false }) {
     };
   }, [panel]);
 
+  // While the panel is open the page behind it does not scroll (the backdrop also blocks clicks).
+  useEffect(() =&gt; {
+    if (!panel) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = &#39;hidden&#39;;
+    return () =&gt; { document.body.style.overflow = previous; };
+  }, [panel]);
+
   // Table columns follow the order chosen in the Manage Columns panel; the icon column stays last.
   const columns = [...applied.map((k) =&gt; FIELD_HISTORY_COLUMNS.find((c) =&gt; c.key === k)), FIELD_HISTORY_COLUMNS.find((c) =&gt; c.key === &#39;columnSettings&#39;)]
     .map((c) =&gt; {
@@ -28838,12 +29378,12 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         return {
           ...c,
           label: (
-            &lt;Tooltip content=&quot;Column settings&quot; placement=&quot;bottom&quot; variant=&quot;black&quot;&gt;
+            &lt;Tooltip content=&quot;Manage Column&quot; placement=&quot;top&quot; followCursor variant=&quot;black&quot; disabled={!!panel}&gt;
               &lt;button
                 ref={settingsRef}
                 type=&quot;button&quot;
                 className=&quot;crm-screens__header-icon&quot;
-                aria-label=&quot;Column settings&quot;
+                aria-label=&quot;Manage Column&quot;
                 aria-haspopup=&quot;dialog&quot;
                 aria-expanded={!!panel}
                 onClick={openPanel}
@@ -28859,7 +29399,7 @@ function FieldHistorySection({ plainFirstColumn = false }) {
           ...c,
           render: (value, row) =&gt; (
             &lt;span&gt;
-              {value}
+              {value === &#39;Record Created&#39; ? &lt;span className=&quot;crm-screens__stage-pill--muted&quot;&gt;{value}&lt;/span&gt; : value}
               &lt;span className=&quot;crm-screens__arrow&quot; aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;
               {row.to}
             &lt;/span&gt;
@@ -28869,43 +29409,60 @@ function FieldHistorySection({ plainFirstColumn = false }) {
       return c;
     });
 
+  // The filters narrow the rows shown in the table.
+  const userName = FIELD_HISTORY_USERS.find((u) =&gt; u.id === userFilter)?.name;
+  const visibleRows = FIELD_HISTORY_ROWS.filter((row) =&gt; (
+    matchesTime(row, timeFilter, specificDate, customRange)
+    &amp;&amp; (userFilter === &#39;all&#39; || row.modifiedBy === userName)
+    &amp;&amp; (sourceFilter === &#39;all&#39; || row.source === SOURCE_FILTER_LABELS[sourceFilter])
+  )).sort((a, b) =&gt; new Date(b.modifiedTime) - new Date(a.modifiedTime));
+
   return (
     &lt;RecordCard
       title=&quot;Field History - Stage&quot;
       actions={
         &lt;&gt;
-          &lt;Dropdown value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={140} /&gt;
-          &lt;Dropdown value={userFilter} options={FIELD_HISTORY_USER_OPTIONS} onChange={setUserFilter} width={160} /&gt;
-          &lt;Dropdown value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={140} /&gt;
-          &lt;Button variant=&quot;outline-blue&quot;&gt;Manage Columns&lt;/Button&gt;
+          &lt;Dropdown size=&quot;sm&quot; value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={140} /&gt;
+          {timeFilter === &#39;date&#39; &amp;&amp; (
+            &lt;DatePicker size=&quot;sm&quot; layout=&quot;vertical&quot; width={130} placeholder=&quot;Select date&quot; value={specificDate} onChange={setSpecificDate} /&gt;
+          )}
+          {timeFilter === &#39;range&#39; &amp;&amp; (
+            &lt;DateRangePicker size=&quot;sm&quot; width={210} startDate={customRange.start} endDate={customRange.end} onChange={(start, end) =&gt; setCustomRange({ start, end })} /&gt;
+          )}
+          &lt;UserPicker size=&quot;sm&quot; layout=&quot;vertical&quot; width={220} placeholder=&quot;All users&quot; users={FIELD_HISTORY_USERS} value={userFilter} onChange={setUserFilter} /&gt;
+          &lt;Dropdown size=&quot;sm&quot; value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={140} /&gt;
         &lt;/&gt;
       }
     &gt;
       &lt;div className=&quot;crm-screens__fh-table&quot;&gt;
         &lt;SetupTable
           columns={columns}
-          rows={FIELD_HISTORY_ROWS}
+          rows={visibleRows}
           emptyMessage=&quot;No records found&quot;
         /&gt;
       &lt;/div&gt;
       {panel &amp;&amp; createPortal(
-        &lt;div
-          ref={panelRef}
-          className=&quot;fht-settings-panel&quot;
-          role=&quot;dialog&quot;
-          aria-label=&quot;Manage columns&quot;
-          style={{ top: panel.top, right: panel.right, width: SETTINGS_PANEL_WIDTH }}
-        &gt;
-          &lt;ManageColumns
-            variant=&quot;modal&quot;
-            fields={SETTINGS_FIELDS}
-            selected={draft}
-            onChange={setDraft}
-            saveLabel=&quot;Done&quot;
-            onSave={() =&gt; { setApplied(draft); setPanel(null); }}
-            onCancel={() =&gt; setPanel(null)}
-          /&gt;
-        &lt;/div&gt;,
+        &lt;&gt;
+          {/* Transparent layer: blocks clicks and hover on the page behind the panel. */}
+          &lt;div className=&quot;fht-settings-backdrop&quot; aria-hidden=&quot;true&quot; /&gt;
+          &lt;div
+            ref={panelRef}
+            className=&quot;fht-settings-panel&quot;
+            role=&quot;dialog&quot;
+            aria-label=&quot;Manage columns&quot;
+            style={{ top: panel.top, right: panel.right }}
+          &gt;
+            &lt;ManageColumns
+              variant=&quot;modal&quot;
+              fields={SETTINGS_FIELDS}
+              selected={draft}
+              onChange={setDraft}
+              saveLabel=&quot;Done&quot;
+              onSave={() =&gt; { setApplied(draft); setPanel(null); }}
+              onCancel={() =&gt; setPanel(null)}
+            /&gt;
+          &lt;/div&gt;
+        &lt;/&gt;,
         document.body,
       )}
     &lt;/RecordCard&gt;
@@ -28996,6 +29553,8 @@ export const LimitReached = {
                 <pre><code>import {
     Button,
     Checkbox,
+    DatePicker,
+    DateRangePicker,
     DetailPage,
     Dragger,
     Dropdown,
@@ -29010,6 +29569,7 @@ export const LimitReached = {
     SetupTable,
     SortingHat,
     Tooltip,
+    UserPicker,
 } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
@@ -34067,14 +34627,311 @@ export const Users = {
   no-story-error
   no-doc-error"
   role="listitem"
+  aria-label="PortalUserinFilters">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> PortalUserinFilters</h2>
+      <div class="badges">
+        <label for="c-error-12-work-items-portal-user-in-filters-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-12-work-items-portal-user-in-filters-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-12-work-items-portal-user-in-filters-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/patterns/PortalUserInFilters.stories.tsx">work-items-portal-user-in-filters · ./src/design-system/patterns/PortalUserInFilters.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-12-work-items-portal-user-in-filters-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-12-work-items-portal-user-in-filters-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-12-work-items-portal-user-in-filters-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">Prop type error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  23 | import &#39;./PortalUserInFilters.css&#39;;
+  24 |
+&gt; 25 | const meta = {
+     | ^
+  26 |   title: &#39;Work Items/Portal User in Filters&#39;,
+  27 |   parameters: { layout: &#39;fullscreen&#39; },
+  28 | } satisfies Meta;
+
+./src/design-system/patterns/PortalUserInFilters.stories.tsx:
+import { useRef, useState, type ChangeEvent } from &#39;react&#39;;
+import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
+import { NextGenLeftMenu } from &#39;../components/NextGenLeftMenu/NextGenLeftMenu&#39;;
+import { NextGenTopBand } from &#39;../components/NextGenTopBand/NextGenTopBand&#39;;
+import { WMSBar } from &#39;../components/WMSBar/WMSBar&#39;;
+import { Button } from &#39;../components/Button/Button&#39;;
+import { Icon } from &#39;../components/Icon/Icon&#39;;
+import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
+import { Tags } from &#39;../components/Tags/Tags&#39;;
+import { UserPicker } from &#39;../components/UserPicker/UserPicker&#39;;
+import { Input } from &#39;../components/Input/Input&#39;;
+import { Switch } from &#39;../components/Switch/Switch&#39;;
+import { Dragger } from &#39;../components/Dragger/Dragger&#39;;
+import { NestedCriteria } from &#39;../components/CriteriaBuilder/NestedCriteria&#39;;
+import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
+import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
+import {
+  CriteriaPlus, CriteriaMinus, HelpCircle, Info, More, Search,
+  ModuleHome, ModuleMyJobs, ModuleReports, ModuleAnalytics, ModuleCustom,
+  ModuleLeads, ModuleContacts, ModuleDeals, ModuleSocial,
+} from &#39;../foundations/icons/Icons&#39;;
+import &#39;../components/CriteriaBuilder/NestedCriteria.css&#39;;
+import &#39;./PortalUserInFilters.css&#39;;
+
+const meta = {
+  title: &#39;Work Items/Portal User in Filters&#39;,
+  parameters: { layout: &#39;fullscreen&#39; },
+} satisfies Meta;
+export default meta;
+type Story = StoryObj&lt;typeof meta&gt;;
+
+const modules = [{ value: &#39;leads&#39;, label: &#39;Leads&#39; }];
+const fields = [&#39;Modified By&#39;, &#39;Created By&#39;, &#39;Lead Owner&#39;].map(label =&gt; ({ value: label, label }));
+const operators = [
+  { value: &#39;is&#39;, label: &#39;is&#39; },
+  { value: &#39;is_not&#39;, label: &quot;isn&#39;t&quot; },
+  { value: &#39;is_empty&#39;, label: &#39;is empty&#39; },
+  { value: &#39;is_not_empty&#39;, label: &#39;is not empty&#39; },
+  { value: &#39;portal&#39;, label: &#39;belongs to Portal&#39; },
+  { value: &#39;not_portal&#39;, label: &#39;does not belongs to Portal&#39; },
+  { value: &#39;role&#39;, label: &#39;belongs to Role&#39; },
+  { value: &#39;not_role&#39;, label: &#39;does not belong to Role&#39; },
+];
+const portals = [&#39;Customer Portal&#39;, &#39;Partner Portal&#39;, &#39;Vendor Portal&#39;, &#39;Support Portal&#39;, &#39;Distributor Portal&#39;].map(label =&gt; ({ value: label, label }));
+const roles = [&#39;Administrator&#39;, &#39;Sales Manager&#39;, &#39;Sales Representative&#39;].map(label =&gt; ({ value: label, label }));
+const users = [
+  { id: &#39;ananya&#39;, name: &#39;Ananya Nair&#39;, subLabel: &#39;ananya.nair@zylker.com&#39; },
+  { id: &#39;arjun&#39;, name: &#39;Arjun Menon&#39;, subLabel: &#39;arjun.menon@zylker.com&#39; },
+  { id: &#39;meera&#39;, name: &#39;Meera Krishnan&#39;, subLabel: &#39;meera.krishnan@zylker.com&#39; },
+];
+const initialSelected = [&#39;Lead Name&#39;, &#39;Company&#39;, &#39;Email&#39;, &#39;Industry&#39;, &#39;City&#39;, &#39;Country&#39;, &#39;Annual Revenue&#39;];
+const allColumns = [&#39;902323222&#39;, &#39;Aggregate Field 4&#39;, &#39;Aggregate Field 5&#39;, &#39;Aggregate Field 6&#39;, &#39;Aggregate Field 7&#39;, &#39;Auto-Number 1&#39;, &#39;Availability test&#39;, ...initialSelected];
+const topNavItems = [
+  { id: &#39;home&#39;, label: &#39;Home&#39;, icon: ModuleHome },
+  { id: &#39;workqueue&#39;, label: &#39;Workqueue&#39;, icon: ModuleMyJobs },
+  { id: &#39;reports&#39;, label: &#39;Reports&#39;, icon: ModuleReports },
+  { id: &#39;dashboards&#39;, label: &#39;Dashboards&#39;, icon: ModuleAnalytics },
+  { id: &#39;requests&#39;, label: &#39;My Requests&#39;, icon: ModuleMyJobs },
+  { id: &#39;agents&#39;, label: &#39;Agents&#39;, icon: ModuleCustom },
+  { id: &#39;vibe&#39;, label: &#39;Vibe ✨&#39;, icon: ModuleSocial },
+  { id: &#39;mcp&#39;, label: &#39;MCP&#39;, icon: ModuleCustom },
+];
+const navigationModules = [
+  { id: &#39;leads&#39;, label: &#39;Leads&#39;, icon: ModuleLeads },
+  { id: &#39;contacts&#39;, label: &#39;Contact&#39;, icon: ModuleContacts },
+  { id: &#39;deals&#39;, label: &#39;Deals&#39;, icon: ModuleDeals },
+  ...[&#39;Live Camera Assistance&#39;, &#39;SalesInbox&#39;, &#39;Leads/Contacts&#39;, &#39;RL Test Modules&#39;, &#39;Google Ads&#39;, &#39;Prakashghf&#39;, &#39;Artist Page Detail&#39;, &#39;Dummy Module&#39;].map(label =&gt; ({ id: label, label, icon: ModuleCustom })),
+];
+const newCriterion = (id: number) =&gt; ({ id, field: &#39;Modified By&#39;, operator: &#39;is&#39;, value: &#39;&#39;, portalValues: [] as string[] });
+
+function CustomView() {
+  const [criteriaOn, setCriteriaOn] = useState(true);
+  const [relatedOn, setRelatedOn] = useState(false);
+  const [rows, setRows] = useState([newCriterion(1)]);
+  const [selected, setSelected] = useState(initialSelected);
+  const [query, setQuery] = useState(&#39;&#39;);
+  const [message, setMessage] = useState(&#39;&#39;);
+  const contentRef = useRef&lt;HTMLDivElement&gt;(null);
+  const update = (id: number, patch: Partial&lt;ReturnType&lt;typeof newCriterion&gt;&gt;) =&gt; {
+    setMessage(&#39;&#39;);
+    setRows(current =&gt; current.map(row =&gt; row.id === id ? { ...row, ...patch } : row));
+  };
+  const reset = () =&gt; {
+    setRows([newCriterion(1)]);
+    setCriteriaOn(true);
+    setRelatedOn(false);
+    setSelected([...initialSelected]);
+    setQuery(&#39;&#39;);
+    setMessage(&#39;Changes discarded.&#39;);
+  };
+  const save = () =&gt; {
+    const incomplete = criteriaOn &amp;&amp; rows.some(row =&gt;
+      [&#39;portal&#39;, &#39;not_portal&#39;].includes(row.operator)
+        ? row.portalValues.length === 0
+        : [&#39;is&#39;, &#39;is_not&#39;, &#39;role&#39;, &#39;not_role&#39;].includes(row.operator) &amp;&amp; !row.value
+    );
+    setMessage(incomplete ? &#39;Select a user, portal, or role for each criterion before saving.&#39; : &#39;Custom view “Kerala Leads” saved.&#39;);
+    contentRef.current?.scrollTo({ top: 0, behavior: &#39;instant&#39; });
+  };
+
+  return (
+    &lt;div className=&quot;puf-page&quot;&gt;
+      &lt;div className=&quot;puf-shell&quot;&gt;
+        &lt;NextGenLeftMenu width={235} activeId=&quot;leads&quot; topNavItems={topNavItems} modules={navigationModules} /&gt;
+        &lt;main className=&quot;puf-main&quot;&gt;
+          &lt;NextGenTopBand moduleLabel=&quot;Leads&quot; searchPlaceholder=&quot;Search records&quot; showTerritory={false} /&gt;
+          &lt;header className=&quot;puf-header&quot;&gt;
+            &lt;Button variant=&quot;link-default&quot; className=&quot;puf-back&quot; aria-label=&quot;Back to Leads&quot; onClick={reset}&gt;&lt;Icon name=&quot;CrmArrowBack&quot; size=&quot;var(--ds-line-height-h2)&quot; /&gt;&lt;/Button&gt;
+            &lt;h1&gt;Kerala Leads&lt;/h1&gt;
+            &lt;div className=&quot;puf-header-actions&quot;&gt;
+              &lt;Tooltip content=&quot;Create a custom view using criteria and selected columns.&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+                &lt;Button variant=&quot;link-default&quot; aria-label=&quot;Custom view information&quot;&gt;&lt;Info /&gt;&lt;/Button&gt;
+              &lt;/Tooltip&gt;
+              &lt;Dropdown width={48} triggerIcon={&lt;More /&gt;} triggerAriaLabel=&quot;More custom view actions&quot; triggerButtonVariant=&quot;default&quot; options={[{ value: &#39;reset&#39;, label: &#39;Reset changes&#39; }]} onChange={reset} /&gt;
+              &lt;Button variant=&quot;default&quot; onClick={reset}&gt;Cancel&lt;/Button&gt;
+              &lt;Button onClick={save}&gt;Save&lt;/Button&gt;
+              &lt;Tooltip content=&quot;Custom view help&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
+                &lt;Button variant=&quot;link-default&quot; aria-label=&quot;Custom view help&quot;&gt;&lt;HelpCircle /&gt;&lt;/Button&gt;
+              &lt;/Tooltip&gt;
+            &lt;/div&gt;
+          &lt;/header&gt;
+          &lt;div className=&quot;puf-canvas&quot;&gt;
+            &lt;div className=&quot;puf-content&quot; ref={contentRef}&gt;
+              {message &amp;&amp; &lt;MessageBox variant={message.startsWith(&#39;Select&#39;) ? &#39;error&#39; : &#39;success&#39;} message={message} onClose={() =&gt; setMessage(&#39;&#39;)} /&gt;}
+              &lt;div className=&quot;puf-criteria&quot;&gt;
+                &lt;section className=&quot;nested-criteria__card&quot; aria-label=&quot;Specify Criteria - Leads&quot;&gt;
+                  &lt;div className=&quot;nested-criteria__card-title&quot;&gt;
+                    &lt;h4&gt;Specify Criteria - &amp;quot;Leads&amp;quot;&lt;/h4&gt;
+                    &lt;Switch aria-label=&quot;Enable lead criteria&quot; checked={criteriaOn} onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setCriteriaOn(event.target.checked)} /&gt;
+                  &lt;/div&gt;
+                  {criteriaOn &amp;&amp; rows.map((row, index) =&gt; (
+                    &lt;div key={row.id} className=&quot;puf-criterion-group&quot;&gt;
+                      &lt;div className=&quot;puf-criterion&quot;&gt;
+                        &lt;span className=&quot;nested-criteria__circle&quot;&gt;{index + 1}&lt;/span&gt;
+                        &lt;Dropdown layout=&quot;vertical&quot; width={150} triggerAriaLabel={`Module ${index + 1}`} options={modules} value=&quot;leads&quot; /&gt;
+                        &lt;Dropdown layout=&quot;vertical&quot; width={200} triggerAriaLabel={`Field ${index + 1}`} options={fields} value={row.field} onChange={(value: string) =&gt; update(row.id, { field: value, value: &#39;&#39;, portalValues: [] })} /&gt;
+                        &lt;Dropdown layout=&quot;vertical&quot; width={150} panelStyle={{ minWidth: 218 }} triggerAriaLabel={`Operator ${index + 1}`} options={operators} value={row.operator} onChange={(value: string) =&gt; update(row.id, { operator: value, value: &#39;&#39;, portalValues: [] })} /&gt;
+                        {[&#39;is&#39;, &#39;is_not&#39;].includes(row.operator) &amp;&amp; &lt;UserPicker layout=&quot;vertical&quot; width={343} placeholder=&quot;Click to Select Users.&quot; users={users} value={row.value} onChange={(value: string) =&gt; update(row.id, { value })} /&gt;}
+                        {[&#39;portal&#39;, &#39;not_portal&#39;].includes(row.operator) &amp;&amp; &lt;Tags width={343} placeholder=&quot;Select Portal&quot; options={portals} value={portals.filter(portal =&gt; row.portalValues.includes(portal.value))} onChange={(values: { value: string; label: string }[]) =&gt; update(row.id, { portalValues: values.map(portal =&gt; portal.value) })} /&gt;}
+                        {[&#39;role&#39;, &#39;not_role&#39;].includes(row.operator) &amp;&amp; &lt;Dropdown layout=&quot;vertical&quot; width={343} triggerAriaLabel={`Role ${index + 1}`} placeholder=&quot;Select Role&quot; options={roles} value={row.value} onChange={(value: string) =&gt; update(row.id, { value })} /&gt;}
+                        {[&#39;is_empty&#39;, &#39;is_not_empty&#39;].includes(row.operator) &amp;&amp; &lt;Input layout=&quot;vertical&quot; width={343} aria-label={`Value ${index + 1}`} value=&quot;&quot; disabled /&gt;}
+                        {rows.length &gt; 1 &amp;&amp; &lt;Button variant=&quot;link-red&quot; className=&quot;puf-icon-action&quot; aria-label={`Remove criterion ${index + 1}`} onClick={() =&gt; setRows(current =&gt; current.filter(item =&gt; item.id !== row.id))}&gt;&lt;CriteriaMinus /&gt;&lt;/Button&gt;}
+                        {index === rows.length - 1 &amp;&amp; &lt;Button variant=&quot;link-default&quot; className=&quot;puf-icon-action puf-add&quot; aria-label=&quot;Add criterion&quot; disabled={rows.length &gt;= 25} onClick={() =&gt; setRows(current =&gt; [...current, newCriterion(Math.max(...current.map(item =&gt; item.id)) + 1)])}&gt;&lt;CriteriaPlus /&gt;&lt;/Button&gt;}
+                      &lt;/div&gt;
+                      {index &lt; rows.length - 1 &amp;&amp; &lt;div className=&quot;puf-row-connector&quot;&gt;&lt;span&gt;AND&lt;/span&gt;&lt;/div&gt;}
+                    &lt;/div&gt;
+                  ))}
+                &lt;/section&gt;
+                &lt;div className=&quot;nested-criteria__and&quot; aria-hidden=&quot;true&quot;&gt;&lt;span&gt;AND&lt;/span&gt;&lt;/div&gt;
+                &lt;section className=&quot;nested-criteria__card puf-related&quot; aria-label=&quot;Related Modules Criteria&quot;&gt;
+                  &lt;div className=&quot;nested-criteria__card-title&quot;&gt;
+                    &lt;h4&gt;Related Modules Criteria&lt;/h4&gt;
+                    &lt;Switch aria-label=&quot;Enable related modules criteria&quot; checked={relatedOn} onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setRelatedOn(event.target.checked)} /&gt;
+                  &lt;/div&gt;
+                  {relatedOn ? &lt;NestedCriteria moduleLabel=&quot;Leads&quot; specifyTitle={&#39;Specify Criteria - &quot;Leads&quot;&#39;} moduleOptions={modules} fieldOptions={fields} operatorOptions={operators} relatedModules={[{ value: &#39;contacts&#39;, label: &#39;Contacts&#39; }, { value: &#39;deals&#39;, label: &#39;Deals&#39; }]} relatedConditions={[{ value: &#39;with&#39;, label: &#39;with&#39; }, { value: &#39;without&#39;, label: &#39;without&#39; }]} valueWidth={200} defaultRelatedOn /&gt; : &lt;p className=&quot;nested-criteria__card-off&quot;&gt;It helps to filter record based on related module values.&lt;/p&gt;}
+                &lt;/section&gt;
+              &lt;/div&gt;
+              &lt;section className=&quot;puf-columns&quot; aria-labelledby=&quot;puf-columns-title&quot;&gt;
+                &lt;h2 id=&quot;puf-columns-title&quot;&gt;Choose Column for Default List View &lt;Tooltip content=&quot;Choose the fields and drag selected columns to set their order. Lead Name is required.&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;&lt;Button variant=&quot;link-default&quot; aria-label=&quot;Column selection information&quot;&gt;&lt;Info /&gt;&lt;/Button&gt;&lt;/Tooltip&gt;&lt;/h2&gt;
+                &lt;div className=&quot;puf-column-lists&quot;&gt;
+                  &lt;div&gt;
+                    &lt;h3&gt;Available&lt;/h3&gt;
+                    &lt;div className=&quot;puf-list-box&quot;&gt;
+                      &lt;Input layout=&quot;vertical&quot; type=&quot;search&quot; width=&quot;100%&quot; aria-label=&quot;Search available columns&quot; suffix={&lt;Search /&gt;} value={query} onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setQuery(event.target.value)} /&gt;
+                      &lt;div className=&quot;puf-available&quot;&gt;
+                        {allColumns.filter(label =&gt; !selected.includes(label) &amp;&amp; label.toLowerCase().includes(query.toLowerCase())).map(label =&gt; &lt;Button variant=&quot;link-default&quot; key={label} onClick={() =&gt; setSelected(current =&gt; [...current, label])}&gt;{label}&lt;/Button&gt;)}
+                        {!allColumns.some(label =&gt; !selected.includes(label) &amp;&amp; label.toLowerCase().includes(query.toLowerCase())) &amp;&amp; &lt;p&gt;No matching columns&lt;/p&gt;}
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div&gt;
+                    &lt;h3&gt;Selected&lt;/h3&gt;
+                    &lt;div className=&quot;puf-list-box puf-selected&quot;&gt;
+                      &lt;Dragger items={selected} onChange={setSelected} gripperOnHover renderItem={(label: string) =&gt; &lt;Button variant=&quot;link-default&quot; aria-label={label === &#39;Lead Name&#39; ? &#39;Lead Name (required)&#39; : `Remove ${label}`} aria-disabled={label === &#39;Lead Name&#39;} onClick={() =&gt; label !== &#39;Lead Name&#39; &amp;&amp; setSelected(current =&gt; current.filter(item =&gt; item !== label))}&gt;{label}{label === &#39;Lead Name&#39; &amp;&amp; &lt;span className=&quot;puf-required&quot;&gt; *&lt;/span&gt;}&lt;/Button&gt;} /&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/section&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/main&gt;
+      &lt;/div&gt;
+      &lt;WMSBar /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export const InCustomView: Story = { render: () =&gt; &lt;CustomView /&gt; };
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import {
+    Button,
+    CriteriaMinus,
+    CriteriaPlus,
+    Dragger,
+    Dropdown,
+    HelpCircle,
+    Icon,
+    Info,
+    Input,
+    MessageBox,
+    More,
+    NestedCriteria,
+    NextGenLeftMenu,
+    NextGenTopBand,
+    Search,
+    Switch,
+    Tags,
+    Tooltip,
+    UserPicker,
+    WMSBar,
+} from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">In Custom View</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const InCustomView = () =&gt; &lt;CustomView /&gt;;</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  has-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
   aria-label="RecordAuthentication">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-err"></span> RecordAuthentication</h2>
       <div class="badges">
-        <label for="c-error-12-work-items-record-authentication-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-12-work-items-record-authentication-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-12-work-items-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-error-13-work-items-record-authentication-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-13-work-items-record-authentication-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-13-work-items-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -34086,9 +34943,9 @@ export const Users = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-12-work-items-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-12-work-items-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-12-work-items-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-13-work-items-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-13-work-items-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-13-work-items-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -35109,9 +35966,9 @@ export const RecordConfiguration: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SBConnections</h2>
       <div class="badges">
-        <label for="c-error-13-work-items-sb-connections-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-13-work-items-sb-connections-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-13-work-items-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-error-14-work-items-sb-connections-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-14-work-items-sb-connections-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-14-work-items-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -35123,9 +35980,9 @@ export const RecordConfiguration: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-13-work-items-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-13-work-items-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-13-work-items-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-14-work-items-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-14-work-items-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-14-work-items-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -35449,9 +36306,9 @@ export const DiagramOnly: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SendDashboardScheduler</h2>
       <div class="badges">
-        <label for="c-error-14-work-items-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-14-work-items-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-14-work-items-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-error-15-work-items-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-15-work-items-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-15-work-items-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -35463,9 +36320,9 @@ export const DiagramOnly: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-14-work-items-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-14-work-items-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-14-work-items-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-15-work-items-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-15-work-items-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-15-work-items-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -36738,9 +37595,9 @@ export const SendDashboardScheduler = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-error-15-work-items-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-error-15-work-items-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-15-work-items-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-error-16-work-items-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-error-16-work-items-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-16-work-items-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -36752,9 +37609,9 @@ export const SendDashboardScheduler = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-15-work-items-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-15-work-items-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-15-work-items-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-16-work-items-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-16-work-items-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-16-work-items-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
