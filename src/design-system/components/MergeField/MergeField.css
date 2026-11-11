@@ -284,10 +284,8 @@
   box-sizing: border-box;
   height: 22px; /* 24px less 1px top and bottom */
   padding: 0 4px; /* Figma Merge Tag: 4px inset */
-  /* Flush with the text on the left; 3px gap to the next capsule.
-     The 1px bottom margin makes each capsule's margin box 23px (the line height), so
-     capsule rows sit 1px apart and lines with capsules match text-only lines. */
-  margin: -3px 3px 0 0;
+  /* Consistent space on both sides (right and left). */
+  margin: -3px 4px 0 4px;
   vertical-align: baseline; /* keeps lines with capsules the same height as text-only lines */
   background: #F4F7FF; /* Figma Merge Tag fill */
   border: 1px solid #E3E8F5; /* subtle capsule border */
@@ -303,7 +301,7 @@
 }
 
 .mergefield-token:hover {
-  background: var(--ds-bg-scale-bg5, #DFE4EF);
+  border-color: #A8B3CC;
 }
 
 .mergefield-token[data-selected] {
@@ -314,8 +312,8 @@
    top-aligned with a 4px top margin sits precisely in the middle. */
 .mergefield-editable[data-singleline] .mergefield-token {
   vertical-align: top;
-  margin: 5px 3px 0 0; /* centers the 22px capsule in the 32px line; flush left with the text */
-  top: 0; /* 3px gap between capsules */
+  margin: 5px 4px 0 4px; /* centers the 22px capsule in the 32px line; consistent spacing */
+  top: 0;
 }
 
 /* No space before a capsule that opens the field. */
@@ -351,7 +349,7 @@
   justify-content: flex-end;
   gap: 0; /* spacing comes from the close icon's own margin, so it can collapse cleanly */
   padding: 0 6px 0 14px;
-  background: linear-gradient(to right, transparent, var(--ds-bg-scale-bg5, #DFE4EF) 12px, var(--ds-bg-scale-bg5, #DFE4EF) 100%);
+  background: transparent;
   border-radius: 0 999px 999px 0;
 }
 
@@ -361,16 +359,11 @@
 }
 
 .mergefield-token-chevron {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 8px;
-  height: 8px;
-  color: var(--ds-text-label, #616E88);
+  display: none;
 }
 
 .mergefield-token-remove {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -385,10 +378,27 @@
   cursor: pointer;
 }
 
-/* Hovering the close icon: white icon on a blue circle. */
+/* Hovering the close icon: white icon on a blue circle with smooth scale-up animation from center. */
 .mergefield-token-remove:hover {
   background: var(--ds-brand-primary, #5464F2);
   color: #fff;
+}
+
+.mergefield-token-remove::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--ds-brand-primary, #5464F2);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.mergefield-token-remove:hover::before {
+  transform: scale(1);
+  opacity: 1;
 }
 
 /* Close icon only on hover of the capsule (not while it is being changed).
@@ -437,6 +447,36 @@
 
 .mergefield-token[data-changing] .mergefield-token-chevron {
   transform: rotate(180deg);
+}
+
+/* ── Custom Tooltip for truncated tags ───────────────────────────────────── */
+
+.mergefield-token-tooltip {
+  position: fixed;
+  z-index: 2000;
+  background: var(--ds-bg-scale-bg10, #2C3345);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-xs);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  animation: tooltipFadeIn 150ms ease;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── "#" trigger popup ────────────────────────────────────────────────────── */

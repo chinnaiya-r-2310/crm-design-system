@@ -222,3 +222,13 @@
 .date-picker-root[data-variant="error"] .date-picker-helper-text {
   color: var(--ds-components-input-error-outline);
 }
+
+/* ── Small size (size="sm"): 27px trigger, 13px text ─────────────────────── */
+
+.date-picker-root[data-size="sm"] .date-picker-trigger {
+  height: 27px;
+}
+
+.date-picker-root[data-size="sm"] .date-picker-input {
+  font-size: var(--ds-font-size-md); /* 13px */
+}

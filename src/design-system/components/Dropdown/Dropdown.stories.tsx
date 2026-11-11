@@ -103,6 +103,23 @@ export const Playground: Story = {
 };
 
 /** Default state — no value selected. */
+/** Small size: 27px tall with 13px text, for compact toolbars and section headers. */
+export const Small: Story = {
+  render: () => {
+    const [val, setVal] = useState('');
+    return (
+      <Dropdown
+        size="sm"
+        options={LEAD_STATUS}
+        value={val}
+        onChange={setVal}
+        placeholder="Lead Status"
+        width={200}
+      />
+    );
+  },
+};
+
 export const Default: Story = {
   args: {
     searchable: true

@@ -95,6 +95,8 @@ export function UserPicker({
   onChange,
   onFilterChange,
   filters,        // Array<{ id: string, options: string[] }>
+  /** 'md' (default) or 'sm': small is 27px tall with 13px text. */
+  size = 'md',
   id: idProp,
   style,
   columns,
@@ -402,7 +404,7 @@ export function UserPicker({
   if (layout === 'horizontal' && label) {
     const formRowStyle = columns ? { gridTemplateColumns: columns } : undefined;
     return (
-      <div className={'user-picker-root'} style={style} data-variant={rootVariant}>
+      <div className={'user-picker-root'} style={style} data-variant={rootVariant} data-size={size === 'md' ? undefined : size}>
         <div className={'user-picker-form-row'} style={formRowStyle}>
           {labelEl}
           <div className={'user-picker-field-column'}>
@@ -415,7 +417,7 @@ export function UserPicker({
   }
 
   return (
-    <div className={'user-picker-root user-picker-vertical'} style={style} data-variant={rootVariant}>
+    <div className={'user-picker-root user-picker-vertical'} style={style} data-variant={rootVariant} data-size={size === 'md' ? undefined : size}>
       {labelEl}
       {dropdownEl}
       {helperEl}

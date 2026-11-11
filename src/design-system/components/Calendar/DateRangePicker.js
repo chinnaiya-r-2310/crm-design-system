@@ -83,6 +83,8 @@ export function DateRangePicker({
   placeholder = 'Select date range',
   disabled = false,
   width = 320,
+  /** 'md' (default) or 'sm': small is 27px tall with 13px text. */
+  size = 'md',
 }) {
   const [open, setOpen] = useState(false);
   const [activePreset, setActivePreset] = useState('none');
@@ -136,7 +138,7 @@ export function DateRangePicker({
     : new Date(today().getFullYear(), today().getMonth() + 1, 1);
 
   return (
-    <div ref={rootRef} className="calendar-root" style={{ width }}>
+    <div ref={rootRef} className="calendar-root" style={{ width }} data-size={size === 'md' ? undefined : size}>
       {/* ── Trigger ── */}
       <button
         type="button"

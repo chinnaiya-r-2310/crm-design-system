@@ -499,3 +499,14 @@
 .user-picker-root[data-variant="error"] .user-picker-helper-text {
   color: var(--ds-components-input-error-outline);
 }
+
+/* ── Small size (size="sm"): 27px trigger, 13px text ─────────────────────── */
+
+.user-picker-root[data-size="sm"] .user-picker-trigger {
+  height: 27px;
+}
+
+.user-picker-root[data-size="sm"] .user-picker-trigger-name,
+.user-picker-root[data-size="sm"] .user-picker-trigger-value {
+  font-size: var(--ds-font-size-md); /* 13px */
+}

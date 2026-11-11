@@ -125,7 +125,8 @@
 .dropdown-trigger-value {
   flex: 1;
   min-width: 0;
-  padding: 0 10px;
+  padding-block: 0;
+  padding-inline: 10px 0;
   font-family: var(--ds-font-family-base);
   font-size: var(--ds-font-size-base);
   font-weight: var(--ds-font-weight-regular);
@@ -655,4 +656,15 @@
 
 .dropdown-submenu-item[data-selected] {
   color: var(--ds-text-link);
+}
+
+/* ── Small size (size="sm"): 27px trigger, 13px text ─────────────────────── */
+
+.dropdown-dropdown-wrapper[data-size="sm"] .dropdown-trigger {
+  height: 27px;
+}
+
+.dropdown-dropdown-wrapper[data-size="sm"] .dropdown-trigger-value,
+.dropdown-panel[data-size="sm"] .dropdown-option-label {
+  font-size: var(--ds-font-size-md); /* 13px */
 }

@@ -10,12 +10,16 @@ import { Dragger } from '../components/Dragger/Dragger';
 import { MessageInfo } from '../components/MessageInfo/MessageInfo';
 import { MessageBox } from '../components/MessageBox/MessageBox';
 import { Dropdown } from '../components/Dropdown/Dropdown';
+import { UserPicker } from '../components/UserPicker/UserPicker';
+import { DatePicker } from '../components/DatePicker/DatePicker';
+import { DateRangePicker } from '../components/Calendar/DateRangePicker';
 import { SetupTable } from '../components/Table/Table';
 import { DetailPage, RecordCard } from './CrmScreens.page';
 import { SortingHat } from '../components/SortingHat/SortingHat';
 import { Info as InfoIcon, Lock as LockIcon } from '../foundations/icons/Icons';
 import { crmIconMap } from '../foundations/icons/CrmCatalog';
 import { Tooltip } from '../components/Tooltip/Tooltip';
+import '../components/Tags/Tags.css';
 
 // Column settings icon from the icon gallery (CrmColumnArrange).
 const ColumnArrangeIcon = crmIconMap.CrmColumnArrange;
@@ -441,7 +445,9 @@ const FIELD_HISTORY_ROWS = [
     duration: '5 days',
     amount: '$ 1,48,000',
     probability: '70%',
-    fieldType: 'Pick List',
+    closingDate: 'Jun 30, 2026',
+    dealOwner: 'Elijah Morgan',
+    dealType: 'New Business',
     source: 'Manual (UI)',
   },
   {
@@ -453,7 +459,9 @@ const FIELD_HISTORY_ROWS = [
     duration: '14 days',
     amount: '$ 1,42,000',
     probability: '60%',
-    fieldType: 'Pick List',
+    closingDate: 'Jun 30, 2026',
+    dealOwner: 'Elijah Morgan',
+    dealType: 'New Business',
     source: 'Manual (UI)',
   },
   {
@@ -465,19 +473,23 @@ const FIELD_HISTORY_ROWS = [
     duration: '6 days',
     amount: '$ 1,38,000',
     probability: '50%',
-    fieldType: 'Pick List',
+    closingDate: 'Jun 30, 2026',
+    dealOwner: 'Elijah Morgan',
+    dealType: 'New Business',
     source: 'Workflow',
   },
   {
     id: 'fh-4',
-    from: 'Record Created',
+    from: 'Value Prop',
     to: 'Negotiation',
     modifiedBy: 'Yren Okafor',
     modifiedTime: 'Apr 22, 2026 2:17 PM',
     duration: '6 days',
     amount: '$ 1,30,000',
     probability: '40%',
-    fieldType: 'Pick List',
+    closingDate: 'Jun 30, 2026',
+    dealOwner: 'Elijah Morgan',
+    dealType: 'New Business',
     source: 'Import',
   },
   {
@@ -489,7 +501,9 @@ const FIELD_HISTORY_ROWS = [
     duration: '9 days',
     amount: '$ 1,50,000',
     probability: '90%',
-    fieldType: 'Pick List',
+    closingDate: 'Jun 30, 2026',
+    dealOwner: 'Elijah Morgan',
+    dealType: 'New Business',
     source: 'Manual (UI)',
   },
   {
@@ -501,7 +515,9 @@ const FIELD_HISTORY_ROWS = [
     duration: '4 days',
     amount: '$ 1,25,000',
     probability: '35%',
-    fieldType: 'Pick List',
+    closingDate: 'Jun 30, 2026',
+    dealOwner: 'Elijah Morgan',
+    dealType: 'New Business',
     source: 'Workflow',
   },
   {
@@ -513,7 +529,9 @@ const FIELD_HISTORY_ROWS = [
     duration: '6 days',
     amount: '$ 1,20,000',
     probability: '30%',
-    fieldType: 'Pick List',
+    closingDate: 'Jun 30, 2026',
+    dealOwner: 'Elijah Morgan',
+    dealType: 'New Business',
     source: 'API',
   },
   {
@@ -525,7 +543,9 @@ const FIELD_HISTORY_ROWS = [
     duration: '3 days',
     amount: '$ 1,10,000',
     probability: '25%',
-    fieldType: 'Pick List',
+    closingDate: 'Jun 30, 2026',
+    dealOwner: 'Elijah Morgan',
+    dealType: 'New Business',
     source: 'Import',
   },
   {
@@ -537,7 +557,9 @@ const FIELD_HISTORY_ROWS = [
     duration: '5 days',
     amount: '$ 1,05,000',
     probability: '20%',
-    fieldType: 'Pick List',
+    closingDate: 'Jun 30, 2026',
+    dealOwner: 'Elijah Morgan',
+    dealType: 'New Business',
     source: 'Manual (UI)',
   },
 ];
@@ -548,16 +570,47 @@ const FIELD_HISTORY_TIME_OPTIONS = [
   { value: '30d', label: 'Last 30 days' },
   { value: '6m', label: 'Last 6 months' },
   { value: '1y', label: 'Last 1 year' },
+  { value: 'date', label: 'Specific Date' },
+  { value: 'range', label: 'Custom Range' },
 ];
 
-const FIELD_HISTORY_USER_OPTIONS = [
-  { value: 'all', label: 'All users' },
-  { value: 'elijah', label: 'Elijah Morgan' },
-  { value: 'klaus', label: 'Klaus Weber' },
-  { value: 'mikasa', label: 'Mikasa Chen' },
-  { value: 'yren', label: 'Yren Okafor' },
-  { value: 'system', label: 'System / Automation' },
+// Users for the user filter (UserPicker). The first entry clears the filter.
+const FIELD_HISTORY_USERS = [
+  { id: 'all', name: 'All users', subLabel: 'Every user and system' },
+  { id: 'elijah', name: 'Elijah Morgan', subLabel: 'elijah.morgan@zohocorp.com' },
+  { id: 'klaus', name: 'Klaus Weber', subLabel: 'klaus.weber@zohocorp.com' },
+  { id: 'mikasa', name: 'Mikasa Chen', subLabel: 'mikasa.chen@zohocorp.com' },
+  { id: 'yren', name: 'Yren Okafor', subLabel: 'yren.okafor@zohocorp.com' },
+  { id: 'system', name: 'System / Automation', subLabel: 'Workflows, API and imports' },
 ];
+
+// "Today" for the sample data, so Last 7 days / 30 days / 6 months show different rows.
+const FIELD_HISTORY_TODAY = new Date(2026, 5, 3, 12, 0);
+
+const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+const endOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
+const sameDay = (a, b) => startOfDay(a).getTime() === startOfDay(b).getTime();
+
+function matchesTime(row, filter, date, range) {
+  const when = new Date(row.modifiedTime);
+  const since = (days, months = 0) => {
+    const d = new Date(FIELD_HISTORY_TODAY);
+    d.setDate(d.getDate() - days);
+    d.setMonth(d.getMonth() - months);
+    return d;
+  };
+  switch (filter) {
+    case '7d': return when >= since(7);
+    case '30d': return when >= since(30);
+    case '6m': return when >= since(0, 6);
+    case '1y': return when >= since(0, 12);
+    case 'date': return !date || sameDay(when, date);
+    case 'range': return !range.start || !range.end || (when >= startOfDay(range.start) && when <= endOfDay(range.end));
+    default: return true;
+  }
+}
+
+const SOURCE_FILTER_LABELS = { manual: 'Manual (UI)', workflow: 'Workflow', api: 'API', import: 'Import' };
 
 const FIELD_HISTORY_SOURCE_OPTIONS = [
   { value: 'all', label: 'All sources' },
@@ -566,6 +619,26 @@ const FIELD_HISTORY_SOURCE_OPTIONS = [
   { value: 'api', label: 'API' },
   { value: 'import', label: 'Import' },
 ];
+
+// Subdued pastel tokens distinguish stages without vibrant fills.
+const STAGE_COLORS = {
+  'Value Prop': ['--ds-neutral-pastel6', '--ds-text-heading'],
+  'Negotiation': ['--ds-neutral-pastel2', '--ds-text-heading'],
+  'In Progress': ['--ds-neutral-pastel5', '--ds-text-heading'],
+  'Closed Won': ['--ds-neutral-pastel3', '--ds-text-heading'],
+  'Proposal': ['--ds-neutral-pastel7', '--ds-text-heading'],
+  'Qualification': ['--ds-neutral-pastel1', '--ds-text-heading'],
+  'Needs Analysis': ['--ds-neutral-pastel8', '--ds-text-heading'],
+  'Record Created': ['--ds-bg-scale-bg5', '--ds-text-heading'],
+};
+
+function stageStyle(stage) {
+  const [background, foreground] = STAGE_COLORS[stage] ?? STAGE_COLORS['Record Created'];
+  return {
+    '--fht-stage-color': `oklch(from var(${background}) calc(l * 0.98) calc(c * 1.15) h)`,
+    color: `var(${foreground})`,
+  };
+}
 
 const FIELD_HISTORY_COLUMNS = [
   {
@@ -578,22 +651,24 @@ const FIELD_HISTORY_COLUMNS = [
     width: 340,
     render: (value, row) => (
       <span className="crm-screens__transition">
-        <span className={value === 'Record Created' ? 'crm-screens__stage-pill crm-screens__stage-pill--muted' : 'crm-screens__stage-pill'}>{value}</span>
+        <span className="tags-tag crm-screens__stage-pill" style={stageStyle(value)}>{value}</span>
         <span className="crm-screens__arrow" aria-hidden="true">→</span>
-        <span className="crm-screens__stage-pill">{row.to}</span>
+        <span className="tags-tag crm-screens__stage-pill" style={stageStyle(row.to)}>{row.to}</span>
       </span>
     ),
   },
   {
     key: 'modifiedBy',
-    label: 'Modified By',
+    label: 'Moved By',
     width: 200,
   },
-  { key: 'modifiedTime', label: 'Modified Time', width: 190 },
+  { key: 'modifiedTime', label: 'Moved Time', width: 190 },
   { key: 'duration', label: 'Duration', width: 110 },
   { key: 'amount', label: 'Amount', width: 130 },
   { key: 'probability', label: 'Probability', width: 110 },
-  { key: 'fieldType', label: 'Field Type', width: 120 },
+  { key: 'closingDate', label: 'Closing Date', width: 150 },
+  { key: 'dealOwner', label: 'Deal Owner', width: 180 },
+  { key: 'dealType', label: 'Deal Type', width: 150 },
   {
     key: 'source',
     label: 'Source',
@@ -604,11 +679,11 @@ const FIELD_HISTORY_COLUMNS = [
     // End-of-header column: column settings icon, no body content.
     key: 'columnSettings',
     label: (
-      <button type="button" className="crm-screens__header-icon" aria-label="Column settings">
+      <button type="button" className="crm-screens__header-icon" aria-label="Manage Column">
         <ColumnArrangeIcon width={16} height={16} aria-hidden="true" />
       </button>
     ),
-    width: 52,
+    width: 36,
     render: () => null,
   },
 ];
@@ -617,27 +692,31 @@ const FIELD_HISTORY_COLUMNS = [
 // The first five columns are mandatory.
 const SETTINGS_REQUIRED_KEYS = ['from', 'modifiedBy', 'modifiedTime', 'duration', 'source'];
 // Column order: Deal Stage -> Moved To, Modified By, Modified Time, Duration, Source, then the rest.
-const COLUMN_ORDER = ['from', 'modifiedBy', 'modifiedTime', 'duration', 'source', 'amount', 'probability', 'fieldType', 'columnSettings'];
+const DEFAULT_COLUMN_KEYS = ['from', 'modifiedBy', 'modifiedTime', 'duration', 'source', 'amount', 'probability'];
 const SETTINGS_FIELDS = [
-  { key: 'from', label: 'Deal Stage → Moved To' },
-  { key: 'modifiedBy', label: 'Modified By' },
-  { key: 'modifiedTime', label: 'Modified Time' },
+  // En spaces keep a visible gap on both sides of the arrow (the label is plain text in the list).
+  { key: 'from', label: 'Deal Stage\u2002→\u2002Moved To' },
+  { key: 'modifiedBy', label: 'Moved By' },
+  { key: 'modifiedTime', label: 'Moved Time' },
   { key: 'duration', label: 'Duration' },
   { key: 'source', label: 'Source' },
   { key: 'amount', label: 'Amount' },
   { key: 'probability', label: 'Probability (%)' },
-  { key: 'fieldType', label: 'Field Type' },
+  { key: 'closingDate', label: 'Closing Date' },
+  { key: 'dealOwner', label: 'Deal Owner' },
+  { key: 'dealType', label: 'Deal Type' },
 ].map((f) => ({ ...f, required: SETTINGS_REQUIRED_KEYS.includes(f.key) }));
-const ALL_COLUMN_KEYS = SETTINGS_FIELDS.map((f) => f.key);
-const SETTINGS_PANEL_WIDTH = 340;
+// Additional snapshot fields are available without crowding the default table.
 
 // plainFirstColumn: the first column shows the stage transition as plain text, without capsules.
 function FieldHistorySection({ plainFirstColumn = false }) {
   const [timeFilter, setTimeFilter] = useState('all');
   const [userFilter, setUserFilter] = useState('all');
   const [sourceFilter, setSourceFilter] = useState('all');
-  const [applied, setApplied] = useState(ALL_COLUMN_KEYS); // columns shown in the table
-  const [draft, setDraft] = useState(ALL_COLUMN_KEYS); // selection while the panel is open
+  const [specificDate, setSpecificDate] = useState(null);
+  const [customRange, setCustomRange] = useState({ start: null, end: null });
+  const [applied, setApplied] = useState(DEFAULT_COLUMN_KEYS); // columns shown in the table
+  const [draft, setDraft] = useState(DEFAULT_COLUMN_KEYS); // selection while the panel is open
   const [panel, setPanel] = useState(null); // { top, right } when the settings panel is open
   const settingsRef = useRef(null);
   const panelRef = useRef(null);
@@ -663,6 +742,14 @@ function FieldHistorySection({ plainFirstColumn = false }) {
     };
   }, [panel]);
 
+  // While the panel is open the page behind it does not scroll (the backdrop also blocks clicks).
+  useEffect(() => {
+    if (!panel) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previous; };
+  }, [panel]);
+
   // Table columns follow the order chosen in the Manage Columns panel; the icon column stays last.
   const columns = [...applied.map((k) => FIELD_HISTORY_COLUMNS.find((c) => c.key === k)), FIELD_HISTORY_COLUMNS.find((c) => c.key === 'columnSettings')]
     .map((c) => {
@@ -670,12 +757,12 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         return {
           ...c,
           label: (
-            <Tooltip content="Column settings" placement="bottom" variant="black">
+            <Tooltip content="Manage Column" placement="top" followCursor variant="black" disabled={!!panel}>
               <button
                 ref={settingsRef}
                 type="button"
                 className="crm-screens__header-icon"
-                aria-label="Column settings"
+                aria-label="Manage Column"
                 aria-haspopup="dialog"
                 aria-expanded={!!panel}
                 onClick={openPanel}
@@ -691,7 +778,7 @@ function FieldHistorySection({ plainFirstColumn = false }) {
           ...c,
           render: (value, row) => (
             <span>
-              {value}
+              {value === 'Record Created' ? <span className="crm-screens__stage-pill--muted">{value}</span> : value}
               <span className="crm-screens__arrow" aria-hidden="true">→</span>
               {row.to}
             </span>
@@ -701,43 +788,60 @@ function FieldHistorySection({ plainFirstColumn = false }) {
       return c;
     });
 
+  // The filters narrow the rows shown in the table.
+  const userName = FIELD_HISTORY_USERS.find((u) => u.id === userFilter)?.name;
+  const visibleRows = FIELD_HISTORY_ROWS.filter((row) => (
+    matchesTime(row, timeFilter, specificDate, customRange)
+    && (userFilter === 'all' || row.modifiedBy === userName)
+    && (sourceFilter === 'all' || row.source === SOURCE_FILTER_LABELS[sourceFilter])
+  )).sort((a, b) => new Date(b.modifiedTime) - new Date(a.modifiedTime));
+
   return (
     <RecordCard
       title="Field History - Stage"
       actions={
         <>
-          <Dropdown value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={140} />
-          <Dropdown value={userFilter} options={FIELD_HISTORY_USER_OPTIONS} onChange={setUserFilter} width={160} />
-          <Dropdown value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={140} />
-          <Button variant="outline-blue">Manage Columns</Button>
+          <Dropdown size="sm" value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={140} />
+          {timeFilter === 'date' && (
+            <DatePicker size="sm" layout="vertical" width={130} placeholder="Select date" value={specificDate} onChange={setSpecificDate} />
+          )}
+          {timeFilter === 'range' && (
+            <DateRangePicker size="sm" width={210} startDate={customRange.start} endDate={customRange.end} onChange={(start, end) => setCustomRange({ start, end })} />
+          )}
+          <UserPicker size="sm" layout="vertical" width={220} placeholder="All users" users={FIELD_HISTORY_USERS} value={userFilter} onChange={setUserFilter} />
+          <Dropdown size="sm" value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={140} />
         </>
       }
     >
       <div className="crm-screens__fh-table">
         <SetupTable
           columns={columns}
-          rows={FIELD_HISTORY_ROWS}
+          rows={visibleRows}
           emptyMessage="No records found"
         />
       </div>
       {panel && createPortal(
-        <div
-          ref={panelRef}
-          className="fht-settings-panel"
-          role="dialog"
-          aria-label="Manage columns"
-          style={{ top: panel.top, right: panel.right, width: SETTINGS_PANEL_WIDTH }}
-        >
-          <ManageColumns
-            variant="modal"
-            fields={SETTINGS_FIELDS}
-            selected={draft}
-            onChange={setDraft}
-            saveLabel="Done"
-            onSave={() => { setApplied(draft); setPanel(null); }}
-            onCancel={() => setPanel(null)}
-          />
-        </div>,
+        <>
+          {/* Transparent layer: blocks clicks and hover on the page behind the panel. */}
+          <div className="fht-settings-backdrop" aria-hidden="true" />
+          <div
+            ref={panelRef}
+            className="fht-settings-panel"
+            role="dialog"
+            aria-label="Manage columns"
+            style={{ top: panel.top, right: panel.right }}
+          >
+            <ManageColumns
+              variant="modal"
+              fields={SETTINGS_FIELDS}
+              selected={draft}
+              onChange={setDraft}
+              saveLabel="Done"
+              onSave={() => { setApplied(draft); setPanel(null); }}
+              onCancel={() => setPanel(null)}
+            />
+          </div>
+        </>,
         document.body,
       )}
     </RecordCard>

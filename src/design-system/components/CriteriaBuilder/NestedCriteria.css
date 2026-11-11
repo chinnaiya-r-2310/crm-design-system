@@ -83,7 +83,6 @@
   color: var(--ds-icon-primary-negative-red);
   cursor: pointer;
 }
-.nested-criteria__related-remove:hover { opacity: 0.75; }
 .nested-criteria__related-remove:focus-visible { outline: 2px solid var(--ds-text-link); outline-offset: 2px; }
 
 .nested-criteria__related-conn {

@@ -157,3 +157,9 @@
   padding-left: 10px;
   margin-left: 10px;
 }
+
+/* ── Small size (size="sm"): 27px trigger ────────────────────────────────── */
+
+.calendar-root[data-size="sm"] .calendar-trigger {
+  height: 27px;
+}

@@ -144,6 +144,7 @@ export function DetailPage({ historySection, variant = 'default' }) {
 
   const isFieldHistory = variant === 'fieldHistory';
   const lastUpdate = isFieldHistory ? '1 day(s) ago' : DEAL.lastUpdate;
+  const buttonSize = isFieldHistory ? 'sm' : 'md'; // section buttons are small on the Field History page
 
   return (
     <div className={isFieldHistory ? 'crm-screens crm-screens--field-history' : 'crm-screens'}>
@@ -204,15 +205,17 @@ export function DetailPage({ historySection, variant = 'default' }) {
 
           <div className="crm-screens__content">
             <div className="crm-screens__toolbar">
-              <button
-                type="button"
-                className="crm-screens__icon-button"
-                aria-label={relatedOpen ? 'Hide related list' : 'Show related list'}
-                aria-expanded={relatedOpen}
-                onClick={() => setRelatedOpen(open => !open)}
-              >
-                <SidebarIcon />
-              </button>
+              {!isFieldHistory && (
+                <button
+                  type="button"
+                  className="crm-screens__icon-button"
+                  aria-label={relatedOpen ? 'Hide related list' : 'Show related list'}
+                  aria-expanded={relatedOpen}
+                  onClick={() => setRelatedOpen(open => !open)}
+                >
+                  <SidebarIcon />
+                </button>
+              )}
               <Tabs
                 tabs={[
                   { id: 'overview', label: 'Overview' },
@@ -220,6 +223,7 @@ export function DetailPage({ historySection, variant = 'default' }) {
                 ]}
                 activeTab={activeView}
                 onChange={setActiveView}
+                variant={isFieldHistory ? 'secondary' : 'primary'}
               />
               <span className="crm-screens__toolbar-spacer" />
               <span className="crm-screens__updated">
@@ -230,11 +234,11 @@ export function DetailPage({ historySection, variant = 'default' }) {
             <div className="crm-screens__cards">
               {historySection ?? <StageHistoryCard />}
 
-              <RecordCard title="Products" actions={<Button variant="outline-blue">Add Products</Button>}>
+              <RecordCard title="Products" actions={<Button variant="outline-blue" size={buttonSize}>Add Products</Button>}>
                 <EmptyState />
               </RecordCard>
 
-              <RecordCard title="Emails" actions={<Button variant="outline-blue">Compose Email</Button>}>
+              <RecordCard title="Emails" actions={<Button variant="outline-blue" size={buttonSize}>Compose Email</Button>}>
                 <div className="crm-screens__card-body">
                   <Tabs
                     tabs={[
@@ -249,14 +253,14 @@ export function DetailPage({ historySection, variant = 'default' }) {
                 <EmptyState />
               </RecordCard>
 
-              <RecordCard title="Connected Records" actions={<Button variant="outline-blue" arrow>Add New</Button>}>
+              <RecordCard title="Connected Records" actions={<Button variant="outline-blue" size={buttonSize} arrow>Add New</Button>}>
                 <EmptyState />
               </RecordCard>
 
               <RecordCard title="Quotes" actions={
                 <>
-                  <Button variant="outline-blue">Assign</Button>
-                  <Button variant="outline-blue">New</Button>
+                  <Button variant="outline-blue" size={buttonSize}>Assign</Button>
+                  <Button variant="outline-blue" size={buttonSize}>New</Button>
                 </>
               }>
                 <EmptyState />
@@ -264,8 +268,8 @@ export function DetailPage({ historySection, variant = 'default' }) {
 
               <RecordCard title="Cases" actions={
                 <>
-                  <Button variant="outline-blue">Assign</Button>
-                  <Button variant="outline-blue">New</Button>
+                  <Button variant="outline-blue" size={buttonSize}>Assign</Button>
+                  <Button variant="outline-blue" size={buttonSize}>New</Button>
                 </>
               }>
                 <EmptyState />

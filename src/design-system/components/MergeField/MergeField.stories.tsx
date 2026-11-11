@@ -203,19 +203,21 @@ const meta: Meta<typeof MergeField> = {
 export default meta;
 type Story = StoryObj<typeof MergeField>;
 
-// ── Random AI prompts for the Default page ──────────────────────────────────
+// ── Sample prompts for the Default page ─────────────────────────────────────
 // `#token` values match CRM_FIELDS `value`s, so the field turns each one into a chip.
+// Singleline: email subjects with merge tags
 const SINGLE_PROMPTS = [
-  'Hi #FirstName, thanks for your interest in #Company.',
-  'Reminder: #DealName moves to #DealStage on #DealClosingDate.',
-  'Hi #ContactFirstName, your #AccountName account is ready for review.',
-  'Next step for #FirstName #LastName: confirm the #LeadSource details.',
+  'Welcome to #Company, #FirstName!',
+  'Your #DealName - Action Required by #DealClosingDate',
+  'Account Update: #AccountName - #AccountOwner',
+  'Follow-up: #FirstName #LastName from #LeadSource',
 ];
 
+// Multiline: AI instructions/prompts with merge tags
 const MULTI_PROMPTS = [
-  'Hi #FirstName,\n\nFollowing up on your enquiry about #Company. Could we schedule a short call this week?\n\nRegards,\n#LeadOwner',
-  'Hello #ContactFirstName,\n\n#DealName is now at #DealStage with an amount of #DealAmount. Let us know if anything has changed.\n\nThanks,\n#DealOwner',
-  'Hi #AccountOwner,\n\nThe #AccountName account has a renewal coming up. Please review the details and share your notes before #DealClosingDate.',
+  'Generate a personalized email for #FirstName from #Company.\n\nContext: Lead source is #LeadSource.\n\nTone: Professional and friendly.\n\nCall to action: Schedule a demo call.',
+  'Create an AI-generated summary for #DealName.\n\nDeal details:\n- Stage: #DealStage\n- Amount: #DealAmount\n- Owner: #DealOwner\n\nHighlight key risks and next steps.',
+  'Draft a follow-up message for #ContactFirstName.\n\nAccount: #AccountName (#AccountOwner)\n\nFocus on recent activity and upcoming renewal. Keep it concise and actionable.',
 ];
 
 const pickRandom = (items: string[]) => items[Math.floor(Math.random() * items.length)];

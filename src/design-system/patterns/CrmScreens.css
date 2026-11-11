@@ -243,7 +243,7 @@
   color: var(--ds-text-label, #6B7280);
 }
 
-.crm-screens__stage-pill {
+.crm-screens__stage-pill:not(.tags-tag) {
   display: inline-block;
   padding: 2px 10px;
   border-radius: 12px;
@@ -335,11 +335,13 @@
   padding-top: 0;
   padding-bottom: 0;
   min-height: 44px;
+  background: transparent; /* no toolbar fill or bottom border on the Field History page */
+  border-bottom: 0;
 }
 
 .crm-screens--field-history .crm-screens__empty {
   font-size: var(--ds-font-size-base, 13px);
-  color: var(--ds-text-label, #6B7280);
+  color: var(--ds-text-muted, #8B9BB8); /* same colour as the table's "No records found" */
 }
 
 /* ── Field History table: no outer radius, no side borders ─────────────────── */
@@ -348,6 +350,7 @@
   border-radius: 0;
   border-left: 0;
   border-right: 0;
+  border-bottom: 0;
 }
 
 .crm-screens__fh-table .table-th,
@@ -386,10 +389,12 @@
   cursor: pointer;
 }
 
-/* Hover and focus: visible border with radius. */
+/* Hover and focus (also while its panel is open): same border as the input hover border. */
 .crm-screens__header-icon:hover,
-.crm-screens__header-icon:focus-visible {
-  border-color: var(--ds-border-lighter, #DCDBEE);
+.crm-screens__header-icon:focus,
+.crm-screens__header-icon:focus-visible,
+.crm-screens__header-icon[aria-expanded="true"] {
+  border-color: var(--ds-components-input-hover-outline, #A5ADCC);
   background: var(--ds-bg-common-card, #ffffff);
   outline: none;
 }
@@ -424,13 +429,48 @@
 }
 
 /* The column settings icon stays on the right while the table scrolls. */
-/* Only the header icon floats: its header cell stays at the right edge while the table scrolls. */
+/* Only the header icon floats: its header cell stays at the right edge while the table scrolls.
+   Its left border is a separator that runs the full height of the header. */
 .crm-screens__fh-table .table-th:last-child {
   position: sticky;
   right: 0;
   z-index: 1;
   background: var(--ds-bg-common-card, #ffffff);
-  box-shadow: -1px 0 0 var(--ds-border-lighter, #DCDBEE);
+  vertical-align: middle;
+}
+
+/* Separator before the icon: drawn as a pseudo-element, so it stays visible on the sticky cell
+   (collapsed table borders do not follow a sticky cell) and runs the full height of the header. */
+.crm-screens__fh-table .table-th:last-child::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--ds-border-lighter, #DCDBEE);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Icon centred in the header row. */
+.crm-screens__fh-table .table-th:last-child .table-th-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 36px;
+  padding-inline: 0;
+}
+
+.crm-screens__fh-table .table-th:last-child .table-th-inner > span {
+  display: flex;
+  align-items: center;
+}
+
+/* No resize handle on the icon column. */
+.crm-screens__fh-table .table-th:last-child .table-resize-handle {
+  display: none;
 }
 
 /* Field History: the body sits inside the header's horizontal scroller, so one scroll moves
@@ -446,6 +486,90 @@
   z-index: 2000;
   padding: 0; /* the Manage Columns card supplies its own frame */
   box-sizing: border-box;
+  width: fit-content; /* the panel is exactly as wide as the card, so the shadow follows it */
+  max-width: calc(100vw - 16px);
   border-radius: 8px;
   box-shadow: 0 4px 18px 0 rgba(49, 57, 73, 0.3);
+}
+
+/* Settings panel: let the scroll area start a little further left so the drag grips are not clipped. */
+.fht-settings-panel .mc-list {
+  margin-left: -16px;
+  padding-left: 16px;
+}
+
+/* Settings panel: unselected columns line up with the selected ones (no extra indent). */
+.fht-settings-panel .mc-row {
+  padding-left: 0;
+}
+
+/* Settings panel: blocks the page behind it while open. */
+.fht-settings-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1999;
+  background: transparent;
+}
+
+/* The lifted drag copy has to stay above the panel (the panel is z-index 2000). */
+body > .dragger-ghost {
+  z-index: 2100;
+}
+
+/* Panel type: the search box and the column names use the base size. */
+.fht-settings-panel .mc-title,
+.fht-settings-panel .checkbox-label-text,
+.fht-settings-panel .mc-search input {
+  font-size: var(--ds-font-size-base, 14px);
+}
+
+
+/* Field History page: secondary tab bar on white; no separator line above the tabs. */
+.crm-screens--field-history .tabs-tab-bar[data-variant="secondary"] {
+  background: var(--ds-bg-common-card, #ffffff);
+}
+
+.crm-screens--field-history .crm-screens__record-header {
+  border-bottom: 0;
+}
+
+/* No hover state on the rows (or grips) while a column is being dragged. */
+body:has(> .dragger-ghost) .fht-settings-panel .mc-selected .dragger-item:hover::before {
+  background: transparent;
+}
+
+body:has(> .dragger-ghost) .fht-settings-panel .dragger-item:hover .dragger-grip--on-hover {
+  opacity: 0;
+}
+
+/* Field History table: fills the card width instead of hugging its columns (extra width is shared
+   across the columns); it still scrolls when the columns need more room. */
+.crm-screens__fh-table .table-table {
+  min-width: 100%;
+}
+
+/* The column before the icon column: no static separator line. Its resize handle still works,
+   and the line shows on hover like on the other columns. */
+.crm-screens__fh-table .table-th:nth-last-child(2) .table-resize-handle::after {
+  background: transparent;
+}
+
+.crm-screens__fh-table .table-th:nth-last-child(2) .table-resize-handle:hover::after {
+  background: var(--ds-brand-primary, #5464F2);
+}
+
+/* Capsule variant: one compact gap on each side of the arrow, not gap + margin. */
+.crm-screens__fh-table .crm-screens__transition {
+  gap: calc(var(--ds-font-size-sm) / 3);
+}
+
+.crm-screens__fh-table .crm-screens__transition .crm-screens__arrow {
+  margin-inline: 0;
+}
+
+/* Reuse multi-select tag sizing, padding and typography without changing shared tags. */
+.crm-screens__fh-table .crm-screens__stage-pill {
+  background: var(--fht-stage-color);
+  border-color: color-mix(in srgb, var(--fht-stage-color) 80%, black);
+  font-weight: var(--ds-font-weight-regular);
 }

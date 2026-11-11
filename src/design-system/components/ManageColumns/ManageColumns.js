@@ -38,6 +38,7 @@ export function ManageColumns({
   onSave,
   onCancel,
   saveLabel = 'Save',
+  gripperOnHover = true,
   onOpenPage,
   embedded = false,
 }) {
@@ -71,6 +72,8 @@ export function ManageColumns({
   // to the top of the unselected block, directly below the last selected field.
   const [unchecked, setUnchecked] = useState([]);
   const toggle = key => {
+    // Required fields stay selected.
+    if (fields.find(field => field.key === key)?.required) return;
     if (isChecked(key)) {
       setUnchecked(prev => [key, ...prev.filter(k => k !== key)]);
       onChange?.(selected.filter(k => k !== key));
@@ -131,6 +134,7 @@ export function ManageColumns({
           ? <>{field.label}<span className="mc-required" aria-hidden="true"> *</span></>
           : field.label}
         checked={isChecked(field.key)}
+        aria-disabled={field.required || undefined}
         onChange={() => toggle(field.key)}
       />
       {field.module && variant === 'withTitle' && <span className="mc-module">({field.module})</span>}
@@ -200,7 +204,7 @@ export function ManageColumns({
               <Dragger
                 items={selectedVisible.map(field => field.label)}
                 onChange={handleSelectedReorder}
-                gripperOnHover
+                gripperOnHover={gripperOnHover}
                 renderItem={label => rowContent(byLabel.get(label))}
               />
             </div>
