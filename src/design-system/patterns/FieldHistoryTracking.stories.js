@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Modal } from '../components/Modal/Modal';
 import { ManageColumns } from '../components/ManageColumns/ManageColumns';
 import { getModuleFields } from '../data/crm-sample-data';
@@ -13,6 +14,10 @@ import { SetupTable } from '../components/Table/Table';
 import { DetailPage, RecordCard } from './CrmScreens.page';
 import { SortingHat } from '../components/SortingHat/SortingHat';
 import { Info as InfoIcon, Lock as LockIcon } from '../foundations/icons/Icons';
+import { crmIconMap } from '../foundations/icons/CrmCatalog';
+
+// Column settings icon from the icon gallery (CrmColumnArrange).
+const ColumnArrangeIcon = crmIconMap.CrmColumnArrange;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -464,7 +469,7 @@ const FIELD_HISTORY_ROWS = [
   },
   {
     id: 'fh-4',
-    from: '(Record Created)',
+    from: 'Record Created',
     to: 'Negotiation',
     modifiedBy: 'Yren Okafor',
     modifiedTime: 'Apr 22, 2026 2:17 PM',
@@ -504,12 +509,16 @@ const FIELD_HISTORY_SOURCE_OPTIONS = [
 const FIELD_HISTORY_COLUMNS = [
   {
     key: 'from',
-    label: 'Previous Deal Stage ↔ Moved To',
+    label: (
+      <>
+        Deal Stage<span className="crm-screens__arrow" aria-hidden="true">→</span>Moved To
+      </>
+    ),
     width: 340,
     render: (value, row) => (
       <span className="crm-screens__transition">
-        <span className="crm-screens__stage-pill">{value}</span>
-        <span aria-hidden="true">→</span>
+        <span className={value === 'Record Created' ? 'crm-screens__stage-pill crm-screens__stage-pill--muted' : 'crm-screens__stage-pill'}>{value}</span>
+        <span className="crm-screens__arrow" aria-hidden="true">→</span>
         <span className="crm-screens__stage-pill">{row.to}</span>
       </span>
     ),
@@ -518,12 +527,6 @@ const FIELD_HISTORY_COLUMNS = [
     key: 'modifiedBy',
     label: 'Modified By',
     width: 200,
-    render: value => (
-      <span className="crm-screens__person">
-        <span className="crm-screens__mini-avatar" aria-hidden="true">{value.charAt(0)}</span>
-        {value}
-      </span>
-    ),
   },
   { key: 'modifiedTime', label: 'Modified Time', width: 190 },
   { key: 'duration', label: 'Duration', width: 110 },
@@ -534,31 +537,144 @@ const FIELD_HISTORY_COLUMNS = [
     key: 'source',
     label: 'Source',
     width: 130,
-    render: value => <span className="crm-screens__source-pill">{value}</span>,
+    render: value => <span>{value}</span>,
+  },
+  {
+    // End-of-header column: column settings icon, no body content.
+    key: 'columnSettings',
+    label: (
+      <button type="button" className="crm-screens__header-icon" aria-label="Column settings">
+        <ColumnArrangeIcon width={16} height={16} aria-hidden="true" />
+      </button>
+    ),
+    width: 52,
+    render: () => null,
   },
 ];
 
-function FieldHistorySection() {
+// Column settings panel: the same Manage Columns list, opened from the header icon.
+const SETTINGS_REQUIRED_KEYS = ['from', 'duration'];
+// Column order: Deal Stage -> Moved To, Modified By, Modified Time, Duration, Source, then the rest.
+const COLUMN_ORDER = ['from', 'modifiedBy', 'modifiedTime', 'duration', 'source', 'amount', 'probability', 'fieldType', 'columnSettings'];
+const SETTINGS_FIELDS = [
+  { key: 'from', label: 'Deal Stage' },
+  { key: 'modifiedBy', label: 'Modified By' },
+  { key: 'modifiedTime', label: 'Modified Time' },
+  { key: 'duration', label: 'Duration' },
+  { key: 'source', label: 'Source' },
+  { key: 'amount', label: 'Amount' },
+  { key: 'probability', label: 'Probability (%)' },
+  { key: 'fieldType', label: 'Field Type' },
+].map((f) => ({ ...f, required: SETTINGS_REQUIRED_KEYS.includes(f.key) }));
+const ALL_COLUMN_KEYS = SETTINGS_FIELDS.map((f) => f.key);
+const SETTINGS_PANEL_WIDTH = 340;
+
+// plainFirstColumn: the first column shows the stage transition as plain text, without capsules.
+function FieldHistorySection({ plainFirstColumn = false }) {
   const [timeFilter, setTimeFilter] = useState('all');
   const [userFilter, setUserFilter] = useState('all');
   const [sourceFilter, setSourceFilter] = useState('all');
+  const [applied, setApplied] = useState(ALL_COLUMN_KEYS); // columns shown in the table
+  const [draft, setDraft] = useState(ALL_COLUMN_KEYS); // selection while the panel is open
+  const [panel, setPanel] = useState(null); // { top, right } when the settings panel is open
+  const settingsRef = useRef(null);
+  const panelRef = useRef(null);
+
+  const openPanel = () => {
+    const r = settingsRef.current.getBoundingClientRect();
+    setDraft(applied);
+    setPanel({ top: r.bottom + 8, right: Math.max(8, window.innerWidth - r.right) });
+  };
+
+  // Close on outside click or Escape.
+  useEffect(() => {
+    if (!panel) return undefined;
+    const onDown = (e) => {
+      if (!panelRef.current?.contains(e.target) && !settingsRef.current?.contains(e.target)) setPanel(null);
+    };
+    const onKey = (e) => { if (e.key === 'Escape') setPanel(null); };
+    document.addEventListener('pointerdown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('pointerdown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [panel]);
+
+  const columns = COLUMN_ORDER.map((k) => FIELD_HISTORY_COLUMNS.find((c) => c.key === k))
+    .filter((c) => c.key === 'columnSettings' || applied.includes(c.key))
+    .map((c) => {
+      if (c.key === 'columnSettings') {
+        return {
+          ...c,
+          label: (
+            <button
+              ref={settingsRef}
+              type="button"
+              className="crm-screens__header-icon"
+              aria-label="Column settings"
+              aria-haspopup="dialog"
+              aria-expanded={!!panel}
+              onClick={openPanel}
+            >
+              <ColumnArrangeIcon width={16} height={16} aria-hidden="true" />
+            </button>
+          ),
+        };
+      }
+      if (plainFirstColumn && c.key === 'from') {
+        return {
+          ...c,
+          render: (value, row) => (
+            <span>
+              {value}
+              <span className="crm-screens__arrow" aria-hidden="true">→</span>
+              {row.to}
+            </span>
+          ),
+        };
+      }
+      return c;
+    });
 
   return (
     <RecordCard
-      title="Field History"
-      actions={<Button variant="outline-blue">Manage Columns</Button>}
+      title="Field History - Stage"
+      actions={
+        <>
+          <Dropdown value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={140} />
+          <Dropdown value={userFilter} options={FIELD_HISTORY_USER_OPTIONS} onChange={setUserFilter} width={160} />
+          <Dropdown value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={140} />
+          <Button variant="outline-blue">Manage Columns</Button>
+        </>
+      }
     >
-      <div className="crm-screens__filters">
-        <span className="crm-screens__filter-label">Filter by</span>
-        <Dropdown value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={160} />
-        <Dropdown value={userFilter} options={FIELD_HISTORY_USER_OPTIONS} onChange={setUserFilter} width={180} />
-        <Dropdown value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={160} />
+      <div className="crm-screens__fh-table">
+        <SetupTable
+          columns={columns}
+          rows={FIELD_HISTORY_ROWS}
+          emptyMessage="No records found"
+        />
       </div>
-      <SetupTable
-        columns={FIELD_HISTORY_COLUMNS}
-        rows={FIELD_HISTORY_ROWS}
-        emptyMessage="No records found"
-      />
+      {panel && createPortal(
+        <div
+          ref={panelRef}
+          className="fht-settings-panel"
+          role="dialog"
+          aria-label="Manage columns"
+          style={{ top: panel.top, right: panel.right, width: SETTINGS_PANEL_WIDTH }}
+        >
+          <ManageColumns
+            variant="modal"
+            fields={SETTINGS_FIELDS}
+            selected={draft}
+            onChange={setDraft}
+            onSave={() => { setApplied(draft); setPanel(null); }}
+            onCancel={() => setPanel(null)}
+          />
+        </div>,
+        document.body,
+      )}
     </RecordCard>
   );
 }
@@ -577,6 +693,10 @@ const FIELD_HISTORY_VARIATIONS = [
     label: 'Detail Page - Field History',
     storyId: 'work-items-field-history-tracking--detail-page-field-history',
   },
+  {
+    label: 'Detail Page - Field History (plain first column)',
+    storyId: 'work-items-field-history-tracking--detail-page-field-history-plain',
+  },
 ];
 
 export const DetailPageFieldHistory = {
@@ -585,6 +705,17 @@ export const DetailPageFieldHistory = {
   render: () => (
     <>
       <DetailPage variant="fieldHistory" historySection={<FieldHistorySection />} />
+      <SortingHat variations={FIELD_HISTORY_VARIATIONS} />
+    </>
+  ),
+};
+
+export const DetailPageFieldHistoryPlain = {
+  name: 'Detail Page - Field History (plain first column)',
+  parameters: { layout: 'fullscreen' },
+  render: () => (
+    <>
+      <DetailPage variant="fieldHistory" historySection={<FieldHistorySection plainFirstColumn />} />
       <SortingHat variations={FIELD_HISTORY_VARIATIONS} />
     </>
   ),
