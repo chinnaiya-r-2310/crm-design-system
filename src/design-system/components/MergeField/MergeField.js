@@ -121,8 +121,7 @@ function createChipElement(opt) {
   
   chip.appendChild(label);
 
-  // Overlay, not inline siblings — so the chip's own width never changes;
-  // on hover this covers the label instead of pushing the chip wider.
+  // Overlay actions mask the label's tail on hover without resizing the chip.
   const actions = document.createElement('span');
   actions.className = 'mergefield-token-actions';
 

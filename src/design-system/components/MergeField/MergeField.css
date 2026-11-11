@@ -332,10 +332,8 @@
   white-space: nowrap;
 }
 
-/* An absolutely-positioned overlay — never part of layout, so the chip's own
-   width is set by the label alone and never changes. On hover it sits over
-   the tail end of the chip, fading over the label rather than replacing it
-   outright or pushing the chip wider. */
+/* Overlay the label's tail with a matching fill and fade, without changing
+   the capsule's width when its close icon appears. */
 .mergefield-token-actions {
   display: flex;
   position: absolute;
@@ -347,10 +345,13 @@
   right: 0;
   align-items: center;
   justify-content: flex-end;
-  gap: 0; /* spacing comes from the close icon's own margin, so it can collapse cleanly */
   padding: 0 6px 0 14px;
-  background: transparent;
-  border-radius: 0 999px 999px 0;
+  background: linear-gradient(to right, transparent, #F4F7FF 14px);
+  border-radius: 0 3px 3px 0;
+}
+
+.mergefield-token[data-selected] .mergefield-token-actions {
+  background: linear-gradient(to right, transparent, var(--ds-bg-scale-bg5, #DFE4EF) 14px);
 }
 
 .mergefield-token:hover .mergefield-token-actions {
@@ -364,6 +365,7 @@
 
 .mergefield-token-remove {
   position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -380,7 +382,6 @@
 
 /* Hovering the close icon: white icon on a blue circle with smooth scale-up animation from center. */
 .mergefield-token-remove:hover {
-  background: var(--ds-brand-primary, #5464F2);
   color: #fff;
 }
 
@@ -410,7 +411,7 @@
   opacity: 0;
   transform: scale(0.5);
   pointer-events: none;
-  transition: width 150ms ease, margin-left 150ms ease, opacity 150ms ease, transform 150ms ease, background-color 150ms ease;
+  transition: width 150ms ease, margin-left 150ms ease, opacity 150ms ease, transform 150ms ease, color 200ms ease;
 }
 
 .mergefield-token:hover .mergefield-token-remove {
@@ -421,14 +422,14 @@
   pointer-events: auto;
 }
 
-/* Change case: the capsule being changed takes the hover background, keeps its
-   chevron visible (the backdrop ends hover) and flips it to point up. */
+/* Change case: keep the hover border and original fill while the backdrop
+   ends hover, and flip the chevron to point up. */
 .mergefield-token-chevron {
   transition: transform 150ms ease;
 }
 
 .mergefield-token[data-changing] {
-  background: var(--ds-bg-scale-bg5, #DFE4EF);
+  border-color: #A8B3CC;
 }
 
 .mergefield-token[data-changing] .mergefield-token-actions {
@@ -492,8 +493,8 @@
 .mergefield-popup {
   position: fixed;
   z-index: 1500;
-  min-width: 180px;
-  max-width: 320px;
+  width: 360px;
+  max-width: calc(100vw - 16px);
   background: var(--ds-components-dropdown-option-bg, #fff);
   border: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
   border-radius: 6px;
