@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { Dropdown } from '../Dropdown';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MergeField } from './MergeField';
-import { within, userEvent, waitFor } from 'storybook/test';
+import { expect, within, userEvent, waitFor } from 'storybook/test';
 
 const NOTIFICATION_FIELDS = [
   { value: 'recordname', label: 'Record Name' },
@@ -148,7 +148,7 @@ const CRM_FIELDS = [
 ];
 
 // Filter dropdown entries. Every entry is a selectable module; `source` is the field set it shows.
-// Section headers (Accounts, Vendors) are labels only.
+// The Related Modules section header is a label only.
 const CRM_MODULE_ENTRIES = [
   {
     module: 'Deals',
@@ -156,21 +156,18 @@ const CRM_MODULE_ENTRIES = [
       { value: 'Deals', label: 'Deals', source: 'Deals' },
       { value: 'Lookup1Contacts', label: 'Lookup 1 (Contacts)', source: 'Contacts' },
       { value: 'AccountNameAccounts', label: 'Account Name (Accounts)', source: 'Accounts' },
-      { value: 'Notes', label: 'Notes', source: 'Notes' },
       { value: 'DealProductLineItems', label: 'Product Line Items (Subform)', source: 'Product Line Items' },
       { value: 'DealQuotedItems', label: 'Quoted Items (Subform)', source: 'Quoted Items' },
     ],
   },
   {
-    module: 'Accounts',
+    module: 'Related Modules',
     items: [
-      { value: 'PrimaryAccountName', label: 'Primary Account Name', source: 'Accounts' },
-      { value: 'SecondaryAccountName', label: 'Secondary Account Name', source: 'Accounts' },
+      { value: 'Notes', label: 'Notes', source: 'Notes' },
+      { value: 'PrimaryAccountName', label: 'Primary Account Name (Accounts)', source: 'Accounts' },
+      { value: 'SecondaryAccountName', label: 'Secondary Account Name (Accounts)', source: 'Accounts' },
+      { value: 'VendorName', label: 'Vendor Name (Vendors)', source: 'Vendors' },
     ],
-  },
-  {
-    module: 'Vendors',
-    items: [{ value: 'VendorName', label: 'Vendor Name', source: 'Vendors' }],
   },
 ];
 
@@ -542,6 +539,36 @@ export const SinglelineAddingTag: Story = {
     const field = canvas.getByRole('textbox');
     await userEvent.click(field);
     await userEvent.type(field, '#', { skipClick: true });
+
+    const page = within(canvasElement.ownerDocument.body);
+    for (const [label, expectedField] of [
+      ['Primary Account Name (Accounts)', 'Account Owner'],
+      ['Notes', 'Note Title'],
+      ['Secondary Account Name (Accounts)', 'Account Owner'],
+      ['Vendor Name (Vendors)', 'Email'],
+    ]) {
+      await userEvent.click(page.getByRole('button', { name: /Deals|Notes|Primary Account Name|Secondary Account Name/ }));
+      const moduleList = page.getByRole('listbox', { name: 'Module' });
+      const modules = within(moduleList);
+      // The filter menu fits the longest label, rather than wrapping at 260px.
+      const longestOption = modules.getByRole('option', { name: 'Secondary Account Name (Accounts)', exact: true });
+      const labelRange = canvasElement.ownerDocument.createRange();
+      labelRange.selectNodeContents(longestOption.lastChild!);
+      await expect(labelRange.getClientRects()).toHaveLength(1);
+      await expect(moduleList.scrollWidth).toBeLessThanOrEqual(moduleList.clientWidth);
+      const relatedHeader = modules.getByText('Related Modules', { exact: true });
+      await expect(relatedHeader).toBeVisible();
+      const notesOption = modules.getByRole('option', { name: 'Notes', exact: true });
+      const primaryAccountOption = modules.getByRole('option', { name: 'Primary Account Name (Accounts)', exact: true });
+      await expect(modules.getAllByRole('option')[5]).toBe(notesOption);
+      await expect(relatedHeader.compareDocumentPosition(notesOption) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+      await expect(notesOption.compareDocumentPosition(primaryAccountOption) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+      await expect(modules.queryByText('Accounts', { exact: true })).not.toBeInTheDocument();
+      await expect(modules.queryByText('Vendors', { exact: true })).not.toBeInTheDocument();
+      await userEvent.click(modules.getByRole('option', { name: label, exact: true }));
+      await expect(page.getByRole('button', { name: label, exact: true })).toBeVisible();
+      await expect(page.getByRole('option', { name: expectedField, exact: true })).toBeVisible();
+    }
   },
 };
 

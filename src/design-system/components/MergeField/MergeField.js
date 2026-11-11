@@ -60,7 +60,7 @@ function getAdjacentChip(root) {
 
   let node = range.startContainer;
   if (node.nodeType === Node.TEXT_NODE) {
-    if (node.textContent.slice(0, range.startOffset).trim() !== '') return null;
+    if (node.textContent.slice(0, range.startOffset).replace(/\u200b/g, '').trim() !== '') return null;
     node = node.previousSibling;
   } else if (node.nodeType === Node.ELEMENT_NODE) {
     node = node.childNodes[range.startOffset - 1] ?? null;
@@ -68,7 +68,7 @@ function getAdjacentChip(root) {
     return null;
   }
 
-  if (node?.nodeType === Node.TEXT_NODE && node.textContent.trim() === '') node = node.previousSibling;
+  if (node?.nodeType === Node.TEXT_NODE && node.textContent.replace(/\u200b/g, '').trim() === '') node = node.previousSibling;
   return node?.nodeType === Node.ELEMENT_NODE && node.classList.contains('mergefield-token') ? node : null;
 }
 
@@ -146,7 +146,7 @@ function createChipElement(opt) {
 // capsules one by one doesn't leave a trail of blank spaces behind.
 function removeChip(chip) {
   const next = chip.nextSibling;
-  if (next?.nodeType === Node.TEXT_NODE && next.textContent.trim() === '') next.remove();
+  if (next?.nodeType === Node.TEXT_NODE && next.textContent.replace(/\u200b/g, '').trim() === '') next.remove();
   chip.remove();
 }
 
@@ -158,7 +158,8 @@ function insertTokenAtMatch(match, opt) {
   range.deleteContents();
 
   const chip = createChipElement(opt);
-  const spacer = document.createTextNode(' ');
+  // Keep a caret position after the chip without adding to its right margin.
+  const spacer = document.createTextNode('\u200b');
   const frag = document.createDocumentFragment();
   frag.appendChild(chip);
   frag.appendChild(spacer);
@@ -204,7 +205,7 @@ function serializeEditable(root) {
   let out = '';
   root.childNodes.forEach((node) => {
     if (node.nodeType === Node.TEXT_NODE) {
-      out += node.textContent.replace(/ /g, ' ');
+      out += node.textContent.replace(/\u200b/g, '').replace(/ /g, ' ');
     } else if (node.nodeName === 'BR') {
       out += '\n';
     } else if (node.classList?.contains('mergefield-token')) {

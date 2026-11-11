@@ -316,11 +316,6 @@
   top: 0;
 }
 
-/* No space before a capsule that opens the field. */
-.mergefield-editable > .mergefield-token:first-child {
-  margin-left: 0;
-}
-
 /* Long names truncate with an ellipsis; the full name shows in a tooltip (see JS). */
 .mergefield-token-label {
   pointer-events: none;
@@ -671,7 +666,7 @@
   left: 0;
   min-width: 100%;
   width: max-content;
-  max-width: 260px;
+  max-width: calc(100vw - 32px);
   top: calc(100% - 1px);
   background: var(--ds-components-dropdown-option-bg, #fff);
   border: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
