@@ -37,6 +37,7 @@ export function ManageColumns({
   onChange,
   onSave,
   onCancel,
+  saveLabel = 'Save',
   onOpenPage,
   embedded = false,
 }) {
@@ -216,7 +217,7 @@ export function ManageColumns({
       {variant !== 'page' && !embedded && (
         <footer className="mc-footer">
           <Button variant="default" onClick={onCancel}>Cancel</Button>
-          <Button variant="primary" onClick={onSave}>Save</Button>
+          <Button variant="primary" onClick={onSave}>{saveLabel}</Button>
         </footer>
       )}
     </section>

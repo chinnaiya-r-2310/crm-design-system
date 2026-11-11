@@ -379,15 +379,19 @@
   width: 28px;
   height: 28px;
   padding: 0;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 6px;
   background: transparent;
   color: var(--ds-text-base, #313949);
   cursor: pointer;
 }
 
-.crm-screens__header-icon:hover {
-  background: var(--ds-bg-scale-bg3, #F3F5F8);
+/* Hover and focus: visible border with radius. */
+.crm-screens__header-icon:hover,
+.crm-screens__header-icon:focus-visible {
+  border-color: var(--ds-border-lighter, #DCDBEE);
+  background: var(--ds-bg-common-card, #ffffff);
+  outline: none;
 }
 
 /* Field History table: row lines on every cell, so the last columns get them too. */
@@ -416,7 +420,6 @@
 
 /* "Record Created" pill in the label colour. */
 .crm-screens__stage-pill--muted {
-  background: var(--ds-bg-scale-bg3, #F3F5F8);
   color: var(--ds-text-label, #616E88);
 }
 
@@ -443,4 +446,6 @@
   z-index: 2000;
   padding: 0; /* the Manage Columns card supplies its own frame */
   box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px 0 rgba(49, 57, 73, 0.3);
 }

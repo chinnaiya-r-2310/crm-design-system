@@ -15,6 +15,7 @@ import { DetailPage, RecordCard } from './CrmScreens.page';
 import { SortingHat } from '../components/SortingHat/SortingHat';
 import { Info as InfoIcon, Lock as LockIcon } from '../foundations/icons/Icons';
 import { crmIconMap } from '../foundations/icons/CrmCatalog';
+import { Tooltip } from '../components/Tooltip/Tooltip';
 
 // Column settings icon from the icon gallery (CrmColumnArrange).
 const ColumnArrangeIcon = crmIconMap.CrmColumnArrange;
@@ -479,6 +480,66 @@ const FIELD_HISTORY_ROWS = [
     fieldType: 'Pick List',
     source: 'Import',
   },
+  {
+    id: 'fh-5',
+    from: 'Negotiation',
+    to: 'Closed Won',
+    modifiedBy: 'Elijah Morgan',
+    modifiedTime: 'Jun 2, 2026 10:12 AM',
+    duration: '9 days',
+    amount: '$ 1,50,000',
+    probability: '90%',
+    fieldType: 'Pick List',
+    source: 'Manual (UI)',
+  },
+  {
+    id: 'fh-6',
+    from: 'Proposal',
+    to: 'Value Prop',
+    modifiedBy: 'Klaus Weber',
+    modifiedTime: 'Apr 18, 2026 4:30 PM',
+    duration: '4 days',
+    amount: '$ 1,25,000',
+    probability: '35%',
+    fieldType: 'Pick List',
+    source: 'Workflow',
+  },
+  {
+    id: 'fh-7',
+    from: 'Qualification',
+    to: 'Proposal',
+    modifiedBy: 'Mikasa Chen',
+    modifiedTime: 'Apr 12, 2026 12:05 PM',
+    duration: '6 days',
+    amount: '$ 1,20,000',
+    probability: '30%',
+    fieldType: 'Pick List',
+    source: 'API',
+  },
+  {
+    id: 'fh-8',
+    from: 'Needs Analysis',
+    to: 'Qualification',
+    modifiedBy: 'Yren Okafor',
+    modifiedTime: 'Apr 4, 2026 9:48 AM',
+    duration: '3 days',
+    amount: '$ 1,10,000',
+    probability: '25%',
+    fieldType: 'Pick List',
+    source: 'Import',
+  },
+  {
+    id: 'fh-9',
+    from: 'Record Created',
+    to: 'Needs Analysis',
+    modifiedBy: 'Elijah Morgan',
+    modifiedTime: 'Mar 30, 2026 3:20 PM',
+    duration: '5 days',
+    amount: '$ 1,05,000',
+    probability: '20%',
+    fieldType: 'Pick List',
+    source: 'Manual (UI)',
+  },
 ];
 
 const FIELD_HISTORY_TIME_OPTIONS = [
@@ -553,11 +614,12 @@ const FIELD_HISTORY_COLUMNS = [
 ];
 
 // Column settings panel: the same Manage Columns list, opened from the header icon.
-const SETTINGS_REQUIRED_KEYS = ['from', 'duration'];
+// The first five columns are mandatory.
+const SETTINGS_REQUIRED_KEYS = ['from', 'modifiedBy', 'modifiedTime', 'duration', 'source'];
 // Column order: Deal Stage -> Moved To, Modified By, Modified Time, Duration, Source, then the rest.
 const COLUMN_ORDER = ['from', 'modifiedBy', 'modifiedTime', 'duration', 'source', 'amount', 'probability', 'fieldType', 'columnSettings'];
 const SETTINGS_FIELDS = [
-  { key: 'from', label: 'Deal Stage' },
+  { key: 'from', label: 'Deal Stage → Moved To' },
   { key: 'modifiedBy', label: 'Modified By' },
   { key: 'modifiedTime', label: 'Modified Time' },
   { key: 'duration', label: 'Duration' },
@@ -601,24 +663,26 @@ function FieldHistorySection({ plainFirstColumn = false }) {
     };
   }, [panel]);
 
-  const columns = COLUMN_ORDER.map((k) => FIELD_HISTORY_COLUMNS.find((c) => c.key === k))
-    .filter((c) => c.key === 'columnSettings' || applied.includes(c.key))
+  // Table columns follow the order chosen in the Manage Columns panel; the icon column stays last.
+  const columns = [...applied.map((k) => FIELD_HISTORY_COLUMNS.find((c) => c.key === k)), FIELD_HISTORY_COLUMNS.find((c) => c.key === 'columnSettings')]
     .map((c) => {
       if (c.key === 'columnSettings') {
         return {
           ...c,
           label: (
-            <button
-              ref={settingsRef}
-              type="button"
-              className="crm-screens__header-icon"
-              aria-label="Column settings"
-              aria-haspopup="dialog"
-              aria-expanded={!!panel}
-              onClick={openPanel}
-            >
-              <ColumnArrangeIcon width={16} height={16} aria-hidden="true" />
-            </button>
+            <Tooltip content="Column settings" placement="bottom" variant="black">
+              <button
+                ref={settingsRef}
+                type="button"
+                className="crm-screens__header-icon"
+                aria-label="Column settings"
+                aria-haspopup="dialog"
+                aria-expanded={!!panel}
+                onClick={openPanel}
+              >
+                <ColumnArrangeIcon width={16} height={16} aria-hidden="true" />
+              </button>
+            </Tooltip>
           ),
         };
       }
@@ -669,6 +733,7 @@ function FieldHistorySection({ plainFirstColumn = false }) {
             fields={SETTINGS_FIELDS}
             selected={draft}
             onChange={setDraft}
+            saveLabel="Done"
             onSave={() => { setApplied(draft); setPanel(null); }}
             onCancel={() => setPanel(null)}
           />
