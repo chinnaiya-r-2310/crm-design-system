@@ -83,8 +83,7 @@ const CLOSE_SVG =
   '<path d="M1 1L6 6M6 1L1 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>' +
   '</svg>';
 
-// Builds one chip — label, a chevron affordance (click to change the field)
-// and a remove button (visible on hover via CSS, see .mergefield-token:hover).
+// Builds one chip — label and a remove button (visible on hover via CSS).
 function createChipElement(opt) {
   const chip = document.createElement('span');
   chip.className = 'mergefield-token';
@@ -96,10 +95,30 @@ function createChipElement(opt) {
   const name = opt.label ?? opt.value;
   // Module goes in brackets so same-named fields (e.g. "Email") stay distinct.
   label.textContent = opt.module ? `${name} (${opt.module})` : name;
-  // Full name as a tooltip, set only while the label is actually truncated.
+  chip.dataset.label = label.textContent;
+  
+  // Custom tooltip on hover - only show if truncated
+  let tooltipEl = null;
   chip.addEventListener('mouseenter', () => {
-    chip.title = label.scrollWidth > label.clientWidth ? label.textContent : '';
+    if (label.scrollWidth > label.clientWidth) {
+      tooltipEl = document.createElement('div');
+      tooltipEl.className = 'mergefield-token-tooltip';
+      tooltipEl.textContent = label.textContent;
+      document.body.appendChild(tooltipEl);
+      
+      const chipRect = chip.getBoundingClientRect();
+      tooltipEl.style.top = chipRect.bottom + 4 + 'px';
+      tooltipEl.style.left = chipRect.left + 'px';
+    }
   });
+  
+  chip.addEventListener('mouseleave', () => {
+    if (tooltipEl) {
+      tooltipEl.remove();
+      tooltipEl = null;
+    }
+  });
+  
   chip.appendChild(label);
 
   // Overlay, not inline siblings — so the chip's own width never changes;
@@ -391,6 +410,7 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
   const matchRef = useRef(null);
   const selectedChipRef = useRef(null); // chip pending removal on a second Backspace
   const searchRef = useRef(null);
+  const tooltipContainerRef = useRef(null);
 
   // With moduleEntries, the filter dropdown lists those entries; otherwise it lists the field modules.
   const modules = moduleEntries ? moduleEntries.map((g) => g.module) : getModules(mergeFields);

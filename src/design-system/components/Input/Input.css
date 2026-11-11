@@ -354,10 +354,9 @@
 
 /* ─────────────────────── Future: size hooks ────────────────────────────── */
 
-/* Small — add data-size="sm" to .input-root
-.input-root[data-size="sm"] .input-input-wrapper { height: 28px; }
-.input-root[data-size="sm"] .input-input { font-size: var(--ds-font-size-sm); }
-*/
+/* Small — size="sm" sets data-size="sm" on .input-root: 27px tall, 13px text */
+.input-root[data-size="sm"] .input-input-wrapper { height: 27px; }
+.input-root[data-size="sm"] .input-input { font-size: var(--ds-font-size-md); }
 
 /* Large — add data-size="lg" to .input-root
 .input-root[data-size="lg"] .input-input-wrapper { height: 40px; }

@@ -5,6 +5,8 @@
 
 .tags-container {
   display: flex;
+  /* Keep the top edge anchored when selected chips wrap onto more lines. */
+  align-self: flex-start;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 6px;
@@ -178,6 +180,7 @@
   flex: 1;
   min-width: 60px;
   height: 24px;
+  box-sizing: border-box;
   border: none;
   outline: none;
   background: transparent;

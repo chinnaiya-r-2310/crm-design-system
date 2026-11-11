@@ -48,6 +48,8 @@ export function Input({
   timeValue,
   onTimeChange,
   variant,
+  /** 'md' (default) or 'sm': small is 27px tall with 13px text. */
+  size = 'md',
   currencyCode = 'INR',
   displayCurrency = true,
   showPasswordToggle = true,
@@ -191,7 +193,7 @@ export function Input({
   if (layout === 'horizontal' && label) {
     const formRowStyle = columns ? { gridTemplateColumns: columns } : undefined;
     return (
-      <div className="input-root" style={style} data-variant={rootVariant} data-type={isLookup ? 'lookup' : undefined}>
+      <div className="input-root" style={style} data-variant={rootVariant} data-size={size === 'md' ? undefined : size} data-type={isLookup ? 'lookup' : undefined}>
         <div className="input-form-row" style={formRowStyle}>
           {labelEl}
           <div className="input-field-column">
@@ -205,7 +207,7 @@ export function Input({
 
   // ── Vertical layout (or horizontal without a label) ─────────────────────
   return (
-    <div className="input-root input-vertical" style={rootStyle} data-variant={rootVariant} data-type={isLookup ? 'lookup' : undefined}>
+    <div className="input-root input-vertical" style={rootStyle} data-variant={rootVariant} data-size={size === 'md' ? undefined : size} data-type={isLookup ? 'lookup' : undefined}>
       {labelEl}
       {inputWrapper}
       {helperEl}

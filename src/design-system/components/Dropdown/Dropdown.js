@@ -94,6 +94,8 @@ export function Dropdown({
   triggerIcon,
   triggerAriaLabel,
   triggerButtonVariant,
+  /** 'md' (default) or 'sm': small is 27px tall with 13px text. */
+  size = 'md',
   /** Single-select only: shows a ✕ inside the trigger once a value is picked; clicking it calls onChange(''). */
   clearable = false,
   clearAriaLabel = 'Clear selection',
@@ -457,6 +459,7 @@ export function Dropdown({
       ref={panelRef}
       id={listId}
       className='dropdown-panel'
+      data-size={size === 'md' ? undefined : size}
       style={{
           top: panelPos.top,
           left: panelPos.left,
@@ -559,7 +562,7 @@ export function Dropdown({
 
   const Trigger = triggerButtonVariant ? Button : 'button';
   const dropdownEl = (
-    <div ref={rootRef} className='dropdown-dropdown-wrapper' data-clearable={(clearable && selectedOption) || undefined} onKeyDown={handleKeyDown}>
+    <div ref={rootRef} className='dropdown-dropdown-wrapper' data-size={size === 'md' ? undefined : size} data-clearable={(clearable && selectedOption) || undefined} onKeyDown={handleKeyDown}>
       <Trigger
         ref={triggerRef}
         id={triggerId}

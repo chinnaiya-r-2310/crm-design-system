@@ -137,14 +137,14 @@
 
 /* ── Action buttons (remove / add) ────────────────────────────────────────── */
 
-/* margin-left: 5px pushes total gap from last input to actions from 10px → 15px.
-   margin-top centres 16px icons against 34px input height: (34 - 16) / 2 ≈ 9px */
+/* Keep actions centred on the first 34px input line, even when values or
+   validation messages grow downward. The extra left margin makes a 15px gap. */
 .criteria-builder-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: calc(var(--ds-line-height-base) / 4);
   flex-shrink: 0;
-  margin-top: 9px;
+  height: 34px;
   margin-left: 5px;
 }
 
@@ -159,16 +159,10 @@
   cursor: pointer;
   border-radius: 50%;
   flex-shrink: 0;
-  transition: opacity 150ms ease;
 }
 
 .criteria-builder-remove-btn { color: var(--ds-icon-primary-negative-red, #FF5D5A); }
 .criteria-builder-add-btn    { color: var(--ds-icon-primary-green, #12AA67); }
-
-.criteria-builder-remove-btn:hover,
-.criteria-builder-add-btn:hover {
-  opacity: 0.75;
-}
 
 /* ── Connector (AND / OR) ──────────────────────────────────────────────────── */
 

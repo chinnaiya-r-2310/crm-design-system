@@ -52,6 +52,8 @@ export function DatePicker({
   placeholder = 'DD/MM/YYYY',
   value,
   onChange,
+  /** 'md' (default) or 'sm': small is 27px tall with 13px text. */
+  size = 'md',
   id: idProp,
   style,
 }) {
@@ -201,7 +203,7 @@ export function DatePicker({
   if (layout === 'horizontal' && label) {
     const formRowStyle = columns ? { gridTemplateColumns: columns } : undefined;
     return (
-      <div className={'date-picker-root'} style={rootStyle} data-variant={rootVariant}>
+      <div className={'date-picker-root'} style={rootStyle} data-variant={rootVariant} data-size={size === 'md' ? undefined : size}>
         <div className={'date-picker-form-row'} style={formRowStyle}>
           {labelEl}
           <div className={'date-picker-field-column'}>
@@ -214,7 +216,7 @@ export function DatePicker({
   }
 
   return (
-    <div className={'date-picker-root date-picker-vertical'} style={rootStyle} data-variant={rootVariant}>
+    <div className={'date-picker-root date-picker-vertical'} style={rootStyle} data-variant={rootVariant} data-size={size === 'md' ? undefined : size}>
       {labelEl}
       {pickerEl}
       {helperEl}

@@ -131,6 +131,18 @@ export const Default: Story = {
 };
 
 
+/** Small size: 27px tall with 13px text, for compact toolbars and section headers. */
+export const Small: Story = {
+  args: {
+    label: "First Name",
+    width: 400,
+    layout: 'vertical',
+    type: 'text',
+    size: 'sm',
+    placeholder: 'Enter name',
+  },
+};
+
 /**
  * Long label wrapping across two lines.
  * The input must stay aligned with the FIRST line of the label text,

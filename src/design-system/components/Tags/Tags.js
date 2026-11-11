@@ -124,6 +124,15 @@ export function Tags({
          o.label.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Keyboard selection follows the same grouped order as the visible options.
+  const groupMap = new Map();
+  filtered.forEach(option => {
+    const group = option.group || '';
+    if (!groupMap.has(group)) groupMap.set(group, []);
+    groupMap.get(group).push(option);
+  });
+  const selectableOptions = [...groupMap.values()].flat();
+
   // Reset pending-removal selection whenever the tag list changes
   useEffect(() => { setSelectedIndex(-1); }, [value.length]);
 
@@ -167,6 +176,30 @@ export function Tags({
   };
 
   const handleKeyDown = (e) => {
+    if (e.nativeEvent.isComposing) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!open) {
+        openDropdown();
+      } else {
+        setActiveIndex(current => {
+          if (!selectableOptions.length) return -1;
+          const step = e.key === 'ArrowDown' ? 1 : -1;
+          return (current + step + selectableOptions.length) % selectableOptions.length;
+        });
+      }
+      return;
+    }
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (open) {
+        const item = selectableOptions[activeIndex];
+        if (item) select(item);
+      } else {
+        openDropdown();
+      }
+      return;
+    }
     if (e.key === 'Backspace' && !search) {
       if (selectedIndex >= 0) {
         // Second Backspace: remove the selected tag
@@ -346,13 +379,6 @@ export function Tags({
               );
             }
 
-            // Build ordered group list preserving insertion order
-            const groupMap = new Map();
-            filtered.forEach(opt => {
-              const g = opt.group || '';
-              if (!groupMap.has(g)) groupMap.set(g, []);
-              groupMap.get(g).push(opt);
-            });
             const hasGroups = [...groupMap.keys()].some(g => g !== '');
 
             let flatIdx = 0;
