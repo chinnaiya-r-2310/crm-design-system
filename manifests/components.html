@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>6.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -7625,13 +7625,13 @@ width?: any = 670</code></pre>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  24 | // ─────────────────────────────────────────────────────────────────────────────
-  25 |
-&gt; 26 | export default {
+  25 | // ─────────────────────────────────────────────────────────────────────────────
+  26 |
+&gt; 27 | export default {
      | ^
-  27 |   title: &#39;Work Items/Field History Tracking&#39;,
-  28 |   parameters: {
-  29 |     layout: &#39;centered&#39;,
+  28 |   title: &#39;Work Items/Field History Tracking&#39;,
+  29 |   parameters: {
+  30 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/FieldHistoryTracking.stories.js:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -7651,6 +7651,7 @@ import { DetailPage, RecordCard } from &#39;./CrmScreens.page&#39;;
 import { SortingHat } from &#39;../components/SortingHat/SortingHat&#39;;
 import { Info as InfoIcon, Lock as LockIcon } from &#39;../foundations/icons/Icons&#39;;
 import { crmIconMap } from &#39;../foundations/icons/CrmCatalog&#39;;
+import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
 
 // Column settings icon from the icon gallery (CrmColumnArrange).
 const ColumnArrangeIcon = crmIconMap.CrmColumnArrange;
@@ -8115,6 +8116,66 @@ const FIELD_HISTORY_ROWS = [
     fieldType: &#39;Pick List&#39;,
     source: &#39;Import&#39;,
   },
+  {
+    id: &#39;fh-5&#39;,
+    from: &#39;Negotiation&#39;,
+    to: &#39;Closed Won&#39;,
+    modifiedBy: &#39;Elijah Morgan&#39;,
+    modifiedTime: &#39;Jun 2, 2026 10:12 AM&#39;,
+    duration: &#39;9 days&#39;,
+    amount: &#39;$ 1,50,000&#39;,
+    probability: &#39;90%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Manual (UI)&#39;,
+  },
+  {
+    id: &#39;fh-6&#39;,
+    from: &#39;Proposal&#39;,
+    to: &#39;Value Prop&#39;,
+    modifiedBy: &#39;Klaus Weber&#39;,
+    modifiedTime: &#39;Apr 18, 2026 4:30 PM&#39;,
+    duration: &#39;4 days&#39;,
+    amount: &#39;$ 1,25,000&#39;,
+    probability: &#39;35%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Workflow&#39;,
+  },
+  {
+    id: &#39;fh-7&#39;,
+    from: &#39;Qualification&#39;,
+    to: &#39;Proposal&#39;,
+    modifiedBy: &#39;Mikasa Chen&#39;,
+    modifiedTime: &#39;Apr 12, 2026 12:05 PM&#39;,
+    duration: &#39;6 days&#39;,
+    amount: &#39;$ 1,20,000&#39;,
+    probability: &#39;30%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;API&#39;,
+  },
+  {
+    id: &#39;fh-8&#39;,
+    from: &#39;Needs Analysis&#39;,
+    to: &#39;Qualification&#39;,
+    modifiedBy: &#39;Yren Okafor&#39;,
+    modifiedTime: &#39;Apr 4, 2026 9:48 AM&#39;,
+    duration: &#39;3 days&#39;,
+    amount: &#39;$ 1,10,000&#39;,
+    probability: &#39;25%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Import&#39;,
+  },
+  {
+    id: &#39;fh-9&#39;,
+    from: &#39;Record Created&#39;,
+    to: &#39;Needs Analysis&#39;,
+    modifiedBy: &#39;Elijah Morgan&#39;,
+    modifiedTime: &#39;Mar 30, 2026 3:20 PM&#39;,
+    duration: &#39;5 days&#39;,
+    amount: &#39;$ 1,05,000&#39;,
+    probability: &#39;20%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Manual (UI)&#39;,
+  },
 ];
 
 const FIELD_HISTORY_TIME_OPTIONS = [
@@ -8189,11 +8250,12 @@ const FIELD_HISTORY_COLUMNS = [
 ];
 
 // Column settings panel: the same Manage Columns list, opened from the header icon.
-const SETTINGS_REQUIRED_KEYS = [&#39;from&#39;, &#39;duration&#39;];
+// The first five columns are mandatory.
+const SETTINGS_REQUIRED_KEYS = [&#39;from&#39;, &#39;modifiedBy&#39;, &#39;modifiedTime&#39;, &#39;duration&#39;, &#39;source&#39;];
 // Column order: Deal Stage -&gt; Moved To, Modified By, Modified Time, Duration, Source, then the rest.
 const COLUMN_ORDER = [&#39;from&#39;, &#39;modifiedBy&#39;, &#39;modifiedTime&#39;, &#39;duration&#39;, &#39;source&#39;, &#39;amount&#39;, &#39;probability&#39;, &#39;fieldType&#39;, &#39;columnSettings&#39;];
 const SETTINGS_FIELDS = [
-  { key: &#39;from&#39;, label: &#39;Deal Stage&#39; },
+  { key: &#39;from&#39;, label: &#39;Deal Stage → Moved To&#39; },
   { key: &#39;modifiedBy&#39;, label: &#39;Modified By&#39; },
   { key: &#39;modifiedTime&#39;, label: &#39;Modified Time&#39; },
   { key: &#39;duration&#39;, label: &#39;Duration&#39; },
@@ -8237,24 +8299,26 @@ function FieldHistorySection({ plainFirstColumn = false }) {
     };
   }, [panel]);
 
-  const columns = COLUMN_ORDER.map((k) =&gt; FIELD_HISTORY_COLUMNS.find((c) =&gt; c.key === k))
-    .filter((c) =&gt; c.key === &#39;columnSettings&#39; || applied.includes(c.key))
+  // Table columns follow the order chosen in the Manage Columns panel; the icon column stays last.
+  const columns = [...applied.map((k) =&gt; FIELD_HISTORY_COLUMNS.find((c) =&gt; c.key === k)), FIELD_HISTORY_COLUMNS.find((c) =&gt; c.key === &#39;columnSettings&#39;)]
     .map((c) =&gt; {
       if (c.key === &#39;columnSettings&#39;) {
         return {
           ...c,
           label: (
-            &lt;button
-              ref={settingsRef}
-              type=&quot;button&quot;
-              className=&quot;crm-screens__header-icon&quot;
-              aria-label=&quot;Column settings&quot;
-              aria-haspopup=&quot;dialog&quot;
-              aria-expanded={!!panel}
-              onClick={openPanel}
-            &gt;
-              &lt;ColumnArrangeIcon width={16} height={16} aria-hidden=&quot;true&quot; /&gt;
-            &lt;/button&gt;
+            &lt;Tooltip content=&quot;Column settings&quot; placement=&quot;bottom&quot; variant=&quot;black&quot;&gt;
+              &lt;button
+                ref={settingsRef}
+                type=&quot;button&quot;
+                className=&quot;crm-screens__header-icon&quot;
+                aria-label=&quot;Column settings&quot;
+                aria-haspopup=&quot;dialog&quot;
+                aria-expanded={!!panel}
+                onClick={openPanel}
+              &gt;
+                &lt;ColumnArrangeIcon width={16} height={16} aria-hidden=&quot;true&quot; /&gt;
+              &lt;/button&gt;
+            &lt;/Tooltip&gt;
           ),
         };
       }
@@ -8305,6 +8369,7 @@ function FieldHistorySection({ plainFirstColumn = false }) {
             fields={SETTINGS_FIELDS}
             selected={draft}
             onChange={setDraft}
+            saveLabel=&quot;Done&quot;
             onSave={() =&gt; { setApplied(draft); setPanel(null); }}
             onCancel={() =&gt; setPanel(null)}
           /&gt;
@@ -8412,6 +8477,7 @@ export const LimitReached = {
     RecordCard,
     SetupTable,
     SortingHat,
+    Tooltip,
 } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
@@ -11812,7 +11878,7 @@ export const ReportLimit: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> ManageColumns</h2>
       <div class="badges">
-        <label for="c-24-design-system-components-manage-columns-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-24-design-system-components-manage-columns-props" class="badge ok as-toggle">6 prop types</label>
         <label for="c-24-design-system-components-manage-columns-info" class="badge info as-toggle">1 info</label>
         <label for="c-24-design-system-components-manage-columns-stories" class="badge ok as-toggle">4 stories</label>
         
@@ -11848,13 +11914,15 @@ export const ReportLimit: Story = {
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">5 prop types</span>
+              <span class="badge ok">6 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/ManageColumns/ManageColumns.js::ManageColumns</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>embedded?: any = false
 
 fields?: any = []
+
+saveLabel?: any = &#39;Save&#39;
 
 selected?: any = []
 
@@ -28089,13 +28157,13 @@ export const Phase1: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  24 | // ─────────────────────────────────────────────────────────────────────────────
-  25 |
-&gt; 26 | export default {
+  25 | // ─────────────────────────────────────────────────────────────────────────────
+  26 |
+&gt; 27 | export default {
      | ^
-  27 |   title: &#39;Work Items/Field History Tracking&#39;,
-  28 |   parameters: {
-  29 |     layout: &#39;centered&#39;,
+  28 |   title: &#39;Work Items/Field History Tracking&#39;,
+  29 |   parameters: {
+  30 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/FieldHistoryTracking.stories.js:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -28115,6 +28183,7 @@ import { DetailPage, RecordCard } from &#39;./CrmScreens.page&#39;;
 import { SortingHat } from &#39;../components/SortingHat/SortingHat&#39;;
 import { Info as InfoIcon, Lock as LockIcon } from &#39;../foundations/icons/Icons&#39;;
 import { crmIconMap } from &#39;../foundations/icons/CrmCatalog&#39;;
+import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
 
 // Column settings icon from the icon gallery (CrmColumnArrange).
 const ColumnArrangeIcon = crmIconMap.CrmColumnArrange;
@@ -28579,6 +28648,66 @@ const FIELD_HISTORY_ROWS = [
     fieldType: &#39;Pick List&#39;,
     source: &#39;Import&#39;,
   },
+  {
+    id: &#39;fh-5&#39;,
+    from: &#39;Negotiation&#39;,
+    to: &#39;Closed Won&#39;,
+    modifiedBy: &#39;Elijah Morgan&#39;,
+    modifiedTime: &#39;Jun 2, 2026 10:12 AM&#39;,
+    duration: &#39;9 days&#39;,
+    amount: &#39;$ 1,50,000&#39;,
+    probability: &#39;90%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Manual (UI)&#39;,
+  },
+  {
+    id: &#39;fh-6&#39;,
+    from: &#39;Proposal&#39;,
+    to: &#39;Value Prop&#39;,
+    modifiedBy: &#39;Klaus Weber&#39;,
+    modifiedTime: &#39;Apr 18, 2026 4:30 PM&#39;,
+    duration: &#39;4 days&#39;,
+    amount: &#39;$ 1,25,000&#39;,
+    probability: &#39;35%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Workflow&#39;,
+  },
+  {
+    id: &#39;fh-7&#39;,
+    from: &#39;Qualification&#39;,
+    to: &#39;Proposal&#39;,
+    modifiedBy: &#39;Mikasa Chen&#39;,
+    modifiedTime: &#39;Apr 12, 2026 12:05 PM&#39;,
+    duration: &#39;6 days&#39;,
+    amount: &#39;$ 1,20,000&#39;,
+    probability: &#39;30%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;API&#39;,
+  },
+  {
+    id: &#39;fh-8&#39;,
+    from: &#39;Needs Analysis&#39;,
+    to: &#39;Qualification&#39;,
+    modifiedBy: &#39;Yren Okafor&#39;,
+    modifiedTime: &#39;Apr 4, 2026 9:48 AM&#39;,
+    duration: &#39;3 days&#39;,
+    amount: &#39;$ 1,10,000&#39;,
+    probability: &#39;25%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Import&#39;,
+  },
+  {
+    id: &#39;fh-9&#39;,
+    from: &#39;Record Created&#39;,
+    to: &#39;Needs Analysis&#39;,
+    modifiedBy: &#39;Elijah Morgan&#39;,
+    modifiedTime: &#39;Mar 30, 2026 3:20 PM&#39;,
+    duration: &#39;5 days&#39;,
+    amount: &#39;$ 1,05,000&#39;,
+    probability: &#39;20%&#39;,
+    fieldType: &#39;Pick List&#39;,
+    source: &#39;Manual (UI)&#39;,
+  },
 ];
 
 const FIELD_HISTORY_TIME_OPTIONS = [
@@ -28653,11 +28782,12 @@ const FIELD_HISTORY_COLUMNS = [
 ];
 
 // Column settings panel: the same Manage Columns list, opened from the header icon.
-const SETTINGS_REQUIRED_KEYS = [&#39;from&#39;, &#39;duration&#39;];
+// The first five columns are mandatory.
+const SETTINGS_REQUIRED_KEYS = [&#39;from&#39;, &#39;modifiedBy&#39;, &#39;modifiedTime&#39;, &#39;duration&#39;, &#39;source&#39;];
 // Column order: Deal Stage -&gt; Moved To, Modified By, Modified Time, Duration, Source, then the rest.
 const COLUMN_ORDER = [&#39;from&#39;, &#39;modifiedBy&#39;, &#39;modifiedTime&#39;, &#39;duration&#39;, &#39;source&#39;, &#39;amount&#39;, &#39;probability&#39;, &#39;fieldType&#39;, &#39;columnSettings&#39;];
 const SETTINGS_FIELDS = [
-  { key: &#39;from&#39;, label: &#39;Deal Stage&#39; },
+  { key: &#39;from&#39;, label: &#39;Deal Stage → Moved To&#39; },
   { key: &#39;modifiedBy&#39;, label: &#39;Modified By&#39; },
   { key: &#39;modifiedTime&#39;, label: &#39;Modified Time&#39; },
   { key: &#39;duration&#39;, label: &#39;Duration&#39; },
@@ -28701,24 +28831,26 @@ function FieldHistorySection({ plainFirstColumn = false }) {
     };
   }, [panel]);
 
-  const columns = COLUMN_ORDER.map((k) =&gt; FIELD_HISTORY_COLUMNS.find((c) =&gt; c.key === k))
-    .filter((c) =&gt; c.key === &#39;columnSettings&#39; || applied.includes(c.key))
+  // Table columns follow the order chosen in the Manage Columns panel; the icon column stays last.
+  const columns = [...applied.map((k) =&gt; FIELD_HISTORY_COLUMNS.find((c) =&gt; c.key === k)), FIELD_HISTORY_COLUMNS.find((c) =&gt; c.key === &#39;columnSettings&#39;)]
     .map((c) =&gt; {
       if (c.key === &#39;columnSettings&#39;) {
         return {
           ...c,
           label: (
-            &lt;button
-              ref={settingsRef}
-              type=&quot;button&quot;
-              className=&quot;crm-screens__header-icon&quot;
-              aria-label=&quot;Column settings&quot;
-              aria-haspopup=&quot;dialog&quot;
-              aria-expanded={!!panel}
-              onClick={openPanel}
-            &gt;
-              &lt;ColumnArrangeIcon width={16} height={16} aria-hidden=&quot;true&quot; /&gt;
-            &lt;/button&gt;
+            &lt;Tooltip content=&quot;Column settings&quot; placement=&quot;bottom&quot; variant=&quot;black&quot;&gt;
+              &lt;button
+                ref={settingsRef}
+                type=&quot;button&quot;
+                className=&quot;crm-screens__header-icon&quot;
+                aria-label=&quot;Column settings&quot;
+                aria-haspopup=&quot;dialog&quot;
+                aria-expanded={!!panel}
+                onClick={openPanel}
+              &gt;
+                &lt;ColumnArrangeIcon width={16} height={16} aria-hidden=&quot;true&quot; /&gt;
+              &lt;/button&gt;
+            &lt;/Tooltip&gt;
           ),
         };
       }
@@ -28769,6 +28901,7 @@ function FieldHistorySection({ plainFirstColumn = false }) {
             fields={SETTINGS_FIELDS}
             selected={draft}
             onChange={setDraft}
+            saveLabel=&quot;Done&quot;
             onSave={() =&gt; { setApplied(draft); setPanel(null); }}
             onCancel={() =&gt; setPanel(null)}
           /&gt;
@@ -28876,6 +29009,7 @@ export const LimitReached = {
     RecordCard,
     SetupTable,
     SortingHat,
+    Tooltip,
 } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
