@@ -1,4 +1,0 @@
-import{i as e}from"./preload-helper-BTXe9M7S.js";import{t}from"./jsx-runtime-D-I7Lrue.js";import{r as n,t as r}from"./CrmScreens.page-D_M4-gfx.js";var i,a,o,s;e((()=>{i=t(),n(),a={title:`Design System/Patterns/CRM Screens`,parameters:{layout:`fullscreen`,docs:{description:{component:`CRM record screens built from existing components. The Detail Page variant shows a record header with actions, a related list, and related-record cards.`}}}},o={name:`Detail Page`,render:()=>(0,i.jsx)(r,{})},o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
-  name: 'Detail Page',
-  render: () => <DetailPage />
-}`,...o.parameters?.docs?.source}}},s=[`DetailPageVariant`]}))();export{o as DetailPageVariant,s as __namedExportsOrder,a as default};
