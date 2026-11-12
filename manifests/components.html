@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">20/56 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">52/56 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/352 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">20/57 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">53/57 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/352 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>10.1s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.9s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -7653,13 +7653,13 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  29 | // ─────────────────────────────────────────────────────────────────────────────
-  30 |
-&gt; 31 | export default {
+  28 | // ─────────────────────────────────────────────────────────────────────────────
+  29 |
+&gt; 30 | export default {
      | ^
-  32 |   title: &#39;Work Items/Field History Tracking&#39;,
-  33 |   parameters: {
-  34 |     layout: &#39;centered&#39;,
+  31 |   title: &#39;Work Items/Field History Tracking&#39;,
+  32 |   parameters: {
+  33 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/FieldHistoryTracking.stories.js:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -7675,8 +7675,7 @@ import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
 import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
 import { UserPicker } from &#39;../components/UserPicker/UserPicker&#39;;
-import { DatePicker } from &#39;../components/DatePicker/DatePicker&#39;;
-import { DateRangePicker } from &#39;../components/Calendar/DateRangePicker&#39;;
+import { Calendar } from &#39;../components/Calendar/Calendar&#39;;
 import { SetupTable } from &#39;../components/Table/Table&#39;;
 import { DetailPage, RecordCard } from &#39;./CrmScreens.page&#39;;
 import { SortingHat } from &#39;../components/SortingHat/SortingHat&#39;;
@@ -7720,7 +7719,7 @@ const ADDITIONAL_COLUMNS = [
 ];
 
 // Required history columns, in default display order. They cannot be unchecked, but can be reordered.
-const REQUIRED_COLUMNS = [&#39;Email&#39;, &#39;Changed To&#39;, &#39;Modified By&#39;, &#39;Modified Time&#39;, &#39;Duration&#39;];
+const REQUIRED_COLUMNS = [&#39;Email\u2002→\u2002Moved To&#39;, &#39;Moved By&#39;, &#39;Moved Time&#39;, &#39;Duration&#39;];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Shared styles (tokens only)
@@ -7916,7 +7915,7 @@ const PROPERTY_OPTIONS = [
 
 // Default columns: always selected, cannot be unchecked, can be reordered.
 // Shown with a red asterisk in the list.
-const REQUIRED_TRACKED_KEYS = [&#39;Email&#39;, &#39;Changed_To&#39;, &#39;Modified_By&#39;, &#39;Modified_Time&#39;, &#39;Duration&#39;];
+const REQUIRED_TRACKED_KEYS = [&#39;Email&#39;, &#39;Modified_By&#39;, &#39;Modified_Time&#39;, &#39;Duration&#39;];
 const isRequiredKey = key =&gt; REQUIRED_TRACKED_KEYS.includes(key);
 
 // Keeps the required columns selected. Required and user-selected columns can be
@@ -7934,18 +7933,17 @@ function keepRequiredColumns(next, prev) {
 // Leads fields from the shared CRM sample data (the Manage Columns list for a Lead),
 // plus the history columns that are always included.
 const HISTORY_COLUMN_OPTIONS = [
-  { key: &#39;Changed_To&#39;, label: &#39;Changed To&#39; },
-  { key: &#39;Modified_By&#39;, label: &#39;Modified By&#39; },
-  { key: &#39;Modified_Time&#39;, label: &#39;Modified Time&#39; },
+  { key: &#39;Modified_By&#39;, label: &#39;Moved By&#39; },
+  { key: &#39;Modified_Time&#39;, label: &#39;Moved Time&#39; },
   { key: &#39;Duration&#39;, label: &#39;Duration&#39; },
 ];
 
 const TRACKED_FIELD_OPTIONS = [
   ...getModuleFields(&#39;Leads&#39;)
-    .filter(field =&gt; !HISTORY_COLUMN_OPTIONS.some(history =&gt; history.label === field.label))
+    .filter(field =&gt; !HISTORY_COLUMN_OPTIONS.some(history =&gt; history.key === field.key))
     .map(field =&gt; ({
       key: field.key,
-      label: field.label,
+      label: field.key === &#39;Email&#39; ? &#39;Email\u2002→\u2002Moved To&#39; : field.label,
       scope: &#39;lead&#39;,
       module: &#39;Leads&#39;,
     })),
@@ -8229,33 +8227,28 @@ const FIELD_HISTORY_ROWS = [
 ];
 
 const FIELD_HISTORY_TIME_OPTIONS = [
-  { value: &#39;all&#39;, label: &#39;All time&#39; },
   { value: &#39;7d&#39;, label: &#39;Last 7 days&#39; },
   { value: &#39;30d&#39;, label: &#39;Last 30 days&#39; },
   { value: &#39;6m&#39;, label: &#39;Last 6 months&#39; },
   { value: &#39;1y&#39;, label: &#39;Last 1 year&#39; },
   { value: &#39;date&#39;, label: &#39;Specific Date&#39; },
-  { value: &#39;range&#39;, label: &#39;Custom Range&#39; },
 ];
 
-// Users for the user filter (UserPicker). The first entry clears the filter.
+// Named users for the user filter (UserPicker); the input clear button resets the filter.
 const FIELD_HISTORY_USERS = [
-  { id: &#39;all&#39;, name: &#39;All users&#39;, subLabel: &#39;Every user and system&#39; },
-  { id: &#39;elijah&#39;, name: &#39;Elijah Morgan&#39;, subLabel: &#39;elijah.morgan@zohocorp.com&#39; },
-  { id: &#39;klaus&#39;, name: &#39;Klaus Weber&#39;, subLabel: &#39;klaus.weber@zohocorp.com&#39; },
-  { id: &#39;mikasa&#39;, name: &#39;Mikasa Chen&#39;, subLabel: &#39;mikasa.chen@zohocorp.com&#39; },
-  { id: &#39;yren&#39;, name: &#39;Yren Okafor&#39;, subLabel: &#39;yren.okafor@zohocorp.com&#39; },
-  { id: &#39;system&#39;, name: &#39;System / Automation&#39;, subLabel: &#39;Workflows, API and imports&#39; },
+  { id: &#39;elijah&#39;, name: &#39;Elijah Morgan&#39;, subLabel: &#39;elijah.morgan@zohocorp.com&#39;, avatarUrl: &#39;/images/avatars/user_01.jpg&#39; },
+  { id: &#39;klaus&#39;, name: &#39;Klaus Weber&#39;, subLabel: &#39;klaus.weber@zohocorp.com&#39;, avatarUrl: &#39;/images/avatars/user_04.jpg&#39; },
+  { id: &#39;mikasa&#39;, name: &#39;Mikasa Chen&#39;, subLabel: &#39;mikasa.chen@zohocorp.com&#39;, avatarUrl: &#39;/images/avatars/user_03.jpg&#39; },
+  { id: &#39;yren&#39;, name: &#39;Yren Okafor&#39;, subLabel: &#39;yren.okafor@zohocorp.com&#39;, avatarUrl: &#39;/images/avatars/user_06.jpg&#39; },
 ];
 
 // &quot;Today&quot; for the sample data, so Last 7 days / 30 days / 6 months show different rows.
 const FIELD_HISTORY_TODAY = new Date(2026, 5, 3, 12, 0);
 
 const startOfDay = (d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate());
-const endOfDay = (d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
 const sameDay = (a, b) =&gt; startOfDay(a).getTime() === startOfDay(b).getTime();
 
-function matchesTime(row, filter, date, range) {
+function matchesTime(row, filter, date) {
   const when = new Date(row.modifiedTime);
   const since = (days, months = 0) =&gt; {
     const d = new Date(FIELD_HISTORY_TODAY);
@@ -8269,7 +8262,6 @@ function matchesTime(row, filter, date, range) {
     case &#39;6m&#39;: return when &gt;= since(0, 6);
     case &#39;1y&#39;: return when &gt;= since(0, 12);
     case &#39;date&#39;: return !date || sameDay(when, date);
-    case &#39;range&#39;: return !range.start || !range.end || (when &gt;= startOfDay(range.start) &amp;&amp; when &lt;= endOfDay(range.end));
     default: return true;
   }
 }
@@ -8277,7 +8269,6 @@ function matchesTime(row, filter, date, range) {
 const SOURCE_FILTER_LABELS = { manual: &#39;Manual (UI)&#39;, workflow: &#39;Workflow&#39;, api: &#39;API&#39;, import: &#39;Import&#39; };
 
 const FIELD_HISTORY_SOURCE_OPTIONS = [
-  { value: &#39;all&#39;, label: &#39;All sources&#39; },
   { value: &#39;manual&#39;, label: &#39;Manual (UI)&#39; },
   { value: &#39;workflow&#39;, label: &#39;Workflow&#39; },
   { value: &#39;api&#39;, label: &#39;API&#39; },
@@ -8374,11 +8365,28 @@ const SETTINGS_FIELDS = [
 
 // plainFirstColumn: the first column shows the stage transition as plain text, without capsules.
 function FieldHistorySection({ plainFirstColumn = false }) {
-  const [timeFilter, setTimeFilter] = useState(&#39;all&#39;);
-  const [userFilter, setUserFilter] = useState(&#39;all&#39;);
-  const [sourceFilter, setSourceFilter] = useState(&#39;all&#39;);
+  const [timeFilter, setTimeFilter] = useState(&#39;&#39;);
+  const [userFilter, setUserFilter] = useState(&#39;&#39;);
+  const [sourceFilter, setSourceFilter] = useState(&#39;&#39;);
   const [specificDate, setSpecificDate] = useState(null);
-  const [customRange, setCustomRange] = useState({ start: null, end: null });
+  const filterPanelStyle = ({ width, left }) =&gt; ({
+    width: &#39;max-content&#39;,
+    minWidth: width,
+    maxWidth: `calc(100vw - ${left}px - var(--ds-font-size-sm))`,
+  });
+  const timeOptions = FIELD_HISTORY_TIME_OPTIONS.map(option =&gt; option.value === &#39;date&#39; ? {
+    ...option,
+    triggerLabel: specificDate?.toLocaleDateString(&#39;en-GB&#39;, { day: &#39;numeric&#39;, month: &#39;short&#39;, year: &#39;numeric&#39; }),
+    submenuContent: ({ close }) =&gt; (
+      &lt;div className=&quot;fht-date-calendar&quot;&gt;
+        &lt;Calendar
+          value={specificDate}
+          defaultMonth={specificDate ?? FIELD_HISTORY_TODAY}
+          onChange={date =&gt; { setSpecificDate(date); setTimeFilter(&#39;date&#39;); close(); }}
+        /&gt;
+      &lt;/div&gt;
+    ),
+  } : option);
   const [applied, setApplied] = useState(DEFAULT_COLUMN_KEYS); // columns shown in the table
   const [draft, setDraft] = useState(DEFAULT_COLUMN_KEYS); // selection while the panel is open
   const [panel, setPanel] = useState(null); // { top, right } when the settings panel is open
@@ -8455,9 +8463,9 @@ function FieldHistorySection({ plainFirstColumn = false }) {
   // The filters narrow the rows shown in the table.
   const userName = FIELD_HISTORY_USERS.find((u) =&gt; u.id === userFilter)?.name;
   const visibleRows = FIELD_HISTORY_ROWS.filter((row) =&gt; (
-    matchesTime(row, timeFilter, specificDate, customRange)
-    &amp;&amp; (userFilter === &#39;all&#39; || row.modifiedBy === userName)
-    &amp;&amp; (sourceFilter === &#39;all&#39; || row.source === SOURCE_FILTER_LABELS[sourceFilter])
+    matchesTime(row, timeFilter, specificDate)
+    &amp;&amp; (!userFilter || userFilter === &#39;all&#39; || row.modifiedBy === userName)
+    &amp;&amp; (!sourceFilter || sourceFilter === &#39;all&#39; || row.source === SOURCE_FILTER_LABELS[sourceFilter])
   )).sort((a, b) =&gt; new Date(b.modifiedTime) - new Date(a.modifiedTime));
 
   return (
@@ -8465,25 +8473,19 @@ function FieldHistorySection({ plainFirstColumn = false }) {
       title=&quot;Field History - Stage&quot;
       actions={
         &lt;&gt;
-          &lt;Dropdown size=&quot;sm&quot; value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={140} /&gt;
-          {timeFilter === &#39;date&#39; &amp;&amp; (
-            &lt;DatePicker size=&quot;sm&quot; layout=&quot;vertical&quot; width={130} placeholder=&quot;Select date&quot; value={specificDate} onChange={setSpecificDate} /&gt;
-          )}
-          {timeFilter === &#39;range&#39; &amp;&amp; (
-            &lt;DateRangePicker size=&quot;sm&quot; width={210} startDate={customRange.start} endDate={customRange.end} onChange={(start, end) =&gt; setCustomRange({ start, end })} /&gt;
-          )}
-          &lt;UserPicker size=&quot;sm&quot; layout=&quot;vertical&quot; width={220} placeholder=&quot;All users&quot; users={FIELD_HISTORY_USERS} value={userFilter} onChange={setUserFilter} /&gt;
-          &lt;Dropdown size=&quot;sm&quot; value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={140} /&gt;
+          &lt;Dropdown size=&quot;sm&quot; triggerAriaLabel=&quot;Time filter&quot; placeholder=&quot;Select Date&quot; value={timeFilter} options={timeOptions} onChange={value =&gt; { setTimeFilter(value); if (!value) setSpecificDate(null); }} clearable clearAriaLabel=&quot;Clear date filter&quot; width={180} panelStyle={filterPanelStyle} /&gt;
+          &lt;UserPicker size=&quot;sm&quot; layout=&quot;vertical&quot; width={180} placeholder=&quot;Select User&quot; users={FIELD_HISTORY_USERS} value={userFilter} onChange={setUserFilter} clearable clearAriaLabel=&quot;Clear user filter&quot; checkPosition=&quot;left&quot; panelClassName=&quot;fht-user-filter-panel&quot; panelStyle={filterPanelStyle} /&gt;
+          &lt;Dropdown size=&quot;sm&quot; triggerAriaLabel=&quot;Source filter&quot; placeholder=&quot;Select Source&quot; value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} clearable clearAriaLabel=&quot;Clear source filter&quot; width={180} panelStyle={filterPanelStyle} /&gt;
         &lt;/&gt;
       }
     &gt;
-      &lt;div className=&quot;crm-screens__fh-table&quot;&gt;
-        &lt;SetupTable
-          columns={columns}
-          rows={visibleRows}
-          emptyMessage=&quot;No records found&quot;
-        /&gt;
-      &lt;/div&gt;
+      {visibleRows.length &gt; 0 ? (
+        &lt;div className=&quot;crm-screens__fh-table&quot;&gt;
+          &lt;SetupTable columns={columns} rows={visibleRows} /&gt;
+        &lt;/div&gt;
+      ) : (
+        &lt;div className=&quot;crm-screens__empty&quot; role=&quot;status&quot;&gt;No records found&lt;/div&gt;
+      )}
       {panel &amp;&amp; createPortal(
         &lt;&gt;
           {/* Transparent layer: blocks clicks and hover on the page behind the panel. */}
@@ -8523,28 +8525,28 @@ const FIELD_HISTORY_VARIATIONS = [
     storyId: &#39;work-items-field-history-tracking--default&#39;,
   },
   {
-    label: &#39;Detail Page - Field History&#39;,
+    label: &#39;Detail Page - Colored&#39;,
     storyId: &#39;work-items-field-history-tracking--detail-page-field-history&#39;,
   },
   {
-    label: &#39;Detail Page - Field History (plain first column)&#39;,
+    label: &#39;Detail Page&#39;,
     storyId: &#39;work-items-field-history-tracking--detail-page-field-history-plain&#39;,
   },
 ];
 
 export const DetailPageFieldHistory = {
-  name: &#39;Detail Page - Field History&#39;,
+  name: &#39;Detail Page - Colored&#39;,
   parameters: { layout: &#39;fullscreen&#39; },
   render: () =&gt; (
     &lt;&gt;
-      &lt;DetailPage variant=&quot;fieldHistory&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
+      &lt;DetailPage variant=&quot;fieldHistory&quot; lastUpdateText=&quot;1 day ago&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
       &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
     &lt;/&gt;
   ),
 };
 
 export const DetailPageFieldHistoryPlain = {
-  name: &#39;Detail Page - Field History (plain first column)&#39;,
+  name: &#39;Detail Page&#39;,
   parameters: { layout: &#39;fullscreen&#39; },
   render: () =&gt; (
     &lt;&gt;
@@ -8595,9 +8597,8 @@ export const LimitReached = {
                 </div>
                 <pre><code>import {
     Button,
+    Calendar,
     Checkbox,
-    DatePicker,
-    DateRangePicker,
     DetailPage,
     Dragger,
     Dropdown,
@@ -8619,21 +8620,21 @@ export const LimitReached = {
           
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Detail Page - Field History</span>
+                <span class="ex-name">Detail Page - Colored</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
               <pre><code>const DetailPageFieldHistory = () =&gt; (
   &lt;&gt;
-    &lt;DetailPage variant=&quot;fieldHistory&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
+    &lt;DetailPage variant=&quot;fieldHistory&quot; lastUpdateText=&quot;1 day ago&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
     &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
   &lt;/&gt;
 );</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Detail Page - Field History (plain first column)</span>
+                <span class="ex-name">Detail Page</span>
                 <span class="badge ok">story ok</span>
               </div>
               
@@ -14582,14 +14583,174 @@ Used when the message is short and self-explanatory.</div>
   no-story-error
   no-doc-error"
   role="listitem"
+  aria-label="MultiSelect">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> MultiSelect</h2>
+      <div class="badges">
+        <label for="c-31-design-system-components-multi-select-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-31-design-system-components-multi-select-info" class="badge info as-toggle">1 info</label>
+        <label for="c-31-design-system-components-multi-select-stories" class="badge ok as-toggle">4 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/components/MultiSelect/MultiSelect.stories.tsx">design-system-components-multi-select · ./src/design-system/components/MultiSelect/MultiSelect.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-31-design-system-components-multi-select-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-31-design-system-components-multi-select-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-31-design-system-components-multi-select-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">5 prop types</span>
+            </div>
+            <pre><code>Component: src/design-system/components/Tags/Tags.js::Tags</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>colorTags?: any = false
+
+options?: any = []
+
+placeholder?: any = &#39;Select&#39;
+
+value?: any = []
+
+width?: any = &#39;100%&#39;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Tags as MultiSelect } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; {
+  const [tags, setTags] = useState&lt;TagItem[]&gt;([]);
+  return (
+    &lt;MultiSelect
+      value={tags}
+      options={OPTIONS}
+      onChange={setTags}
+      placeholder=&quot;Select tags&quot;
+      width={390}
+    /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Values</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithValues = () =&gt; {
+  const [tags, setTags] = useState&lt;TagItem[]&gt;([
+    { value: &#39;design&#39;, label: &#39;Design&#39; },
+    { value: &#39;frontend&#39;, label: &#39;Frontend&#39; },
+  ]);
+  return (
+    &lt;MultiSelect
+      value={tags}
+      options={OPTIONS}
+      onChange={setTags}
+      placeholder=&quot;Select tags&quot;
+      width={390}
+    /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Disabled</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Disabled = () =&gt; {
+  const tags: TagItem[] = [
+    { value: &#39;design&#39;, label: &#39;Design&#39; },
+    { value: &#39;backend&#39;, label: &#39;Backend&#39; },
+  ];
+  return &lt;MultiSelect value={tags} options={OPTIONS} disabled width={390} /&gt;;
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Error State</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ErrorState = () =&gt; {
+  const [tags, setTags] = useState&lt;TagItem[]&gt;([]);
+  return (
+    &lt;MultiSelect
+      value={tags}
+      options={OPTIONS}
+      onChange={setTags}
+      error
+      width={390}
+      placeholder=&quot;Required&quot;
+    /&gt;
+  );
+};</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
+  has-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
   aria-label="NextGenLeftMenu">
   <div class="head">
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> NextGenLeftMenu</h2>
       <div class="badges">
-        <label for="c-31-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-31-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
-        <label for="c-31-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-32-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-32-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
+        <label for="c-32-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -14602,11 +14763,11 @@ Used when the message is short and self-explanatory.</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-31-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-31-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-32-design-system-components-nextgenleftmenu-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-32-design-system-components-nextgenleftmenu-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-31-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-32-design-system-components-nextgenleftmenu-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -14730,9 +14891,9 @@ width?: any = 240</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> NextGenTopBand</h2>
       <div class="badges">
-        <label for="c-32-design-system-components-nextgentopband-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-32-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
-        <label for="c-32-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-33-design-system-components-nextgentopband-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-33-design-system-components-nextgentopband-info" class="badge info as-toggle">1 info</label>
+        <label for="c-33-design-system-components-nextgentopband-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -14745,11 +14906,11 @@ width?: any = 240</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-32-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-32-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-33-design-system-components-nextgentopband-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-33-design-system-components-nextgentopband-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-32-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-33-design-system-components-nextgentopband-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -14869,9 +15030,9 @@ userInitials?: any = &#39;C&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> PortalUI</h2>
       <div class="badges">
-        <label for="c-33-work-items-portal-ui-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-33-work-items-portal-ui-info" class="badge info as-toggle">1 info</label>
-        <label for="c-33-work-items-portal-ui-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-34-work-items-portal-ui-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-34-work-items-portal-ui-info" class="badge info as-toggle">1 info</label>
+        <label for="c-34-work-items-portal-ui-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -14883,9 +15044,9 @@ userInitials?: any = &#39;C&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-33-work-items-portal-ui-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-33-work-items-portal-ui-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-33-work-items-portal-ui-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-34-work-items-portal-ui-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-34-work-items-portal-ui-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-34-work-items-portal-ui-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -16810,9 +16971,9 @@ export const Users = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> PortalUserinFilters</h2>
       <div class="badges">
-        <label for="c-34-work-items-portal-user-in-filters-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-34-work-items-portal-user-in-filters-info" class="badge info as-toggle">1 info</label>
-        <label for="c-34-work-items-portal-user-in-filters-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-35-work-items-portal-user-in-filters-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-35-work-items-portal-user-in-filters-info" class="badge info as-toggle">1 info</label>
+        <label for="c-35-work-items-portal-user-in-filters-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -16824,9 +16985,9 @@ export const Users = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-34-work-items-portal-user-in-filters-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-34-work-items-portal-user-in-filters-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-34-work-items-portal-user-in-filters-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-35-work-items-portal-user-in-filters-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-35-work-items-portal-user-in-filters-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-35-work-items-portal-user-in-filters-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -17107,9 +17268,9 @@ export const InCustomView: Story = { render: () =&gt; &lt;CustomView /&gt; };
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> ProgressBar</h2>
       <div class="badges">
-        <label for="c-35-design-system-components-progressbar-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-35-design-system-components-progressbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-35-design-system-components-progressbar-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-36-design-system-components-progressbar-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-36-design-system-components-progressbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-36-design-system-components-progressbar-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -17122,11 +17283,11 @@ export const InCustomView: Story = { render: () =&gt; &lt;CustomView /&gt; };
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-35-design-system-components-progressbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-35-design-system-components-progressbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-36-design-system-components-progressbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-36-design-system-components-progressbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-35-design-system-components-progressbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-36-design-system-components-progressbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -17315,8 +17476,8 @@ value?: any = 0</code></pre>
       <h2><span class="status-dot dot-ok"></span> Radio</h2>
       <div class="badges">
         
-        <label for="c-36-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
-        <label for="c-36-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-37-design-system-components-radio-info" class="badge info as-toggle">1 info</label>
+        <label for="c-37-design-system-components-radio-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -17329,8 +17490,8 @@ value?: any = 0</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-36-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-36-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-37-design-system-components-radio-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-37-design-system-components-radio-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -17474,9 +17635,9 @@ value?: any = 0</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> RecordAuthentication</h2>
       <div class="badges">
-        <label for="c-37-work-items-record-authentication-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-37-work-items-record-authentication-info" class="badge info as-toggle">1 info</label>
-        <label for="c-37-work-items-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-38-work-items-record-authentication-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-38-work-items-record-authentication-info" class="badge info as-toggle">1 info</label>
+        <label for="c-38-work-items-record-authentication-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -17488,9 +17649,9 @@ value?: any = 0</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-37-work-items-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-37-work-items-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-37-work-items-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-38-work-items-record-authentication-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-38-work-items-record-authentication-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-38-work-items-record-authentication-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -18511,9 +18672,9 @@ export const RecordConfiguration: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> RichTextEditor</h2>
       <div class="badges">
-        <label for="c-38-design-system-components-richtexteditor-props" class="badge ok as-toggle">7 prop types</label>
-        <label for="c-38-design-system-components-richtexteditor-info" class="badge info as-toggle">1 info</label>
-        <label for="c-38-design-system-components-richtexteditor-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-39-design-system-components-richtexteditor-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-39-design-system-components-richtexteditor-info" class="badge info as-toggle">1 info</label>
+        <label for="c-39-design-system-components-richtexteditor-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -18526,11 +18687,11 @@ export const RecordConfiguration: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-38-design-system-components-richtexteditor-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-38-design-system-components-richtexteditor-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-39-design-system-components-richtexteditor-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-39-design-system-components-richtexteditor-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-38-design-system-components-richtexteditor-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-39-design-system-components-richtexteditor-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -18673,9 +18834,9 @@ width?: any = 500</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SBConnections</h2>
       <div class="badges">
-        <label for="c-39-work-items-sb-connections-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-39-work-items-sb-connections-info" class="badge info as-toggle">1 info</label>
-        <label for="c-39-work-items-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-40-work-items-sb-connections-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-40-work-items-sb-connections-info" class="badge info as-toggle">1 info</label>
+        <label for="c-40-work-items-sb-connections-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -18687,9 +18848,9 @@ width?: any = 500</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-39-work-items-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-39-work-items-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-39-work-items-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-40-work-items-sb-connections-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-40-work-items-sb-connections-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-40-work-items-sb-connections-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -19013,9 +19174,9 @@ export const DiagramOnly: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Select</h2>
       <div class="badges">
-        <label for="c-40-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-40-design-system-components-select-info" class="badge info as-toggle">1 info</label>
-        <label for="c-40-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-41-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-41-design-system-components-select-info" class="badge info as-toggle">1 info</label>
+        <label for="c-41-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -19028,11 +19189,11 @@ export const DiagramOnly: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-40-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-40-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-41-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-41-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-40-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-41-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -19235,9 +19396,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> SendDashboardScheduler</h2>
       <div class="badges">
-        <label for="c-41-work-items-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-41-work-items-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
-        <label for="c-41-work-items-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-42-work-items-send-dashboard-scheduler-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-42-work-items-send-dashboard-scheduler-info" class="badge info as-toggle">1 info</label>
+        <label for="c-42-work-items-send-dashboard-scheduler-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -19249,9 +19410,9 @@ width?: any = 670</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-41-work-items-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-41-work-items-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-41-work-items-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-42-work-items-send-dashboard-scheduler-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-42-work-items-send-dashboard-scheduler-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-42-work-items-send-dashboard-scheduler-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -20524,9 +20685,9 @@ export const SendDashboardScheduler = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SetupTable</h2>
       <div class="badges">
-        <label for="c-42-design-system-components-table-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-42-design-system-components-table-info" class="badge info as-toggle">1 info</label>
-        <label for="c-42-design-system-components-table-stories" class="badge ok as-toggle">5 stories</label>
+        <label for="c-43-design-system-components-table-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-43-design-system-components-table-info" class="badge info as-toggle">1 info</label>
+        <label for="c-43-design-system-components-table-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
@@ -20539,11 +20700,11 @@ export const SendDashboardScheduler = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-42-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-42-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-43-design-system-components-table-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-43-design-system-components-table-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-42-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-43-design-system-components-table-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -20663,9 +20824,9 @@ variant?: any = &#39;setup&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Slider</h2>
       <div class="badges">
-        <label for="c-43-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
-        <label for="c-43-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
-        <label for="c-43-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
+        <label for="c-44-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-44-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
+        <label for="c-44-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
         
         
       </div>
@@ -20678,11 +20839,11 @@ variant?: any = &#39;setup&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-43-design-system-components-slider-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-43-design-system-components-slider-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-44-design-system-components-slider-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-44-design-system-components-slider-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-43-design-system-components-slider-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-44-design-system-components-slider-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21039,9 +21200,9 @@ value?: any = 50</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SortingHat</h2>
       <div class="badges">
-        <label for="c-44-design-system-components-sorting-hat-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-44-design-system-components-sorting-hat-info" class="badge info as-toggle">1 info</label>
-        <label for="c-44-design-system-components-sorting-hat-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-45-design-system-components-sorting-hat-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-45-design-system-components-sorting-hat-info" class="badge info as-toggle">1 info</label>
+        <label for="c-45-design-system-components-sorting-hat-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -21054,11 +21215,11 @@ value?: any = 50</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-44-design-system-components-sorting-hat-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-44-design-system-components-sorting-hat-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-45-design-system-components-sorting-hat-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-45-design-system-components-sorting-hat-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-44-design-system-components-sorting-hat-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-45-design-system-components-sorting-hat-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21134,9 +21295,9 @@ variations?: any = []</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Stepper</h2>
       <div class="badges">
-        <label for="c-45-design-system-components-stepper-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-45-design-system-components-stepper-info" class="badge info as-toggle">1 info</label>
-        <label for="c-45-design-system-components-stepper-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-46-design-system-components-stepper-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-46-design-system-components-stepper-info" class="badge info as-toggle">1 info</label>
+        <label for="c-46-design-system-components-stepper-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -21149,11 +21310,11 @@ variations?: any = []</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-45-design-system-components-stepper-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-45-design-system-components-stepper-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-46-design-system-components-stepper-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-46-design-system-components-stepper-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-45-design-system-components-stepper-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-46-design-system-components-stepper-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21347,9 +21508,9 @@ variant?: any = &#39;multi&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Switch</h2>
       <div class="badges">
-        <label for="c-46-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-46-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
-        <label for="c-46-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-47-design-system-components-switch-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-47-design-system-components-switch-info" class="badge info as-toggle">1 info</label>
+        <label for="c-47-design-system-components-switch-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -21362,11 +21523,11 @@ variant?: any = &#39;multi&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-46-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-46-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-47-design-system-components-switch-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-47-design-system-components-switch-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-46-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-47-design-system-components-switch-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21510,9 +21671,9 @@ variant?: any = &#39;multi&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tabs</h2>
       <div class="badges">
-        <label for="c-47-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-47-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-47-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-48-design-system-components-tabs-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-48-design-system-components-tabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-48-design-system-components-tabs-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -21525,11 +21686,11 @@ variant?: any = &#39;multi&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-47-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-47-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-48-design-system-components-tabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-48-design-system-components-tabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-47-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-48-design-system-components-tabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21671,9 +21832,9 @@ variant?: any = &#39;primary&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tags</h2>
       <div class="badges">
-        <label for="c-48-design-system-components-tags-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-48-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
-        <label for="c-48-design-system-components-tags-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-49-design-system-components-tags-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-49-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
+        <label for="c-49-design-system-components-tags-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -21686,11 +21847,11 @@ variant?: any = &#39;primary&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-48-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-48-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-49-design-system-components-tags-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-49-design-system-components-tags-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-48-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-49-design-system-components-tags-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -21735,49 +21896,6 @@ width?: any = &#39;100%&#39;</code></pre>
               </div>
           
           
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Default</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Default = () =&gt; {
-  const [tags, setTags] = useState&lt;TagItem[]&gt;([]);
-  return (
-    &lt;Tags
-      value={tags}
-      options={TAG_OPTIONS}
-      onChange={setTags}
-      placeholder=&quot;Select tags&quot;
-      width={390}
-    /&gt;
-  );
-};</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">With Values</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const WithValues = () =&gt; {
-  const [tags, setTags] = useState&lt;TagItem[]&gt;([
-    { value: &#39;design&#39;,   label: &#39;Design&#39; },
-    { value: &#39;frontend&#39;, label: &#39;Frontend&#39; },
-  ]);
-  return (
-    &lt;Tags
-      value={tags}
-      options={TAG_OPTIONS}
-      onChange={setTags}
-      placeholder=&quot;Select tags&quot;
-      width={390}
-    /&gt;
-  );
-};</code></pre>
-            </div>
             <div class="note ok">
               <div class="row">
                 <span class="ex-name">With Count</span>
@@ -21825,42 +21943,6 @@ width?: any = &#39;100%&#39;</code></pre>
       required
     /&gt;
   );
-};</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Error State</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const ErrorState = () =&gt; {
-  const [tags, setTags] = useState&lt;TagItem[]&gt;([]);
-  return (
-    &lt;Tags
-      value={tags}
-      options={TAG_OPTIONS}
-      onChange={setTags}
-      error
-      width={390}
-      placeholder=&quot;Required&quot;
-    /&gt;
-  );
-};</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Disabled</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Disabled = () =&gt; {
-  const tags: TagItem[] = [
-    { value: &#39;design&#39;,  label: &#39;Design&#39; },
-    { value: &#39;backend&#39;, label: &#39;Backend&#39; },
-  ];
-  return &lt;Tags value={tags} options={TAG_OPTIONS} disabled width={390} /&gt;;
 };</code></pre>
             </div>
             <div class="note ok">
@@ -21937,9 +22019,9 @@ width?: any = &#39;100%&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Textarea</h2>
       <div class="badges">
-        <label for="c-49-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-49-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
-        <label for="c-49-design-system-components-textarea-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-50-design-system-components-textarea-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-50-design-system-components-textarea-info" class="badge info as-toggle">1 info</label>
+        <label for="c-50-design-system-components-textarea-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -21952,11 +22034,11 @@ width?: any = &#39;100%&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-49-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-49-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-50-design-system-components-textarea-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-50-design-system-components-textarea-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-49-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-50-design-system-components-textarea-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -22161,9 +22243,9 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tooltip</h2>
       <div class="badges">
-        <label for="c-50-design-system-components-tooltip-props" class="badge ok as-toggle">7 prop types</label>
-        <label for="c-50-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
-        <label for="c-50-design-system-components-tooltip-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-51-design-system-components-tooltip-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-51-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
+        <label for="c-51-design-system-components-tooltip-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -22176,11 +22258,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-50-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-50-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-51-design-system-components-tooltip-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-51-design-system-components-tooltip-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-50-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-51-design-system-components-tooltip-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -22383,9 +22465,9 @@ variant?: any = &#39;black&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> TypographyPage</h2>
       <div class="badges">
-        <label for="c-51-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-51-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
-        <label for="c-51-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-52-design-system-foundations-typography-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-52-design-system-foundations-typography-info" class="badge info as-toggle">1 info</label>
+        <label for="c-52-design-system-foundations-typography-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -22397,9 +22479,9 @@ variant?: any = &#39;black&#39;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-51-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-51-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-51-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-52-design-system-foundations-typography-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-52-design-system-foundations-typography-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-52-design-system-foundations-typography-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -22844,9 +22926,9 @@ export const AllTypography: StoryObj = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> UsageLimitNotification</h2>
       <div class="badges">
-        <label for="c-52-work-items-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
-        <label for="c-52-work-items-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-52-work-items-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-53-work-items-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
+        <label for="c-53-work-items-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
+        <label for="c-53-work-items-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -22858,9 +22940,9 @@ export const AllTypography: StoryObj = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-52-work-items-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-52-work-items-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-52-work-items-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-53-work-items-usage-limit-notification-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-53-work-items-usage-limit-notification-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-53-work-items-usage-limit-notification-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -24235,9 +24317,9 @@ export const CreateNotification: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> UserPicker</h2>
       <div class="badges">
-        <label for="c-53-design-system-components-userpicker-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-53-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-53-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
+        <label for="c-54-design-system-components-userpicker-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-54-design-system-components-userpicker-info" class="badge info as-toggle">1 info</label>
+        <label for="c-54-design-system-components-userpicker-stories" class="badge ok as-toggle">7 stories</label>
         
         
       </div>
@@ -24250,11 +24332,11 @@ export const CreateNotification: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-53-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-53-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-54-design-system-components-userpicker-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-54-design-system-components-userpicker-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-53-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-54-design-system-components-userpicker-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -24271,11 +24353,19 @@ export const CreateNotification: Story = {
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">5 prop types</span>
+              <span class="badge ok">9 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/UserPicker/UserPicker.js::UserPicker</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>layout?: any = &#39;horizontal&#39;
+            <pre><code>checkPosition?: any = &#39;right&#39;
+
+clearable?: any = false
+
+clearAriaLabel?: any = &#39;Clear selection&#39;
+
+layout?: any = &#39;horizontal&#39;
+
+panelClassName?: any = &#39;&#39;
 
 placeholder?: any = &#39;Select user&#39;
 
@@ -24452,9 +24542,9 @@ width?: any = 390</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> VerticalTabs</h2>
       <div class="badges">
-        <label for="c-54-design-system-components-verticaltabs-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-54-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-54-design-system-components-verticaltabs-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-55-design-system-components-verticaltabs-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-55-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-55-design-system-components-verticaltabs-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -24467,11 +24557,11 @@ width?: any = 390</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-54-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-54-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-55-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-55-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-54-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-55-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -24645,9 +24735,9 @@ Figma: Pascal Stone &quot;Setup Left Menu&quot; (79954:198542).</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> WMSBar</h2>
       <div class="badges">
-        <label for="c-55-design-system-components-wmsbar-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-55-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-55-design-system-components-wmsbar-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-56-design-system-components-wmsbar-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-56-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-56-design-system-components-wmsbar-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -24660,11 +24750,11 @@ Figma: Pascal Stone &quot;Setup Left Menu&quot; (79954:198542).</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-55-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-55-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-56-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-56-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-55-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-56-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -28610,13 +28700,13 @@ export const Phase1: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  29 | // ─────────────────────────────────────────────────────────────────────────────
-  30 |
-&gt; 31 | export default {
+  28 | // ─────────────────────────────────────────────────────────────────────────────
+  29 |
+&gt; 30 | export default {
      | ^
-  32 |   title: &#39;Work Items/Field History Tracking&#39;,
-  33 |   parameters: {
-  34 |     layout: &#39;centered&#39;,
+  31 |   title: &#39;Work Items/Field History Tracking&#39;,
+  32 |   parameters: {
+  33 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/FieldHistoryTracking.stories.js:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -28632,8 +28722,7 @@ import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
 import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
 import { UserPicker } from &#39;../components/UserPicker/UserPicker&#39;;
-import { DatePicker } from &#39;../components/DatePicker/DatePicker&#39;;
-import { DateRangePicker } from &#39;../components/Calendar/DateRangePicker&#39;;
+import { Calendar } from &#39;../components/Calendar/Calendar&#39;;
 import { SetupTable } from &#39;../components/Table/Table&#39;;
 import { DetailPage, RecordCard } from &#39;./CrmScreens.page&#39;;
 import { SortingHat } from &#39;../components/SortingHat/SortingHat&#39;;
@@ -28677,7 +28766,7 @@ const ADDITIONAL_COLUMNS = [
 ];
 
 // Required history columns, in default display order. They cannot be unchecked, but can be reordered.
-const REQUIRED_COLUMNS = [&#39;Email&#39;, &#39;Changed To&#39;, &#39;Modified By&#39;, &#39;Modified Time&#39;, &#39;Duration&#39;];
+const REQUIRED_COLUMNS = [&#39;Email\u2002→\u2002Moved To&#39;, &#39;Moved By&#39;, &#39;Moved Time&#39;, &#39;Duration&#39;];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Shared styles (tokens only)
@@ -28873,7 +28962,7 @@ const PROPERTY_OPTIONS = [
 
 // Default columns: always selected, cannot be unchecked, can be reordered.
 // Shown with a red asterisk in the list.
-const REQUIRED_TRACKED_KEYS = [&#39;Email&#39;, &#39;Changed_To&#39;, &#39;Modified_By&#39;, &#39;Modified_Time&#39;, &#39;Duration&#39;];
+const REQUIRED_TRACKED_KEYS = [&#39;Email&#39;, &#39;Modified_By&#39;, &#39;Modified_Time&#39;, &#39;Duration&#39;];
 const isRequiredKey = key =&gt; REQUIRED_TRACKED_KEYS.includes(key);
 
 // Keeps the required columns selected. Required and user-selected columns can be
@@ -28891,18 +28980,17 @@ function keepRequiredColumns(next, prev) {
 // Leads fields from the shared CRM sample data (the Manage Columns list for a Lead),
 // plus the history columns that are always included.
 const HISTORY_COLUMN_OPTIONS = [
-  { key: &#39;Changed_To&#39;, label: &#39;Changed To&#39; },
-  { key: &#39;Modified_By&#39;, label: &#39;Modified By&#39; },
-  { key: &#39;Modified_Time&#39;, label: &#39;Modified Time&#39; },
+  { key: &#39;Modified_By&#39;, label: &#39;Moved By&#39; },
+  { key: &#39;Modified_Time&#39;, label: &#39;Moved Time&#39; },
   { key: &#39;Duration&#39;, label: &#39;Duration&#39; },
 ];
 
 const TRACKED_FIELD_OPTIONS = [
   ...getModuleFields(&#39;Leads&#39;)
-    .filter(field =&gt; !HISTORY_COLUMN_OPTIONS.some(history =&gt; history.label === field.label))
+    .filter(field =&gt; !HISTORY_COLUMN_OPTIONS.some(history =&gt; history.key === field.key))
     .map(field =&gt; ({
       key: field.key,
-      label: field.label,
+      label: field.key === &#39;Email&#39; ? &#39;Email\u2002→\u2002Moved To&#39; : field.label,
       scope: &#39;lead&#39;,
       module: &#39;Leads&#39;,
     })),
@@ -29186,33 +29274,28 @@ const FIELD_HISTORY_ROWS = [
 ];
 
 const FIELD_HISTORY_TIME_OPTIONS = [
-  { value: &#39;all&#39;, label: &#39;All time&#39; },
   { value: &#39;7d&#39;, label: &#39;Last 7 days&#39; },
   { value: &#39;30d&#39;, label: &#39;Last 30 days&#39; },
   { value: &#39;6m&#39;, label: &#39;Last 6 months&#39; },
   { value: &#39;1y&#39;, label: &#39;Last 1 year&#39; },
   { value: &#39;date&#39;, label: &#39;Specific Date&#39; },
-  { value: &#39;range&#39;, label: &#39;Custom Range&#39; },
 ];
 
-// Users for the user filter (UserPicker). The first entry clears the filter.
+// Named users for the user filter (UserPicker); the input clear button resets the filter.
 const FIELD_HISTORY_USERS = [
-  { id: &#39;all&#39;, name: &#39;All users&#39;, subLabel: &#39;Every user and system&#39; },
-  { id: &#39;elijah&#39;, name: &#39;Elijah Morgan&#39;, subLabel: &#39;elijah.morgan@zohocorp.com&#39; },
-  { id: &#39;klaus&#39;, name: &#39;Klaus Weber&#39;, subLabel: &#39;klaus.weber@zohocorp.com&#39; },
-  { id: &#39;mikasa&#39;, name: &#39;Mikasa Chen&#39;, subLabel: &#39;mikasa.chen@zohocorp.com&#39; },
-  { id: &#39;yren&#39;, name: &#39;Yren Okafor&#39;, subLabel: &#39;yren.okafor@zohocorp.com&#39; },
-  { id: &#39;system&#39;, name: &#39;System / Automation&#39;, subLabel: &#39;Workflows, API and imports&#39; },
+  { id: &#39;elijah&#39;, name: &#39;Elijah Morgan&#39;, subLabel: &#39;elijah.morgan@zohocorp.com&#39;, avatarUrl: &#39;/images/avatars/user_01.jpg&#39; },
+  { id: &#39;klaus&#39;, name: &#39;Klaus Weber&#39;, subLabel: &#39;klaus.weber@zohocorp.com&#39;, avatarUrl: &#39;/images/avatars/user_04.jpg&#39; },
+  { id: &#39;mikasa&#39;, name: &#39;Mikasa Chen&#39;, subLabel: &#39;mikasa.chen@zohocorp.com&#39;, avatarUrl: &#39;/images/avatars/user_03.jpg&#39; },
+  { id: &#39;yren&#39;, name: &#39;Yren Okafor&#39;, subLabel: &#39;yren.okafor@zohocorp.com&#39;, avatarUrl: &#39;/images/avatars/user_06.jpg&#39; },
 ];
 
 // &quot;Today&quot; for the sample data, so Last 7 days / 30 days / 6 months show different rows.
 const FIELD_HISTORY_TODAY = new Date(2026, 5, 3, 12, 0);
 
 const startOfDay = (d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate());
-const endOfDay = (d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
 const sameDay = (a, b) =&gt; startOfDay(a).getTime() === startOfDay(b).getTime();
 
-function matchesTime(row, filter, date, range) {
+function matchesTime(row, filter, date) {
   const when = new Date(row.modifiedTime);
   const since = (days, months = 0) =&gt; {
     const d = new Date(FIELD_HISTORY_TODAY);
@@ -29226,7 +29309,6 @@ function matchesTime(row, filter, date, range) {
     case &#39;6m&#39;: return when &gt;= since(0, 6);
     case &#39;1y&#39;: return when &gt;= since(0, 12);
     case &#39;date&#39;: return !date || sameDay(when, date);
-    case &#39;range&#39;: return !range.start || !range.end || (when &gt;= startOfDay(range.start) &amp;&amp; when &lt;= endOfDay(range.end));
     default: return true;
   }
 }
@@ -29234,7 +29316,6 @@ function matchesTime(row, filter, date, range) {
 const SOURCE_FILTER_LABELS = { manual: &#39;Manual (UI)&#39;, workflow: &#39;Workflow&#39;, api: &#39;API&#39;, import: &#39;Import&#39; };
 
 const FIELD_HISTORY_SOURCE_OPTIONS = [
-  { value: &#39;all&#39;, label: &#39;All sources&#39; },
   { value: &#39;manual&#39;, label: &#39;Manual (UI)&#39; },
   { value: &#39;workflow&#39;, label: &#39;Workflow&#39; },
   { value: &#39;api&#39;, label: &#39;API&#39; },
@@ -29331,11 +29412,28 @@ const SETTINGS_FIELDS = [
 
 // plainFirstColumn: the first column shows the stage transition as plain text, without capsules.
 function FieldHistorySection({ plainFirstColumn = false }) {
-  const [timeFilter, setTimeFilter] = useState(&#39;all&#39;);
-  const [userFilter, setUserFilter] = useState(&#39;all&#39;);
-  const [sourceFilter, setSourceFilter] = useState(&#39;all&#39;);
+  const [timeFilter, setTimeFilter] = useState(&#39;&#39;);
+  const [userFilter, setUserFilter] = useState(&#39;&#39;);
+  const [sourceFilter, setSourceFilter] = useState(&#39;&#39;);
   const [specificDate, setSpecificDate] = useState(null);
-  const [customRange, setCustomRange] = useState({ start: null, end: null });
+  const filterPanelStyle = ({ width, left }) =&gt; ({
+    width: &#39;max-content&#39;,
+    minWidth: width,
+    maxWidth: `calc(100vw - ${left}px - var(--ds-font-size-sm))`,
+  });
+  const timeOptions = FIELD_HISTORY_TIME_OPTIONS.map(option =&gt; option.value === &#39;date&#39; ? {
+    ...option,
+    triggerLabel: specificDate?.toLocaleDateString(&#39;en-GB&#39;, { day: &#39;numeric&#39;, month: &#39;short&#39;, year: &#39;numeric&#39; }),
+    submenuContent: ({ close }) =&gt; (
+      &lt;div className=&quot;fht-date-calendar&quot;&gt;
+        &lt;Calendar
+          value={specificDate}
+          defaultMonth={specificDate ?? FIELD_HISTORY_TODAY}
+          onChange={date =&gt; { setSpecificDate(date); setTimeFilter(&#39;date&#39;); close(); }}
+        /&gt;
+      &lt;/div&gt;
+    ),
+  } : option);
   const [applied, setApplied] = useState(DEFAULT_COLUMN_KEYS); // columns shown in the table
   const [draft, setDraft] = useState(DEFAULT_COLUMN_KEYS); // selection while the panel is open
   const [panel, setPanel] = useState(null); // { top, right } when the settings panel is open
@@ -29412,9 +29510,9 @@ function FieldHistorySection({ plainFirstColumn = false }) {
   // The filters narrow the rows shown in the table.
   const userName = FIELD_HISTORY_USERS.find((u) =&gt; u.id === userFilter)?.name;
   const visibleRows = FIELD_HISTORY_ROWS.filter((row) =&gt; (
-    matchesTime(row, timeFilter, specificDate, customRange)
-    &amp;&amp; (userFilter === &#39;all&#39; || row.modifiedBy === userName)
-    &amp;&amp; (sourceFilter === &#39;all&#39; || row.source === SOURCE_FILTER_LABELS[sourceFilter])
+    matchesTime(row, timeFilter, specificDate)
+    &amp;&amp; (!userFilter || userFilter === &#39;all&#39; || row.modifiedBy === userName)
+    &amp;&amp; (!sourceFilter || sourceFilter === &#39;all&#39; || row.source === SOURCE_FILTER_LABELS[sourceFilter])
   )).sort((a, b) =&gt; new Date(b.modifiedTime) - new Date(a.modifiedTime));
 
   return (
@@ -29422,25 +29520,19 @@ function FieldHistorySection({ plainFirstColumn = false }) {
       title=&quot;Field History - Stage&quot;
       actions={
         &lt;&gt;
-          &lt;Dropdown size=&quot;sm&quot; value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={140} /&gt;
-          {timeFilter === &#39;date&#39; &amp;&amp; (
-            &lt;DatePicker size=&quot;sm&quot; layout=&quot;vertical&quot; width={130} placeholder=&quot;Select date&quot; value={specificDate} onChange={setSpecificDate} /&gt;
-          )}
-          {timeFilter === &#39;range&#39; &amp;&amp; (
-            &lt;DateRangePicker size=&quot;sm&quot; width={210} startDate={customRange.start} endDate={customRange.end} onChange={(start, end) =&gt; setCustomRange({ start, end })} /&gt;
-          )}
-          &lt;UserPicker size=&quot;sm&quot; layout=&quot;vertical&quot; width={220} placeholder=&quot;All users&quot; users={FIELD_HISTORY_USERS} value={userFilter} onChange={setUserFilter} /&gt;
-          &lt;Dropdown size=&quot;sm&quot; value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={140} /&gt;
+          &lt;Dropdown size=&quot;sm&quot; triggerAriaLabel=&quot;Time filter&quot; placeholder=&quot;Select Date&quot; value={timeFilter} options={timeOptions} onChange={value =&gt; { setTimeFilter(value); if (!value) setSpecificDate(null); }} clearable clearAriaLabel=&quot;Clear date filter&quot; width={180} panelStyle={filterPanelStyle} /&gt;
+          &lt;UserPicker size=&quot;sm&quot; layout=&quot;vertical&quot; width={180} placeholder=&quot;Select User&quot; users={FIELD_HISTORY_USERS} value={userFilter} onChange={setUserFilter} clearable clearAriaLabel=&quot;Clear user filter&quot; checkPosition=&quot;left&quot; panelClassName=&quot;fht-user-filter-panel&quot; panelStyle={filterPanelStyle} /&gt;
+          &lt;Dropdown size=&quot;sm&quot; triggerAriaLabel=&quot;Source filter&quot; placeholder=&quot;Select Source&quot; value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} clearable clearAriaLabel=&quot;Clear source filter&quot; width={180} panelStyle={filterPanelStyle} /&gt;
         &lt;/&gt;
       }
     &gt;
-      &lt;div className=&quot;crm-screens__fh-table&quot;&gt;
-        &lt;SetupTable
-          columns={columns}
-          rows={visibleRows}
-          emptyMessage=&quot;No records found&quot;
-        /&gt;
-      &lt;/div&gt;
+      {visibleRows.length &gt; 0 ? (
+        &lt;div className=&quot;crm-screens__fh-table&quot;&gt;
+          &lt;SetupTable columns={columns} rows={visibleRows} /&gt;
+        &lt;/div&gt;
+      ) : (
+        &lt;div className=&quot;crm-screens__empty&quot; role=&quot;status&quot;&gt;No records found&lt;/div&gt;
+      )}
       {panel &amp;&amp; createPortal(
         &lt;&gt;
           {/* Transparent layer: blocks clicks and hover on the page behind the panel. */}
@@ -29480,28 +29572,28 @@ const FIELD_HISTORY_VARIATIONS = [
     storyId: &#39;work-items-field-history-tracking--default&#39;,
   },
   {
-    label: &#39;Detail Page - Field History&#39;,
+    label: &#39;Detail Page - Colored&#39;,
     storyId: &#39;work-items-field-history-tracking--detail-page-field-history&#39;,
   },
   {
-    label: &#39;Detail Page - Field History (plain first column)&#39;,
+    label: &#39;Detail Page&#39;,
     storyId: &#39;work-items-field-history-tracking--detail-page-field-history-plain&#39;,
   },
 ];
 
 export const DetailPageFieldHistory = {
-  name: &#39;Detail Page - Field History&#39;,
+  name: &#39;Detail Page - Colored&#39;,
   parameters: { layout: &#39;fullscreen&#39; },
   render: () =&gt; (
     &lt;&gt;
-      &lt;DetailPage variant=&quot;fieldHistory&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
+      &lt;DetailPage variant=&quot;fieldHistory&quot; lastUpdateText=&quot;1 day ago&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
       &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
     &lt;/&gt;
   ),
 };
 
 export const DetailPageFieldHistoryPlain = {
-  name: &#39;Detail Page - Field History (plain first column)&#39;,
+  name: &#39;Detail Page&#39;,
   parameters: { layout: &#39;fullscreen&#39; },
   render: () =&gt; (
     &lt;&gt;
@@ -29552,9 +29644,8 @@ export const LimitReached = {
                 </div>
                 <pre><code>import {
     Button,
+    Calendar,
     Checkbox,
-    DatePicker,
-    DateRangePicker,
     DetailPage,
     Dragger,
     Dropdown,
@@ -29576,21 +29667,21 @@ export const LimitReached = {
           
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Detail Page - Field History</span>
+                <span class="ex-name">Detail Page - Colored</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
               <pre><code>const DetailPageFieldHistory = () =&gt; (
   &lt;&gt;
-    &lt;DetailPage variant=&quot;fieldHistory&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
+    &lt;DetailPage variant=&quot;fieldHistory&quot; lastUpdateText=&quot;1 day ago&quot; historySection={&lt;FieldHistorySection /&gt;} /&gt;
     &lt;SortingHat variations={FIELD_HISTORY_VARIATIONS} /&gt;
   &lt;/&gt;
 );</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Detail Page - Field History (plain first column)</span>
+                <span class="ex-name">Detail Page</span>
                 <span class="badge ok">story ok</span>
               </div>
               
