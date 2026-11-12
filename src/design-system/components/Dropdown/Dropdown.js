@@ -123,6 +123,7 @@ export function Dropdown({
   const rootRef    = useRef(null);
   const triggerRef = useRef(null);
   const panelRef   = useRef(null);
+  const submenuRef = useRef(null);
   const searchRef  = useRef(null);
   const listRef    = useRef(null);
 
@@ -197,6 +198,13 @@ export function Dropdown({
     });
   };
 
+  const openSubmenu = (opt, idx, element, focus = false) => {
+    if (opt.disabled || (!opt.submenu && !opt.submenuContent) || !element) return;
+    const rect = element.getBoundingClientRect();
+    setSubmenuState({ idx, top: rect.top, left: rect.right, anchorLeft: rect.left });
+    if (focus) requestAnimationFrame(() => submenuRef.current?.querySelector('button, [tabindex="0"]')?.focus());
+  };
+
   const selectSingle = (opt) => {
     if (opt.disabled) return;
     if (onChange) {
@@ -231,7 +239,7 @@ export function Dropdown({
     if (!open) return;
     const handler = (e) => {
       const t = e.target;
-      if (!rootRef.current?.contains(t) && !panelRef.current?.contains(t)) {
+      if (!rootRef.current?.contains(t) && !panelRef.current?.contains(t) && !submenuRef.current?.contains(t)) {
         setOpen(false);
       }
     };
@@ -247,6 +255,7 @@ export function Dropdown({
       updatePanelPos();
     } else {
       setPanelPos(null);
+      setSubmenuState(null);
       justOpenedRef.current = false;
     }
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -335,11 +344,16 @@ export function Dropdown({
         while (next >= 0 && filtered[next]?.disabled) next--;
         return next >= 0 ? next : prev;
       });
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
+    } else if (e.key === 'Enter' || e.key === 'ArrowRight') {
       const opt = filtered[activeIndex];
       if (opt && !opt.disabled) {
-        multiSelect ? toggleMulti(opt) : selectSingle(opt);
+        if (opt.submenu || opt.submenuContent) {
+          e.preventDefault();
+          openSubmenu(opt, activeIndex, listRef.current?.querySelector(`[data-option-index="${activeIndex}"]`), true);
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          multiSelect ? toggleMulti(opt) : selectSingle(opt);
+        }
       }
     }
   };
@@ -372,17 +386,20 @@ export function Dropdown({
         data-disabled={opt.disabled || undefined}
         data-active={activeIndex === idx || undefined}
         data-option-index={idx}
-        data-submenu={opt.submenu ? true : undefined}
+        data-submenu={(opt.submenu || opt.submenuContent) ? true : undefined}
+        aria-haspopup={opt.submenuContent ? 'dialog' : opt.submenu ? 'menu' : undefined}
+        aria-expanded={(opt.submenu || opt.submenuContent) ? submenuState?.idx === idx : undefined}
         onMouseEnter={event => {
           setActiveIndex(idx);
-          if (opt.submenu) {
-            const rect = event.currentTarget.getBoundingClientRect();
-            setSubmenuState({ idx, top: rect.top, left: rect.right + 4 });
+          if (opt.submenu || opt.submenuContent) {
+            openSubmenu(opt, idx, event.currentTarget);
           } else {
             setSubmenuState(null);
           }
         }}
-        onClick={() => multiSelect ? toggleMulti(opt) : selectSingle(opt)}
+        onClick={event => (opt.submenu || opt.submenuContent)
+          ? openSubmenu(opt, idx, event.currentTarget, true)
+          : multiSelect ? toggleMulti(opt) : selectSingle(opt)}
       >
         {multiSelect ? (
           <span className='dropdown-option-check' aria-hidden="true">
@@ -394,7 +411,7 @@ export function Dropdown({
           </span>
         )}
         {opt.icon && <span className='dropdown-option-icon' aria-hidden="true">{opt.icon}</span>}
-        {opt.submenu && <ChevronDownFilled className='dropdown-submenu-chevron' aria-hidden="true" />}
+        {(opt.submenu || opt.submenuContent) && <ChevronDownFilled className='dropdown-submenu-chevron' aria-hidden="true" />}
         {opt.description ? <span className='dropdown-option-content'>
           <span className='dropdown-option-label'>{opt.label}</span>
           <span className='dropdown-option-description'>{opt.description}</span>
@@ -410,14 +427,34 @@ export function Dropdown({
   };
 
   const submenuOption = submenuState ? filtered[submenuState.idx] : null;
-  const submenuFlyout = submenuOption?.submenu && createPortal(
+  const submenuFlyout = open && submenuOption && (submenuOption.submenu || submenuOption.submenuContent) && createPortal(
     <div
+      ref={element => {
+        submenuRef.current = element;
+        if (!element) return;
+        const rect = element.getBoundingClientRect();
+        const inset = parseFloat(getComputedStyle(element).paddingTop) || 0;
+        const left = rect.right > window.innerWidth
+          ? Math.max(inset, submenuState.anchorLeft - rect.width)
+          : submenuState.left;
+        element.style.left = `${left}px`;
+        element.style.top = `${Math.max(inset, Math.min(submenuState.top, window.innerHeight - rect.height - inset))}px`;
+      }}
       className='dropdown-submenu-flyout'
       style={{ top: submenuState.top, left: submenuState.left }}
-      role="menu"
-      onMouseLeave={() => setSubmenuState(null)}
+      role={submenuOption.submenuContent ? 'dialog' : 'menu'}
+      aria-label={submenuOption.label}
+      onKeyDown={event => {
+        if (event.key === 'Escape' || (event.key === 'ArrowLeft' && !submenuOption.submenuContent)) {
+          event.preventDefault();
+          event.stopPropagation();
+          setSubmenuState(null);
+          triggerRef.current?.focus();
+        }
+      }}
+      onMouseLeave={() => { if (!submenuOption.submenuContent) setSubmenuState(null); }}
     >
-      {submenuOption.submenu.map(sub => (
+      {submenuOption.submenuContent ? submenuOption.submenuContent({ close: () => { setOpen(false); triggerRef.current?.focus(); } }) : submenuOption.submenu.map(sub => (
         <div
           key={sub.value}
           className='dropdown-submenu-item'

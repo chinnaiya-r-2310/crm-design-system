@@ -332,8 +332,8 @@
 }
 
 .crm-screens--field-history .crm-screens__toolbar {
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: var(--ds-font-size-sm);
+  padding-bottom: var(--ds-font-size-sm);
   min-height: 44px;
   background: transparent; /* no toolbar fill or bottom border on the Field History page */
   border-bottom: 0;
@@ -342,6 +342,15 @@
 .crm-screens--field-history .crm-screens__empty {
   font-size: var(--ds-font-size-base, 13px);
   color: var(--ds-text-muted, #8B9BB8); /* same colour as the table's "No records found" */
+}
+
+/* The calendar owns its surface; do not add a second submenu shell. */
+.dropdown-submenu-flyout:has(> .fht-date-calendar) {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* ── Field History table: no outer radius, no side borders ─────────────────── */
@@ -465,6 +474,7 @@
 
 .crm-screens__fh-table .table-th:last-child .table-th-inner > span {
   display: flex;
+  flex: 0 0 auto; /* Keep the hover border inset from the sticky column separator. */
   align-items: center;
 }
 
@@ -524,13 +534,36 @@ body > .dragger-ghost {
 }
 
 
-/* Field History page: secondary tab bar on white; no separator line above the tabs. */
-.crm-screens--field-history .tabs-tab-bar[data-variant="secondary"] {
-  background: var(--ds-bg-common-card, #ffffff);
+/* Equal space between the secondary tabs and the header/cards. */
+.crm-screens--field-history .crm-screens__cards {
+  padding-top: 0;
 }
 
-.crm-screens--field-history .crm-screens__record-header {
-  border-bottom: 0;
+.crm-screens--field-history .crm-screens__card-header,
+.crm-screens--field-history .crm-screens__card-actions {
+  flex-wrap: wrap;
+}
+
+.fht-user-filter-panel .user-picker-user-sub {
+  color: var(--ds-text-label);
+}
+
+.fht-user-filter-panel .user-picker-user-option {
+  padding-inline: calc(var(--ds-font-size-sm) / 3) var(--ds-font-size-sm);
+  column-gap: calc(var(--ds-font-size-sm) / 3);
+}
+
+.fht-user-filter-panel .user-picker-check {
+  width: var(--ds-font-size-base);
+}
+
+.fht-user-filter-panel .user-picker-user-info {
+  flex: 1 0 auto;
+}
+
+/* Field History page: secondary tab bar on white. */
+.crm-screens--field-history .tabs-tab-bar[data-variant="secondary"] {
+  background: var(--ds-bg-common-card, #ffffff);
 }
 
 /* No hover state on the rows (or grips) while a column is being dragged. */
@@ -558,9 +591,9 @@ body:has(> .dragger-ghost) .fht-settings-panel .dragger-item:hover .dragger-grip
   background: var(--ds-brand-primary, #5464F2);
 }
 
-/* Capsule variant: one compact gap on each side of the arrow, not gap + margin. */
+/* Capsule variant: equal spacing on each side of the arrow, without extra margins. */
 .crm-screens__fh-table .crm-screens__transition {
-  gap: calc(var(--ds-font-size-sm) / 3);
+  gap: calc(var(--ds-font-size-sm) * 2 / 3);
 }
 
 .crm-screens__fh-table .crm-screens__transition .crm-screens__arrow {

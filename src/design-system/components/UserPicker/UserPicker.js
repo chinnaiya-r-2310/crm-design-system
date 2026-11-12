@@ -100,6 +100,11 @@ export function UserPicker({
   id: idProp,
   style,
   columns,
+  panelStyle,
+  panelClassName = '',
+  checkPosition = 'right',
+  clearable = false,
+  clearAriaLabel = 'Clear selection',
 }) {
   const autoId = useId();
   const triggerId = idProp ?? autoId;
@@ -260,8 +265,9 @@ export function UserPicker({
     <div
       ref={panelRef}
       id={listId}
-      className={'user-picker-panel'}
-      style={{ top: panelPos.top, left: panelPos.left, width: panelPos.width }}
+      className={`user-picker-panel ${panelClassName}`}
+      data-check-position={checkPosition}
+      style={{ top: panelPos.top, left: panelPos.left, width: panelPos.width, ...(typeof panelStyle === 'function' ? panelStyle(panelPos) : panelStyle) }}
       role="listbox"
       aria-label={label ?? 'Select user'}
       onKeyDown={handleKeyDown}
@@ -339,6 +345,11 @@ export function UserPicker({
                 onMouseEnter={() => setActiveIndex(idx)}
                 onClick={() => select(user)}
               >
+                {checkPosition === 'left' && (
+                  <span className="user-picker-check" aria-hidden="true">
+                    {isSelected && <Check />}
+                  </span>
+                )}
                 <Avatar user={user} size={28} />
                 <div className={'user-picker-user-info'}>
                   <span className={'user-picker-user-name'}>{user.name}</span>
@@ -346,7 +357,7 @@ export function UserPicker({
                     <span className={'user-picker-user-sub'}>{user.subLabel}</span>
                   )}
                 </div>
-                {isSelected && (
+                {isSelected && checkPosition !== 'left' && (
                   <span className={'user-picker-check'} aria-hidden="true">
                     <Check />
                   </span>
@@ -361,7 +372,7 @@ export function UserPicker({
   ) : null;
 
   const dropdownEl = (
-    <div ref={rootRef} className={'user-picker-dropdown-wrapper'} style={wrapStyle} onKeyDown={handleKeyDown}>
+    <div ref={rootRef} className={'user-picker-dropdown-wrapper'} style={wrapStyle} data-clearable={(clearable && selectedUser && !disabled) || undefined} onKeyDown={handleKeyDown}>
       <button
         ref={triggerRef}
         id={triggerId}
@@ -389,6 +400,22 @@ export function UserPicker({
           <ChevronDownFilled />
         </span>
       </button>
+      {clearable && selectedUser && !disabled && (
+        <button
+          type="button"
+          className="user-picker-trigger-clear"
+          aria-label={clearAriaLabel}
+          onClick={() => {
+            if (onChange) onChange('');
+            else setInternalValue('');
+            setOpen(false);
+            setSearch('');
+            triggerRef.current?.focus();
+          }}
+        >
+          <CloseIcon />
+        </button>
+      )}
       {panelContent}
     </div>
   );

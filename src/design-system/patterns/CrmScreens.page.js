@@ -136,14 +136,14 @@ function StageHistoryCard() {
   );
 }
 
-export function DetailPage({ historySection, variant = 'default' }) {
+export function DetailPage({ historySection, variant = 'default', lastUpdateText }) {
   const [activeView, setActiveView] = useState('overview');
   const [emailTab, setEmailTab] = useState('mails');
   const [relatedOpen, setRelatedOpen] = useState(true);
   const [selectedList, setSelectedList] = useState('stage-history');
 
   const isFieldHistory = variant === 'fieldHistory';
-  const lastUpdate = isFieldHistory ? '1 day(s) ago' : DEAL.lastUpdate;
+  const lastUpdate = lastUpdateText ?? (isFieldHistory ? '1 day(s) ago' : DEAL.lastUpdate);
   const buttonSize = isFieldHistory ? 'sm' : 'md'; // section buttons are small on the Field History page
 
   return (

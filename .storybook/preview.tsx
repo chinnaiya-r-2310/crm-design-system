@@ -11,7 +11,8 @@ const preview: Preview = {
       },
     },
 
-    // Work Items: most recently created first (order of first git commit).
+    // Work Items: newest first. When creating a work item, prepend its exact
+    // title (without "Work Items/") to the list below; preserve existing order.
     options: {
       storySort: {
         order: [

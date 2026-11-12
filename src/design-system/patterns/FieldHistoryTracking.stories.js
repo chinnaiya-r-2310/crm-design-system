@@ -11,8 +11,7 @@ import { MessageInfo } from '../components/MessageInfo/MessageInfo';
 import { MessageBox } from '../components/MessageBox/MessageBox';
 import { Dropdown } from '../components/Dropdown/Dropdown';
 import { UserPicker } from '../components/UserPicker/UserPicker';
-import { DatePicker } from '../components/DatePicker/DatePicker';
-import { DateRangePicker } from '../components/Calendar/DateRangePicker';
+import { Calendar } from '../components/Calendar/Calendar';
 import { SetupTable } from '../components/Table/Table';
 import { DetailPage, RecordCard } from './CrmScreens.page';
 import { SortingHat } from '../components/SortingHat/SortingHat';
@@ -56,7 +55,7 @@ const ADDITIONAL_COLUMNS = [
 ];
 
 // Required history columns, in default display order. They cannot be unchecked, but can be reordered.
-const REQUIRED_COLUMNS = ['Email', 'Changed To', 'Modified By', 'Modified Time', 'Duration'];
+const REQUIRED_COLUMNS = ['Email\u2002→\u2002Moved To', 'Moved By', 'Moved Time', 'Duration'];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Shared styles (tokens only)
@@ -252,7 +251,7 @@ const PROPERTY_OPTIONS = [
 
 // Default columns: always selected, cannot be unchecked, can be reordered.
 // Shown with a red asterisk in the list.
-const REQUIRED_TRACKED_KEYS = ['Email', 'Changed_To', 'Modified_By', 'Modified_Time', 'Duration'];
+const REQUIRED_TRACKED_KEYS = ['Email', 'Modified_By', 'Modified_Time', 'Duration'];
 const isRequiredKey = key => REQUIRED_TRACKED_KEYS.includes(key);
 
 // Keeps the required columns selected. Required and user-selected columns can be
@@ -270,18 +269,17 @@ function keepRequiredColumns(next, prev) {
 // Leads fields from the shared CRM sample data (the Manage Columns list for a Lead),
 // plus the history columns that are always included.
 const HISTORY_COLUMN_OPTIONS = [
-  { key: 'Changed_To', label: 'Changed To' },
-  { key: 'Modified_By', label: 'Modified By' },
-  { key: 'Modified_Time', label: 'Modified Time' },
+  { key: 'Modified_By', label: 'Moved By' },
+  { key: 'Modified_Time', label: 'Moved Time' },
   { key: 'Duration', label: 'Duration' },
 ];
 
 const TRACKED_FIELD_OPTIONS = [
   ...getModuleFields('Leads')
-    .filter(field => !HISTORY_COLUMN_OPTIONS.some(history => history.label === field.label))
+    .filter(field => !HISTORY_COLUMN_OPTIONS.some(history => history.key === field.key))
     .map(field => ({
       key: field.key,
-      label: field.label,
+      label: field.key === 'Email' ? 'Email\u2002→\u2002Moved To' : field.label,
       scope: 'lead',
       module: 'Leads',
     })),
@@ -565,33 +563,28 @@ const FIELD_HISTORY_ROWS = [
 ];
 
 const FIELD_HISTORY_TIME_OPTIONS = [
-  { value: 'all', label: 'All time' },
   { value: '7d', label: 'Last 7 days' },
   { value: '30d', label: 'Last 30 days' },
   { value: '6m', label: 'Last 6 months' },
   { value: '1y', label: 'Last 1 year' },
   { value: 'date', label: 'Specific Date' },
-  { value: 'range', label: 'Custom Range' },
 ];
 
-// Users for the user filter (UserPicker). The first entry clears the filter.
+// Named users for the user filter (UserPicker); the input clear button resets the filter.
 const FIELD_HISTORY_USERS = [
-  { id: 'all', name: 'All users', subLabel: 'Every user and system' },
-  { id: 'elijah', name: 'Elijah Morgan', subLabel: 'elijah.morgan@zohocorp.com' },
-  { id: 'klaus', name: 'Klaus Weber', subLabel: 'klaus.weber@zohocorp.com' },
-  { id: 'mikasa', name: 'Mikasa Chen', subLabel: 'mikasa.chen@zohocorp.com' },
-  { id: 'yren', name: 'Yren Okafor', subLabel: 'yren.okafor@zohocorp.com' },
-  { id: 'system', name: 'System / Automation', subLabel: 'Workflows, API and imports' },
+  { id: 'elijah', name: 'Elijah Morgan', subLabel: 'elijah.morgan@zohocorp.com', avatarUrl: '/images/avatars/user_01.jpg' },
+  { id: 'klaus', name: 'Klaus Weber', subLabel: 'klaus.weber@zohocorp.com', avatarUrl: '/images/avatars/user_04.jpg' },
+  { id: 'mikasa', name: 'Mikasa Chen', subLabel: 'mikasa.chen@zohocorp.com', avatarUrl: '/images/avatars/user_03.jpg' },
+  { id: 'yren', name: 'Yren Okafor', subLabel: 'yren.okafor@zohocorp.com', avatarUrl: '/images/avatars/user_06.jpg' },
 ];
 
 // "Today" for the sample data, so Last 7 days / 30 days / 6 months show different rows.
 const FIELD_HISTORY_TODAY = new Date(2026, 5, 3, 12, 0);
 
 const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
-const endOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
 const sameDay = (a, b) => startOfDay(a).getTime() === startOfDay(b).getTime();
 
-function matchesTime(row, filter, date, range) {
+function matchesTime(row, filter, date) {
   const when = new Date(row.modifiedTime);
   const since = (days, months = 0) => {
     const d = new Date(FIELD_HISTORY_TODAY);
@@ -605,7 +598,6 @@ function matchesTime(row, filter, date, range) {
     case '6m': return when >= since(0, 6);
     case '1y': return when >= since(0, 12);
     case 'date': return !date || sameDay(when, date);
-    case 'range': return !range.start || !range.end || (when >= startOfDay(range.start) && when <= endOfDay(range.end));
     default: return true;
   }
 }
@@ -613,7 +605,6 @@ function matchesTime(row, filter, date, range) {
 const SOURCE_FILTER_LABELS = { manual: 'Manual (UI)', workflow: 'Workflow', api: 'API', import: 'Import' };
 
 const FIELD_HISTORY_SOURCE_OPTIONS = [
-  { value: 'all', label: 'All sources' },
   { value: 'manual', label: 'Manual (UI)' },
   { value: 'workflow', label: 'Workflow' },
   { value: 'api', label: 'API' },
@@ -710,11 +701,28 @@ const SETTINGS_FIELDS = [
 
 // plainFirstColumn: the first column shows the stage transition as plain text, without capsules.
 function FieldHistorySection({ plainFirstColumn = false }) {
-  const [timeFilter, setTimeFilter] = useState('all');
-  const [userFilter, setUserFilter] = useState('all');
-  const [sourceFilter, setSourceFilter] = useState('all');
+  const [timeFilter, setTimeFilter] = useState('');
+  const [userFilter, setUserFilter] = useState('');
+  const [sourceFilter, setSourceFilter] = useState('');
   const [specificDate, setSpecificDate] = useState(null);
-  const [customRange, setCustomRange] = useState({ start: null, end: null });
+  const filterPanelStyle = ({ width, left }) => ({
+    width: 'max-content',
+    minWidth: width,
+    maxWidth: `calc(100vw - ${left}px - var(--ds-font-size-sm))`,
+  });
+  const timeOptions = FIELD_HISTORY_TIME_OPTIONS.map(option => option.value === 'date' ? {
+    ...option,
+    triggerLabel: specificDate?.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+    submenuContent: ({ close }) => (
+      <div className="fht-date-calendar">
+        <Calendar
+          value={specificDate}
+          defaultMonth={specificDate ?? FIELD_HISTORY_TODAY}
+          onChange={date => { setSpecificDate(date); setTimeFilter('date'); close(); }}
+        />
+      </div>
+    ),
+  } : option);
   const [applied, setApplied] = useState(DEFAULT_COLUMN_KEYS); // columns shown in the table
   const [draft, setDraft] = useState(DEFAULT_COLUMN_KEYS); // selection while the panel is open
   const [panel, setPanel] = useState(null); // { top, right } when the settings panel is open
@@ -791,9 +799,9 @@ function FieldHistorySection({ plainFirstColumn = false }) {
   // The filters narrow the rows shown in the table.
   const userName = FIELD_HISTORY_USERS.find((u) => u.id === userFilter)?.name;
   const visibleRows = FIELD_HISTORY_ROWS.filter((row) => (
-    matchesTime(row, timeFilter, specificDate, customRange)
-    && (userFilter === 'all' || row.modifiedBy === userName)
-    && (sourceFilter === 'all' || row.source === SOURCE_FILTER_LABELS[sourceFilter])
+    matchesTime(row, timeFilter, specificDate)
+    && (!userFilter || userFilter === 'all' || row.modifiedBy === userName)
+    && (!sourceFilter || sourceFilter === 'all' || row.source === SOURCE_FILTER_LABELS[sourceFilter])
   )).sort((a, b) => new Date(b.modifiedTime) - new Date(a.modifiedTime));
 
   return (
@@ -801,25 +809,19 @@ function FieldHistorySection({ plainFirstColumn = false }) {
       title="Field History - Stage"
       actions={
         <>
-          <Dropdown size="sm" value={timeFilter} options={FIELD_HISTORY_TIME_OPTIONS} onChange={setTimeFilter} width={140} />
-          {timeFilter === 'date' && (
-            <DatePicker size="sm" layout="vertical" width={130} placeholder="Select date" value={specificDate} onChange={setSpecificDate} />
-          )}
-          {timeFilter === 'range' && (
-            <DateRangePicker size="sm" width={210} startDate={customRange.start} endDate={customRange.end} onChange={(start, end) => setCustomRange({ start, end })} />
-          )}
-          <UserPicker size="sm" layout="vertical" width={220} placeholder="All users" users={FIELD_HISTORY_USERS} value={userFilter} onChange={setUserFilter} />
-          <Dropdown size="sm" value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} width={140} />
+          <Dropdown size="sm" triggerAriaLabel="Time filter" placeholder="Select Date" value={timeFilter} options={timeOptions} onChange={value => { setTimeFilter(value); if (!value) setSpecificDate(null); }} clearable clearAriaLabel="Clear date filter" width={180} panelStyle={filterPanelStyle} />
+          <UserPicker size="sm" layout="vertical" width={180} placeholder="Select User" users={FIELD_HISTORY_USERS} value={userFilter} onChange={setUserFilter} clearable clearAriaLabel="Clear user filter" checkPosition="left" panelClassName="fht-user-filter-panel" panelStyle={filterPanelStyle} />
+          <Dropdown size="sm" triggerAriaLabel="Source filter" placeholder="Select Source" value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} clearable clearAriaLabel="Clear source filter" width={180} panelStyle={filterPanelStyle} />
         </>
       }
     >
-      <div className="crm-screens__fh-table">
-        <SetupTable
-          columns={columns}
-          rows={visibleRows}
-          emptyMessage="No records found"
-        />
-      </div>
+      {visibleRows.length > 0 ? (
+        <div className="crm-screens__fh-table">
+          <SetupTable columns={columns} rows={visibleRows} />
+        </div>
+      ) : (
+        <div className="crm-screens__empty" role="status">No records found</div>
+      )}
       {panel && createPortal(
         <>
           {/* Transparent layer: blocks clicks and hover on the page behind the panel. */}
@@ -859,28 +861,28 @@ const FIELD_HISTORY_VARIATIONS = [
     storyId: 'work-items-field-history-tracking--default',
   },
   {
-    label: 'Detail Page - Field History',
+    label: 'Detail Page - Colored',
     storyId: 'work-items-field-history-tracking--detail-page-field-history',
   },
   {
-    label: 'Detail Page - Field History (plain first column)',
+    label: 'Detail Page',
     storyId: 'work-items-field-history-tracking--detail-page-field-history-plain',
   },
 ];
 
 export const DetailPageFieldHistory = {
-  name: 'Detail Page - Field History',
+  name: 'Detail Page - Colored',
   parameters: { layout: 'fullscreen' },
   render: () => (
     <>
-      <DetailPage variant="fieldHistory" historySection={<FieldHistorySection />} />
+      <DetailPage variant="fieldHistory" lastUpdateText="1 day ago" historySection={<FieldHistorySection />} />
       <SortingHat variations={FIELD_HISTORY_VARIATIONS} />
     </>
   ),
 };
 
 export const DetailPageFieldHistoryPlain = {
-  name: 'Detail Page - Field History (plain first column)',
+  name: 'Detail Page',
   parameters: { layout: 'fullscreen' },
   render: () => (
     <>
