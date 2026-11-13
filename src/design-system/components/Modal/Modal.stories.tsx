@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, waitFor, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Modal } from './Modal';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
@@ -198,6 +198,23 @@ export const AlertModal: Story = {
  */
 export const AlertOnlyHeading: Story = {
   name: 'Alert Only Heading',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const page = within(canvasElement.ownerDocument.body);
+    const title = 'Delete "Reached daily limit 5000 calls"';
+    await userEvent.click(canvas.getByRole('button', { name: 'Error', exact: true }));
+    const dialog = await page.findByRole('alertdialog', { name: title });
+    const heading = within(dialog).getByRole('heading', { name: title });
+    expect(dialog.querySelector('.modal-description')).toBeNull();
+    expect(getComputedStyle(heading).fontSize).toBe('15px');
+    expect(getComputedStyle(heading).fontWeight).toBe('600');
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(page.queryByRole('alertdialog')).toBeNull());
+    await userEvent.click(canvas.getByRole('button', { name: 'Error', exact: true }));
+    const reopened = await page.findByRole('alertdialog', { name: title });
+    await userEvent.click(within(reopened).getByRole('button', { name: 'Delete', exact: true }));
+    await waitFor(() => expect(page.queryByRole('alertdialog')).toBeNull());
+  },
   render: () => {
     const [activeKey, setActiveKey] = useState<string | null>(null);
 
@@ -205,7 +222,7 @@ export const AlertOnlyHeading: Story = {
       { key: 'success', label: 'Success', triggerVariant: 'outline-green', title: 'Record saved successfully.' },
       { key: 'info',    label: 'Info',    triggerVariant: 'outline-blue',  title: 'This action will apply to all users.' },
       { key: 'warning', label: 'Warning', triggerVariant: 'outline-orange', title: 'Are you sure you want to continue?', confirmLabel: 'Continue' },
-      { key: 'error',   label: 'Error',   triggerVariant: 'outline-red',   title: 'Delete "Sales Pipeline Q3"', confirmLabel: 'Delete' },
+      { key: 'error',   label: 'Error',   triggerVariant: 'outline-red',   title: 'Delete "Reached daily limit 5000 calls"', confirmLabel: 'Delete' },
       { key: 'denial',  label: 'Denial',  triggerVariant: 'default',       title: 'Permission Denied' },
     ];
 

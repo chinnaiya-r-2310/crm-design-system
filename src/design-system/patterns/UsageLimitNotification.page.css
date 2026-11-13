@@ -21,24 +21,56 @@
 .usage-page__sections { flex-shrink: 0; padding: var(--ds-line-height-base) calc(var(--ds-line-height-base) * 1.5) 0; }
 .usage-page__sections > .tabs-tab-bar { width: fit-content; max-width: 100%; }
 .usage-page__content { display: flex; flex-direction: column; flex: 1; min-height: 0; min-width: 0; overflow: hidden; padding: calc(var(--ds-line-height-base) / 2) calc(var(--ds-line-height-base) * 1.5) var(--ds-line-height-base); }
-.usage-page__table-region { flex: 1; min-height: 0; min-width: 0; overflow: auto; }
+.usage-page__table-region { flex: 0 1 auto; min-height: 0; min-width: 0; overflow: auto; border: thin solid var(--ds-border-lighter); border-radius: 8px; }
 .usage-page__table-region .table-report-root { overflow: visible; }
 .usage-page__toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--ds-line-height-base); margin-bottom: var(--ds-line-height-base); }
 .usage-page__toolbar p { margin: 0; color: var(--ds-text-label); }
 .usage-page__actions { display: flex; align-items: center; gap: var(--ds-line-height-base); }
-.usage-page .table-report { min-width: 960px; }
-.usage-page .table-report { overflow: visible; }
-.usage-page .table-report th, .usage-page .table-report td { border-right: 0; padding: 0 calc(var(--ds-line-height-base) * 0.6); vertical-align: middle; }
+.usage-page__filters { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; min-width: 0; }
+.usage-page__toolbar > .button-root { flex-shrink: 0; }
+.usage-page__search { position: relative; width: 200px; flex-shrink: 0; }
+.usage-page__search > svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 1; color: var(--ds-text-label); pointer-events: none; }
+.usage-page__search .input-input { padding-left: 32px; }
+/* Preserve the icon's left spacing when removing 5px from the action column. */
+.usage-page__row-actions { display: flex; justify-content: center; position: relative; inset-inline-start: calc(3px + 5px / 2); }
+.usage-page__row-actions .dropdown-trigger-icon { display: flex; align-items: center; justify-content: center; }
+.usage-page__row-actions .dropdown-trigger-icon > svg { display: block; }
+.usage-page__row-actions .dropdown-trigger { width: 27px; height: 27px; padding: 0; border: 1px solid transparent; border-radius: 99px; background: none; box-shadow: none; justify-content: center; color: var(--ds-text-label); opacity: 0; transition: opacity 150ms ease, background 150ms ease, border-color 150ms ease, box-shadow 150ms ease; }
+.usage-page .table-report tbody tr:hover .usage-page__row-actions .dropdown-trigger,
+.usage-page__row-actions .dropdown-trigger:focus-visible,
+.usage-page__row-actions .dropdown-trigger[data-open] { opacity: 1; }
+.usage-page__row-actions .dropdown-trigger:hover,
+.usage-page__row-actions .dropdown-trigger:focus-visible,
+.usage-page__row-actions .dropdown-trigger[data-open] { background: #fff; border-color: #C0C6CC; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); }
+.usage-page__row-actions .dropdown-trigger:focus-visible { outline: 2px solid var(--ds-components-input-focus-outline); }
+.dropdown-panel[style*="--usage-actions-menu"] .dropdown-option-check { display: none; }
+.dropdown-panel[style*="--usage-actions-menu"] .dropdown-option { padding-left: 10px; }
+.usage-page__name { cursor: default; }
+.usage-page .table-report { min-width: 960px; table-layout: fixed; border: 0; border-radius: 0; }
+.usage-page .table-report th, .usage-page .table-report td { border-right: 0; padding: 0 calc(var(--ds-line-height-base) * 0.6); vertical-align: middle; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.usage-page .table-report th:first-child, .usage-page .table-report td:first-child { padding: 0; overflow: visible; }
+.usage-page .table-report tbody tr:not(:has(.table-report-empty)):hover,
+.usage-page .table-report tbody tr:has(.usage-page__row-actions .dropdown-trigger:focus-visible),
+.usage-page .table-report tbody tr:has(.usage-page__row-actions .dropdown-trigger[data-open]) { background: var(--ds-components-table-table-hover); }
 /* Match SetupTable's 36px header and 40px body rows. */
 .usage-page .table-report thead tr { height: 36px; }
 .usage-page .table-report tbody tr { height: 40px; }
+.usage-page .table-report td.table-report-empty { padding: calc(var(--ds-line-height-base) * 3) var(--ds-line-height-base); text-align: center; white-space: normal; }
 .usage-page .table-report thead th { position: sticky; top: 0; z-index: 1; background: var(--ds-bg-common-card); font-weight: var(--ds-font-weight-medium); }
 .usage-page .table-report tr:has(.usage-page__group) { background: var(--ds-bg-scale-bg2); }
 .usage-page .table-report tr:has(.usage-page__group) td { padding-block: 0; }
 .usage-page__group, .usage-page__name, .usage-page__person, .usage-page__status { display: flex; align-items: center; gap: calc(var(--ds-line-height-base) / 2); }
 .usage-page__group { font-weight: var(--ds-font-weight-semibold); white-space: nowrap; }
 .usage-page__group-count { display: inline-flex; justify-content: center; align-items: center; min-width: var(--ds-line-height-h2); height: var(--ds-line-height-h2); padding-inline: calc(var(--ds-line-height-base) / 4); border: thin solid var(--ds-border-lighter); border-radius: 50%; background: var(--ds-bg-common-card); font-weight: var(--ds-font-weight-regular); }
-.usage-page__name { flex-wrap: wrap; }
+.usage-page__name { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.usage-page__person { min-width: 0; max-width: 100%; }
+.usage-page__person img { flex-shrink: 0; }
+.usage-page__person > span { overflow: hidden; text-overflow: ellipsis; }
+.usage-page__channels { display: flex; align-items: center; position: relative; min-width: 0; width: 100%; white-space: nowrap; }
+.usage-page__channel-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.usage-page__channels .usage-page__more { flex-shrink: 0; }
+.usage-page__channel-measure { position: absolute; visibility: hidden; pointer-events: none; }
+.usage-page__channel-measure > span { display: block; width: max-content; }
 .usage-page__person { white-space: nowrap; cursor: default; }
 .usage-page__person img { width: calc(var(--ds-line-height-base) * 1.2); height: calc(var(--ds-line-height-base) * 1.2); border-radius: 50%; object-fit: cover; }
 .usage-page__more { color: var(--ds-text-label); white-space: nowrap; }

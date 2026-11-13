@@ -106,15 +106,19 @@ export function Tags({
   error,
   noBorder,
   colorTags = false,
+  inputProps = {},
+  inputRef: providedInputRef,
 }) {
-  const [search,        setSearch]        = useState('');
+  const [searchValue,   setSearch]        = useState('');
+  const search = inputProps.value ?? searchValue;
   const [open,          setOpen]          = useState(false);
   const [panelPos,      setPanelPos]      = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(-1); // tag pending removal via Backspace
   const [activeIndex,   setActiveIndex]   = useState(0);  // highlighted option in dropdown
 
   const containerRef = useRef(null);
-  const inputRef     = useRef(null);
+  const internalInputRef = useRef(null);
+  const inputRef = providedInputRef ?? internalInputRef;
   const panelRef     = useRef(null);
 
   const selectedValues = new Set(value.map(t => t.value));
@@ -328,13 +332,23 @@ export function Tags({
             className={'tags-input'}
             value={search}
             placeholder={value.length === 0 ? placeholder : ''}
-            onChange={handleChange}
-            onFocus={openDropdown}
-            onKeyDown={handleKeyDown}
             aria-label={placeholder}
             aria-expanded={open}
             aria-haspopup="listbox"
             autoComplete="off"
+            {...inputProps}
+            onChange={(event) => {
+              handleChange(event);
+              inputProps.onChange?.(event);
+            }}
+            onFocus={(event) => {
+              openDropdown();
+              inputProps.onFocus?.(event);
+            }}
+            onKeyDown={(event) => {
+              inputProps.onKeyDown?.(event);
+              if (!event.defaultPrevented) handleKeyDown(event);
+            }}
           />
         )}
       </div>

@@ -49,7 +49,7 @@
   font-size: var(--ds-font-size-xs);
   font-weight: var(--ds-font-weight-regular);
   line-height: var(--ds-line-height-xs);
-  color: var(--ds-text-muted, #8B9BB8);
+  color: var(--ds-text-paragraph);
 }
 
 .mergefield-helper-text {

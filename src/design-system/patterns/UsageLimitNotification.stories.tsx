@@ -10,7 +10,7 @@ import { Checkbox } from '../components/Checkbox/Checkbox';
 import { Button } from '../components/Button/Button';
 import { MergeField } from '../components/MergeField/MergeField';
 import { Tooltip } from '../components/Tooltip/Tooltip';
-import { CrmAlertInfo } from '../foundations/icons/Icons';
+import { CrmAlertInfo, More, Search } from '../foundations/icons/Icons';
 import { NextGenTopBand } from '../components/NextGenTopBand/NextGenTopBand';
 import { VerticalTabs } from '../components/VerticalTabs/VerticalTabs';
 import { SETUP_MENU_ITEMS } from '../components/VerticalTabs/setupMenuItems';
@@ -193,15 +193,45 @@ function TagPlaceholder({ tags }: { tags: Array<{ label: string; count: number }
 // Story
 // ─────────────────────────────────────────────────────────────────────────────
 
+const USAGE_USER_AVATARS: Record<string, string> = {
+  'Priya Nair': 'user_03.jpg',
+  'Arjun Kumar': 'user_04.jpg',
+  'Meera Iyer': 'user_07.jpg',
+  'Sam Carter': 'user_08.jpg',
+};
+
+const CURRENT_USAGE_USER = 'Priya Nair';
+
 type UsageListRow = {
   id: string; feature: string; name: string; creator?: string; date?: string; time?: string;
-  channels?: string[]; status?: 'Active' | 'Paused' | 'Completed'; system?: boolean; group?: boolean; count?: number;
+  modifier?: string; modifiedDate?: string; modifiedTime?: string;
+  channels?: string[]; status?: 'Active' | 'Paused' | 'Completed'; system?: boolean;
+  summary?: string;
+  config?: {
+    trigger: ReturnType<typeof createUsageTrigger>; recipients: UsageRecipient[];
+    pushEmailEnabled: boolean; externalAppsEnabled: boolean;
+    notifyPush: boolean; notifyEmail: boolean; notifyZohoCliq: boolean; notifySlack: boolean;
+    users: TagItem[]; channels: TagItem[]; message: string; template?: TemplateSettings;
+  };
 };
+
+type RowAction = 'edit' | 'clone' | 'pause' | 'resume' | 'delete';
+function UsageRowActions({ row, onAction }: { row: UsageListRow; onAction: (action: RowAction, row: UsageListRow) => void }) {
+  return <span className="usage-page__row-actions"><Dropdown width={27} triggerIcon={<More />}
+    triggerAriaLabel={`More options for ${row.name}`} value="" panelStyle={{ width: 160, '--usage-actions-menu': 1 }}
+    options={[
+      { value: 'edit', label: 'Edit' }, { value: 'clone', label: 'Clone' },
+      ...(!row.system && row.status === 'Active' ? [{ value: 'pause', label: 'Pause' }] : []),
+      ...(!row.system && row.status === 'Paused' ? [{ value: 'resume', label: 'Resume' }] : []),
+      { value: 'delete', label: 'Delete', disabled: row.system, disabledTooltip: 'System-defined notifications cannot be deleted.' },
+    ]} onChange={(action: RowAction) => onAction(action, row)} /></span>;
+}
 
 const USAGE_LIST_ROWS: UsageListRow[] = [
   ...['60%', '5000', '4000', '3000', '2500'].map((value, index) => ({
     id: `api-${index}`, feature: 'API', name: `Reached add-on limit ${value}`,
     creator: index > 2 ? 'System' : index === 2 ? 'Arjun Kumar' : 'Priya Nair',
+    modifier: index > 2 ? 'System' : index === 2 ? 'Priya Nair' : 'Arjun Kumar',
     date: index > 2 ? 'Jan 12, 2026' : 'Jul 3, 2026', system: index > 2,
     channels: ['Push Notification', 'Emails', 'Zoho Cliq', 'Slack'], status: 'Active' as const,
   })),
@@ -211,33 +241,68 @@ const USAGE_LIST_ROWS: UsageListRow[] = [
   { id: 'file-storage', feature: 'File storage', name: 'File storage nearly full', creator: 'Priya Nair', date: 'Jul 3, 2026', channels: ['Push Notification', 'Emails'], status: 'Completed' },
 ];
 
-const personCell = (_value: unknown, row: UsageListRow) => row.group ? null : (
-  <Tooltip variant="white" placement="top" followCursor content={
-    <span className="usage-page__hover-list"><span>{row.creator}</span><span>{row.date}</span><span>{row.time}</span></span>
-  }>
-    <span className="usage-page__person" tabIndex={0}>
-      <img src={`${import.meta.env.BASE_URL}images/avatars/user_06.jpg`} alt="" />
-      <span>{row.date}</span>
-    </span>
-  </Tooltip>
-);
-const usageListColumns = (onStatusChange: (id: string, enabled: boolean) => void) => [
-  { key: 'name', label: 'Notification Name', width: '35%', render: (_value: unknown, row: UsageListRow) => row.group
-    ? <div className="usage-page__group">{row.name}<span className="usage-page__group-count">{row.count}</span></div>
-    : <div className="usage-page__name">{row.name}</div> },
-  { key: 'channels', label: 'Notify via', width: '25%', render: (_value: unknown, row: UsageListRow) => row.group ? null : <>
-    {row.channels?.slice(0, 2).join(', ')}{(row.channels?.length ?? 0) > 2 && <span className="usage-page__more"> and <Tooltip
-      content={<span className="usage-page__hover-list">{row.channels!.slice(2).map(channel => <span key={channel}>{channel}</span>)}</span>}
+const personCell = (field: 'creator' | 'modifier') => (_value: unknown, row: UsageListRow) => {
+  if (row.system) return '-';
+  const user = (field === 'modifier' ? row.modifier : row.creator) ?? row.creator;
+  const date = (field === 'modifier' ? row.modifiedDate : row.date) ?? row.date;
+  const time = (field === 'modifier' ? row.modifiedTime : row.time) ?? row.time;
+  const details = `${user} on ${date}${time ? ` ${time}` : ''}`;
+  const avatar = user ? USAGE_USER_AVATARS[user] : undefined;
+  return (
+    <Tooltip variant="white" placement="top" followCursor wrapperStyle={{ display: 'inline-flex', maxWidth: '100%' }} content={details}>
+      <span className="usage-page__person" tabIndex={0} aria-label={details}>
+        {avatar ? <img src={`${import.meta.env.BASE_URL}images/avatars/${avatar}`} alt="" /> : <Icon name="user-avatar" />}
+        <span>{date}</span>
+      </span>
+    </Tooltip>
+  );
+};
+function UsageChannelsCell({ channels = [] }: { channels?: string[] }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [visibleCount, setVisibleCount] = useState(1);
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    const measure = () => {
+      let count = 1;
+      element.querySelectorAll<HTMLElement>('[data-channel-count]').forEach(candidate => {
+        if (candidate.getBoundingClientRect().width <= element.clientWidth) count = Number(candidate.dataset.channelCount);
+      });
+      setVisibleCount(count);
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    measure();
+    let mounted = true;
+    document.fonts.ready.then(() => { if (mounted) measure(); });
+    return () => { mounted = false; observer.disconnect(); };
+  }, [channels]);
+  const count = Math.min(visibleCount, channels.length);
+  const hidden = channels.slice(count);
+  return <span ref={ref} className="usage-page__channels">
+    <span className="usage-page__channel-label" title={channels.slice(0, count).join(', ')}>{channels.slice(0, count).join(', ') || '-'}</span>
+    {hidden.length > 0 && <span className="usage-page__more"> and <Tooltip
+      content={<span className="usage-page__hover-list">{hidden.map(channel => <span key={channel}>{channel}</span>)}</span>}
       variant="white" placement="top" followCursor>
-      <button type="button" className="usage-page__more-trigger">{row.channels!.length - 2} more</button>
+      <button type="button" className="usage-page__more-trigger">{hidden.length} more</button>
     </Tooltip></span>}
-  </> },
-  { key: 'creator', label: 'Created by', width: '14%', render: personCell },
-  { key: 'modifier', label: 'Modified by', width: '14%', render: personCell },
-  { key: 'status', label: 'Status', width: '12%', render: (_value: unknown, row: UsageListRow) => row.group ? null : (
-    <Switch aria-label={`Enable ${row.name}`} checked={row.status === 'Active'}
-      onChange={(event: React.ChangeEvent<HTMLInputElement>) => onStatusChange(row.id, event.target.checked)} />
-  ) },
+    <span className="usage-page__channel-measure" aria-hidden="true">{channels.map((_, index) =>
+      <span key={index} data-channel-count={index + 1}>{channels.slice(0, index + 1).join(', ')}{index + 1 < channels.length ? ` and ${channels.length - index - 1} more` : ''}</span>
+    )}</span>
+  </span>;
+}
+
+const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) => void) => [
+  { key: 'actions', label: '', width: 31, render: (_value: unknown, row: UsageListRow) => <UsageRowActions row={row} onAction={onAction} /> },
+  { key: 'name', label: 'Notification Name', width: '25%', render: (_value: unknown, row: UsageListRow) =>
+    <Tooltip variant="white" placement="top" maxWidth={600} wrapperStyle={{ display: 'inline-flex', maxWidth: '100%', minWidth: 0, verticalAlign: 'middle' }} content={row.summary || `${row.feature}: ${row.name}. Notify via ${row.channels?.join(', ')}.`}>
+      <span className="usage-page__name" tabIndex={0}>{row.name}</span>
+    </Tooltip> },
+  { key: 'feature', label: 'Feature', width: '13%' },
+  { key: 'channels', label: 'Notify via', width: '22%', render: (_value: unknown, row: UsageListRow) => <UsageChannelsCell channels={row.channels} /> },
+  { key: 'creator', label: 'Created by', width: '14%', render: personCell('creator') },
+  { key: 'modifier', label: 'Modified by', width: '14%', render: personCell('modifier') },
+  { key: 'status', label: 'Status', width: 120, render: (_value: unknown, row: UsageListRow) => <span>{row.status}</span> },
 ];
 
 export const CreateNotification: Story = {
@@ -248,15 +313,35 @@ export const CreateNotification: Story = {
     const [featureFilter, setFeatureFilter] = useState('all');
     const [pageTab, setPageTab] = useState('usage');
     const [sectionTab, setSectionTab] = useState('notifications');
-    const [savedRows, setSavedRows] = useState<UsageListRow[]>(() => USAGE_LIST_ROWS.map(row => ({ ...row, time: '10:30 AM' })));
-    const columns = usageListColumns((id, enabled) => {
-      setSavedRows(current => current.map(row => row.id === id ? { ...row, status: enabled ? 'Active' : 'Paused' } : row));
-    });
-    const visibleRows = savedRows.filter(row => featureFilter === 'all' || row.feature === featureFilter);
-    const tableRows = Array.from(new Set(visibleRows.map(row => row.feature))).flatMap(feature => {
-      const rows = visibleRows.filter(row => row.feature === feature);
-      return [{ id: `group-${feature}`, feature, name: feature, group: true, count: rows.length }, ...rows];
-    });
+    const [savedRows, setSavedRows] = useState<UsageListRow[]>(() => USAGE_LIST_ROWS.map(row => {
+      const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) => item.label.toLowerCase() === row.feature.toLowerCase())?.[0];
+      const trigger = createUsageTrigger(featureKey);
+      // Seed demo rules with real editable criteria, shared by their hover summary.
+      if (row.id.startsWith('api-')) {
+        const threshold = row.name.split(' ').at(-1)!;
+        trigger.mode = threshold.endsWith('%') ? 'pct' : 'val';
+        trigger.value = threshold.replace('%', '');
+      } else if (row.id === 'functions') { trigger.mode = 'val'; trigger.value = '5000'; }
+      else if (row.id === 'data-storage') { trigger.mode = 'pct'; trigger.value = '85'; }
+      return { ...row, feature: USAGE_FEATURES[trigger.feature]?.label ?? row.feature, time: '10:30 AM',
+        summary: usageTriggerSummary(trigger),
+        config: { trigger, recipients: [], pushEmailEnabled: true,
+          externalAppsEnabled: !!row.channels?.some(channel => ['Zoho Cliq', 'Slack'].includes(channel)),
+          notifyPush: !!row.channels?.includes('Push Notification'), notifyEmail: !!row.channels?.includes('Emails'),
+          notifyZohoCliq: !!row.channels?.includes('Zoho Cliq'), notifySlack: !!row.channels?.includes('Slack'),
+          users: [], channels: [], message: usageNotificationMessage(trigger) },
+      };
+    }));
+    const [typeFilter, setTypeFilter] = useState('all');
+    const [statusFilter, setStatusFilter] = useState('all');
+    const [search, setSearch] = useState('');
+    const [editingId, setEditingId] = useState<string>();
+    const [pendingDelete, setPendingDelete] = useState<UsageListRow>();
+    const visibleRows = savedRows.filter(row =>
+      (featureFilter === 'all' || row.feature === featureFilter) &&
+      (typeFilter === 'all' || (typeFilter === 'system' ? row.system : !row.system)) &&
+      (statusFilter === 'all' || row.status === statusFilter) &&
+      `${row.name} ${row.feature}`.toLowerCase().includes(search.trim().toLowerCase()));
     const notificationNameId = useId();
     const [notificationName, setNotificationName] = useState('');
     const [nameError, setNameError] = useState(false);
@@ -332,11 +417,10 @@ export const CreateNotification: Story = {
     const isRange = ['bt', 'nb'].includes(trigger.comparator);
     const summary = usageTriggerSummary(trigger);
     const whenRowRef = useRef<HTMLDivElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null);
+    const [content, setContent] = useState<HTMLDivElement | null>(null);
     const [modalWidth, setModalWidth] = useState(625);
 
     useEffect(() => {
-      const content = contentRef.current;
       const dialog = content?.closest('.modal-dialog');
       if (!open || !content || !dialog) return;
 
@@ -358,7 +442,36 @@ export const CreateNotification: Story = {
         observer.disconnect();
         window.removeEventListener('resize', updateWidth);
       };
-    }, [open, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
+    }, [open, content, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
+
+    const openEditor = (row?: UsageListRow, clone = false) => {
+      setEditingId(clone ? undefined : row?.id);
+      setNotificationName(row ? `${row.name}${clone ? '_Cloned' : ''}` : '');
+      const config = row?.config;
+      const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) => item.label.toLowerCase() === row?.feature.toLowerCase())?.[0];
+      setTrigger(config ? { ...config.trigger } : createUsageTrigger(featureKey));
+      setNotifyToTags(config?.recipients ?? []);
+      setPushEmailEnabled(config?.pushEmailEnabled ?? true);
+      setExternalAppsEnabled(config?.externalAppsEnabled ?? !!row?.channels?.some(channel => ['Zoho Cliq', 'Slack'].includes(channel)));
+      setNotifyPush(config?.notifyPush ?? (row ? !!row.channels?.includes('Push Notification') : true));
+      setNotifyEmail(config?.notifyEmail ?? (row ? !!row.channels?.includes('Emails') : true));
+      setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes('Zoho Cliq') : true));
+      setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes('Slack'));
+      setZohoCommittedUsers(config?.users ?? []);
+      setZohoCommittedChannels(config?.channels ?? []);
+      setMessageDraft(config ? { criteriaKey: JSON.stringify(config.trigger), value: config.message } : { criteriaKey: '', value: '' });
+      setEmailTemplate(config?.template);
+      setNameError(false);
+      setTriggerError(undefined);
+      setOpen(true);
+    };
+    const onRowAction = (action: RowAction, row: UsageListRow) => {
+      if (action === 'edit' || action === 'clone') openEditor(row, action === 'clone');
+      else if (action === 'delete') { if (!row.system) setPendingDelete(row); }
+      else if (!row.system && row.status !== 'Completed') setSavedRows(current => current.map(item => item.id === row.id && !item.system
+        ? { ...item, status: action === 'pause' ? 'Paused' : 'Active' } : item));
+    };
+    const columns = usageListColumns(onRowAction);
 
     return (
       <>
@@ -409,15 +522,29 @@ export const CreateNotification: Story = {
               {sectionTab === 'notifications' ? <section className="usage-page__content" aria-label="Notification Configurator">
                 <div className="usage-page__toolbar">
                   <p>Manage CRM usage limits and events by enabling admins to be notified when required</p>
-                  <div className="usage-page__actions">
-                    <Dropdown aria-label="Filter notifications by feature" width={130} value={featureFilter}
-                      options={[{ value: 'all', label: 'All' }, ...Array.from(new Set(savedRows.map(row => row.feature))).map(feature => ({ value: feature, label: feature }))]}
+                </div>
+                <div className="usage-page__toolbar">
+                  <div className="usage-page__filters">
+                    <div className="usage-page__search">
+                      <Search aria-hidden="true" />
+                      <Input layout="vertical" type="search" width={200} aria-label="Search notifications" placeholder="Search"
+                        value={search} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)} />
+                    </div>
+                    <Dropdown triggerAriaLabel="Filter notifications by feature" width={150} value={featureFilter}
+                      panelStyle={{ width: 'max-content', minWidth: 150, maxWidth: 'calc(100vw - 32px)' }}
+                      options={[{ value: 'all', label: 'All Features' }, ...FEATURE_OPTIONS.map(item => ({ value: item.label, label: item.label }))]}
                       onChange={setFeatureFilter} />
-                    <Button variant="primary" onClick={() => setOpen(true)}>Create Notification</Button>
+                    <Dropdown triggerAriaLabel="Filter notifications by type" width={150} value={typeFilter}
+                      options={[{ value: 'all', label: 'All Types' }, { value: 'system', label: 'System Defined' }, { value: 'user', label: 'User Defined' }]}
+                      onChange={setTypeFilter} />
+                    <Dropdown triggerAriaLabel="Filter notifications by status" width={150} value={statusFilter}
+                      options={[{ value: 'all', label: 'All Status' }, ...['Active', 'Paused', 'Completed'].map(status => ({ value: status, label: status }))]}
+                      onChange={setStatusFilter} />
                   </div>
+                  <Button variant="primary" onClick={() => openEditor()}>Create Notification</Button>
                 </div>
                 <div className="usage-page__table-region" role="region" aria-label="Notifications table" tabIndex={0}>
-                  <SetupTable variant="report" width="100%" columns={columns} rows={tableRows} emptyMessage="No notifications found" />
+                  <SetupTable variant="report" width="100%" columns={columns} rows={visibleRows} emptyMessage="No notifications found" />
                 </div>
               </section> : <section className="usage-page__content"><h1>Usage Limits</h1><p>Configure usage alerts in the Notification Configurator tab.</p></section>}
             </> : <section className="usage-page__content"><h1>Admin tool</h1><p>Select Usage Limits to manage usage notifications.</p></section>}
@@ -494,12 +621,22 @@ export const CreateNotification: Story = {
               ...(externalAppsEnabled && notifyZohoCliq ? ['Zoho Cliq'] : []),
               ...(externalAppsEnabled && notifySlack ? ['Slack'] : []),
             ];
-            setSavedRows(current => [...current, {
-              id: `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
-              creator: 'Priya Nair', date: new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date()),
-              time: new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' }).format(new Date()),
-              channels, status: 'Active',
-            }]);
+            const existing = savedRows.find(row => row.id === editingId);
+            const saved: UsageListRow = {
+              ...existing,
+              id: editingId ?? `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
+              creator: existing?.creator ?? CURRENT_USAGE_USER,
+              date: existing?.date ?? new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date()),
+              time: existing?.time ?? new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' }).format(new Date()),
+              modifier: CURRENT_USAGE_USER,
+              modifiedDate: new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date()),
+              modifiedTime: new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' }).format(new Date()),
+              channels, status: existing?.status ?? 'Active', summary: usageTriggerSummary(trigger),
+              config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
+                notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
+                channels: zohoCommittedChannels, message, template: emailTemplate },
+            };
+            setSavedRows(current => editingId ? current.map(row => row.id === editingId ? saved : row) : [...current, saved]);
             setNameError(false);
             setOpen(false);
           }}
@@ -507,7 +644,7 @@ export const CreateNotification: Story = {
           saveLabel="Save"
           width={modalWidth}
         >
-          <div ref={contentRef} style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
+          <div ref={setContent} style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
 
           {/* ── Notification name, feature, condition, and frequency ───── */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -650,9 +787,9 @@ export const CreateNotification: Story = {
                         <Button variant="default" size="sm" aria-haspopup="dialog" onClick={() => setRecipientDialogOpen(true)}>
                           Select User
                         </Button>
-                      ) : (['user', 'group'] as const).map(kind => {
+                      ) : (['user', 'group', 'role', 'role-and-subordinates', 'email'] as const).map(kind => {
                         const recipients = notifyToTags.filter(recipient => recipient.kind === kind);
-                        const label = kind === 'user' ? 'Users' : 'Groups';
+                        const label = { user: 'Users', group: 'Groups', role: 'Roles', 'role-and-subordinates': 'Roles and Subordinates', email: 'Emails' }[kind];
                         return recipients.length > 0 && (
                           <Tooltip key={kind} variant="white" placement="top" maxWidth={320}
                             content={<span className="usage-recipient-preview">
@@ -823,7 +960,7 @@ export const CreateNotification: Story = {
                 width={390}
                 defaultValue={message}
                 mergeFields={USAGE_MESSAGE_FIELDS}
-                hint={'Type "#" to insert merge field'}
+                hint="Type # to insert merge field"
                 onChange={(value: string) => setMessageDraft({ criteriaKey, value })}
               />
             </FormRow>
@@ -831,6 +968,14 @@ export const CreateNotification: Story = {
 
           </div>
         </Modal>
+        {pendingDelete && <Modal type="alert" variant="error" isOpen title={`Delete "${pendingDelete.name}"`} width={460}
+          confirmLabel="Delete" cancelLabel="Cancel"
+          onClose={() => setPendingDelete(undefined)} onCancel={() => setPendingDelete(undefined)}
+          onSave={() => {
+            if (!pendingDelete.system) setSavedRows(current => current.filter(row => row.id !== pendingDelete.id));
+            setPendingDelete(undefined);
+          }}
+        />}
         {recipientDialogOpen && <UsageRecipientDialog
           value={notifyToTags}
           onClose={() => setRecipientDialogOpen(false)}
