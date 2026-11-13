@@ -1,12 +1,33 @@
-import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { Input } from '../components/Input/Input';
+import { Icon } from '../components/Icon/Icon';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Modal } from '../components/Modal/Modal';
 import { Dropdown } from '../components/Dropdown/Dropdown';
 import { Tags, type TagItem } from '../components/Tags/Tags';
 import { Switch } from '../components/Switch/Switch';
 import { Checkbox } from '../components/Checkbox/Checkbox';
 import { Button } from '../components/Button/Button';
-import { Textarea } from '../components/Textarea/Textarea';
+import { MergeField } from '../components/MergeField/MergeField';
+import { Tooltip } from '../components/Tooltip/Tooltip';
+import { CrmAlertInfo } from '../foundations/icons/Icons';
+import { NextGenTopBand } from '../components/NextGenTopBand/NextGenTopBand';
+import { VerticalTabs } from '../components/VerticalTabs/VerticalTabs';
+import { SETUP_MENU_ITEMS } from '../components/VerticalTabs/setupMenuItems';
+import { Tabs } from '../components/Tabs/Tabs';
+import { SetupTable } from '../components/Table/Table';
+import './UsageLimitNotification.page.css';
+import { USAGE_FEATURES } from './UsageLimitNotification.data';
+import { TemplateDialog } from './TemplateDialog';
+import { UsageRecipientDialog } from './UsageRecipientDialog';
+import type { UsageRecipient } from './UsageRecipientDialog';
+import type { TemplateSettings } from './TemplateDialog';
+import {
+  AGGREGATION_LABELS, COMPARISON_OPTIONS, INTERVAL_OPTIONS, WINDOW_OPTIONS, WINDOW_MAX,
+  USAGE_MESSAGE_FIELDS, usageNotificationMessage,
+  changeUsageMeasure, createUsageTrigger, prettyUsageName, selectedUsageMeasure,
+  usageMeasures, usageTriggerSummary, usageValueUnit, usageWindowApplies, validateUsageTrigger,
+} from './UsageLimitNotification.logic';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -15,7 +36,7 @@ import { Textarea } from '../components/Textarea/Textarea';
 const meta: Meta = {
   title: 'Work Items/Usage Limit Notification',
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
     docs: {
       description: {
         component:
@@ -33,34 +54,8 @@ type Story = StoryObj;
 // Option lists
 // ─────────────────────────────────────────────────────────────────────────────
 
-const METRIC_OPTIONS = [
-  { value: 'api_limits',               label: 'API Limits' },
-  { value: 'email_limits',             label: 'Email Limits' },
-  { value: 'function_execution_limits', label: 'Function Execution Limits' },
-  { value: 'webhook_limits',           label: 'Webhook Limits' },
-  { value: 'storage_limit',            label: 'Storage Limit' },
-];
+const FEATURE_OPTIONS = Object.entries(USAGE_FEATURES).map(([value, feature]) => ({ value, label: feature.label }));
 
-const OPERATOR_OPTIONS = [
-  { value: 'exceeds',           label: 'Exceeds' },
-  { value: 'reached',           label: 'Reached' },
-  { value: 'below',             label: 'Below' },
-  { value: 'anomaly_detected',  label: 'Anomaly Detected' },
-];
-
-const THRESHOLD_OPTIONS = [
-  { value: 'default_limit', label: 'Default Limit' },
-  { value: 'addon_limit',   label: 'Add-on Limit' },
-  { value: 'total_limit',   label: 'Total Limit' },
-];
-
-
-const NOTIFY_TO_OPTIONS: TagItem[] = [
-  { value: 'users',   label: 'Users',   count: 12 },
-  { value: 'roles',   label: 'Roles',   count: 4  },
-  { value: 'groups',  label: 'Groups',  count: 7  },
-  { value: 'admins',  label: 'Admins',  count: 3  },
-];
 
 const ZOHO_USER_OPTIONS = [
   { value: 'alice',  label: 'Alice Johnson' },
@@ -78,21 +73,7 @@ const ZOHO_CHANNEL_OPTIONS = [
   { value: 'marketing',   label: '#marketing' },
 ];
 
-// Metrics that require an extra number+unit field after the threshold dropdown
-const METRIC_UNIT_OPTIONS: Record<string, Array<{ value: string; label: string }>> = {
-  api_limits:    [{ value: 'percentage', label: 'Percentage' }, { value: 'credit', label: 'Credit' }],
-  storage_limit: [{ value: 'percentage', label: 'Percentage' }, { value: 'gb',     label: 'GB'     }],
-};
 
-const FREQUENCY_OPTIONS = [
-  { value: 'only_once',     label: 'Only Once' },
-  { value: 'every_2_hours', label: 'Every 2 hours' },
-  { value: 'every_1_hour',  label: 'Every 1 hour' },
-  { value: 'every_45_min',  label: 'Every 45 min' },
-  { value: 'every_30_min',  label: 'Every 30 min' },
-  { value: 'every_15_min',  label: 'Every 15 min' },
-  { value: 'every_10_min',  label: 'Every 10 min' },
-];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Shared style constants (all values from design tokens)
@@ -149,7 +130,7 @@ function FormRow({
       alignItems: align,
     }}>
       <span style={{ ...labelStyle, paddingTop: pt }}>{label}</span>
-      <div>{children}</div>
+      <div data-usage-field={label ? '' : undefined} style={{ minWidth: 0, width: label ? 'max-content' : undefined }}>{children}</div>
     </div>
   );
 }
@@ -167,7 +148,6 @@ function TagPlaceholder({ tags }: { tags: Array<{ label: string; count: number }
       minHeight:  34,
       width:      390,
       border:     '1px solid var(--ds-border-default)',
-      borderLeft: '3px solid var(--ds-status-negative)',
       borderRadius: 4,
       background: 'var(--ds-bg-common-card)',
       boxSizing:  'border-box',
@@ -209,222 +189,90 @@ function TagPlaceholder({ tags }: { tags: Array<{ label: string; count: number }
   );
 }
 
-// TODO: Missing component — RichTextToolbar
-function RichTextToolbar() {
-  const toolbarBtnStyle: React.CSSProperties = {
-    display:        'inline-flex',
-    alignItems:     'center',
-    justifyContent: 'center',
-    width:          28,
-    height:         28,
-    padding:        0,
-    background:     'none',
-    border:         '1px solid transparent',
-    borderRadius:   4,
-    cursor:         'pointer',
-    fontFamily:     'var(--ds-font-family-base)',
-    fontSize:       'var(--ds-font-size-base)',
-    fontWeight:     'var(--ds-font-weight-semibold)',
-    color:          'var(--ds-text-base)',
-  };
-
-  const activeBtnStyle: React.CSSProperties = {
-    ...toolbarBtnStyle,
-    background: 'var(--ds-bg-common-card)',
-    border:     '1px solid var(--ds-border-default)',
-    color:      'var(--ds-text-link)',
-  };
-
-  const dividerStyle: React.CSSProperties = {
-    width:      1,
-    height:     18,
-    background: 'var(--ds-border-subtle)',
-    margin:     '0 2px',
-    flexShrink: 0,
-  };
-
-  return (
-    <div style={{
-      display:     'flex',
-      alignItems:  'center',
-      gap:         2,
-      padding:     '6px 10px',
-      borderTop:   '1px solid var(--ds-border-subtle)',
-      background:  'var(--ds-bg-scale-bg3)',
-      borderRadius: '0 0 4px 4px',
-    }}>
-      <button type="button" style={activeBtnStyle} aria-label="Normal text" title="Normal text">T</button>
-      <div style={dividerStyle} />
-      <button type="button" style={toolbarBtnStyle} aria-label="Bold" title="Bold"><strong>B</strong></button>
-      <button type="button" style={{ ...toolbarBtnStyle, fontStyle: 'italic' }} aria-label="Italic" title="Italic"><em>I</em></button>
-      <button type="button" style={{ ...toolbarBtnStyle, textDecoration: 'underline' }} aria-label="Underline" title="Underline">U</button>
-      <button type="button" style={{ ...toolbarBtnStyle, textDecoration: 'line-through' }} aria-label="Strikethrough" title="Strikethrough">S</button>
-      <div style={dividerStyle} />
-      <button type="button" style={toolbarBtnStyle} aria-label="Text color" title="Text color">
-        <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-          <span style={{ fontWeight: 700, fontSize: 12 }}>A</span>
-          <span style={{ width: 14, height: 3, background: 'var(--ds-status-negative)', borderRadius: 1 }} />
-        </span>
-      </button>
-      <button type="button" style={toolbarBtnStyle} aria-label="Highlight color" title="Highlight color">
-        <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-          <span style={{ fontWeight: 700, fontSize: 12, color: 'var(--ds-icon-primary-label-grey)' }}>A</span>
-          <span style={{ width: 14, height: 3, background: 'var(--ds-icon-primary-label-grey)', borderRadius: 1 }} />
-        </span>
-      </button>
-      <div style={dividerStyle} />
-      <button type="button" style={toolbarBtnStyle} aria-label="Bullet list" title="Bullet list">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <circle cx="2" cy="4" r="1.2" fill="currentColor" />
-          <circle cx="2" cy="7" r="1.2" fill="currentColor" />
-          <circle cx="2" cy="10" r="1.2" fill="currentColor" />
-          <line x1="5" y1="4" x2="13" y2="4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="5" y1="7" x2="13" y2="7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="5" y1="10" x2="13" y2="10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-      </button>
-      <button type="button" style={toolbarBtnStyle} aria-label="Numbered list" title="Numbered list">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <text x="0" y="5" style={{ fontSize: 5, fill: 'currentColor' }}>1.</text>
-          <text x="0" y="8.5" style={{ fontSize: 5, fill: 'currentColor' }}>2.</text>
-          <text x="0" y="12" style={{ fontSize: 5, fill: 'currentColor' }}>3.</text>
-          <line x1="5" y1="4" x2="13" y2="4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="5" y1="7" x2="13" y2="7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="5" y1="10" x2="13" y2="10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-      </button>
-      <div style={dividerStyle} />
-      <button type="button" style={toolbarBtnStyle} aria-label="More options" title="More options">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <circle cx="4"  cy="8" r="1.2" fill="currentColor" />
-          <circle cx="8"  cy="8" r="1.2" fill="currentColor" />
-          <circle cx="12" cy="8" r="1.2" fill="currentColor" />
-        </svg>
-      </button>
-    </div>
-  );
-}
-
-
-// Number input + Dropdown merged into a single bordered container — same visual pattern as DateTimeInput
-function StorageLimitField({
-  value,
-  unit,
-  unitOptions,
-  onValueChange,
-  onUnitChange,
-}: {
-  value:         string;
-  unit:          string;
-  unitOptions:   Array<{ value: string; label: string }>;
-  onValueChange: (v: string) => void;
-  onUnitChange:  (v: string) => void;
-}) {
-  return (
-    <>
-      <style>{`
-        .ds-unit-merged:hover { border-color: var(--ds-components-input-hover-outline); }
-        .ds-unit-merged:focus-within {
-          border-color: var(--ds-components-input-focus-outline) !important;
-          box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow) !important;
-          outline: none;
-        }
-        .ds-unit-dropdown button {
-          border: none !important;
-          background: transparent !important;
-          box-shadow: none !important;
-          height: 100% !important;
-          border-radius: 0 !important;
-        }
-        .ds-unit-dropdown button:hover,
-        .ds-unit-dropdown button:focus,
-        .ds-unit-dropdown button[data-open] {
-          border: none !important;
-          box-shadow: none !important;
-        }
-      `}</style>
-      <div
-        className="ds-unit-merged"
-        style={{
-          display:    'inline-flex',
-          alignItems: 'stretch',
-          height:     34,
-          border:     '1px solid var(--ds-components-input-default-outline)',
-          borderRadius: 6,
-          background: 'var(--ds-bg-common-card)',
-          boxSizing:  'border-box',
-          overflow:   'hidden',
-          transition: 'border-color 150ms ease, box-shadow 150ms ease',
-        }}
-      >
-        <input
-          type="number"
-          value={value}
-          onChange={(e) => onValueChange(e.target.value)}
-          style={{
-            width:      65,
-            height:     '100%',
-            border:     'none',
-            outline:    'none',
-            padding:    '0 8px',
-            background: 'transparent',
-            fontFamily: 'var(--ds-font-family-base)',
-            fontSize:   'var(--ds-font-size-base)',
-            color:      'var(--ds-text-base)',
-            boxSizing:  'border-box',
-            MozAppearance: 'textfield',
-          } as React.CSSProperties}
-          aria-label="Threshold value"
-        />
-        <span
-          style={{
-            width:      1,
-            flexShrink: 0,
-            background: 'var(--ds-components-input-default-outline)',
-            alignSelf:  'stretch',
-          }}
-          aria-hidden="true"
-        />
-        <div className="ds-unit-dropdown" style={{ display: 'flex', alignItems: 'stretch' }}>
-          <Dropdown
-            layout="vertical"
-            options={unitOptions}
-            value={unit}
-            onChange={onUnitChange}
-            width={110}
-          />
-        </div>
-      </div>
-    </>
-  );
-}
-
-
 // ─────────────────────────────────────────────────────────────────────────────
 // Story
 // ─────────────────────────────────────────────────────────────────────────────
+
+type UsageListRow = {
+  id: string; feature: string; name: string; creator?: string; date?: string; time?: string;
+  channels?: string[]; status?: 'Active' | 'Paused' | 'Completed'; system?: boolean; group?: boolean; count?: number;
+};
+
+const USAGE_LIST_ROWS: UsageListRow[] = [
+  ...['60%', '5000', '4000', '3000', '2500'].map((value, index) => ({
+    id: `api-${index}`, feature: 'API', name: `Reached add-on limit ${value}`,
+    creator: index > 2 ? 'System' : index === 2 ? 'Arjun Kumar' : 'Priya Nair',
+    date: index > 2 ? 'Jan 12, 2026' : 'Jul 3, 2026', system: index > 2,
+    channels: ['Push Notification', 'Emails', 'Zoho Cliq', 'Slack'], status: 'Active' as const,
+  })),
+  { id: 'functions', feature: 'Functions', name: 'Reached daily limit 5000 calls', creator: 'Meera Iyer', date: 'Jul 3, 2026', channels: ['Push Notification', 'Emails', 'Zoho Cliq', 'Slack'], status: 'Active' },
+  { id: 'webhooks', feature: 'Webhooks', name: 'Slow webhook responses', creator: 'Sam Carter', date: 'Jul 3, 2026', channels: ['Push Notification', 'Emails'], status: 'Active' },
+  { id: 'data-storage', feature: 'Data storage', name: 'Storage above 85%', creator: 'System', date: 'Jan 12, 2026', system: true, channels: ['Push Notification', 'Emails', 'Zoho Cliq', 'Slack'], status: 'Active' },
+  { id: 'file-storage', feature: 'File storage', name: 'File storage nearly full', creator: 'Priya Nair', date: 'Jul 3, 2026', channels: ['Push Notification', 'Emails'], status: 'Completed' },
+];
+
+const personCell = (_value: unknown, row: UsageListRow) => row.group ? null : (
+  <Tooltip variant="white" placement="top" followCursor content={
+    <span className="usage-page__hover-list"><span>{row.creator}</span><span>{row.date}</span><span>{row.time}</span></span>
+  }>
+    <span className="usage-page__person" tabIndex={0}>
+      <img src={`${import.meta.env.BASE_URL}images/avatars/user_06.jpg`} alt="" />
+      <span>{row.date}</span>
+    </span>
+  </Tooltip>
+);
+const usageListColumns = (onStatusChange: (id: string, enabled: boolean) => void) => [
+  { key: 'name', label: 'Notification Name', width: '35%', render: (_value: unknown, row: UsageListRow) => row.group
+    ? <div className="usage-page__group">{row.name}<span className="usage-page__group-count">{row.count}</span></div>
+    : <div className="usage-page__name">{row.name}</div> },
+  { key: 'channels', label: 'Notify via', width: '25%', render: (_value: unknown, row: UsageListRow) => row.group ? null : <>
+    {row.channels?.slice(0, 2).join(', ')}{(row.channels?.length ?? 0) > 2 && <span className="usage-page__more"> and <Tooltip
+      content={<span className="usage-page__hover-list">{row.channels!.slice(2).map(channel => <span key={channel}>{channel}</span>)}</span>}
+      variant="white" placement="top" followCursor>
+      <button type="button" className="usage-page__more-trigger">{row.channels!.length - 2} more</button>
+    </Tooltip></span>}
+  </> },
+  { key: 'creator', label: 'Created by', width: '14%', render: personCell },
+  { key: 'modifier', label: 'Modified by', width: '14%', render: personCell },
+  { key: 'status', label: 'Status', width: '12%', render: (_value: unknown, row: UsageListRow) => row.group ? null : (
+    <Switch aria-label={`Enable ${row.name}`} checked={row.status === 'Active'}
+      onChange={(event: React.ChangeEvent<HTMLInputElement>) => onStatusChange(row.id, event.target.checked)} />
+  ) },
+];
 
 export const CreateNotification: Story = {
   name: 'Create Notification',
   render: () => {
     const [open, setOpen] = useState(false);
+    const [sidebarId, setSidebarId] = useState('admin-tools');
+    const [featureFilter, setFeatureFilter] = useState('all');
+    const [pageTab, setPageTab] = useState('usage');
+    const [sectionTab, setSectionTab] = useState('notifications');
+    const [savedRows, setSavedRows] = useState<UsageListRow[]>(() => USAGE_LIST_ROWS.map(row => ({ ...row, time: '10:30 AM' })));
+    const columns = usageListColumns((id, enabled) => {
+      setSavedRows(current => current.map(row => row.id === id ? { ...row, status: enabled ? 'Active' : 'Paused' } : row));
+    });
+    const visibleRows = savedRows.filter(row => featureFilter === 'all' || row.feature === featureFilter);
+    const tableRows = Array.from(new Set(visibleRows.map(row => row.feature))).flatMap(feature => {
+      const rows = visibleRows.filter(row => row.feature === feature);
+      return [{ id: `group-${feature}`, feature, name: feature, group: true, count: rows.length }, ...rows];
+    });
+    const notificationNameId = useId();
+    const [notificationName, setNotificationName] = useState('');
+    const [nameError, setNameError] = useState(false);
 
-    // Notify when
-    const [metric,           setMetric]          = useState('');
-    const [operator,         setOperator]         = useState('');
-    const [threshold,        setThreshold]        = useState('');
-    const [percentageValue,  setPercentageValue]  = useState('');
-    const [percentageUnit,   setPercentageUnit]   = useState('percentage');
-    const [rollingHours,     setRollingHours]     = useState('');
-
-    // Notification frequency
-    const [frequency, setFrequency] = useState('');
+    const [trigger, setTrigger] = useState(() => createUsageTrigger());
+    const [triggerError, setTriggerError] = useState<string>();
+    const measure = selectedUsageMeasure(trigger);
+    const feature = USAGE_FEATURES[trigger.feature];
+    const updateTrigger = (patch: Partial<typeof trigger>) => {
+      setTrigger(current => ({ ...current, ...patch }));
+      setTriggerError(undefined);
+    };
 
     // Send notification to
-    const [notifyToTags, setNotifyToTags] = useState<TagItem[]>([
-      { value: 'users', label: 'Users', count: 12 },
-      { value: 'roles', label: 'Roles', count: 4  },
-    ]);
+    const [notifyToTags, setNotifyToTags] = useState<UsageRecipient[]>([]);
+    const [recipientDialogOpen, setRecipientDialogOpen] = useState(false);
 
     // Notify via toggles
     const [pushEmailEnabled,    setPushEmailEnabled]    = useState(true);
@@ -437,9 +285,18 @@ export const CreateNotification: Story = {
     const [notifySlack,    setNotifySlack]    = useState(false);
 
     // Message
-    const [message, setMessage] = useState(
-      'Hi ${user.firstname}, API usage exceeds the purchased limit, please check the usage.'
-    );
+    const criteriaKey = JSON.stringify(trigger);
+    const [messageDraft, setMessageDraft] = useState({ criteriaKey: '', value: '' });
+    const message = messageDraft.criteriaKey === criteriaKey
+      ? messageDraft.value : usageNotificationMessage(trigger);
+
+    const [emailDialog, setEmailDialog] = useState<'preview' | 'edit'>();
+    const [emailTemplate, setEmailTemplate] = useState<TemplateSettings>();
+    const emailDefaults: TemplateSettings = {
+      sender: 'owner',
+      subject: notificationName.trim() || 'Usage limit notification',
+      body: `Hello,\n\n${usageTriggerSummary(trigger) || message}\n\nRegards,\n\${Organization.OrganizationName}`,
+    };
 
     // Zoho Cliq Notification sub-modal — draft/committed pattern
     const [zohoOpen,           setZohoOpen]           = useState(false);
@@ -470,31 +327,102 @@ export const CreateNotification: Story = {
       (!externalAppsEnabled || (!notifyZohoCliq && !notifySlack));
     const showMessage = !onlyEmailNotify;
 
-    // Anomaly Detected has no further inputs after the operator
-    const showFurtherInputs  = !!operator && operator !== 'anomaly_detected';
-    // Metrics that need an extra number+unit field after the three cascading dropdowns
-    const showThresholdField = showFurtherInputs && (metric in METRIC_UNIT_OPTIONS);
-    const showRollingHours   = showFurtherInputs && metric === 'api_limits';
-    const currentUnitOptions = METRIC_UNIT_OPTIONS[metric] ?? [];
-    const dropGap    = 10;
-    const metricW    = 200; // always 200px
-    const operatorW  = 200; // always 200px
-    const thresholdW = metric === 'api_limits' ? 110 : showFurtherInputs ? 130 : 200;
+    const showCriteria = !!measure && !feature?.blank;
+    const showWindow = usageWindowApplies(trigger);
+    const isRange = ['bt', 'nb'].includes(trigger.comparator);
+    const summary = usageTriggerSummary(trigger);
+    const whenRowRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const [modalWidth, setModalWidth] = useState(625);
 
-    // Modal grows only when the extra inputs are actually visible
-    const modalWidth = showRollingHours ? 1160 : showThresholdField ? 980 : 860;
+    useEffect(() => {
+      const content = contentRef.current;
+      const dialog = content?.closest('.modal-dialog');
+      if (!open || !content || !dialog) return;
+
+      // Hug the widest field, not just When: recipient controls can be wider.
+      // Exclude the summary, whose wrapping should follow the modal width.
+      const fields = Array.from(content.querySelectorAll<HTMLElement>(
+        '[data-usage-field], input[type="text"], [aria-label="Feature"]',
+      ));
+      const updateWidth = () => {
+        const dialogLeft = dialog.getBoundingClientRect().left;
+        const right = Math.max(...fields.map(field => field.getBoundingClientRect().right));
+        setModalWidth(Math.ceil(right - dialogLeft + 30));
+      };
+      const observer = new ResizeObserver(updateWidth);
+      fields.forEach(field => observer.observe(field));
+      window.addEventListener('resize', updateWidth);
+      updateWidth();
+      return () => {
+        observer.disconnect();
+        window.removeEventListener('resize', updateWidth);
+      };
+    }, [open, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
 
     return (
       <>
         {/* Hide number input spinners globally for this pattern */}
         <style>{`
+          .usage-notification-modal {
+            max-width: calc(100vw - 32px);
+            transition: width 280ms cubic-bezier(0.22, 1, 0.36, 1);
+          }
+          .usage-notification-modal .modal-body {
+            padding-right: 0;
+            overflow-x: auto;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .usage-notification-modal { transition: none; }
+          }
+          .usage-notification-when > * { flex-shrink: 0; }
+          .usage-notification-measure-info {
+            visibility: hidden;
+            color: var(--ds-text-label);
+            transform: none;
+            scale: none;
+          }
+          .usage-notification-measure-info > circle:first-child {
+            fill: currentColor;
+          }
+          .dropdown-option:hover .usage-notification-measure-info {
+            visibility: visible;
+          }
           input[type=number]::-webkit-inner-spin-button,
           input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         `}</style>
 
-        <Button variant="primary" onClick={() => setOpen(true)}>
-          Create Notification
-        </Button>
+        <div className="usage-page">
+          <aside className="usage-page__sidebar" aria-label="Setup navigation">
+            <VerticalTabs variant="setup" searchable width="100%" items={SETUP_MENU_ITEMS}
+              activeId={sidebarId} onSelect={setSidebarId} />
+          </aside>
+          <header className="usage-page__topband"><NextGenTopBand moduleLabel={null} showTerritory={false} /></header>
+          <main className="usage-page__workspace" aria-label="Usage limit notifications">
+            <Tabs tabs={[{ id: 'usage', label: 'Usage Limits' }, { id: 'admin', label: 'Admin tool' }]}
+              activeTab={pageTab} onChange={setPageTab} />
+            {pageTab === 'usage' ? <>
+              <div className="usage-page__sections">
+                <Tabs variant="secondary" tabs={[{ id: 'limits', label: 'Usage Limits' }, { id: 'notifications', label: 'Notification Configurator' }]}
+                  activeTab={sectionTab} onChange={setSectionTab} />
+              </div>
+              {sectionTab === 'notifications' ? <section className="usage-page__content" aria-label="Notification Configurator">
+                <div className="usage-page__toolbar">
+                  <p>Manage CRM usage limits and events by enabling admins to be notified when required</p>
+                  <div className="usage-page__actions">
+                    <Dropdown aria-label="Filter notifications by feature" width={130} value={featureFilter}
+                      options={[{ value: 'all', label: 'All' }, ...Array.from(new Set(savedRows.map(row => row.feature))).map(feature => ({ value: feature, label: feature }))]}
+                      onChange={setFeatureFilter} />
+                    <Button variant="primary" onClick={() => setOpen(true)}>Create Notification</Button>
+                  </div>
+                </div>
+                <div className="usage-page__table-region" role="region" aria-label="Notifications table" tabIndex={0}>
+                  <SetupTable variant="report" width="100%" columns={columns} rows={tableRows} emptyMessage="No notifications found" />
+                </div>
+              </section> : <section className="usage-page__content"><h1>Usage Limits</h1><p>Configure usage alerts in the Notification Configurator tab.</p></section>}
+            </> : <section className="usage-page__content"><h1>Admin tool</h1><p>Select Usage Limits to manage usage notifications.</p></section>}
+          </main>
+        </div>
 
         {/* ── Zoho Cliq Notification sub-modal ─────────────────────────── */}
         <Modal
@@ -547,21 +475,41 @@ export const CreateNotification: Story = {
         <Modal
           isOpen={open}
           title="Configure Usage Limit Notification"
+          className="usage-notification-modal"
           onClose={() => setOpen(false)}
           onCancel={() => setOpen(false)}
-          onSave={() => setOpen(false)}
+          onSave={() => {
+            if (!notificationName.trim()) {
+              setNameError(true);
+              document.getElementById(notificationNameId)?.focus();
+              return;
+            }
+            const error = validateUsageTrigger(trigger);
+            setTriggerError(error);
+            if (error) return;
+            setNotificationName(notificationName.trim());
+            const channels = [
+              ...(pushEmailEnabled && notifyPush ? ['Push Notification'] : []),
+              ...(pushEmailEnabled && notifyEmail ? ['Emails'] : []),
+              ...(externalAppsEnabled && notifyZohoCliq ? ['Zoho Cliq'] : []),
+              ...(externalAppsEnabled && notifySlack ? ['Slack'] : []),
+            ];
+            setSavedRows(current => [...current, {
+              id: `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
+              creator: 'Priya Nair', date: new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date()),
+              time: new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' }).format(new Date()),
+              channels, status: 'Active',
+            }]);
+            setNameError(false);
+            setOpen(false);
+          }}
           cancelLabel="Cancel"
           saveLabel="Save"
           width={modalWidth}
         >
-          {/*
-           * The Modal body has margin-right: -28px / padding-right: 8px which
-           * extends the scroll area 20px past the dialog's intended 30px right
-           * padding. This wrapper restores the full 30px gap on the right.
-           */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 30, paddingRight: 20 }}>
+          <div ref={contentRef} style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
 
-          {/* ── Notify when + Notification frequency (20px apart) ──────── */}
+          {/* ── Notification name, feature, condition, and frequency ───── */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           <div style={{
             display: 'grid',
@@ -569,105 +517,109 @@ export const CreateNotification: Story = {
             columnGap: 20,
             alignItems: 'center',
           }}>
-            <span style={labelStyle}>Notify when</span>
-            <div style={{ display: 'flex', gap: dropGap, alignItems: 'flex-end' }}>
-              <Dropdown
-                layout="vertical"
-                placeholder="Select Feature"
-                options={METRIC_OPTIONS}
-                width={metricW}
-                value={metric}
-                onChange={(v) => {
-                  setMetric(v);
-                  setOperator('');
-                  setThreshold('');
-                  setRollingHours('');
-                  if (v in METRIC_UNIT_OPTIONS) {
-                    setPercentageValue('80');
-                    setPercentageUnit('percentage');
-                  } else {
-                    setPercentageValue('');
-                  }
-                }}
-              />
-              <Dropdown
-                layout="vertical"
-                placeholder="Select Condition"
-                options={OPERATOR_OPTIONS}
-                width={operatorW}
-                value={operator}
-                onChange={(v) => {
-                  setOperator(v);
-                  setThreshold('');
-                  if (v === 'anomaly_detected') {
-                    setPercentageValue('');
-                    setRollingHours('');
-                  }
-                }}
-                disabled={!metric}
-              />
-              {showFurtherInputs && (
-                <Dropdown
-                  layout="vertical"
-                  placeholder="Select Limit"
-                  options={THRESHOLD_OPTIONS}
-                  width={thresholdW}
-                  value={threshold}
-                  onChange={setThreshold}
-                  disabled={!operator}
-                />
-              )}
-              {showThresholdField && (
-                <StorageLimitField
-                  value={percentageValue}
-                  unit={percentageUnit}
-                  unitOptions={currentUnitOptions}
-                  onValueChange={setPercentageValue}
-                  onUnitChange={setPercentageUnit}
-                />
-              )}
-              {showRollingHours && (
-                <>
-                  <input
-                    type="number"
-                    value={rollingHours}
-                    onChange={(e) => setRollingHours(e.target.value)}
-                    placeholder="0"
-                    style={{
-                      width: 65, height: 34, flexShrink: 0,
-                      border: '1px solid var(--ds-components-input-default-outline)',
-                      borderRadius: 6, outline: 'none', padding: '0 8px',
-                      background: 'var(--ds-bg-common-card)',
-                      fontFamily: 'var(--ds-font-family-base)', fontSize: 'var(--ds-font-size-base)',
-                      color: 'var(--ds-text-base)', boxSizing: 'border-box' as const,
-                      MozAppearance: 'textfield',
-                    } as React.CSSProperties}
-                    aria-label="Rolling hours value"
-                  />
-                  <span style={{
-                    alignSelf: 'center',
-                    fontFamily: 'var(--ds-font-family-base)', fontSize: 'var(--ds-font-size-base)',
-                    color: 'var(--ds-text-base)', whiteSpace: 'nowrap',
-                  }}>
-                    Rolling Hours
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* ── Notification frequency ───────────────────────────────────── */}
-          <FormRow label="Notification frequency">
-            <Dropdown
+            <label htmlFor={notificationNameId} style={labelStyle}>
+              Notification Name
+            </label>
+            <Input
+              id={notificationNameId}
+              type="text"
               layout="vertical"
-              placeholder="Select"
-              options={FREQUENCY_OPTIONS}
               width={390}
-              value={frequency}
-              onChange={setFrequency}
-              required
+              value={notificationName}
+              aria-required="true"
+              aria-invalid={nameError || undefined}
+              error={nameError}
+              helperText={nameError ? 'Enter a notification name.' : undefined}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setNotificationName(event.target.value);
+                if (event.target.value.trim()) setNameError(false);
+              }}
             />
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: `${LABEL_COL} 1fr`,
+            columnGap: 20,
+            alignItems: 'center',
+          }}>
+            <span style={labelStyle}>Feature</span>
+            <Dropdown layout="vertical" triggerAriaLabel="Feature" placeholder="Select"
+              options={FEATURE_OPTIONS} width={390} value={trigger.feature}
+              onChange={(value: string) => { setTrigger(createUsageTrigger(value)); setTriggerError(undefined); }} />
+          </div>
+          {showCriteria && measure && (
+            <>
+              <FormRow label="Based on">
+                <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 'calc(var(--ds-font-size-base) * 0.6)' }}>
+                  <Dropdown layout="vertical" triggerAriaLabel="Based on" width={390} tooltipVariant="white" tooltipMaxWidth={600}
+                    options={usageMeasures(trigger.feature).map(field => ({
+                      value: field.name,
+                      label: prettyUsageName(field.name),
+                      trailingIcon: <Tooltip content={field.description} variant="white" maxWidth={600} placement="top" followCursor>
+                        <CrmAlertInfo className="usage-notification-measure-info" width={12} height={12} tabIndex={0} role="img" aria-label={`About ${prettyUsageName(field.name)}`} />
+                      </Tooltip>,
+                    }))}
+                    value={trigger.measure} onChange={(value: string) => {
+                      setTrigger(current => changeUsageMeasure(current, value)); setTriggerError(undefined);
+                    }} />
+                  {measure.aggs.length > 1 && <>
+                    <span style={labelStyle}>by</span>
+                    <Dropdown layout="vertical" triggerAriaLabel="Calculation" width={150}
+                      options={measure.aggs.map(value => ({ value, label: AGGREGATION_LABELS[value] }))}
+                      value={trigger.calculation} onChange={(calculation: string) => updateTrigger({ calculation })} />
+                  </>}
+                </div>
+              </FormRow>
+              <FormRow label="When">
+                <div ref={whenRowRef} className="usage-notification-when" style={{ display: 'flex', width: 'max-content', alignItems: 'center', flexWrap: 'nowrap', gap: 'calc(var(--ds-font-size-base) * 0.6)' }}>
+                  {!!measure.limits?.length && <Dropdown layout="vertical" triggerAriaLabel="Threshold type" width={150}
+                    options={[{ value: 'pct', label: 'Percent' }, { value: 'val', label: 'Value' }]}
+                    value={trigger.mode} onChange={(mode: string) => updateTrigger({ mode,
+                      value: mode === 'pct' ? '80' : '90000', valueTo: mode === 'pct' ? '100' : '100000' })} />}
+                  <Dropdown layout="vertical" triggerAriaLabel="Comparator" width={150}
+                    options={COMPARISON_OPTIONS} value={trigger.comparator}
+                    onChange={(comparator: string) => updateTrigger({ comparator })} />
+                  <Input layout="vertical" type="number" width={150} aria-label={isRange ? 'Threshold from' : 'Threshold value'}
+                    min={trigger.mode === 'pct' ? 0.01 : 0} max={trigger.mode === 'pct' ? 500 : undefined}
+                    step="any" value={trigger.value} placeholder={isRange ? 'From' : ''}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateTrigger({ value: event.target.value })} />
+                  {isRange && <Input layout="vertical" type="number" width={150} aria-label="Threshold to"
+                    min={trigger.mode === 'pct' ? 0.01 : 0} max={trigger.mode === 'pct' ? 500 : undefined}
+                    step="any" value={trigger.valueTo} placeholder="To"
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateTrigger({ valueTo: event.target.value })} />}
+                  {trigger.mode === 'pct' && (measure.limits?.length ?? 0) > 1 && <Dropdown
+                    layout="vertical" triggerAriaLabel="Limit" width={150}
+                    options={measure.limits!.map(value => ({ value, label: prettyUsageName(value) }))}
+                    value={trigger.constant} onChange={(constant: string) => updateTrigger({ constant })} />}
+                  {trigger.mode === 'val' && <span style={labelStyle}>{usageValueUnit(trigger)}</span>}
+                  {showWindow && <>
+                    <span style={labelStyle}>over the last</span>
+                    <Input layout="vertical" type="number" width={150} aria-label="Window length"
+                      min={1} max={WINDOW_MAX[trigger.windowUnit]} step={1} value={trigger.windowValue}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateTrigger({ windowValue: event.target.value })} />
+                    <Dropdown layout="vertical" triggerAriaLabel="Window unit" width={150} options={WINDOW_OPTIONS}
+                      value={trigger.windowUnit} onChange={(windowUnit: string) => updateTrigger({ windowUnit })} />
+                  </>}
+                </div>
+              </FormRow>
+            </>
+          )}
+          <FormRow label="Notify once every">
+            <Dropdown layout="vertical" triggerAriaLabel="Notify once every" options={INTERVAL_OPTIONS}
+              width={390} value={trigger.interval} onChange={(interval: string) => updateTrigger({ interval })} />
           </FormRow>
+          {summary && <FormRow label="" align="start">
+            <div style={{ width: 'fit-content', maxWidth: 'calc(100% - 30px)', marginRight: 30,
+              overflowWrap: 'anywhere', boxSizing: 'border-box',
+              padding: 'var(--ds-font-size-base)', border: '1px solid var(--ds-border-subtle)',
+              borderRadius: 'calc(var(--ds-font-size-base) * 0.4)', background: 'var(--ds-bg-common-bg)',
+              lineHeight: 'var(--ds-line-height-base)',
+              color: 'var(--ds-text-base)', fontSize: 'var(--ds-font-size-base)',
+              fontFamily: 'var(--ds-font-family-base)' }} aria-live="polite">
+              {summary}
+            </div>
+          </FormRow>}
+          {triggerError && <FormRow label=""><span role="alert" style={{ color: 'var(--ds-status-negative)' }}>{triggerError}</span></FormRow>}
           </div>{/* end first-group */}
 
           {/* ── Notify via ──────────────────────────────────────────────── */}
@@ -688,14 +640,39 @@ export const CreateNotification: Story = {
               {pushEmailEnabled && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   <FormRow label="Send notification to">
-                    <Tags
-                      value={notifyToTags}
-                      options={NOTIFY_TO_OPTIONS}
-                      onChange={setNotifyToTags}
-                      placeholder="Select users or roles"
-                      width={390}
-                      required
-                    />
+                    <div className={`usage-recipient-field${notifyToTags.length > 0 ? ' usage-recipient-editable' : ''}`} role="group" aria-label="Send notification to"
+                      onClick={(event) => {
+                        if (!(event.target instanceof Element) || !event.target.closest('button')) {
+                          setRecipientDialogOpen(true);
+                        }
+                      }}>
+                      {notifyToTags.length === 0 ? (
+                        <Button variant="default" size="sm" aria-haspopup="dialog" onClick={() => setRecipientDialogOpen(true)}>
+                          Select User
+                        </Button>
+                      ) : (['user', 'group'] as const).map(kind => {
+                        const recipients = notifyToTags.filter(recipient => recipient.kind === kind);
+                        const label = kind === 'user' ? 'Users' : 'Groups';
+                        return recipients.length > 0 && (
+                          <Tooltip key={kind} variant="white" placement="top" maxWidth={320}
+                            content={<span className="usage-recipient-preview">
+                              <strong>{label} ({recipients.length})</strong>
+                              {recipients.map(recipient => <span key={recipient.value}>{recipient.label}</span>)}
+                            </span>}>
+                            <button type="button" className="tags-tag usage-recipient-count" aria-haspopup="dialog"
+                              aria-label={`${label}: ${recipients.length}. Edit selected recipients`}
+                              onClick={() => setRecipientDialogOpen(true)}>
+                              <span className="tags-tag-label">{label}</span>
+                              <span className="tags-tag-count">{recipients.length}</span>
+                            </button>
+                          </Tooltip>
+                        );
+                      })}
+                      {notifyToTags.length > 0 && <button type="button" className="usage-cliq-edit" aria-label="Edit notification recipients"
+                        aria-haspopup="dialog" onClick={() => setRecipientDialogOpen(true)}>
+                        <Icon name="CrmEditFilledMd" size={14} />
+                      </button>}
+                    </div>
                   </FormRow>
 
                   <FormRow label="Notify Via" align="start">
@@ -725,6 +702,8 @@ export const CreateNotification: Story = {
                               color:      'var(--ds-text-link)',
                             }}
                             aria-label="Preview email template"
+                            aria-haspopup="dialog"
+                            onClick={() => setEmailDialog('preview')}
                           >
                             Preview
                           </button>
@@ -745,6 +724,8 @@ export const CreateNotification: Story = {
                               color:      'var(--ds-text-link)',
                             }}
                             aria-label="Edit email template"
+                            aria-haspopup="dialog"
+                            onClick={() => setEmailDialog('edit')}
                           >
                             Edit Template
                           </button>
@@ -768,90 +749,105 @@ export const CreateNotification: Story = {
               </div>
 
               {externalAppsEnabled && (
-                /*
-                 * labelOffset=7: centers the "Notify Via" label text (lineHeight 20px)
-                 * with the Zoho Cliq checkbox which is centered in a 34px-tall row.
-                 * Center of Zoho Cliq row = 17px → paddingTop = 17 − 10 = 7px.
-                 */
-                <FormRow label="Notify Via" align="start" labelOffset={7}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <FormRow label="Notify Via" align="center">
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <Checkbox
-                        label="Zoho Cliq"
-                        checked={notifyZohoCliq}
-                        onChange={(e) => setNotifyZohoCliq(e.target.checked)}
-                      />
+                      {/* Isolate Checkbox's align-self: flex-start so the row can center it. */}
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Checkbox
+                          label="Zoho Cliq"
+                          checked={notifyZohoCliq}
+                          onChange={(e) => setNotifyZohoCliq(e.target.checked)}
+                        />
+                      </div>
                       <div style={{
                         opacity:       notifyZohoCliq ? 1 : 0,
                         pointerEvents: notifyZohoCliq ? 'auto' : 'none',
                       }}>
-                        {/* Show committed values as Tags chips; overlay intercepts clicks to open sub-modal */}
-                        <div style={{ position: 'relative', width: 390 }}>
-                          <Tags
-                            value={[...zohoCommittedUsers, ...zohoCommittedChannels]}
-                            options={[]}
-                            onChange={() => {}}
-                            placeholder="Select users or channels"
-                            width={390}
-                            required
-                          />
-                          <div
-                            style={{ position: 'absolute', inset: 0, cursor: 'pointer' }}
-                            onClick={openZohoModal}
-                          />
+                        <div className={`usage-recipient-field usage-cliq-field${zohoCommittedUsers.length > 0 || zohoCommittedChannels.length > 0 ? ' usage-recipient-editable' : ''}`} role="group" aria-label="Zoho Cliq recipients"
+                          onClick={(event) => {
+                            if (!(event.target instanceof Element) || !event.target.closest('button')) {
+                              openZohoModal();
+                            }
+                          }}>
+                          {zohoCommittedUsers.length === 0 && zohoCommittedChannels.length === 0 && (
+                            <Button variant="default" size="sm" aria-haspopup="dialog" onClick={openZohoModal}>
+                              Select User
+                            </Button>
+                          )}
+                          {[
+                            { label: 'Users', recipients: zohoCommittedUsers },
+                            { label: 'Channels', recipients: zohoCommittedChannels },
+                          ].map(({ label, recipients }) => recipients.length > 0 && (
+                            <Tooltip key={label} variant="white" placement="top" maxWidth={320}
+                              content={<span className="usage-recipient-preview">
+                                <strong>{label} ({recipients.length})</strong>
+                                {recipients.map(recipient => <span key={recipient.value}>{recipient.label}</span>)}
+                              </span>}>
+                              <button type="button" className="tags-tag usage-recipient-count" aria-haspopup="dialog"
+                                aria-label={`${label}: ${recipients.length}. Edit Zoho Cliq recipients`}
+                                onClick={openZohoModal}>
+                                <span className="tags-tag-label">{label}</span>
+                                <span className="tags-tag-count">{recipients.length}</span>
+                              </button>
+                            </Tooltip>
+                          ))}
+                          {(zohoCommittedUsers.length > 0 || zohoCommittedChannels.length > 0) && <button type="button" className="usage-cliq-edit" aria-label="Edit Zoho Cliq recipients"
+                            aria-haspopup="dialog" onClick={openZohoModal}>
+                            <Icon name="CrmEditFilledMd" size={14} />
+                          </button>}
                         </div>
                       </div>
                     </div>
+                  </FormRow>
+                  <div style={{ paddingLeft: `calc(${LABEL_COL} + 20px)` }}>
                     <Checkbox
                       label="Slack"
                       checked={notifySlack}
                       onChange={(e) => setNotifySlack(e.target.checked)}
                     />
                   </div>
-                </FormRow>
+                </div>
               )}
             </div>
           </div>
 
           {/* ── Message ─────────────────────────────────────────────────── */}
           {showMessage && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <h2 style={sectionHeadingStyle}>Message</h2>
-                <span style={{
-                  fontFamily: 'var(--ds-font-family-base)',
-                  fontSize:   'var(--ds-font-size-md)',
-                  color:      'var(--ds-text-muted)',
-                }}>
-                  <strong style={{
-                    fontWeight: 'var(--ds-font-weight-semibold)',
-                    color:      'var(--ds-text-label)',
-                  }}>Hint:</strong>
-                  {' '}Type "#" to insert merge field
-                </span>
-              </div>
-
-              {/* TODO: Missing component — RichTextEditor (textarea + formatting toolbar) */}
-              <div style={{
-                border:     '1px solid var(--ds-border-default)',
-                borderRadius: 4,
-                overflow:   'hidden',
-              }}>
-                <Textarea
-                  layout="vertical"
-                  width="100%"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  minHeight={100}
-                  style={{ border: 'none', borderRadius: 0 }}
-                />
-                <RichTextToolbar />
-              </div>
-            </div>
+            <FormRow label="Notification message" align="start" labelOffset={7}>
+              <MergeField
+                key={criteriaKey}
+                aria-label="Notification message"
+                layout="vertical"
+                variant="multiline"
+                width={390}
+                defaultValue={message}
+                mergeFields={USAGE_MESSAGE_FIELDS}
+                hint={'Type "#" to insert merge field'}
+                onChange={(value: string) => setMessageDraft({ criteriaKey, value })}
+              />
+            </FormRow>
           )}
 
           </div>
         </Modal>
+        {recipientDialogOpen && <UsageRecipientDialog
+          value={notifyToTags}
+          onClose={() => setRecipientDialogOpen(false)}
+          onSave={recipients => { setNotifyToTags(recipients); setRecipientDialogOpen(false); }}
+        />}
+        {emailDialog && <TemplateDialog
+          kind="email"
+          title={emailDialog === 'preview' ? 'Usage Notification Email Preview' : 'Edit Email Content'}
+          readOnly={emailDialog === 'preview'}
+          initial={emailTemplate}
+          defaults={emailDefaults}
+          onClose={() => setEmailDialog(undefined)}
+          onSave={settings => {
+            setEmailTemplate(settings);
+            setEmailDialog(undefined);
+          }}
+        />}
       </>
     );
   },

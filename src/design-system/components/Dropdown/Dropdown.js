@@ -32,6 +32,8 @@ function TruncatedLabel({
   className,
   wrapperStyle,
   spanProps,
+  tooltipVariant = 'black',
+  tooltipMaxWidth,
 }) {
   const ref = useRef(null);
   const [isTruncated, setIsTruncated] = useState(false);
@@ -44,7 +46,8 @@ function TruncatedLabel({
   return (
     <Tooltip
       content={text}
-      variant="black"
+      variant={tooltipVariant}
+      maxWidth={tooltipMaxWidth}
       placement="top"
       disabled={!isTruncated}
       wrapperStyle={wrapperStyle}
@@ -94,6 +97,8 @@ export function Dropdown({
   triggerIcon,
   triggerAriaLabel,
   triggerButtonVariant,
+  tooltipVariant = 'black',
+  tooltipMaxWidth,
   /** 'md' (default) or 'sm': small is 27px tall with 13px text. */
   size = 'md',
   /** Single-select only: shows a ✕ inside the trigger once a value is picked; clicking it calls onChange(''). */
@@ -415,7 +420,8 @@ export function Dropdown({
         {opt.description ? <span className='dropdown-option-content'>
           <span className='dropdown-option-label'>{opt.label}</span>
           <span className='dropdown-option-description'>{opt.description}</span>
-        </span> : <TruncatedLabel text={opt.label} className='dropdown-option-label' wrapperStyle={{ flex: 1, minWidth: 0 }} />}
+        </span> : <TruncatedLabel text={opt.label} className='dropdown-option-label' wrapperStyle={{ flex: 1, minWidth: 0 }} tooltipVariant={tooltipVariant} tooltipMaxWidth={tooltipMaxWidth} />}
+        {opt.trailingIcon && <span style={{ display: 'inline-flex', flexShrink: 0, marginRight: 'var(--ds-space-2, 8px)' }}>{opt.trailingIcon}</span>}
       </div>
     );
     return opt.disabled && opt.disabledTooltip ? (
@@ -625,6 +631,8 @@ export function Dropdown({
           <>
             <TruncatedLabel
               text={displayValue}
+              tooltipVariant={tooltipVariant}
+              tooltipMaxWidth={tooltipMaxWidth}
               className='dropdown-trigger-value'
               wrapperStyle={{ flex: 1, minWidth: 0 }}
               spanProps={{ 'data-placeholder': isPlaceholder || undefined }}

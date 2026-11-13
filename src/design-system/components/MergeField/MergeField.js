@@ -2,6 +2,7 @@ import { useId, useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { ResizeHandle, ChevronDownFilled, Search, Check, Lock } from '../../foundations/icons/Icons';
+import '../Dropdown/Dropdown.css';
 import './MergeField.css';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -352,9 +353,10 @@ function MergeFieldPopup({
             </div>
           )}
           {showSearch && (
-            <label className="mergefield-popup-search">
-              <Search aria-hidden="true" />
+            <label className={`dropdown-search-box mergefield-popup-search${modules.length > 0 ? ' dropdown-search-box--joined' : ''}`}>
+              <span className="dropdown-search-icon"><Search aria-hidden="true" /></span>
               <input
+                className="dropdown-search-input"
                 ref={searchRef}
                 type="text"
                 value={query}
@@ -404,8 +406,9 @@ function MergeFieldPopup({
 // and swallows Enter instead of inserting a line break.
 // ─────────────────────────────────────────────────────────────────────────────
 
-function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields, moduleEntries, defaultValue, onChange, disabled, readOnly, required, singleLine }) {
+function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields, moduleEntries, filter, defaultValue, onChange, disabled, readOnly, required, singleLine, maxLength, ariaLabel }) {
   const rootRef = useRef(null);
+  const lastValidValue = useRef(defaultValue ?? '');
   const panelRef = useRef(null);
   const matchRef = useRef(null);
   const selectedChipRef = useRef(null); // chip pending removal on a second Backspace
@@ -444,8 +447,24 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
   };
   const effectiveMin = !singleLine && filled ? Math.max(minHeight, 100) : minHeight;
   const syncContent = () => {
+    const root = rootRef.current;
+    const value = serializeEditable(root);
+    if (maxLength != null && value.length > maxLength) {
+      // Restore atomically so paste, line breaks and token insertion share the limit.
+      root.replaceChildren();
+      buildInitialContent(root, lastValidValue.current, mergeFields);
+      const range = document.createRange();
+      range.selectNodeContents(root);
+      range.collapse(false);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      closePopup();
+      return;
+    }
+    lastValidValue.current = value;
     setFilled(hasContent());
-    onChange?.(serializeEditable(rootRef.current));
+    onChange?.(value);
   };
 
   const deselectChip = () => {
@@ -527,7 +546,7 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
     syncContent();
   };
 
-  const filteredCount = () => filterFields(mergeFields, query, selectedModule).length;
+  const filteredCount = () => filterFields(mergeFields, query, filter ? selectedModule : undefined).length;
 
   const selectOption = (opt) => {
     const m = matchRef.current;
@@ -551,7 +570,7 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
     if (e.key === 'ArrowDown') { e.preventDefault(); setActiveIndex((i) => Math.min(i + 1, filteredCount() - 1)); return true; }
     if (e.key === 'ArrowUp') { e.preventDefault(); setActiveIndex((i) => Math.max(i - 1, 0)); return true; }
     if (e.key === 'Enter' || e.key === 'Tab') {
-      const opt = filterFields(mergeFields, query, selectedModule)[activeIndex];
+      const opt = filterFields(mergeFields, query, filter ? selectedModule : undefined)[activeIndex];
       if (opt) { e.preventDefault(); selectOption(opt); }
       return true;
     }
@@ -646,7 +665,9 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
         suppressContentEditableWarning
         data-placeholder={placeholder}
         aria-describedby={helperId}
+        aria-label={ariaLabel}
         aria-multiline={!singleLine}
+        aria-required={required || undefined}
         aria-readonly={readOnly || undefined}
         role="textbox"
         // Multiline is a fixed 100px box that scrolls when content overflows; the drag handle sets a custom height.
@@ -670,12 +691,12 @@ function EditableField({ inputId, helperId, placeholder, minHeight, mergeFields,
         <MergeFieldPopup
           panelRef={panelRef}
           pos={pos}
-          modules={modules}
+          modules={filter ? modules : []}
           moduleEntries={moduleEntries}
           selectedEntry={selectedEntry}
           entryLabel={entryLabel}
           onEntrySelect={onEntrySelect}
-          selectedModule={selectedModule}
+          selectedModule={filter ? selectedModule : undefined}
           onModuleChange={setSelectedModule}
           options={mergeFields}
           query={query}
@@ -721,11 +742,13 @@ export function MergeField({
   minHeight = 70,
   mergeFields = [],
   moduleEntries,
+  filter = true,
   hint = 'Type # to insert merge field',
   placeholder,
   defaultValue,
   value,
   onChange,
+  maxLength,
   error,
   disabled,
   readOnly,
@@ -743,17 +766,20 @@ export function MergeField({
   const fieldEl = (
     <EditableField
       inputId={inputId}
+      ariaLabel={label}
       helperId={helperId}
       placeholder={placeholder}
       minHeight={minHeight}
       mergeFields={mergeFields}
       moduleEntries={moduleEntries}
+      filter={filter}
       defaultValue={defaultValue ?? value}
       onChange={onChange}
       disabled={disabled}
       readOnly={readOnly}
       required={required}
       singleLine={variant === 'singleline'}
+      maxLength={maxLength}
     />
   );
 

@@ -1,0 +1,47 @@
+.usage-page {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+  background: var(--ds-bg-common-bg);
+  color: var(--ds-text-base);
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  line-height: var(--ds-line-height-base);
+}
+.usage-page *, .usage-page *::before, .usage-page *::after { box-sizing: border-box; }
+.usage-page__sidebar { grid-row: 1 / -1; min-height: 0; overflow-y: auto; background: var(--ds-bg-common-card); border-inline-end: thin solid var(--ds-border-lighter); }
+.usage-page__sidebar > .vtabs-panel { min-height: 100%; border-right: 0; }
+.usage-page__topband { min-width: 0; }
+.usage-page__workspace { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; margin: var(--ds-line-height-sm); padding-top: calc(var(--ds-line-height-base) / 4); border: thin solid var(--ds-border-lighter); border-radius: calc(var(--ds-line-height-base) / 2); background: var(--ds-bg-common-card); }
+.usage-page__workspace > .tabs-tab-bar { flex-shrink: 0; }
+.usage-page__workspace > .tabs-tab-bar .tabs-tab[data-active] { color: var(--ds-text-link); }
+.usage-page__sections { flex-shrink: 0; padding: var(--ds-line-height-base) calc(var(--ds-line-height-base) * 1.5) 0; }
+.usage-page__sections > .tabs-tab-bar { width: fit-content; max-width: 100%; }
+.usage-page__content { display: flex; flex-direction: column; flex: 1; min-height: 0; min-width: 0; overflow: hidden; padding: calc(var(--ds-line-height-base) / 2) calc(var(--ds-line-height-base) * 1.5) var(--ds-line-height-base); }
+.usage-page__table-region { flex: 1; min-height: 0; min-width: 0; overflow: auto; }
+.usage-page__table-region .table-report-root { overflow: visible; }
+.usage-page__toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--ds-line-height-base); margin-bottom: var(--ds-line-height-base); }
+.usage-page__toolbar p { margin: 0; color: var(--ds-text-label); }
+.usage-page__actions { display: flex; align-items: center; gap: var(--ds-line-height-base); }
+.usage-page .table-report { min-width: 960px; }
+.usage-page .table-report { overflow: visible; }
+.usage-page .table-report th, .usage-page .table-report td { border-right: 0; padding: 0 calc(var(--ds-line-height-base) * 0.6); vertical-align: middle; }
+/* Match SetupTable's 36px header and 40px body rows. */
+.usage-page .table-report thead tr { height: 36px; }
+.usage-page .table-report tbody tr { height: 40px; }
+.usage-page .table-report thead th { position: sticky; top: 0; z-index: 1; background: var(--ds-bg-common-card); font-weight: var(--ds-font-weight-medium); }
+.usage-page .table-report tr:has(.usage-page__group) { background: var(--ds-bg-scale-bg2); }
+.usage-page .table-report tr:has(.usage-page__group) td { padding-block: 0; }
+.usage-page__group, .usage-page__name, .usage-page__person, .usage-page__status { display: flex; align-items: center; gap: calc(var(--ds-line-height-base) / 2); }
+.usage-page__group { font-weight: var(--ds-font-weight-semibold); white-space: nowrap; }
+.usage-page__group-count { display: inline-flex; justify-content: center; align-items: center; min-width: var(--ds-line-height-h2); height: var(--ds-line-height-h2); padding-inline: calc(var(--ds-line-height-base) / 4); border: thin solid var(--ds-border-lighter); border-radius: 50%; background: var(--ds-bg-common-card); font-weight: var(--ds-font-weight-regular); }
+.usage-page__name { flex-wrap: wrap; }
+.usage-page__person { white-space: nowrap; cursor: default; }
+.usage-page__person img { width: calc(var(--ds-line-height-base) * 1.2); height: calc(var(--ds-line-height-base) * 1.2); border-radius: 50%; object-fit: cover; }
+.usage-page__more { color: var(--ds-text-label); white-space: nowrap; }
+.usage-page__more-trigger { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
+.usage-page__hover-list { display: flex; flex-direction: column; gap: calc(var(--ds-line-height-base) / 4); }
+.usage-page .button-link-btn { font-size: inherit; }

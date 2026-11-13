@@ -194,6 +194,12 @@ const meta: Meta<typeof MergeField> = {
     error: { control: 'boolean', table: { category: 'State' } },
     disabled: { control: 'boolean', table: { category: 'State' } },
     required: { control: 'boolean', table: { category: 'State' } },
+    filter: {
+      name: 'Filter',
+      control: 'boolean',
+      description: 'Show the module filter. When false, search and select fields across all modules.',
+      table: { category: 'Behavior', defaultValue: { summary: 'true' } },
+    },
   },
 };
 
@@ -509,6 +515,30 @@ export const MultilineError: Story = {
     helperText: 'Cannot be Empty',
     mergeFields: CRM_FIELDS,
     moduleEntries: CRM_MODULE_ENTRIES,
+  },
+};
+
+export const FilterDisabled: Story = {
+  args: {
+    layout: 'vertical',
+    width: 390,
+    filter: false,
+    mergeFields: CRM_FIELDS,
+    moduleEntries: CRM_MODULE_ENTRIES,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const field = canvas.getByRole('textbox');
+    await userEvent.click(field);
+    await userEvent.type(field, '#', { skipClick: true });
+    const page = within(canvasElement.ownerDocument.body);
+    await expect(page.queryByRole('button', { name: 'Leads', exact: true })).not.toBeInTheDocument();
+    await expect(page.getAllByRole('option', { name: 'First Name', exact: true })[0]).toBeVisible();
+    await expect(page.getByRole('option', { name: 'Deal Name', exact: true })).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+    await userEvent.type(field, '#DealName', { skipClick: true });
+    await userEvent.keyboard('{Enter}');
+    await expect(canvasElement.querySelector('.mergefield-token')).toHaveAttribute('data-value', 'DealName');
   },
 };
 

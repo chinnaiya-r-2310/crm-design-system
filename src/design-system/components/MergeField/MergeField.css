@@ -504,7 +504,7 @@
 .mergefield-popup-head {
   display: flex;
   align-items: stretch;
-  margin: 0 6px 6px;
+  padding: 4px 10px 5px;
 }
 
 .mergefield-popup-module {
@@ -525,53 +525,19 @@
 }
 
 .mergefield-popup-search {
-  flex: 0 0 60%;
-  width: 60%;
+  flex: 1 1 60%;
   min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 34px;
-  padding: 0 10px;
-  margin-left: -1px;
-  background: var(--ds-bg-common-card, #fff);
-  border: 1px solid var(--ds-components-input-default-outline);
-  border-radius: 0 6px 6px 0;
-  box-sizing: border-box;
-  color: var(--ds-text-label, #616E88);
   cursor: text;
 }
 
-.mergefield-popup-search:hover {
-  border-color: var(--ds-components-input-hover-outline);
-}
-
-/* Focus is shown on the filter row as one unit: both the module trigger and the
-   search box take the focus border together. No box-shadow (intentional). */
+/* Match Dropdown's joined-filter focus state; standalone search retains its shadow. */
 .mergefield-popup-head:focus-within .mergefield-popup-module-trigger,
-.mergefield-popup-head:focus-within .mergefield-popup-search {
+.mergefield-popup-head:focus-within .dropdown-search-box--joined {
   border-color: var(--ds-components-input-focus-outline);
 }
 
-.mergefield-popup-search svg {
-  flex-shrink: 0;
-}
-
-.mergefield-popup-search input {
-  flex: 1 1 auto;
-  min-width: 0;
-  width: 100%;
-  padding: 0;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-family: var(--ds-font-family-base);
-  font-size: var(--ds-font-size-base);
-  color: var(--ds-text-base);
-}
-
-.mergefield-popup-search input::placeholder {
-  color: var(--ds-components-input-placeholder-text, #B0B7C4);
+.mergefield-popup-head .dropdown-search-box--joined:focus-within {
+  box-shadow: none;
 }
 
 /* Filter label truncates with an ellipsis; the full name shows in a tooltip (see JS). */
@@ -593,7 +559,7 @@
   justify-content: space-between;
   gap: 10px;
   width: 100%;
-  height: 34px;
+  height: 30px;
   padding: 0 10px;
   background: var(--ds-bg-common-card, #fff);
   border: 1px solid var(--ds-components-input-default-outline);
