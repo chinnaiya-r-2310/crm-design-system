@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">20/57 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">53/57 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/353 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">20/58 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">53/58 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/357 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>6.4s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>6.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -14555,7 +14555,7 @@ Used when the message is short and self-explanatory.</div>
     { key: &#39;success&#39;, label: &#39;Success&#39;, triggerVariant: &#39;outline-green&#39;, title: &#39;Record saved successfully.&#39; },
     { key: &#39;info&#39;,    label: &#39;Info&#39;,    triggerVariant: &#39;outline-blue&#39;,  title: &#39;This action will apply to all users.&#39; },
     { key: &#39;warning&#39;, label: &#39;Warning&#39;, triggerVariant: &#39;outline-orange&#39;, title: &#39;Are you sure you want to continue?&#39;, confirmLabel: &#39;Continue&#39; },
-    { key: &#39;error&#39;,   label: &#39;Error&#39;,   triggerVariant: &#39;outline-red&#39;,   title: &#39;Delete &quot;Sales Pipeline Q3&quot;&#39;, confirmLabel: &#39;Delete&#39; },
+    { key: &#39;error&#39;,   label: &#39;Error&#39;,   triggerVariant: &#39;outline-red&#39;,   title: &#39;Delete &quot;Reached daily limit 5000 calls&quot;&#39;, confirmLabel: &#39;Delete&#39; },
     { key: &#39;denial&#39;,  label: &#39;Denial&#39;,  triggerVariant: &#39;default&#39;,       title: &#39;Permission Denied&#39; },
   ];
 
@@ -14606,7 +14606,7 @@ Used when the message is short and self-explanatory.</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MultiSelect</h2>
       <div class="badges">
-        <label for="c-31-design-system-components-multi-select-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-31-design-system-components-multi-select-props" class="badge ok as-toggle">6 prop types</label>
         <label for="c-31-design-system-components-multi-select-info" class="badge info as-toggle">1 info</label>
         <label for="c-31-design-system-components-multi-select-stories" class="badge ok as-toggle">4 stories</label>
         
@@ -14642,11 +14642,13 @@ Used when the message is short and self-explanatory.</div>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">5 prop types</span>
+              <span class="badge ok">6 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/Tags/Tags.js::Tags</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>colorTags?: any = false
+
+inputProps?: any = {}
 
 options?: any = []
 
@@ -21773,7 +21775,7 @@ variant?: any = &#39;primary&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Tags</h2>
       <div class="badges">
-        <label for="c-49-design-system-components-tags-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-49-design-system-components-tags-props" class="badge ok as-toggle">6 prop types</label>
         <label for="c-49-design-system-components-tags-info" class="badge info as-toggle">1 info</label>
         <label for="c-49-design-system-components-tags-stories" class="badge ok as-toggle">4 stories</label>
         
@@ -21809,11 +21811,13 @@ variant?: any = &#39;primary&#39;</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">5 prop types</span>
+              <span class="badge ok">6 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/Tags/Tags.js::Tags</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>colorTags?: any = false
+
+inputProps?: any = {}
 
 options?: any = []
 
@@ -22916,7 +22920,7 @@ import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
 import { Button } from &#39;../components/Button/Button&#39;;
 import { MergeField } from &#39;../components/MergeField/MergeField&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
-import { CrmAlertInfo } from &#39;../foundations/icons/Icons&#39;;
+import { CrmAlertInfo, More, Search } from &#39;../foundations/icons/Icons&#39;;
 import { NextGenTopBand } from &#39;../components/NextGenTopBand/NextGenTopBand&#39;;
 import { VerticalTabs } from &#39;../components/VerticalTabs/VerticalTabs&#39;;
 import { SETUP_MENU_ITEMS } from &#39;../components/VerticalTabs/setupMenuItems&#39;;
@@ -23099,15 +23103,45 @@ function TagPlaceholder({ tags }: { tags: Array&lt;{ label: string; count: numbe
 // Story
 // ─────────────────────────────────────────────────────────────────────────────
 
+const USAGE_USER_AVATARS: Record&lt;string, string&gt; = {
+  &#39;Priya Nair&#39;: &#39;user_03.jpg&#39;,
+  &#39;Arjun Kumar&#39;: &#39;user_04.jpg&#39;,
+  &#39;Meera Iyer&#39;: &#39;user_07.jpg&#39;,
+  &#39;Sam Carter&#39;: &#39;user_08.jpg&#39;,
+};
+
+const CURRENT_USAGE_USER = &#39;Priya Nair&#39;;
+
 type UsageListRow = {
   id: string; feature: string; name: string; creator?: string; date?: string; time?: string;
-  channels?: string[]; status?: &#39;Active&#39; | &#39;Paused&#39; | &#39;Completed&#39;; system?: boolean; group?: boolean; count?: number;
+  modifier?: string; modifiedDate?: string; modifiedTime?: string;
+  channels?: string[]; status?: &#39;Active&#39; | &#39;Paused&#39; | &#39;Completed&#39;; system?: boolean;
+  summary?: string;
+  config?: {
+    trigger: ReturnType&lt;typeof createUsageTrigger&gt;; recipients: UsageRecipient[];
+    pushEmailEnabled: boolean; externalAppsEnabled: boolean;
+    notifyPush: boolean; notifyEmail: boolean; notifyZohoCliq: boolean; notifySlack: boolean;
+    users: TagItem[]; channels: TagItem[]; message: string; template?: TemplateSettings;
+  };
 };
+
+type RowAction = &#39;edit&#39; | &#39;clone&#39; | &#39;pause&#39; | &#39;resume&#39; | &#39;delete&#39;;
+function UsageRowActions({ row, onAction }: { row: UsageListRow; onAction: (action: RowAction, row: UsageListRow) =&gt; void }) {
+  return &lt;span className=&quot;usage-page__row-actions&quot;&gt;&lt;Dropdown width={27} triggerIcon={&lt;More /&gt;}
+    triggerAriaLabel={`More options for ${row.name}`} value=&quot;&quot; panelStyle={{ width: 160, &#39;--usage-actions-menu&#39;: 1 }}
+    options={[
+      { value: &#39;edit&#39;, label: &#39;Edit&#39; }, { value: &#39;clone&#39;, label: &#39;Clone&#39; },
+      ...(!row.system &amp;&amp; row.status === &#39;Active&#39; ? [{ value: &#39;pause&#39;, label: &#39;Pause&#39; }] : []),
+      ...(!row.system &amp;&amp; row.status === &#39;Paused&#39; ? [{ value: &#39;resume&#39;, label: &#39;Resume&#39; }] : []),
+      { value: &#39;delete&#39;, label: &#39;Delete&#39;, disabled: row.system, disabledTooltip: &#39;System-defined notifications cannot be deleted.&#39; },
+    ]} onChange={(action: RowAction) =&gt; onAction(action, row)} /&gt;&lt;/span&gt;;
+}
 
 const USAGE_LIST_ROWS: UsageListRow[] = [
   ...[&#39;60%&#39;, &#39;5000&#39;, &#39;4000&#39;, &#39;3000&#39;, &#39;2500&#39;].map((value, index) =&gt; ({
     id: `api-${index}`, feature: &#39;API&#39;, name: `Reached add-on limit ${value}`,
     creator: index &gt; 2 ? &#39;System&#39; : index === 2 ? &#39;Arjun Kumar&#39; : &#39;Priya Nair&#39;,
+    modifier: index &gt; 2 ? &#39;System&#39; : index === 2 ? &#39;Priya Nair&#39; : &#39;Arjun Kumar&#39;,
     date: index &gt; 2 ? &#39;Jan 12, 2026&#39; : &#39;Jul 3, 2026&#39;, system: index &gt; 2,
     channels: [&#39;Push Notification&#39;, &#39;Emails&#39;, &#39;Zoho Cliq&#39;, &#39;Slack&#39;], status: &#39;Active&#39; as const,
   })),
@@ -23117,33 +23151,68 @@ const USAGE_LIST_ROWS: UsageListRow[] = [
   { id: &#39;file-storage&#39;, feature: &#39;File storage&#39;, name: &#39;File storage nearly full&#39;, creator: &#39;Priya Nair&#39;, date: &#39;Jul 3, 2026&#39;, channels: [&#39;Push Notification&#39;, &#39;Emails&#39;], status: &#39;Completed&#39; },
 ];
 
-const personCell = (_value: unknown, row: UsageListRow) =&gt; row.group ? null : (
-  &lt;Tooltip variant=&quot;white&quot; placement=&quot;top&quot; followCursor content={
-    &lt;span className=&quot;usage-page__hover-list&quot;&gt;&lt;span&gt;{row.creator}&lt;/span&gt;&lt;span&gt;{row.date}&lt;/span&gt;&lt;span&gt;{row.time}&lt;/span&gt;&lt;/span&gt;
-  }&gt;
-    &lt;span className=&quot;usage-page__person&quot; tabIndex={0}&gt;
-      &lt;img src={`${import.meta.env.BASE_URL}images/avatars/user_06.jpg`} alt=&quot;&quot; /&gt;
-      &lt;span&gt;{row.date}&lt;/span&gt;
-    &lt;/span&gt;
-  &lt;/Tooltip&gt;
-);
-const usageListColumns = (onStatusChange: (id: string, enabled: boolean) =&gt; void) =&gt; [
-  { key: &#39;name&#39;, label: &#39;Notification Name&#39;, width: &#39;35%&#39;, render: (_value: unknown, row: UsageListRow) =&gt; row.group
-    ? &lt;div className=&quot;usage-page__group&quot;&gt;{row.name}&lt;span className=&quot;usage-page__group-count&quot;&gt;{row.count}&lt;/span&gt;&lt;/div&gt;
-    : &lt;div className=&quot;usage-page__name&quot;&gt;{row.name}&lt;/div&gt; },
-  { key: &#39;channels&#39;, label: &#39;Notify via&#39;, width: &#39;25%&#39;, render: (_value: unknown, row: UsageListRow) =&gt; row.group ? null : &lt;&gt;
-    {row.channels?.slice(0, 2).join(&#39;, &#39;)}{(row.channels?.length ?? 0) &gt; 2 &amp;&amp; &lt;span className=&quot;usage-page__more&quot;&gt; and &lt;Tooltip
-      content={&lt;span className=&quot;usage-page__hover-list&quot;&gt;{row.channels!.slice(2).map(channel =&gt; &lt;span key={channel}&gt;{channel}&lt;/span&gt;)}&lt;/span&gt;}
+const personCell = (field: &#39;creator&#39; | &#39;modifier&#39;) =&gt; (_value: unknown, row: UsageListRow) =&gt; {
+  if (row.system) return &#39;-&#39;;
+  const user = (field === &#39;modifier&#39; ? row.modifier : row.creator) ?? row.creator;
+  const date = (field === &#39;modifier&#39; ? row.modifiedDate : row.date) ?? row.date;
+  const time = (field === &#39;modifier&#39; ? row.modifiedTime : row.time) ?? row.time;
+  const details = `${user} on ${date}${time ? ` ${time}` : &#39;&#39;}`;
+  const avatar = user ? USAGE_USER_AVATARS[user] : undefined;
+  return (
+    &lt;Tooltip variant=&quot;white&quot; placement=&quot;top&quot; followCursor wrapperStyle={{ display: &#39;inline-flex&#39;, maxWidth: &#39;100%&#39; }} content={details}&gt;
+      &lt;span className=&quot;usage-page__person&quot; tabIndex={0} aria-label={details}&gt;
+        {avatar ? &lt;img src={`${import.meta.env.BASE_URL}images/avatars/${avatar}`} alt=&quot;&quot; /&gt; : &lt;Icon name=&quot;user-avatar&quot; /&gt;}
+        &lt;span&gt;{date}&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/Tooltip&gt;
+  );
+};
+function UsageChannelsCell({ channels = [] }: { channels?: string[] }) {
+  const ref = useRef&lt;HTMLSpanElement&gt;(null);
+  const [visibleCount, setVisibleCount] = useState(1);
+  useEffect(() =&gt; {
+    const element = ref.current;
+    if (!element) return;
+    const measure = () =&gt; {
+      let count = 1;
+      element.querySelectorAll&lt;HTMLElement&gt;(&#39;[data-channel-count]&#39;).forEach(candidate =&gt; {
+        if (candidate.getBoundingClientRect().width &lt;= element.clientWidth) count = Number(candidate.dataset.channelCount);
+      });
+      setVisibleCount(count);
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    measure();
+    let mounted = true;
+    document.fonts.ready.then(() =&gt; { if (mounted) measure(); });
+    return () =&gt; { mounted = false; observer.disconnect(); };
+  }, [channels]);
+  const count = Math.min(visibleCount, channels.length);
+  const hidden = channels.slice(count);
+  return &lt;span ref={ref} className=&quot;usage-page__channels&quot;&gt;
+    &lt;span className=&quot;usage-page__channel-label&quot; title={channels.slice(0, count).join(&#39;, &#39;)}&gt;{channels.slice(0, count).join(&#39;, &#39;) || &#39;-&#39;}&lt;/span&gt;
+    {hidden.length &gt; 0 &amp;&amp; &lt;span className=&quot;usage-page__more&quot;&gt; and &lt;Tooltip
+      content={&lt;span className=&quot;usage-page__hover-list&quot;&gt;{hidden.map(channel =&gt; &lt;span key={channel}&gt;{channel}&lt;/span&gt;)}&lt;/span&gt;}
       variant=&quot;white&quot; placement=&quot;top&quot; followCursor&gt;
-      &lt;button type=&quot;button&quot; className=&quot;usage-page__more-trigger&quot;&gt;{row.channels!.length - 2} more&lt;/button&gt;
+      &lt;button type=&quot;button&quot; className=&quot;usage-page__more-trigger&quot;&gt;{hidden.length} more&lt;/button&gt;
     &lt;/Tooltip&gt;&lt;/span&gt;}
-  &lt;/&gt; },
-  { key: &#39;creator&#39;, label: &#39;Created by&#39;, width: &#39;14%&#39;, render: personCell },
-  { key: &#39;modifier&#39;, label: &#39;Modified by&#39;, width: &#39;14%&#39;, render: personCell },
-  { key: &#39;status&#39;, label: &#39;Status&#39;, width: &#39;12%&#39;, render: (_value: unknown, row: UsageListRow) =&gt; row.group ? null : (
-    &lt;Switch aria-label={`Enable ${row.name}`} checked={row.status === &#39;Active&#39;}
-      onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; onStatusChange(row.id, event.target.checked)} /&gt;
-  ) },
+    &lt;span className=&quot;usage-page__channel-measure&quot; aria-hidden=&quot;true&quot;&gt;{channels.map((_, index) =&gt;
+      &lt;span key={index} data-channel-count={index + 1}&gt;{channels.slice(0, index + 1).join(&#39;, &#39;)}{index + 1 &lt; channels.length ? ` and ${channels.length - index - 1} more` : &#39;&#39;}&lt;/span&gt;
+    )}&lt;/span&gt;
+  &lt;/span&gt;;
+}
+
+const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) =&gt; void) =&gt; [
+  { key: &#39;actions&#39;, label: &#39;&#39;, width: 31, render: (_value: unknown, row: UsageListRow) =&gt; &lt;UsageRowActions row={row} onAction={onAction} /&gt; },
+  { key: &#39;name&#39;, label: &#39;Notification Name&#39;, width: &#39;25%&#39;, render: (_value: unknown, row: UsageListRow) =&gt;
+    &lt;Tooltip variant=&quot;white&quot; placement=&quot;top&quot; maxWidth={600} wrapperStyle={{ display: &#39;inline-flex&#39;, maxWidth: &#39;100%&#39;, minWidth: 0, verticalAlign: &#39;middle&#39; }} content={row.summary || `${row.feature}: ${row.name}. Notify via ${row.channels?.join(&#39;, &#39;)}.`}&gt;
+      &lt;span className=&quot;usage-page__name&quot; tabIndex={0}&gt;{row.name}&lt;/span&gt;
+    &lt;/Tooltip&gt; },
+  { key: &#39;feature&#39;, label: &#39;Feature&#39;, width: &#39;13%&#39; },
+  { key: &#39;channels&#39;, label: &#39;Notify via&#39;, width: &#39;22%&#39;, render: (_value: unknown, row: UsageListRow) =&gt; &lt;UsageChannelsCell channels={row.channels} /&gt; },
+  { key: &#39;creator&#39;, label: &#39;Created by&#39;, width: &#39;14%&#39;, render: personCell(&#39;creator&#39;) },
+  { key: &#39;modifier&#39;, label: &#39;Modified by&#39;, width: &#39;14%&#39;, render: personCell(&#39;modifier&#39;) },
+  { key: &#39;status&#39;, label: &#39;Status&#39;, width: 120, render: (_value: unknown, row: UsageListRow) =&gt; &lt;span&gt;{row.status}&lt;/span&gt; },
 ];
 
 export const CreateNotification: Story = {
@@ -23154,15 +23223,35 @@ export const CreateNotification: Story = {
     const [featureFilter, setFeatureFilter] = useState(&#39;all&#39;);
     const [pageTab, setPageTab] = useState(&#39;usage&#39;);
     const [sectionTab, setSectionTab] = useState(&#39;notifications&#39;);
-    const [savedRows, setSavedRows] = useState&lt;UsageListRow[]&gt;(() =&gt; USAGE_LIST_ROWS.map(row =&gt; ({ ...row, time: &#39;10:30 AM&#39; })));
-    const columns = usageListColumns((id, enabled) =&gt; {
-      setSavedRows(current =&gt; current.map(row =&gt; row.id === id ? { ...row, status: enabled ? &#39;Active&#39; : &#39;Paused&#39; } : row));
-    });
-    const visibleRows = savedRows.filter(row =&gt; featureFilter === &#39;all&#39; || row.feature === featureFilter);
-    const tableRows = Array.from(new Set(visibleRows.map(row =&gt; row.feature))).flatMap(feature =&gt; {
-      const rows = visibleRows.filter(row =&gt; row.feature === feature);
-      return [{ id: `group-${feature}`, feature, name: feature, group: true, count: rows.length }, ...rows];
-    });
+    const [savedRows, setSavedRows] = useState&lt;UsageListRow[]&gt;(() =&gt; USAGE_LIST_ROWS.map(row =&gt; {
+      const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) =&gt; item.label.toLowerCase() === row.feature.toLowerCase())?.[0];
+      const trigger = createUsageTrigger(featureKey);
+      // Seed demo rules with real editable criteria, shared by their hover summary.
+      if (row.id.startsWith(&#39;api-&#39;)) {
+        const threshold = row.name.split(&#39; &#39;).at(-1)!;
+        trigger.mode = threshold.endsWith(&#39;%&#39;) ? &#39;pct&#39; : &#39;val&#39;;
+        trigger.value = threshold.replace(&#39;%&#39;, &#39;&#39;);
+      } else if (row.id === &#39;functions&#39;) { trigger.mode = &#39;val&#39;; trigger.value = &#39;5000&#39;; }
+      else if (row.id === &#39;data-storage&#39;) { trigger.mode = &#39;pct&#39;; trigger.value = &#39;85&#39;; }
+      return { ...row, feature: USAGE_FEATURES[trigger.feature]?.label ?? row.feature, time: &#39;10:30 AM&#39;,
+        summary: usageTriggerSummary(trigger),
+        config: { trigger, recipients: [], pushEmailEnabled: true,
+          externalAppsEnabled: !!row.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel)),
+          notifyPush: !!row.channels?.includes(&#39;Push Notification&#39;), notifyEmail: !!row.channels?.includes(&#39;Emails&#39;),
+          notifyZohoCliq: !!row.channels?.includes(&#39;Zoho Cliq&#39;), notifySlack: !!row.channels?.includes(&#39;Slack&#39;),
+          users: [], channels: [], message: usageNotificationMessage(trigger) },
+      };
+    }));
+    const [typeFilter, setTypeFilter] = useState(&#39;all&#39;);
+    const [statusFilter, setStatusFilter] = useState(&#39;all&#39;);
+    const [search, setSearch] = useState(&#39;&#39;);
+    const [editingId, setEditingId] = useState&lt;string&gt;();
+    const [pendingDelete, setPendingDelete] = useState&lt;UsageListRow&gt;();
+    const visibleRows = savedRows.filter(row =&gt;
+      (featureFilter === &#39;all&#39; || row.feature === featureFilter) &amp;&amp;
+      (typeFilter === &#39;all&#39; || (typeFilter === &#39;system&#39; ? row.system : !row.system)) &amp;&amp;
+      (statusFilter === &#39;all&#39; || row.status === statusFilter) &amp;&amp;
+      `${row.name} ${row.feature}`.toLowerCase().includes(search.trim().toLowerCase()));
     const notificationNameId = useId();
     const [notificationName, setNotificationName] = useState(&#39;&#39;);
     const [nameError, setNameError] = useState(false);
@@ -23238,11 +23327,10 @@ export const CreateNotification: Story = {
     const isRange = [&#39;bt&#39;, &#39;nb&#39;].includes(trigger.comparator);
     const summary = usageTriggerSummary(trigger);
     const whenRowRef = useRef&lt;HTMLDivElement&gt;(null);
-    const contentRef = useRef&lt;HTMLDivElement&gt;(null);
+    const [content, setContent] = useState&lt;HTMLDivElement | null&gt;(null);
     const [modalWidth, setModalWidth] = useState(625);
 
     useEffect(() =&gt; {
-      const content = contentRef.current;
       const dialog = content?.closest(&#39;.modal-dialog&#39;);
       if (!open || !content || !dialog) return;
 
@@ -23264,7 +23352,36 @@ export const CreateNotification: Story = {
         observer.disconnect();
         window.removeEventListener(&#39;resize&#39;, updateWidth);
       };
-    }, [open, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
+    }, [open, content, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
+
+    const openEditor = (row?: UsageListRow, clone = false) =&gt; {
+      setEditingId(clone ? undefined : row?.id);
+      setNotificationName(row ? `${row.name}${clone ? &#39;_Cloned&#39; : &#39;&#39;}` : &#39;&#39;);
+      const config = row?.config;
+      const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) =&gt; item.label.toLowerCase() === row?.feature.toLowerCase())?.[0];
+      setTrigger(config ? { ...config.trigger } : createUsageTrigger(featureKey));
+      setNotifyToTags(config?.recipients ?? []);
+      setPushEmailEnabled(config?.pushEmailEnabled ?? true);
+      setExternalAppsEnabled(config?.externalAppsEnabled ?? !!row?.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel)));
+      setNotifyPush(config?.notifyPush ?? (row ? !!row.channels?.includes(&#39;Push Notification&#39;) : true));
+      setNotifyEmail(config?.notifyEmail ?? (row ? !!row.channels?.includes(&#39;Emails&#39;) : true));
+      setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : true));
+      setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes(&#39;Slack&#39;));
+      setZohoCommittedUsers(config?.users ?? []);
+      setZohoCommittedChannels(config?.channels ?? []);
+      setMessageDraft(config ? { criteriaKey: JSON.stringify(config.trigger), value: config.message } : { criteriaKey: &#39;&#39;, value: &#39;&#39; });
+      setEmailTemplate(config?.template);
+      setNameError(false);
+      setTriggerError(undefined);
+      setOpen(true);
+    };
+    const onRowAction = (action: RowAction, row: UsageListRow) =&gt; {
+      if (action === &#39;edit&#39; || action === &#39;clone&#39;) openEditor(row, action === &#39;clone&#39;);
+      else if (action === &#39;delete&#39;) { if (!row.system) setPendingDelete(row); }
+      else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
+        ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+    };
+    const columns = usageListColumns(onRowAction);
 
     return (
       &lt;&gt;
@@ -23315,15 +23432,29 @@ export const CreateNotification: Story = {
               {sectionTab === &#39;notifications&#39; ? &lt;section className=&quot;usage-page__content&quot; aria-label=&quot;Notification Configurator&quot;&gt;
                 &lt;div className=&quot;usage-page__toolbar&quot;&gt;
                   &lt;p&gt;Manage CRM usage limits and events by enabling admins to be notified when required&lt;/p&gt;
-                  &lt;div className=&quot;usage-page__actions&quot;&gt;
-                    &lt;Dropdown aria-label=&quot;Filter notifications by feature&quot; width={130} value={featureFilter}
-                      options={[{ value: &#39;all&#39;, label: &#39;All&#39; }, ...Array.from(new Set(savedRows.map(row =&gt; row.feature))).map(feature =&gt; ({ value: feature, label: feature }))]}
+                &lt;/div&gt;
+                &lt;div className=&quot;usage-page__toolbar&quot;&gt;
+                  &lt;div className=&quot;usage-page__filters&quot;&gt;
+                    &lt;div className=&quot;usage-page__search&quot;&gt;
+                      &lt;Search aria-hidden=&quot;true&quot; /&gt;
+                      &lt;Input layout=&quot;vertical&quot; type=&quot;search&quot; width={200} aria-label=&quot;Search notifications&quot; placeholder=&quot;Search&quot;
+                        value={search} onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setSearch(event.target.value)} /&gt;
+                    &lt;/div&gt;
+                    &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by feature&quot; width={150} value={featureFilter}
+                      panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
+                      options={[{ value: &#39;all&#39;, label: &#39;All Features&#39; }, ...FEATURE_OPTIONS.map(item =&gt; ({ value: item.label, label: item.label }))]}
                       onChange={setFeatureFilter} /&gt;
-                    &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;Create Notification&lt;/Button&gt;
+                    &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by type&quot; width={150} value={typeFilter}
+                      options={[{ value: &#39;all&#39;, label: &#39;All Types&#39; }, { value: &#39;system&#39;, label: &#39;System Defined&#39; }, { value: &#39;user&#39;, label: &#39;User Defined&#39; }]}
+                      onChange={setTypeFilter} /&gt;
+                    &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by status&quot; width={150} value={statusFilter}
+                      options={[{ value: &#39;all&#39;, label: &#39;All Status&#39; }, ...[&#39;Active&#39;, &#39;Paused&#39;, &#39;Completed&#39;].map(status =&gt; ({ value: status, label: status }))]}
+                      onChange={setStatusFilter} /&gt;
                   &lt;/div&gt;
+                  &lt;Button variant=&quot;primary&quot; onClick={() =&gt; openEditor()}&gt;Create Notification&lt;/Button&gt;
                 &lt;/div&gt;
                 &lt;div className=&quot;usage-page__table-region&quot; role=&quot;region&quot; aria-label=&quot;Notifications table&quot; tabIndex={0}&gt;
-                  &lt;SetupTable variant=&quot;report&quot; width=&quot;100%&quot; columns={columns} rows={tableRows} emptyMessage=&quot;No notifications found&quot; /&gt;
+                  &lt;SetupTable variant=&quot;report&quot; width=&quot;100%&quot; columns={columns} rows={visibleRows} emptyMessage=&quot;No notifications found&quot; /&gt;
                 &lt;/div&gt;
               &lt;/section&gt; : &lt;section className=&quot;usage-page__content&quot;&gt;&lt;h1&gt;Usage Limits&lt;/h1&gt;&lt;p&gt;Configure usage alerts in the Notification Configurator tab.&lt;/p&gt;&lt;/section&gt;}
             &lt;/&gt; : &lt;section className=&quot;usage-page__content&quot;&gt;&lt;h1&gt;Admin tool&lt;/h1&gt;&lt;p&gt;Select Usage Limits to manage usage notifications.&lt;/p&gt;&lt;/section&gt;}
@@ -23400,12 +23531,22 @@ export const CreateNotification: Story = {
               ...(externalAppsEnabled &amp;&amp; notifyZohoCliq ? [&#39;Zoho Cliq&#39;] : []),
               ...(externalAppsEnabled &amp;&amp; notifySlack ? [&#39;Slack&#39;] : []),
             ];
-            setSavedRows(current =&gt; [...current, {
-              id: `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
-              creator: &#39;Priya Nair&#39;, date: new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
-              time: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
-              channels, status: &#39;Active&#39;,
-            }]);
+            const existing = savedRows.find(row =&gt; row.id === editingId);
+            const saved: UsageListRow = {
+              ...existing,
+              id: editingId ?? `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
+              creator: existing?.creator ?? CURRENT_USAGE_USER,
+              date: existing?.date ?? new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
+              time: existing?.time ?? new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
+              modifier: CURRENT_USAGE_USER,
+              modifiedDate: new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
+              modifiedTime: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
+              channels, status: existing?.status ?? &#39;Active&#39;, summary: usageTriggerSummary(trigger),
+              config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
+                notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
+                channels: zohoCommittedChannels, message, template: emailTemplate },
+            };
+            setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row) : [...current, saved]);
             setNameError(false);
             setOpen(false);
           }}
@@ -23413,7 +23554,7 @@ export const CreateNotification: Story = {
           saveLabel=&quot;Save&quot;
           width={modalWidth}
         &gt;
-          &lt;div ref={contentRef} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 30 }}&gt;
+          &lt;div ref={setContent} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 30 }}&gt;
 
           {/* ── Notification name, feature, condition, and frequency ───── */}
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
@@ -23556,9 +23697,9 @@ export const CreateNotification: Story = {
                         &lt;Button variant=&quot;default&quot; size=&quot;sm&quot; aria-haspopup=&quot;dialog&quot; onClick={() =&gt; setRecipientDialogOpen(true)}&gt;
                           Select User
                         &lt;/Button&gt;
-                      ) : ([&#39;user&#39;, &#39;group&#39;] as const).map(kind =&gt; {
+                      ) : ([&#39;user&#39;, &#39;group&#39;, &#39;role&#39;, &#39;role-and-subordinates&#39;, &#39;email&#39;] as const).map(kind =&gt; {
                         const recipients = notifyToTags.filter(recipient =&gt; recipient.kind === kind);
-                        const label = kind === &#39;user&#39; ? &#39;Users&#39; : &#39;Groups&#39;;
+                        const label = { user: &#39;Users&#39;, group: &#39;Groups&#39;, role: &#39;Roles&#39;, &#39;role-and-subordinates&#39;: &#39;Roles and Subordinates&#39;, email: &#39;Emails&#39; }[kind];
                         return recipients.length &gt; 0 &amp;&amp; (
                           &lt;Tooltip key={kind} variant=&quot;white&quot; placement=&quot;top&quot; maxWidth={320}
                             content={&lt;span className=&quot;usage-recipient-preview&quot;&gt;
@@ -23729,7 +23870,7 @@ export const CreateNotification: Story = {
                 width={390}
                 defaultValue={message}
                 mergeFields={USAGE_MESSAGE_FIELDS}
-                hint={&#39;Type &quot;#&quot; to insert merge field&#39;}
+                hint=&quot;Type # to insert merge field&quot;
                 onChange={(value: string) =&gt; setMessageDraft({ criteriaKey, value })}
               /&gt;
             &lt;/FormRow&gt;
@@ -23737,6 +23878,14 @@ export const CreateNotification: Story = {
 
           &lt;/div&gt;
         &lt;/Modal&gt;
+        {pendingDelete &amp;&amp; &lt;Modal type=&quot;alert&quot; variant=&quot;error&quot; isOpen title={`Delete &quot;${pendingDelete.name}&quot;`} width={460}
+          confirmLabel=&quot;Delete&quot; cancelLabel=&quot;Cancel&quot;
+          onClose={() =&gt; setPendingDelete(undefined)} onCancel={() =&gt; setPendingDelete(undefined)}
+          onSave={() =&gt; {
+            if (!pendingDelete.system) setSavedRows(current =&gt; current.filter(row =&gt; row.id !== pendingDelete.id));
+            setPendingDelete(undefined);
+          }}
+        /&gt;}
         {recipientDialogOpen &amp;&amp; &lt;UsageRecipientDialog
           value={notifyToTags}
           onClose={() =&gt; setRecipientDialogOpen(false)}
@@ -23788,7 +23937,9 @@ export const CreateNotification: Story = {
     Input,
     MergeField,
     Modal,
+    More,
     NextGenTopBand,
+    Search,
     SetupTable,
     Switch,
     Tabs,
@@ -23814,15 +23965,35 @@ export const CreateNotification: Story = {
   const [featureFilter, setFeatureFilter] = useState(&#39;all&#39;);
   const [pageTab, setPageTab] = useState(&#39;usage&#39;);
   const [sectionTab, setSectionTab] = useState(&#39;notifications&#39;);
-  const [savedRows, setSavedRows] = useState&lt;UsageListRow[]&gt;(() =&gt; USAGE_LIST_ROWS.map(row =&gt; ({ ...row, time: &#39;10:30 AM&#39; })));
-  const columns = usageListColumns((id, enabled) =&gt; {
-    setSavedRows(current =&gt; current.map(row =&gt; row.id === id ? { ...row, status: enabled ? &#39;Active&#39; : &#39;Paused&#39; } : row));
-  });
-  const visibleRows = savedRows.filter(row =&gt; featureFilter === &#39;all&#39; || row.feature === featureFilter);
-  const tableRows = Array.from(new Set(visibleRows.map(row =&gt; row.feature))).flatMap(feature =&gt; {
-    const rows = visibleRows.filter(row =&gt; row.feature === feature);
-    return [{ id: `group-${feature}`, feature, name: feature, group: true, count: rows.length }, ...rows];
-  });
+  const [savedRows, setSavedRows] = useState&lt;UsageListRow[]&gt;(() =&gt; USAGE_LIST_ROWS.map(row =&gt; {
+    const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) =&gt; item.label.toLowerCase() === row.feature.toLowerCase())?.[0];
+    const trigger = createUsageTrigger(featureKey);
+    // Seed demo rules with real editable criteria, shared by their hover summary.
+    if (row.id.startsWith(&#39;api-&#39;)) {
+      const threshold = row.name.split(&#39; &#39;).at(-1)!;
+      trigger.mode = threshold.endsWith(&#39;%&#39;) ? &#39;pct&#39; : &#39;val&#39;;
+      trigger.value = threshold.replace(&#39;%&#39;, &#39;&#39;);
+    } else if (row.id === &#39;functions&#39;) { trigger.mode = &#39;val&#39;; trigger.value = &#39;5000&#39;; }
+    else if (row.id === &#39;data-storage&#39;) { trigger.mode = &#39;pct&#39;; trigger.value = &#39;85&#39;; }
+    return { ...row, feature: USAGE_FEATURES[trigger.feature]?.label ?? row.feature, time: &#39;10:30 AM&#39;,
+      summary: usageTriggerSummary(trigger),
+      config: { trigger, recipients: [], pushEmailEnabled: true,
+        externalAppsEnabled: !!row.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel)),
+        notifyPush: !!row.channels?.includes(&#39;Push Notification&#39;), notifyEmail: !!row.channels?.includes(&#39;Emails&#39;),
+        notifyZohoCliq: !!row.channels?.includes(&#39;Zoho Cliq&#39;), notifySlack: !!row.channels?.includes(&#39;Slack&#39;),
+        users: [], channels: [], message: usageNotificationMessage(trigger) },
+    };
+  }));
+  const [typeFilter, setTypeFilter] = useState(&#39;all&#39;);
+  const [statusFilter, setStatusFilter] = useState(&#39;all&#39;);
+  const [search, setSearch] = useState(&#39;&#39;);
+  const [editingId, setEditingId] = useState&lt;string&gt;();
+  const [pendingDelete, setPendingDelete] = useState&lt;UsageListRow&gt;();
+  const visibleRows = savedRows.filter(row =&gt;
+    (featureFilter === &#39;all&#39; || row.feature === featureFilter) &amp;&amp;
+    (typeFilter === &#39;all&#39; || (typeFilter === &#39;system&#39; ? row.system : !row.system)) &amp;&amp;
+    (statusFilter === &#39;all&#39; || row.status === statusFilter) &amp;&amp;
+    `${row.name} ${row.feature}`.toLowerCase().includes(search.trim().toLowerCase()));
   const notificationNameId = useId();
   const [notificationName, setNotificationName] = useState(&#39;&#39;);
   const [nameError, setNameError] = useState(false);
@@ -23898,11 +24069,10 @@ export const CreateNotification: Story = {
   const isRange = [&#39;bt&#39;, &#39;nb&#39;].includes(trigger.comparator);
   const summary = usageTriggerSummary(trigger);
   const whenRowRef = useRef&lt;HTMLDivElement&gt;(null);
-  const contentRef = useRef&lt;HTMLDivElement&gt;(null);
+  const [content, setContent] = useState&lt;HTMLDivElement | null&gt;(null);
   const [modalWidth, setModalWidth] = useState(625);
 
   useEffect(() =&gt; {
-    const content = contentRef.current;
     const dialog = content?.closest(&#39;.modal-dialog&#39;);
     if (!open || !content || !dialog) return;
 
@@ -23924,7 +24094,36 @@ export const CreateNotification: Story = {
       observer.disconnect();
       window.removeEventListener(&#39;resize&#39;, updateWidth);
     };
-  }, [open, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
+  }, [open, content, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
+
+  const openEditor = (row?: UsageListRow, clone = false) =&gt; {
+    setEditingId(clone ? undefined : row?.id);
+    setNotificationName(row ? `${row.name}${clone ? &#39;_Cloned&#39; : &#39;&#39;}` : &#39;&#39;);
+    const config = row?.config;
+    const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) =&gt; item.label.toLowerCase() === row?.feature.toLowerCase())?.[0];
+    setTrigger(config ? { ...config.trigger } : createUsageTrigger(featureKey));
+    setNotifyToTags(config?.recipients ?? []);
+    setPushEmailEnabled(config?.pushEmailEnabled ?? true);
+    setExternalAppsEnabled(config?.externalAppsEnabled ?? !!row?.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel)));
+    setNotifyPush(config?.notifyPush ?? (row ? !!row.channels?.includes(&#39;Push Notification&#39;) : true));
+    setNotifyEmail(config?.notifyEmail ?? (row ? !!row.channels?.includes(&#39;Emails&#39;) : true));
+    setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : true));
+    setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes(&#39;Slack&#39;));
+    setZohoCommittedUsers(config?.users ?? []);
+    setZohoCommittedChannels(config?.channels ?? []);
+    setMessageDraft(config ? { criteriaKey: JSON.stringify(config.trigger), value: config.message } : { criteriaKey: &#39;&#39;, value: &#39;&#39; });
+    setEmailTemplate(config?.template);
+    setNameError(false);
+    setTriggerError(undefined);
+    setOpen(true);
+  };
+  const onRowAction = (action: RowAction, row: UsageListRow) =&gt; {
+    if (action === &#39;edit&#39; || action === &#39;clone&#39;) openEditor(row, action === &#39;clone&#39;);
+    else if (action === &#39;delete&#39;) { if (!row.system) setPendingDelete(row); }
+    else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
+      ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+  };
+  const columns = usageListColumns(onRowAction);
 
   return (
     &lt;&gt;
@@ -23975,15 +24174,29 @@ export const CreateNotification: Story = {
             {sectionTab === &#39;notifications&#39; ? &lt;section className=&quot;usage-page__content&quot; aria-label=&quot;Notification Configurator&quot;&gt;
               &lt;div className=&quot;usage-page__toolbar&quot;&gt;
                 &lt;p&gt;Manage CRM usage limits and events by enabling admins to be notified when required&lt;/p&gt;
-                &lt;div className=&quot;usage-page__actions&quot;&gt;
-                  &lt;Dropdown aria-label=&quot;Filter notifications by feature&quot; width={130} value={featureFilter}
-                    options={[{ value: &#39;all&#39;, label: &#39;All&#39; }, ...Array.from(new Set(savedRows.map(row =&gt; row.feature))).map(feature =&gt; ({ value: feature, label: feature }))]}
+              &lt;/div&gt;
+              &lt;div className=&quot;usage-page__toolbar&quot;&gt;
+                &lt;div className=&quot;usage-page__filters&quot;&gt;
+                  &lt;div className=&quot;usage-page__search&quot;&gt;
+                    &lt;Search aria-hidden=&quot;true&quot; /&gt;
+                    &lt;Input layout=&quot;vertical&quot; type=&quot;search&quot; width={200} aria-label=&quot;Search notifications&quot; placeholder=&quot;Search&quot;
+                      value={search} onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setSearch(event.target.value)} /&gt;
+                  &lt;/div&gt;
+                  &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by feature&quot; width={150} value={featureFilter}
+                    panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
+                    options={[{ value: &#39;all&#39;, label: &#39;All Features&#39; }, ...FEATURE_OPTIONS.map(item =&gt; ({ value: item.label, label: item.label }))]}
                     onChange={setFeatureFilter} /&gt;
-                  &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;Create Notification&lt;/Button&gt;
+                  &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by type&quot; width={150} value={typeFilter}
+                    options={[{ value: &#39;all&#39;, label: &#39;All Types&#39; }, { value: &#39;system&#39;, label: &#39;System Defined&#39; }, { value: &#39;user&#39;, label: &#39;User Defined&#39; }]}
+                    onChange={setTypeFilter} /&gt;
+                  &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by status&quot; width={150} value={statusFilter}
+                    options={[{ value: &#39;all&#39;, label: &#39;All Status&#39; }, ...[&#39;Active&#39;, &#39;Paused&#39;, &#39;Completed&#39;].map(status =&gt; ({ value: status, label: status }))]}
+                    onChange={setStatusFilter} /&gt;
                 &lt;/div&gt;
+                &lt;Button variant=&quot;primary&quot; onClick={() =&gt; openEditor()}&gt;Create Notification&lt;/Button&gt;
               &lt;/div&gt;
               &lt;div className=&quot;usage-page__table-region&quot; role=&quot;region&quot; aria-label=&quot;Notifications table&quot; tabIndex={0}&gt;
-                &lt;SetupTable variant=&quot;report&quot; width=&quot;100%&quot; columns={columns} rows={tableRows} emptyMessage=&quot;No notifications found&quot; /&gt;
+                &lt;SetupTable variant=&quot;report&quot; width=&quot;100%&quot; columns={columns} rows={visibleRows} emptyMessage=&quot;No notifications found&quot; /&gt;
               &lt;/div&gt;
             &lt;/section&gt; : &lt;section className=&quot;usage-page__content&quot;&gt;&lt;h1&gt;Usage Limits&lt;/h1&gt;&lt;p&gt;Configure usage alerts in the Notification Configurator tab.&lt;/p&gt;&lt;/section&gt;}
           &lt;/&gt; : &lt;section className=&quot;usage-page__content&quot;&gt;&lt;h1&gt;Admin tool&lt;/h1&gt;&lt;p&gt;Select Usage Limits to manage usage notifications.&lt;/p&gt;&lt;/section&gt;}
@@ -24060,12 +24273,22 @@ export const CreateNotification: Story = {
             ...(externalAppsEnabled &amp;&amp; notifyZohoCliq ? [&#39;Zoho Cliq&#39;] : []),
             ...(externalAppsEnabled &amp;&amp; notifySlack ? [&#39;Slack&#39;] : []),
           ];
-          setSavedRows(current =&gt; [...current, {
-            id: `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
-            creator: &#39;Priya Nair&#39;, date: new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
-            time: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
-            channels, status: &#39;Active&#39;,
-          }]);
+          const existing = savedRows.find(row =&gt; row.id === editingId);
+          const saved: UsageListRow = {
+            ...existing,
+            id: editingId ?? `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
+            creator: existing?.creator ?? CURRENT_USAGE_USER,
+            date: existing?.date ?? new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
+            time: existing?.time ?? new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
+            modifier: CURRENT_USAGE_USER,
+            modifiedDate: new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
+            modifiedTime: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
+            channels, status: existing?.status ?? &#39;Active&#39;, summary: usageTriggerSummary(trigger),
+            config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
+              notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
+              channels: zohoCommittedChannels, message, template: emailTemplate },
+          };
+          setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row) : [...current, saved]);
           setNameError(false);
           setOpen(false);
         }}
@@ -24073,7 +24296,7 @@ export const CreateNotification: Story = {
         saveLabel=&quot;Save&quot;
         width={modalWidth}
       &gt;
-        &lt;div ref={contentRef} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 30 }}&gt;
+        &lt;div ref={setContent} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 30 }}&gt;
 
         {/* ── Notification name, feature, condition, and frequency ───── */}
         &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
@@ -24216,9 +24439,9 @@ export const CreateNotification: Story = {
                       &lt;Button variant=&quot;default&quot; size=&quot;sm&quot; aria-haspopup=&quot;dialog&quot; onClick={() =&gt; setRecipientDialogOpen(true)}&gt;
                         Select User
                       &lt;/Button&gt;
-                    ) : ([&#39;user&#39;, &#39;group&#39;] as const).map(kind =&gt; {
+                    ) : ([&#39;user&#39;, &#39;group&#39;, &#39;role&#39;, &#39;role-and-subordinates&#39;, &#39;email&#39;] as const).map(kind =&gt; {
                       const recipients = notifyToTags.filter(recipient =&gt; recipient.kind === kind);
-                      const label = kind === &#39;user&#39; ? &#39;Users&#39; : &#39;Groups&#39;;
+                      const label = { user: &#39;Users&#39;, group: &#39;Groups&#39;, role: &#39;Roles&#39;, &#39;role-and-subordinates&#39;: &#39;Roles and Subordinates&#39;, email: &#39;Emails&#39; }[kind];
                       return recipients.length &gt; 0 &amp;&amp; (
                         &lt;Tooltip key={kind} variant=&quot;white&quot; placement=&quot;top&quot; maxWidth={320}
                           content={&lt;span className=&quot;usage-recipient-preview&quot;&gt;
@@ -24389,7 +24612,7 @@ export const CreateNotification: Story = {
               width={390}
               defaultValue={message}
               mergeFields={USAGE_MESSAGE_FIELDS}
-              hint={&#39;Type &quot;#&quot; to insert merge field&#39;}
+              hint=&quot;Type # to insert merge field&quot;
               onChange={(value: string) =&gt; setMessageDraft({ criteriaKey, value })}
             /&gt;
           &lt;/FormRow&gt;
@@ -24397,6 +24620,14 @@ export const CreateNotification: Story = {
 
         &lt;/div&gt;
       &lt;/Modal&gt;
+      {pendingDelete &amp;&amp; &lt;Modal type=&quot;alert&quot; variant=&quot;error&quot; isOpen title={`Delete &quot;${pendingDelete.name}&quot;`} width={460}
+        confirmLabel=&quot;Delete&quot; cancelLabel=&quot;Cancel&quot;
+        onClose={() =&gt; setPendingDelete(undefined)} onCancel={() =&gt; setPendingDelete(undefined)}
+        onSave={() =&gt; {
+          if (!pendingDelete.system) setSavedRows(current =&gt; current.filter(row =&gt; row.id !== pendingDelete.id));
+          setPendingDelete(undefined);
+        }}
+      /&gt;}
       {recipientDialogOpen &amp;&amp; &lt;UsageRecipientDialog
         value={notifyToTags}
         onClose={() =&gt; setRecipientDialogOpen(false)}
@@ -24651,6 +24882,125 @@ width?: any = 390</code></pre>
 <article
   class="card 
   no-error 
+  no-info 
+  no-story-error
+  no-doc-error"
+  role="listitem"
+  aria-label="UserSelectionModal">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> UserSelectionModal</h2>
+      <div class="badges">
+        <label for="c-55-design-system-components-user-selection-modal-props" class="badge ok as-toggle">7 prop types</label>
+        
+        <label for="c-55-design-system-components-user-selection-modal-stories" class="badge ok as-toggle">4 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/design-system/components/UserSelectionModal/UserSelectionModal.stories.tsx">design-system-components-user-selection-modal · ./src/design-system/components/UserSelectionModal/UserSelectionModal.stories.tsx</div>
+    
+    <div class="hint">Mount on open so Cancel discards the draft and reopening starts from the saved value.</div>
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  
+  <input id="c-55-design-system-components-user-selection-modal-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-55-design-system-components-user-selection-modal-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">7 prop types</span>
+            </div>
+            <pre><code>Component: src/design-system/components/UserSelectionModal/UserSelectionModal.tsx::UserSelectionModal</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>allowAdditionalEmails?: boolean = false
+
+maxSelections?: number
+
+onClose: () =&gt; void
+
+onSave: (value: UserSelection[]) =&gt; void
+
+options: UserSelectionOption[]
+
+title?: string = &#39;Select Users&#39;
+
+value: UserSelection[]</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Button, UserSelectionModal } from "@chinnaiya-r-2310/design-system";</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;Example options={RECIPIENT_OPTIONS} value={[]} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Selections</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithSelections = () =&gt; &lt;Example
+    options={RECIPIENT_OPTIONS}
+    value={RECIPIENT_OPTIONS.filter(item =&gt; [&#39;user:esther&#39;, &#39;group:visual&#39;, &#39;role:administrator&#39;, &#39;hierarchy:sales-manager&#39;].includes(item.value))} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Additional Recipients</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AdditionalRecipients = () =&gt; &lt;Example
+    options={RECIPIENT_OPTIONS}
+    value={[{ value: &#39;email:operations@example.com&#39;, label: &#39;operations@example.com&#39;, kind: &#39;email&#39; }]}
+    allowAdditionalEmails /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Selection Limit</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SelectionLimit = () =&gt; &lt;Example options={RECIPIENT_OPTIONS} value={[]} maxSelections={2} /&gt;;</code></pre>
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  class="card 
+  no-error 
   has-info 
   no-story-error
   no-doc-error"
@@ -24660,9 +25010,9 @@ width?: any = 390</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> VerticalTabs</h2>
       <div class="badges">
-        <label for="c-55-design-system-components-verticaltabs-props" class="badge ok as-toggle">6 prop types</label>
-        <label for="c-55-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
-        <label for="c-55-design-system-components-verticaltabs-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-56-design-system-components-verticaltabs-props" class="badge ok as-toggle">6 prop types</label>
+        <label for="c-56-design-system-components-verticaltabs-info" class="badge info as-toggle">1 info</label>
+        <label for="c-56-design-system-components-verticaltabs-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -24675,11 +25025,11 @@ width?: any = 390</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-55-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-55-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-56-design-system-components-verticaltabs-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-56-design-system-components-verticaltabs-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-55-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-56-design-system-components-verticaltabs-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -24853,9 +25203,9 @@ Figma: Pascal Stone &quot;Setup Left Menu&quot; (79954:198542).</div>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> WMSBar</h2>
       <div class="badges">
-        <label for="c-56-design-system-components-wmsbar-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-56-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
-        <label for="c-56-design-system-components-wmsbar-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-57-design-system-components-wmsbar-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-57-design-system-components-wmsbar-info" class="badge info as-toggle">1 info</label>
+        <label for="c-57-design-system-components-wmsbar-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -24868,11 +25218,11 @@ Figma: Pascal Stone &quot;Setup Left Menu&quot; (79954:198542).</div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-56-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-56-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-57-design-system-components-wmsbar-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-57-design-system-components-wmsbar-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-56-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-57-design-system-components-wmsbar-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -37776,7 +38126,7 @@ import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
 import { Button } from &#39;../components/Button/Button&#39;;
 import { MergeField } from &#39;../components/MergeField/MergeField&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
-import { CrmAlertInfo } from &#39;../foundations/icons/Icons&#39;;
+import { CrmAlertInfo, More, Search } from &#39;../foundations/icons/Icons&#39;;
 import { NextGenTopBand } from &#39;../components/NextGenTopBand/NextGenTopBand&#39;;
 import { VerticalTabs } from &#39;../components/VerticalTabs/VerticalTabs&#39;;
 import { SETUP_MENU_ITEMS } from &#39;../components/VerticalTabs/setupMenuItems&#39;;
@@ -37959,15 +38309,45 @@ function TagPlaceholder({ tags }: { tags: Array&lt;{ label: string; count: numbe
 // Story
 // ─────────────────────────────────────────────────────────────────────────────
 
+const USAGE_USER_AVATARS: Record&lt;string, string&gt; = {
+  &#39;Priya Nair&#39;: &#39;user_03.jpg&#39;,
+  &#39;Arjun Kumar&#39;: &#39;user_04.jpg&#39;,
+  &#39;Meera Iyer&#39;: &#39;user_07.jpg&#39;,
+  &#39;Sam Carter&#39;: &#39;user_08.jpg&#39;,
+};
+
+const CURRENT_USAGE_USER = &#39;Priya Nair&#39;;
+
 type UsageListRow = {
   id: string; feature: string; name: string; creator?: string; date?: string; time?: string;
-  channels?: string[]; status?: &#39;Active&#39; | &#39;Paused&#39; | &#39;Completed&#39;; system?: boolean; group?: boolean; count?: number;
+  modifier?: string; modifiedDate?: string; modifiedTime?: string;
+  channels?: string[]; status?: &#39;Active&#39; | &#39;Paused&#39; | &#39;Completed&#39;; system?: boolean;
+  summary?: string;
+  config?: {
+    trigger: ReturnType&lt;typeof createUsageTrigger&gt;; recipients: UsageRecipient[];
+    pushEmailEnabled: boolean; externalAppsEnabled: boolean;
+    notifyPush: boolean; notifyEmail: boolean; notifyZohoCliq: boolean; notifySlack: boolean;
+    users: TagItem[]; channels: TagItem[]; message: string; template?: TemplateSettings;
+  };
 };
+
+type RowAction = &#39;edit&#39; | &#39;clone&#39; | &#39;pause&#39; | &#39;resume&#39; | &#39;delete&#39;;
+function UsageRowActions({ row, onAction }: { row: UsageListRow; onAction: (action: RowAction, row: UsageListRow) =&gt; void }) {
+  return &lt;span className=&quot;usage-page__row-actions&quot;&gt;&lt;Dropdown width={27} triggerIcon={&lt;More /&gt;}
+    triggerAriaLabel={`More options for ${row.name}`} value=&quot;&quot; panelStyle={{ width: 160, &#39;--usage-actions-menu&#39;: 1 }}
+    options={[
+      { value: &#39;edit&#39;, label: &#39;Edit&#39; }, { value: &#39;clone&#39;, label: &#39;Clone&#39; },
+      ...(!row.system &amp;&amp; row.status === &#39;Active&#39; ? [{ value: &#39;pause&#39;, label: &#39;Pause&#39; }] : []),
+      ...(!row.system &amp;&amp; row.status === &#39;Paused&#39; ? [{ value: &#39;resume&#39;, label: &#39;Resume&#39; }] : []),
+      { value: &#39;delete&#39;, label: &#39;Delete&#39;, disabled: row.system, disabledTooltip: &#39;System-defined notifications cannot be deleted.&#39; },
+    ]} onChange={(action: RowAction) =&gt; onAction(action, row)} /&gt;&lt;/span&gt;;
+}
 
 const USAGE_LIST_ROWS: UsageListRow[] = [
   ...[&#39;60%&#39;, &#39;5000&#39;, &#39;4000&#39;, &#39;3000&#39;, &#39;2500&#39;].map((value, index) =&gt; ({
     id: `api-${index}`, feature: &#39;API&#39;, name: `Reached add-on limit ${value}`,
     creator: index &gt; 2 ? &#39;System&#39; : index === 2 ? &#39;Arjun Kumar&#39; : &#39;Priya Nair&#39;,
+    modifier: index &gt; 2 ? &#39;System&#39; : index === 2 ? &#39;Priya Nair&#39; : &#39;Arjun Kumar&#39;,
     date: index &gt; 2 ? &#39;Jan 12, 2026&#39; : &#39;Jul 3, 2026&#39;, system: index &gt; 2,
     channels: [&#39;Push Notification&#39;, &#39;Emails&#39;, &#39;Zoho Cliq&#39;, &#39;Slack&#39;], status: &#39;Active&#39; as const,
   })),
@@ -37977,33 +38357,68 @@ const USAGE_LIST_ROWS: UsageListRow[] = [
   { id: &#39;file-storage&#39;, feature: &#39;File storage&#39;, name: &#39;File storage nearly full&#39;, creator: &#39;Priya Nair&#39;, date: &#39;Jul 3, 2026&#39;, channels: [&#39;Push Notification&#39;, &#39;Emails&#39;], status: &#39;Completed&#39; },
 ];
 
-const personCell = (_value: unknown, row: UsageListRow) =&gt; row.group ? null : (
-  &lt;Tooltip variant=&quot;white&quot; placement=&quot;top&quot; followCursor content={
-    &lt;span className=&quot;usage-page__hover-list&quot;&gt;&lt;span&gt;{row.creator}&lt;/span&gt;&lt;span&gt;{row.date}&lt;/span&gt;&lt;span&gt;{row.time}&lt;/span&gt;&lt;/span&gt;
-  }&gt;
-    &lt;span className=&quot;usage-page__person&quot; tabIndex={0}&gt;
-      &lt;img src={`${import.meta.env.BASE_URL}images/avatars/user_06.jpg`} alt=&quot;&quot; /&gt;
-      &lt;span&gt;{row.date}&lt;/span&gt;
-    &lt;/span&gt;
-  &lt;/Tooltip&gt;
-);
-const usageListColumns = (onStatusChange: (id: string, enabled: boolean) =&gt; void) =&gt; [
-  { key: &#39;name&#39;, label: &#39;Notification Name&#39;, width: &#39;35%&#39;, render: (_value: unknown, row: UsageListRow) =&gt; row.group
-    ? &lt;div className=&quot;usage-page__group&quot;&gt;{row.name}&lt;span className=&quot;usage-page__group-count&quot;&gt;{row.count}&lt;/span&gt;&lt;/div&gt;
-    : &lt;div className=&quot;usage-page__name&quot;&gt;{row.name}&lt;/div&gt; },
-  { key: &#39;channels&#39;, label: &#39;Notify via&#39;, width: &#39;25%&#39;, render: (_value: unknown, row: UsageListRow) =&gt; row.group ? null : &lt;&gt;
-    {row.channels?.slice(0, 2).join(&#39;, &#39;)}{(row.channels?.length ?? 0) &gt; 2 &amp;&amp; &lt;span className=&quot;usage-page__more&quot;&gt; and &lt;Tooltip
-      content={&lt;span className=&quot;usage-page__hover-list&quot;&gt;{row.channels!.slice(2).map(channel =&gt; &lt;span key={channel}&gt;{channel}&lt;/span&gt;)}&lt;/span&gt;}
+const personCell = (field: &#39;creator&#39; | &#39;modifier&#39;) =&gt; (_value: unknown, row: UsageListRow) =&gt; {
+  if (row.system) return &#39;-&#39;;
+  const user = (field === &#39;modifier&#39; ? row.modifier : row.creator) ?? row.creator;
+  const date = (field === &#39;modifier&#39; ? row.modifiedDate : row.date) ?? row.date;
+  const time = (field === &#39;modifier&#39; ? row.modifiedTime : row.time) ?? row.time;
+  const details = `${user} on ${date}${time ? ` ${time}` : &#39;&#39;}`;
+  const avatar = user ? USAGE_USER_AVATARS[user] : undefined;
+  return (
+    &lt;Tooltip variant=&quot;white&quot; placement=&quot;top&quot; followCursor wrapperStyle={{ display: &#39;inline-flex&#39;, maxWidth: &#39;100%&#39; }} content={details}&gt;
+      &lt;span className=&quot;usage-page__person&quot; tabIndex={0} aria-label={details}&gt;
+        {avatar ? &lt;img src={`${import.meta.env.BASE_URL}images/avatars/${avatar}`} alt=&quot;&quot; /&gt; : &lt;Icon name=&quot;user-avatar&quot; /&gt;}
+        &lt;span&gt;{date}&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/Tooltip&gt;
+  );
+};
+function UsageChannelsCell({ channels = [] }: { channels?: string[] }) {
+  const ref = useRef&lt;HTMLSpanElement&gt;(null);
+  const [visibleCount, setVisibleCount] = useState(1);
+  useEffect(() =&gt; {
+    const element = ref.current;
+    if (!element) return;
+    const measure = () =&gt; {
+      let count = 1;
+      element.querySelectorAll&lt;HTMLElement&gt;(&#39;[data-channel-count]&#39;).forEach(candidate =&gt; {
+        if (candidate.getBoundingClientRect().width &lt;= element.clientWidth) count = Number(candidate.dataset.channelCount);
+      });
+      setVisibleCount(count);
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    measure();
+    let mounted = true;
+    document.fonts.ready.then(() =&gt; { if (mounted) measure(); });
+    return () =&gt; { mounted = false; observer.disconnect(); };
+  }, [channels]);
+  const count = Math.min(visibleCount, channels.length);
+  const hidden = channels.slice(count);
+  return &lt;span ref={ref} className=&quot;usage-page__channels&quot;&gt;
+    &lt;span className=&quot;usage-page__channel-label&quot; title={channels.slice(0, count).join(&#39;, &#39;)}&gt;{channels.slice(0, count).join(&#39;, &#39;) || &#39;-&#39;}&lt;/span&gt;
+    {hidden.length &gt; 0 &amp;&amp; &lt;span className=&quot;usage-page__more&quot;&gt; and &lt;Tooltip
+      content={&lt;span className=&quot;usage-page__hover-list&quot;&gt;{hidden.map(channel =&gt; &lt;span key={channel}&gt;{channel}&lt;/span&gt;)}&lt;/span&gt;}
       variant=&quot;white&quot; placement=&quot;top&quot; followCursor&gt;
-      &lt;button type=&quot;button&quot; className=&quot;usage-page__more-trigger&quot;&gt;{row.channels!.length - 2} more&lt;/button&gt;
+      &lt;button type=&quot;button&quot; className=&quot;usage-page__more-trigger&quot;&gt;{hidden.length} more&lt;/button&gt;
     &lt;/Tooltip&gt;&lt;/span&gt;}
-  &lt;/&gt; },
-  { key: &#39;creator&#39;, label: &#39;Created by&#39;, width: &#39;14%&#39;, render: personCell },
-  { key: &#39;modifier&#39;, label: &#39;Modified by&#39;, width: &#39;14%&#39;, render: personCell },
-  { key: &#39;status&#39;, label: &#39;Status&#39;, width: &#39;12%&#39;, render: (_value: unknown, row: UsageListRow) =&gt; row.group ? null : (
-    &lt;Switch aria-label={`Enable ${row.name}`} checked={row.status === &#39;Active&#39;}
-      onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; onStatusChange(row.id, event.target.checked)} /&gt;
-  ) },
+    &lt;span className=&quot;usage-page__channel-measure&quot; aria-hidden=&quot;true&quot;&gt;{channels.map((_, index) =&gt;
+      &lt;span key={index} data-channel-count={index + 1}&gt;{channels.slice(0, index + 1).join(&#39;, &#39;)}{index + 1 &lt; channels.length ? ` and ${channels.length - index - 1} more` : &#39;&#39;}&lt;/span&gt;
+    )}&lt;/span&gt;
+  &lt;/span&gt;;
+}
+
+const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) =&gt; void) =&gt; [
+  { key: &#39;actions&#39;, label: &#39;&#39;, width: 31, render: (_value: unknown, row: UsageListRow) =&gt; &lt;UsageRowActions row={row} onAction={onAction} /&gt; },
+  { key: &#39;name&#39;, label: &#39;Notification Name&#39;, width: &#39;25%&#39;, render: (_value: unknown, row: UsageListRow) =&gt;
+    &lt;Tooltip variant=&quot;white&quot; placement=&quot;top&quot; maxWidth={600} wrapperStyle={{ display: &#39;inline-flex&#39;, maxWidth: &#39;100%&#39;, minWidth: 0, verticalAlign: &#39;middle&#39; }} content={row.summary || `${row.feature}: ${row.name}. Notify via ${row.channels?.join(&#39;, &#39;)}.`}&gt;
+      &lt;span className=&quot;usage-page__name&quot; tabIndex={0}&gt;{row.name}&lt;/span&gt;
+    &lt;/Tooltip&gt; },
+  { key: &#39;feature&#39;, label: &#39;Feature&#39;, width: &#39;13%&#39; },
+  { key: &#39;channels&#39;, label: &#39;Notify via&#39;, width: &#39;22%&#39;, render: (_value: unknown, row: UsageListRow) =&gt; &lt;UsageChannelsCell channels={row.channels} /&gt; },
+  { key: &#39;creator&#39;, label: &#39;Created by&#39;, width: &#39;14%&#39;, render: personCell(&#39;creator&#39;) },
+  { key: &#39;modifier&#39;, label: &#39;Modified by&#39;, width: &#39;14%&#39;, render: personCell(&#39;modifier&#39;) },
+  { key: &#39;status&#39;, label: &#39;Status&#39;, width: 120, render: (_value: unknown, row: UsageListRow) =&gt; &lt;span&gt;{row.status}&lt;/span&gt; },
 ];
 
 export const CreateNotification: Story = {
@@ -38014,15 +38429,35 @@ export const CreateNotification: Story = {
     const [featureFilter, setFeatureFilter] = useState(&#39;all&#39;);
     const [pageTab, setPageTab] = useState(&#39;usage&#39;);
     const [sectionTab, setSectionTab] = useState(&#39;notifications&#39;);
-    const [savedRows, setSavedRows] = useState&lt;UsageListRow[]&gt;(() =&gt; USAGE_LIST_ROWS.map(row =&gt; ({ ...row, time: &#39;10:30 AM&#39; })));
-    const columns = usageListColumns((id, enabled) =&gt; {
-      setSavedRows(current =&gt; current.map(row =&gt; row.id === id ? { ...row, status: enabled ? &#39;Active&#39; : &#39;Paused&#39; } : row));
-    });
-    const visibleRows = savedRows.filter(row =&gt; featureFilter === &#39;all&#39; || row.feature === featureFilter);
-    const tableRows = Array.from(new Set(visibleRows.map(row =&gt; row.feature))).flatMap(feature =&gt; {
-      const rows = visibleRows.filter(row =&gt; row.feature === feature);
-      return [{ id: `group-${feature}`, feature, name: feature, group: true, count: rows.length }, ...rows];
-    });
+    const [savedRows, setSavedRows] = useState&lt;UsageListRow[]&gt;(() =&gt; USAGE_LIST_ROWS.map(row =&gt; {
+      const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) =&gt; item.label.toLowerCase() === row.feature.toLowerCase())?.[0];
+      const trigger = createUsageTrigger(featureKey);
+      // Seed demo rules with real editable criteria, shared by their hover summary.
+      if (row.id.startsWith(&#39;api-&#39;)) {
+        const threshold = row.name.split(&#39; &#39;).at(-1)!;
+        trigger.mode = threshold.endsWith(&#39;%&#39;) ? &#39;pct&#39; : &#39;val&#39;;
+        trigger.value = threshold.replace(&#39;%&#39;, &#39;&#39;);
+      } else if (row.id === &#39;functions&#39;) { trigger.mode = &#39;val&#39;; trigger.value = &#39;5000&#39;; }
+      else if (row.id === &#39;data-storage&#39;) { trigger.mode = &#39;pct&#39;; trigger.value = &#39;85&#39;; }
+      return { ...row, feature: USAGE_FEATURES[trigger.feature]?.label ?? row.feature, time: &#39;10:30 AM&#39;,
+        summary: usageTriggerSummary(trigger),
+        config: { trigger, recipients: [], pushEmailEnabled: true,
+          externalAppsEnabled: !!row.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel)),
+          notifyPush: !!row.channels?.includes(&#39;Push Notification&#39;), notifyEmail: !!row.channels?.includes(&#39;Emails&#39;),
+          notifyZohoCliq: !!row.channels?.includes(&#39;Zoho Cliq&#39;), notifySlack: !!row.channels?.includes(&#39;Slack&#39;),
+          users: [], channels: [], message: usageNotificationMessage(trigger) },
+      };
+    }));
+    const [typeFilter, setTypeFilter] = useState(&#39;all&#39;);
+    const [statusFilter, setStatusFilter] = useState(&#39;all&#39;);
+    const [search, setSearch] = useState(&#39;&#39;);
+    const [editingId, setEditingId] = useState&lt;string&gt;();
+    const [pendingDelete, setPendingDelete] = useState&lt;UsageListRow&gt;();
+    const visibleRows = savedRows.filter(row =&gt;
+      (featureFilter === &#39;all&#39; || row.feature === featureFilter) &amp;&amp;
+      (typeFilter === &#39;all&#39; || (typeFilter === &#39;system&#39; ? row.system : !row.system)) &amp;&amp;
+      (statusFilter === &#39;all&#39; || row.status === statusFilter) &amp;&amp;
+      `${row.name} ${row.feature}`.toLowerCase().includes(search.trim().toLowerCase()));
     const notificationNameId = useId();
     const [notificationName, setNotificationName] = useState(&#39;&#39;);
     const [nameError, setNameError] = useState(false);
@@ -38098,11 +38533,10 @@ export const CreateNotification: Story = {
     const isRange = [&#39;bt&#39;, &#39;nb&#39;].includes(trigger.comparator);
     const summary = usageTriggerSummary(trigger);
     const whenRowRef = useRef&lt;HTMLDivElement&gt;(null);
-    const contentRef = useRef&lt;HTMLDivElement&gt;(null);
+    const [content, setContent] = useState&lt;HTMLDivElement | null&gt;(null);
     const [modalWidth, setModalWidth] = useState(625);
 
     useEffect(() =&gt; {
-      const content = contentRef.current;
       const dialog = content?.closest(&#39;.modal-dialog&#39;);
       if (!open || !content || !dialog) return;
 
@@ -38124,7 +38558,36 @@ export const CreateNotification: Story = {
         observer.disconnect();
         window.removeEventListener(&#39;resize&#39;, updateWidth);
       };
-    }, [open, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
+    }, [open, content, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
+
+    const openEditor = (row?: UsageListRow, clone = false) =&gt; {
+      setEditingId(clone ? undefined : row?.id);
+      setNotificationName(row ? `${row.name}${clone ? &#39;_Cloned&#39; : &#39;&#39;}` : &#39;&#39;);
+      const config = row?.config;
+      const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) =&gt; item.label.toLowerCase() === row?.feature.toLowerCase())?.[0];
+      setTrigger(config ? { ...config.trigger } : createUsageTrigger(featureKey));
+      setNotifyToTags(config?.recipients ?? []);
+      setPushEmailEnabled(config?.pushEmailEnabled ?? true);
+      setExternalAppsEnabled(config?.externalAppsEnabled ?? !!row?.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel)));
+      setNotifyPush(config?.notifyPush ?? (row ? !!row.channels?.includes(&#39;Push Notification&#39;) : true));
+      setNotifyEmail(config?.notifyEmail ?? (row ? !!row.channels?.includes(&#39;Emails&#39;) : true));
+      setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : true));
+      setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes(&#39;Slack&#39;));
+      setZohoCommittedUsers(config?.users ?? []);
+      setZohoCommittedChannels(config?.channels ?? []);
+      setMessageDraft(config ? { criteriaKey: JSON.stringify(config.trigger), value: config.message } : { criteriaKey: &#39;&#39;, value: &#39;&#39; });
+      setEmailTemplate(config?.template);
+      setNameError(false);
+      setTriggerError(undefined);
+      setOpen(true);
+    };
+    const onRowAction = (action: RowAction, row: UsageListRow) =&gt; {
+      if (action === &#39;edit&#39; || action === &#39;clone&#39;) openEditor(row, action === &#39;clone&#39;);
+      else if (action === &#39;delete&#39;) { if (!row.system) setPendingDelete(row); }
+      else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
+        ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+    };
+    const columns = usageListColumns(onRowAction);
 
     return (
       &lt;&gt;
@@ -38175,15 +38638,29 @@ export const CreateNotification: Story = {
               {sectionTab === &#39;notifications&#39; ? &lt;section className=&quot;usage-page__content&quot; aria-label=&quot;Notification Configurator&quot;&gt;
                 &lt;div className=&quot;usage-page__toolbar&quot;&gt;
                   &lt;p&gt;Manage CRM usage limits and events by enabling admins to be notified when required&lt;/p&gt;
-                  &lt;div className=&quot;usage-page__actions&quot;&gt;
-                    &lt;Dropdown aria-label=&quot;Filter notifications by feature&quot; width={130} value={featureFilter}
-                      options={[{ value: &#39;all&#39;, label: &#39;All&#39; }, ...Array.from(new Set(savedRows.map(row =&gt; row.feature))).map(feature =&gt; ({ value: feature, label: feature }))]}
+                &lt;/div&gt;
+                &lt;div className=&quot;usage-page__toolbar&quot;&gt;
+                  &lt;div className=&quot;usage-page__filters&quot;&gt;
+                    &lt;div className=&quot;usage-page__search&quot;&gt;
+                      &lt;Search aria-hidden=&quot;true&quot; /&gt;
+                      &lt;Input layout=&quot;vertical&quot; type=&quot;search&quot; width={200} aria-label=&quot;Search notifications&quot; placeholder=&quot;Search&quot;
+                        value={search} onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setSearch(event.target.value)} /&gt;
+                    &lt;/div&gt;
+                    &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by feature&quot; width={150} value={featureFilter}
+                      panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
+                      options={[{ value: &#39;all&#39;, label: &#39;All Features&#39; }, ...FEATURE_OPTIONS.map(item =&gt; ({ value: item.label, label: item.label }))]}
                       onChange={setFeatureFilter} /&gt;
-                    &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;Create Notification&lt;/Button&gt;
+                    &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by type&quot; width={150} value={typeFilter}
+                      options={[{ value: &#39;all&#39;, label: &#39;All Types&#39; }, { value: &#39;system&#39;, label: &#39;System Defined&#39; }, { value: &#39;user&#39;, label: &#39;User Defined&#39; }]}
+                      onChange={setTypeFilter} /&gt;
+                    &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by status&quot; width={150} value={statusFilter}
+                      options={[{ value: &#39;all&#39;, label: &#39;All Status&#39; }, ...[&#39;Active&#39;, &#39;Paused&#39;, &#39;Completed&#39;].map(status =&gt; ({ value: status, label: status }))]}
+                      onChange={setStatusFilter} /&gt;
                   &lt;/div&gt;
+                  &lt;Button variant=&quot;primary&quot; onClick={() =&gt; openEditor()}&gt;Create Notification&lt;/Button&gt;
                 &lt;/div&gt;
                 &lt;div className=&quot;usage-page__table-region&quot; role=&quot;region&quot; aria-label=&quot;Notifications table&quot; tabIndex={0}&gt;
-                  &lt;SetupTable variant=&quot;report&quot; width=&quot;100%&quot; columns={columns} rows={tableRows} emptyMessage=&quot;No notifications found&quot; /&gt;
+                  &lt;SetupTable variant=&quot;report&quot; width=&quot;100%&quot; columns={columns} rows={visibleRows} emptyMessage=&quot;No notifications found&quot; /&gt;
                 &lt;/div&gt;
               &lt;/section&gt; : &lt;section className=&quot;usage-page__content&quot;&gt;&lt;h1&gt;Usage Limits&lt;/h1&gt;&lt;p&gt;Configure usage alerts in the Notification Configurator tab.&lt;/p&gt;&lt;/section&gt;}
             &lt;/&gt; : &lt;section className=&quot;usage-page__content&quot;&gt;&lt;h1&gt;Admin tool&lt;/h1&gt;&lt;p&gt;Select Usage Limits to manage usage notifications.&lt;/p&gt;&lt;/section&gt;}
@@ -38260,12 +38737,22 @@ export const CreateNotification: Story = {
               ...(externalAppsEnabled &amp;&amp; notifyZohoCliq ? [&#39;Zoho Cliq&#39;] : []),
               ...(externalAppsEnabled &amp;&amp; notifySlack ? [&#39;Slack&#39;] : []),
             ];
-            setSavedRows(current =&gt; [...current, {
-              id: `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
-              creator: &#39;Priya Nair&#39;, date: new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
-              time: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
-              channels, status: &#39;Active&#39;,
-            }]);
+            const existing = savedRows.find(row =&gt; row.id === editingId);
+            const saved: UsageListRow = {
+              ...existing,
+              id: editingId ?? `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
+              creator: existing?.creator ?? CURRENT_USAGE_USER,
+              date: existing?.date ?? new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
+              time: existing?.time ?? new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
+              modifier: CURRENT_USAGE_USER,
+              modifiedDate: new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
+              modifiedTime: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
+              channels, status: existing?.status ?? &#39;Active&#39;, summary: usageTriggerSummary(trigger),
+              config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
+                notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
+                channels: zohoCommittedChannels, message, template: emailTemplate },
+            };
+            setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row) : [...current, saved]);
             setNameError(false);
             setOpen(false);
           }}
@@ -38273,7 +38760,7 @@ export const CreateNotification: Story = {
           saveLabel=&quot;Save&quot;
           width={modalWidth}
         &gt;
-          &lt;div ref={contentRef} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 30 }}&gt;
+          &lt;div ref={setContent} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 30 }}&gt;
 
           {/* ── Notification name, feature, condition, and frequency ───── */}
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
@@ -38416,9 +38903,9 @@ export const CreateNotification: Story = {
                         &lt;Button variant=&quot;default&quot; size=&quot;sm&quot; aria-haspopup=&quot;dialog&quot; onClick={() =&gt; setRecipientDialogOpen(true)}&gt;
                           Select User
                         &lt;/Button&gt;
-                      ) : ([&#39;user&#39;, &#39;group&#39;] as const).map(kind =&gt; {
+                      ) : ([&#39;user&#39;, &#39;group&#39;, &#39;role&#39;, &#39;role-and-subordinates&#39;, &#39;email&#39;] as const).map(kind =&gt; {
                         const recipients = notifyToTags.filter(recipient =&gt; recipient.kind === kind);
-                        const label = kind === &#39;user&#39; ? &#39;Users&#39; : &#39;Groups&#39;;
+                        const label = { user: &#39;Users&#39;, group: &#39;Groups&#39;, role: &#39;Roles&#39;, &#39;role-and-subordinates&#39;: &#39;Roles and Subordinates&#39;, email: &#39;Emails&#39; }[kind];
                         return recipients.length &gt; 0 &amp;&amp; (
                           &lt;Tooltip key={kind} variant=&quot;white&quot; placement=&quot;top&quot; maxWidth={320}
                             content={&lt;span className=&quot;usage-recipient-preview&quot;&gt;
@@ -38589,7 +39076,7 @@ export const CreateNotification: Story = {
                 width={390}
                 defaultValue={message}
                 mergeFields={USAGE_MESSAGE_FIELDS}
-                hint={&#39;Type &quot;#&quot; to insert merge field&#39;}
+                hint=&quot;Type # to insert merge field&quot;
                 onChange={(value: string) =&gt; setMessageDraft({ criteriaKey, value })}
               /&gt;
             &lt;/FormRow&gt;
@@ -38597,6 +39084,14 @@ export const CreateNotification: Story = {
 
           &lt;/div&gt;
         &lt;/Modal&gt;
+        {pendingDelete &amp;&amp; &lt;Modal type=&quot;alert&quot; variant=&quot;error&quot; isOpen title={`Delete &quot;${pendingDelete.name}&quot;`} width={460}
+          confirmLabel=&quot;Delete&quot; cancelLabel=&quot;Cancel&quot;
+          onClose={() =&gt; setPendingDelete(undefined)} onCancel={() =&gt; setPendingDelete(undefined)}
+          onSave={() =&gt; {
+            if (!pendingDelete.system) setSavedRows(current =&gt; current.filter(row =&gt; row.id !== pendingDelete.id));
+            setPendingDelete(undefined);
+          }}
+        /&gt;}
         {recipientDialogOpen &amp;&amp; &lt;UsageRecipientDialog
           value={notifyToTags}
           onClose={() =&gt; setRecipientDialogOpen(false)}
@@ -38648,7 +39143,9 @@ export const CreateNotification: Story = {
     Input,
     MergeField,
     Modal,
+    More,
     NextGenTopBand,
+    Search,
     SetupTable,
     Switch,
     Tabs,
@@ -38674,15 +39171,35 @@ export const CreateNotification: Story = {
   const [featureFilter, setFeatureFilter] = useState(&#39;all&#39;);
   const [pageTab, setPageTab] = useState(&#39;usage&#39;);
   const [sectionTab, setSectionTab] = useState(&#39;notifications&#39;);
-  const [savedRows, setSavedRows] = useState&lt;UsageListRow[]&gt;(() =&gt; USAGE_LIST_ROWS.map(row =&gt; ({ ...row, time: &#39;10:30 AM&#39; })));
-  const columns = usageListColumns((id, enabled) =&gt; {
-    setSavedRows(current =&gt; current.map(row =&gt; row.id === id ? { ...row, status: enabled ? &#39;Active&#39; : &#39;Paused&#39; } : row));
-  });
-  const visibleRows = savedRows.filter(row =&gt; featureFilter === &#39;all&#39; || row.feature === featureFilter);
-  const tableRows = Array.from(new Set(visibleRows.map(row =&gt; row.feature))).flatMap(feature =&gt; {
-    const rows = visibleRows.filter(row =&gt; row.feature === feature);
-    return [{ id: `group-${feature}`, feature, name: feature, group: true, count: rows.length }, ...rows];
-  });
+  const [savedRows, setSavedRows] = useState&lt;UsageListRow[]&gt;(() =&gt; USAGE_LIST_ROWS.map(row =&gt; {
+    const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) =&gt; item.label.toLowerCase() === row.feature.toLowerCase())?.[0];
+    const trigger = createUsageTrigger(featureKey);
+    // Seed demo rules with real editable criteria, shared by their hover summary.
+    if (row.id.startsWith(&#39;api-&#39;)) {
+      const threshold = row.name.split(&#39; &#39;).at(-1)!;
+      trigger.mode = threshold.endsWith(&#39;%&#39;) ? &#39;pct&#39; : &#39;val&#39;;
+      trigger.value = threshold.replace(&#39;%&#39;, &#39;&#39;);
+    } else if (row.id === &#39;functions&#39;) { trigger.mode = &#39;val&#39;; trigger.value = &#39;5000&#39;; }
+    else if (row.id === &#39;data-storage&#39;) { trigger.mode = &#39;pct&#39;; trigger.value = &#39;85&#39;; }
+    return { ...row, feature: USAGE_FEATURES[trigger.feature]?.label ?? row.feature, time: &#39;10:30 AM&#39;,
+      summary: usageTriggerSummary(trigger),
+      config: { trigger, recipients: [], pushEmailEnabled: true,
+        externalAppsEnabled: !!row.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel)),
+        notifyPush: !!row.channels?.includes(&#39;Push Notification&#39;), notifyEmail: !!row.channels?.includes(&#39;Emails&#39;),
+        notifyZohoCliq: !!row.channels?.includes(&#39;Zoho Cliq&#39;), notifySlack: !!row.channels?.includes(&#39;Slack&#39;),
+        users: [], channels: [], message: usageNotificationMessage(trigger) },
+    };
+  }));
+  const [typeFilter, setTypeFilter] = useState(&#39;all&#39;);
+  const [statusFilter, setStatusFilter] = useState(&#39;all&#39;);
+  const [search, setSearch] = useState(&#39;&#39;);
+  const [editingId, setEditingId] = useState&lt;string&gt;();
+  const [pendingDelete, setPendingDelete] = useState&lt;UsageListRow&gt;();
+  const visibleRows = savedRows.filter(row =&gt;
+    (featureFilter === &#39;all&#39; || row.feature === featureFilter) &amp;&amp;
+    (typeFilter === &#39;all&#39; || (typeFilter === &#39;system&#39; ? row.system : !row.system)) &amp;&amp;
+    (statusFilter === &#39;all&#39; || row.status === statusFilter) &amp;&amp;
+    `${row.name} ${row.feature}`.toLowerCase().includes(search.trim().toLowerCase()));
   const notificationNameId = useId();
   const [notificationName, setNotificationName] = useState(&#39;&#39;);
   const [nameError, setNameError] = useState(false);
@@ -38758,11 +39275,10 @@ export const CreateNotification: Story = {
   const isRange = [&#39;bt&#39;, &#39;nb&#39;].includes(trigger.comparator);
   const summary = usageTriggerSummary(trigger);
   const whenRowRef = useRef&lt;HTMLDivElement&gt;(null);
-  const contentRef = useRef&lt;HTMLDivElement&gt;(null);
+  const [content, setContent] = useState&lt;HTMLDivElement | null&gt;(null);
   const [modalWidth, setModalWidth] = useState(625);
 
   useEffect(() =&gt; {
-    const content = contentRef.current;
     const dialog = content?.closest(&#39;.modal-dialog&#39;);
     if (!open || !content || !dialog) return;
 
@@ -38784,7 +39300,36 @@ export const CreateNotification: Story = {
       observer.disconnect();
       window.removeEventListener(&#39;resize&#39;, updateWidth);
     };
-  }, [open, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
+  }, [open, content, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
+
+  const openEditor = (row?: UsageListRow, clone = false) =&gt; {
+    setEditingId(clone ? undefined : row?.id);
+    setNotificationName(row ? `${row.name}${clone ? &#39;_Cloned&#39; : &#39;&#39;}` : &#39;&#39;);
+    const config = row?.config;
+    const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) =&gt; item.label.toLowerCase() === row?.feature.toLowerCase())?.[0];
+    setTrigger(config ? { ...config.trigger } : createUsageTrigger(featureKey));
+    setNotifyToTags(config?.recipients ?? []);
+    setPushEmailEnabled(config?.pushEmailEnabled ?? true);
+    setExternalAppsEnabled(config?.externalAppsEnabled ?? !!row?.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel)));
+    setNotifyPush(config?.notifyPush ?? (row ? !!row.channels?.includes(&#39;Push Notification&#39;) : true));
+    setNotifyEmail(config?.notifyEmail ?? (row ? !!row.channels?.includes(&#39;Emails&#39;) : true));
+    setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : true));
+    setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes(&#39;Slack&#39;));
+    setZohoCommittedUsers(config?.users ?? []);
+    setZohoCommittedChannels(config?.channels ?? []);
+    setMessageDraft(config ? { criteriaKey: JSON.stringify(config.trigger), value: config.message } : { criteriaKey: &#39;&#39;, value: &#39;&#39; });
+    setEmailTemplate(config?.template);
+    setNameError(false);
+    setTriggerError(undefined);
+    setOpen(true);
+  };
+  const onRowAction = (action: RowAction, row: UsageListRow) =&gt; {
+    if (action === &#39;edit&#39; || action === &#39;clone&#39;) openEditor(row, action === &#39;clone&#39;);
+    else if (action === &#39;delete&#39;) { if (!row.system) setPendingDelete(row); }
+    else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
+      ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+  };
+  const columns = usageListColumns(onRowAction);
 
   return (
     &lt;&gt;
@@ -38835,15 +39380,29 @@ export const CreateNotification: Story = {
             {sectionTab === &#39;notifications&#39; ? &lt;section className=&quot;usage-page__content&quot; aria-label=&quot;Notification Configurator&quot;&gt;
               &lt;div className=&quot;usage-page__toolbar&quot;&gt;
                 &lt;p&gt;Manage CRM usage limits and events by enabling admins to be notified when required&lt;/p&gt;
-                &lt;div className=&quot;usage-page__actions&quot;&gt;
-                  &lt;Dropdown aria-label=&quot;Filter notifications by feature&quot; width={130} value={featureFilter}
-                    options={[{ value: &#39;all&#39;, label: &#39;All&#39; }, ...Array.from(new Set(savedRows.map(row =&gt; row.feature))).map(feature =&gt; ({ value: feature, label: feature }))]}
+              &lt;/div&gt;
+              &lt;div className=&quot;usage-page__toolbar&quot;&gt;
+                &lt;div className=&quot;usage-page__filters&quot;&gt;
+                  &lt;div className=&quot;usage-page__search&quot;&gt;
+                    &lt;Search aria-hidden=&quot;true&quot; /&gt;
+                    &lt;Input layout=&quot;vertical&quot; type=&quot;search&quot; width={200} aria-label=&quot;Search notifications&quot; placeholder=&quot;Search&quot;
+                      value={search} onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setSearch(event.target.value)} /&gt;
+                  &lt;/div&gt;
+                  &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by feature&quot; width={150} value={featureFilter}
+                    panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
+                    options={[{ value: &#39;all&#39;, label: &#39;All Features&#39; }, ...FEATURE_OPTIONS.map(item =&gt; ({ value: item.label, label: item.label }))]}
                     onChange={setFeatureFilter} /&gt;
-                  &lt;Button variant=&quot;primary&quot; onClick={() =&gt; setOpen(true)}&gt;Create Notification&lt;/Button&gt;
+                  &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by type&quot; width={150} value={typeFilter}
+                    options={[{ value: &#39;all&#39;, label: &#39;All Types&#39; }, { value: &#39;system&#39;, label: &#39;System Defined&#39; }, { value: &#39;user&#39;, label: &#39;User Defined&#39; }]}
+                    onChange={setTypeFilter} /&gt;
+                  &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by status&quot; width={150} value={statusFilter}
+                    options={[{ value: &#39;all&#39;, label: &#39;All Status&#39; }, ...[&#39;Active&#39;, &#39;Paused&#39;, &#39;Completed&#39;].map(status =&gt; ({ value: status, label: status }))]}
+                    onChange={setStatusFilter} /&gt;
                 &lt;/div&gt;
+                &lt;Button variant=&quot;primary&quot; onClick={() =&gt; openEditor()}&gt;Create Notification&lt;/Button&gt;
               &lt;/div&gt;
               &lt;div className=&quot;usage-page__table-region&quot; role=&quot;region&quot; aria-label=&quot;Notifications table&quot; tabIndex={0}&gt;
-                &lt;SetupTable variant=&quot;report&quot; width=&quot;100%&quot; columns={columns} rows={tableRows} emptyMessage=&quot;No notifications found&quot; /&gt;
+                &lt;SetupTable variant=&quot;report&quot; width=&quot;100%&quot; columns={columns} rows={visibleRows} emptyMessage=&quot;No notifications found&quot; /&gt;
               &lt;/div&gt;
             &lt;/section&gt; : &lt;section className=&quot;usage-page__content&quot;&gt;&lt;h1&gt;Usage Limits&lt;/h1&gt;&lt;p&gt;Configure usage alerts in the Notification Configurator tab.&lt;/p&gt;&lt;/section&gt;}
           &lt;/&gt; : &lt;section className=&quot;usage-page__content&quot;&gt;&lt;h1&gt;Admin tool&lt;/h1&gt;&lt;p&gt;Select Usage Limits to manage usage notifications.&lt;/p&gt;&lt;/section&gt;}
@@ -38920,12 +39479,22 @@ export const CreateNotification: Story = {
             ...(externalAppsEnabled &amp;&amp; notifyZohoCliq ? [&#39;Zoho Cliq&#39;] : []),
             ...(externalAppsEnabled &amp;&amp; notifySlack ? [&#39;Slack&#39;] : []),
           ];
-          setSavedRows(current =&gt; [...current, {
-            id: `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
-            creator: &#39;Priya Nair&#39;, date: new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
-            time: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
-            channels, status: &#39;Active&#39;,
-          }]);
+          const existing = savedRows.find(row =&gt; row.id === editingId);
+          const saved: UsageListRow = {
+            ...existing,
+            id: editingId ?? `notification-${Date.now()}`, feature: feature.label, name: notificationName.trim(),
+            creator: existing?.creator ?? CURRENT_USAGE_USER,
+            date: existing?.date ?? new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
+            time: existing?.time ?? new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
+            modifier: CURRENT_USAGE_USER,
+            modifiedDate: new Intl.DateTimeFormat(&#39;en-US&#39;, { month: &#39;short&#39;, day: &#39;numeric&#39;, year: &#39;numeric&#39; }).format(new Date()),
+            modifiedTime: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
+            channels, status: existing?.status ?? &#39;Active&#39;, summary: usageTriggerSummary(trigger),
+            config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
+              notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
+              channels: zohoCommittedChannels, message, template: emailTemplate },
+          };
+          setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row) : [...current, saved]);
           setNameError(false);
           setOpen(false);
         }}
@@ -38933,7 +39502,7 @@ export const CreateNotification: Story = {
         saveLabel=&quot;Save&quot;
         width={modalWidth}
       &gt;
-        &lt;div ref={contentRef} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 30 }}&gt;
+        &lt;div ref={setContent} style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 30 }}&gt;
 
         {/* ── Notification name, feature, condition, and frequency ───── */}
         &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 20 }}&gt;
@@ -39076,9 +39645,9 @@ export const CreateNotification: Story = {
                       &lt;Button variant=&quot;default&quot; size=&quot;sm&quot; aria-haspopup=&quot;dialog&quot; onClick={() =&gt; setRecipientDialogOpen(true)}&gt;
                         Select User
                       &lt;/Button&gt;
-                    ) : ([&#39;user&#39;, &#39;group&#39;] as const).map(kind =&gt; {
+                    ) : ([&#39;user&#39;, &#39;group&#39;, &#39;role&#39;, &#39;role-and-subordinates&#39;, &#39;email&#39;] as const).map(kind =&gt; {
                       const recipients = notifyToTags.filter(recipient =&gt; recipient.kind === kind);
-                      const label = kind === &#39;user&#39; ? &#39;Users&#39; : &#39;Groups&#39;;
+                      const label = { user: &#39;Users&#39;, group: &#39;Groups&#39;, role: &#39;Roles&#39;, &#39;role-and-subordinates&#39;: &#39;Roles and Subordinates&#39;, email: &#39;Emails&#39; }[kind];
                       return recipients.length &gt; 0 &amp;&amp; (
                         &lt;Tooltip key={kind} variant=&quot;white&quot; placement=&quot;top&quot; maxWidth={320}
                           content={&lt;span className=&quot;usage-recipient-preview&quot;&gt;
@@ -39249,7 +39818,7 @@ export const CreateNotification: Story = {
               width={390}
               defaultValue={message}
               mergeFields={USAGE_MESSAGE_FIELDS}
-              hint={&#39;Type &quot;#&quot; to insert merge field&#39;}
+              hint=&quot;Type # to insert merge field&quot;
               onChange={(value: string) =&gt; setMessageDraft({ criteriaKey, value })}
             /&gt;
           &lt;/FormRow&gt;
@@ -39257,6 +39826,14 @@ export const CreateNotification: Story = {
 
         &lt;/div&gt;
       &lt;/Modal&gt;
+      {pendingDelete &amp;&amp; &lt;Modal type=&quot;alert&quot; variant=&quot;error&quot; isOpen title={`Delete &quot;${pendingDelete.name}&quot;`} width={460}
+        confirmLabel=&quot;Delete&quot; cancelLabel=&quot;Cancel&quot;
+        onClose={() =&gt; setPendingDelete(undefined)} onCancel={() =&gt; setPendingDelete(undefined)}
+        onSave={() =&gt; {
+          if (!pendingDelete.system) setSavedRows(current =&gt; current.filter(row =&gt; row.id !== pendingDelete.id));
+          setPendingDelete(undefined);
+        }}
+      /&gt;}
       {recipientDialogOpen &amp;&amp; &lt;UsageRecipientDialog
         value={notifyToTags}
         onClose={() =&gt; setRecipientDialogOpen(false)}
@@ -40463,7 +41040,7 @@ Used when the message is short and self-explanatory.</div>
     { key: &#39;success&#39;, label: &#39;Success&#39;, triggerVariant: &#39;outline-green&#39;, title: &#39;Record saved successfully.&#39; },
     { key: &#39;info&#39;,    label: &#39;Info&#39;,    triggerVariant: &#39;outline-blue&#39;,  title: &#39;This action will apply to all users.&#39; },
     { key: &#39;warning&#39;, label: &#39;Warning&#39;, triggerVariant: &#39;outline-orange&#39;, title: &#39;Are you sure you want to continue?&#39;, confirmLabel: &#39;Continue&#39; },
-    { key: &#39;error&#39;,   label: &#39;Error&#39;,   triggerVariant: &#39;outline-red&#39;,   title: &#39;Delete &quot;Sales Pipeline Q3&quot;&#39;, confirmLabel: &#39;Delete&#39; },
+    { key: &#39;error&#39;,   label: &#39;Error&#39;,   triggerVariant: &#39;outline-red&#39;,   title: &#39;Delete &quot;Reached daily limit 5000 calls&quot;&#39;, confirmLabel: &#39;Delete&#39; },
     { key: &#39;denial&#39;,  label: &#39;Denial&#39;,  triggerVariant: &#39;default&#39;,       title: &#39;Permission Denied&#39; },
   ];
 
