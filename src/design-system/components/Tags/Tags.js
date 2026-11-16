@@ -105,6 +105,7 @@ export function Tags({
   disabled,
   error,
   noBorder,
+  removable = true,
   colorTags = false,
   inputProps = {},
   inputRef: providedInputRef,
@@ -204,7 +205,7 @@ export function Tags({
       }
       return;
     }
-    if (e.key === 'Backspace' && !search) {
+    if (removable && e.key === 'Backspace' && !search) {
       if (selectedIndex >= 0) {
         // Second Backspace: remove the selected tag
         remove(value[selectedIndex].value);
@@ -309,7 +310,7 @@ export function Tags({
             {tag.count !== undefined && (
               <span className={'tags-tag-count'}>{tag.count}</span>
             )}
-            {!disabled && tag.count === undefined && (
+            {!disabled && removable && tag.count === undefined && (
               <>
                 <span className={'tags-remove-bg'} aria-hidden="true" />
                 <button

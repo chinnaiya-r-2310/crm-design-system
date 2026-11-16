@@ -121,6 +121,7 @@ export function SetupTable({
   maxHeight,
   emptyMessage = 'No data',
   variant = 'setup',
+  resizable = true,
 }) {
   // ── Resizable column widths ───────────────────────────────────────────────
   const [colWidths, setColWidths] = useState(() =>
@@ -269,10 +270,10 @@ export function SetupTable({
                         <span className="table-th-label">{col.label}</span>
                       )}
                     </div>
-                    <div
+                    {resizable && <div
                       className="table-resize-handle"
                       onMouseDown={e => startResize(e, col.key)}
-                    />
+                    />}
                   </th>
                 );
               })}

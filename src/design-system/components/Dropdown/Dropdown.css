@@ -396,6 +396,7 @@
   align-items: center;
   height: 32px;
   margin: 0 6px;
+  padding-left: var(--dropdown-option-padding-left, 0px);
   border-radius: 5px;
   cursor: pointer;
   user-select: none;

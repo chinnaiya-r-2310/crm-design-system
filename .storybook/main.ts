@@ -4,7 +4,7 @@ import { jsxInJsPlugin } from '../jsx-in-js-plugin.js';
 const config: StorybookConfig = {
   core: {
     // Allow the shared development server without disabling host validation.
-    allowedHosts: ['bhar-2119-ait', 'bhar-2119-AIT', 'bhar-2119-ait.csez.zohocorpin.com'],
+    allowedHosts: ['bhar-2119-ait', 'bhar-2119-AIT', 'bhar-2119-ait.csez.zohocorpin.com', 'saravanan-6324-ait1'],
   },
   // The installable gallery explicitly includes only components and foundations.
   stories: process.env.STORYBOOK_PUBLIC === 'true'

@@ -1,3 +1,37 @@
+.usage-app-recipients {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.usage-slack-row > .checkbox-root { align-self: center; }
+.usage-app-modal { max-width: calc(100vw - 32px); }
+.usage-app-modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 400px;
+  max-width: 100%;
+}
+.usage-app-modal .dropdown-form-row { align-items: center; }
+.usage-app-modal .dropdown-form-row .dropdown-label {
+  text-align: left;
+  padding-top: 0;
+}
+.dropdown-panel[style*="--usage-slack-team-menu"] .dropdown-footer-action-icon { display: none; }
+.dropdown-panel[style*="--usage-slack-team-menu"] .dropdown-footer-action-btn {
+  width: max-content;
+  max-width: 100%;
+  align-self: flex-start;
+  margin-inline-end: auto;
+  justify-content: flex-start;
+  border: 0;
+  color: var(--ds-text-link);
+  background: transparent;
+}
 .usage-page {
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
@@ -12,6 +46,20 @@
   line-height: var(--ds-line-height-base);
 }
 .usage-page *, .usage-page *::before, .usage-page *::after { box-sizing: border-box; }
+.usage-page__success-alert {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+}
+/* Keep channel labels readable without changing the disabled checkbox controls. */
+.usage-notification-channels .checkbox-root[data-disabled] .checkbox-label-text {
+  color: var(--ds-text-base);
+  opacity: 1;
+}
 .usage-page__sidebar { grid-row: 1 / -1; min-height: 0; overflow-y: auto; background: var(--ds-bg-common-card); border-inline-end: thin solid var(--ds-border-lighter); }
 .usage-page__sidebar > .vtabs-panel { min-height: 100%; border-right: 0; }
 .usage-page__topband { min-width: 0; }
@@ -28,6 +76,20 @@
 .usage-page__actions { display: flex; align-items: center; gap: var(--ds-line-height-base); }
 .usage-page__filters { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; min-width: 0; }
 .usage-page__toolbar > .button-root { flex-shrink: 0; }
+/* Inline validation uses the existing row gap instead of growing the form. */
+.usage-notification-fields .input-field-column,
+.usage-notification-fields .dropdown-field-column,
+.usage-notification-fields .dropdown-vertical {
+  position: relative;
+}
+.usage-notification-fields .input-helper-text,
+.usage-notification-fields .dropdown-helper-text {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+}
 .usage-page__search { position: relative; width: 200px; flex-shrink: 0; }
 .usage-page__search > svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 1; color: var(--ds-text-label); pointer-events: none; }
 .usage-page__search .input-input { padding-left: 32px; }
@@ -45,8 +107,10 @@
 .usage-page__row-actions .dropdown-trigger:focus-visible { outline: 2px solid var(--ds-components-input-focus-outline); }
 .dropdown-panel[style*="--usage-actions-menu"] .dropdown-option-check { display: none; }
 .dropdown-panel[style*="--usage-actions-menu"] .dropdown-option { padding-left: 10px; }
-.usage-page__name { cursor: default; }
-.usage-page .table-report { min-width: 960px; table-layout: fixed; border: 0; border-radius: 0; }
+.usage-page__name { max-width: 100%; padding: 0; border: 0; background: none; color: var(--ds-text-link); font: inherit; text-align: start; cursor: pointer; }
+.usage-page__name:focus-visible { outline: 2px solid var(--ds-components-input-focus-outline); outline-offset: 2px; }
+/* Let sticky headers use the table region as their scroll container. */
+.usage-page .table-report { min-width: 960px; table-layout: fixed; border: 0; border-radius: 0; overflow: visible; }
 .usage-page .table-report th, .usage-page .table-report td { border-right: 0; padding: 0 calc(var(--ds-line-height-base) * 0.6); vertical-align: middle; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .usage-page .table-report th:first-child, .usage-page .table-report td:first-child { padding: 0; overflow: visible; }
 .usage-page .table-report tbody tr:not(:has(.table-report-empty)):hover,
@@ -55,7 +119,8 @@
 /* Match SetupTable's 36px header and 40px body rows. */
 .usage-page .table-report thead tr { height: 36px; }
 .usage-page .table-report tbody tr { height: 40px; }
-.usage-page .table-report td.table-report-empty { padding: calc(var(--ds-line-height-base) * 3) var(--ds-line-height-base); text-align: center; white-space: normal; }
+.usage-page .table-report td.table-report-empty { padding: calc(var(--ds-line-height-base) * 3) var(--ds-line-height-base); text-align: center; white-space: normal; color: var(--ds-text-muted); }
+.usage-notification-modal .mergefield-hint { color: var(--ds-text-paragraph); font-size: var(--ds-font-size-md); line-height: var(--ds-line-height-base); }
 .usage-page .table-report thead th { position: sticky; top: 0; z-index: 1; background: var(--ds-bg-common-card); font-weight: var(--ds-font-weight-medium); }
 .usage-page .table-report tr:has(.usage-page__group) { background: var(--ds-bg-scale-bg2); }
 .usage-page .table-report tr:has(.usage-page__group) td { padding-block: 0; }

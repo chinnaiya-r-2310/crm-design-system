@@ -87,6 +87,8 @@ export function Dropdown({
   error,
   searchable = false,
   multiSelect = false,
+  /** Hide the reserved tick slot for action menus that do not represent a selection. */
+  showSelectionIndicator = true,
   footerAction,
   onChange,
   onMultiChange,
@@ -410,11 +412,11 @@ export function Dropdown({
           <span className='dropdown-option-check' aria-hidden="true">
             <span className={isSelected ? 'dropdown-multi-check-on' : 'dropdown-multi-check-off'} />
           </span>
-        ) : (
+        ) : showSelectionIndicator ? (
           <span className='dropdown-option-check'>
             {isSelected && <Check aria-hidden="true" />}
           </span>
-        )}
+        ) : null}
         {opt.icon && <span className='dropdown-option-icon' aria-hidden="true">{opt.icon}</span>}
         {(opt.submenu || opt.submenuContent) && <ChevronDownFilled className='dropdown-submenu-chevron' aria-hidden="true" />}
         {opt.description ? <span className='dropdown-option-content'>

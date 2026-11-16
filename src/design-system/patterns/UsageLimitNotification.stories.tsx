@@ -2,7 +2,9 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { Input } from '../components/Input/Input';
 import { Icon } from '../components/Icon/Icon';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Modal } from '../components/Modal/Modal';
+import { MessageBox } from '../components/MessageBox/MessageBox';
 import { Dropdown } from '../components/Dropdown/Dropdown';
 import { Tags, type TagItem } from '../components/Tags/Tags';
 import { Switch } from '../components/Switch/Switch';
@@ -211,7 +213,7 @@ type UsageListRow = {
     trigger: ReturnType<typeof createUsageTrigger>; recipients: UsageRecipient[];
     pushEmailEnabled: boolean; externalAppsEnabled: boolean;
     notifyPush: boolean; notifyEmail: boolean; notifyZohoCliq: boolean; notifySlack: boolean;
-    users: TagItem[]; channels: TagItem[]; message: string; template?: TemplateSettings;
+    users: TagItem[]; channels: TagItem[]; slackUsers?: TagItem[]; slackChannels?: TagItem[]; slackTeam?: string; message: string; template?: TemplateSettings;
   };
 };
 
@@ -239,6 +241,16 @@ const USAGE_LIST_ROWS: UsageListRow[] = [
   { id: 'webhooks', feature: 'Webhooks', name: 'Slow webhook responses', creator: 'Sam Carter', date: 'Jul 3, 2026', channels: ['Push Notification', 'Emails'], status: 'Active' },
   { id: 'data-storage', feature: 'Data storage', name: 'Storage above 85%', creator: 'System', date: 'Jan 12, 2026', system: true, channels: ['Push Notification', 'Emails', 'Zoho Cliq', 'Slack'], status: 'Active' },
   { id: 'file-storage', feature: 'File storage', name: 'File storage nearly full', creator: 'Priya Nair', date: 'Jul 3, 2026', channels: ['Push Notification', 'Emails'], status: 'Completed' },
+  { id: 'api-credit-warning', feature: 'API', name: 'API credit usage warning', creator: 'Arjun Kumar', modifier: 'Meera Iyer', date: 'Jul 2, 2026', channels: ['Emails', 'Slack'], status: 'Active' },
+  { id: 'functions-execution-warning', feature: 'Functions', name: 'Function execution usage warning', creator: 'Meera Iyer', modifier: 'Priya Nair', date: 'Jul 2, 2026', channels: ['Push Notification', 'Emails'], status: 'Paused' },
+  { id: 'webhooks-daily-warning', feature: 'Webhooks', name: 'Daily webhook usage warning', creator: 'Sam Carter', modifier: 'Arjun Kumar', date: 'Jul 1, 2026', channels: ['Emails', 'Zoho Cliq'], status: 'Active' },
+  { id: 'data-storage-capacity-warning', feature: 'Data storage', name: 'Data storage capacity warning', creator: 'Priya Nair', modifier: 'Sam Carter', date: 'Jul 1, 2026', channels: ['Push Notification', 'Emails', 'Slack'], status: 'Active' },
+  { id: 'file-storage-capacity-warning', feature: 'File storage', name: 'File storage capacity warning', creator: 'Arjun Kumar', modifier: 'Meera Iyer', date: 'Jun 30, 2026', channels: ['Emails'], status: 'Paused' },
+  { id: 'api-credit-review', feature: 'API', name: 'API credit consumption review', creator: 'Meera Iyer', modifier: 'Sam Carter', date: 'Jun 30, 2026', channels: ['Push Notification', 'Zoho Cliq'], status: 'Completed' },
+  { id: 'functions-allocation-warning', feature: 'Functions', name: 'Function execution allocation warning', creator: 'Sam Carter', modifier: 'Priya Nair', date: 'Jun 29, 2026', channels: ['Emails', 'Slack'], status: 'Active' },
+  { id: 'webhooks-allocation-warning', feature: 'Webhooks', name: 'Webhook allocation warning', creator: 'Priya Nair', modifier: 'Arjun Kumar', date: 'Jun 29, 2026', channels: ['Push Notification', 'Emails', 'Zoho Cliq', 'Slack'], status: 'Paused' },
+  { id: 'data-storage-usage-review', feature: 'Data storage', name: 'Data storage usage review', creator: 'Arjun Kumar', modifier: 'Sam Carter', date: 'Jun 28, 2026', channels: ['Emails', 'Zoho Cliq'], status: 'Completed' },
+  { id: 'file-storage-allocation-warning', feature: 'File storage', name: 'File storage allocation warning', creator: 'Meera Iyer', modifier: 'Priya Nair', date: 'Jun 28, 2026', channels: ['Push Notification', 'Emails', 'Slack'], status: 'Active' },
 ];
 
 const personCell = (field: 'creator' | 'modifier') => (_value: unknown, row: UsageListRow) => {
@@ -296,7 +308,7 @@ const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) => vo
   { key: 'actions', label: '', width: 31, render: (_value: unknown, row: UsageListRow) => <UsageRowActions row={row} onAction={onAction} /> },
   { key: 'name', label: 'Notification Name', width: '25%', render: (_value: unknown, row: UsageListRow) =>
     <Tooltip variant="white" placement="top" maxWidth={600} wrapperStyle={{ display: 'inline-flex', maxWidth: '100%', minWidth: 0, verticalAlign: 'middle' }} content={row.summary || `${row.feature}: ${row.name}. Notify via ${row.channels?.join(', ')}.`}>
-      <span className="usage-page__name" tabIndex={0}>{row.name}</span>
+      <button type="button" className="usage-page__name" aria-haspopup="dialog" onClick={() => onAction('edit', row)}>{row.name}</button>
     </Tooltip> },
   { key: 'feature', label: 'Feature', width: '13%' },
   { key: 'channels', label: 'Notify via', width: '22%', render: (_value: unknown, row: UsageListRow) => <UsageChannelsCell channels={row.channels} /> },
@@ -307,6 +319,104 @@ const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) => vo
 
 export const CreateNotification: Story = {
   name: 'Create Notification',
+  play: async ({ canvasElement }) => {
+    const page = within(canvasElement.ownerDocument.body);
+    await userEvent.click(page.getByRole('button', { name: 'Create Notification', exact: true }));
+    const nameInput = page.getByRole('textbox', { name: 'Notification Name' });
+    const nameLabel = page.getByText('Notification Name', { selector: 'label' });
+    await waitFor(() => expect(nameInput).toHaveFocus());
+    const nameWrapper = nameInput.closest('.input-input-wrapper')!;
+    const expectNameLabelCentered = () => {
+      const labelBounds = nameLabel.getBoundingClientRect();
+      const inputBounds = nameWrapper.getBoundingClientRect();
+      const labelPadding = parseFloat(getComputedStyle(nameLabel).paddingTop);
+      expect(Math.abs(labelBounds.top + labelPadding + (labelBounds.height - labelPadding) / 2 - inputBounds.top - inputBounds.height / 2)).toBeLessThanOrEqual(1);
+    };
+    await expect(nameWrapper).not.toHaveAttribute('data-required');
+    expectNameLabelCentered();
+    const labelTop = nameLabel.getBoundingClientRect().top - nameInput.getBoundingClientRect().top;
+    const fieldGroup = nameInput.closest('.usage-notification-fields')!;
+    const initialFieldsHeight = fieldGroup.getBoundingClientRect().height;
+    const featureOffset = () => page.getByRole('button', { name: 'Feature', exact: true }).getBoundingClientRect().top - fieldGroup.getBoundingClientRect().top;
+    const initialFeatureTop = featureOffset();
+    await userEvent.click(page.getByRole('button', { name: 'Save', exact: true }));
+    await expect(fieldGroup.getBoundingClientRect().height).toBe(initialFieldsHeight);
+    await expect(featureOffset()).toBeCloseTo(initialFeatureTop, 0);
+    const nameAlert = page.getByText('Notification Name cannot be empty.');
+    await expect(nameAlert).toHaveAttribute('role', 'alert');
+    await expect(getComputedStyle(nameAlert).color).toBe('rgb(255, 93, 90)');
+    await expect(getComputedStyle(nameAlert).webkitTextFillColor).toBe('rgb(255, 93, 90)');
+    const featureAlert = page.getByText('Select a feature.');
+    await expect(featureAlert).toHaveAttribute('role', 'alert');
+    await expect(getComputedStyle(featureAlert).color).toBe('rgb(255, 93, 90)');
+    await expect(Math.abs(nameLabel.getBoundingClientRect().top - nameInput.getBoundingClientRect().top - labelTop)).toBeLessThanOrEqual(1);
+    await userEvent.type(nameInput, 'Test notification');
+    await expect(page.queryByText('Notification Name cannot be empty.')).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole('button', { name: 'Feature', exact: true }));
+    await userEvent.click(page.getByRole('option', { name: 'Webhooks', exact: true }));
+    await expect(page.queryByRole('alert')).not.toBeInTheDocument();
+    await expect(page.getByRole('button', { name: 'Based on', exact: true })).toBeVisible();
+    await userEvent.click(await page.findByRole('button', { name: 'Select User', exact: true }));
+    const directory = within(await page.findByRole('region', { name: 'Available recipients' }));
+    await waitFor(() => expect(page.getByText('Email: You can select up to 90 CRM users and add up to 10 additional email addresses. The total number of email recipients cannot exceed 100.')).toBeVisible());
+    await userEvent.click(directory.getByRole('button', { name: /Esther Howard/ }));
+    await userEvent.click(page.getByRole('button', { name: 'Recipient type' }));
+    await userEvent.click(page.getByRole('option', { name: 'Groups', exact: true }));
+    await expect(page.getByRole('button', { name: 'Recipient collection' })).toHaveTextContent('Sales Group');
+    await expect(within(directory.getByRole('button', { name: /Esther Howard/ })).getByText('Added')).toBeVisible();
+    await userEvent.click(directory.getByRole('button', { name: /Jacob Jones/ }));
+    await expect(page.getByRole('button', { name: 'Add Additional Recipient', exact: true })).toBeVisible();
+    await userEvent.click(page.getByRole('button', { name: 'Done', exact: true }));
+    await waitFor(() => expect(page.queryByRole('region', { name: 'Selected recipients' })).not.toBeInTheDocument());
+    const recipients = within(page.getByRole('group', { name: 'Send notification to', exact: true }));
+    await expect(recipients.getByRole('button', { name: 'Users: 2. Edit selected recipients' })).toBeVisible();
+    await expect(recipients.queryByRole('button', { name: /Groups:/ })).not.toBeInTheDocument();
+    await userEvent.click(recipients.getByRole('button', { name: 'Edit notification recipients' }));
+    const selected = within(await page.findByRole('region', { name: 'Selected recipients' }));
+    await expect(selected.getByRole('button', { name: 'Remove Esther Howard' })).toBeInTheDocument();
+    const removeJacob = selected.getByRole('button', { name: 'Remove Jacob Jones' });
+    removeJacob.focus();
+    await waitFor(() => expect(removeJacob).toBeVisible());
+    await userEvent.click(removeJacob);
+    await userEvent.click(page.getAllByRole('button', { name: 'Cancel', exact: true }).at(-1)!);
+    await waitFor(() => expect(recipients.getByRole('button', { name: 'Users: 2. Edit selected recipients' })).toBeVisible());
+    await userEvent.click(page.getByRole('switch', { name: 'Toggle external app notifications' }));
+    const cliq = within(page.getByRole('group', { name: 'Zoho Cliq recipients' }));
+    await userEvent.click(cliq.getByRole('button', { name: 'Select Recipients' }));
+    await waitFor(() => expect(page.getByText('Zoho Cliq Notification', { exact: true })).toBeVisible());
+    await expect(page.getByPlaceholderText('Select recipients')).toBeVisible();
+    await userEvent.click(page.getAllByRole('button', { name: 'Cancel', exact: true }).at(-1)!);
+    await waitFor(() => expect(page.queryByText('Zoho Cliq Notification', { exact: true })).not.toBeInTheDocument());
+    await userEvent.click(page.getByRole('checkbox', { name: 'Slack', exact: true }));
+    const slack = within(page.getByRole('group', { name: 'Slack recipients' }));
+    await userEvent.click(slack.getByRole('button', { name: 'Select Recipients' }));
+    await waitFor(() => expect(page.getByText('Slack Notification', { exact: true })).toBeVisible());
+    await expect(page.getByPlaceholderText('Select recipients')).toBeDisabled();
+    await expect(page.getByRole('button', { name: 'Slack team' })).toHaveTextContent('Select');
+    const appModal = page.getByText('Slack Notification', { exact: true }).closest('.modal-dialog') as HTMLElement;
+    await expect(appModal.style.width).toBe('fit-content');
+    await expect(getComputedStyle(appModal.querySelector('.usage-app-recipients')!).gap).toBe('28px');
+    await userEvent.click(page.getByRole('button', { name: 'Slack team' }));
+    await expect(page.queryByRole('option', { name: 'Select', exact: true })).not.toBeInTheDocument();
+    await expect(page.getByRole('option', { name: 'Bennett Electronics', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Authorise another team', exact: true })).toBeVisible();
+    await userEvent.click(page.getByRole('option', { name: 'scranton store', exact: true }));
+    await expect(page.getByPlaceholderText('Select recipients')).toBeEnabled();
+    await userEvent.click(page.getByRole('checkbox', { name: 'Notify in Channels' }));
+    await expect(page.getByPlaceholderText('Select channels')).toBeVisible();
+    await userEvent.click(page.getByRole('button', { name: 'Done', exact: true }));
+    await waitFor(() => expect(page.queryByText('Slack Notification', { exact: true })).not.toBeInTheDocument());
+    await userEvent.click(slack.getByRole('button', { name: 'Select Recipients' }));
+    await waitFor(() => expect(page.getByRole('button', { name: 'Slack team' })).toHaveTextContent('scranton store'));
+    await userEvent.click(page.getByRole('button', { name: 'Slack team' }));
+    await userEvent.click(page.getByRole('button', { name: 'Authorise another team', exact: true }));
+    await expect(page.queryByLabelText('Team name')).not.toBeInTheDocument();
+    await expect(page.getByRole('button', { name: 'Slack team' })).toHaveTextContent('scranton store');
+    await waitFor(() => expect(page.queryByText('Authorise another team', { exact: true })).not.toBeInTheDocument());
+    await userEvent.click(page.getAllByRole('button', { name: 'Cancel', exact: true }).at(-1)!);
+    await waitFor(() => expect(page.queryByText('Slack Notification', { exact: true })).not.toBeInTheDocument());
+    await userEvent.click(page.getByRole('button', { name: 'Cancel', exact: true }));
+  },
   render: () => {
     const [open, setOpen] = useState(false);
     const [sidebarId, setSidebarId] = useState('admin-tools');
@@ -336,7 +446,14 @@ export const CreateNotification: Story = {
     const [statusFilter, setStatusFilter] = useState('all');
     const [search, setSearch] = useState('');
     const [editingId, setEditingId] = useState<string>();
+    const isSystemDefined = !!savedRows.find(row => row.id === editingId)?.system;
     const [pendingDelete, setPendingDelete] = useState<UsageListRow>();
+    const [deleteSuccess, setDeleteSuccess] = useState<string>();
+    useEffect(() => {
+      if (!deleteSuccess) return;
+      const timeout = window.setTimeout(() => setDeleteSuccess(undefined), 4000);
+      return () => window.clearTimeout(timeout);
+    }, [deleteSuccess]);
     const visibleRows = savedRows.filter(row =>
       (featureFilter === 'all' || row.feature === featureFilter) &&
       (typeFilter === 'all' || (typeFilter === 'system' ? row.system : !row.system)) &&
@@ -350,6 +467,9 @@ export const CreateNotification: Story = {
     const [triggerError, setTriggerError] = useState<string>();
     const measure = selectedUsageMeasure(trigger);
     const feature = USAGE_FEATURES[trigger.feature];
+    const featureError = !!triggerError && !feature;
+    const measureError = !!triggerError && !!feature && !feature.blank &&
+      (!measure || !measure.aggs.includes(trigger.calculation));
     const updateTrigger = (patch: Partial<typeof trigger>) => {
       setTrigger(current => ({ ...current, ...patch }));
       setTriggerError(undefined);
@@ -392,14 +512,38 @@ export const CreateNotification: Story = {
     const [zohoCommittedUsers,    setZohoCommittedUsers]    = useState<TagItem[]>([]);
     const [zohoCommittedChannels, setZohoCommittedChannels] = useState<TagItem[]>([]);
 
-    const openZohoModal = () => {
-      setZohoDraftUsers(zohoCommittedUsers);
-      setZohoDraftChannels(zohoCommittedChannels);
+    const [recipientApp, setRecipientApp] = useState<'Zoho Cliq' | 'Slack'>('Zoho Cliq');
+    const [slackCommittedUsers, setSlackCommittedUsers] = useState<TagItem[]>([]);
+    const [slackCommittedChannels, setSlackCommittedChannels] = useState<TagItem[]>([]);
+    const [slackTeams] = useState([
+      { value: 'scranton-store', label: 'scranton store' },
+      { value: 'bennett-electronics', label: 'Bennett Electronics' },
+    ]);
+    const [slackCommittedTeam, setSlackCommittedTeam] = useState('');
+    const [slackDraftTeam, setSlackDraftTeam] = useState('');
+    const openAppRecipients = (app: 'Zoho Cliq' | 'Slack') => {
+      const users = app === 'Slack' ? slackCommittedUsers : zohoCommittedUsers;
+      const channels = app === 'Slack' ? slackCommittedChannels : zohoCommittedChannels;
+      setRecipientApp(app);
+      setSlackDraftTeam(slackCommittedTeam);
+      setZohoDraftUsers(users);
+      setZohoDraftChannels(channels);
+      setZohoNotifyUsers(true);
+      setZohoNotifyChannels(channels.length > 0);
       setZohoOpen(true);
     };
+    const openZohoModal = () => openAppRecipients('Zoho Cliq');
     const handleZohoDone = () => {
-      setZohoCommittedUsers(zohoDraftUsers);
-      setZohoCommittedChannels(zohoDraftChannels);
+      const users = zohoNotifyUsers ? zohoDraftUsers : [];
+      const channels = zohoNotifyChannels ? zohoDraftChannels : [];
+      if (recipientApp === 'Slack') {
+        setSlackCommittedUsers(users);
+        setSlackCommittedChannels(channels);
+        setSlackCommittedTeam(slackDraftTeam);
+      } else {
+        setZohoCommittedUsers(users);
+        setZohoCommittedChannels(channels);
+      }
       setZohoOpen(false);
     };
     const handleZohoCancel = () => setZohoOpen(false);
@@ -448,17 +592,21 @@ export const CreateNotification: Story = {
       setEditingId(clone ? undefined : row?.id);
       setNotificationName(row ? `${row.name}${clone ? '_Cloned' : ''}` : '');
       const config = row?.config;
+      const systemEdit = !!row?.system && !clone;
       const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) => item.label.toLowerCase() === row?.feature.toLowerCase())?.[0];
       setTrigger(config ? { ...config.trigger } : createUsageTrigger(featureKey));
       setNotifyToTags(config?.recipients ?? []);
-      setPushEmailEnabled(config?.pushEmailEnabled ?? true);
-      setExternalAppsEnabled(config?.externalAppsEnabled ?? !!row?.channels?.some(channel => ['Zoho Cliq', 'Slack'].includes(channel)));
-      setNotifyPush(config?.notifyPush ?? (row ? !!row.channels?.includes('Push Notification') : true));
-      setNotifyEmail(config?.notifyEmail ?? (row ? !!row.channels?.includes('Emails') : true));
+      setPushEmailEnabled(systemEdit || (config?.pushEmailEnabled ?? true));
+      setExternalAppsEnabled(!systemEdit && (config?.externalAppsEnabled ?? !!row?.channels?.some(channel => ['Zoho Cliq', 'Slack'].includes(channel))));
+      setNotifyPush(systemEdit || (config?.notifyPush ?? (row ? !!row.channels?.includes('Push Notification') : true)));
+      setNotifyEmail(systemEdit || (config?.notifyEmail ?? (row ? !!row.channels?.includes('Emails') : true)));
       setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes('Zoho Cliq') : true));
       setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes('Slack'));
       setZohoCommittedUsers(config?.users ?? []);
       setZohoCommittedChannels(config?.channels ?? []);
+      setSlackCommittedUsers(config?.slackUsers ?? []);
+      setSlackCommittedChannels(config?.slackChannels ?? []);
+      setSlackCommittedTeam(config?.slackTeam ?? '');
       setMessageDraft(config ? { criteriaKey: JSON.stringify(config.trigger), value: config.message } : { criteriaKey: '', value: '' });
       setEmailTemplate(config?.template);
       setNameError(false);
@@ -505,6 +653,9 @@ export const CreateNotification: Story = {
           input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         `}</style>
 
+        {deleteSuccess && <MessageBox variant="success" className="usage-page__success-alert"
+          message={`${deleteSuccess} deleted successfully.`} onClose={() => setDeleteSuccess(undefined)} />}
+
         <div className="usage-page">
           <aside className="usage-page__sidebar" aria-label="Setup navigation">
             <VerticalTabs variant="setup" searchable width="100%" items={SETUP_MENU_ITEMS}
@@ -541,7 +692,7 @@ export const CreateNotification: Story = {
                       options={[{ value: 'all', label: 'All Status' }, ...['Active', 'Paused', 'Completed'].map(status => ({ value: status, label: status }))]}
                       onChange={setStatusFilter} />
                   </div>
-                  <Button variant="primary" onClick={() => openEditor()}>Create Notification</Button>
+                  <Button variant="primary" className="usage-page__create-notification" onClick={() => openEditor()}>Create Notification</Button>
                 </div>
                 <div className="usage-page__table-region" role="region" aria-label="Notifications table" tabIndex={0}>
                   <SetupTable variant="report" width="100%" columns={columns} rows={visibleRows} emptyMessage="No notifications found" />
@@ -554,15 +705,28 @@ export const CreateNotification: Story = {
         {/* ── Zoho Cliq Notification sub-modal ─────────────────────────── */}
         <Modal
           isOpen={zohoOpen}
-          title="Zoho Cliq Notification"
+          title={`${recipientApp} Notification`}
           onClose={handleZohoCancel}
           onCancel={handleZohoCancel}
           onSave={handleZohoDone}
           cancelLabel="Cancel"
           saveLabel="Done"
-          width={520}
+          width="fit-content"
+          className="usage-app-modal"
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingRight: 20 }}>
+          <div className="usage-app-modal__content">
+            {recipientApp === 'Slack' && <Dropdown label="Team" placeholder="Select" width="100%" columns="auto minmax(0, 1fr)"
+              triggerAriaLabel="Slack team" value={slackDraftTeam}
+              options={slackTeams}
+              onChange={(team: string) => {
+                if (team === slackDraftTeam) return;
+                setSlackDraftTeam(team);
+                setZohoDraftUsers([]);
+                setZohoDraftChannels([]);
+              }}
+              panelStyle={{ '--usage-slack-team-menu': 1 } as React.CSSProperties}
+              footerAction={{ label: 'Authorise another team', icon: null, onClick: () => {} }} />}
+            <fieldset className="usage-app-recipients" disabled={recipientApp === 'Slack' && !slackDraftTeam}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <Checkbox
                 label="Notify to users"
@@ -574,7 +738,7 @@ export const CreateNotification: Story = {
                   value={zohoDraftUsers}
                   options={ZOHO_USER_OPTIONS}
                   onChange={setZohoDraftUsers}
-                  placeholder="Select users"
+                  placeholder="Select recipients"
                   width="100%"
                 />
               )}
@@ -595,6 +759,7 @@ export const CreateNotification: Story = {
                 />
               )}
             </div>
+            </fieldset>
           </div>
         </Modal>
 
@@ -606,14 +771,12 @@ export const CreateNotification: Story = {
           onClose={() => setOpen(false)}
           onCancel={() => setOpen(false)}
           onSave={() => {
-            if (!notificationName.trim()) {
-              setNameError(true);
-              document.getElementById(notificationNameId)?.focus();
-              return;
-            }
-            const error = validateUsageTrigger(trigger);
+            const missingName = !notificationName.trim();
+            const error = isSystemDefined ? undefined : validateUsageTrigger(trigger);
+            setNameError(missingName);
             setTriggerError(error);
-            if (error) return;
+            if (missingName) document.getElementById(notificationNameId)?.focus();
+            if (missingName || error) return;
             setNotificationName(notificationName.trim());
             const channels = [
               ...(pushEmailEnabled && notifyPush ? ['Push Notification'] : []),
@@ -634,7 +797,8 @@ export const CreateNotification: Story = {
               channels, status: existing?.status ?? 'Active', summary: usageTriggerSummary(trigger),
               config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
                 notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
-                channels: zohoCommittedChannels, message, template: emailTemplate },
+                channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
+                message, template: emailTemplate },
             };
             setSavedRows(current => editingId ? current.map(row => row.id === editingId ? saved : row) : [...current, saved]);
             setNameError(false);
@@ -647,48 +811,39 @@ export const CreateNotification: Story = {
           <div ref={setContent} style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
 
           {/* ── Notification name, feature, condition, and frequency ───── */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: `${LABEL_COL} 1fr`,
-            columnGap: 20,
-            alignItems: 'center',
-          }}>
-            <label htmlFor={notificationNameId} style={labelStyle}>
-              Notification Name
-            </label>
-            <Input
-              id={notificationNameId}
-              type="text"
-              layout="vertical"
-              width={390}
-              value={notificationName}
-              aria-required="true"
-              aria-invalid={nameError || undefined}
-              error={nameError}
-              helperText={nameError ? 'Enter a notification name.' : undefined}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setNotificationName(event.target.value);
-                if (event.target.value.trim()) setNameError(false);
-              }}
-            />
-          </div>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: `${LABEL_COL} 1fr`,
-            columnGap: 20,
-            alignItems: 'center',
-          }}>
-            <span style={labelStyle}>Feature</span>
-            <Dropdown layout="vertical" triggerAriaLabel="Feature" placeholder="Select"
-              options={FEATURE_OPTIONS} width={390} value={trigger.feature}
-              onChange={(value: string) => { setTrigger(createUsageTrigger(value)); setTriggerError(undefined); }} />
-          </div>
-          {showCriteria && measure && (
+          <div className="usage-notification-fields" style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          <Input
+            id={notificationNameId}
+            label="Notification Name"
+            type="text"
+            layout="horizontal"
+            columns={`${LABEL_COL} 390px`}
+            value={notificationName}
+            disabled={isSystemDefined}
+            style={isSystemDefined ? { '--_input-disabled-text-color': 'var(--ds-text-base)', WebkitTextFillColor: 'var(--ds-text-base)', opacity: 1 } as React.CSSProperties : undefined}
+            aria-required="true"
+            aria-invalid={nameError || undefined}
+            error={nameError}
+            helperText={nameError ? <span role="alert">Notification Name cannot be empty.</span> : undefined}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setNotificationName(event.target.value);
+              if (event.target.value.trim()) setNameError(false);
+            }}
+          />
+          {!isSystemDefined && <>
+          <Dropdown layout="horizontal" label="Feature" columns={`${LABEL_COL} 390px`}
+            triggerAriaLabel="Feature" placeholder="Select"
+            error={featureError}
+            helperText={featureError ? <span role="alert">Select a feature.</span> : undefined}
+            options={FEATURE_OPTIONS} value={trigger.feature}
+            onChange={(value: string) => { setTrigger(createUsageTrigger(value)); setTriggerError(undefined); }} />
+          {feature && !feature.blank && (
             <>
-              <FormRow label="Based on">
-                <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 'calc(var(--ds-font-size-base) * 0.6)' }}>
+              <FormRow label="Based on" align="start" labelOffset={7}>
+                <div style={{ display: 'flex', alignItems: 'start', flexWrap: 'wrap', gap: 'calc(var(--ds-font-size-base) * 0.6)' }}>
                   <Dropdown layout="vertical" triggerAriaLabel="Based on" width={390} tooltipVariant="white" tooltipMaxWidth={600}
+                    error={measureError}
+                    helperText={measureError ? <span role="alert">Select a supported measure and calculation.</span> : undefined}
                     options={usageMeasures(trigger.feature).map(field => ({
                       value: field.name,
                       label: prettyUsageName(field.name),
@@ -699,7 +854,7 @@ export const CreateNotification: Story = {
                     value={trigger.measure} onChange={(value: string) => {
                       setTrigger(current => changeUsageMeasure(current, value)); setTriggerError(undefined);
                     }} />
-                  {measure.aggs.length > 1 && <>
+                  {measure && measure.aggs.length > 1 && <>
                     <span style={labelStyle}>by</span>
                     <Dropdown layout="vertical" triggerAriaLabel="Calculation" width={150}
                       options={measure.aggs.map(value => ({ value, label: AGGREGATION_LABELS[value] }))}
@@ -707,7 +862,7 @@ export const CreateNotification: Story = {
                   </>}
                 </div>
               </FormRow>
-              <FormRow label="When">
+              {measure && <FormRow label="When">
                 <div ref={whenRowRef} className="usage-notification-when" style={{ display: 'flex', width: 'max-content', alignItems: 'center', flexWrap: 'nowrap', gap: 'calc(var(--ds-font-size-base) * 0.6)' }}>
                   {!!measure.limits?.length && <Dropdown layout="vertical" triggerAriaLabel="Threshold type" width={150}
                     options={[{ value: 'pct', label: 'Percent' }, { value: 'val', label: 'Value' }]}
@@ -738,15 +893,17 @@ export const CreateNotification: Story = {
                       value={trigger.windowUnit} onChange={(windowUnit: string) => updateTrigger({ windowUnit })} />
                   </>}
                 </div>
-              </FormRow>
+              </FormRow>}
             </>
           )}
           <FormRow label="Notify once every">
             <Dropdown layout="vertical" triggerAriaLabel="Notify once every" options={INTERVAL_OPTIONS}
               width={390} value={trigger.interval} onChange={(interval: string) => updateTrigger({ interval })} />
           </FormRow>
-          {summary && <FormRow label="" align="start">
-            <div style={{ width: 'fit-content', maxWidth: 'calc(100% - 30px)', marginRight: 30,
+          </>}
+          {summary && <div style={{ paddingLeft: isSystemDefined ? 0 : `calc(${LABEL_COL} + 20px)` }}>
+            <div style={{ width: isSystemDefined ? '100%' : 'fit-content',
+              maxWidth: 'calc(100% - 30px)', marginRight: 30,
               overflowWrap: 'anywhere', boxSizing: 'border-box',
               padding: 'var(--ds-font-size-base)', border: '1px solid var(--ds-border-subtle)',
               borderRadius: 'calc(var(--ds-font-size-base) * 0.4)', background: 'var(--ds-bg-common-bg)',
@@ -755,8 +912,8 @@ export const CreateNotification: Story = {
               fontFamily: 'var(--ds-font-family-base)' }} aria-live="polite">
               {summary}
             </div>
-          </FormRow>}
-          {triggerError && <FormRow label=""><span role="alert" style={{ color: 'var(--ds-status-negative)' }}>{triggerError}</span></FormRow>}
+          </div>}
+          {triggerError && !featureError && !measureError && <FormRow label=""><div className="input-root" data-variant="error"><span className="input-helper-text" role="alert">{triggerError}</span></div></FormRow>}
           </div>{/* end first-group */}
 
           {/* ── Notify via ──────────────────────────────────────────────── */}
@@ -767,16 +924,16 @@ export const CreateNotification: Story = {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <span style={subHeadingStyle}>Push Notification / Email</span>
-                <Switch
+                {!isSystemDefined && <Switch
                   checked={pushEmailEnabled}
                   onChange={(e) => setPushEmailEnabled(e.target.checked)}
                   aria-label="Toggle push notification and email"
-                />
+                />}
               </div>
 
               {pushEmailEnabled && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <FormRow label="Send notification to">
+                  {!isSystemDefined && <FormRow label="Send notification to">
                     <div className={`usage-recipient-field${notifyToTags.length > 0 ? ' usage-recipient-editable' : ''}`} role="group" aria-label="Send notification to"
                       onClick={(event) => {
                         if (!(event.target instanceof Element) || !event.target.closest('button')) {
@@ -787,9 +944,9 @@ export const CreateNotification: Story = {
                         <Button variant="default" size="sm" aria-haspopup="dialog" onClick={() => setRecipientDialogOpen(true)}>
                           Select User
                         </Button>
-                      ) : (['user', 'group', 'role', 'role-and-subordinates', 'email'] as const).map(kind => {
+                      ) : (['user', 'group', 'role', 'role-and-subordinates', 'territory', 'territory-and-subterritories', 'email'] as const).map(kind => {
                         const recipients = notifyToTags.filter(recipient => recipient.kind === kind);
-                        const label = { user: 'Users', group: 'Groups', role: 'Roles', 'role-and-subordinates': 'Roles and Subordinates', email: 'Emails' }[kind];
+                        const label = { user: 'Users', group: 'Groups', role: 'Roles', 'role-and-subordinates': 'Roles and Subordinates', territory: 'Territories', 'territory-and-subterritories': 'Territories and Sub-territories', email: 'Emails' }[kind];
                         return recipients.length > 0 && (
                           <Tooltip key={kind} variant="white" placement="top" maxWidth={320}
                             content={<span className="usage-recipient-preview">
@@ -810,18 +967,20 @@ export const CreateNotification: Story = {
                         <Icon name="CrmEditFilledMd" size={14} />
                       </button>}
                     </div>
-                  </FormRow>
+                  </FormRow>}
 
                   <FormRow label="Notify Via" align="start">
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <div className="usage-notification-channels" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                       <Checkbox
                         label="Push Notification"
+                        disabled={isSystemDefined}
                         checked={notifyPush}
                         onChange={(e) => setNotifyPush(e.target.checked)}
                       />
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <Checkbox
                           label="Email"
+                          disabled={isSystemDefined}
                           checked={notifyEmail}
                           onChange={(e) => setNotifyEmail(e.target.checked)}
                         />
@@ -844,11 +1003,15 @@ export const CreateNotification: Story = {
                           >
                             Preview
                           </button>
-                          <span style={{
-                            color:      'var(--ds-text-muted)',
-                            fontSize:   'var(--ds-font-size-base)',
-                            lineHeight: 1,
-                          }}>·</span>
+                          <span aria-hidden="true" style={{
+                            display: 'inline-block',
+                            width: 4,
+                            height: 4,
+                            marginInline: 2,
+                            flexShrink: 0,
+                            borderRadius: '50%',
+                            background: 'var(--ds-text-muted)',
+                          }} />
                           <button
                             type="button"
                             style={{
@@ -875,7 +1038,7 @@ export const CreateNotification: Story = {
             </div>
 
             {/* External apps */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {!isSystemDefined && <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <span style={subHeadingStyle}>External apps</span>
                 <Switch
@@ -909,7 +1072,7 @@ export const CreateNotification: Story = {
                           }}>
                           {zohoCommittedUsers.length === 0 && zohoCommittedChannels.length === 0 && (
                             <Button variant="default" size="sm" aria-haspopup="dialog" onClick={openZohoModal}>
-                              Select User
+                              Select Recipients
                             </Button>
                           )}
                           {[
@@ -937,16 +1100,40 @@ export const CreateNotification: Story = {
                       </div>
                     </div>
                   </FormRow>
-                  <div style={{ paddingLeft: `calc(${LABEL_COL} + 20px)` }}>
+                  <div className="usage-slack-row" style={{ paddingLeft: `calc(${LABEL_COL} + 20px)`, display: 'flex', alignItems: 'center', gap: 12 }}>
                     <Checkbox
                       label="Slack"
                       checked={notifySlack}
                       onChange={(e) => setNotifySlack(e.target.checked)}
                     />
+                    {notifySlack && <div className={`usage-recipient-field usage-cliq-field${slackCommittedUsers.length || slackCommittedChannels.length ? ' usage-recipient-editable' : ''}`}
+                      role="group" aria-label="Slack recipients" onClick={(event) => {
+                        if (!(event.target instanceof Element) || !event.target.closest('button')) openAppRecipients('Slack');
+                      }}>
+                      {!slackCommittedUsers.length && !slackCommittedChannels.length && <Button variant="default" size="sm"
+                        aria-haspopup="dialog" onClick={() => openAppRecipients('Slack')}>Select Recipients</Button>}
+                      {[
+                        { label: 'Users', recipients: slackCommittedUsers },
+                        { label: 'Channels', recipients: slackCommittedChannels },
+                      ].map(({ label, recipients }) => recipients.length > 0 && <Tooltip key={label}
+                        variant="white" placement="top" maxWidth={320}
+                        content={<span className="usage-recipient-preview">
+                          <strong>{label} ({recipients.length})</strong>
+                          {recipients.map(recipient => <span key={recipient.value}>{recipient.label}</span>)}
+                        </span>}>
+                        <button type="button" className="tags-tag usage-recipient-count" aria-haspopup="dialog"
+                          aria-label={`${label}: ${recipients.length}. Edit Slack recipients`} onClick={() => openAppRecipients('Slack')}>
+                          <span className="tags-tag-label">{label}</span><span className="tags-tag-count">{recipients.length}</span>
+                        </button>
+                      </Tooltip>)}
+                      {(slackCommittedUsers.length > 0 || slackCommittedChannels.length > 0) && <button type="button"
+                        className="usage-cliq-edit" aria-label="Edit Slack recipients" aria-haspopup="dialog"
+                        onClick={() => openAppRecipients('Slack')}><Icon name="CrmEditFilledMd" size={14} /></button>}
+                    </div>}
                   </div>
                 </div>
               )}
-            </div>
+            </div>}
           </div>
 
           {/* ── Message ─────────────────────────────────────────────────── */}
@@ -972,7 +1159,10 @@ export const CreateNotification: Story = {
           confirmLabel="Delete" cancelLabel="Cancel"
           onClose={() => setPendingDelete(undefined)} onCancel={() => setPendingDelete(undefined)}
           onSave={() => {
-            if (!pendingDelete.system) setSavedRows(current => current.filter(row => row.id !== pendingDelete.id));
+            if (!pendingDelete.system) {
+              setSavedRows(current => current.filter(row => row.id !== pendingDelete.id));
+              setDeleteSuccess(pendingDelete.name);
+            }
             setPendingDelete(undefined);
           }}
         />}

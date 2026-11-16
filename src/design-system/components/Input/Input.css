@@ -282,7 +282,8 @@
 }
 
 /* Helper text switches to error color */
-.input-root[data-variant="error"] .input-helper-text {
+.input-root[data-variant="error"] .input-helper-text,
+.input-root[data-variant="error"] .input-helper-text [role="alert"] {
   color: var(--ds-components-input-error-outline);          /* #FF5D5A */
 }
 

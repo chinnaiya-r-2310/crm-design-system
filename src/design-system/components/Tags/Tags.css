@@ -70,7 +70,8 @@
   font-size: var(--ds-font-size-base);
   color: var(--ds-text-base);
   line-height: 1;
-  max-width: 200px;
+  max-width: 100%;
+  flex-shrink: 0;
   transition: background 150ms ease, border-color 150ms ease;
 }
 
