@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">20/58 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">53/58 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/367 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">20/58 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">53/58 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/370 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>6.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>7.1s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -644,13 +644,13 @@
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  14 | // ─────────────────────────────────────────────────────────────────────────────
-  15 |
-&gt; 16 | const meta: Meta = {
+  15 | // ─────────────────────────────────────────────────────────────────────────────
+  16 |
+&gt; 17 | const meta: Meta = {
      | ^
-  17 |   title: &#39;Work Items/Audit Log Duration&#39;,
-  18 |   parameters: {
-  19 |     layout: &#39;centered&#39;,
+  18 |   title: &#39;Work Items/Audit Log Duration&#39;,
+  19 |   parameters: {
+  20 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/AuditLogDuration.stories.tsx:
 import React, { useState, useRef, useCallback } from &#39;react&#39;;
@@ -663,6 +663,7 @@ import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
 import { Tags } from &#39;../components/Tags/Tags&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
 import { Info as InfoIcon } from &#39;../foundations/icons/Icons&#39;;
+import { DualRangeSlider } from &#39;../components/Slider/DualRangeSlider&#39;;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -711,163 +712,6 @@ function fmtDate(d: Date): string {
 // ─────────────────────────────────────────────────────────────────────────────
 // Dual Range Slider
 // ─────────────────────────────────────────────────────────────────────────────
-
-function DualRangeSlider({
-  min = 0,
-  max = 10,
-  maxA = max,
-  valueA,
-  valueB,
-  onChangeA,
-  onChangeB,
-  showThumbB = true,
-}: {
-  min?: number;
-  max?: number;
-  maxA?: number;
-  valueA: number;
-  valueB: number;
-  onChangeA: (v: number) =&gt; void;
-  onChangeB: (v: number) =&gt; void;
-  showThumbB?: boolean;
-}) {
-  const trackRef = useRef&lt;HTMLDivElement&gt;(null);
-  const steps    = Array.from({ length: max - min + 1 }, (_, i) =&gt; i + min);
-  const count    = steps.length;
-
-  const pctA = ((valueA - min) / (max - min)) * 100;
-  const pctB = ((valueB - min) / (max - min)) * 100;
-
-  const pickValue = useCallback((clientX: number) =&gt; {
-    const rect  = trackRef.current!.getBoundingClientRect();
-    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
-    return Math.round(min + ratio * (max - min));
-  }, [min, max]);
-
-  const startDrag = (thumb: &#39;a&#39; | &#39;b&#39;) =&gt; (e: React.MouseEvent) =&gt; {
-    e.preventDefault();
-    const move = (ev: MouseEvent) =&gt; {
-      const v = pickValue(ev.clientX);
-      if (thumb === &#39;a&#39;) onChangeA(Math.min(Math.max(v, 1), Math.min(valueB - 1, maxA)));
-      else               onChangeB(Math.max(v, valueA + 1, 2));
-    };
-    const up = () =&gt; {
-      document.removeEventListener(&#39;mousemove&#39;, move);
-      document.removeEventListener(&#39;mouseup&#39;, up);
-    };
-    document.addEventListener(&#39;mousemove&#39;, move);
-    document.addEventListener(&#39;mouseup&#39;, up);
-  };
-
-  const thumbStyle: React.CSSProperties = {
-    position: &#39;absolute&#39;,
-    width: 19, height: 19,
-    top: &#39;50%&#39;,
-    transform: &#39;translate(-50%, -50%)&#39;,
-    borderRadius: &#39;50%&#39;,
-    background: &#39;#fff&#39;,
-    border: &#39;2px solid #9C9CA6&#39;,
-    boxShadow: &#39;0 3px 12px rgba(49,57,73,0.15)&#39;,
-    boxSizing: &#39;border-box&#39;,
-    cursor: &#39;grab&#39;,
-    outline: &#39;none&#39;,
-    transition: &#39;left 80ms ease, border-color 120ms, box-shadow 120ms&#39;,
-    zIndex: 1,
-  };
-
-  return (
-    &lt;div style={{ userSelect: &#39;none&#39;, width: &#39;100%&#39;, fontFamily: &#39;var(--ds-font-family-base)&#39; }}&gt;
-      &lt;style&gt;{`
-        .ds-thumb-dot:hover {
-          border-color: var(--ds-components-slider-active-bg-fill-color, #5464F2) !important;
-        }
-        .ds-thumb-dot:focus-visible {
-          outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
-          outline-offset: 2px;
-          border-color: var(--ds-components-slider-active-bg-fill-color, #5464F2) !important;
-        }
-      `}&lt;/style&gt;
-
-      {/* ── Track + 2 thumbs ──────────────────────────────────────────────── */}
-      &lt;div ref={trackRef} style={{ position: &#39;relative&#39;, height: 16 }}&gt;
-
-        {/* Grey base track */}
-        &lt;div style={{
-          position: &#39;absolute&#39;, left: 0, right: 0,
-          top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
-          height: 9, borderRadius: 4.5,
-          background: &#39;var(--ds-components-slider-slider-bg-grey, #E5EAF2)&#39;,
-          pointerEvents: &#39;none&#39;,
-        }} /&gt;
-
-        {/* Blue fill — visible range (left → thumb A) */}
-        &lt;div style={{
-          position: &#39;absolute&#39;, left: 0, width: `${pctA}%`,
-          top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
-          height: 9, borderRadius: 4.5,
-          background: &#39;var(--ds-components-slider-active-bg-fill-color, #5464F2)&#39;,
-          pointerEvents: &#39;none&#39;,
-        }} /&gt;
-
-        {/* Orange fill — archive range (thumb A → thumb B) */}
-        {showThumbB &amp;&amp; pctB &gt; pctA &amp;&amp; (
-          &lt;div style={{
-            position: &#39;absolute&#39;, left: `${pctA}%`, width: `${pctB - pctA}%`,
-            top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
-            height: 9, borderRadius: 4.5,
-            background: &#39;var(--ds-icon-primary-orange, #F18E0A)&#39;,
-            pointerEvents: &#39;none&#39;,
-          }} /&gt;
-        )}
-
-        {/* Thumb A — visible end */}
-        &lt;div
-          className=&quot;ds-thumb-dot&quot;
-          onMouseDown={startDrag(&#39;a&#39;)}
-          style={{ ...thumbStyle, left: `${pctA}%` }}
-          role=&quot;slider&quot;
-          tabIndex={0}
-          aria-valuemin={min} aria-valuemax={valueB} aria-valuenow={valueA}
-          aria-label=&quot;Visible log history end&quot;
-        /&gt;
-
-        {/* Thumb B — archive end */}
-        {showThumbB &amp;&amp; (
-          &lt;div
-            className=&quot;ds-thumb-dot&quot;
-            onMouseDown={startDrag(&#39;b&#39;)}
-            style={{ ...thumbStyle, left: `${pctB}%`, zIndex: 2 }}
-            role=&quot;slider&quot;
-            tabIndex={0}
-            aria-valuemin={valueA} aria-valuemax={max} aria-valuenow={valueB}
-            aria-label=&quot;Archive log end&quot;
-          /&gt;
-        )}
-      &lt;/div&gt;
-
-      {/* ── Numbers below — centered on each thumb&#39;s percentage position ──── */}
-      &lt;div style={{ position: &#39;relative&#39;, height: 14, marginTop: 6 }}&gt;
-        {steps.map((s, i) =&gt; {
-          const pct = count &gt; 1 ? (i / (count - 1)) * 100 : 50;
-          return (
-            &lt;span key={s} style={{
-              position: &#39;absolute&#39;,
-              left: `${pct}%`,
-              transform: &#39;translateX(-50%)&#39;,
-              fontSize: 11,
-              color: &#39;var(--ds-text-muted, #8B9BB8)&#39;,
-              lineHeight: 1,
-              whiteSpace: &#39;nowrap&#39;,
-            }}&gt;
-              {s}
-            &lt;/span&gt;
-          );
-        })}
-      &lt;/div&gt;
-
-    &lt;/div&gt;
-  );
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Retention summary row
@@ -1344,7 +1188,16 @@ export const ManageLogRetentionSettings: Story = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { Checkbox, Info as InfoIcon, MessageBox, MessageInfo, Modal, Tags, Tooltip } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import {
+    Checkbox,
+    DualRangeSlider,
+    Info as InfoIcon,
+    MessageBox,
+    MessageInfo,
+    Modal,
+    Tags,
+    Tooltip,
+} from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
@@ -1811,7 +1664,7 @@ export const ManageLogRetentionSettings: Story = {
       <div class="badges">
         <label for="c-2-design-system-components-button-props" class="badge ok as-toggle">6 prop types</label>
         <label for="c-2-design-system-components-button-info" class="badge info as-toggle">1 info</label>
-        <label for="c-2-design-system-components-button-stories" class="badge ok as-toggle">22 stories</label>
+        <label for="c-2-design-system-components-button-stories" class="badge ok as-toggle">23 stories</label>
         
         
       </div>
@@ -1871,7 +1724,7 @@ variant?: any = &#39;primary&#39;</code></pre>
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { Button, ButtonGroup } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import { Button, ButtonGroup, Dropdown, Icon } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
@@ -1928,6 +1781,15 @@ variant?: any = &#39;primary&#39;</code></pre>
               
               
               <pre><code>const PrimaryDisabled = () =&gt; &lt;Button variant=&quot;primary&quot; size=&quot;md&quot; disabled&gt;Save&lt;/Button&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Dropdown Button</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const DropdownButton = () =&gt; &lt;VerificationDropdownButton /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -2779,6 +2641,9 @@ Figma: node 34442:87663.</div>
         &lt;Button variant=&quot;outline-blue&quot; size=&quot;sm&quot; arrow&gt;Actions&lt;/Button&gt;
       &lt;/Row&gt;
     &lt;/Section&gt;
+    &lt;Section title=&quot;Dropdown Button — Verify as&quot;&gt;
+      &lt;VerificationDropdownButton /&gt;
+    &lt;/Section&gt;
     &lt;Section title=&quot;Extreme Small (xs) — default only&quot;&gt;
       &lt;Row&gt;
         &lt;Button variant=&quot;default&quot; size=&quot;xs&quot;&gt;Verify&lt;/Button&gt;
@@ -3063,6 +2928,7 @@ No month/year header or navigation. Toggle individual day numbers.</div>
   const [rStart,  setRStart]  = useState&lt;Date | null&gt;(new Date(2019, 5, 10));
   const [rEnd,    setREnd]    = useState&lt;Date | null&gt;(new Date(2019, 5, 20));
   const [multi,   setMulti]   = useState&lt;Date[]&gt;([new Date(2019,5,3),new Date(2019,5,7),new Date(2019,5,14)]);
+  const [monthDays, setMonthDays] = useState&lt;number[]&gt;([2, 5, 16, 23]);
   const base = new Date(2019, 5, 1);
 
   return (
@@ -3078,6 +2944,10 @@ No month/year header or navigation. Toggle individual day numbers.</div>
       &lt;div&gt;
         &lt;p style={{ margin: &#39;0 0 6px&#39;, fontSize: 11, fontWeight: 600, color: &#39;#616E88&#39;, fontFamily: &#39;var(--ds-font-family-base)&#39;, textTransform: &#39;uppercase&#39;, letterSpacing: &#39;0.5px&#39; }}&gt;Multi Select&lt;/p&gt;
         &lt;Calendar mode=&quot;multi&quot; selectedDates={multi} onMultiChange={setMulti} defaultMonth={base} /&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;p style={{ margin: &#39;0 0 6px&#39;, fontSize: 11, fontWeight: 600, color: &#39;#616E88&#39;, fontFamily: &#39;var(--ds-font-family-base)&#39;, textTransform: &#39;uppercase&#39;, letterSpacing: &#39;0.5px&#39; }}&gt;Date of Month (1–31)&lt;/p&gt;
+        &lt;Calendar mode=&quot;date-of-month&quot; selectedDayNumbers={monthDays} onDayNumbersChange={setMonthDays} width=&quot;fit-content&quot; /&gt;
       &lt;/div&gt;
       &lt;div&gt;
         &lt;p style={{ margin: &#39;0 0 6px&#39;, fontSize: 11, fontWeight: 600, color: &#39;#616E88&#39;, fontFamily: &#39;var(--ds-font-family-base)&#39;, textTransform: &#39;uppercase&#39;, letterSpacing: &#39;0.5px&#39; }}&gt;Weekend Highlight&lt;/p&gt;
@@ -5320,7 +5190,7 @@ function PanelEditButton({ label }: { label: string }) {
   return (
     &lt;Tooltip content={`Edit ${label.toLowerCase()}`} variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
       &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label={`Edit ${label}`}&gt;
-        &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
+        &lt;Icon name=&quot;Edit&quot; size={13} /&gt;
       &lt;/button&gt;
     &lt;/Tooltip&gt;
   );
@@ -5443,7 +5313,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
               &lt;div className=&quot;cmr__heading-actions&quot;&gt;
                 &lt;Tooltip content=&quot;Edit filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
                   &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label=&quot;Edit filters&quot; onClick={() =&gt; openModal()}&gt;
-                    &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
+                    &lt;Icon name=&quot;Edit&quot; size={13} /&gt;
                   &lt;/button&gt;
                 &lt;/Tooltip&gt;
                 {/* Version 2: Edit only, no Delete. */}
@@ -10177,8 +10047,9 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
         const dimensions = crmIconMetadata[name];
         const scale = dimensions ? Math.min(1, 64 / Math.max(dimensions.width, dimensions.height)) : 1;
         return (
-        &lt;Tooltip key={name} content={crmIconMetadata[name]?.keywords ?? name} variant=&quot;black&quot; wrapperStyle={{ display: &#39;block&#39; }}&gt;
+        &lt;Tooltip key={name} content={name} variant=&quot;black&quot; wrapperStyle={{ display: &#39;block&#39;, minWidth: 0 }}&gt;
         &lt;div
+          className=&quot;icon-gallery-tile&quot;
           tabIndex={0}
           aria-label={name}
           style={{
@@ -10186,9 +10057,11 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
             flexDirection: &#39;column&#39;,
             alignItems: &#39;center&#39;,
             justifyContent: &#39;center&#39;,
-            gap: &#39;10px&#39;,
             position: &#39;relative&#39;,
-            padding: &#39;36px 8px 14px&#39;,
+            width: &#39;100%&#39;,
+            aspectRatio: &#39;1&#39;,
+            boxSizing: &#39;border-box&#39;,
+            padding: &#39;8px&#39;,
             border: &#39;1px solid var(--ds-components-input-default-outline)&#39;,
             borderRadius: &#39;8px&#39;,
             background: &#39;var(--ds-bg-common-card)&#39;,
@@ -10203,15 +10076,6 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
             aria-hidden=&quot;true&quot;
             style={{ flexShrink: 0, maxWidth: 64, maxHeight: 64, objectFit: &#39;contain&#39; }}
           /&gt;
-          &lt;span style={{
-            fontSize: &#39;11px&#39;,
-            color: &#39;var(--ds-text-label)&#39;,
-            textAlign: &#39;center&#39;,
-            lineHeight: &#39;14px&#39;,
-            wordBreak: &#39;break-word&#39;,
-          }}&gt;
-            {name}
-          &lt;/span&gt;
           &lt;CopyIconId name={name} onFeedback={setFeedback} /&gt;
         &lt;/div&gt;
         &lt;/Tooltip&gt;
@@ -10617,7 +10481,7 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
       <div class="badges">
         <label for="c-22-design-system-components-input-props" class="badge ok as-toggle">7 prop types</label>
         
-        <label for="c-22-design-system-components-input-stories" class="badge ok as-toggle">24 stories</label>
+        <label for="c-22-design-system-components-input-stories" class="badge ok as-toggle">25 stories</label>
         
         
       </div>
@@ -11055,6 +10919,15 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     required={false}
     readOnly={false}
     disabled={false} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All Variants</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AllVariants = () =&gt; &lt;InputVariants /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -11638,7 +11511,7 @@ function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; 
           &lt;div className=&quot;cmr__heading-actions&quot;&gt;
             &lt;Tooltip content=&quot;Edit filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
               &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label=&quot;Edit filters&quot;&gt;
-                &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
+                &lt;Icon name=&quot;Edit&quot; size={13} /&gt;
               &lt;/button&gt;
             &lt;/Tooltip&gt;
             &lt;Tooltip content=&quot;Delete filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
@@ -11712,7 +11585,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
             &lt;div className=&quot;jr-builder-row jr-builder-panel-head&quot;&gt;
               &lt;span className=&quot;jr-builder-panel-title&quot;&gt;Joined Report&lt;/span&gt;
               &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit joined report&quot; onClick={onEdit}&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;
+                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;
               &lt;/button&gt;
             &lt;/div&gt;
 
@@ -11722,7 +11595,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Leads By Source&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads By Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads By Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 
@@ -11742,12 +11615,12 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               ) : (&lt;&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Columns&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={columns} onChange={setColumns} /&gt;
               &lt;div className=&quot;jr-builder-row jr-builder-row--section&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Aggregate Columns&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={aggregates} onChange={setAggregates} /&gt;
               &lt;/&gt;)}
@@ -11760,7 +11633,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Recent Six Month Leads&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Recent Six Month Leads&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Recent Six Month Leads&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 
@@ -11770,7 +11643,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Untitled Report 0&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Untitled Report 0&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Untitled Report 0&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 &lt;/&gt;)}
@@ -12579,14 +12452,14 @@ width?: any = 670</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MessageBox</h2>
       <div class="badges">
-        <label for="c-26-design-system-components-messagebox-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-26-design-system-components-messagebox-info" class="badge info as-toggle">1 info</label>
-        <label for="c-26-design-system-components-messagebox-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-26-design-system-components-alert-box-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-26-design-system-components-alert-box-info" class="badge info as-toggle">1 info</label>
+        <label for="c-26-design-system-components-alert-box-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/design-system/components/MessageBox/MessageBox.stories.tsx">design-system-components-messagebox · ./src/design-system/components/MessageBox/MessageBox.stories.tsx</div>
+    <div class="meta" title="./src/design-system/components/MessageBox/MessageBox.stories.tsx">design-system-components-alert-box · ./src/design-system/components/MessageBox/MessageBox.stories.tsx</div>
     
     
     
@@ -12594,11 +12467,11 @@ width?: any = 670</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-26-design-system-components-messagebox-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-26-design-system-components-messagebox-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-26-design-system-components-alert-box-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-26-design-system-components-alert-box-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-26-design-system-components-messagebox-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-26-design-system-components-alert-box-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -12769,14 +12642,14 @@ variant?: any = &#39;info&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> MessageInfo</h2>
       <div class="badges">
-        <label for="c-27-design-system-components-messageinfo-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-27-design-system-components-messageinfo-info" class="badge info as-toggle">1 info</label>
-        <label for="c-27-design-system-components-messageinfo-stories" class="badge ok as-toggle">12 stories</label>
+        <label for="c-27-design-system-components-message-box-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-27-design-system-components-message-box-info" class="badge info as-toggle">1 info</label>
+        <label for="c-27-design-system-components-message-box-stories" class="badge ok as-toggle">12 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/design-system/components/MessageInfo/MessageInfo.stories.tsx">design-system-components-messageinfo · ./src/design-system/components/MessageInfo/MessageInfo.stories.tsx</div>
+    <div class="meta" title="./src/design-system/components/MessageInfo/MessageInfo.stories.tsx">design-system-components-message-box · ./src/design-system/components/MessageInfo/MessageInfo.stories.tsx</div>
     
     
     
@@ -12784,11 +12657,11 @@ variant?: any = &#39;info&#39;</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-27-design-system-components-messageinfo-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-27-design-system-components-messageinfo-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-27-design-system-components-message-box-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-27-design-system-components-message-box-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-27-design-system-components-messageinfo-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-27-design-system-components-message-box-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -19371,16 +19244,17 @@ width?: any = 670</code></pre>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  13 | import { GroupButton } from &quot;../components/GroupButton/GroupButton&quot;;
-  14 | import { Info } from &quot;../foundations/icons/Icons&quot;;
-&gt; 15 | const meta = {
+  14 | import { GroupButton } from &quot;../components/GroupButton/GroupButton&quot;;
+  15 | import { Info } from &quot;../foundations/icons/Icons&quot;;
+&gt; 16 | const meta = {
      | ^
-  16 |   title: &quot;Work Items/Send Dashboard Scheduler&quot;,
-  17 |   parameters: {
-  18 |     layout: &quot;centered&quot;,
+  17 |   title: &quot;Work Items/Send Dashboard Scheduler&quot;,
+  18 |   parameters: {
+  19 |     layout: &quot;centered&quot;,
 
 ./src/design-system/patterns/SendDashboardScheduler.stories.js:
 import { useState } from &quot;react&quot;;
+import { Calendar } from &quot;../components/Calendar/Calendar&quot;;
 import { Modal } from &quot;../components/Modal/Modal&quot;;
 import { Dropdown } from &quot;../components/Dropdown/Dropdown&quot;;
 import { Checkbox } from &quot;../components/Checkbox/Checkbox&quot;;
@@ -19688,53 +19562,12 @@ export const SendDashboardScheduler = {
 
               {monthlyMode === &quot;days_of_month&quot; &amp;&amp; &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
                   &lt;span /&gt;
-                  &lt;div style={{
-      display: &quot;inline-flex&quot;,
-      flexDirection: &quot;column&quot;,
-      gap: 10,
-      border: &quot;1px solid var(--ds-components-input-default-outline)&quot;,
-      borderRadius: 6,
-      padding: &quot;15px 10px&quot;,
-      width: &quot;fit-content&quot;
-    }}&gt;
-                    &lt;style&gt;{`
-                      .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
-                      .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
-                      .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
-                      .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
-                    `}&lt;/style&gt;
-                    &lt;span style={{
-      fontFamily: &quot;var(--ds-font-family-base)&quot;,
-      fontSize: &quot;var(--ds-font-size-sm)&quot;,
-      fontWeight: 600,
-      color: &quot;var(--ds-text-base)&quot;
-    }}&gt;Select Dates&lt;/span&gt;
-                    &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: &quot;repeat(7, 34px)&quot;, gap: 4 }}&gt;
-                      {Array.from({ length: 31 }, (_, i) =&gt; i + 1).map((day) =&gt; {
-      const sel = selectedMonthDays.includes(day);
-      return &lt;button
-        key={day}
-        type=&quot;button&quot;
-        className=&quot;sds-cal-day&quot;
-        data-sel={sel || void 0}
-        onClick={() =&gt; setSelectedMonthDays((p) =&gt; p.includes(day) ? p.filter((d) =&gt; d !== day) : [...p, day])}
-        style={{
-          width: 34,
-          height: 34,
-          borderRadius: &quot;50%&quot;,
-          cursor: &quot;pointer&quot;,
-          fontFamily: &quot;var(--ds-font-family-base)&quot;,
-          fontSize: &quot;var(--ds-font-size-sm)&quot;,
-          display: &quot;flex&quot;,
-          alignItems: &quot;center&quot;,
-          justifyContent: &quot;center&quot;
-        }}
-      &gt;
-                            {day}
-                          &lt;/button&gt;;
-    })}
-                    &lt;/div&gt;
-                  &lt;/div&gt;
+                  &lt;Calendar
+                    mode=&quot;date-of-month&quot;
+                    selectedDayNumbers={selectedMonthDays}
+                    onDayNumbersChange={setSelectedMonthDays}
+                    width=&quot;fit-content&quot;
+                  /&gt;
                 &lt;/div&gt;}
 
               {monthlyMode === &quot;specific_days&quot; &amp;&amp; &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &quot;start&quot; }}&gt;
@@ -20060,6 +19893,7 @@ export const SendDashboardScheduler = {
                 </div>
                 <pre><code>import {
     Button,
+    Calendar,
     Checkbox,
     DateTimeInput,
     Dropdown,
@@ -20266,53 +20100,12 @@ export const SendDashboardScheduler = {
 
             {monthlyMode === &quot;days_of_month&quot; &amp;&amp; &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
                 &lt;span /&gt;
-                &lt;div style={{
-    display: &quot;inline-flex&quot;,
-    flexDirection: &quot;column&quot;,
-    gap: 10,
-    border: &quot;1px solid var(--ds-components-input-default-outline)&quot;,
-    borderRadius: 6,
-    padding: &quot;15px 10px&quot;,
-    width: &quot;fit-content&quot;
-  }}&gt;
-                  &lt;style&gt;{`
-                    .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
-                    .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
-                    .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
-                    .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
-                  `}&lt;/style&gt;
-                  &lt;span style={{
-    fontFamily: &quot;var(--ds-font-family-base)&quot;,
-    fontSize: &quot;var(--ds-font-size-sm)&quot;,
-    fontWeight: 600,
-    color: &quot;var(--ds-text-base)&quot;
-  }}&gt;Select Dates&lt;/span&gt;
-                  &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: &quot;repeat(7, 34px)&quot;, gap: 4 }}&gt;
-                    {Array.from({ length: 31 }, (_, i) =&gt; i + 1).map((day) =&gt; {
-    const sel = selectedMonthDays.includes(day);
-    return &lt;button
-      key={day}
-      type=&quot;button&quot;
-      className=&quot;sds-cal-day&quot;
-      data-sel={sel || void 0}
-      onClick={() =&gt; setSelectedMonthDays((p) =&gt; p.includes(day) ? p.filter((d) =&gt; d !== day) : [...p, day])}
-      style={{
-        width: 34,
-        height: 34,
-        borderRadius: &quot;50%&quot;,
-        cursor: &quot;pointer&quot;,
-        fontFamily: &quot;var(--ds-font-family-base)&quot;,
-        fontSize: &quot;var(--ds-font-size-sm)&quot;,
-        display: &quot;flex&quot;,
-        alignItems: &quot;center&quot;,
-        justifyContent: &quot;center&quot;
-      }}
-    &gt;
-                          {day}
-                        &lt;/button&gt;;
-  })}
-                  &lt;/div&gt;
-                &lt;/div&gt;
+                &lt;Calendar
+                  mode=&quot;date-of-month&quot;
+                  selectedDayNumbers={selectedMonthDays}
+                  onDayNumbersChange={setSelectedMonthDays}
+                  width=&quot;fit-content&quot;
+                /&gt;
               &lt;/div&gt;}
 
             {monthlyMode === &quot;specific_days&quot; &amp;&amp; &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &quot;start&quot; }}&gt;
@@ -20733,7 +20526,7 @@ variant?: any = &#39;setup&#39;</code></pre>
               
               
               <pre><code>const Empty = () =&gt; (
-  &lt;div style={{ padding: 24, background: &#39;#f0f2f7&#39; }}&gt;
+  &lt;div style={{ padding: 24 }}&gt;
     &lt;SetupTable
       columns={makeColumns(() =&gt; {})}
       rows={[]}
@@ -20775,7 +20568,7 @@ variant?: any = &#39;setup&#39;</code></pre>
       <div class="badges">
         <label for="c-44-design-system-components-slider-props" class="badge ok as-toggle">9 prop types</label>
         <label for="c-44-design-system-components-slider-info" class="badge info as-toggle">1 info</label>
-        <label for="c-44-design-system-components-slider-stories" class="badge ok as-toggle">14 stories</label>
+        <label for="c-44-design-system-components-slider-stories" class="badge ok as-toggle">15 stories</label>
         
         
       </div>
@@ -20841,7 +20634,7 @@ value?: any = 50</code></pre>
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { MultiSlider, PercentSlider, Slider, StepSlider } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import { DualRangeSlider, MultiSlider, PercentSlider, Slider, StepSlider } from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
@@ -21050,6 +20843,23 @@ value?: any = 50</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
+                <span class="ex-name">Dual Range</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const DualRange = () =&gt; {
+  const [visible, setVisible] = useState(2);
+  const [archive, setArchive] = useState(7);
+  return (
+    &lt;div style={{ width: &#39;100%&#39;, maxWidth: 440, padding: &#39;16px 12px&#39; }}&gt;
+      &lt;DualRangeSlider valueA={visible} valueB={archive} onChangeA={setVisible} onChangeB={setArchive} /&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
                 <span class="ex-name">All Variants</span>
                 <span class="badge ok">story ok</span>
               </div>
@@ -21062,6 +20872,8 @@ value?: any = 50</code></pre>
   const [multi, setMul] = useState&lt;[number, number]&gt;([33, 66]);
   const [step, setStep] = useState(2);
   const [pct, setPct]   = useState(0);
+  const [visible, setVisible] = useState(2);
+  const [archive, setArchive] = useState(7);
 
   const sectionLabel = (text: string) =&gt; (
     &lt;p style={{ margin: &#39;0 0 8px&#39;, fontSize: 11, fontWeight: 600, color: &#39;#616E88&#39;, textTransform: &#39;uppercase&#39;, letterSpacing: &#39;0.6px&#39; }}&gt;
@@ -21111,6 +20923,9 @@ value?: any = 50</code></pre>
       &lt;/div&gt;
       &lt;div&gt;{sectionLabel(&#39;Percent Slider&#39;)}
         &lt;PercentSlider value={pct} onChange={setPct} /&gt;
+      &lt;/div&gt;
+      &lt;div style={{ paddingInline: 12 }}&gt;{sectionLabel(&#39;Dual Range&#39;)}
+        &lt;DualRangeSlider valueA={visible} valueB={archive} onChangeA={setVisible} onChangeB={setArchive} /&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   );
@@ -23045,7 +22860,7 @@ function FormRow({
   return (
     &lt;div style={{
       display: &#39;grid&#39;,
-      gridTemplateColumns: `${LABEL_COL} auto`,
+      gridTemplateColumns: `${LABEL_COL} minmax(0, 1fr)`,
       columnGap: 20,
       alignItems: align,
     }}&gt;
@@ -23552,8 +23367,8 @@ export const CreateNotification: Story = {
             transition: width 280ms cubic-bezier(0.22, 1, 0.36, 1);
           }
           .usage-notification-modal .modal-body {
-            padding-right: 0;
-            overflow-x: auto;
+            padding-right: 30px;
+            overflow-x: hidden;
           }
           @media (prefers-reduced-motion: reduce) {
             .usage-notification-modal { transition: none; }
@@ -23602,12 +23417,19 @@ export const CreateNotification: Story = {
                       &lt;Search aria-hidden=&quot;true&quot; /&gt;
                       &lt;Input layout=&quot;vertical&quot; type=&quot;search&quot; width={200} aria-label=&quot;Search notifications&quot; placeholder=&quot;Search&quot;
                         value={search} onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setSearch(event.target.value)} /&gt;
+                      {search &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-page__search-clear dropdown-clear-btn&quot; aria-label=&quot;Clear search&quot;
+                        onClick={event =&gt; { setSearch(&#39;&#39;); event.currentTarget.parentElement?.querySelector(&#39;input&#39;)?.focus(); }}&gt;
+                        &lt;svg width=&quot;8&quot; height=&quot;8&quot; viewBox=&quot;0 0 8 8&quot; fill=&quot;none&quot; aria-hidden=&quot;true&quot;&gt;
+                          &lt;path d=&quot;M1 1L7 7M7 1L1 7&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;1.4&quot; strokeLinecap=&quot;round&quot; /&gt;
+                        &lt;/svg&gt;
+                      &lt;/button&gt;}
                     &lt;/div&gt;
                     &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by feature&quot; width={150} value={featureFilter}
                       panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
                       options={[{ value: &#39;all&#39;, label: &#39;All Features&#39; }, ...FEATURE_OPTIONS.map(item =&gt; ({ value: item.label, label: item.label }))]}
                       onChange={setFeatureFilter} /&gt;
                     &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by type&quot; width={150} value={typeFilter}
+                      panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
                       options={[{ value: &#39;all&#39;, label: &#39;All Types&#39; }, { value: &#39;system&#39;, label: &#39;System Defined&#39; }, { value: &#39;user&#39;, label: &#39;User Defined&#39; }]}
                       onChange={setTypeFilter} /&gt;
                     &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by status&quot; width={150} value={statusFilter}
@@ -23886,7 +23708,7 @@ export const CreateNotification: Story = {
                       })}
                       {notifyToTags.length &gt; 0 &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit notification recipients&quot;
                         aria-haspopup=&quot;dialog&quot; onClick={() =&gt; setRecipientDialogOpen(true)}&gt;
-                        &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                        &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;
                       &lt;/button&gt;}
                     &lt;/div&gt;
                   &lt;/FormRow&gt;}
@@ -24016,7 +23838,7 @@ export const CreateNotification: Story = {
                           ))}
                           {(zohoCommittedUsers.length &gt; 0 || zohoCommittedChannels.length &gt; 0) &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Zoho Cliq recipients&quot;
                             aria-haspopup=&quot;dialog&quot; onClick={openZohoModal}&gt;
-                            &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                            &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;
                           &lt;/button&gt;}
                         &lt;/div&gt;
                       &lt;/div&gt;
@@ -24050,7 +23872,7 @@ export const CreateNotification: Story = {
                       &lt;/Tooltip&gt;)}
                       {(slackCommittedUsers.length &gt; 0 || slackCommittedChannels.length &gt; 0) &amp;&amp; &lt;button type=&quot;button&quot;
                         className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Slack recipients&quot; aria-haspopup=&quot;dialog&quot;
-                        onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;&lt;/button&gt;}
+                        onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;&lt;/button&gt;}
                     &lt;/div&gt;}
                   &lt;/div&gt;
                 &lt;/div&gt;
@@ -24375,8 +24197,8 @@ export const CreateNotification: Story = {
           transition: width 280ms cubic-bezier(0.22, 1, 0.36, 1);
         }
         .usage-notification-modal .modal-body {
-          padding-right: 0;
-          overflow-x: auto;
+          padding-right: 30px;
+          overflow-x: hidden;
         }
         @media (prefers-reduced-motion: reduce) {
           .usage-notification-modal { transition: none; }
@@ -24425,12 +24247,19 @@ export const CreateNotification: Story = {
                     &lt;Search aria-hidden=&quot;true&quot; /&gt;
                     &lt;Input layout=&quot;vertical&quot; type=&quot;search&quot; width={200} aria-label=&quot;Search notifications&quot; placeholder=&quot;Search&quot;
                       value={search} onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setSearch(event.target.value)} /&gt;
+                    {search &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-page__search-clear dropdown-clear-btn&quot; aria-label=&quot;Clear search&quot;
+                      onClick={event =&gt; { setSearch(&#39;&#39;); event.currentTarget.parentElement?.querySelector(&#39;input&#39;)?.focus(); }}&gt;
+                      &lt;svg width=&quot;8&quot; height=&quot;8&quot; viewBox=&quot;0 0 8 8&quot; fill=&quot;none&quot; aria-hidden=&quot;true&quot;&gt;
+                        &lt;path d=&quot;M1 1L7 7M7 1L1 7&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;1.4&quot; strokeLinecap=&quot;round&quot; /&gt;
+                      &lt;/svg&gt;
+                    &lt;/button&gt;}
                   &lt;/div&gt;
                   &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by feature&quot; width={150} value={featureFilter}
                     panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
                     options={[{ value: &#39;all&#39;, label: &#39;All Features&#39; }, ...FEATURE_OPTIONS.map(item =&gt; ({ value: item.label, label: item.label }))]}
                     onChange={setFeatureFilter} /&gt;
                   &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by type&quot; width={150} value={typeFilter}
+                    panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
                     options={[{ value: &#39;all&#39;, label: &#39;All Types&#39; }, { value: &#39;system&#39;, label: &#39;System Defined&#39; }, { value: &#39;user&#39;, label: &#39;User Defined&#39; }]}
                     onChange={setTypeFilter} /&gt;
                   &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by status&quot; width={150} value={statusFilter}
@@ -24709,7 +24538,7 @@ export const CreateNotification: Story = {
                     })}
                     {notifyToTags.length &gt; 0 &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit notification recipients&quot;
                       aria-haspopup=&quot;dialog&quot; onClick={() =&gt; setRecipientDialogOpen(true)}&gt;
-                      &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                      &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;
                     &lt;/button&gt;}
                   &lt;/div&gt;
                 &lt;/FormRow&gt;}
@@ -24839,7 +24668,7 @@ export const CreateNotification: Story = {
                         ))}
                         {(zohoCommittedUsers.length &gt; 0 || zohoCommittedChannels.length &gt; 0) &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Zoho Cliq recipients&quot;
                           aria-haspopup=&quot;dialog&quot; onClick={openZohoModal}&gt;
-                          &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                          &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;
                         &lt;/button&gt;}
                       &lt;/div&gt;
                     &lt;/div&gt;
@@ -24873,7 +24702,7 @@ export const CreateNotification: Story = {
                     &lt;/Tooltip&gt;)}
                     {(slackCommittedUsers.length &gt; 0 || slackCommittedChannels.length &gt; 0) &amp;&amp; &lt;button type=&quot;button&quot;
                       className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Slack recipients&quot; aria-haspopup=&quot;dialog&quot;
-                      onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;&lt;/button&gt;}
+                      onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;&lt;/button&gt;}
                   &lt;/div&gt;}
                 &lt;/div&gt;
               &lt;/div&gt;
@@ -25174,7 +25003,7 @@ width?: any = 390</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> UserSelectionModal</h2>
       <div class="badges">
-        <label for="c-55-design-system-components-user-selection-modal-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-55-design-system-components-user-selection-modal-props" class="badge ok as-toggle">10 prop types</label>
         
         <label for="c-55-design-system-components-user-selection-modal-stories" class="badge ok as-toggle">14 stories</label>
         
@@ -25203,13 +25032,18 @@ width?: any = 390</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">9 prop types</span>
+              <span class="badge ok">10 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/UserSelectionModal/UserSelectionModal.tsx::UserSelectionModal</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>additionalRecipientOptions?: AdditionalRecipientOption[] = []
 
 allowAdditionalEmails?: boolean = false
+
+/**
+ * Optional feature-owned content displayed beneath the footer action.
+ */
+footerNote?: ReactNode
 
 maxSelections?: number
 
@@ -25783,13 +25617,13 @@ shortcut?: any = &#39;Ctrl+Space&#39;</code></pre>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  14 | // ─────────────────────────────────────────────────────────────────────────────
-  15 |
-&gt; 16 | const meta: Meta = {
+  15 | // ─────────────────────────────────────────────────────────────────────────────
+  16 |
+&gt; 17 | const meta: Meta = {
      | ^
-  17 |   title: &#39;Work Items/Audit Log Duration&#39;,
-  18 |   parameters: {
-  19 |     layout: &#39;centered&#39;,
+  18 |   title: &#39;Work Items/Audit Log Duration&#39;,
+  19 |   parameters: {
+  20 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/AuditLogDuration.stories.tsx:
 import React, { useState, useRef, useCallback } from &#39;react&#39;;
@@ -25802,6 +25636,7 @@ import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
 import { Tags } from &#39;../components/Tags/Tags&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
 import { Info as InfoIcon } from &#39;../foundations/icons/Icons&#39;;
+import { DualRangeSlider } from &#39;../components/Slider/DualRangeSlider&#39;;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -25850,163 +25685,6 @@ function fmtDate(d: Date): string {
 // ─────────────────────────────────────────────────────────────────────────────
 // Dual Range Slider
 // ─────────────────────────────────────────────────────────────────────────────
-
-function DualRangeSlider({
-  min = 0,
-  max = 10,
-  maxA = max,
-  valueA,
-  valueB,
-  onChangeA,
-  onChangeB,
-  showThumbB = true,
-}: {
-  min?: number;
-  max?: number;
-  maxA?: number;
-  valueA: number;
-  valueB: number;
-  onChangeA: (v: number) =&gt; void;
-  onChangeB: (v: number) =&gt; void;
-  showThumbB?: boolean;
-}) {
-  const trackRef = useRef&lt;HTMLDivElement&gt;(null);
-  const steps    = Array.from({ length: max - min + 1 }, (_, i) =&gt; i + min);
-  const count    = steps.length;
-
-  const pctA = ((valueA - min) / (max - min)) * 100;
-  const pctB = ((valueB - min) / (max - min)) * 100;
-
-  const pickValue = useCallback((clientX: number) =&gt; {
-    const rect  = trackRef.current!.getBoundingClientRect();
-    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
-    return Math.round(min + ratio * (max - min));
-  }, [min, max]);
-
-  const startDrag = (thumb: &#39;a&#39; | &#39;b&#39;) =&gt; (e: React.MouseEvent) =&gt; {
-    e.preventDefault();
-    const move = (ev: MouseEvent) =&gt; {
-      const v = pickValue(ev.clientX);
-      if (thumb === &#39;a&#39;) onChangeA(Math.min(Math.max(v, 1), Math.min(valueB - 1, maxA)));
-      else               onChangeB(Math.max(v, valueA + 1, 2));
-    };
-    const up = () =&gt; {
-      document.removeEventListener(&#39;mousemove&#39;, move);
-      document.removeEventListener(&#39;mouseup&#39;, up);
-    };
-    document.addEventListener(&#39;mousemove&#39;, move);
-    document.addEventListener(&#39;mouseup&#39;, up);
-  };
-
-  const thumbStyle: React.CSSProperties = {
-    position: &#39;absolute&#39;,
-    width: 19, height: 19,
-    top: &#39;50%&#39;,
-    transform: &#39;translate(-50%, -50%)&#39;,
-    borderRadius: &#39;50%&#39;,
-    background: &#39;#fff&#39;,
-    border: &#39;2px solid #9C9CA6&#39;,
-    boxShadow: &#39;0 3px 12px rgba(49,57,73,0.15)&#39;,
-    boxSizing: &#39;border-box&#39;,
-    cursor: &#39;grab&#39;,
-    outline: &#39;none&#39;,
-    transition: &#39;left 80ms ease, border-color 120ms, box-shadow 120ms&#39;,
-    zIndex: 1,
-  };
-
-  return (
-    &lt;div style={{ userSelect: &#39;none&#39;, width: &#39;100%&#39;, fontFamily: &#39;var(--ds-font-family-base)&#39; }}&gt;
-      &lt;style&gt;{`
-        .ds-thumb-dot:hover {
-          border-color: var(--ds-components-slider-active-bg-fill-color, #5464F2) !important;
-        }
-        .ds-thumb-dot:focus-visible {
-          outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
-          outline-offset: 2px;
-          border-color: var(--ds-components-slider-active-bg-fill-color, #5464F2) !important;
-        }
-      `}&lt;/style&gt;
-
-      {/* ── Track + 2 thumbs ──────────────────────────────────────────────── */}
-      &lt;div ref={trackRef} style={{ position: &#39;relative&#39;, height: 16 }}&gt;
-
-        {/* Grey base track */}
-        &lt;div style={{
-          position: &#39;absolute&#39;, left: 0, right: 0,
-          top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
-          height: 9, borderRadius: 4.5,
-          background: &#39;var(--ds-components-slider-slider-bg-grey, #E5EAF2)&#39;,
-          pointerEvents: &#39;none&#39;,
-        }} /&gt;
-
-        {/* Blue fill — visible range (left → thumb A) */}
-        &lt;div style={{
-          position: &#39;absolute&#39;, left: 0, width: `${pctA}%`,
-          top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
-          height: 9, borderRadius: 4.5,
-          background: &#39;var(--ds-components-slider-active-bg-fill-color, #5464F2)&#39;,
-          pointerEvents: &#39;none&#39;,
-        }} /&gt;
-
-        {/* Orange fill — archive range (thumb A → thumb B) */}
-        {showThumbB &amp;&amp; pctB &gt; pctA &amp;&amp; (
-          &lt;div style={{
-            position: &#39;absolute&#39;, left: `${pctA}%`, width: `${pctB - pctA}%`,
-            top: &#39;50%&#39;, transform: &#39;translateY(-50%)&#39;,
-            height: 9, borderRadius: 4.5,
-            background: &#39;var(--ds-icon-primary-orange, #F18E0A)&#39;,
-            pointerEvents: &#39;none&#39;,
-          }} /&gt;
-        )}
-
-        {/* Thumb A — visible end */}
-        &lt;div
-          className=&quot;ds-thumb-dot&quot;
-          onMouseDown={startDrag(&#39;a&#39;)}
-          style={{ ...thumbStyle, left: `${pctA}%` }}
-          role=&quot;slider&quot;
-          tabIndex={0}
-          aria-valuemin={min} aria-valuemax={valueB} aria-valuenow={valueA}
-          aria-label=&quot;Visible log history end&quot;
-        /&gt;
-
-        {/* Thumb B — archive end */}
-        {showThumbB &amp;&amp; (
-          &lt;div
-            className=&quot;ds-thumb-dot&quot;
-            onMouseDown={startDrag(&#39;b&#39;)}
-            style={{ ...thumbStyle, left: `${pctB}%`, zIndex: 2 }}
-            role=&quot;slider&quot;
-            tabIndex={0}
-            aria-valuemin={valueA} aria-valuemax={max} aria-valuenow={valueB}
-            aria-label=&quot;Archive log end&quot;
-          /&gt;
-        )}
-      &lt;/div&gt;
-
-      {/* ── Numbers below — centered on each thumb&#39;s percentage position ──── */}
-      &lt;div style={{ position: &#39;relative&#39;, height: 14, marginTop: 6 }}&gt;
-        {steps.map((s, i) =&gt; {
-          const pct = count &gt; 1 ? (i / (count - 1)) * 100 : 50;
-          return (
-            &lt;span key={s} style={{
-              position: &#39;absolute&#39;,
-              left: `${pct}%`,
-              transform: &#39;translateX(-50%)&#39;,
-              fontSize: 11,
-              color: &#39;var(--ds-text-muted, #8B9BB8)&#39;,
-              lineHeight: 1,
-              whiteSpace: &#39;nowrap&#39;,
-            }}&gt;
-              {s}
-            &lt;/span&gt;
-          );
-        })}
-      &lt;/div&gt;
-
-    &lt;/div&gt;
-  );
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Retention summary row
@@ -26483,7 +26161,16 @@ export const ManageLogRetentionSettings: Story = {
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { Checkbox, Info as InfoIcon, MessageBox, MessageInfo, Modal, Tags, Tooltip } from "@chinnaiya-r-2310/design-system";</code></pre>
+                <pre><code>import {
+    Checkbox,
+    DualRangeSlider,
+    Info as InfoIcon,
+    MessageBox,
+    MessageInfo,
+    Modal,
+    Tags,
+    Tooltip,
+} from "@chinnaiya-r-2310/design-system";</code></pre>
               </div>
           
           
@@ -28168,7 +27855,7 @@ function PanelEditButton({ label }: { label: string }) {
   return (
     &lt;Tooltip content={`Edit ${label.toLowerCase()}`} variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
       &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label={`Edit ${label}`}&gt;
-        &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
+        &lt;Icon name=&quot;Edit&quot; size={13} /&gt;
       &lt;/button&gt;
     &lt;/Tooltip&gt;
   );
@@ -28291,7 +27978,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
               &lt;div className=&quot;cmr__heading-actions&quot;&gt;
                 &lt;Tooltip content=&quot;Edit filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
                   &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label=&quot;Edit filters&quot; onClick={() =&gt; openModal()}&gt;
-                    &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
+                    &lt;Icon name=&quot;Edit&quot; size={13} /&gt;
                   &lt;/button&gt;
                 &lt;/Tooltip&gt;
                 {/* Version 2: Edit only, no Delete. */}
@@ -32104,7 +31791,7 @@ function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; 
           &lt;div className=&quot;cmr__heading-actions&quot;&gt;
             &lt;Tooltip content=&quot;Edit filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
               &lt;button type=&quot;button&quot; className=&quot;criteria-summary__action&quot; aria-label=&quot;Edit filters&quot;&gt;
-                &lt;Icon name=&quot;Edit&quot; size={12} /&gt;
+                &lt;Icon name=&quot;Edit&quot; size={13} /&gt;
               &lt;/button&gt;
             &lt;/Tooltip&gt;
             &lt;Tooltip content=&quot;Delete filters&quot; variant=&quot;black&quot; placement=&quot;top&quot; followCursor&gt;
@@ -32178,7 +31865,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
             &lt;div className=&quot;jr-builder-row jr-builder-panel-head&quot;&gt;
               &lt;span className=&quot;jr-builder-panel-title&quot;&gt;Joined Report&lt;/span&gt;
               &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit joined report&quot; onClick={onEdit}&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;
+                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;
               &lt;/button&gt;
             &lt;/div&gt;
 
@@ -32188,7 +31875,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Leads By Source&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads By Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads By Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 
@@ -32208,12 +31895,12 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               ) : (&lt;&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Columns&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={columns} onChange={setColumns} /&gt;
               &lt;div className=&quot;jr-builder-row jr-builder-row--section&quot;&gt;
                 &lt;span className=&quot;jr-builder-block-title&quot;&gt;Aggregate Columns&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={aggregates} onChange={setAggregates} /&gt;
               &lt;/&gt;)}
@@ -32226,7 +31913,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Recent Six Month Leads&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Recent Six Month Leads&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Recent Six Month Leads&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 
@@ -32236,7 +31923,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               &lt;/div&gt;
               &lt;div className=&quot;jr-builder-row&quot;&gt;
                 &lt;span&gt;Untitled Report 0&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Untitled Report 0&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Untitled Report 0&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
             &lt;/div&gt;
 &lt;/&gt;)}
@@ -37227,16 +36914,17 @@ export const DiagramOnly: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  13 | import { GroupButton } from &quot;../components/GroupButton/GroupButton&quot;;
-  14 | import { Info } from &quot;../foundations/icons/Icons&quot;;
-&gt; 15 | const meta = {
+  14 | import { GroupButton } from &quot;../components/GroupButton/GroupButton&quot;;
+  15 | import { Info } from &quot;../foundations/icons/Icons&quot;;
+&gt; 16 | const meta = {
      | ^
-  16 |   title: &quot;Work Items/Send Dashboard Scheduler&quot;,
-  17 |   parameters: {
-  18 |     layout: &quot;centered&quot;,
+  17 |   title: &quot;Work Items/Send Dashboard Scheduler&quot;,
+  18 |   parameters: {
+  19 |     layout: &quot;centered&quot;,
 
 ./src/design-system/patterns/SendDashboardScheduler.stories.js:
 import { useState } from &quot;react&quot;;
+import { Calendar } from &quot;../components/Calendar/Calendar&quot;;
 import { Modal } from &quot;../components/Modal/Modal&quot;;
 import { Dropdown } from &quot;../components/Dropdown/Dropdown&quot;;
 import { Checkbox } from &quot;../components/Checkbox/Checkbox&quot;;
@@ -37544,53 +37232,12 @@ export const SendDashboardScheduler = {
 
               {monthlyMode === &quot;days_of_month&quot; &amp;&amp; &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
                   &lt;span /&gt;
-                  &lt;div style={{
-      display: &quot;inline-flex&quot;,
-      flexDirection: &quot;column&quot;,
-      gap: 10,
-      border: &quot;1px solid var(--ds-components-input-default-outline)&quot;,
-      borderRadius: 6,
-      padding: &quot;15px 10px&quot;,
-      width: &quot;fit-content&quot;
-    }}&gt;
-                    &lt;style&gt;{`
-                      .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
-                      .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
-                      .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
-                      .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
-                    `}&lt;/style&gt;
-                    &lt;span style={{
-      fontFamily: &quot;var(--ds-font-family-base)&quot;,
-      fontSize: &quot;var(--ds-font-size-sm)&quot;,
-      fontWeight: 600,
-      color: &quot;var(--ds-text-base)&quot;
-    }}&gt;Select Dates&lt;/span&gt;
-                    &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: &quot;repeat(7, 34px)&quot;, gap: 4 }}&gt;
-                      {Array.from({ length: 31 }, (_, i) =&gt; i + 1).map((day) =&gt; {
-      const sel = selectedMonthDays.includes(day);
-      return &lt;button
-        key={day}
-        type=&quot;button&quot;
-        className=&quot;sds-cal-day&quot;
-        data-sel={sel || void 0}
-        onClick={() =&gt; setSelectedMonthDays((p) =&gt; p.includes(day) ? p.filter((d) =&gt; d !== day) : [...p, day])}
-        style={{
-          width: 34,
-          height: 34,
-          borderRadius: &quot;50%&quot;,
-          cursor: &quot;pointer&quot;,
-          fontFamily: &quot;var(--ds-font-family-base)&quot;,
-          fontSize: &quot;var(--ds-font-size-sm)&quot;,
-          display: &quot;flex&quot;,
-          alignItems: &quot;center&quot;,
-          justifyContent: &quot;center&quot;
-        }}
-      &gt;
-                            {day}
-                          &lt;/button&gt;;
-    })}
-                    &lt;/div&gt;
-                  &lt;/div&gt;
+                  &lt;Calendar
+                    mode=&quot;date-of-month&quot;
+                    selectedDayNumbers={selectedMonthDays}
+                    onDayNumbersChange={setSelectedMonthDays}
+                    width=&quot;fit-content&quot;
+                  /&gt;
                 &lt;/div&gt;}
 
               {monthlyMode === &quot;specific_days&quot; &amp;&amp; &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &quot;start&quot; }}&gt;
@@ -37916,6 +37563,7 @@ export const SendDashboardScheduler = {
                 </div>
                 <pre><code>import {
     Button,
+    Calendar,
     Checkbox,
     DateTimeInput,
     Dropdown,
@@ -38122,53 +37770,12 @@ export const SendDashboardScheduler = {
 
             {monthlyMode === &quot;days_of_month&quot; &amp;&amp; &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: COLS, columnGap: 20, width: W }}&gt;
                 &lt;span /&gt;
-                &lt;div style={{
-    display: &quot;inline-flex&quot;,
-    flexDirection: &quot;column&quot;,
-    gap: 10,
-    border: &quot;1px solid var(--ds-components-input-default-outline)&quot;,
-    borderRadius: 6,
-    padding: &quot;15px 10px&quot;,
-    width: &quot;fit-content&quot;
-  }}&gt;
-                  &lt;style&gt;{`
-                    .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
-                    .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
-                    .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
-                    .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
-                  `}&lt;/style&gt;
-                  &lt;span style={{
-    fontFamily: &quot;var(--ds-font-family-base)&quot;,
-    fontSize: &quot;var(--ds-font-size-sm)&quot;,
-    fontWeight: 600,
-    color: &quot;var(--ds-text-base)&quot;
-  }}&gt;Select Dates&lt;/span&gt;
-                  &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: &quot;repeat(7, 34px)&quot;, gap: 4 }}&gt;
-                    {Array.from({ length: 31 }, (_, i) =&gt; i + 1).map((day) =&gt; {
-    const sel = selectedMonthDays.includes(day);
-    return &lt;button
-      key={day}
-      type=&quot;button&quot;
-      className=&quot;sds-cal-day&quot;
-      data-sel={sel || void 0}
-      onClick={() =&gt; setSelectedMonthDays((p) =&gt; p.includes(day) ? p.filter((d) =&gt; d !== day) : [...p, day])}
-      style={{
-        width: 34,
-        height: 34,
-        borderRadius: &quot;50%&quot;,
-        cursor: &quot;pointer&quot;,
-        fontFamily: &quot;var(--ds-font-family-base)&quot;,
-        fontSize: &quot;var(--ds-font-size-sm)&quot;,
-        display: &quot;flex&quot;,
-        alignItems: &quot;center&quot;,
-        justifyContent: &quot;center&quot;
-      }}
-    &gt;
-                          {day}
-                        &lt;/button&gt;;
-  })}
-                  &lt;/div&gt;
-                &lt;/div&gt;
+                &lt;Calendar
+                  mode=&quot;date-of-month&quot;
+                  selectedDayNumbers={selectedMonthDays}
+                  onDayNumbersChange={setSelectedMonthDays}
+                  width=&quot;fit-content&quot;
+                /&gt;
               &lt;/div&gt;}
 
             {monthlyMode === &quot;specific_days&quot; &amp;&amp; &lt;div style={{ display: &quot;grid&quot;, gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: &quot;start&quot; }}&gt;
@@ -38654,7 +38261,7 @@ function FormRow({
   return (
     &lt;div style={{
       display: &#39;grid&#39;,
-      gridTemplateColumns: `${LABEL_COL} auto`,
+      gridTemplateColumns: `${LABEL_COL} minmax(0, 1fr)`,
       columnGap: 20,
       alignItems: align,
     }}&gt;
@@ -39161,8 +38768,8 @@ export const CreateNotification: Story = {
             transition: width 280ms cubic-bezier(0.22, 1, 0.36, 1);
           }
           .usage-notification-modal .modal-body {
-            padding-right: 0;
-            overflow-x: auto;
+            padding-right: 30px;
+            overflow-x: hidden;
           }
           @media (prefers-reduced-motion: reduce) {
             .usage-notification-modal { transition: none; }
@@ -39211,12 +38818,19 @@ export const CreateNotification: Story = {
                       &lt;Search aria-hidden=&quot;true&quot; /&gt;
                       &lt;Input layout=&quot;vertical&quot; type=&quot;search&quot; width={200} aria-label=&quot;Search notifications&quot; placeholder=&quot;Search&quot;
                         value={search} onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setSearch(event.target.value)} /&gt;
+                      {search &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-page__search-clear dropdown-clear-btn&quot; aria-label=&quot;Clear search&quot;
+                        onClick={event =&gt; { setSearch(&#39;&#39;); event.currentTarget.parentElement?.querySelector(&#39;input&#39;)?.focus(); }}&gt;
+                        &lt;svg width=&quot;8&quot; height=&quot;8&quot; viewBox=&quot;0 0 8 8&quot; fill=&quot;none&quot; aria-hidden=&quot;true&quot;&gt;
+                          &lt;path d=&quot;M1 1L7 7M7 1L1 7&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;1.4&quot; strokeLinecap=&quot;round&quot; /&gt;
+                        &lt;/svg&gt;
+                      &lt;/button&gt;}
                     &lt;/div&gt;
                     &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by feature&quot; width={150} value={featureFilter}
                       panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
                       options={[{ value: &#39;all&#39;, label: &#39;All Features&#39; }, ...FEATURE_OPTIONS.map(item =&gt; ({ value: item.label, label: item.label }))]}
                       onChange={setFeatureFilter} /&gt;
                     &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by type&quot; width={150} value={typeFilter}
+                      panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
                       options={[{ value: &#39;all&#39;, label: &#39;All Types&#39; }, { value: &#39;system&#39;, label: &#39;System Defined&#39; }, { value: &#39;user&#39;, label: &#39;User Defined&#39; }]}
                       onChange={setTypeFilter} /&gt;
                     &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by status&quot; width={150} value={statusFilter}
@@ -39495,7 +39109,7 @@ export const CreateNotification: Story = {
                       })}
                       {notifyToTags.length &gt; 0 &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit notification recipients&quot;
                         aria-haspopup=&quot;dialog&quot; onClick={() =&gt; setRecipientDialogOpen(true)}&gt;
-                        &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                        &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;
                       &lt;/button&gt;}
                     &lt;/div&gt;
                   &lt;/FormRow&gt;}
@@ -39625,7 +39239,7 @@ export const CreateNotification: Story = {
                           ))}
                           {(zohoCommittedUsers.length &gt; 0 || zohoCommittedChannels.length &gt; 0) &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Zoho Cliq recipients&quot;
                             aria-haspopup=&quot;dialog&quot; onClick={openZohoModal}&gt;
-                            &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                            &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;
                           &lt;/button&gt;}
                         &lt;/div&gt;
                       &lt;/div&gt;
@@ -39659,7 +39273,7 @@ export const CreateNotification: Story = {
                       &lt;/Tooltip&gt;)}
                       {(slackCommittedUsers.length &gt; 0 || slackCommittedChannels.length &gt; 0) &amp;&amp; &lt;button type=&quot;button&quot;
                         className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Slack recipients&quot; aria-haspopup=&quot;dialog&quot;
-                        onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;&lt;/button&gt;}
+                        onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;&lt;/button&gt;}
                     &lt;/div&gt;}
                   &lt;/div&gt;
                 &lt;/div&gt;
@@ -39984,8 +39598,8 @@ export const CreateNotification: Story = {
           transition: width 280ms cubic-bezier(0.22, 1, 0.36, 1);
         }
         .usage-notification-modal .modal-body {
-          padding-right: 0;
-          overflow-x: auto;
+          padding-right: 30px;
+          overflow-x: hidden;
         }
         @media (prefers-reduced-motion: reduce) {
           .usage-notification-modal { transition: none; }
@@ -40034,12 +39648,19 @@ export const CreateNotification: Story = {
                     &lt;Search aria-hidden=&quot;true&quot; /&gt;
                     &lt;Input layout=&quot;vertical&quot; type=&quot;search&quot; width={200} aria-label=&quot;Search notifications&quot; placeholder=&quot;Search&quot;
                       value={search} onChange={(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setSearch(event.target.value)} /&gt;
+                    {search &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-page__search-clear dropdown-clear-btn&quot; aria-label=&quot;Clear search&quot;
+                      onClick={event =&gt; { setSearch(&#39;&#39;); event.currentTarget.parentElement?.querySelector(&#39;input&#39;)?.focus(); }}&gt;
+                      &lt;svg width=&quot;8&quot; height=&quot;8&quot; viewBox=&quot;0 0 8 8&quot; fill=&quot;none&quot; aria-hidden=&quot;true&quot;&gt;
+                        &lt;path d=&quot;M1 1L7 7M7 1L1 7&quot; stroke=&quot;currentColor&quot; strokeWidth=&quot;1.4&quot; strokeLinecap=&quot;round&quot; /&gt;
+                      &lt;/svg&gt;
+                    &lt;/button&gt;}
                   &lt;/div&gt;
                   &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by feature&quot; width={150} value={featureFilter}
                     panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
                     options={[{ value: &#39;all&#39;, label: &#39;All Features&#39; }, ...FEATURE_OPTIONS.map(item =&gt; ({ value: item.label, label: item.label }))]}
                     onChange={setFeatureFilter} /&gt;
                   &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by type&quot; width={150} value={typeFilter}
+                    panelStyle={{ width: &#39;max-content&#39;, minWidth: 150, maxWidth: &#39;calc(100vw - 32px)&#39; }}
                     options={[{ value: &#39;all&#39;, label: &#39;All Types&#39; }, { value: &#39;system&#39;, label: &#39;System Defined&#39; }, { value: &#39;user&#39;, label: &#39;User Defined&#39; }]}
                     onChange={setTypeFilter} /&gt;
                   &lt;Dropdown triggerAriaLabel=&quot;Filter notifications by status&quot; width={150} value={statusFilter}
@@ -40318,7 +39939,7 @@ export const CreateNotification: Story = {
                     })}
                     {notifyToTags.length &gt; 0 &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit notification recipients&quot;
                       aria-haspopup=&quot;dialog&quot; onClick={() =&gt; setRecipientDialogOpen(true)}&gt;
-                      &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                      &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;
                     &lt;/button&gt;}
                   &lt;/div&gt;
                 &lt;/FormRow&gt;}
@@ -40448,7 +40069,7 @@ export const CreateNotification: Story = {
                         ))}
                         {(zohoCommittedUsers.length &gt; 0 || zohoCommittedChannels.length &gt; 0) &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Zoho Cliq recipients&quot;
                           aria-haspopup=&quot;dialog&quot; onClick={openZohoModal}&gt;
-                          &lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;
+                          &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;
                         &lt;/button&gt;}
                       &lt;/div&gt;
                     &lt;/div&gt;
@@ -40482,7 +40103,7 @@ export const CreateNotification: Story = {
                     &lt;/Tooltip&gt;)}
                     {(slackCommittedUsers.length &gt; 0 || slackCommittedChannels.length &gt; 0) &amp;&amp; &lt;button type=&quot;button&quot;
                       className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Slack recipients&quot; aria-haspopup=&quot;dialog&quot;
-                      onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={14} /&gt;&lt;/button&gt;}
+                      onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;&lt;/button&gt;}
                   &lt;/div&gt;}
                 &lt;/div&gt;
               &lt;/div&gt;
