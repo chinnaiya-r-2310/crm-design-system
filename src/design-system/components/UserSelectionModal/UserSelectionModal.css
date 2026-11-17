@@ -101,19 +101,25 @@ p.user-selection-empty { padding: 10px; }
 .user-selection-recipient-field .tags-container { border: 0; }
 .user-selection-edit-recipients { position: absolute; inset: 0; width: 100%; height: 100%; display: flex; justify-content: flex-end; padding: 0 8px; cursor: pointer; }
 .user-selection-edit-recipients .button-content-wrapper { position: static; }
-.user-selection-edit-recipients svg { position: absolute; top: 9px; right: 8px; width: 16px; height: 16px; opacity: 0; }
+.user-selection-edit-recipients svg { position: absolute; top: 10.5px; right: 8px; width: 13px; height: 13px; opacity: 0; }
 .user-selection-recipient-name-heading { margin-inline-start: 23px; }
 .user-selection-recipient-field:hover .user-selection-edit-recipients svg,
 .user-selection-recipient-field:focus-within .user-selection-edit-recipients svg { opacity: 1; }
 .user-selection-recipient-modal { max-width: calc(100vw - 32px); }
 .user-selection-recipient-modal .modal-body { overflow: auto; }
+/* Preserve the default 390px fields, shrinking only when the viewport requires it. */
+.user-selection-recipient-editor .modal-body { margin-right: -4px; padding-right: 4px; }
+.user-selection-recipient-editor .input-form-row { grid-template-columns: minmax(0, 260px) minmax(0, 390px); }
+.user-selection-recipient-editor .input-field-column { width: auto; min-width: 0; }
+.user-selection-recipient-editor .input-input-wrapper[data-required]::before { display: none; }
+.user-selection-recipient-editor .input-helper-text { overflow-wrap: anywhere; }
 .user-selection-recipient-modal .modal-header-title-row > .button-btn { margin-left: auto; }
 .user-selection-recipient-modal .table-table { width: 100% !important; min-width: 782px; }
 .user-selection-recipient-modal .checkbox-root[data-disabled] .checkbox-label-text { opacity: 1; }
 .user-selection-recipient-modal .table-body-row:has([data-new-recipient]) { background: var(--ds-icon-bg-orange-yellow); }
 .user-selection-recipient-actions { opacity: 0; }
 .user-selection-recipient-modal .table-body-row:hover .user-selection-recipient-actions,
-.user-selection-recipient-modal .table-body-row:focus-within .user-selection-recipient-actions,
+.user-selection-recipient-actions:has(.dropdown-trigger:focus-visible),
 .user-selection-recipient-modal .table-body-row:has(.dropdown-trigger[data-open]) .user-selection-recipient-actions { opacity: 1; }
 .user-selection-recipient-actions .dropdown-trigger { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; width: 28px; height: 28px; padding: 0; border: 1px solid transparent; border-radius: 50%; background: transparent; color: var(--ds-text-label); box-shadow: none; }
 .user-selection-recipient-actions .dropdown-trigger:hover,

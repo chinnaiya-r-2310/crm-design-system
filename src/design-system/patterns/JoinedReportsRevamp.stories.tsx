@@ -509,7 +509,7 @@ function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; 
           <div className="cmr__heading-actions">
             <Tooltip content="Edit filters" variant="black" placement="top" followCursor>
               <button type="button" className="criteria-summary__action" aria-label="Edit filters">
-                <Icon name="Edit" size={12} />
+                <Icon name="Edit" size={13} />
               </button>
             </Tooltip>
             <Tooltip content="Delete filters" variant="black" placement="top" followCursor>
@@ -583,7 +583,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
             <div className="jr-builder-row jr-builder-panel-head">
               <span className="jr-builder-panel-title">Joined Report</span>
               <button type="button" className="jr-builder-edit-btn" aria-label="Edit joined report" onClick={onEdit}>
-                <Icon name="CrmEditFilledMd" size={14} className="jr-builder-edit-icon" />
+                <Icon name="CrmEditFilledMd" size={13} className="jr-builder-edit-icon" />
               </button>
             </div>
 
@@ -593,7 +593,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
               </div>
               <div className="jr-builder-row">
                 <span>Leads By Source</span>
-                <button type="button" className="jr-builder-edit-btn" aria-label="Edit Leads By Source"><Icon name="CrmEditFilledMd" size={14} className="jr-builder-edit-icon" /></button>
+                <button type="button" className="jr-builder-edit-btn" aria-label="Edit Leads By Source"><Icon name="CrmEditFilledMd" size={13} className="jr-builder-edit-icon" /></button>
               </div>
             </div>
 
@@ -613,12 +613,12 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
               ) : (<>
               <div className="jr-builder-row">
                 <span className="jr-builder-block-title">Columns</span>
-                <button type="button" className="jr-builder-edit-btn" aria-label="Edit columns"><Icon name="CrmEditFilledMd" size={14} className="jr-builder-edit-icon" /></button>
+                <button type="button" className="jr-builder-edit-btn" aria-label="Edit columns"><Icon name="CrmEditFilledMd" size={13} className="jr-builder-edit-icon" /></button>
               </div>
               <Dragger items={columns} onChange={setColumns} />
               <div className="jr-builder-row jr-builder-row--section">
                 <span className="jr-builder-block-title">Aggregate Columns</span>
-                <button type="button" className="jr-builder-edit-btn" aria-label="Edit aggregate columns"><Icon name="CrmEditFilledMd" size={14} className="jr-builder-edit-icon" /></button>
+                <button type="button" className="jr-builder-edit-btn" aria-label="Edit aggregate columns"><Icon name="CrmEditFilledMd" size={13} className="jr-builder-edit-icon" /></button>
               </div>
               <Dragger items={aggregates} onChange={setAggregates} />
               </>)}
@@ -631,7 +631,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
               </div>
               <div className="jr-builder-row">
                 <span>Recent Six Month Leads</span>
-                <button type="button" className="jr-builder-edit-btn" aria-label="Edit Recent Six Month Leads"><Icon name="CrmEditFilledMd" size={14} className="jr-builder-edit-icon" /></button>
+                <button type="button" className="jr-builder-edit-btn" aria-label="Edit Recent Six Month Leads"><Icon name="CrmEditFilledMd" size={13} className="jr-builder-edit-icon" /></button>
               </div>
             </div>
 
@@ -641,7 +641,7 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; on
               </div>
               <div className="jr-builder-row">
                 <span>Untitled Report 0</span>
-                <button type="button" className="jr-builder-edit-btn" aria-label="Edit Untitled Report 0"><Icon name="CrmEditFilledMd" size={14} className="jr-builder-edit-icon" /></button>
+                <button type="button" className="jr-builder-edit-btn" aria-label="Edit Untitled Report 0"><Icon name="CrmEditFilledMd" size={13} className="jr-builder-edit-icon" /></button>
               </div>
             </div>
 </>)}

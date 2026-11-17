@@ -582,6 +582,8 @@
   height: 32px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: 0 25px;
   font-family: var(--ds-font-family-base);
   font-size: var(--ds-font-size-base);

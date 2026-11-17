@@ -29,7 +29,7 @@ export { Tooltip } from './design-system/components/Tooltip';
 export { UserPicker } from './design-system/components/UserPicker';
 export { UserSelectionModal } from './design-system/components/UserSelectionModal';
 export { NextGenLeftMenu } from './design-system/components/NextGenLeftMenu';
-export { Slider, MultiSlider, StepSlider } from './design-system/components/Slider';
+export { Slider, MultiSlider, StepSlider, DualRangeSlider } from './design-system/components/Slider';
 export { CodeSnippet } from './design-system/components/CodeSnippet';
 export { ProgressBar } from './design-system/components/ProgressBar';
 export { MessageInfo } from './design-system/components/MessageInfo';

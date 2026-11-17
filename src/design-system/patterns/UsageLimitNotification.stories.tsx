@@ -127,7 +127,7 @@ function FormRow({
   return (
     <div style={{
       display: 'grid',
-      gridTemplateColumns: `${LABEL_COL} auto`,
+      gridTemplateColumns: `${LABEL_COL} minmax(0, 1fr)`,
       columnGap: 20,
       alignItems: align,
     }}>
@@ -634,8 +634,8 @@ export const CreateNotification: Story = {
             transition: width 280ms cubic-bezier(0.22, 1, 0.36, 1);
           }
           .usage-notification-modal .modal-body {
-            padding-right: 0;
-            overflow-x: auto;
+            padding-right: 30px;
+            overflow-x: hidden;
           }
           @media (prefers-reduced-motion: reduce) {
             .usage-notification-modal { transition: none; }
@@ -684,12 +684,19 @@ export const CreateNotification: Story = {
                       <Search aria-hidden="true" />
                       <Input layout="vertical" type="search" width={200} aria-label="Search notifications" placeholder="Search"
                         value={search} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)} />
+                      {search && <button type="button" className="usage-page__search-clear dropdown-clear-btn" aria-label="Clear search"
+                        onClick={event => { setSearch(''); event.currentTarget.parentElement?.querySelector('input')?.focus(); }}>
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
+                          <path d="M1 1L7 7M7 1L1 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                        </svg>
+                      </button>}
                     </div>
                     <Dropdown triggerAriaLabel="Filter notifications by feature" width={150} value={featureFilter}
                       panelStyle={{ width: 'max-content', minWidth: 150, maxWidth: 'calc(100vw - 32px)' }}
                       options={[{ value: 'all', label: 'All Features' }, ...FEATURE_OPTIONS.map(item => ({ value: item.label, label: item.label }))]}
                       onChange={setFeatureFilter} />
                     <Dropdown triggerAriaLabel="Filter notifications by type" width={150} value={typeFilter}
+                      panelStyle={{ width: 'max-content', minWidth: 150, maxWidth: 'calc(100vw - 32px)' }}
                       options={[{ value: 'all', label: 'All Types' }, { value: 'system', label: 'System Defined' }, { value: 'user', label: 'User Defined' }]}
                       onChange={setTypeFilter} />
                     <Dropdown triggerAriaLabel="Filter notifications by status" width={150} value={statusFilter}
@@ -968,7 +975,7 @@ export const CreateNotification: Story = {
                       })}
                       {notifyToTags.length > 0 && <button type="button" className="usage-cliq-edit" aria-label="Edit notification recipients"
                         aria-haspopup="dialog" onClick={() => setRecipientDialogOpen(true)}>
-                        <Icon name="CrmEditFilledMd" size={14} />
+                        <Icon name="CrmEditFilledMd" size={13} />
                       </button>}
                     </div>
                   </FormRow>}
@@ -1098,7 +1105,7 @@ export const CreateNotification: Story = {
                           ))}
                           {(zohoCommittedUsers.length > 0 || zohoCommittedChannels.length > 0) && <button type="button" className="usage-cliq-edit" aria-label="Edit Zoho Cliq recipients"
                             aria-haspopup="dialog" onClick={openZohoModal}>
-                            <Icon name="CrmEditFilledMd" size={14} />
+                            <Icon name="CrmEditFilledMd" size={13} />
                           </button>}
                         </div>
                       </div>
@@ -1132,7 +1139,7 @@ export const CreateNotification: Story = {
                       </Tooltip>)}
                       {(slackCommittedUsers.length > 0 || slackCommittedChannels.length > 0) && <button type="button"
                         className="usage-cliq-edit" aria-label="Edit Slack recipients" aria-haspopup="dialog"
-                        onClick={() => openAppRecipients('Slack')}><Icon name="CrmEditFilledMd" size={14} /></button>}
+                        onClick={() => openAppRecipients('Slack')}><Icon name="CrmEditFilledMd" size={13} /></button>}
                     </div>}
                   </div>
                 </div>

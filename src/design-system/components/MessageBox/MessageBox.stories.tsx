@@ -12,7 +12,7 @@ const STAGE: React.CSSProperties = {
 };
 
 const meta: Meta<typeof MessageBox> = {
-  title: 'Design System/Components/MessageBox',
+  title: 'Design System/Components/Alert Box',
   component: MessageBox,
   decorators: [
     (Story) => (

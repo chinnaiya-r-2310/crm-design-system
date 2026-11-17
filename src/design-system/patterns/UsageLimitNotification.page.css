@@ -92,7 +92,10 @@
 }
 .usage-page__search { position: relative; width: 200px; flex-shrink: 0; }
 .usage-page__search > svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 1; color: var(--ds-text-label); pointer-events: none; }
-.usage-page__search .input-input { padding-left: 32px; }
+.usage-page__search .input-input { padding-left: 32px; padding-right: 32px; }
+.usage-page__search .input-input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+.usage-page__search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
+.usage-page__search-clear:focus-visible { outline: 2px solid var(--ds-components-input-focus-outline); outline-offset: 2px; }
 /* Preserve the icon's left spacing when removing 5px from the action column. */
 .usage-page__row-actions { display: flex; justify-content: center; position: relative; inset-inline-start: calc(3px + 5px / 2); }
 .usage-page__row-actions .dropdown-trigger-icon { display: flex; align-items: center; justify-content: center; }
@@ -116,10 +119,31 @@
 .usage-page .table-report tbody tr:not(:has(.table-report-empty)):hover,
 .usage-page .table-report tbody tr:has(.usage-page__row-actions .dropdown-trigger:focus-visible),
 .usage-page .table-report tbody tr:has(.usage-page__row-actions .dropdown-trigger[data-open]) { background: var(--ds-components-table-table-hover); }
-/* Match SetupTable's 36px header and 40px body rows. */
-.usage-page .table-report thead tr { height: 36px; }
+/* Keep the sticky header and notification rows the same height. */
+.usage-page .table-report thead tr,
 .usage-page .table-report tbody tr { height: 40px; }
 .usage-page .table-report td.table-report-empty { padding: calc(var(--ds-line-height-base) * 3) var(--ds-line-height-base); text-align: center; white-space: normal; color: var(--ds-text-muted); }
+.usage-notification-modal [data-usage-field] {
+  max-width: max(0px, calc(100vw - 267px));
+}
+.usage-notification-modal .usage-notification-when {
+  max-width: 100%;
+  flex-wrap: wrap !important;
+}
+.usage-notification-modal .input-form-row,
+.usage-notification-modal .dropdown-form-row {
+  grid-template-columns: 155px minmax(0, 390px) !important;
+}
+.usage-notification-modal .input-field-column,
+.usage-notification-modal .dropdown-field-column {
+  min-width: 0;
+  max-width: 100%;
+}
+.usage-notification-modal [data-usage-field] > *,
+.usage-notification-modal .mergefield-root {
+  max-width: 100%;
+  box-sizing: border-box;
+}
 .usage-notification-modal .mergefield-hint { color: var(--ds-text-paragraph); font-size: var(--ds-font-size-md); line-height: var(--ds-line-height-base); }
 .usage-page .table-report thead th { position: sticky; top: 0; z-index: 1; background: var(--ds-bg-common-card); font-weight: var(--ds-font-weight-medium); }
 .usage-page .table-report tr:has(.usage-page__group) { background: var(--ds-bg-scale-bg2); }

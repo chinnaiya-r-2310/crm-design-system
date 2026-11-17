@@ -36,7 +36,7 @@
   padding: 14px 0;
 }
 
-.ft-table thead th:last-child {
+.ft-table thead .ft-heading--actions {
   width: 61px;
   min-width: 61px;
   padding: 14px 0;

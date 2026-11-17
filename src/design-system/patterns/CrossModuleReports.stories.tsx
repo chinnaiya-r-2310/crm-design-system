@@ -597,7 +597,7 @@ function PanelEditButton({ label }: { label: string }) {
   return (
     <Tooltip content={`Edit ${label.toLowerCase()}`} variant="black" placement="top" followCursor>
       <button type="button" className="criteria-summary__action" aria-label={`Edit ${label}`}>
-        <Icon name="Edit" size={12} />
+        <Icon name="Edit" size={13} />
       </button>
     </Tooltip>
   );
@@ -720,7 +720,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
               <div className="cmr__heading-actions">
                 <Tooltip content="Edit filters" variant="black" placement="top" followCursor>
                   <button type="button" className="criteria-summary__action" aria-label="Edit filters" onClick={() => openModal()}>
-                    <Icon name="Edit" size={12} />
+                    <Icon name="Edit" size={13} />
                   </button>
                 </Tooltip>
                 {/* Version 2: Edit only, no Delete. */}

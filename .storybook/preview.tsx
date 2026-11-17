@@ -15,8 +15,25 @@ const preview: Preview = {
     // title (without "Work Items/") to the list below; preserve existing order.
     options: {
       storySort: {
+        includeNames: true,
         order: [
           'Design System',
+          [
+            'Components',
+            [
+              '*',
+              [
+                'Overview — All Buttons',
+                'All Variants',
+                'All States',
+                'All Styles',
+                'All variations',
+                'All with title',
+                '*',
+              ],
+            ],
+            '*',
+          ],
           'Work Items',
           [
             'Field History Tracking',

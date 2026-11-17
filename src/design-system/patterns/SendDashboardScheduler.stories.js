@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Calendar } from "../components/Calendar/Calendar";
 import { Modal } from "../components/Modal/Modal";
 import { Dropdown } from "../components/Dropdown/Dropdown";
 import { Checkbox } from "../components/Checkbox/Checkbox";
@@ -306,53 +307,12 @@ export const SendDashboardScheduler = {
 
               {monthlyMode === "days_of_month" && <div style={{ display: "grid", gridTemplateColumns: COLS, columnGap: 20, width: W }}>
                   <span />
-                  <div style={{
-      display: "inline-flex",
-      flexDirection: "column",
-      gap: 10,
-      border: "1px solid var(--ds-components-input-default-outline)",
-      borderRadius: 6,
-      padding: "15px 10px",
-      width: "fit-content"
-    }}>
-                    <style>{`
-                      .sds-cal-day { background: transparent; color: var(--ds-text-base); border: 1px solid transparent; transition: background 100ms, color 100ms, border-color 100ms; }
-                      .sds-cal-day:hover { background: var(--ds-components-button-outline-blue-default-bg); border-color: var(--ds-components-button-outline-blue-default-border); color: var(--ds-text-link); }
-                      .sds-cal-day[data-sel] { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
-                      .sds-cal-day[data-sel]:hover { background: var(--ds-components-input-focus-outline); color: #fff; border-color: var(--ds-components-input-focus-outline); }
-                    `}</style>
-                    <span style={{
-      fontFamily: "var(--ds-font-family-base)",
-      fontSize: "var(--ds-font-size-sm)",
-      fontWeight: 600,
-      color: "var(--ds-text-base)"
-    }}>Select Dates</span>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 34px)", gap: 4 }}>
-                      {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => {
-      const sel = selectedMonthDays.includes(day);
-      return <button
-        key={day}
-        type="button"
-        className="sds-cal-day"
-        data-sel={sel || void 0}
-        onClick={() => setSelectedMonthDays((p) => p.includes(day) ? p.filter((d) => d !== day) : [...p, day])}
-        style={{
-          width: 34,
-          height: 34,
-          borderRadius: "50%",
-          cursor: "pointer",
-          fontFamily: "var(--ds-font-family-base)",
-          fontSize: "var(--ds-font-size-sm)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-      >
-                            {day}
-                          </button>;
-    })}
-                    </div>
-                  </div>
+                  <Calendar
+                    mode="date-of-month"
+                    selectedDayNumbers={selectedMonthDays}
+                    onDayNumbersChange={setSelectedMonthDays}
+                    width="fit-content"
+                  />
                 </div>}
 
               {monthlyMode === "specific_days" && <div style={{ display: "grid", gridTemplateColumns: COLS, columnGap: 20, width: W, alignItems: "start" }}>

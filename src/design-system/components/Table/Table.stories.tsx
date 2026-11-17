@@ -145,7 +145,7 @@ function Interactive({ initialRows, selectable, striped }: {
   };
 
   return (
-    <div style={{ padding: 24, background: '#f0f2f7', minHeight: '100vh' }}>
+    <div style={{ padding: 24, minHeight: '100vh' }}>
       <SetupTable
         columns={makeColumns(handleActiveChange)}
         rows={rows}
@@ -187,7 +187,7 @@ export const Empty: Story = {
   name: 'Empty State',
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ padding: 24, background: '#f0f2f7' }}>
+    <div style={{ padding: 24 }}>
       <SetupTable
         columns={makeColumns(() => {})}
         rows={[]}

@@ -384,6 +384,8 @@ export function Tags({
                   height:     32,
                   display:    'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign:  'center',
                   padding:    '0 25px',
                   fontFamily: 'var(--ds-font-family-base)',
                   fontSize:   'var(--ds-font-size-base)',

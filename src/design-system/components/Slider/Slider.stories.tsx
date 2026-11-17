@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Slider, MultiSlider, StepSlider, PercentSlider } from './Slider';
+import { DualRangeSlider } from './DualRangeSlider';
+import { expect, userEvent, within } from 'storybook/test';
 
 const meta: Meta = {
   title: 'Design System/Components/Slider',
@@ -179,6 +181,36 @@ export const StepDisabled: Story = {
   ),
 };
 
+export const DualRange: Story = {
+  name: 'Dual Range',
+  render: () => {
+    const [visible, setVisible] = useState(2);
+    const [archive, setArchive] = useState(7);
+    return (
+      <div style={{ width: '100%', maxWidth: 440, padding: '16px 12px' }}>
+        <DualRangeSlider valueA={visible} valueB={archive} onChangeA={setVisible} onChangeB={setArchive} />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const visible = canvas.getByRole('slider', { name: 'Visible log history end' });
+    const archive = canvas.getByRole('slider', { name: 'Archive log end' });
+    await userEvent.click(visible);
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(visible).toHaveAttribute('aria-valuenow', '3');
+    await userEvent.keyboard('{End}');
+    await expect(visible).toHaveAttribute('aria-valuenow', '6');
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(visible).toHaveAttribute('aria-valuenow', '6');
+    await userEvent.click(archive);
+    await userEvent.keyboard('{End}');
+    await expect(archive).toHaveAttribute('aria-valuenow', '10');
+    await userEvent.keyboard('{Home}');
+    await expect(archive).toHaveAttribute('aria-valuenow', '7');
+  },
+};
+
 /* ─── All Variants ─── */
 export const AllVariants: Story = {
   name: 'All Variants',
@@ -190,6 +222,8 @@ export const AllVariants: Story = {
     const [multi, setMul] = useState<[number, number]>([33, 66]);
     const [step, setStep] = useState(2);
     const [pct, setPct]   = useState(0);
+    const [visible, setVisible] = useState(2);
+    const [archive, setArchive] = useState(7);
 
     const sectionLabel = (text: string) => (
       <p style={{ margin: '0 0 8px', fontSize: 11, fontWeight: 600, color: '#616E88', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
@@ -239,6 +273,9 @@ export const AllVariants: Story = {
         </div>
         <div>{sectionLabel('Percent Slider')}
           <PercentSlider value={pct} onChange={setPct} />
+        </div>
+        <div style={{ paddingInline: 12 }}>{sectionLabel('Dual Range')}
+          <DualRangeSlider valueA={visible} valueB={archive} onChangeA={setVisible} onChangeB={setArchive} />
         </div>
       </div>
     );

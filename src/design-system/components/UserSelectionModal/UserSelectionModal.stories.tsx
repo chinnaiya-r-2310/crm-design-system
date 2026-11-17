@@ -377,19 +377,11 @@ export const IndividualUsersAdditionalRecipients: Story = {
   render: args => <Example {...args} />,
   play: async ({ canvasElement }) => {
     const page = within(canvasElement.ownerDocument.body);
-    const notice = page.getByText('Email: You can select up to 90 CRM users and add up to 10 additional email addresses. The total number of email recipients cannot exceed 100.');
-    await waitFor(() => expect(notice).toBeVisible());
-    await expect(notice.closest('.msg-info-note')).not.toBeNull();
-    await expect(notice.closest('.modal-footer')).not.toBeNull();
-    await expect(page.getByText('Push Notifications: You can select up to 100 CRM users. Additional recipients are not supported.')).toBeVisible();
+    await expect(page.queryByText(/^Email: You can select up to/)).toBeNull();
+    await expect(page.queryByText(/^Push Notifications: You can select up to/)).toBeNull();
     const addButton = page.getByRole('button', { name: 'Add Additional Recipient' });
+    await waitFor(() => expect(addButton).toBeVisible());
     await expect(addButton.closest('.modal-footer')).not.toBeNull();
-    const notes = notice.closest<HTMLElement>('.msg-info-note')!;
-    await expect(addButton.compareDocumentPosition(notes) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    await waitFor(() => {
-      expect(addButton.getBoundingClientRect().bottom).toBeLessThanOrEqual(notes.getBoundingClientRect().top);
-      expect(Math.abs(addButton.getBoundingClientRect().left - notes.getBoundingClientRect().left)).toBeLessThanOrEqual(1);
-    });
     const modal = addButton.closest<HTMLElement>('.modal-dialog')!;
     const available = within(modal).getByRole('region', { name: 'Available recipients' });
     const selected = within(modal).getByRole('region', { name: 'Selected recipients' });
@@ -452,6 +444,11 @@ export const IndividualUsersAdditionalRecipients: Story = {
     await expect(getComputedStyle(disabledLabel).opacity).toBe('1');
     const operationsRow = picker.getByRole('checkbox', { name: 'Select Operations' }).closest('tr')!;
     const actions = within(operationsRow).getByRole('button', { name: 'More options for Operations' });
+    const actionContainer = actions.closest('.user-selection-recipient-actions')!;
+    await userEvent.hover(picker.getByRole('heading', { name: 'Select Recipient' }));
+    await expect(getComputedStyle(actionContainer).opacity).toBe('0');
+    picker.getByRole('checkbox', { name: 'Select Operations' }).focus();
+    await expect(getComputedStyle(actionContainer).opacity).toBe('0');
     await waitFor(() => {
       actions.focus();
       expect(actions).toHaveFocus();
@@ -474,8 +471,18 @@ export const IndividualUsersAdditionalRecipients: Story = {
     await expect(getComputedStyle(operationsRow).backgroundColor).toBe(focusedRowBackground);
     await expect(getComputedStyle(actions).backgroundColor).toBe('rgb(255, 255, 255)');
     await userEvent.click(editOption);
-    const editor = within(page.getByRole('dialog', { name: 'Edit Recipient' }));
+    const editorDialog = page.getByRole('dialog', { name: 'Edit Recipient' });
+    const editor = within(editorDialog);
     await waitFor(() => expect(editor.getByDisplayValue('Operations')).toBeVisible());
+    const editorBody = editorDialog.querySelector<HTMLElement>('.modal-body')!;
+    await expect(editorBody.scrollWidth).toBeLessThanOrEqual(editorBody.clientWidth);
+    for (const input of editor.getAllByRole('textbox')) {
+      const field = input.closest('.input-input-wrapper')!.getBoundingClientRect();
+      await expect(editorDialog.getBoundingClientRect().right - field.right).toBeGreaterThanOrEqual(29);
+      await expect(field.width).toBeGreaterThan(0);
+      if (window.innerWidth >= 762) await expect(field.width).toBe(390);
+      await expect(getComputedStyle(input.closest('.input-input-wrapper')!, '::before').display).toBe('none');
+    }
     await userEvent.clear(editor.getByDisplayValue('Operations'));
     await userEvent.type(editor.getByRole('textbox', { name: /Display Name/ }), 'Operations Team');
     await userEvent.click(editor.getByRole('button', { name: 'Save' }));
@@ -500,6 +507,8 @@ export const IndividualUsersAdditionalRecipients: Story = {
     await expect(editRecipients.getBoundingClientRect().width).toBeGreaterThanOrEqual(field.clientWidth - 1);
     const assertEditIconAlignment = () => {
       const icon = editRecipients.querySelector('svg')!.getBoundingClientRect();
+      expect(icon.width).toBe(13);
+      expect(icon.height).toBe(13);
       const tag = field.querySelector('.tags-tag')!.getBoundingClientRect();
       expect(Math.abs(icon.top + icon.height / 2 - tag.top - tag.height / 2)).toBeLessThanOrEqual(1);
     };

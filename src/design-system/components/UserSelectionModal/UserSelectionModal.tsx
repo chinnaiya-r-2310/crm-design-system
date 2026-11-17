@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { Modal } from '../Modal/Modal';
 import { Dropdown } from '../Dropdown/Dropdown';
 import { Tags } from '../Tags/Tags';
@@ -7,7 +7,6 @@ import { Button } from '../Button/Button';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { Input } from '../Input/Input';
 import { SetupTable } from '../Table/Table';
-import { MessageInfo } from '../MessageInfo/MessageInfo';
 import { Check, Edit, More, Search } from '../../foundations/icons/Icons';
 import './UserSelectionModal.css';
 
@@ -43,6 +42,8 @@ export interface UserSelectionModalProps {
   allowAdditionalEmails?: boolean;
   maxSelections?: number;
   additionalRecipientOptions?: AdditionalRecipientOption[];
+  /** Optional feature-owned content displayed beneath the footer action. */
+  footerNote?: ReactNode;
 }
 
 const CATEGORIES = [
@@ -60,7 +61,7 @@ const RemoveIcon = () => <svg width="7" height="7" viewBox="0 0 7 7" fill="none"
 
 /** Mount on open so Cancel discards the draft and reopening starts from the saved value. */
 export function UserSelectionModal({ value, options, onSave, onClose, title = 'Select Users',
-  allowAdditionalEmails = false, maxSelections, variant = 'default', additionalRecipientOptions = [] }: UserSelectionModalProps) {
+  allowAdditionalEmails = false, maxSelections, variant = 'default', additionalRecipientOptions = [], footerNote }: UserSelectionModalProps) {
   const individualUsers = variant === 'individual-users';
   const [draft, setDraft] = useState(() => value.filter(item => !individualUsers || item.kind === 'user' || (allowAdditionalEmails && item.kind === 'email')));
   const [category, setCategory] = useState('user');
@@ -185,12 +186,9 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
 
   return <>
     <Modal isOpen title={title} width={1088} className={`user-selection-modal${individualUsers ? ' user-selection-modal--individual' : ''}`}
-    footerStart={individualUsers ? <div className="user-selection-footer-notes">
-      {allowAdditionalEmails && !selectedEmails.length && <Button variant="ghost-blue" onClick={openRecipientPicker}>Add Additional Recipient</Button>}
-      <MessageInfo variant="note" points={[
-        ...(allowAdditionalEmails ? ['Email: You can select up to 90 CRM users and add up to 10 additional email addresses. The total number of email recipients cannot exceed 100.'] : []),
-        'Push Notifications: You can select up to 100 CRM users. Additional recipients are not supported.',
-      ]} />
+    footerStart={(individualUsers && allowAdditionalEmails && !selectedEmails.length) || footerNote ? <div className="user-selection-footer-notes">
+      {individualUsers && allowAdditionalEmails && !selectedEmails.length && <Button variant="ghost-blue" onClick={openRecipientPicker}>Add Additional Recipient</Button>}
+      {footerNote}
     </div> : undefined}
     onClose={onClose} onCancel={onClose} onSave={() => {
       if (allowAdditionalEmails && !individualUsers && email.trim()) {
@@ -366,7 +364,7 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
       ]} emptyMessage="No recipients available" />
     {recipientError && <div className="input-root" data-variant="error"><span className="input-helper-text" role="alert">{recipientError}</span></div>}
   </Modal>}
-  {creatingRecipient && <Modal isOpen title={editingRecipient ? 'Edit Recipient' : 'Create Recipient'} width={569} className="user-selection-recipient-modal"
+  {creatingRecipient && <Modal isOpen title={editingRecipient ? 'Edit Recipient' : 'Create Recipient'} width={730} className="user-selection-recipient-modal user-selection-recipient-editor"
     onClose={() => setCreatingRecipient(false)} onCancel={() => setCreatingRecipient(false)} saveLabel="Save" onSave={() => {
       const address = recipientAddress.trim();
       const errors: { name?: string; email?: string } = {};
@@ -394,14 +392,14 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
       }
       setCreatingRecipient(false);
     }}>
-    <Input label="Display Name" width="100%" required value={recipientName}
+    <Input label="Display Name" required value={recipientName}
       error={!!creationErrors.name} aria-invalid={!!creationErrors.name}
       helperText={creationErrors.name ? <span role="alert">{creationErrors.name}</span> : undefined}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
         setRecipientName(event.target.value);
         setCreationErrors(current => ({ ...current, name: undefined }));
       }} />
-    <Input label="Email" type="email" width="100%" required value={recipientAddress}
+    <Input label="Email" type="email" required value={recipientAddress}
       error={!!creationErrors.email} aria-invalid={!!creationErrors.email}
       helperText={creationErrors.email ? <span role="alert">{creationErrors.email}</span> : undefined}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

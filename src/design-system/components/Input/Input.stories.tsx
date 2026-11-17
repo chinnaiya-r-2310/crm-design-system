@@ -487,6 +487,62 @@ export const Currency: Story = {
   },
 };
 
+export const AllVariants: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => <InputVariants />,
+};
+
+function InputVariants() {
+  const [date, setDate] = useState('22/04/2025');
+  const [time, setTime] = useState('');
+  const variants: [string, Story][] = [
+    ['Default', Default],
+    ['Small', Small],
+    ['Long Label', LongLabel],
+    ['Hover', Hover],
+    ['Focus', Focus],
+    ['Required Field', Required],
+    ['Prefilled Value', Prefilled],
+    ['Full Anatomy', FullAnatomy],
+    ['Vertical Layout', Vertical],
+    ['Lookup', Lookup],
+    ['Required Lookup', RequiredLookup],
+    ['Disabled', Disabled],
+    ['Read Only', ReadOnly],
+    ['Disabled Lookup', DisabledLookup],
+    ['Read Only Lookup', ReadOnlyLookup],
+    ['Error', Error],
+    ['Error (Focused)', ErrorFocused],
+    ['Required + Error', RequiredError],
+    ['Auto Update', AutoUpdate],
+    ['Date & Time', DateTimeField],
+    ['Date & Time (Vertical)', DateTimeVertical],
+    ['Currency', Currency],
+    ['Password', Password],
+  ];
+
+  return (
+    <div style={{ display: 'grid', gap: 28, padding: 24 }}>
+      {variants.map(([name, story]) => (
+        <section key={name} aria-label={name}>
+          <h3 style={{ margin: '0 0 12px', fontSize: 14, color: 'var(--ds-text-heading)' }}>{name}</h3>
+          <Input {...story.args} />
+        </section>
+      ))}
+      <section aria-label="Date & Time (with Calendar)">
+        <h3 style={{ margin: '0 0 12px', fontSize: 14, color: 'var(--ds-text-heading)' }}>Date &amp; Time (with Calendar)</h3>
+        <DateTimeInput
+          width={390}
+          dateValue={date}
+          timeValue={time}
+          onDateChange={setDate}
+          onTimeChange={setTime}
+        />
+      </section>
+    </div>
+  );
+}
+
 export const Password: Story = {
   args: {
     label: 'Password',
