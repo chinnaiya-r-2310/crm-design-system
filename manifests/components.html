@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.1s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>6.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -23238,6 +23238,10 @@ const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) =&gt;
 export const CreateNotification: Story = {
   name: &#39;Create Notification&#39;,
   play: async ({ canvasElement }) =&gt; {
+    // Only auto-open the modal for the test runner or when ?playModal is in the URL,
+    // so the story page loads without the modal for normal viewing.
+    const shouldPlay = navigator.webdriver || new URLSearchParams(window.location.search).has(&#39;playModal&#39;);
+    if (!shouldPlay) return;
     const page = within(canvasElement.ownerDocument.body);
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Create Notification&#39;, exact: true }));
     const nameInput = page.getByRole(&#39;textbox&#39;, { name: &#39;Notification Name&#39; });
@@ -38843,6 +38847,10 @@ const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) =&gt;
 export const CreateNotification: Story = {
   name: &#39;Create Notification&#39;,
   play: async ({ canvasElement }) =&gt; {
+    // Only auto-open the modal for the test runner or when ?playModal is in the URL,
+    // so the story page loads without the modal for normal viewing.
+    const shouldPlay = navigator.webdriver || new URLSearchParams(window.location.search).has(&#39;playModal&#39;);
+    if (!shouldPlay) return;
     const page = within(canvasElement.ownerDocument.body);
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Create Notification&#39;, exact: true }));
     const nameInput = page.getByRole(&#39;textbox&#39;, { name: &#39;Notification Name&#39; });
