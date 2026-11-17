@@ -320,6 +320,10 @@ const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) => vo
 export const CreateNotification: Story = {
   name: 'Create Notification',
   play: async ({ canvasElement }) => {
+    // Only auto-open the modal for the test runner or when ?playModal is in the URL,
+    // so the story page loads without the modal for normal viewing.
+    const shouldPlay = navigator.webdriver || new URLSearchParams(window.location.search).has('playModal');
+    if (!shouldPlay) return;
     const page = within(canvasElement.ownerDocument.body);
     await userEvent.click(page.getByRole('button', { name: 'Create Notification', exact: true }));
     const nameInput = page.getByRole('textbox', { name: 'Notification Name' });
