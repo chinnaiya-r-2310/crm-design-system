@@ -6,7 +6,6 @@ import { NextGenLeftMenu } from '../components/NextGenLeftMenu/NextGenLeftMenu';
 import { WMSBar } from '../components/WMSBar/WMSBar';
 import { MessageInfo } from '../components/MessageInfo/MessageInfo';
 import { Dropdown } from '../components/Dropdown/Dropdown';
-import { CrmAlertWarning } from '../foundations/icons/Icons';
 import { crmIconMap } from '../foundations/icons/CrmCatalog';
 import { Button } from '../components/Button/Button';
 import { SetupTable } from '../components/Table/Table';
@@ -51,6 +50,7 @@ const MoreOptionsIcon = crmIconMap.CrmMoreHr;
 const BANNER_MESSAGE_BEFORE_DATE = 'Zoho CRM is ending support for weak security protocols. Update older browsers and API clients by ';
 const BANNER_DATE = 'December 31, 2026';
 const BANNER_MESSAGE_AFTER_DATE = ', to keep access.';
+const BANNER_LEARN_MORE = 'Learn more';
 
 const ACTIVITY_VIEWS = [
   { value: 'week', label: 'My open activities for this week' },
@@ -122,11 +122,12 @@ export function TlsBanner({ bannerInWorkspace = false }: { bannerInWorkspace?: b
             onAnimationEnd={(e) => { if (e.target === e.currentTarget && bannerClosing) setBannerOpen(false); }}
           >
             <div className="tls-banner-page__banner-content">
-              <CrmAlertWarning className="tls-banner-page__banner-icon" width={18} height={18} aria-hidden="true" focusable="false" />
+              <svg className="tls-banner-page__banner-icon" width="18" height="18" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M23.394 20.045L14.2572 3.23334C13.5 1.84004 11.5 1.84004 10.7428 3.23333L1.60599 20.045C0.881713 21.3776 1.84647 23 3.36324 23H21.6368C23.1535 23 24.1183 21.3777 23.394 20.045Z" fill="#EDA114" /><circle cx="1.5" cy="1.5" r="1.5" transform="matrix(1 0 0 -1 11 20)" fill="white" /><path d="M11 9.28571L12.2055 15.4855C12.2684 15.8092 12.7316 15.8092 12.7945 15.4855L14 9.28571C14 8.85714 13.7 8 12.5 8C11.3 8 11 8.85714 11 9.28571Z" fill="white" /></svg>
               <p className="tls-banner-page__banner-text">
                 {BANNER_MESSAGE_BEFORE_DATE}
                 <strong className="tls-banner-page__banner-date">{BANNER_DATE}</strong>
-                {BANNER_MESSAGE_AFTER_DATE}
+                {BANNER_MESSAGE_AFTER_DATE}{" "}
+                <a className="tls-banner-page__banner-link" href="#" onClick={(e) => e.preventDefault()}>{BANNER_LEARN_MORE}</a>
               </p>
             </div>
             <button type="button" className="tls-banner-page__banner-close" aria-label="Close banner" onClick={() => setBannerClosing(true)}>
@@ -156,11 +157,12 @@ export function TlsBanner({ bannerInWorkspace = false }: { bannerInWorkspace?: b
                     onAnimationEnd={(e) => { if (e.target === e.currentTarget && bannerClosing) setBannerOpen(false); }}
                   >
                     <div className="tls-banner-page__banner-content">
-                      <CrmAlertWarning className="tls-banner-page__banner-icon" width={18} height={18} aria-hidden="true" focusable="false" />
+                      <svg className="tls-banner-page__banner-icon" width="18" height="18" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M23.394 20.045L14.2572 3.23334C13.5 1.84004 11.5 1.84004 10.7428 3.23333L1.60599 20.045C0.881713 21.3776 1.84647 23 3.36324 23H21.6368C23.1535 23 24.1183 21.3777 23.394 20.045Z" fill="#EDA114" /><circle cx="1.5" cy="1.5" r="1.5" transform="matrix(1 0 0 -1 11 20)" fill="white" /><path d="M11 9.28571L12.2055 15.4855C12.2684 15.8092 12.7316 15.8092 12.7945 15.4855L14 9.28571C14 8.85714 13.7 8 12.5 8C11.3 8 11 8.85714 11 9.28571Z" fill="white" /></svg>
                       <p className="tls-banner-page__banner-text">
                         {BANNER_MESSAGE_BEFORE_DATE}
                         <strong className="tls-banner-page__banner-date">{BANNER_DATE}</strong>
-                        {BANNER_MESSAGE_AFTER_DATE}
+                        {BANNER_MESSAGE_AFTER_DATE}{" "}
+                <a className="tls-banner-page__banner-link" href="#" onClick={(e) => e.preventDefault()}>{BANNER_LEARN_MORE}</a>
                       </p>
                     </div>
                     <button type="button" className="tls-banner-page__banner-close" aria-label="Close banner" onClick={() => setBannerClosing(true)}>

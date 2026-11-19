@@ -246,4 +246,7 @@
 .tls-banner-page__workspace > .tls-banner-page__banner { flex-shrink: 0; }
 .tls-banner-page__panel .table-header-row th:last-child .table-th-inner { display: flex; align-items: center; justify-content: center; padding: 0; width: 100%; box-sizing: border-box; }
 .tls-banner-page__panel .table-header-row th:last-child .table-th-label { display: flex; align-items: center; justify-content: center; width: 100%; }
+.tls-banner-page__banner-link { color: var(--ds-text-link); text-decoration: none; white-space: nowrap; }
+.tls-banner-page__banner-link:hover { text-decoration: underline; }
+.tls-banner-page__banner-link:focus-visible { outline: 1px solid var(--ds-text-link); outline-offset: 2px; }
 
