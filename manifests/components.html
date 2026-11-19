@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.1s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.9s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -22257,13 +22257,13 @@ width?: any = 670</code></pre>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  13 | import &#39;./TlsBanner.css&#39;;
-  14 |
-&gt; 15 | const meta = {
+  12 | import &#39;./TlsBanner.css&#39;;
+  13 |
+&gt; 14 | const meta = {
      | ^
-  16 |   title: &#39;Work Items/TLS Banner&#39;,
-  17 |   includeStories: [&#39;Default&#39;, &#39;BannerExcludesLeftPanel&#39;],
-  18 |   parameters: {
+  15 |   title: &#39;Work Items/TLS Banner&#39;,
+  16 |   includeStories: [&#39;Default&#39;, &#39;BannerExcludesLeftPanel&#39;],
+  17 |   parameters: {
 
 ./src/design-system/patterns/TlsBanner.stories.tsx:
 import { useId, useState } from &#39;react&#39;;
@@ -22274,7 +22274,6 @@ import { NextGenLeftMenu } from &#39;../components/NextGenLeftMenu/NextGenLeftMe
 import { WMSBar } from &#39;../components/WMSBar/WMSBar&#39;;
 import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
-import { CrmAlertWarning } from &#39;../foundations/icons/Icons&#39;;
 import { crmIconMap } from &#39;../foundations/icons/CrmCatalog&#39;;
 import { Button } from &#39;../components/Button/Button&#39;;
 import { SetupTable } from &#39;../components/Table/Table&#39;;
@@ -22319,6 +22318,7 @@ const MoreOptionsIcon = crmIconMap.CrmMoreHr;
 const BANNER_MESSAGE_BEFORE_DATE = &#39;Zoho CRM is ending support for weak security protocols. Update older browsers and API clients by &#39;;
 const BANNER_DATE = &#39;December 31, 2026&#39;;
 const BANNER_MESSAGE_AFTER_DATE = &#39;, to keep access.&#39;;
+const BANNER_LEARN_MORE = &#39;Learn more&#39;;
 
 const ACTIVITY_VIEWS = [
   { value: &#39;week&#39;, label: &#39;My open activities for this week&#39; },
@@ -22390,11 +22390,12 @@ export function TlsBanner({ bannerInWorkspace = false }: { bannerInWorkspace?: b
             onAnimationEnd={(e) =&gt; { if (e.target === e.currentTarget &amp;&amp; bannerClosing) setBannerOpen(false); }}
           &gt;
             &lt;div className=&quot;tls-banner-page__banner-content&quot;&gt;
-              &lt;CrmAlertWarning className=&quot;tls-banner-page__banner-icon&quot; width={18} height={18} aria-hidden=&quot;true&quot; focusable=&quot;false&quot; /&gt;
+              &lt;svg className=&quot;tls-banner-page__banner-icon&quot; width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 25 25&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M23.394 20.045L14.2572 3.23334C13.5 1.84004 11.5 1.84004 10.7428 3.23333L1.60599 20.045C0.881713 21.3776 1.84647 23 3.36324 23H21.6368C23.1535 23 24.1183 21.3777 23.394 20.045Z&quot; fill=&quot;#EDA114&quot; /&gt;&lt;circle cx=&quot;1.5&quot; cy=&quot;1.5&quot; r=&quot;1.5&quot; transform=&quot;matrix(1 0 0 -1 11 20)&quot; fill=&quot;white&quot; /&gt;&lt;path d=&quot;M11 9.28571L12.2055 15.4855C12.2684 15.8092 12.7316 15.8092 12.7945 15.4855L14 9.28571C14 8.85714 13.7 8 12.5 8C11.3 8 11 8.85714 11 9.28571Z&quot; fill=&quot;white&quot; /&gt;&lt;/svg&gt;
               &lt;p className=&quot;tls-banner-page__banner-text&quot;&gt;
                 {BANNER_MESSAGE_BEFORE_DATE}
                 &lt;strong className=&quot;tls-banner-page__banner-date&quot;&gt;{BANNER_DATE}&lt;/strong&gt;
-                {BANNER_MESSAGE_AFTER_DATE}
+                {BANNER_MESSAGE_AFTER_DATE}{&quot; &quot;}
+                &lt;a className=&quot;tls-banner-page__banner-link&quot; href=&quot;#&quot; onClick={(e) =&gt; e.preventDefault()}&gt;{BANNER_LEARN_MORE}&lt;/a&gt;
               &lt;/p&gt;
             &lt;/div&gt;
             &lt;button type=&quot;button&quot; className=&quot;tls-banner-page__banner-close&quot; aria-label=&quot;Close banner&quot; onClick={() =&gt; setBannerClosing(true)}&gt;
@@ -22424,11 +22425,12 @@ export function TlsBanner({ bannerInWorkspace = false }: { bannerInWorkspace?: b
                     onAnimationEnd={(e) =&gt; { if (e.target === e.currentTarget &amp;&amp; bannerClosing) setBannerOpen(false); }}
                   &gt;
                     &lt;div className=&quot;tls-banner-page__banner-content&quot;&gt;
-                      &lt;CrmAlertWarning className=&quot;tls-banner-page__banner-icon&quot; width={18} height={18} aria-hidden=&quot;true&quot; focusable=&quot;false&quot; /&gt;
+                      &lt;svg className=&quot;tls-banner-page__banner-icon&quot; width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 25 25&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M23.394 20.045L14.2572 3.23334C13.5 1.84004 11.5 1.84004 10.7428 3.23333L1.60599 20.045C0.881713 21.3776 1.84647 23 3.36324 23H21.6368C23.1535 23 24.1183 21.3777 23.394 20.045Z&quot; fill=&quot;#EDA114&quot; /&gt;&lt;circle cx=&quot;1.5&quot; cy=&quot;1.5&quot; r=&quot;1.5&quot; transform=&quot;matrix(1 0 0 -1 11 20)&quot; fill=&quot;white&quot; /&gt;&lt;path d=&quot;M11 9.28571L12.2055 15.4855C12.2684 15.8092 12.7316 15.8092 12.7945 15.4855L14 9.28571C14 8.85714 13.7 8 12.5 8C11.3 8 11 8.85714 11 9.28571Z&quot; fill=&quot;white&quot; /&gt;&lt;/svg&gt;
                       &lt;p className=&quot;tls-banner-page__banner-text&quot;&gt;
                         {BANNER_MESSAGE_BEFORE_DATE}
                         &lt;strong className=&quot;tls-banner-page__banner-date&quot;&gt;{BANNER_DATE}&lt;/strong&gt;
-                        {BANNER_MESSAGE_AFTER_DATE}
+                        {BANNER_MESSAGE_AFTER_DATE}{&quot; &quot;}
+                &lt;a className=&quot;tls-banner-page__banner-link&quot; href=&quot;#&quot; onClick={(e) =&gt; e.preventDefault()}&gt;{BANNER_LEARN_MORE}&lt;/a&gt;
                       &lt;/p&gt;
                     &lt;/div&gt;
                     &lt;button type=&quot;button&quot; className=&quot;tls-banner-page__banner-close&quot; aria-label=&quot;Close banner&quot; onClick={() =&gt; setBannerClosing(true)}&gt;
@@ -22578,7 +22580,6 @@ export const BannerExcludesLeftPanel: Story = {
                 </div>
                 <pre><code>import {
     Button,
-    CrmAlertWarning,
     Dropdown,
     MessageInfo,
     NextGenLeftMenu,
@@ -38778,13 +38779,13 @@ export const SendDashboardScheduler = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  13 | import &#39;./TlsBanner.css&#39;;
-  14 |
-&gt; 15 | const meta = {
+  12 | import &#39;./TlsBanner.css&#39;;
+  13 |
+&gt; 14 | const meta = {
      | ^
-  16 |   title: &#39;Work Items/TLS Banner&#39;,
-  17 |   includeStories: [&#39;Default&#39;, &#39;BannerExcludesLeftPanel&#39;],
-  18 |   parameters: {
+  15 |   title: &#39;Work Items/TLS Banner&#39;,
+  16 |   includeStories: [&#39;Default&#39;, &#39;BannerExcludesLeftPanel&#39;],
+  17 |   parameters: {
 
 ./src/design-system/patterns/TlsBanner.stories.tsx:
 import { useId, useState } from &#39;react&#39;;
@@ -38795,7 +38796,6 @@ import { NextGenLeftMenu } from &#39;../components/NextGenLeftMenu/NextGenLeftMe
 import { WMSBar } from &#39;../components/WMSBar/WMSBar&#39;;
 import { MessageInfo } from &#39;../components/MessageInfo/MessageInfo&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
-import { CrmAlertWarning } from &#39;../foundations/icons/Icons&#39;;
 import { crmIconMap } from &#39;../foundations/icons/CrmCatalog&#39;;
 import { Button } from &#39;../components/Button/Button&#39;;
 import { SetupTable } from &#39;../components/Table/Table&#39;;
@@ -38840,6 +38840,7 @@ const MoreOptionsIcon = crmIconMap.CrmMoreHr;
 const BANNER_MESSAGE_BEFORE_DATE = &#39;Zoho CRM is ending support for weak security protocols. Update older browsers and API clients by &#39;;
 const BANNER_DATE = &#39;December 31, 2026&#39;;
 const BANNER_MESSAGE_AFTER_DATE = &#39;, to keep access.&#39;;
+const BANNER_LEARN_MORE = &#39;Learn more&#39;;
 
 const ACTIVITY_VIEWS = [
   { value: &#39;week&#39;, label: &#39;My open activities for this week&#39; },
@@ -38911,11 +38912,12 @@ export function TlsBanner({ bannerInWorkspace = false }: { bannerInWorkspace?: b
             onAnimationEnd={(e) =&gt; { if (e.target === e.currentTarget &amp;&amp; bannerClosing) setBannerOpen(false); }}
           &gt;
             &lt;div className=&quot;tls-banner-page__banner-content&quot;&gt;
-              &lt;CrmAlertWarning className=&quot;tls-banner-page__banner-icon&quot; width={18} height={18} aria-hidden=&quot;true&quot; focusable=&quot;false&quot; /&gt;
+              &lt;svg className=&quot;tls-banner-page__banner-icon&quot; width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 25 25&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M23.394 20.045L14.2572 3.23334C13.5 1.84004 11.5 1.84004 10.7428 3.23333L1.60599 20.045C0.881713 21.3776 1.84647 23 3.36324 23H21.6368C23.1535 23 24.1183 21.3777 23.394 20.045Z&quot; fill=&quot;#EDA114&quot; /&gt;&lt;circle cx=&quot;1.5&quot; cy=&quot;1.5&quot; r=&quot;1.5&quot; transform=&quot;matrix(1 0 0 -1 11 20)&quot; fill=&quot;white&quot; /&gt;&lt;path d=&quot;M11 9.28571L12.2055 15.4855C12.2684 15.8092 12.7316 15.8092 12.7945 15.4855L14 9.28571C14 8.85714 13.7 8 12.5 8C11.3 8 11 8.85714 11 9.28571Z&quot; fill=&quot;white&quot; /&gt;&lt;/svg&gt;
               &lt;p className=&quot;tls-banner-page__banner-text&quot;&gt;
                 {BANNER_MESSAGE_BEFORE_DATE}
                 &lt;strong className=&quot;tls-banner-page__banner-date&quot;&gt;{BANNER_DATE}&lt;/strong&gt;
-                {BANNER_MESSAGE_AFTER_DATE}
+                {BANNER_MESSAGE_AFTER_DATE}{&quot; &quot;}
+                &lt;a className=&quot;tls-banner-page__banner-link&quot; href=&quot;#&quot; onClick={(e) =&gt; e.preventDefault()}&gt;{BANNER_LEARN_MORE}&lt;/a&gt;
               &lt;/p&gt;
             &lt;/div&gt;
             &lt;button type=&quot;button&quot; className=&quot;tls-banner-page__banner-close&quot; aria-label=&quot;Close banner&quot; onClick={() =&gt; setBannerClosing(true)}&gt;
@@ -38945,11 +38947,12 @@ export function TlsBanner({ bannerInWorkspace = false }: { bannerInWorkspace?: b
                     onAnimationEnd={(e) =&gt; { if (e.target === e.currentTarget &amp;&amp; bannerClosing) setBannerOpen(false); }}
                   &gt;
                     &lt;div className=&quot;tls-banner-page__banner-content&quot;&gt;
-                      &lt;CrmAlertWarning className=&quot;tls-banner-page__banner-icon&quot; width={18} height={18} aria-hidden=&quot;true&quot; focusable=&quot;false&quot; /&gt;
+                      &lt;svg className=&quot;tls-banner-page__banner-icon&quot; width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 25 25&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M23.394 20.045L14.2572 3.23334C13.5 1.84004 11.5 1.84004 10.7428 3.23333L1.60599 20.045C0.881713 21.3776 1.84647 23 3.36324 23H21.6368C23.1535 23 24.1183 21.3777 23.394 20.045Z&quot; fill=&quot;#EDA114&quot; /&gt;&lt;circle cx=&quot;1.5&quot; cy=&quot;1.5&quot; r=&quot;1.5&quot; transform=&quot;matrix(1 0 0 -1 11 20)&quot; fill=&quot;white&quot; /&gt;&lt;path d=&quot;M11 9.28571L12.2055 15.4855C12.2684 15.8092 12.7316 15.8092 12.7945 15.4855L14 9.28571C14 8.85714 13.7 8 12.5 8C11.3 8 11 8.85714 11 9.28571Z&quot; fill=&quot;white&quot; /&gt;&lt;/svg&gt;
                       &lt;p className=&quot;tls-banner-page__banner-text&quot;&gt;
                         {BANNER_MESSAGE_BEFORE_DATE}
                         &lt;strong className=&quot;tls-banner-page__banner-date&quot;&gt;{BANNER_DATE}&lt;/strong&gt;
-                        {BANNER_MESSAGE_AFTER_DATE}
+                        {BANNER_MESSAGE_AFTER_DATE}{&quot; &quot;}
+                &lt;a className=&quot;tls-banner-page__banner-link&quot; href=&quot;#&quot; onClick={(e) =&gt; e.preventDefault()}&gt;{BANNER_LEARN_MORE}&lt;/a&gt;
                       &lt;/p&gt;
                     &lt;/div&gt;
                     &lt;button type=&quot;button&quot; className=&quot;tls-banner-page__banner-close&quot; aria-label=&quot;Close banner&quot; onClick={() =&gt; setBannerClosing(true)}&gt;
@@ -39099,7 +39102,6 @@ export const BannerExcludesLeftPanel: Story = {
                 </div>
                 <pre><code>import {
     Button,
-    CrmAlertWarning,
     Dropdown,
     MessageInfo,
     NextGenLeftMenu,
