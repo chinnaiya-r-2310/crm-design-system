@@ -49,8 +49,11 @@ export function Tooltip({
   wrapperClassName,
   as: Wrapper = 'span',
   maxWidth,
+  /** Milliseconds to wait after hover/focus before showing. Hiding is immediate. */
+  delay = 0,
 }) {
   const [visible, setVisible] = useState(false);
+  const showTimerRef = useRef(null);
   const [rect, setRect] = useState(null);
   const [effectivePlacement, setEffectivePlacement] = useState(placement);
   const wrapperRef = useRef(null);
@@ -66,12 +69,27 @@ export function Tooltip({
     }
   }, [followCursor, placement]);
 
+  const clearShowTimer = () => {
+    clearTimeout(showTimerRef.current);
+    showTimerRef.current = null;
+  };
+
   const show = useCallback((event) => {
     updatePosition(event);
-    setVisible(true);
-  }, [updatePosition]);
+    clearShowTimer();
+    if (delay > 0) {
+      showTimerRef.current = setTimeout(() => setVisible(true), delay);
+    } else {
+      setVisible(true);
+    }
+  }, [updatePosition, delay]);
 
-  const hide = useCallback(() => setVisible(false), []);
+  const hide = useCallback(() => {
+    clearShowTimer();
+    setVisible(false);
+  }, []);
+
+  useEffect(() => clearShowTimer, []);
 
   // For alwaysVisible (Storybook stories), compute rect after mount
   useEffect(() => {

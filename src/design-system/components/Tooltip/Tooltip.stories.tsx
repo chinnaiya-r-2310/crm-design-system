@@ -32,6 +32,11 @@ const meta: Meta<typeof Tooltip> = {
     },
     content: { control: 'text', table: { category: 'Content' } },
     showIcon: { control: 'boolean', table: { category: 'Content' } },
+    delay: {
+      control: { type: 'number', min: 0, step: 100 },
+      description: 'Milliseconds to wait after hover/focus before showing. Hiding is immediate.',
+      table: { category: 'Behavior', defaultValue: { summary: '0' } },
+    },
     alwaysVisible: { control: 'boolean', table: { category: 'Testing', defaultValue: { summary: 'false' } } },
   },
 };
@@ -53,6 +58,31 @@ export const Black: Story = {
       </Tooltip>
     </div>
   ),
+};
+
+export const WithDelay: Story = {
+  name: 'With delay',
+  args: {
+    content: 'Appears after 500ms',
+    variant: 'black',
+    placement: 'top',
+    delay: 500,
+  },
+  render: (args) => (
+    <div style={{ padding: '40px' }}>
+      <Tooltip {...args}>
+        <Button variant="default">Hover and wait</Button>
+      </Tooltip>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Hover and wait' });
+    fireEvent.mouseEnter(trigger.parentElement!);
+    expect(document.querySelector('[role="tooltip"]')).toBeNull();
+    await waitFor(() => expect(document.querySelector('[role="tooltip"]')).not.toBeNull(), { timeout: 1500 });
+    fireEvent.mouseLeave(trigger.parentElement!);
+    await waitFor(() => expect(document.querySelector('[role="tooltip"]')).toBeNull());
+  },
 };
 
 export const White: Story = {

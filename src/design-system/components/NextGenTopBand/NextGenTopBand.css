@@ -75,7 +75,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  height: 30px;
+  height: 32px;
   padding: 0 10px;
   border: 1px solid transparent;
   border-radius: 6px;
@@ -83,7 +83,7 @@
   width: 237px;
   flex-shrink: 0;
   box-sizing: border-box;
-  color: var(--ds-text-muted, #8B9BB8);
+  color: var(--ds-text-label, #616E88);
   transition: border-color 150ms ease, background 150ms ease, box-shadow 150ms ease;
   cursor: pointer;
   font-family: inherit;
@@ -102,7 +102,7 @@
 }
 
 .ngtb-search-placeholder {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ds-text-muted, #8B9BB8);
 }
 

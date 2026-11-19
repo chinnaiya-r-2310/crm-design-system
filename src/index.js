@@ -13,6 +13,7 @@ export { DatePicker } from './design-system/components/DatePicker';
 export { Dropdown } from './design-system/components/Dropdown';
 export { FormSection } from './design-system/components/FormSection';
 export { Icon, iconMap } from './design-system/components/Icon';
+export { IconPicker, ICON_PICKER_TEXT, INDUSTRY_ICONS, CUSTOM_BUTTON_ICONS } from './design-system/components/IconPicker';
 export { Input, DateTimeInput } from './design-system/components/Input';
 export { MergeField } from './design-system/components/MergeField';
 export { MessageBox } from './design-system/components/MessageBox';

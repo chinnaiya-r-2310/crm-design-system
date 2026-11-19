@@ -31,7 +31,7 @@ function TopBar() {
     <header className="layout-editor__topbar">
       <div className="layout-editor__topbar-start">
         <button type="button" className="layout-editor__icon-btn" aria-label="Back to Modules">
-          <Icon name="CrmVerticalBackArrow" size={16} />
+          <Icon name="LibArrowLeft" size={16} />
         </button>
         <span className="layout-editor__module">{MODULE_NAME}</span>
         <span className="layout-editor__topbar-divider" aria-hidden="true" />
@@ -40,12 +40,12 @@ function TopBar() {
           <Icon name="ChevronDownFilled" size={12} />
         </button>
         <button type="button" className="layout-editor__icon-btn" aria-label="Layout settings">
-          <Icon name="CrmVerticalGearSettings" size={16} />
+          <Icon name="LibGear2" size={16} />
         </button>
       </div>
       <div className="layout-editor__topbar-end">
         <button type="button" className="layout-editor__icon-btn" aria-label="Layout rules">
-          <Icon name="CrmMaskLayoutrule" size={16} />
+          <Icon name="LibRules" size={16} />
         </button>
         <Button variant="default">Cancel</Button>
         <Button variant="default">Save and Close</Button>
@@ -77,12 +77,12 @@ function PaletteTile({ item }) {
         <span className="layout-editor__tile-label">{item.label}</span>
         {item.isNew && (
           <span className="layout-editor__tile-sparkle">
-            <Icon name="CrmVerticalSparkle" size={12} aria-label="New" />
+            <Icon name="LibSparkle4pt" size={12} aria-label="New" />
           </span>
         )}
         {item.warning && (
           <span className="layout-editor__tile-warning">
-            <Icon name="CrmVerticalWarningTriangle" size={14} aria-label="Limited availability" />
+            <Icon name="LibWarning" size={14} aria-label="Limited availability" />
           </span>
         )}
       </button>
@@ -125,7 +125,7 @@ function Palette() {
       <button type="button" className="layout-editor__unused">
         <span className="layout-editor__unused-label">
           Unused Items
-          <Icon name="CrmVerticalArrowForward" size={14} />
+          <Icon name="LibChevronRight" size={14} />
         </span>
         <span className="layout-editor__count" aria-label={`${UNUSED_ITEMS_COUNT} items`}>{UNUSED_ITEMS_COUNT}</span>
       </button>
@@ -153,12 +153,12 @@ function FieldRow({ field, showHiddenNote }) {
         </span>
         {field.hint && <span className="layout-editor__field-hint">{field.hint}</span>}
         <button type="button" className="layout-editor__more" aria-label={`More options for ${field.label}`}>
-          <Icon name="CrmVerticalMore" size={14} />
+          <Icon name="LibMore" size={14} />
         </button>
       </div>
       {showHiddenNote && field.hidden && (
         <p className="layout-editor__hidden-note">
-          <Icon name="Info" size={12} />
+          <Icon name="LibInfo" size={12} />
           This field will be hidden during creation/editing.
         </p>
       )}
@@ -204,7 +204,7 @@ function LeadImageSection() {
         <div className="layout-editor__avatar">
           <Icon name="UserAvatar" size={64} />
           <button type="button" className="layout-editor__avatar-more" aria-label="Lead image options">
-            <Icon name="CrmVerticalMore" size={12} />
+            <Icon name="LibMore" size={12} />
           </button>
         </div>
       )}
@@ -224,7 +224,7 @@ function CreateCanvas() {
             <Button variant="default">Save and New</Button>
             <Button variant="primary">Save</Button>
           </div>
-          <Button variant="link-primary" frontIcon={<Icon name="CrmSwap" size={14} />}>
+          <Button variant="link-primary" frontIcon={<Icon name="LibSwap" size={14} />}>
             Manage Edit Page Buttons
           </Button>
         </div>
@@ -291,7 +291,7 @@ export function LayoutEditorPage({ initialView = 'create' }) {
           <div className="layout-editor__view-bar">
             <Tabs tabs={VIEW_TABS} activeTab={view} onChange={setView} />
             <button type="button" className="layout-editor__preview" aria-label="Preview layout">
-              <Icon name="CrmVerticalPreview" size={16} />
+              <Icon name="LibPreviewEyeSeeShow" size={16} />
             </button>
           </div>
           <div className="layout-editor__scroll">

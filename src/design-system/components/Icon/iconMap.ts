@@ -1,5 +1,7 @@
 import type { FC, SVGProps } from 'react';
 import { crmIconMap } from '../../foundations/icons/CrmCatalog';
+import { industryIconMap } from '../../foundations/icons/industryIcons';
+import { libraryIconMap } from '../../foundations/icons/libraryIcons';
 import {
   Mobile,
   Email,
@@ -69,6 +71,8 @@ export type SvgComponent = FC<SVGProps<SVGSVGElement>>;
 
 export const iconMap = {
   ...crmIconMap,
+  ...industryIconMap,
+  ...libraryIconMap,
   Mobile,
   Email,
   SourceClose,

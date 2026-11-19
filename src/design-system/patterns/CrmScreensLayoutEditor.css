@@ -184,11 +184,14 @@
   text-align: left;
   cursor: grab;
   box-sizing: border-box;
+  /* Knockout detail in library icons (clock hands, pin centre) matches the tile. */
+  --lib-icon-knockout: var(--ds-products-module-builder-default-field-bg-color);
 }
 
 .layout-editor__tile-btn:not(:disabled):hover {
   background: var(--ds-products-module-builder-hover-field-bg-color);
   border-color: var(--ds-products-module-builder-hover-field-border-color);
+  --lib-icon-knockout: var(--ds-products-module-builder-hover-field-bg-color);
 }
 
 .layout-editor__tile-btn:disabled {
@@ -413,11 +416,13 @@
   color: var(--ds-icon-primary-label-grey);
   cursor: grab;
   box-sizing: border-box;
+  --lib-icon-knockout: var(--ds-bg-common-white);
 }
 
 .layout-editor__field:hover {
   background: var(--ds-bg-scale-bg3);
   border-color: var(--ds-border-default);
+  --lib-icon-knockout: var(--ds-bg-scale-bg3);
 }
 
 .layout-editor__field--mandatory {

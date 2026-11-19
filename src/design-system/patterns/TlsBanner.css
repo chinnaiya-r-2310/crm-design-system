@@ -1,0 +1,249 @@
+/* Story-local layout for the TLS Banner work item. Composes existing components
+   (NextGenLeftMenu, NextGenTopBand, WMSBar, MessageInfo); no new component styles. */
+.tls-banner-page {
+  min-height: 100vh;
+  background: var(--ds-bg-common-bg);
+  color: var(--ds-text-base);
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  line-height: var(--ds-line-height-base);
+}
+.tls-banner-page *, .tls-banner-page *::before, .tls-banner-page *::after { box-sizing: border-box; }
+/* 40px strip: icon and message centred as a group; close button sits at the right edge. */
+.tls-banner-page__banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 40px;
+  padding: 0 calc(var(--ds-line-height-base) * 2);
+  background: var(--ds-icon-bg-orange-yellow);
+  border-bottom: thin solid var(--ds-border-lighter);
+  color: var(--ds-text-base);
+  font-size: var(--ds-font-size-base);
+  line-height: var(--ds-line-height-base);
+}
+/* Smooth close: the strip collapses, then the story unmounts it on animationend. */
+.tls-banner-page__banner.is-closing {
+  overflow: hidden;
+  animation: tls-banner-collapse 240ms ease-in forwards;
+}
+@keyframes tls-banner-collapse {
+  from { height: 40px; opacity: 1; }
+  to { height: 0; opacity: 0; border-bottom-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tls-banner-page__banner.is-closing { animation-duration: 1ms; }
+}
+.tls-banner-page__banner-content { display: flex; align-items: center; justify-content: center; gap: calc(var(--ds-line-height-base) / 2); min-width: 0; }
+.tls-banner-page__banner-icon { flex-shrink: 0; color: var(--ds-icon-primary-orange-yellow); }
+.tls-banner-page__banner-text { margin: 0; color: var(--ds-text-base); text-align: center; }
+.tls-banner-page__banner-date { font-weight: var(--ds-font-weight-semibold); }
+.tls-banner-page__banner-close {
+  position: absolute;
+  top: 50%;
+  right: var(--ds-line-height-base);
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ds-text-label);
+  cursor: pointer;
+}
+.tls-banner-page__banner-close:focus-visible { outline: 1px solid var(--ds-components-input-hover-outline, #A5ADCC); outline-offset: 2px; }
+.tls-banner-page__shell { display: flex; align-items: stretch; }
+.tls-banner-page__sidebar { position: sticky; top: 0; flex-shrink: 0; }
+.tls-banner-page__workspace { flex: 1; min-width: 0; }
+.tls-banner-page__workspace > header {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--ds-bg-common-card);
+}
+.tls-banner-page__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-line-height-base);
+  padding: var(--ds-line-height-base);
+  padding-top: calc(var(--ds-line-height-base) - 5px);
+  padding-bottom: calc(var(--ds-line-height-h2) * 3);
+}
+.tls-banner-page h1 {
+  margin: 0;
+  font-size: var(--ds-font-size-h1);
+  line-height: var(--ds-line-height-h1);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
+.tls-banner-page__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--ds-line-height-base);
+  box-sizing: border-box;
+  height: 38px;
+  padding-block: 0;
+}
+.tls-banner-page__welcome { display: flex; align-items: center; gap: var(--ds-line-height-base); min-width: 0; }
+.tls-banner-page__logo { display: block; height: 46px; width: auto; flex-shrink: 0; border: thin solid var(--ds-border-lightest); border-radius: 12px; }
+/* Round icon button used in the welcome row (refresh, more options). */
+.tls-banner-page__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: thin solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-text-label);
+  cursor: pointer;
+}
+/* Border only on hover; keyboard focus gets an outline so the border stays hover-only. */
+.tls-banner-page__icon-btn:hover {
+  border-color: var(--ds-components-input-hover-outline, #A5ADCC);
+  background: var(--ds-bg-common-card, #ffffff);
+}
+.tls-banner-page__icon-btn:focus { outline: none; }
+.tls-banner-page__icon-btn:focus-visible { outline: 1px solid var(--ds-components-input-hover-outline, #A5ADCC); outline-offset: 2px; }
+/* Manage columns icon button, shown at the right of each card header. */
+.tls-banner-page__manage-cols {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin-left: auto;
+  border: thin solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ds-text-label);
+  cursor: pointer;
+}
+.tls-banner-page__manage-cols:hover,
+.tls-banner-page__manage-cols:focus,
+.tls-banner-page__manage-cols:focus-visible,
+.tls-banner-page__manage-cols[aria-expanded="true"] {
+  border-color: var(--ds-components-input-hover-outline, #A5ADCC);
+  background: var(--ds-bg-common-card, #ffffff);
+  outline: none;
+}
+.tls-banner-page__heading-actions { display: flex; align-items: center; gap: calc(var(--ds-line-height-base) / 2); }
+.tls-banner-page__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  align-items: stretch;
+}
+/* Radius has no token in design-tokens.css; 6px matches the existing MessageInfo strip. */
+.tls-banner-page__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--ds-bg-common-card);
+  border: thin solid var(--ds-border-lightest);
+  border-radius: 12px;
+}
+/* Table first column lines up with the card title's left padding. */
+.tls-banner-page__panel .table-th:first-child,
+.tls-banner-page__panel .table-td:first-child {
+  padding-left: var(--ds-line-height-base);
+}
+/* Tables inside cards: no radius and no left/right border; the card provides the frame. */
+.tls-banner-page__panel .table-root {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+}
+/* Card heading area: sits inside the card, the table below it spans edge to edge. */
+.tls-banner-page__card-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: var(--ds-line-height-base);
+}
+/* Select cards: value text is styled like the h2 titles; border only on hover/focus.
+   Negative inline margin keeps the value text aligned with the titles. */
+.tls-banner-page__card-head--select .dropdown-trigger {
+  margin-inline: -8px;
+  padding-inline: 8px;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+.tls-banner-page__card-head--select .dropdown-trigger:hover,
+.tls-banner-page__card-head--select .dropdown-trigger:focus-visible,
+.tls-banner-page__card-head--select .dropdown-trigger[data-open] {
+  border-color: var(--ds-border-lightest);
+}
+.tls-banner-page__card-head--select .dropdown-trigger-value {
+  font-size: var(--ds-font-size-base);
+  line-height: var(--ds-line-height-base);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
+.tls-banner-page__panel h2 {
+  margin: 0;
+  font-size: var(--ds-font-size-base);
+  line-height: var(--ds-line-height-base);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
+@media (max-width: 1024px) {
+  .tls-banner-page__grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 768px) {
+  .tls-banner-page__sidebar { display: none; }
+  .tls-banner-page .wmsb-chat, .tls-banner-page .wmsb-icons { display: none; }
+}
+/* Standard MD button used for "more options": icon centred in the button. */
+.tls-banner-page__more-btn {
+  width: 32px;
+  padding: 0;
+  justify-content: center;
+}
+/* Icon-only: drop the empty label and its gap so the dots sit in the middle. */
+.tls-banner-page__more-btn .button-content-inner { gap: 0; justify-content: center; }
+.tls-banner-page__more-btn .button-label { display: none; }
+.tls-banner-page__more-btn svg { display: block; }
+
+/* Bottom row cards stretch to fill the space left below the top row. */
+.tls-banner-page__shell { min-height: calc(100vh - 40px); }
+.tls-banner-page__workspace { display: flex; flex-direction: column; }
+.tls-banner-page__main { flex: 1; }
+.tls-banner-page__grid { flex: 1; grid-template-rows: auto minmax(0, 1fr); }
+.tls-banner-page__panel { min-height: 0; }
+.tls-banner-page__panel > .table-root { flex: 1; }
+.tls-banner-page__panel > .table-root .table-h-scroll { height: 100%; }
+
+/* Table spans the full card width; the manage-columns cell is centred in its column. */
+.tls-banner-page__panel .table-root,
+.tls-banner-page__panel .table-h-scroll,
+.tls-banner-page__panel .table-table { width: 100% !important; }
+.tls-banner-page__panel .table-header-row th:last-child { padding: 0; text-align: center !important; vertical-align: middle; }
+.tls-banner-page__panel .table-header-row th:last-child .table-th-inner { justify-content: center; }
+.tls-banner-page__panel .tls-banner-page__manage-cols { margin: 0 auto; }
+.tls-banner-page__manage-cols svg { display: block; flex-shrink: 0; width: 16px; height: 16px; color: var(--ds-text-label); }
+
+/* Banner inside the workspace: it spans only the area right of the left panel. */
+.tls-banner-page__workspace > .tls-banner-page__banner { flex-shrink: 0; }
+.tls-banner-page__panel .table-header-row th:last-child .table-th-inner { display: flex; align-items: center; justify-content: center; padding: 0; width: 100%; box-sizing: border-box; }
+.tls-banner-page__panel .table-header-row th:last-child .table-th-label { display: flex; align-items: center; justify-content: center; width: 100%; }
+
