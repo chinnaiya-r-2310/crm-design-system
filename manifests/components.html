@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">21/60 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">55/60 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/380 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">21/60 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">55/60 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/381 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.9s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>6.9s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -10699,7 +10699,7 @@ tooltipDelay?: any = 500</code></pre>
       <div class="badges">
         <label for="c-23-design-system-components-input-props" class="badge ok as-toggle">7 prop types</label>
         
-        <label for="c-23-design-system-components-input-stories" class="badge ok as-toggle">25 stories</label>
+        <label for="c-23-design-system-components-input-stories" class="badge ok as-toggle">26 stories</label>
         
         
       </div>
@@ -10791,6 +10791,21 @@ width?: any = 390</code></pre>
               <div class="hint">Default state — horizontal layout, label present, no placeholder.
 Shows the standard form row at rest.</div>
               <pre><code>const Default = () =&gt; &lt;Input label=&quot;First Name&quot; width={670} layout=&quot;horizontal&quot; type=&quot;text&quot; /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Header input</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const HeaderInput = () =&gt; &lt;Input
+    variant=&quot;header&quot;
+    defaultValue=&quot;Untitled Joined Report&quot;
+    aria-label=&quot;Report title&quot;
+    onKeyDown={(event: React.KeyboardEvent&lt;HTMLInputElement&gt;) =&gt; {
+      if (event.key === &#39;Enter&#39;) event.currentTarget.blur();
+    }} /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -11183,12 +11198,12 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
       <div class="badges">
         <label for="c-24-work-items-joined-reports-revamp-err" class="badge err as-toggle">prop type error</label>
         <label for="c-24-work-items-joined-reports-revamp-info" class="badge info as-toggle">1 info</label>
-        <label for="c-24-work-items-joined-reports-revamp-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-24-work-items-joined-reports-revamp-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/design-system/patterns/JoinedReportsRevamp.stories.tsx">work-items-joined-reports-revamp · ./src/design-system/patterns/JoinedReportsRevamp.stories.tsx</div>
+    <div class="meta" title="./src/design-system/patterns/JoinedReportsRevampV2.stories.tsx">work-items-joined-reports-revamp · ./src/design-system/patterns/JoinedReportsRevampV2.stories.tsx</div>
     
     
     
@@ -11209,34 +11224,35 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  747 | // ─────────────────────────────────────────────────────────────────────────────
-  748 |
-&gt; 749 | const meta = {
+  967 | // ─────────────────────────────────────────────────────────────────────────────
+  968 |
+&gt; 969 | const meta = {
       | ^
-  750 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
-  751 |   parameters: {
-  752 |     layout: &#39;fullscreen&#39;,
+  970 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
+  971 |   parameters: {
+  972 |     layout: &#39;fullscreen&#39;,
 
-./src/design-system/patterns/JoinedReportsRevamp.stories.tsx:
+./src/design-system/patterns/JoinedReportsRevampV2.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
 import type { ChangeEvent } from &#39;react&#39;;
 import { createPortal } from &#39;react-dom&#39;;
 import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
-import { expect, userEvent, within } from &#39;storybook/test&#39;;
+import { expect, userEvent, waitFor, within } from &#39;storybook/test&#39;;
 import { Button } from &#39;../components/Button/Button&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
 import { NextGenTopBand } from &#39;../components/NextGenTopBand/NextGenTopBand&#39;;
+import { NextGenLeftMenu } from &#39;../components/NextGenLeftMenu/NextGenLeftMenu&#39;;
 import { FormTable } from &#39;../components/FormTable/FormTable&#39;;
 import { Icon } from &#39;../components/Icon/Icon&#39;;
 import { Input } from &#39;../components/Input/Input&#39;;
+import { Radio } from &#39;../components/Radio/Radio&#39;;
 import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
 import { Modal } from &#39;../components/Modal/Modal&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
 import { Tabs } from &#39;../components/Tabs/Tabs&#39;;
 import { Dragger } from &#39;../components/Dragger/Dragger&#39;;
-import { Stepper } from &#39;../components/Stepper/Stepper&#39;;
 import { ChevronDownFilled, Info } from &#39;../foundations/icons/Icons&#39;;
-import &#39;./JoinedReportsRevamp.css&#39;;
+import &#39;./JoinedReportsRevampV2.css&#39;;
 import &#39;./CrossModuleReports.css&#39;;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -11262,8 +11278,6 @@ const FIELD_OPTIONS = [
   &#39;Owner&#39;, &#39;Phone&#39;, &#39;Probability&#39;, &#39;Rating&#39;, &#39;Region&#39;, &#39;Sales Channel&#39;, &#39;State&#39;, &#39;Website&#39;,
 ].map(name =&gt; ({ value: name, label: name }));
 
-const STEP_LABELS = [&#39;Select Reports&#39;, &#39;Grouping&#39;];
-
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
 // ─────────────────────────────────────────────────────────────────────────────
@@ -11272,7 +11286,7 @@ type JoinStep = &#39;select&#39; | &#39;group&#39;;
 type ReportRow = { id: number; reportId: string; error?: string };
 type GroupRow = { id: number; name: string; fields: string[] };
 type Banner = { id: number; variant: &#39;info&#39; | &#39;success&#39;; message: string };
-type Args = { primaryReportName: string; initialStep: JoinStep; initialReportCount: number; startOpen?: boolean; saved?: boolean };
+type Args = { primaryReportName: string; initialStep: JoinStep; initialReportCount: number; initialGroupCount?: number; startOpen?: boolean; saved?: boolean };
 
 function reportNameOf(row: ReportRow, primaryReportName: string) {
   if (row.reportId === PRIMARY_ID) return primaryReportName;
@@ -11298,7 +11312,7 @@ const GROUP_COLUMN_WIDTH = 270;
 function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, open, mode = &#39;create&#39;, onClose, onNotify, onSaved }: Args &amp; {
   open: boolean; mode?: &#39;create&#39; | &#39;edit&#39;; onClose: () =&gt; void;
   onNotify: (variant: Banner[&#39;variant&#39;], message: string) =&gt; void;
-  onSaved: (name: string) =&gt; void;
+  onSaved: (name: string, reports: string[]) =&gt; void;
 }) {
   const [step, setStep] = useState&lt;JoinStep&gt;(initialStep);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -11306,7 +11320,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
   const isEdit = mode === &#39;edit&#39;;
   const prefilledFields = (offset: number) =&gt;
     Array.from({ length: initialReportCount }, (_, index) =&gt; FIELD_OPTIONS[(index + offset) % FIELD_OPTIONS.length].value);
-  const [name, setName] = useState(isEdit ? &#39;Monthly Sales Pipeline&#39; : &#39;Untitled Joined Report&#39;);
+  const name = &#39;Untitled Joined Report&#39;;
   const [rows, setRows] = useState&lt;ReportRow[]&gt;(() =&gt; initialRows(initialReportCount, initialStep, isEdit));
   const [groups, setGroups] = useState&lt;GroupRow[]&gt;(() =&gt; {
     if (isEdit) {
@@ -11347,14 +11361,6 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
     return next;
   });
 
-  const goNext = () =&gt; {
-    const checked = rows.map(row =&gt; (row.reportId ? { ...row, error: undefined } : { ...row, error: EMPTY_REPORT_MESSAGE }));
-    setRows(checked);
-    if (checked.some(row =&gt; row.error)) return;
-    if (groups.length === 0) setGroups([{ id: newId(), name: &#39;&#39;, fields: [] }]);
-    setStep(&#39;group&#39;);
-  };
-
   // ── Step 2 handlers (group names and field choices are keyed by id, so they survive add/remove) ──
   const addGroup = () =&gt; setGroups(current =&gt; [...current, { id: newId(), name: &#39;&#39;, fields: [] }]);
   const moveGroup = (fromId: number, toId: number) =&gt; setGroups(current =&gt; {
@@ -11368,8 +11374,10 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
   });
   useEffect(() =&gt; {
     if (!open) return;
-    const targetId = step === &#39;group&#39; ? &#39;jr-group-name-first&#39; : &#39;jr-name-input&#39;;
-    const timer = window.setTimeout(() =&gt; document.getElementById(targetId)?.focus(), 0);
+    const timer = window.setTimeout(() =&gt; {
+      if (step === &#39;group&#39;) document.getElementById(&#39;jrv2-group-name-first&#39;)?.focus();
+      else document.querySelector&lt;HTMLButtonElement&gt;(&#39;.jrv2-modal [aria-label=&quot;Report 2&quot;]&#39;)?.focus();
+    }, 0);
     return () =&gt; window.clearTimeout(timer);
   }, [open, step]);
   const removeGroup = (id: number) =&gt; setGroups(current =&gt; current.filter(group =&gt; group.id !== id));
@@ -11384,8 +11392,12 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
     }));
 
   const save = () =&gt; {
+    const checked = rows.map(row =&gt; (row.reportId ? { ...row, error: undefined } : { ...row, error: EMPTY_REPORT_MESSAGE }));
+    setRows(checked);
+    if (checked.some(row =&gt; row.error)) return;
+
     const keys = new Set&lt;string&gt;();
-    groups.forEach(group =&gt; {
+    (step === &#39;group&#39; ? groups : []).forEach(group =&gt; {
       if (!group.name.trim()) keys.add(`${group.id}:name`);
       rows.forEach((_, reportIndex) =&gt; {
         if (!group.fields[reportIndex]) keys.add(`${group.id}:${reportIndex}`);
@@ -11396,11 +11408,9 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
       return;
     }
     setErrorKeys(new Set());
-    onSaved(name.trim() || &#39;Untitled Joined Report&#39;);
+    onSaved(name.trim() || &#39;Untitled Joined Report&#39;, rows.map(row =&gt; reportNameOf(row, primaryReportName)));
   };
 
-  const reportCount = rows.length;
-  const lastRowIndex = rows.length - 1;
   const lastGroupIndex = groups.length - 1;
 
   return (
@@ -11409,36 +11419,20 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
       isOpen={open}
       title={isEdit ? &#39;Edit Joined Report&#39; : &#39;Create Joined Report&#39;}
       width={step === &#39;group&#39; ? GROUP_MODAL_BASE_WIDTH + GROUP_COLUMN_WIDTH * (rows.length + 1) : 600}
-      className=&quot;jr-modal&quot;
+      className=&quot;jrv2-modal&quot;
       disableAutoFocus
       closeOnEscape={false}
       onClose={onClose}
-      saveLabel={step === &#39;select&#39; ? &#39;Next&#39; : &#39;Save&#39;}
-      onSave={step === &#39;select&#39; ? goNext : save}
+      saveLabel=&quot;Save&quot;
+      onSave={save}
       footerStart={step === &#39;group&#39; ? (
         &lt;Button variant=&quot;default&quot; onClick={() =&gt; setStep(&#39;select&#39;)}&gt;Back&lt;/Button&gt;
       ) : undefined}
     &gt;
-      &lt;div className=&quot;jr-body&quot;&gt;
-        &lt;div className=&quot;jr-stepper-wrap&quot;&gt;
-          &lt;Stepper steps={STEP_LABELS} currentStep={step === &#39;select&#39; ? 0 : 1} /&gt;
-        &lt;/div&gt;
-
+      &lt;div className=&quot;jrv2-body&quot;&gt;
         {step === &#39;select&#39; &amp;&amp; (
           &lt;&gt;
-            &lt;p className=&quot;jr-intro&quot;&gt;View multiple reports at once by creating a Joined Report.&lt;/p&gt;
-            &lt;div className=&quot;jr-name-row&quot;&gt;
-              &lt;span className=&quot;jr-name-label&quot;&gt;Joined Report Name&lt;/span&gt;
-              &lt;Input
-                width={390}
-                placeholder=&quot;Untitled Joined Report&quot;
-                aria-label=&quot;Joined Report Name&quot;
-                id=&quot;jr-name-input&quot;
-                autoFocus
-                value={name}
-                onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setName(event.target.value)}
-              /&gt;
-            &lt;/div&gt;
+            &lt;p className=&quot;jrv2-intro&quot;&gt;View multiple reports at once by creating a Joined Report.&lt;/p&gt;
             &lt;FormTable
               ariaLabel=&quot;Reports&quot;
               headers={[&#39;Report&#39;]}
@@ -11482,8 +11476,8 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
 
         {step === &#39;group&#39; &amp;&amp; (
           &lt;&gt;
-            &lt;div className=&quot;jr-group-head&quot;&gt;
-              &lt;p className=&quot;jr-section-heading&quot;&gt;Group records by field to combine each report&#39;s fields under a common name.&lt;/p&gt;
+            &lt;div className=&quot;jrv2-group-head&quot;&gt;
+              &lt;p className=&quot;jrv2-section-heading&quot;&gt;Group records by field to combine each report&#39;s fields under a common name.&lt;/p&gt;
               &lt;Button variant=&quot;outline-blue&quot; onClick={() =&gt; setPreviewOpen(true)}&gt;
                 Preview
               &lt;/Button&gt;
@@ -11500,7 +11494,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
                     placement=&quot;top&quot;
                     wrapperStyle={{ display: &#39;block&#39;, maxWidth: &#39;100%&#39; }}
                   &gt;
-                    &lt;span className=&quot;jr-col-text&quot;&gt;{`Map Field For &quot;${reportNameOf(row, primaryReportName)}&quot;`}&lt;/span&gt;
+                    &lt;span className=&quot;jrv2-col-text&quot;&gt;{`Map Field For &quot;${reportNameOf(row, primaryReportName)}&quot;`}&lt;/span&gt;
                   &lt;/Tooltip&gt;
                 )),
               ]}
@@ -11513,7 +11507,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
                   key=&quot;name&quot;
                   width={250}
                   placeholder=&quot;Enter name&quot;
-                  id={groupIndex === 0 ? &#39;jr-group-name-first&#39; : undefined}
+                  id={groupIndex === 0 ? &#39;jrv2-group-name-first&#39; : undefined}
                   aria-label={`Group ${groupIndex + 1} name`}
                   error={errorKeys.has(`${group.id}:name`) &amp;&amp; !group.name.trim()}
                   helperText={errorKeys.has(`${group.id}:name`) &amp;&amp; !group.name.trim() ? &#39;Enter a group name&#39; : undefined}
@@ -11553,7 +11547,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
       showFooter={false}
       onClose={() =&gt; setPreviewOpen(false)}
     &gt;
-      &lt;table className=&quot;jr-preview-table&quot; aria-label=&quot;Joined report preview&quot;&gt;
+      &lt;table className=&quot;jrv2-preview-table&quot; aria-label=&quot;Joined report preview&quot;&gt;
         &lt;thead&gt;
           &lt;tr&gt;
             &lt;th&gt;Month &amp;amp; Year&lt;/th&gt;
@@ -11702,16 +11696,6 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
 // Background page: the report builder the Joined Report modal opens over
 // ─────────────────────────────────────────────────────────────────────────────
 
-const BUILDER_NAV = [
-  { label: &#39;Home&#39;, icon: &#39;CrmNewhome&#39;, color: &#39;var(--ds-icon-primary-link-blue)&#39; },
-  { label: &#39;Workqueue&#39;, icon: &#39;CrmNewworkqueue&#39;, color: &#39;var(--ds-icon-primary-orange)&#39; },
-  { label: &#39;Reports&#39;, icon: &#39;CrmNewReport&#39;, color: &#39;var(--ds-icon-primary-pink)&#39;, active: true },
-  { label: &#39;Dashboards&#39;, icon: &#39;CrmNewDashboard&#39;, color: &#39;var(--ds-icon-primary-purple)&#39; },
-  { label: &#39;My Requests&#39;, icon: &#39;CrmNewworkqueue&#39;, color: &#39;var(--ds-icon-primary-green)&#39; },
-  { label: &#39;Agents&#39;, icon: &#39;CrmZiaNewAgent&#39;, color: &#39;var(--ds-icon-primary-orange-yellow)&#39; },
-  { label: &#39;MCP&#39;, icon: &#39;CrmCpq&#39;, color: &#39;var(--ds-icon-primary-greenish-cyan)&#39; },
-];
-
 const BUILDER_LEADS = [
   &#39;Karpaska&#39;, &#39;Kipsta&#39;, &#39;Kiosha&#39;, &#39;Kingdom of Calm&#39;, &#39;Killer&#39;, &#39;Kid Cudi&#39;, &#39;Khabardaar.com&#39;, &#39;Keewi&#39;,
   &#39;KeepSake&#39;, &#39;Keepsake&#39;, &#39;Kalenji&#39;, &#39;Karnik Couture&#39;, &#39;Karma T Shirts&#39;, &#39;Karlsburg&#39;, &#39;Kappa&#39;, &#39;Kaplor&#39;, &#39;Kapdaclick.Com&#39;,
@@ -11719,10 +11703,22 @@ const BUILDER_LEADS = [
 
 const BUILDER_COLUMNS = [&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;];
 
+// Stable preview values; running a report is required for actual aggregates.
+const JOINED_PREVIEW_METRICS = [
+  [&#39;Count of contacts&#39;, &#39;Avg time spent&#39;],
+  [&#39;Count of tasks&#39;],
+  [&#39;Count of site visits&#39;, &#39;Sum of duration&#39;],
+];
+const JOINED_PREVIEW_MONTHS = [
+  { label: &#39;Jul 2026&#39;, rows: [[80, 80, 58, 74, 120], [61, 179, 58, 102, 90], [79, 52, 93, 110, 180], [48, 101, 68, 5, 45]] },
+  { label: &#39;Aug 2026&#39;, rows: [[174, 6, 93, 37, 60], [178, 109, 150, 21, 75], [55, 86, 56, 79, 150], [109, 117, 153, 33, 105]] },
+  { label: &#39;Sep 2026&#39;, rows: [[180, 102, 109, 96, 165], [83, 136, 84, 96, 120], [35, 93, 116, 84, 90], [18, 148, 126, 101, 135]] },
+];
+
 // Filters tab, laid out like the cross module reports Filters panel (heading, edit/delete, empty state).
 function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; onAdd: () =&gt; void; onDelete: () =&gt; void }) {
   return (
-    &lt;section className=&quot;cmr__panel-body jr-builder-filters&quot; aria-label=&quot;Filters&quot;&gt;
+    &lt;section className=&quot;cmr__panel-body jrv2-builder-filters&quot; aria-label=&quot;Filters&quot;&gt;
       &lt;div className=&quot;cmr__panel-heading&quot;&gt;
         &lt;h2&gt;Filters&lt;/h2&gt;
         {hasFilters &amp;&amp; (
@@ -11755,41 +11751,127 @@ function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; 
   );
 }
 
-function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void; onCreate: () =&gt; void; saved: boolean }) {
+function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount }: { onEdit: () =&gt; void; onCreate: () =&gt; void; saved: boolean; reports: string[]; initialGroupCount: number }) {
+  const [reportTitle, setReportTitle] = useState(&#39;Untitled Joined Report&#39;);
+  const [previewScrolled, setPreviewScrolled] = useState(false);
+  const [rowGroups, setRowGroups] = useState(() =&gt; [
+    { id: 1, field: &#39;Created Date&#39;, interval: &#39;Month and Year&#39;, order: &#39;Asc&#39; },
+    { id: 2, field: &#39;Assigned user&#39;, interval: &#39;&#39;, order: &#39;Asc&#39; },
+    { id: 3, field: &#39;Account&#39;, interval: &#39;&#39;, order: &#39;Asc&#39; },
+  ].slice(0, initialGroupCount));
+  const [groupDraft, setGroupDraft] = useState&lt;(typeof rowGroups)[number] | null&gt;(null);
+  const [mappingMode, setMappingMode] = useState&lt;&#39;recommended&#39; | &#39;manual&#39;&gt;(&#39;recommended&#39;);
+  const [recommendedField, setRecommendedField] = useState(&#39;&#39;);
+  const [mappedFields, setMappedFields] = useState&lt;string[]&gt;([]);
+  const [mappingOrder, setMappingOrder] = useState(() =&gt; reports.map((_, index) =&gt; index));
+  const reorderMapping = (source: number, target: number) =&gt; {
+    setMappingOrder(current =&gt; {
+      const next = current.filter(index =&gt; index !== source);
+      next.splice(current.indexOf(target), 0, source);
+      return next;
+    });
+  };
+  const [groupError, setGroupError] = useState(false);
+  const isAddingGroup = Boolean(groupDraft &amp;&amp; !rowGroups.some(group =&gt; group.id === groupDraft.id));
+  const recommendedOptions = [
+    { value: &#39;Account&#39;, label: &#39;Account&#39;, group: &#39;By lookup&#39; },
+    { value: &#39;Created Date&#39;, label: &#39;Created Date&#39;, group: &#39;By date-time&#39; },
+    { value: &#39;Modified Date&#39;, label: &#39;Modified Date&#39;, group: &#39;By date-time&#39; },
+    { value: &#39;Assigned user&#39;, label: &#39;Assigned user&#39;, group: &#39;By user&#39; },
+  ];
+  const mappingOptions = [...new Set([...recommendedOptions.map(option =&gt; option.value), ...FIELD_OPTIONS.map(option =&gt; option.value)])]
+    .map(value =&gt; ({ value, label: value }));
+  const fieldDataTypes: Record&lt;string, string&gt; = {
+    Account: &#39;Lookup · Accounts&#39;, &#39;Account Name&#39;: &#39;Lookup · Accounts&#39;,
+    &#39;Campaign Source&#39;: &#39;Lookup · Campaigns&#39;,
+    &#39;Created Date&#39;: &#39;Date&#39;, &#39;Modified Date&#39;: &#39;Date&#39;, &#39;Close Date&#39;: &#39;Date&#39;,
+    &#39;Created Time&#39;: &#39;Date&#39;, &#39;Modified Time&#39;: &#39;Date&#39;,
+    &#39;Assigned user&#39;: &#39;User&#39;, &#39;Assigned To&#39;: &#39;User&#39;, Owner: &#39;User&#39;,
+    Amount: &#39;Currency&#39;, &#39;Annual Revenue&#39;: &#39;Currency&#39;, Probability: &#39;Number&#39;,
+    Currency: &#39;Picklist&#39;, &#39;Deal Stage&#39;: &#39;Picklist&#39;, Industry: &#39;Picklist&#39;,
+    &#39;Lead Source&#39;: &#39;Picklist&#39;, Rating: &#39;Picklist&#39;, &#39;Sales Channel&#39;: &#39;Picklist&#39;,
+    Email: &#39;Email&#39;, Phone: &#39;Phone&#39;, Website: &#39;URL&#39;,
+  };
+  const selectedDataTypes = [...new Set(reports.flatMap((_, index) =&gt; {
+    const field = mappedFields[index];
+    return field ? [fieldDataTypes[field] || &#39;Text&#39;] : [];
+  }))];
+  const hasMixedDataTypes = selectedDataTypes.length &gt; 1;
+  const allMappedFieldsAreDates = reports.length &gt; 0 &amp;&amp; reports.every((_, index) =&gt; fieldDataTypes[mappedFields[index]] === &#39;Date&#39;);
+  const dateGranularityOptions = [
+    { value: &#39;Date&#39;, label: &#39;By Date&#39; },
+    { value: &#39;Week&#39;, label: &#39;By Week&#39; },
+    { value: &#39;Month and Year&#39;, label: &#39;By Month and Year&#39; },
+    { value: &#39;Quarter and Year&#39;, label: &#39;By Quarter and Year&#39; },
+    { value: &#39;Year&#39;, label: &#39;By Year&#39; },
+  ];
+  const saveGroup = () =&gt; {
+    if (!groupDraft) return;
+    if (isAddingGroup &amp;&amp; (hasMixedDataTypes || !groupDraft.field.trim() || reports.some((_, index) =&gt; !mappedFields[index]))) {
+      setGroupError(true);
+      return;
+    }
+    const nextGroup = isAddingGroup
+      ? { ...groupDraft, interval: allMappedFieldsAreDates ? groupDraft.interval || &#39;Month and Year&#39; : &#39;&#39; }
+      : groupDraft;
+    setRowGroups(current =&gt; current.some(group =&gt; group.id === nextGroup.id)
+      ? current.map(group =&gt; group.id === nextGroup.id ? nextGroup : group)
+      : [...current, nextGroup]);
+    setGroupDraft(null);
+  };
+  const [reportSettings, setReportSettings] = useState&lt;Record&lt;string, {
+    tab: string; columns: string[]; aggregates: string[]; hasFilters: boolean;
+  }&gt;&gt;({});
+  const getReportSettings = (report: string) =&gt; reportSettings[report] ?? {
+    tab: &#39;columns&#39;,
+    columns: [&#39;Account Name&#39;, &#39;Assistant&#39;, &#39;Asst Phone&#39;, &#39;Average Time Spent (Minutes)&#39;, &#39;Contact Name&#39;, &#39;Contact Owner&#39;],
+    aggregates: [&#39;Count of Contacts&#39;, &#39;Avg Time Spent&#39;],
+    hasFilters: false,
+  };
+  const updateReportSettings = (report: string, patch: Partial&lt;ReturnType&lt;typeof getReportSettings&gt;&gt;) =&gt; {
+    setReportSettings(current =&gt; ({ ...current, [report]: { ...getReportSettings(report), ...patch } }));
+  };
   const [builderTab, setBuilderTab] = useState(&#39;columns&#39;);
   const [hasFilters, setHasFilters] = useState(saved);
   const [columns, setColumns] = useState([&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;, &#39;First Name&#39;, &#39;Last Name&#39;]);
   const [aggregates, setAggregates] = useState([&#39;Avg of Annual Revenue&#39;, &#39;Sum of Annual Revenue&#39;, &#39;Count of Unique Leads&#39;]);
   return (
-    &lt;div className=&quot;jr-builder&quot;&gt;
-      &lt;aside className=&quot;jr-builder-nav&quot; aria-label=&quot;Main navigation&quot;&gt;
-        {BUILDER_NAV.map(item =&gt; (
-          &lt;div key={item.label} className={`jr-builder-nav-item${item.active ? &#39; jr-builder-nav-item--active&#39; : &#39;&#39;}`}&gt;
-            &lt;span className=&quot;jr-builder-nav-icon&quot; style={{ color: item.color }}&gt;
-              &lt;Icon name={item.icon} size={20} /&gt;
-            &lt;/span&gt;
-            &lt;span&gt;{item.label}&lt;/span&gt;
-          &lt;/div&gt;
-        ))}
-      &lt;/aside&gt;
+    &lt;div className=&quot;jrv2-builder&quot;&gt;
+      &lt;NextGenLeftMenu activeId=&quot;reports&quot; defaultCollapsed /&gt;
 
-      &lt;div className=&quot;jr-builder-main&quot;&gt;
+      &lt;div className=&quot;jrv2-builder-main&quot;&gt;
         &lt;NextGenTopBand moduleLabel=&quot;Reports&quot; searchPlaceholder=&quot;Search records&quot; showTerritory={false} /&gt;
 
-        &lt;div className=&quot;jr-builder-subbar&quot;&gt;
-          &lt;div className=&quot;jr-builder-subtitle&quot;&gt;
+        &lt;div className=&quot;jrv2-builder-subbar&quot;&gt;
+          &lt;div className=&quot;jrv2-builder-subtitle&quot;&gt;
             &lt;Icon name=&quot;CrmArrowBack&quot; size={18} /&gt;
-            &lt;div className=&quot;jr-builder-title-stack&quot;&gt;
-              &lt;span className=&quot;jr-builder-name&quot;&gt;{saved ? &#39;Monthly Sales Pipeline&#39; : &#39;Leads By Source&#39;}&lt;/span&gt;
-              &lt;span className=&quot;jr-builder-module&quot;&gt;Leads&lt;/span&gt;
+            &lt;div className=&quot;jrv2-builder-title-stack&quot;&gt;
+              {saved ? (
+                &lt;div className=&quot;jrv2-builder-title-input&quot;&gt;
+                  &lt;Input
+                    variant=&quot;header&quot;
+                    aria-label=&quot;Report title&quot;
+                    value={reportTitle}
+                    onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setReportTitle(event.target.value)}
+                    onBlur={() =&gt; setReportTitle(current =&gt; current.trim() || &#39;Untitled Joined Report&#39;)}
+                    onKeyDown={(event: React.KeyboardEvent&lt;HTMLInputElement&gt;) =&gt; {
+                      if (event.key === &#39;Enter&#39;) event.currentTarget.blur();
+                    }}
+                  /&gt;
+                &lt;/div&gt;
+              ) : &lt;span className=&quot;jrv2-builder-name&quot;&gt;Leads By Source&lt;/span&gt;}
+              {!saved &amp;&amp; &lt;span className=&quot;jrv2-builder-module&quot;&gt;Leads&lt;/span&gt;}
             &lt;/div&gt;
           &lt;/div&gt;
-          &lt;div className=&quot;jr-builder-actions&quot;&gt;
+          &lt;div className=&quot;jrv2-builder-actions&quot;&gt;
             {!saved &amp;&amp; (
-            &lt;p className=&quot;jr-builder-cta&quot;&gt;
+            &lt;p className=&quot;jrv2-builder-cta&quot;&gt;
               Do you want to join another report?{&#39; &#39;}
-              &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit&quot; onClick={onCreate}&gt;Create Joined Report&lt;/button&gt;
+              &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit&quot; onClick={onCreate}&gt;Create Joined Report&lt;/button&gt;
             &lt;/p&gt;
+            )}
+            {saved &amp;&amp; (
+              &lt;Button variant=&quot;link-primary&quot; onClick={onEdit}&gt;Edit Joined Report&lt;/Button&gt;
             )}
             &lt;Button variant=&quot;default&quot;&gt;Cancel&lt;/Button&gt;
             &lt;Button variant=&quot;default&quot;&gt;Run&lt;/Button&gt;
@@ -11797,29 +11879,138 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
           &lt;/div&gt;
         &lt;/div&gt;
 
-        &lt;div className=&quot;jr-builder-body&quot;&gt;
-          &lt;section className=&quot;jr-builder-panel&quot; aria-label=&quot;Joined report structure&quot;&gt;
-            {saved &amp;&amp; (&lt;&gt;
-            &lt;div className=&quot;jr-builder-row jr-builder-panel-head&quot;&gt;
-              &lt;span className=&quot;jr-builder-panel-title&quot;&gt;Joined Report&lt;/span&gt;
-              &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit joined report&quot; onClick={onEdit}&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;
-              &lt;/button&gt;
+        &lt;div className=&quot;jrv2-builder-body&quot;&gt;
+          &lt;section className={`jrv2-builder-panel${saved ? &#39; jrv2-builder-panel--joined&#39; : &#39;&#39;}${isAddingGroup ? &#39; jrv2-builder-panel--group-editor&#39; : &#39;&#39;}`} aria-label=&quot;Joined report structure&quot;&gt;
+            {saved &amp;&amp; isAddingGroup &amp;&amp; groupDraft ? (
+              &lt;section className=&quot;jrv2-row-group-editor&quot; aria-label=&quot;Add row group&quot;&gt;
+                &lt;h2 className=&quot;jrv2-builder-panel-title&quot;&gt;Add Row Group&lt;/h2&gt;
+                &lt;div className=&quot;jrv2-joined-group-form&quot;&gt;
+          &lt;h3 className=&quot;jrv2-row-group-heading&quot;&gt;Choose a field from each report&lt;/h3&gt;
+          &lt;&gt;
+            &lt;div className=&quot;jrv2-row-group-choices&quot;&gt;
+              &lt;Radio name=&quot;jrv2-mapping-mode&quot; label=&quot;Recommended Fields&quot; checked={mappingMode === &#39;recommended&#39;} onChange={() =&gt; {
+                setMappingMode(&#39;recommended&#39;);
+                setMappedFields(reports.map(() =&gt; recommendedField));
+              }} /&gt;
+              &lt;Radio name=&quot;jrv2-mapping-mode&quot; label=&quot;Choose Manually&quot; checked={mappingMode === &#39;manual&#39;} onChange={() =&gt; setMappingMode(&#39;manual&#39;)} /&gt;
             &lt;/div&gt;
-
-            &lt;div className=&quot;jr-builder-block&quot;&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Report 1&lt;/span&gt;
+              {mappingMode === &#39;recommended&#39; &amp;&amp; &lt;div className=&quot;jrv2-row-group-recommended&quot;&gt;
+                &lt;Dropdown width=&quot;100%&quot; placeholder=&quot;Choose recommended fields&quot; triggerAriaLabel=&quot;Choose recommended fields&quot; disabled={mappingMode !== &#39;recommended&#39;} options={recommendedOptions} value={recommendedField} onChange={(field: string) =&gt; {
+                  setRecommendedField(field);
+                  setMappedFields(reports.map(() =&gt; field));
+                  setGroupDraft({ ...groupDraft, field, interval: field.includes(&#39;Date&#39;) ? &#39;Month and Year&#39; : &#39;&#39; });
+                  setGroupError(false);
+                }} /&gt;
+              &lt;/div&gt;}
+            {(mappingMode === &#39;manual&#39; || recommendedField) &amp;&amp; &lt;div className=&quot;jrv2-row-group-mapping&quot;&gt;
+              &lt;div className=&quot;jrv2-mapping-table&quot; role=&quot;table&quot; aria-label=&quot;Report field mapping&quot;&gt;
+                &lt;div className=&quot;jrv2-mapping-row jrv2-mapping-header&quot; role=&quot;row&quot;&gt;
+                  &lt;div role=&quot;columnheader&quot;&gt;Report&lt;/div&gt;&lt;div role=&quot;columnheader&quot;&gt;Group by field&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;Dragger items={mappingOrder.map(String)} onChange={(order: string[]) =&gt; setMappingOrder(order.map(Number))} gripperOnHover renderItem={(id: string) =&gt; {
+                  const index = Number(id);
+                  const position = mappingOrder.indexOf(index);
+                  return &lt;div className=&quot;jrv2-mapping-row&quot; role=&quot;row&quot;&gt;
+                    &lt;div role=&quot;cell&quot;&gt;
+                      {reports.length &gt; 1 &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;jrv2-mapping-grip&quot;
+                        aria-label={`Reorder ${reports[index]}`}
+                        aria-description=&quot;Drag to reorder, or use the Up and Down arrow keys.&quot;
+                        onKeyDown={event =&gt; {
+                          const target = event.key === &#39;ArrowUp&#39; ? position - 1 : event.key === &#39;ArrowDown&#39; ? position + 1 : -1;
+                          if (event.key === &#39;ArrowUp&#39; || event.key === &#39;ArrowDown&#39;) event.preventDefault();
+                          if (target &gt;= 0 &amp;&amp; target &lt; mappingOrder.length) reorderMapping(index, mappingOrder[target]);
+                        }}
+                      &gt;&lt;Icon name=&quot;CrmMaskDrag&quot; size={12} /&gt;&lt;/button&gt;}
+                      {reports[index]}
+                    &lt;/div&gt;
+                    &lt;div role=&quot;cell&quot;&gt;&lt;Dropdown width=&quot;100%&quot; placeholder=&quot;Select field&quot; triggerAriaLabel={`Group by field for ${reports[index]}`} options={mappingOptions} disabled={mappingMode !== &#39;manual&#39;} value={mappedFields[index] || &#39;&#39;} error={groupError &amp;&amp; !mappedFields[index] ? &#39;Select a field&#39; : undefined} onChange={(field: string) =&gt; setMappedFields(current =&gt; reports.map((_, fieldIndex) =&gt; fieldIndex === index ? field : current[fieldIndex] || &#39;&#39;))} /&gt;&lt;/div&gt;
+                  &lt;/div&gt;;
+                }} /&gt;
               &lt;/div&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span&gt;Leads By Source&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads By Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-
-&lt;/&gt;)}
-            &lt;div className=&quot;jr-builder-block&quot;&gt;
-              &lt;div className=&quot;jr-builder-tabs&quot;&gt;
+            &lt;/div&gt;}
+          &lt;/&gt;
+          {hasMixedDataTypes &amp;&amp; &lt;MessageBox
+            variant=&quot;warning&quot;
+            className=&quot;jrv2-mixed-types-warning&quot;
+            closable={false}
+            message={&lt;&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Selected fields have different data types. Choose fields of the same type to create this group.&lt;/&gt;}
+          /&gt;}
+          {allMappedFieldsAreDates &amp;&amp; &lt;div className=&quot;jrv2-row-group-detail&quot;&gt;&lt;Dropdown style={{ &#39;--jrv2-date-granularity&#39;: 1 }} label=&quot;Date granularity&quot; width=&quot;100%&quot; triggerAriaLabel=&quot;Date granularity&quot; options={dateGranularityOptions} value={groupDraft.interval || &#39;Month and Year&#39;} onChange={(interval: string) =&gt; setGroupDraft({ ...groupDraft, interval })} /&gt;&lt;/div&gt;}
+          &lt;div className=&quot;jrv2-row-group-detail&quot;&gt;&lt;Input label={&lt;span className=&quot;jrv2-group-name-label&quot;&gt;Enter Group Name &lt;Tooltip content=&quot;This name appears as the row heading.&quot; variant=&quot;white&quot; placement=&quot;top&quot; followCursor&gt;&lt;button type=&quot;button&quot; className=&quot;jrv2-group-name-info&quot; aria-label=&quot;Group name information&quot;&gt;&lt;Info aria-hidden=&quot;true&quot; /&gt;&lt;/button&gt;&lt;/Tooltip&gt;&lt;/span&gt;} layout=&quot;vertical&quot; width=&quot;100%&quot; placeholder={`Common group ${rowGroups.length + 1}`} value={groupDraft.field} error={groupError &amp;&amp; !groupDraft.field.trim() ? &#39;Enter a group name&#39; : undefined} onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setGroupDraft({ ...groupDraft, field: event.target.value })} /&gt;&lt;/div&gt;
+        &lt;/div&gt;
+                &lt;div className=&quot;jrv2-row-group-footer&quot;&gt;
+                  &lt;Button variant=&quot;primary&quot; disabled={hasMixedDataTypes} onClick={saveGroup}&gt;Done&lt;/Button&gt;
+                  &lt;Button variant=&quot;default&quot; onClick={() =&gt; setGroupDraft(null)}&gt;Cancel&lt;/Button&gt;
+                &lt;/div&gt;
+              &lt;/section&gt;
+            ) : saved ? (&lt;&gt;
+              &lt;header className=&quot;jrv2-joined-summary&quot;&gt;
+                &lt;h2&gt;Joined Report&lt;/h2&gt;
+              &lt;/header&gt;
+              &lt;section className=&quot;jrv2-joined-groups&quot; aria-label=&quot;Row groups&quot;&gt;
+                &lt;h3 className=&quot;jrv2-joined-label&quot;&gt;Row Groups&lt;/h3&gt;
+                {rowGroups.map(group =&gt; (
+                  &lt;div className=&quot;jrv2-joined-group&quot; key={group.id}&gt;
+                    &lt;div className=&quot;jrv2-joined-group-name&quot;&gt;
+                      &lt;span&gt;{group.field}&lt;/span&gt;
+                      {group.interval &amp;&amp; &lt;span className=&quot;jrv2-joined-muted&quot;&gt;By {group.interval}&lt;/span&gt;}
+                    &lt;/div&gt;
+                    &lt;button
+                      type=&quot;button&quot;
+                      className=&quot;jrv2-joined-sort&quot;
+                      aria-label={`${group.field} sort order: ${group.order}. Switch to ${group.order === &#39;Asc&#39; ? &#39;Desc&#39; : &#39;Asc&#39;}`}
+                      onClick={() =&gt; setRowGroups(groups =&gt; groups.map(item =&gt; item.id === group.id ? { ...item, order: item.order === &#39;Asc&#39; ? &#39;Desc&#39; : &#39;Asc&#39; } : item))}
+                    &gt;
+                      {group.order}
+                    &lt;/button&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn&quot; aria-label={`Edit ${group.field} group`} onClick={() =&gt; setGroupDraft({ ...group })}&gt;
+                      &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;
+                    &lt;/button&gt;
+                  &lt;/div&gt;
+                ))}
+                &lt;Button variant=&quot;link-primary&quot; className=&quot;jrv2-joined-add&quot; onClick={() =&gt; {
+                  setMappingMode(&#39;recommended&#39;);
+                  setRecommendedField(&#39;&#39;);
+                  setMappedFields(reports.map(() =&gt; &#39;&#39;));
+                  setMappingOrder(reports.map((_, index) =&gt; index));
+                  setGroupError(false);
+                  setGroupDraft({ id: Date.now(), field: &#39;&#39;, interval: &#39;&#39;, order: &#39;Asc&#39; });
+                }}&gt;+ Add New Group&lt;/Button&gt;
+              &lt;/section&gt;
+              {reports.map((report, index) =&gt; {
+                const settings = getReportSettings(report);
+                return (
+                  &lt;details className=&quot;jrv2-joined-report&quot; key={`${index}-${report}`} open={index === 0}&gt;
+                    &lt;summary className=&quot;jrv2-report-toggle&quot; aria-label={`Report ${index + 1}: ${report}`}&gt;
+                      &lt;div&gt;
+                        &lt;h3 className=&quot;jrv2-joined-label&quot;&gt;Report {index + 1}&lt;/h3&gt;
+                        &lt;p&gt;{report}&lt;/p&gt;
+                      &lt;/div&gt;
+                      &lt;ChevronDownFilled size={12} className=&quot;jrv2-report-chevron&quot; /&gt;
+                    &lt;/summary&gt;
+                    &lt;div className=&quot;jrv2-report-content&quot; role=&quot;region&quot; aria-label={`${report} settings`}&gt;
+                      &lt;div className=&quot;jrv2-builder-tabs&quot;&gt;
+                        &lt;Tabs tabs={[{ id: &#39;columns&#39;, label: &#39;Columns&#39; }, { id: &#39;filters&#39;, label: &#39;Filters&#39; }]}
+                          activeTab={settings.tab} onChange={(tab: string) =&gt; updateReportSettings(report, { tab })}
+                          variant=&quot;secondary&quot; size=&quot;md&quot; /&gt;
+                      &lt;/div&gt;
+                      {settings.tab === &#39;filters&#39; ? (
+                        &lt;BuilderFilters hasFilters={settings.hasFilters}
+                          onAdd={() =&gt; updateReportSettings(report, { hasFilters: true })}
+                          onDelete={() =&gt; updateReportSettings(report, { hasFilters: false })} /&gt;
+                      ) : (&lt;&gt;
+                        &lt;div className=&quot;jrv2-builder-row&quot;&gt;&lt;h4 className=&quot;jrv2-joined-label&quot;&gt;Columns&lt;/h4&gt;&lt;/div&gt;
+                        &lt;Dragger items={settings.columns} onChange={(columns: string[]) =&gt; updateReportSettings(report, { columns })} /&gt;
+                        &lt;div className=&quot;jrv2-builder-row jrv2-builder-row--section&quot;&gt;&lt;h4 className=&quot;jrv2-joined-label&quot;&gt;Aggregate columns&lt;/h4&gt;&lt;/div&gt;
+                        &lt;Dragger items={settings.aggregates} onChange={(aggregates: string[]) =&gt; updateReportSettings(report, { aggregates })} /&gt;
+                      &lt;/&gt;)}
+                    &lt;/div&gt;
+                  &lt;/details&gt;
+                );
+              })}
+            &lt;/&gt;) : (
+            &lt;div className=&quot;jrv2-builder-block&quot;&gt;
+              &lt;div className=&quot;jrv2-builder-tabs&quot;&gt;
                 &lt;Tabs
                   tabs={[{ id: &#39;columns&#39;, label: &#39;Columns&#39; }, { id: &#39;filters&#39;, label: &#39;Filters&#39; }]}
                   activeTab={builderTab}
@@ -11831,58 +12022,90 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               {builderTab === &#39;filters&#39; ? (
                 &lt;BuilderFilters hasFilters={hasFilters} onAdd={() =&gt; setHasFilters(true)} onDelete={() =&gt; setHasFilters(false)} /&gt;
               ) : (&lt;&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Columns&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+              &lt;div className=&quot;jrv2-builder-row&quot;&gt;
+                &lt;span className=&quot;jrv2-builder-block-title&quot;&gt;Columns&lt;/span&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jrv2-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={columns} onChange={setColumns} /&gt;
-              &lt;div className=&quot;jr-builder-row jr-builder-row--section&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Aggregate Columns&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+              &lt;div className=&quot;jrv2-builder-row jrv2-builder-row--section&quot;&gt;
+                &lt;span className=&quot;jrv2-builder-block-title&quot;&gt;Aggregate Columns&lt;/span&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jrv2-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={aggregates} onChange={setAggregates} /&gt;
               &lt;/&gt;)}
             &lt;/div&gt;
 
-            {saved &amp;&amp; (&lt;&gt;
-            &lt;div className=&quot;jr-builder-block&quot;&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Report 2&lt;/span&gt;
-              &lt;/div&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span&gt;Recent Six Month Leads&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Recent Six Month Leads&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-
-            &lt;div className=&quot;jr-builder-block&quot;&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Report 3&lt;/span&gt;
-              &lt;/div&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span&gt;Untitled Report 0&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Untitled Report 0&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-&lt;/&gt;)}
+            )}
           &lt;/section&gt;
 
-          &lt;section className=&quot;jr-builder-preview&quot; aria-label=&quot;Report preview&quot;&gt;
-            &lt;p className=&quot;jr-builder-notice&quot;&gt;
+          &lt;section className=&quot;jrv2-builder-preview&quot; aria-label=&quot;Report preview&quot;&gt;
+            &lt;p className=&quot;jrv2-builder-notice&quot;&gt;
               &lt;Info aria-hidden=&quot;true&quot; /&gt;
               Preview shown with limited number of rows. Run the report to see actual aggregate values.
-              &lt;span className=&quot;jr-builder-link&quot;&gt;Show Details&lt;/span&gt;
+              &lt;span className=&quot;jrv2-builder-link&quot;&gt;Show Details&lt;/span&gt;
             &lt;/p&gt;
-            &lt;table className=&quot;jr-builder-table&quot; aria-label=&quot;Report 1 Leads By Source&quot;&gt;
+            {saved ? (
+              &lt;div
+                className={`jrv2-joined-preview-scroll${previewScrolled ? &#39; jrv2-joined-preview-scroll--scrolled&#39; : &#39;&#39;}`}
+                onScroll={event =&gt; setPreviewScrolled(event.currentTarget.scrollLeft &gt; 0)}
+              &gt;
+                &lt;table className=&quot;jrv2-builder-table jrv2-joined-preview-table&quot; aria-label=&quot;Joined report preview&quot;&gt;
+                  &lt;thead&gt;
+                    &lt;tr&gt;
+                      &lt;th aria-label=&quot;Grouping field&quot; /&gt;
+                      &lt;th colSpan={2} aria-label=&quot;Additional grouping fields&quot; /&gt;
+                      {reports.map((report, index) =&gt; (
+                        &lt;th key={`${index}-${report}`} colSpan={JOINED_PREVIEW_METRICS[index].length} scope=&quot;colgroup&quot; className=&quot;jrv2-builder-group-head&quot;&gt;Report {index + 1} — {report}&lt;/th&gt;
+                      ))}
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;th scope=&quot;col&quot;&gt;Created Date - By Month and Year&lt;/th&gt;
+                      &lt;th scope=&quot;col&quot;&gt;Assigned user&lt;/th&gt;
+                      &lt;th scope=&quot;col&quot;&gt;Account&lt;/th&gt;
+                      {reports.flatMap((_, index) =&gt; JOINED_PREVIEW_METRICS[index].map(metric =&gt; &lt;th key={metric} scope=&quot;col&quot;&gt;{metric}&lt;/th&gt;))}
+                    &lt;/tr&gt;
+                  &lt;/thead&gt;
+                  &lt;tbody&gt;
+                    {JOINED_PREVIEW_MONTHS.flatMap(month =&gt; [
+                      ...month.rows.map((values, index) =&gt; (
+                        &lt;tr key={`${month.label}-${index}`}&gt;
+                          &lt;td&gt;{index === 0 ? month.label : &#39;&#39;}&lt;/td&gt;
+                          &lt;td&gt;{index % 2 === 0 ? index === 0 ? &#39;Selvam&#39; : &#39;Priya&#39; : &#39;&#39;}&lt;/td&gt;
+                          &lt;td&gt;{index % 2 === 0 ? &#39;Fabrikam Inc&#39; : &#39;Northwind Traders&#39;}&lt;/td&gt;
+                          {values.slice(0, reports.reduce((count, _, reportIndex) =&gt; count + JOINED_PREVIEW_METRICS[reportIndex].length, 0)).map((value, metricIndex) =&gt; &lt;td className=&quot;jrv2-preview-number&quot; key={metricIndex}&gt;{value}&lt;/td&gt;)}
+                        &lt;/tr&gt;
+                      )),
+                      &lt;tr key={`${month.label}-total`} className=&quot;jrv2-preview-total&quot;&gt;
+                        &lt;th scope=&quot;row&quot;&gt;{month.label} Total&lt;/th&gt;&lt;td /&gt;&lt;td /&gt;
+                        {month.rows[0].slice(0, reports.reduce((count, _, reportIndex) =&gt; count + JOINED_PREVIEW_METRICS[reportIndex].length, 0)).map((_, metricIndex) =&gt; (
+                          &lt;td className=&quot;jrv2-preview-number&quot; key={metricIndex}&gt;{month.rows.reduce((total, values) =&gt; total + values[metricIndex], 0)}&lt;/td&gt;
+                        ))}
+                      &lt;/tr&gt;,
+                    ])}
+                  &lt;/tbody&gt;
+                  &lt;tfoot&gt;
+                    &lt;tr className=&quot;jrv2-preview-grand-total&quot;&gt;
+                      &lt;th scope=&quot;row&quot;&gt;Grand Total&lt;/th&gt;
+                      &lt;td colSpan={2} /&gt;
+                      {reports.flatMap((_, reportIndex) =&gt; JOINED_PREVIEW_METRICS[reportIndex].map((metric, metricIndex) =&gt; {
+                        const columnIndex = JOINED_PREVIEW_METRICS.slice(0, reportIndex).reduce((count, metrics) =&gt; count + metrics.length, 0) + metricIndex;
+                        return &lt;td className=&quot;jrv2-preview-number&quot; key={`${reportIndex}-${metric}`}&gt;{JOINED_PREVIEW_MONTHS.reduce((total, month) =&gt; total + month.rows.reduce((sum, values) =&gt; sum + values[columnIndex], 0), 0)}&lt;/td&gt;;
+                      }))}
+                    &lt;/tr&gt;
+                  &lt;/tfoot&gt;
+                &lt;/table&gt;
+              &lt;/div&gt;
+            ) : (
+            &lt;table className=&quot;jrv2-builder-table&quot; aria-label=&quot;Report 1 Leads By Source&quot;&gt;
               &lt;thead&gt;
                 &lt;tr&gt;
                   &lt;th /&gt;
-                  &lt;th colSpan={BUILDER_COLUMNS.length} className=&quot;jr-builder-group-head&quot;&gt;REPORT 1 - LEADS BY SOURCE&lt;/th&gt;
+                  &lt;th colSpan={BUILDER_COLUMNS.length} className=&quot;jrv2-builder-group-head&quot;&gt;Report 1 - Leads by Source&lt;/th&gt;
                 &lt;/tr&gt;
                 &lt;tr&gt;
-                  &lt;th className=&quot;jr-builder-source-head&quot;&gt;LEAD SOURCE ▲&lt;/th&gt;
+                  &lt;th className=&quot;jrv2-builder-source-head&quot;&gt;Lead Source&lt;/th&gt;
                   {BUILDER_COLUMNS.map(column =&gt; (
-                    &lt;th key={column}&gt;{column.toUpperCase()}&lt;/th&gt;
+                    &lt;th key={column}&gt;{column}&lt;/th&gt;
                   ))}
                 &lt;/tr&gt;
               &lt;/thead&gt;
@@ -11890,9 +12113,9 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
                 {BUILDER_LEADS.map((lead, index) =&gt; (
                   &lt;tr key={lead}&gt;
                     {index === 0 &amp;&amp; (
-                      &lt;td className=&quot;jr-builder-source&quot; rowSpan={BUILDER_LEADS.length}&gt;Advertisement&lt;/td&gt;
+                      &lt;td className=&quot;jrv2-builder-source&quot; rowSpan={BUILDER_LEADS.length}&gt;Advertisement&lt;/td&gt;
                     )}
-                    &lt;td className=&quot;jr-builder-link&quot;&gt;{lead}&lt;/td&gt;
+                    &lt;td className=&quot;jrv2-builder-link&quot;&gt;{lead}&lt;/td&gt;
                     &lt;td&gt;-&lt;/td&gt;
                     &lt;td&gt;-&lt;/td&gt;
                     &lt;td&gt;21 Oct, 2015 03:06 PM&lt;/td&gt;
@@ -11902,22 +12125,31 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               &lt;/tbody&gt;
               &lt;tfoot&gt;
                 &lt;tr&gt;
-                  &lt;td className=&quot;jr-builder-source&quot;&gt;Grand Total&lt;/td&gt;
+                  &lt;td className=&quot;jrv2-builder-source&quot;&gt;Grand Total&lt;/td&gt;
                   &lt;td colSpan={BUILDER_COLUMNS.length} /&gt;
                 &lt;/tr&gt;
               &lt;/tfoot&gt;
             &lt;/table&gt;
+            )}
           &lt;/section&gt;
         &lt;/div&gt;
       &lt;/div&gt;
+      &lt;Modal isOpen={Boolean(groupDraft) &amp;&amp; !isAddingGroup} title=&quot;Joined Row Group&quot; width={560} onClose={() =&gt; setGroupDraft(null)} saveLabel=&quot;Save&quot; onSave={saveGroup}&gt;
+        {groupDraft &amp;&amp; (&lt;div className=&quot;jrv2-joined-group-form&quot;&gt;
+          &lt;Dropdown label=&quot;Group field&quot; width=&quot;100%&quot; options={mappingOptions} value={groupDraft.field} onChange={(field: string) =&gt; setGroupDraft({ ...groupDraft, field })} /&gt;
+          &lt;Dropdown label=&quot;Group by&quot; width=&quot;100%&quot; options={[&#39;Month and Year&#39;, &#39;Quarter and Year&#39;, &#39;Year&#39;, &#39;Day&#39;].map(value =&gt; ({ value, label: value }))} value={groupDraft.interval} onChange={(interval: string) =&gt; setGroupDraft({ ...groupDraft, interval })} /&gt;
+          &lt;Dropdown label=&quot;Sort order&quot; width=&quot;100%&quot; options={[&#39;Asc&#39;, &#39;Desc&#39;].map(value =&gt; ({ value, label: value }))} value={groupDraft.order} onChange={(order: string) =&gt; setGroupDraft({ ...groupDraft, order })} /&gt;
+        &lt;/div&gt;)}
+      &lt;/Modal&gt;
     &lt;/div&gt;
   );
 }
 
-function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReportCount, startOpen = true, saved = true }: Args) {
+function JoinedReportsRevampV2Page({ primaryReportName, initialStep, initialReportCount, initialGroupCount = 1, startOpen = true, saved = true }: Args) {
   const [open, setOpen] = useState(startOpen);
   const [mode, setMode] = useState&lt;&#39;create&#39; | &#39;edit&#39;&gt;(&#39;create&#39;);
   const [isSaved, setIsSaved] = useState(saved);
+  const [savedReports, setSavedReports] = useState(() =&gt; initialRows(initialReportCount, initialStep, true).map(row =&gt; reportNameOf(row, primaryReportName)));
   const [session, setSession] = useState(0);
   const [banner, setBanner] = useState&lt;Banner | null&gt;(null);
 
@@ -11934,11 +12166,13 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
     &lt;&gt;
       &lt;BuilderBackground
         saved={isSaved}
+        reports={savedReports}
+        initialGroupCount={initialGroupCount}
         onEdit={() =&gt; { setMode(&#39;edit&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
         onCreate={() =&gt; { setMode(&#39;create&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
       /&gt;
       {banner &amp;&amp; createPortal(
-        &lt;div className=&quot;jr-note-banner&quot; key={banner.id}&gt;
+        &lt;div className=&quot;jrv2-note-banner&quot; key={banner.id}&gt;
           &lt;MessageBox variant={banner.variant} message={banner.message} onClose={() =&gt; setBanner(null)} /&gt;
         &lt;/div&gt;,
         document.body,
@@ -11952,7 +12186,8 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
         initialReportCount={initialReportCount}
         onClose={() =&gt; setOpen(false)}
         onNotify={notify}
-        onSaved={name =&gt; {
+        onSaved={(name, reports) =&gt; {
+          setSavedReports(reports);
           setIsSaved(true);
           setOpen(false);
           notify(&#39;success&#39;, `Joined Report &quot;${name}&quot; saved.`);
@@ -11973,10 +12208,10 @@ const meta = {
     docs: {
       description: {
         component:
-          &#39;Create Joined Report modal: step 1 selects up to three reports (top aligned), step 2 groups records by field &#39; +
-          &#39;(vertically centred). Built from existing Modal, Stepper, Input, Dropdown, Button, Icon and MessageBox components. &#39; +
+          &#39;Isolated V2 flow without a report-name field or stepper. Step 1 selects up to three reports; step 2 groups records by field &#39; +
+          &#39;(vertically centred). Built from existing Modal, Input, Dropdown, Button, Icon and MessageBox components. &#39; +
           &#39;Controls: the primary report name, the starting step (step 2 shows the centred layout) and how many reports &#39; +
-          &#39;are already selected. Next with an empty report row shows an inline error; Save shows a success message. &#39; +
+          &#39;are already selected. Save validates report selections, closes the modal and shows Untitled Joined Report with an edit link. &#39; +
           &#39;No network calls are made.&#39;,
       },
     },
@@ -11990,31 +12225,117 @@ const meta = {
     initialStep: { control: &#39;inline-radio&#39;, options: [&#39;select&#39;, &#39;group&#39;] },
     initialReportCount: { control: { type: &#39;range&#39;, min: 1, max: MAX_REPORTS, step: 1 } },
   },
-  render: args =&gt; &lt;JoinedReportsRevampPage {...args} /&gt;,
+  render: args =&gt; &lt;JoinedReportsRevampV2Page {...args} /&gt;,
 } satisfies Meta&lt;Args&gt;;
 
 export default meta;
 type Story = StoryObj&lt;typeof meta&gt;;
 
-export const Default: Story = {
+// V2 is intentionally isolated from the original flow and styles so future changes
+// can be made here without altering the existing Joined Reports variants.
+export const V2: Story = {
+  name: &#39;V2&#39;,
   args: { startOpen: false, saved: false },
 };
 
-export const SavedJoinedReport: Story = {
-  args: { startOpen: false, saved: true },
-};
-
-export const GroupingStep: Story = {
-  args: { initialStep: &#39;group&#39;, initialReportCount: 3 },
-};
-
-export const ReportLimit: Story = {
-  args: { initialStep: &#39;select&#39;, initialReportCount: 3 },
-  // Three reports selected: plus on the last row shows the limit message.
+export const V2Summary: Story = {
+  name: &#39;V2 - Summary&#39;,
+  args: { startOpen: false, saved: true, initialReportCount: 3, initialGroupCount: 3 },
   play: async ({ canvasElement }) =&gt; {
-    const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(await body.findByRole(&#39;button&#39;, { name: &#39;Add report&#39; }));
-    expect(await body.findByText(LIMIT_MESSAGE)).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Report 3&#39;, exact: true })).toBeVisible();
+    const title = canvas.getByRole(&#39;textbox&#39;, { name: &#39;Report title&#39; });
+    await expect(title).toHaveValue(&#39;Untitled Joined Report&#39;);
+    const titleField = title.closest(&#39;.jrv2-builder-title-input&#39;)!;
+    await userEvent.hover(title);
+    const initialWidth = titleField.getBoundingClientRect().width;
+    await expect(initialWidth).toBeGreaterThanOrEqual(100);
+    await userEvent.click(title);
+    await expect(titleField.getBoundingClientRect().width).toBe(390);
+    await userEvent.clear(title);
+    await userEvent.type(title, &#39;Sales{Enter}&#39;);
+    await expect(titleField.getBoundingClientRect().width).toBe(100);
+    await userEvent.clear(title);
+    await userEvent.type(title, &#39;Regional Sales Summary{Enter}&#39;);
+    await expect(title).toHaveValue(&#39;Regional Sales Summary&#39;);
+    await expect(title).not.toHaveFocus();
+    await userEvent.clear(title);
+    await userEvent.tab();
+    await expect(title).toHaveValue(&#39;Untitled Joined Report&#39;);
+    await expect(canvas.getAllByRole(&#39;button&#39;, { name: /sort order: Asc/ })).toHaveLength(3);
+    const table = canvas.getByRole(&#39;table&#39;, { name: &#39;Joined report preview&#39; });
+    const total = within(table).getByRole(&#39;rowheader&#39;, { name: &#39;Grand Total&#39;, exact: true });
+    await expect(total.closest(&#39;tfoot&#39;)).not.toBeNull();
+    await expect(total).toBeVisible();
+    const scroller = table.parentElement!;
+    await expect(table.querySelector(&#39;thead&#39;)?.textContent).not.toContain(&#39;▲&#39;);
+    await expect(getComputedStyle(total).boxShadow).toBe(&#39;none&#39;);
+    await expect(getComputedStyle(total, &#39;::after&#39;).content).toBe(&#39;none&#39;);
+    scroller.scrollLeft = scroller.scrollWidth;
+    scroller.scrollTop = scroller.scrollHeight;
+    scroller.dispatchEvent(new Event(&#39;scroll&#39;, { bubbles: true }));
+    await waitFor(() =&gt; expect(scroller).toHaveClass(&#39;jrv2-joined-preview-scroll--scrolled&#39;));
+    await expect(total).toBeVisible();
+    await expect(getComputedStyle(total).position).toBe(&#39;sticky&#39;);
+    await expect(getComputedStyle(total).borderRightColor).toBe(&#39;rgba(0, 0, 0, 0)&#39;);
+    scroller.scrollTo(0, 0);
+    scroller.dispatchEvent(new Event(&#39;scroll&#39;, { bubbles: true }));
+    await waitFor(() =&gt; expect(scroller).not.toHaveClass(&#39;jrv2-joined-preview-scroll--scrolled&#39;));
+  },
+};
+
+export const V2AddGroup: Story = {
+  name: &#39;V2-Add Group&#39;,
+  args: { startOpen: false, saved: true, initialReportCount: 3 },
+  play: async ({ canvasElement }) =&gt; {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Report 3&#39;, exact: true })).toBeVisible();
+    const firstReport = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Monthly Sales Pipeline settings&#39; }));
+    await expect(firstReport.queryByRole(&#39;button&#39;, { name: &#39;Add column to Monthly Sales Pipeline&#39; })).not.toBeInTheDocument();
+    await userEvent.click(firstReport.getByRole(&#39;tab&#39;, { name: &#39;Filters&#39; }));
+    await userEvent.click(firstReport.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
+    await expect(firstReport.getByText(&#39;Lead Source is Advertisement or Partner&#39;)).toBeVisible();
+    await userEvent.click(canvas.getByText(&#39;Sales Pipeline by Region&#39;, { selector: &#39;summary p&#39;, exact: true }));
+    const secondReport = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Sales Pipeline by Region settings&#39; }));
+    await expect(secondReport.queryByText(&#39;Email&#39;, { exact: true })).not.toBeInTheDocument();
+    await userEvent.click(secondReport.getByRole(&#39;tab&#39;, { name: &#39;Filters&#39; }));
+    await expect(secondReport.getByText(&#39;No filters applied&#39;)).toBeVisible();
+    await expect(firstReport.getByText(&#39;Lead Source is Advertisement or Partner&#39;)).toBeVisible();
+    await userEvent.click(firstReport.getByRole(&#39;tab&#39;, { name: &#39;Columns&#39; }));
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;+ Add New Group&#39; }));
+    const panel = canvas.getByRole(&#39;region&#39;, { name: &#39;Add row group&#39; });
+    await expect(canvas.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument();
+    const editor = within(panel);
+    await expect(editor.queryByRole(&#39;button&#39;, { name: &#39;Back to joined report structure&#39; })).not.toBeInTheDocument();
+    await expect(editor.queryByRole(&#39;table&#39;, { name: &#39;Report field mapping&#39; })).not.toBeInTheDocument();
+    await userEvent.click(editor.getByRole(&#39;button&#39;, { name: &#39;Choose recommended fields&#39; }));
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Account&#39;, exact: true }));
+    const mapping = await editor.findByRole(&#39;table&#39;, { name: &#39;Report field mapping&#39; });
+    await expect(within(mapping).getAllByRole(&#39;row&#39;)).toHaveLength(4);
+    await expect(editor.queryByRole(&#39;button&#39;, { name: &#39;Date granularity&#39; })).not.toBeInTheDocument();
+    await userEvent.click(editor.getByRole(&#39;button&#39;, { name: &#39;Choose recommended fields&#39; }));
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Created Date&#39;, exact: true }));
+    await expect(editor.getByRole(&#39;button&#39;, { name: &#39;Date granularity&#39; })).toBeVisible();
+    await userEvent.click(editor.getByRole(&#39;button&#39;, { name: &#39;Date granularity&#39; }));
+    for (const name of [&#39;By Date&#39;, &#39;By Week&#39;, &#39;By Month and Year&#39;, &#39;By Quarter and Year&#39;, &#39;By Year&#39;]) {
+      await expect(within(document.body).getByRole(&#39;option&#39;, { name, exact: true })).toBeVisible();
+    }
+    await userEvent.click(within(document.body).getByRole(&#39;option&#39;, { name: &#39;By Week&#39;, exact: true }));
+    await userEvent.click(editor.getByRole(&#39;radio&#39;, { name: &#39;Choose Manually&#39; }));
+    await expect(editor.queryByRole(&#39;button&#39;, { name: &#39;Choose recommended fields&#39; })).not.toBeInTheDocument();
+    await expect(within(mapping).getAllByRole(&#39;row&#39;)).toHaveLength(4);
+    const fieldSelectors = editor.getAllByRole(&#39;button&#39;, { name: /^Group by field for / });
+    await userEvent.click(fieldSelectors[2]);
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Account Name&#39;, exact: true }));
+    await expect(within(editor.getByRole(&#39;status&#39;)).getByText(&#39;Warning:&#39;)).toBeVisible();
+    await expect(within(editor.getByRole(&#39;status&#39;)).getByText(&#39;Selected fields have different data types. Choose fields of the same type to create this group.&#39;)).toBeVisible();
+    await expect(editor.getByRole(&#39;button&#39;, { name: &#39;Done&#39;, exact: true })).toBeDisabled();
+    await expect(editor.queryByRole(&#39;button&#39;, { name: &#39;Date granularity&#39; })).not.toBeInTheDocument();
+    await userEvent.click(fieldSelectors[2]);
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Modified Time&#39;, exact: true }));
+    await expect(editor.queryByRole(&#39;status&#39;)).not.toBeInTheDocument();
+    await expect(editor.getByRole(&#39;button&#39;, { name: &#39;Done&#39;, exact: true })).toBeEnabled();
+    await expect(editor.getByRole(&#39;button&#39;, { name: &#39;Date granularity&#39; })).toBeVisible();
   },
 };
 </code></pre></div>
@@ -12049,8 +12370,9 @@ export const ReportLimit: Story = {
     Input,
     MessageBox,
     Modal,
+    NextGenLeftMenu,
     NextGenTopBand,
-    Stepper,
+    Radio,
     Tabs,
     Tooltip,
 } from "@chinnaiya-r-2310/design-system";</code></pre>
@@ -12059,12 +12381,12 @@ export const ReportLimit: Story = {
           
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Default</span>
+                <span class="ex-name">V2</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const Default = () =&gt; &lt;JoinedReportsRevampPage
+              <pre><code>const V2 = () =&gt; &lt;JoinedReportsRevampV2Page
     primaryReportName=&quot;Monthly Sales Pipeline&quot;
     initialStep=&quot;select&quot;
     initialReportCount={2}
@@ -12073,41 +12395,32 @@ export const ReportLimit: Story = {
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Saved Joined Report</span>
+                <span class="ex-name">V2 - Summary</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const SavedJoinedReport = () =&gt; &lt;JoinedReportsRevampPage
+              <pre><code>const V2Summary = () =&gt; &lt;JoinedReportsRevampV2Page
     primaryReportName=&quot;Monthly Sales Pipeline&quot;
     initialStep=&quot;select&quot;
-    initialReportCount={2}
+    initialReportCount={3}
+    startOpen={false}
+    saved
+    initialGroupCount={3} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">V2-Add Group</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const V2AddGroup = () =&gt; &lt;JoinedReportsRevampV2Page
+    primaryReportName=&quot;Monthly Sales Pipeline&quot;
+    initialStep=&quot;select&quot;
+    initialReportCount={3}
     startOpen={false}
     saved /&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Grouping Step</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const GroupingStep = () =&gt; &lt;JoinedReportsRevampPage
-    primaryReportName=&quot;Monthly Sales Pipeline&quot;
-    initialStep=&quot;group&quot;
-    initialReportCount={3} /&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Report Limit</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const ReportLimit = () =&gt; &lt;JoinedReportsRevampPage
-    primaryReportName=&quot;Monthly Sales Pipeline&quot;
-    initialStep=&quot;select&quot;
-    initialReportCount={3} /&gt;;</code></pre>
             </div>
         </div>
     
@@ -14865,7 +15178,7 @@ width?: any = &#39;100%&#39;</code></pre>
       <div class="badges">
         <label for="c-33-design-system-components-nextgenleftmenu-props" class="badge ok as-toggle">6 prop types</label>
         <label for="c-33-design-system-components-nextgenleftmenu-info" class="badge info as-toggle">1 info</label>
-        <label for="c-33-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-33-design-system-components-nextgenleftmenu-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
@@ -14905,6 +15218,8 @@ width?: any = &#39;100%&#39;</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>appName?: any = &#39;Zoho CRM&#39;
 
+defaultCollapsed?: any = false
+
 defaultOpenFolders?: any = [&#39;activity&#39;]
 
 modules?: any = [
@@ -14939,13 +15254,6 @@ modules?: any = [
 
 teamspaceName?: any = &#39;CRM Teamspace&#39;
 
-topNavItems?: any = [
-  { id: &#39;home&#39;,        label: &#39;Home&#39;,        icon: ModuleHome },
-  { id: &#39;analytics&#39;,  label: &#39;Analytics&#39;,   icon: ModuleAnalytics },
-  { id: &#39;reports&#39;,    label: &#39;Reports&#39;,     icon: ModuleReports },
-  { id: &#39;my-requests&#39;,label: &#39;My Requests&#39;, icon: ModuleMyJobs },
-]
-
 width?: any = 240</code></pre>
           </div>
         </div>
@@ -14962,6 +15270,15 @@ width?: any = 240</code></pre>
               </div>
           
           
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Collapsed State</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CollapsedState = () =&gt; &lt;Shell initialActiveId=&quot;reports&quot; defaultCollapsed /&gt;;</code></pre>
+            </div>
             <div class="note ok">
               <div class="row">
                 <span class="ex-name">Default</span>
@@ -18508,9 +18825,11 @@ export const RecordConfiguration: Story = {
     await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify as&#39; })).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Record Verification&#39; }));
     await expect(canvas.getByText(&#39;Record creation&#39;, { exact: true })).toBeVisible();
-    form = await open();
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })).not.toBeInTheDocument();
+    await expect(canvasElement.querySelectorAll(&#39;.record-auth__summary&#39;)).toHaveLength(1);
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit Record creation&#39; }));
+    form = within(await body.findByRole(&#39;dialog&#39;));
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
-    await expect(body.getByRole(&#39;option&#39;, { name: /Record creation/ })).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
     await choose(&#39;Picklist value Ask for consent when a picklist is set to a value.&#39;);
     await expect(form.getByRole(&#39;button&#39;, { name: &#39;Picklist&#39;, exact: true })).toBeVisible();
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Values&#39;, exact: true }));
@@ -18538,7 +18857,10 @@ export const RecordConfiguration: Story = {
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     const enabled = canvas.getByRole(&#39;switch&#39;, { name: &#39;Enable Status is Open, In progress&#39; });
     await userEvent.click(enabled); await expect(enabled).not.toBeChecked();
-    form = await open();
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })).not.toBeInTheDocument();
+    await expect(canvasElement.querySelectorAll(&#39;.record-auth__summary&#39;)).toHaveLength(1);
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit Status is Open, In progress&#39; }));
+    form = within(await body.findByRole(&#39;dialog&#39;));
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
     await choose(&#39;Button actions Ask for consent via a custom button on the record’s Detail page.&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
@@ -18585,6 +18907,11 @@ export const RecordConfiguration: Story = {
     const confirmation = within(await body.findByRole(&#39;alertdialog&#39;));
     await userEvent.click(confirmation.getByRole(&#39;button&#39;, { name: &#39;Delete&#39;, exact: true }));
     await waitFor(() =&gt; expect(canvas.queryByText(&#39;Approve shipment&#39;, { exact: true })).not.toBeInTheDocument());
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })).toBeVisible();
+    await expect(canvasElement.querySelectorAll(&#39;.record-auth__summary&#39;)).toHaveLength(0);
+    form = await open();
+    await expect(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true })).toHaveTextContent(&#39;Select&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39; }));
   },
 };
 </code></pre></div>
@@ -31901,12 +32228,12 @@ export const CreateDeal: Story = {
       <div class="badges">
         <label for="c-error-8-work-items-joined-reports-revamp-err" class="badge err as-toggle">prop type error</label>
         <label for="c-error-8-work-items-joined-reports-revamp-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-8-work-items-joined-reports-revamp-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-error-8-work-items-joined-reports-revamp-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/design-system/patterns/JoinedReportsRevamp.stories.tsx">work-items-joined-reports-revamp · ./src/design-system/patterns/JoinedReportsRevamp.stories.tsx</div>
+    <div class="meta" title="./src/design-system/patterns/JoinedReportsRevampV2.stories.tsx">work-items-joined-reports-revamp · ./src/design-system/patterns/JoinedReportsRevampV2.stories.tsx</div>
     
     
     
@@ -31927,34 +32254,35 @@ export const CreateDeal: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  747 | // ─────────────────────────────────────────────────────────────────────────────
-  748 |
-&gt; 749 | const meta = {
+  967 | // ─────────────────────────────────────────────────────────────────────────────
+  968 |
+&gt; 969 | const meta = {
       | ^
-  750 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
-  751 |   parameters: {
-  752 |     layout: &#39;fullscreen&#39;,
+  970 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
+  971 |   parameters: {
+  972 |     layout: &#39;fullscreen&#39;,
 
-./src/design-system/patterns/JoinedReportsRevamp.stories.tsx:
+./src/design-system/patterns/JoinedReportsRevampV2.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
 import type { ChangeEvent } from &#39;react&#39;;
 import { createPortal } from &#39;react-dom&#39;;
 import type { Meta, StoryObj } from &#39;@storybook/react-vite&#39;;
-import { expect, userEvent, within } from &#39;storybook/test&#39;;
+import { expect, userEvent, waitFor, within } from &#39;storybook/test&#39;;
 import { Button } from &#39;../components/Button/Button&#39;;
 import { Dropdown } from &#39;../components/Dropdown/Dropdown&#39;;
 import { NextGenTopBand } from &#39;../components/NextGenTopBand/NextGenTopBand&#39;;
+import { NextGenLeftMenu } from &#39;../components/NextGenLeftMenu/NextGenLeftMenu&#39;;
 import { FormTable } from &#39;../components/FormTable/FormTable&#39;;
 import { Icon } from &#39;../components/Icon/Icon&#39;;
 import { Input } from &#39;../components/Input/Input&#39;;
+import { Radio } from &#39;../components/Radio/Radio&#39;;
 import { MessageBox } from &#39;../components/MessageBox/MessageBox&#39;;
 import { Modal } from &#39;../components/Modal/Modal&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
 import { Tabs } from &#39;../components/Tabs/Tabs&#39;;
 import { Dragger } from &#39;../components/Dragger/Dragger&#39;;
-import { Stepper } from &#39;../components/Stepper/Stepper&#39;;
 import { ChevronDownFilled, Info } from &#39;../foundations/icons/Icons&#39;;
-import &#39;./JoinedReportsRevamp.css&#39;;
+import &#39;./JoinedReportsRevampV2.css&#39;;
 import &#39;./CrossModuleReports.css&#39;;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -31980,8 +32308,6 @@ const FIELD_OPTIONS = [
   &#39;Owner&#39;, &#39;Phone&#39;, &#39;Probability&#39;, &#39;Rating&#39;, &#39;Region&#39;, &#39;Sales Channel&#39;, &#39;State&#39;, &#39;Website&#39;,
 ].map(name =&gt; ({ value: name, label: name }));
 
-const STEP_LABELS = [&#39;Select Reports&#39;, &#39;Grouping&#39;];
-
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
 // ─────────────────────────────────────────────────────────────────────────────
@@ -31990,7 +32316,7 @@ type JoinStep = &#39;select&#39; | &#39;group&#39;;
 type ReportRow = { id: number; reportId: string; error?: string };
 type GroupRow = { id: number; name: string; fields: string[] };
 type Banner = { id: number; variant: &#39;info&#39; | &#39;success&#39;; message: string };
-type Args = { primaryReportName: string; initialStep: JoinStep; initialReportCount: number; startOpen?: boolean; saved?: boolean };
+type Args = { primaryReportName: string; initialStep: JoinStep; initialReportCount: number; initialGroupCount?: number; startOpen?: boolean; saved?: boolean };
 
 function reportNameOf(row: ReportRow, primaryReportName: string) {
   if (row.reportId === PRIMARY_ID) return primaryReportName;
@@ -32016,7 +32342,7 @@ const GROUP_COLUMN_WIDTH = 270;
 function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, open, mode = &#39;create&#39;, onClose, onNotify, onSaved }: Args &amp; {
   open: boolean; mode?: &#39;create&#39; | &#39;edit&#39;; onClose: () =&gt; void;
   onNotify: (variant: Banner[&#39;variant&#39;], message: string) =&gt; void;
-  onSaved: (name: string) =&gt; void;
+  onSaved: (name: string, reports: string[]) =&gt; void;
 }) {
   const [step, setStep] = useState&lt;JoinStep&gt;(initialStep);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -32024,7 +32350,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
   const isEdit = mode === &#39;edit&#39;;
   const prefilledFields = (offset: number) =&gt;
     Array.from({ length: initialReportCount }, (_, index) =&gt; FIELD_OPTIONS[(index + offset) % FIELD_OPTIONS.length].value);
-  const [name, setName] = useState(isEdit ? &#39;Monthly Sales Pipeline&#39; : &#39;Untitled Joined Report&#39;);
+  const name = &#39;Untitled Joined Report&#39;;
   const [rows, setRows] = useState&lt;ReportRow[]&gt;(() =&gt; initialRows(initialReportCount, initialStep, isEdit));
   const [groups, setGroups] = useState&lt;GroupRow[]&gt;(() =&gt; {
     if (isEdit) {
@@ -32065,14 +32391,6 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
     return next;
   });
 
-  const goNext = () =&gt; {
-    const checked = rows.map(row =&gt; (row.reportId ? { ...row, error: undefined } : { ...row, error: EMPTY_REPORT_MESSAGE }));
-    setRows(checked);
-    if (checked.some(row =&gt; row.error)) return;
-    if (groups.length === 0) setGroups([{ id: newId(), name: &#39;&#39;, fields: [] }]);
-    setStep(&#39;group&#39;);
-  };
-
   // ── Step 2 handlers (group names and field choices are keyed by id, so they survive add/remove) ──
   const addGroup = () =&gt; setGroups(current =&gt; [...current, { id: newId(), name: &#39;&#39;, fields: [] }]);
   const moveGroup = (fromId: number, toId: number) =&gt; setGroups(current =&gt; {
@@ -32086,8 +32404,10 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
   });
   useEffect(() =&gt; {
     if (!open) return;
-    const targetId = step === &#39;group&#39; ? &#39;jr-group-name-first&#39; : &#39;jr-name-input&#39;;
-    const timer = window.setTimeout(() =&gt; document.getElementById(targetId)?.focus(), 0);
+    const timer = window.setTimeout(() =&gt; {
+      if (step === &#39;group&#39;) document.getElementById(&#39;jrv2-group-name-first&#39;)?.focus();
+      else document.querySelector&lt;HTMLButtonElement&gt;(&#39;.jrv2-modal [aria-label=&quot;Report 2&quot;]&#39;)?.focus();
+    }, 0);
     return () =&gt; window.clearTimeout(timer);
   }, [open, step]);
   const removeGroup = (id: number) =&gt; setGroups(current =&gt; current.filter(group =&gt; group.id !== id));
@@ -32102,8 +32422,12 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
     }));
 
   const save = () =&gt; {
+    const checked = rows.map(row =&gt; (row.reportId ? { ...row, error: undefined } : { ...row, error: EMPTY_REPORT_MESSAGE }));
+    setRows(checked);
+    if (checked.some(row =&gt; row.error)) return;
+
     const keys = new Set&lt;string&gt;();
-    groups.forEach(group =&gt; {
+    (step === &#39;group&#39; ? groups : []).forEach(group =&gt; {
       if (!group.name.trim()) keys.add(`${group.id}:name`);
       rows.forEach((_, reportIndex) =&gt; {
         if (!group.fields[reportIndex]) keys.add(`${group.id}:${reportIndex}`);
@@ -32114,11 +32438,9 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
       return;
     }
     setErrorKeys(new Set());
-    onSaved(name.trim() || &#39;Untitled Joined Report&#39;);
+    onSaved(name.trim() || &#39;Untitled Joined Report&#39;, rows.map(row =&gt; reportNameOf(row, primaryReportName)));
   };
 
-  const reportCount = rows.length;
-  const lastRowIndex = rows.length - 1;
   const lastGroupIndex = groups.length - 1;
 
   return (
@@ -32127,36 +32449,20 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
       isOpen={open}
       title={isEdit ? &#39;Edit Joined Report&#39; : &#39;Create Joined Report&#39;}
       width={step === &#39;group&#39; ? GROUP_MODAL_BASE_WIDTH + GROUP_COLUMN_WIDTH * (rows.length + 1) : 600}
-      className=&quot;jr-modal&quot;
+      className=&quot;jrv2-modal&quot;
       disableAutoFocus
       closeOnEscape={false}
       onClose={onClose}
-      saveLabel={step === &#39;select&#39; ? &#39;Next&#39; : &#39;Save&#39;}
-      onSave={step === &#39;select&#39; ? goNext : save}
+      saveLabel=&quot;Save&quot;
+      onSave={save}
       footerStart={step === &#39;group&#39; ? (
         &lt;Button variant=&quot;default&quot; onClick={() =&gt; setStep(&#39;select&#39;)}&gt;Back&lt;/Button&gt;
       ) : undefined}
     &gt;
-      &lt;div className=&quot;jr-body&quot;&gt;
-        &lt;div className=&quot;jr-stepper-wrap&quot;&gt;
-          &lt;Stepper steps={STEP_LABELS} currentStep={step === &#39;select&#39; ? 0 : 1} /&gt;
-        &lt;/div&gt;
-
+      &lt;div className=&quot;jrv2-body&quot;&gt;
         {step === &#39;select&#39; &amp;&amp; (
           &lt;&gt;
-            &lt;p className=&quot;jr-intro&quot;&gt;View multiple reports at once by creating a Joined Report.&lt;/p&gt;
-            &lt;div className=&quot;jr-name-row&quot;&gt;
-              &lt;span className=&quot;jr-name-label&quot;&gt;Joined Report Name&lt;/span&gt;
-              &lt;Input
-                width={390}
-                placeholder=&quot;Untitled Joined Report&quot;
-                aria-label=&quot;Joined Report Name&quot;
-                id=&quot;jr-name-input&quot;
-                autoFocus
-                value={name}
-                onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setName(event.target.value)}
-              /&gt;
-            &lt;/div&gt;
+            &lt;p className=&quot;jrv2-intro&quot;&gt;View multiple reports at once by creating a Joined Report.&lt;/p&gt;
             &lt;FormTable
               ariaLabel=&quot;Reports&quot;
               headers={[&#39;Report&#39;]}
@@ -32200,8 +32506,8 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
 
         {step === &#39;group&#39; &amp;&amp; (
           &lt;&gt;
-            &lt;div className=&quot;jr-group-head&quot;&gt;
-              &lt;p className=&quot;jr-section-heading&quot;&gt;Group records by field to combine each report&#39;s fields under a common name.&lt;/p&gt;
+            &lt;div className=&quot;jrv2-group-head&quot;&gt;
+              &lt;p className=&quot;jrv2-section-heading&quot;&gt;Group records by field to combine each report&#39;s fields under a common name.&lt;/p&gt;
               &lt;Button variant=&quot;outline-blue&quot; onClick={() =&gt; setPreviewOpen(true)}&gt;
                 Preview
               &lt;/Button&gt;
@@ -32218,7 +32524,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
                     placement=&quot;top&quot;
                     wrapperStyle={{ display: &#39;block&#39;, maxWidth: &#39;100%&#39; }}
                   &gt;
-                    &lt;span className=&quot;jr-col-text&quot;&gt;{`Map Field For &quot;${reportNameOf(row, primaryReportName)}&quot;`}&lt;/span&gt;
+                    &lt;span className=&quot;jrv2-col-text&quot;&gt;{`Map Field For &quot;${reportNameOf(row, primaryReportName)}&quot;`}&lt;/span&gt;
                   &lt;/Tooltip&gt;
                 )),
               ]}
@@ -32231,7 +32537,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
                   key=&quot;name&quot;
                   width={250}
                   placeholder=&quot;Enter name&quot;
-                  id={groupIndex === 0 ? &#39;jr-group-name-first&#39; : undefined}
+                  id={groupIndex === 0 ? &#39;jrv2-group-name-first&#39; : undefined}
                   aria-label={`Group ${groupIndex + 1} name`}
                   error={errorKeys.has(`${group.id}:name`) &amp;&amp; !group.name.trim()}
                   helperText={errorKeys.has(`${group.id}:name`) &amp;&amp; !group.name.trim() ? &#39;Enter a group name&#39; : undefined}
@@ -32271,7 +32577,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
       showFooter={false}
       onClose={() =&gt; setPreviewOpen(false)}
     &gt;
-      &lt;table className=&quot;jr-preview-table&quot; aria-label=&quot;Joined report preview&quot;&gt;
+      &lt;table className=&quot;jrv2-preview-table&quot; aria-label=&quot;Joined report preview&quot;&gt;
         &lt;thead&gt;
           &lt;tr&gt;
             &lt;th&gt;Month &amp;amp; Year&lt;/th&gt;
@@ -32420,16 +32726,6 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
 // Background page: the report builder the Joined Report modal opens over
 // ─────────────────────────────────────────────────────────────────────────────
 
-const BUILDER_NAV = [
-  { label: &#39;Home&#39;, icon: &#39;CrmNewhome&#39;, color: &#39;var(--ds-icon-primary-link-blue)&#39; },
-  { label: &#39;Workqueue&#39;, icon: &#39;CrmNewworkqueue&#39;, color: &#39;var(--ds-icon-primary-orange)&#39; },
-  { label: &#39;Reports&#39;, icon: &#39;CrmNewReport&#39;, color: &#39;var(--ds-icon-primary-pink)&#39;, active: true },
-  { label: &#39;Dashboards&#39;, icon: &#39;CrmNewDashboard&#39;, color: &#39;var(--ds-icon-primary-purple)&#39; },
-  { label: &#39;My Requests&#39;, icon: &#39;CrmNewworkqueue&#39;, color: &#39;var(--ds-icon-primary-green)&#39; },
-  { label: &#39;Agents&#39;, icon: &#39;CrmZiaNewAgent&#39;, color: &#39;var(--ds-icon-primary-orange-yellow)&#39; },
-  { label: &#39;MCP&#39;, icon: &#39;CrmCpq&#39;, color: &#39;var(--ds-icon-primary-greenish-cyan)&#39; },
-];
-
 const BUILDER_LEADS = [
   &#39;Karpaska&#39;, &#39;Kipsta&#39;, &#39;Kiosha&#39;, &#39;Kingdom of Calm&#39;, &#39;Killer&#39;, &#39;Kid Cudi&#39;, &#39;Khabardaar.com&#39;, &#39;Keewi&#39;,
   &#39;KeepSake&#39;, &#39;Keepsake&#39;, &#39;Kalenji&#39;, &#39;Karnik Couture&#39;, &#39;Karma T Shirts&#39;, &#39;Karlsburg&#39;, &#39;Kappa&#39;, &#39;Kaplor&#39;, &#39;Kapdaclick.Com&#39;,
@@ -32437,10 +32733,22 @@ const BUILDER_LEADS = [
 
 const BUILDER_COLUMNS = [&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;];
 
+// Stable preview values; running a report is required for actual aggregates.
+const JOINED_PREVIEW_METRICS = [
+  [&#39;Count of contacts&#39;, &#39;Avg time spent&#39;],
+  [&#39;Count of tasks&#39;],
+  [&#39;Count of site visits&#39;, &#39;Sum of duration&#39;],
+];
+const JOINED_PREVIEW_MONTHS = [
+  { label: &#39;Jul 2026&#39;, rows: [[80, 80, 58, 74, 120], [61, 179, 58, 102, 90], [79, 52, 93, 110, 180], [48, 101, 68, 5, 45]] },
+  { label: &#39;Aug 2026&#39;, rows: [[174, 6, 93, 37, 60], [178, 109, 150, 21, 75], [55, 86, 56, 79, 150], [109, 117, 153, 33, 105]] },
+  { label: &#39;Sep 2026&#39;, rows: [[180, 102, 109, 96, 165], [83, 136, 84, 96, 120], [35, 93, 116, 84, 90], [18, 148, 126, 101, 135]] },
+];
+
 // Filters tab, laid out like the cross module reports Filters panel (heading, edit/delete, empty state).
 function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; onAdd: () =&gt; void; onDelete: () =&gt; void }) {
   return (
-    &lt;section className=&quot;cmr__panel-body jr-builder-filters&quot; aria-label=&quot;Filters&quot;&gt;
+    &lt;section className=&quot;cmr__panel-body jrv2-builder-filters&quot; aria-label=&quot;Filters&quot;&gt;
       &lt;div className=&quot;cmr__panel-heading&quot;&gt;
         &lt;h2&gt;Filters&lt;/h2&gt;
         {hasFilters &amp;&amp; (
@@ -32473,41 +32781,127 @@ function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; 
   );
 }
 
-function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void; onCreate: () =&gt; void; saved: boolean }) {
+function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount }: { onEdit: () =&gt; void; onCreate: () =&gt; void; saved: boolean; reports: string[]; initialGroupCount: number }) {
+  const [reportTitle, setReportTitle] = useState(&#39;Untitled Joined Report&#39;);
+  const [previewScrolled, setPreviewScrolled] = useState(false);
+  const [rowGroups, setRowGroups] = useState(() =&gt; [
+    { id: 1, field: &#39;Created Date&#39;, interval: &#39;Month and Year&#39;, order: &#39;Asc&#39; },
+    { id: 2, field: &#39;Assigned user&#39;, interval: &#39;&#39;, order: &#39;Asc&#39; },
+    { id: 3, field: &#39;Account&#39;, interval: &#39;&#39;, order: &#39;Asc&#39; },
+  ].slice(0, initialGroupCount));
+  const [groupDraft, setGroupDraft] = useState&lt;(typeof rowGroups)[number] | null&gt;(null);
+  const [mappingMode, setMappingMode] = useState&lt;&#39;recommended&#39; | &#39;manual&#39;&gt;(&#39;recommended&#39;);
+  const [recommendedField, setRecommendedField] = useState(&#39;&#39;);
+  const [mappedFields, setMappedFields] = useState&lt;string[]&gt;([]);
+  const [mappingOrder, setMappingOrder] = useState(() =&gt; reports.map((_, index) =&gt; index));
+  const reorderMapping = (source: number, target: number) =&gt; {
+    setMappingOrder(current =&gt; {
+      const next = current.filter(index =&gt; index !== source);
+      next.splice(current.indexOf(target), 0, source);
+      return next;
+    });
+  };
+  const [groupError, setGroupError] = useState(false);
+  const isAddingGroup = Boolean(groupDraft &amp;&amp; !rowGroups.some(group =&gt; group.id === groupDraft.id));
+  const recommendedOptions = [
+    { value: &#39;Account&#39;, label: &#39;Account&#39;, group: &#39;By lookup&#39; },
+    { value: &#39;Created Date&#39;, label: &#39;Created Date&#39;, group: &#39;By date-time&#39; },
+    { value: &#39;Modified Date&#39;, label: &#39;Modified Date&#39;, group: &#39;By date-time&#39; },
+    { value: &#39;Assigned user&#39;, label: &#39;Assigned user&#39;, group: &#39;By user&#39; },
+  ];
+  const mappingOptions = [...new Set([...recommendedOptions.map(option =&gt; option.value), ...FIELD_OPTIONS.map(option =&gt; option.value)])]
+    .map(value =&gt; ({ value, label: value }));
+  const fieldDataTypes: Record&lt;string, string&gt; = {
+    Account: &#39;Lookup · Accounts&#39;, &#39;Account Name&#39;: &#39;Lookup · Accounts&#39;,
+    &#39;Campaign Source&#39;: &#39;Lookup · Campaigns&#39;,
+    &#39;Created Date&#39;: &#39;Date&#39;, &#39;Modified Date&#39;: &#39;Date&#39;, &#39;Close Date&#39;: &#39;Date&#39;,
+    &#39;Created Time&#39;: &#39;Date&#39;, &#39;Modified Time&#39;: &#39;Date&#39;,
+    &#39;Assigned user&#39;: &#39;User&#39;, &#39;Assigned To&#39;: &#39;User&#39;, Owner: &#39;User&#39;,
+    Amount: &#39;Currency&#39;, &#39;Annual Revenue&#39;: &#39;Currency&#39;, Probability: &#39;Number&#39;,
+    Currency: &#39;Picklist&#39;, &#39;Deal Stage&#39;: &#39;Picklist&#39;, Industry: &#39;Picklist&#39;,
+    &#39;Lead Source&#39;: &#39;Picklist&#39;, Rating: &#39;Picklist&#39;, &#39;Sales Channel&#39;: &#39;Picklist&#39;,
+    Email: &#39;Email&#39;, Phone: &#39;Phone&#39;, Website: &#39;URL&#39;,
+  };
+  const selectedDataTypes = [...new Set(reports.flatMap((_, index) =&gt; {
+    const field = mappedFields[index];
+    return field ? [fieldDataTypes[field] || &#39;Text&#39;] : [];
+  }))];
+  const hasMixedDataTypes = selectedDataTypes.length &gt; 1;
+  const allMappedFieldsAreDates = reports.length &gt; 0 &amp;&amp; reports.every((_, index) =&gt; fieldDataTypes[mappedFields[index]] === &#39;Date&#39;);
+  const dateGranularityOptions = [
+    { value: &#39;Date&#39;, label: &#39;By Date&#39; },
+    { value: &#39;Week&#39;, label: &#39;By Week&#39; },
+    { value: &#39;Month and Year&#39;, label: &#39;By Month and Year&#39; },
+    { value: &#39;Quarter and Year&#39;, label: &#39;By Quarter and Year&#39; },
+    { value: &#39;Year&#39;, label: &#39;By Year&#39; },
+  ];
+  const saveGroup = () =&gt; {
+    if (!groupDraft) return;
+    if (isAddingGroup &amp;&amp; (hasMixedDataTypes || !groupDraft.field.trim() || reports.some((_, index) =&gt; !mappedFields[index]))) {
+      setGroupError(true);
+      return;
+    }
+    const nextGroup = isAddingGroup
+      ? { ...groupDraft, interval: allMappedFieldsAreDates ? groupDraft.interval || &#39;Month and Year&#39; : &#39;&#39; }
+      : groupDraft;
+    setRowGroups(current =&gt; current.some(group =&gt; group.id === nextGroup.id)
+      ? current.map(group =&gt; group.id === nextGroup.id ? nextGroup : group)
+      : [...current, nextGroup]);
+    setGroupDraft(null);
+  };
+  const [reportSettings, setReportSettings] = useState&lt;Record&lt;string, {
+    tab: string; columns: string[]; aggregates: string[]; hasFilters: boolean;
+  }&gt;&gt;({});
+  const getReportSettings = (report: string) =&gt; reportSettings[report] ?? {
+    tab: &#39;columns&#39;,
+    columns: [&#39;Account Name&#39;, &#39;Assistant&#39;, &#39;Asst Phone&#39;, &#39;Average Time Spent (Minutes)&#39;, &#39;Contact Name&#39;, &#39;Contact Owner&#39;],
+    aggregates: [&#39;Count of Contacts&#39;, &#39;Avg Time Spent&#39;],
+    hasFilters: false,
+  };
+  const updateReportSettings = (report: string, patch: Partial&lt;ReturnType&lt;typeof getReportSettings&gt;&gt;) =&gt; {
+    setReportSettings(current =&gt; ({ ...current, [report]: { ...getReportSettings(report), ...patch } }));
+  };
   const [builderTab, setBuilderTab] = useState(&#39;columns&#39;);
   const [hasFilters, setHasFilters] = useState(saved);
   const [columns, setColumns] = useState([&#39;Lead Name&#39;, &#39;Email&#39;, &#39;Company&#39;, &#39;Created Time&#39;, &#39;Lead Owner&#39;, &#39;First Name&#39;, &#39;Last Name&#39;]);
   const [aggregates, setAggregates] = useState([&#39;Avg of Annual Revenue&#39;, &#39;Sum of Annual Revenue&#39;, &#39;Count of Unique Leads&#39;]);
   return (
-    &lt;div className=&quot;jr-builder&quot;&gt;
-      &lt;aside className=&quot;jr-builder-nav&quot; aria-label=&quot;Main navigation&quot;&gt;
-        {BUILDER_NAV.map(item =&gt; (
-          &lt;div key={item.label} className={`jr-builder-nav-item${item.active ? &#39; jr-builder-nav-item--active&#39; : &#39;&#39;}`}&gt;
-            &lt;span className=&quot;jr-builder-nav-icon&quot; style={{ color: item.color }}&gt;
-              &lt;Icon name={item.icon} size={20} /&gt;
-            &lt;/span&gt;
-            &lt;span&gt;{item.label}&lt;/span&gt;
-          &lt;/div&gt;
-        ))}
-      &lt;/aside&gt;
+    &lt;div className=&quot;jrv2-builder&quot;&gt;
+      &lt;NextGenLeftMenu activeId=&quot;reports&quot; defaultCollapsed /&gt;
 
-      &lt;div className=&quot;jr-builder-main&quot;&gt;
+      &lt;div className=&quot;jrv2-builder-main&quot;&gt;
         &lt;NextGenTopBand moduleLabel=&quot;Reports&quot; searchPlaceholder=&quot;Search records&quot; showTerritory={false} /&gt;
 
-        &lt;div className=&quot;jr-builder-subbar&quot;&gt;
-          &lt;div className=&quot;jr-builder-subtitle&quot;&gt;
+        &lt;div className=&quot;jrv2-builder-subbar&quot;&gt;
+          &lt;div className=&quot;jrv2-builder-subtitle&quot;&gt;
             &lt;Icon name=&quot;CrmArrowBack&quot; size={18} /&gt;
-            &lt;div className=&quot;jr-builder-title-stack&quot;&gt;
-              &lt;span className=&quot;jr-builder-name&quot;&gt;{saved ? &#39;Monthly Sales Pipeline&#39; : &#39;Leads By Source&#39;}&lt;/span&gt;
-              &lt;span className=&quot;jr-builder-module&quot;&gt;Leads&lt;/span&gt;
+            &lt;div className=&quot;jrv2-builder-title-stack&quot;&gt;
+              {saved ? (
+                &lt;div className=&quot;jrv2-builder-title-input&quot;&gt;
+                  &lt;Input
+                    variant=&quot;header&quot;
+                    aria-label=&quot;Report title&quot;
+                    value={reportTitle}
+                    onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setReportTitle(event.target.value)}
+                    onBlur={() =&gt; setReportTitle(current =&gt; current.trim() || &#39;Untitled Joined Report&#39;)}
+                    onKeyDown={(event: React.KeyboardEvent&lt;HTMLInputElement&gt;) =&gt; {
+                      if (event.key === &#39;Enter&#39;) event.currentTarget.blur();
+                    }}
+                  /&gt;
+                &lt;/div&gt;
+              ) : &lt;span className=&quot;jrv2-builder-name&quot;&gt;Leads By Source&lt;/span&gt;}
+              {!saved &amp;&amp; &lt;span className=&quot;jrv2-builder-module&quot;&gt;Leads&lt;/span&gt;}
             &lt;/div&gt;
           &lt;/div&gt;
-          &lt;div className=&quot;jr-builder-actions&quot;&gt;
+          &lt;div className=&quot;jrv2-builder-actions&quot;&gt;
             {!saved &amp;&amp; (
-            &lt;p className=&quot;jr-builder-cta&quot;&gt;
+            &lt;p className=&quot;jrv2-builder-cta&quot;&gt;
               Do you want to join another report?{&#39; &#39;}
-              &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit&quot; onClick={onCreate}&gt;Create Joined Report&lt;/button&gt;
+              &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit&quot; onClick={onCreate}&gt;Create Joined Report&lt;/button&gt;
             &lt;/p&gt;
+            )}
+            {saved &amp;&amp; (
+              &lt;Button variant=&quot;link-primary&quot; onClick={onEdit}&gt;Edit Joined Report&lt;/Button&gt;
             )}
             &lt;Button variant=&quot;default&quot;&gt;Cancel&lt;/Button&gt;
             &lt;Button variant=&quot;default&quot;&gt;Run&lt;/Button&gt;
@@ -32515,29 +32909,138 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
           &lt;/div&gt;
         &lt;/div&gt;
 
-        &lt;div className=&quot;jr-builder-body&quot;&gt;
-          &lt;section className=&quot;jr-builder-panel&quot; aria-label=&quot;Joined report structure&quot;&gt;
-            {saved &amp;&amp; (&lt;&gt;
-            &lt;div className=&quot;jr-builder-row jr-builder-panel-head&quot;&gt;
-              &lt;span className=&quot;jr-builder-panel-title&quot;&gt;Joined Report&lt;/span&gt;
-              &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit joined report&quot; onClick={onEdit}&gt;
-                &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;
-              &lt;/button&gt;
+        &lt;div className=&quot;jrv2-builder-body&quot;&gt;
+          &lt;section className={`jrv2-builder-panel${saved ? &#39; jrv2-builder-panel--joined&#39; : &#39;&#39;}${isAddingGroup ? &#39; jrv2-builder-panel--group-editor&#39; : &#39;&#39;}`} aria-label=&quot;Joined report structure&quot;&gt;
+            {saved &amp;&amp; isAddingGroup &amp;&amp; groupDraft ? (
+              &lt;section className=&quot;jrv2-row-group-editor&quot; aria-label=&quot;Add row group&quot;&gt;
+                &lt;h2 className=&quot;jrv2-builder-panel-title&quot;&gt;Add Row Group&lt;/h2&gt;
+                &lt;div className=&quot;jrv2-joined-group-form&quot;&gt;
+          &lt;h3 className=&quot;jrv2-row-group-heading&quot;&gt;Choose a field from each report&lt;/h3&gt;
+          &lt;&gt;
+            &lt;div className=&quot;jrv2-row-group-choices&quot;&gt;
+              &lt;Radio name=&quot;jrv2-mapping-mode&quot; label=&quot;Recommended Fields&quot; checked={mappingMode === &#39;recommended&#39;} onChange={() =&gt; {
+                setMappingMode(&#39;recommended&#39;);
+                setMappedFields(reports.map(() =&gt; recommendedField));
+              }} /&gt;
+              &lt;Radio name=&quot;jrv2-mapping-mode&quot; label=&quot;Choose Manually&quot; checked={mappingMode === &#39;manual&#39;} onChange={() =&gt; setMappingMode(&#39;manual&#39;)} /&gt;
             &lt;/div&gt;
-
-            &lt;div className=&quot;jr-builder-block&quot;&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Report 1&lt;/span&gt;
+              {mappingMode === &#39;recommended&#39; &amp;&amp; &lt;div className=&quot;jrv2-row-group-recommended&quot;&gt;
+                &lt;Dropdown width=&quot;100%&quot; placeholder=&quot;Choose recommended fields&quot; triggerAriaLabel=&quot;Choose recommended fields&quot; disabled={mappingMode !== &#39;recommended&#39;} options={recommendedOptions} value={recommendedField} onChange={(field: string) =&gt; {
+                  setRecommendedField(field);
+                  setMappedFields(reports.map(() =&gt; field));
+                  setGroupDraft({ ...groupDraft, field, interval: field.includes(&#39;Date&#39;) ? &#39;Month and Year&#39; : &#39;&#39; });
+                  setGroupError(false);
+                }} /&gt;
+              &lt;/div&gt;}
+            {(mappingMode === &#39;manual&#39; || recommendedField) &amp;&amp; &lt;div className=&quot;jrv2-row-group-mapping&quot;&gt;
+              &lt;div className=&quot;jrv2-mapping-table&quot; role=&quot;table&quot; aria-label=&quot;Report field mapping&quot;&gt;
+                &lt;div className=&quot;jrv2-mapping-row jrv2-mapping-header&quot; role=&quot;row&quot;&gt;
+                  &lt;div role=&quot;columnheader&quot;&gt;Report&lt;/div&gt;&lt;div role=&quot;columnheader&quot;&gt;Group by field&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;Dragger items={mappingOrder.map(String)} onChange={(order: string[]) =&gt; setMappingOrder(order.map(Number))} gripperOnHover renderItem={(id: string) =&gt; {
+                  const index = Number(id);
+                  const position = mappingOrder.indexOf(index);
+                  return &lt;div className=&quot;jrv2-mapping-row&quot; role=&quot;row&quot;&gt;
+                    &lt;div role=&quot;cell&quot;&gt;
+                      {reports.length &gt; 1 &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;jrv2-mapping-grip&quot;
+                        aria-label={`Reorder ${reports[index]}`}
+                        aria-description=&quot;Drag to reorder, or use the Up and Down arrow keys.&quot;
+                        onKeyDown={event =&gt; {
+                          const target = event.key === &#39;ArrowUp&#39; ? position - 1 : event.key === &#39;ArrowDown&#39; ? position + 1 : -1;
+                          if (event.key === &#39;ArrowUp&#39; || event.key === &#39;ArrowDown&#39;) event.preventDefault();
+                          if (target &gt;= 0 &amp;&amp; target &lt; mappingOrder.length) reorderMapping(index, mappingOrder[target]);
+                        }}
+                      &gt;&lt;Icon name=&quot;CrmMaskDrag&quot; size={12} /&gt;&lt;/button&gt;}
+                      {reports[index]}
+                    &lt;/div&gt;
+                    &lt;div role=&quot;cell&quot;&gt;&lt;Dropdown width=&quot;100%&quot; placeholder=&quot;Select field&quot; triggerAriaLabel={`Group by field for ${reports[index]}`} options={mappingOptions} disabled={mappingMode !== &#39;manual&#39;} value={mappedFields[index] || &#39;&#39;} error={groupError &amp;&amp; !mappedFields[index] ? &#39;Select a field&#39; : undefined} onChange={(field: string) =&gt; setMappedFields(current =&gt; reports.map((_, fieldIndex) =&gt; fieldIndex === index ? field : current[fieldIndex] || &#39;&#39;))} /&gt;&lt;/div&gt;
+                  &lt;/div&gt;;
+                }} /&gt;
               &lt;/div&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span&gt;Leads By Source&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Leads By Source&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-
-&lt;/&gt;)}
-            &lt;div className=&quot;jr-builder-block&quot;&gt;
-              &lt;div className=&quot;jr-builder-tabs&quot;&gt;
+            &lt;/div&gt;}
+          &lt;/&gt;
+          {hasMixedDataTypes &amp;&amp; &lt;MessageBox
+            variant=&quot;warning&quot;
+            className=&quot;jrv2-mixed-types-warning&quot;
+            closable={false}
+            message={&lt;&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Selected fields have different data types. Choose fields of the same type to create this group.&lt;/&gt;}
+          /&gt;}
+          {allMappedFieldsAreDates &amp;&amp; &lt;div className=&quot;jrv2-row-group-detail&quot;&gt;&lt;Dropdown style={{ &#39;--jrv2-date-granularity&#39;: 1 }} label=&quot;Date granularity&quot; width=&quot;100%&quot; triggerAriaLabel=&quot;Date granularity&quot; options={dateGranularityOptions} value={groupDraft.interval || &#39;Month and Year&#39;} onChange={(interval: string) =&gt; setGroupDraft({ ...groupDraft, interval })} /&gt;&lt;/div&gt;}
+          &lt;div className=&quot;jrv2-row-group-detail&quot;&gt;&lt;Input label={&lt;span className=&quot;jrv2-group-name-label&quot;&gt;Enter Group Name &lt;Tooltip content=&quot;This name appears as the row heading.&quot; variant=&quot;white&quot; placement=&quot;top&quot; followCursor&gt;&lt;button type=&quot;button&quot; className=&quot;jrv2-group-name-info&quot; aria-label=&quot;Group name information&quot;&gt;&lt;Info aria-hidden=&quot;true&quot; /&gt;&lt;/button&gt;&lt;/Tooltip&gt;&lt;/span&gt;} layout=&quot;vertical&quot; width=&quot;100%&quot; placeholder={`Common group ${rowGroups.length + 1}`} value={groupDraft.field} error={groupError &amp;&amp; !groupDraft.field.trim() ? &#39;Enter a group name&#39; : undefined} onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setGroupDraft({ ...groupDraft, field: event.target.value })} /&gt;&lt;/div&gt;
+        &lt;/div&gt;
+                &lt;div className=&quot;jrv2-row-group-footer&quot;&gt;
+                  &lt;Button variant=&quot;primary&quot; disabled={hasMixedDataTypes} onClick={saveGroup}&gt;Done&lt;/Button&gt;
+                  &lt;Button variant=&quot;default&quot; onClick={() =&gt; setGroupDraft(null)}&gt;Cancel&lt;/Button&gt;
+                &lt;/div&gt;
+              &lt;/section&gt;
+            ) : saved ? (&lt;&gt;
+              &lt;header className=&quot;jrv2-joined-summary&quot;&gt;
+                &lt;h2&gt;Joined Report&lt;/h2&gt;
+              &lt;/header&gt;
+              &lt;section className=&quot;jrv2-joined-groups&quot; aria-label=&quot;Row groups&quot;&gt;
+                &lt;h3 className=&quot;jrv2-joined-label&quot;&gt;Row Groups&lt;/h3&gt;
+                {rowGroups.map(group =&gt; (
+                  &lt;div className=&quot;jrv2-joined-group&quot; key={group.id}&gt;
+                    &lt;div className=&quot;jrv2-joined-group-name&quot;&gt;
+                      &lt;span&gt;{group.field}&lt;/span&gt;
+                      {group.interval &amp;&amp; &lt;span className=&quot;jrv2-joined-muted&quot;&gt;By {group.interval}&lt;/span&gt;}
+                    &lt;/div&gt;
+                    &lt;button
+                      type=&quot;button&quot;
+                      className=&quot;jrv2-joined-sort&quot;
+                      aria-label={`${group.field} sort order: ${group.order}. Switch to ${group.order === &#39;Asc&#39; ? &#39;Desc&#39; : &#39;Asc&#39;}`}
+                      onClick={() =&gt; setRowGroups(groups =&gt; groups.map(item =&gt; item.id === group.id ? { ...item, order: item.order === &#39;Asc&#39; ? &#39;Desc&#39; : &#39;Asc&#39; } : item))}
+                    &gt;
+                      {group.order}
+                    &lt;/button&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn&quot; aria-label={`Edit ${group.field} group`} onClick={() =&gt; setGroupDraft({ ...group })}&gt;
+                      &lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;
+                    &lt;/button&gt;
+                  &lt;/div&gt;
+                ))}
+                &lt;Button variant=&quot;link-primary&quot; className=&quot;jrv2-joined-add&quot; onClick={() =&gt; {
+                  setMappingMode(&#39;recommended&#39;);
+                  setRecommendedField(&#39;&#39;);
+                  setMappedFields(reports.map(() =&gt; &#39;&#39;));
+                  setMappingOrder(reports.map((_, index) =&gt; index));
+                  setGroupError(false);
+                  setGroupDraft({ id: Date.now(), field: &#39;&#39;, interval: &#39;&#39;, order: &#39;Asc&#39; });
+                }}&gt;+ Add New Group&lt;/Button&gt;
+              &lt;/section&gt;
+              {reports.map((report, index) =&gt; {
+                const settings = getReportSettings(report);
+                return (
+                  &lt;details className=&quot;jrv2-joined-report&quot; key={`${index}-${report}`} open={index === 0}&gt;
+                    &lt;summary className=&quot;jrv2-report-toggle&quot; aria-label={`Report ${index + 1}: ${report}`}&gt;
+                      &lt;div&gt;
+                        &lt;h3 className=&quot;jrv2-joined-label&quot;&gt;Report {index + 1}&lt;/h3&gt;
+                        &lt;p&gt;{report}&lt;/p&gt;
+                      &lt;/div&gt;
+                      &lt;ChevronDownFilled size={12} className=&quot;jrv2-report-chevron&quot; /&gt;
+                    &lt;/summary&gt;
+                    &lt;div className=&quot;jrv2-report-content&quot; role=&quot;region&quot; aria-label={`${report} settings`}&gt;
+                      &lt;div className=&quot;jrv2-builder-tabs&quot;&gt;
+                        &lt;Tabs tabs={[{ id: &#39;columns&#39;, label: &#39;Columns&#39; }, { id: &#39;filters&#39;, label: &#39;Filters&#39; }]}
+                          activeTab={settings.tab} onChange={(tab: string) =&gt; updateReportSettings(report, { tab })}
+                          variant=&quot;secondary&quot; size=&quot;md&quot; /&gt;
+                      &lt;/div&gt;
+                      {settings.tab === &#39;filters&#39; ? (
+                        &lt;BuilderFilters hasFilters={settings.hasFilters}
+                          onAdd={() =&gt; updateReportSettings(report, { hasFilters: true })}
+                          onDelete={() =&gt; updateReportSettings(report, { hasFilters: false })} /&gt;
+                      ) : (&lt;&gt;
+                        &lt;div className=&quot;jrv2-builder-row&quot;&gt;&lt;h4 className=&quot;jrv2-joined-label&quot;&gt;Columns&lt;/h4&gt;&lt;/div&gt;
+                        &lt;Dragger items={settings.columns} onChange={(columns: string[]) =&gt; updateReportSettings(report, { columns })} /&gt;
+                        &lt;div className=&quot;jrv2-builder-row jrv2-builder-row--section&quot;&gt;&lt;h4 className=&quot;jrv2-joined-label&quot;&gt;Aggregate columns&lt;/h4&gt;&lt;/div&gt;
+                        &lt;Dragger items={settings.aggregates} onChange={(aggregates: string[]) =&gt; updateReportSettings(report, { aggregates })} /&gt;
+                      &lt;/&gt;)}
+                    &lt;/div&gt;
+                  &lt;/details&gt;
+                );
+              })}
+            &lt;/&gt;) : (
+            &lt;div className=&quot;jrv2-builder-block&quot;&gt;
+              &lt;div className=&quot;jrv2-builder-tabs&quot;&gt;
                 &lt;Tabs
                   tabs={[{ id: &#39;columns&#39;, label: &#39;Columns&#39; }, { id: &#39;filters&#39;, label: &#39;Filters&#39; }]}
                   activeTab={builderTab}
@@ -32549,58 +33052,90 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               {builderTab === &#39;filters&#39; ? (
                 &lt;BuilderFilters hasFilters={hasFilters} onAdd={() =&gt; setHasFilters(true)} onDelete={() =&gt; setHasFilters(false)} /&gt;
               ) : (&lt;&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Columns&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+              &lt;div className=&quot;jrv2-builder-row&quot;&gt;
+                &lt;span className=&quot;jrv2-builder-block-title&quot;&gt;Columns&lt;/span&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn&quot; aria-label=&quot;Edit columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jrv2-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={columns} onChange={setColumns} /&gt;
-              &lt;div className=&quot;jr-builder-row jr-builder-row--section&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Aggregate Columns&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
+              &lt;div className=&quot;jrv2-builder-row jrv2-builder-row--section&quot;&gt;
+                &lt;span className=&quot;jrv2-builder-block-title&quot;&gt;Aggregate Columns&lt;/span&gt;
+                &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn&quot; aria-label=&quot;Edit aggregate columns&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jrv2-builder-edit-icon&quot; /&gt;&lt;/button&gt;
               &lt;/div&gt;
               &lt;Dragger items={aggregates} onChange={setAggregates} /&gt;
               &lt;/&gt;)}
             &lt;/div&gt;
 
-            {saved &amp;&amp; (&lt;&gt;
-            &lt;div className=&quot;jr-builder-block&quot;&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Report 2&lt;/span&gt;
-              &lt;/div&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span&gt;Recent Six Month Leads&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Recent Six Month Leads&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-
-            &lt;div className=&quot;jr-builder-block&quot;&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span className=&quot;jr-builder-block-title&quot;&gt;Report 3&lt;/span&gt;
-              &lt;/div&gt;
-              &lt;div className=&quot;jr-builder-row&quot;&gt;
-                &lt;span&gt;Untitled Report 0&lt;/span&gt;
-                &lt;button type=&quot;button&quot; className=&quot;jr-builder-edit-btn&quot; aria-label=&quot;Edit Untitled Report 0&quot;&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} className=&quot;jr-builder-edit-icon&quot; /&gt;&lt;/button&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-&lt;/&gt;)}
+            )}
           &lt;/section&gt;
 
-          &lt;section className=&quot;jr-builder-preview&quot; aria-label=&quot;Report preview&quot;&gt;
-            &lt;p className=&quot;jr-builder-notice&quot;&gt;
+          &lt;section className=&quot;jrv2-builder-preview&quot; aria-label=&quot;Report preview&quot;&gt;
+            &lt;p className=&quot;jrv2-builder-notice&quot;&gt;
               &lt;Info aria-hidden=&quot;true&quot; /&gt;
               Preview shown with limited number of rows. Run the report to see actual aggregate values.
-              &lt;span className=&quot;jr-builder-link&quot;&gt;Show Details&lt;/span&gt;
+              &lt;span className=&quot;jrv2-builder-link&quot;&gt;Show Details&lt;/span&gt;
             &lt;/p&gt;
-            &lt;table className=&quot;jr-builder-table&quot; aria-label=&quot;Report 1 Leads By Source&quot;&gt;
+            {saved ? (
+              &lt;div
+                className={`jrv2-joined-preview-scroll${previewScrolled ? &#39; jrv2-joined-preview-scroll--scrolled&#39; : &#39;&#39;}`}
+                onScroll={event =&gt; setPreviewScrolled(event.currentTarget.scrollLeft &gt; 0)}
+              &gt;
+                &lt;table className=&quot;jrv2-builder-table jrv2-joined-preview-table&quot; aria-label=&quot;Joined report preview&quot;&gt;
+                  &lt;thead&gt;
+                    &lt;tr&gt;
+                      &lt;th aria-label=&quot;Grouping field&quot; /&gt;
+                      &lt;th colSpan={2} aria-label=&quot;Additional grouping fields&quot; /&gt;
+                      {reports.map((report, index) =&gt; (
+                        &lt;th key={`${index}-${report}`} colSpan={JOINED_PREVIEW_METRICS[index].length} scope=&quot;colgroup&quot; className=&quot;jrv2-builder-group-head&quot;&gt;Report {index + 1} — {report}&lt;/th&gt;
+                      ))}
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;th scope=&quot;col&quot;&gt;Created Date - By Month and Year&lt;/th&gt;
+                      &lt;th scope=&quot;col&quot;&gt;Assigned user&lt;/th&gt;
+                      &lt;th scope=&quot;col&quot;&gt;Account&lt;/th&gt;
+                      {reports.flatMap((_, index) =&gt; JOINED_PREVIEW_METRICS[index].map(metric =&gt; &lt;th key={metric} scope=&quot;col&quot;&gt;{metric}&lt;/th&gt;))}
+                    &lt;/tr&gt;
+                  &lt;/thead&gt;
+                  &lt;tbody&gt;
+                    {JOINED_PREVIEW_MONTHS.flatMap(month =&gt; [
+                      ...month.rows.map((values, index) =&gt; (
+                        &lt;tr key={`${month.label}-${index}`}&gt;
+                          &lt;td&gt;{index === 0 ? month.label : &#39;&#39;}&lt;/td&gt;
+                          &lt;td&gt;{index % 2 === 0 ? index === 0 ? &#39;Selvam&#39; : &#39;Priya&#39; : &#39;&#39;}&lt;/td&gt;
+                          &lt;td&gt;{index % 2 === 0 ? &#39;Fabrikam Inc&#39; : &#39;Northwind Traders&#39;}&lt;/td&gt;
+                          {values.slice(0, reports.reduce((count, _, reportIndex) =&gt; count + JOINED_PREVIEW_METRICS[reportIndex].length, 0)).map((value, metricIndex) =&gt; &lt;td className=&quot;jrv2-preview-number&quot; key={metricIndex}&gt;{value}&lt;/td&gt;)}
+                        &lt;/tr&gt;
+                      )),
+                      &lt;tr key={`${month.label}-total`} className=&quot;jrv2-preview-total&quot;&gt;
+                        &lt;th scope=&quot;row&quot;&gt;{month.label} Total&lt;/th&gt;&lt;td /&gt;&lt;td /&gt;
+                        {month.rows[0].slice(0, reports.reduce((count, _, reportIndex) =&gt; count + JOINED_PREVIEW_METRICS[reportIndex].length, 0)).map((_, metricIndex) =&gt; (
+                          &lt;td className=&quot;jrv2-preview-number&quot; key={metricIndex}&gt;{month.rows.reduce((total, values) =&gt; total + values[metricIndex], 0)}&lt;/td&gt;
+                        ))}
+                      &lt;/tr&gt;,
+                    ])}
+                  &lt;/tbody&gt;
+                  &lt;tfoot&gt;
+                    &lt;tr className=&quot;jrv2-preview-grand-total&quot;&gt;
+                      &lt;th scope=&quot;row&quot;&gt;Grand Total&lt;/th&gt;
+                      &lt;td colSpan={2} /&gt;
+                      {reports.flatMap((_, reportIndex) =&gt; JOINED_PREVIEW_METRICS[reportIndex].map((metric, metricIndex) =&gt; {
+                        const columnIndex = JOINED_PREVIEW_METRICS.slice(0, reportIndex).reduce((count, metrics) =&gt; count + metrics.length, 0) + metricIndex;
+                        return &lt;td className=&quot;jrv2-preview-number&quot; key={`${reportIndex}-${metric}`}&gt;{JOINED_PREVIEW_MONTHS.reduce((total, month) =&gt; total + month.rows.reduce((sum, values) =&gt; sum + values[columnIndex], 0), 0)}&lt;/td&gt;;
+                      }))}
+                    &lt;/tr&gt;
+                  &lt;/tfoot&gt;
+                &lt;/table&gt;
+              &lt;/div&gt;
+            ) : (
+            &lt;table className=&quot;jrv2-builder-table&quot; aria-label=&quot;Report 1 Leads By Source&quot;&gt;
               &lt;thead&gt;
                 &lt;tr&gt;
                   &lt;th /&gt;
-                  &lt;th colSpan={BUILDER_COLUMNS.length} className=&quot;jr-builder-group-head&quot;&gt;REPORT 1 - LEADS BY SOURCE&lt;/th&gt;
+                  &lt;th colSpan={BUILDER_COLUMNS.length} className=&quot;jrv2-builder-group-head&quot;&gt;Report 1 - Leads by Source&lt;/th&gt;
                 &lt;/tr&gt;
                 &lt;tr&gt;
-                  &lt;th className=&quot;jr-builder-source-head&quot;&gt;LEAD SOURCE ▲&lt;/th&gt;
+                  &lt;th className=&quot;jrv2-builder-source-head&quot;&gt;Lead Source&lt;/th&gt;
                   {BUILDER_COLUMNS.map(column =&gt; (
-                    &lt;th key={column}&gt;{column.toUpperCase()}&lt;/th&gt;
+                    &lt;th key={column}&gt;{column}&lt;/th&gt;
                   ))}
                 &lt;/tr&gt;
               &lt;/thead&gt;
@@ -32608,9 +33143,9 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
                 {BUILDER_LEADS.map((lead, index) =&gt; (
                   &lt;tr key={lead}&gt;
                     {index === 0 &amp;&amp; (
-                      &lt;td className=&quot;jr-builder-source&quot; rowSpan={BUILDER_LEADS.length}&gt;Advertisement&lt;/td&gt;
+                      &lt;td className=&quot;jrv2-builder-source&quot; rowSpan={BUILDER_LEADS.length}&gt;Advertisement&lt;/td&gt;
                     )}
-                    &lt;td className=&quot;jr-builder-link&quot;&gt;{lead}&lt;/td&gt;
+                    &lt;td className=&quot;jrv2-builder-link&quot;&gt;{lead}&lt;/td&gt;
                     &lt;td&gt;-&lt;/td&gt;
                     &lt;td&gt;-&lt;/td&gt;
                     &lt;td&gt;21 Oct, 2015 03:06 PM&lt;/td&gt;
@@ -32620,22 +33155,31 @@ function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () =&gt; void;
               &lt;/tbody&gt;
               &lt;tfoot&gt;
                 &lt;tr&gt;
-                  &lt;td className=&quot;jr-builder-source&quot;&gt;Grand Total&lt;/td&gt;
+                  &lt;td className=&quot;jrv2-builder-source&quot;&gt;Grand Total&lt;/td&gt;
                   &lt;td colSpan={BUILDER_COLUMNS.length} /&gt;
                 &lt;/tr&gt;
               &lt;/tfoot&gt;
             &lt;/table&gt;
+            )}
           &lt;/section&gt;
         &lt;/div&gt;
       &lt;/div&gt;
+      &lt;Modal isOpen={Boolean(groupDraft) &amp;&amp; !isAddingGroup} title=&quot;Joined Row Group&quot; width={560} onClose={() =&gt; setGroupDraft(null)} saveLabel=&quot;Save&quot; onSave={saveGroup}&gt;
+        {groupDraft &amp;&amp; (&lt;div className=&quot;jrv2-joined-group-form&quot;&gt;
+          &lt;Dropdown label=&quot;Group field&quot; width=&quot;100%&quot; options={mappingOptions} value={groupDraft.field} onChange={(field: string) =&gt; setGroupDraft({ ...groupDraft, field })} /&gt;
+          &lt;Dropdown label=&quot;Group by&quot; width=&quot;100%&quot; options={[&#39;Month and Year&#39;, &#39;Quarter and Year&#39;, &#39;Year&#39;, &#39;Day&#39;].map(value =&gt; ({ value, label: value }))} value={groupDraft.interval} onChange={(interval: string) =&gt; setGroupDraft({ ...groupDraft, interval })} /&gt;
+          &lt;Dropdown label=&quot;Sort order&quot; width=&quot;100%&quot; options={[&#39;Asc&#39;, &#39;Desc&#39;].map(value =&gt; ({ value, label: value }))} value={groupDraft.order} onChange={(order: string) =&gt; setGroupDraft({ ...groupDraft, order })} /&gt;
+        &lt;/div&gt;)}
+      &lt;/Modal&gt;
     &lt;/div&gt;
   );
 }
 
-function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReportCount, startOpen = true, saved = true }: Args) {
+function JoinedReportsRevampV2Page({ primaryReportName, initialStep, initialReportCount, initialGroupCount = 1, startOpen = true, saved = true }: Args) {
   const [open, setOpen] = useState(startOpen);
   const [mode, setMode] = useState&lt;&#39;create&#39; | &#39;edit&#39;&gt;(&#39;create&#39;);
   const [isSaved, setIsSaved] = useState(saved);
+  const [savedReports, setSavedReports] = useState(() =&gt; initialRows(initialReportCount, initialStep, true).map(row =&gt; reportNameOf(row, primaryReportName)));
   const [session, setSession] = useState(0);
   const [banner, setBanner] = useState&lt;Banner | null&gt;(null);
 
@@ -32652,11 +33196,13 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
     &lt;&gt;
       &lt;BuilderBackground
         saved={isSaved}
+        reports={savedReports}
+        initialGroupCount={initialGroupCount}
         onEdit={() =&gt; { setMode(&#39;edit&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
         onCreate={() =&gt; { setMode(&#39;create&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
       /&gt;
       {banner &amp;&amp; createPortal(
-        &lt;div className=&quot;jr-note-banner&quot; key={banner.id}&gt;
+        &lt;div className=&quot;jrv2-note-banner&quot; key={banner.id}&gt;
           &lt;MessageBox variant={banner.variant} message={banner.message} onClose={() =&gt; setBanner(null)} /&gt;
         &lt;/div&gt;,
         document.body,
@@ -32670,7 +33216,8 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
         initialReportCount={initialReportCount}
         onClose={() =&gt; setOpen(false)}
         onNotify={notify}
-        onSaved={name =&gt; {
+        onSaved={(name, reports) =&gt; {
+          setSavedReports(reports);
           setIsSaved(true);
           setOpen(false);
           notify(&#39;success&#39;, `Joined Report &quot;${name}&quot; saved.`);
@@ -32691,10 +33238,10 @@ const meta = {
     docs: {
       description: {
         component:
-          &#39;Create Joined Report modal: step 1 selects up to three reports (top aligned), step 2 groups records by field &#39; +
-          &#39;(vertically centred). Built from existing Modal, Stepper, Input, Dropdown, Button, Icon and MessageBox components. &#39; +
+          &#39;Isolated V2 flow without a report-name field or stepper. Step 1 selects up to three reports; step 2 groups records by field &#39; +
+          &#39;(vertically centred). Built from existing Modal, Input, Dropdown, Button, Icon and MessageBox components. &#39; +
           &#39;Controls: the primary report name, the starting step (step 2 shows the centred layout) and how many reports &#39; +
-          &#39;are already selected. Next with an empty report row shows an inline error; Save shows a success message. &#39; +
+          &#39;are already selected. Save validates report selections, closes the modal and shows Untitled Joined Report with an edit link. &#39; +
           &#39;No network calls are made.&#39;,
       },
     },
@@ -32708,31 +33255,117 @@ const meta = {
     initialStep: { control: &#39;inline-radio&#39;, options: [&#39;select&#39;, &#39;group&#39;] },
     initialReportCount: { control: { type: &#39;range&#39;, min: 1, max: MAX_REPORTS, step: 1 } },
   },
-  render: args =&gt; &lt;JoinedReportsRevampPage {...args} /&gt;,
+  render: args =&gt; &lt;JoinedReportsRevampV2Page {...args} /&gt;,
 } satisfies Meta&lt;Args&gt;;
 
 export default meta;
 type Story = StoryObj&lt;typeof meta&gt;;
 
-export const Default: Story = {
+// V2 is intentionally isolated from the original flow and styles so future changes
+// can be made here without altering the existing Joined Reports variants.
+export const V2: Story = {
+  name: &#39;V2&#39;,
   args: { startOpen: false, saved: false },
 };
 
-export const SavedJoinedReport: Story = {
-  args: { startOpen: false, saved: true },
-};
-
-export const GroupingStep: Story = {
-  args: { initialStep: &#39;group&#39;, initialReportCount: 3 },
-};
-
-export const ReportLimit: Story = {
-  args: { initialStep: &#39;select&#39;, initialReportCount: 3 },
-  // Three reports selected: plus on the last row shows the limit message.
+export const V2Summary: Story = {
+  name: &#39;V2 - Summary&#39;,
+  args: { startOpen: false, saved: true, initialReportCount: 3, initialGroupCount: 3 },
   play: async ({ canvasElement }) =&gt; {
-    const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(await body.findByRole(&#39;button&#39;, { name: &#39;Add report&#39; }));
-    expect(await body.findByText(LIMIT_MESSAGE)).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Report 3&#39;, exact: true })).toBeVisible();
+    const title = canvas.getByRole(&#39;textbox&#39;, { name: &#39;Report title&#39; });
+    await expect(title).toHaveValue(&#39;Untitled Joined Report&#39;);
+    const titleField = title.closest(&#39;.jrv2-builder-title-input&#39;)!;
+    await userEvent.hover(title);
+    const initialWidth = titleField.getBoundingClientRect().width;
+    await expect(initialWidth).toBeGreaterThanOrEqual(100);
+    await userEvent.click(title);
+    await expect(titleField.getBoundingClientRect().width).toBe(390);
+    await userEvent.clear(title);
+    await userEvent.type(title, &#39;Sales{Enter}&#39;);
+    await expect(titleField.getBoundingClientRect().width).toBe(100);
+    await userEvent.clear(title);
+    await userEvent.type(title, &#39;Regional Sales Summary{Enter}&#39;);
+    await expect(title).toHaveValue(&#39;Regional Sales Summary&#39;);
+    await expect(title).not.toHaveFocus();
+    await userEvent.clear(title);
+    await userEvent.tab();
+    await expect(title).toHaveValue(&#39;Untitled Joined Report&#39;);
+    await expect(canvas.getAllByRole(&#39;button&#39;, { name: /sort order: Asc/ })).toHaveLength(3);
+    const table = canvas.getByRole(&#39;table&#39;, { name: &#39;Joined report preview&#39; });
+    const total = within(table).getByRole(&#39;rowheader&#39;, { name: &#39;Grand Total&#39;, exact: true });
+    await expect(total.closest(&#39;tfoot&#39;)).not.toBeNull();
+    await expect(total).toBeVisible();
+    const scroller = table.parentElement!;
+    await expect(table.querySelector(&#39;thead&#39;)?.textContent).not.toContain(&#39;▲&#39;);
+    await expect(getComputedStyle(total).boxShadow).toBe(&#39;none&#39;);
+    await expect(getComputedStyle(total, &#39;::after&#39;).content).toBe(&#39;none&#39;);
+    scroller.scrollLeft = scroller.scrollWidth;
+    scroller.scrollTop = scroller.scrollHeight;
+    scroller.dispatchEvent(new Event(&#39;scroll&#39;, { bubbles: true }));
+    await waitFor(() =&gt; expect(scroller).toHaveClass(&#39;jrv2-joined-preview-scroll--scrolled&#39;));
+    await expect(total).toBeVisible();
+    await expect(getComputedStyle(total).position).toBe(&#39;sticky&#39;);
+    await expect(getComputedStyle(total).borderRightColor).toBe(&#39;rgba(0, 0, 0, 0)&#39;);
+    scroller.scrollTo(0, 0);
+    scroller.dispatchEvent(new Event(&#39;scroll&#39;, { bubbles: true }));
+    await waitFor(() =&gt; expect(scroller).not.toHaveClass(&#39;jrv2-joined-preview-scroll--scrolled&#39;));
+  },
+};
+
+export const V2AddGroup: Story = {
+  name: &#39;V2-Add Group&#39;,
+  args: { startOpen: false, saved: true, initialReportCount: 3 },
+  play: async ({ canvasElement }) =&gt; {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole(&#39;heading&#39;, { name: &#39;Report 3&#39;, exact: true })).toBeVisible();
+    const firstReport = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Monthly Sales Pipeline settings&#39; }));
+    await expect(firstReport.queryByRole(&#39;button&#39;, { name: &#39;Add column to Monthly Sales Pipeline&#39; })).not.toBeInTheDocument();
+    await userEvent.click(firstReport.getByRole(&#39;tab&#39;, { name: &#39;Filters&#39; }));
+    await userEvent.click(firstReport.getByRole(&#39;button&#39;, { name: &#39;Add Filter&#39; }));
+    await expect(firstReport.getByText(&#39;Lead Source is Advertisement or Partner&#39;)).toBeVisible();
+    await userEvent.click(canvas.getByText(&#39;Sales Pipeline by Region&#39;, { selector: &#39;summary p&#39;, exact: true }));
+    const secondReport = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Sales Pipeline by Region settings&#39; }));
+    await expect(secondReport.queryByText(&#39;Email&#39;, { exact: true })).not.toBeInTheDocument();
+    await userEvent.click(secondReport.getByRole(&#39;tab&#39;, { name: &#39;Filters&#39; }));
+    await expect(secondReport.getByText(&#39;No filters applied&#39;)).toBeVisible();
+    await expect(firstReport.getByText(&#39;Lead Source is Advertisement or Partner&#39;)).toBeVisible();
+    await userEvent.click(firstReport.getByRole(&#39;tab&#39;, { name: &#39;Columns&#39; }));
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;+ Add New Group&#39; }));
+    const panel = canvas.getByRole(&#39;region&#39;, { name: &#39;Add row group&#39; });
+    await expect(canvas.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument();
+    const editor = within(panel);
+    await expect(editor.queryByRole(&#39;button&#39;, { name: &#39;Back to joined report structure&#39; })).not.toBeInTheDocument();
+    await expect(editor.queryByRole(&#39;table&#39;, { name: &#39;Report field mapping&#39; })).not.toBeInTheDocument();
+    await userEvent.click(editor.getByRole(&#39;button&#39;, { name: &#39;Choose recommended fields&#39; }));
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Account&#39;, exact: true }));
+    const mapping = await editor.findByRole(&#39;table&#39;, { name: &#39;Report field mapping&#39; });
+    await expect(within(mapping).getAllByRole(&#39;row&#39;)).toHaveLength(4);
+    await expect(editor.queryByRole(&#39;button&#39;, { name: &#39;Date granularity&#39; })).not.toBeInTheDocument();
+    await userEvent.click(editor.getByRole(&#39;button&#39;, { name: &#39;Choose recommended fields&#39; }));
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Created Date&#39;, exact: true }));
+    await expect(editor.getByRole(&#39;button&#39;, { name: &#39;Date granularity&#39; })).toBeVisible();
+    await userEvent.click(editor.getByRole(&#39;button&#39;, { name: &#39;Date granularity&#39; }));
+    for (const name of [&#39;By Date&#39;, &#39;By Week&#39;, &#39;By Month and Year&#39;, &#39;By Quarter and Year&#39;, &#39;By Year&#39;]) {
+      await expect(within(document.body).getByRole(&#39;option&#39;, { name, exact: true })).toBeVisible();
+    }
+    await userEvent.click(within(document.body).getByRole(&#39;option&#39;, { name: &#39;By Week&#39;, exact: true }));
+    await userEvent.click(editor.getByRole(&#39;radio&#39;, { name: &#39;Choose Manually&#39; }));
+    await expect(editor.queryByRole(&#39;button&#39;, { name: &#39;Choose recommended fields&#39; })).not.toBeInTheDocument();
+    await expect(within(mapping).getAllByRole(&#39;row&#39;)).toHaveLength(4);
+    const fieldSelectors = editor.getAllByRole(&#39;button&#39;, { name: /^Group by field for / });
+    await userEvent.click(fieldSelectors[2]);
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Account Name&#39;, exact: true }));
+    await expect(within(editor.getByRole(&#39;status&#39;)).getByText(&#39;Warning:&#39;)).toBeVisible();
+    await expect(within(editor.getByRole(&#39;status&#39;)).getByText(&#39;Selected fields have different data types. Choose fields of the same type to create this group.&#39;)).toBeVisible();
+    await expect(editor.getByRole(&#39;button&#39;, { name: &#39;Done&#39;, exact: true })).toBeDisabled();
+    await expect(editor.queryByRole(&#39;button&#39;, { name: &#39;Date granularity&#39; })).not.toBeInTheDocument();
+    await userEvent.click(fieldSelectors[2]);
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Modified Time&#39;, exact: true }));
+    await expect(editor.queryByRole(&#39;status&#39;)).not.toBeInTheDocument();
+    await expect(editor.getByRole(&#39;button&#39;, { name: &#39;Done&#39;, exact: true })).toBeEnabled();
+    await expect(editor.getByRole(&#39;button&#39;, { name: &#39;Date granularity&#39; })).toBeVisible();
   },
 };
 </code></pre></div>
@@ -32767,8 +33400,9 @@ export const ReportLimit: Story = {
     Input,
     MessageBox,
     Modal,
+    NextGenLeftMenu,
     NextGenTopBand,
-    Stepper,
+    Radio,
     Tabs,
     Tooltip,
 } from "@chinnaiya-r-2310/design-system";</code></pre>
@@ -32777,12 +33411,12 @@ export const ReportLimit: Story = {
           
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Default</span>
+                <span class="ex-name">V2</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const Default = () =&gt; &lt;JoinedReportsRevampPage
+              <pre><code>const V2 = () =&gt; &lt;JoinedReportsRevampV2Page
     primaryReportName=&quot;Monthly Sales Pipeline&quot;
     initialStep=&quot;select&quot;
     initialReportCount={2}
@@ -32791,41 +33425,32 @@ export const ReportLimit: Story = {
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Saved Joined Report</span>
+                <span class="ex-name">V2 - Summary</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const SavedJoinedReport = () =&gt; &lt;JoinedReportsRevampPage
+              <pre><code>const V2Summary = () =&gt; &lt;JoinedReportsRevampV2Page
     primaryReportName=&quot;Monthly Sales Pipeline&quot;
     initialStep=&quot;select&quot;
-    initialReportCount={2}
+    initialReportCount={3}
+    startOpen={false}
+    saved
+    initialGroupCount={3} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">V2-Add Group</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const V2AddGroup = () =&gt; &lt;JoinedReportsRevampV2Page
+    primaryReportName=&quot;Monthly Sales Pipeline&quot;
+    initialStep=&quot;select&quot;
+    initialReportCount={3}
     startOpen={false}
     saved /&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Grouping Step</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const GroupingStep = () =&gt; &lt;JoinedReportsRevampPage
-    primaryReportName=&quot;Monthly Sales Pipeline&quot;
-    initialStep=&quot;group&quot;
-    initialReportCount={3} /&gt;;</code></pre>
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Report Limit</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const ReportLimit = () =&gt; &lt;JoinedReportsRevampPage
-    primaryReportName=&quot;Monthly Sales Pipeline&quot;
-    initialStep=&quot;select&quot;
-    initialReportCount={3} /&gt;;</code></pre>
             </div>
         </div>
     
@@ -37000,9 +37625,11 @@ export const RecordConfiguration: Story = {
     await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Verify as&#39; })).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;tab&#39;, { name: &#39;Record Verification&#39; }));
     await expect(canvas.getByText(&#39;Record creation&#39;, { exact: true })).toBeVisible();
-    form = await open();
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })).not.toBeInTheDocument();
+    await expect(canvasElement.querySelectorAll(&#39;.record-auth__summary&#39;)).toHaveLength(1);
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit Record creation&#39; }));
+    form = within(await body.findByRole(&#39;dialog&#39;));
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
-    await expect(body.getByRole(&#39;option&#39;, { name: /Record creation/ })).toHaveAttribute(&#39;aria-disabled&#39;, &#39;true&#39;);
     await choose(&#39;Picklist value Ask for consent when a picklist is set to a value.&#39;);
     await expect(form.getByRole(&#39;button&#39;, { name: &#39;Picklist&#39;, exact: true })).toBeVisible();
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Values&#39;, exact: true }));
@@ -37030,7 +37657,10 @@ export const RecordConfiguration: Story = {
     await waitFor(() =&gt; expect(body.queryByRole(&#39;dialog&#39;)).not.toBeInTheDocument());
     const enabled = canvas.getByRole(&#39;switch&#39;, { name: &#39;Enable Status is Open, In progress&#39; });
     await userEvent.click(enabled); await expect(enabled).not.toBeChecked();
-    form = await open();
+    await expect(canvas.queryByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })).not.toBeInTheDocument();
+    await expect(canvasElement.querySelectorAll(&#39;.record-auth__summary&#39;)).toHaveLength(1);
+    await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit Status is Open, In progress&#39; }));
+    form = within(await body.findByRole(&#39;dialog&#39;));
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true }));
     await choose(&#39;Button actions Ask for consent via a custom button on the record’s Detail page.&#39;);
     await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Consent Type&#39;, exact: true }));
@@ -37077,6 +37707,11 @@ export const RecordConfiguration: Story = {
     const confirmation = within(await body.findByRole(&#39;alertdialog&#39;));
     await userEvent.click(confirmation.getByRole(&#39;button&#39;, { name: &#39;Delete&#39;, exact: true }));
     await waitFor(() =&gt; expect(canvas.queryByText(&#39;Approve shipment&#39;, { exact: true })).not.toBeInTheDocument());
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Configure&#39;, exact: true })).toBeVisible();
+    await expect(canvasElement.querySelectorAll(&#39;.record-auth__summary&#39;)).toHaveLength(0);
+    form = await open();
+    await expect(form.getByRole(&#39;button&#39;, { name: &#39;When&#39;, exact: true })).toHaveTextContent(&#39;Select&#39;);
+    await userEvent.click(form.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39; }));
   },
 };
 </code></pre></div>
