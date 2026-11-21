@@ -59,7 +59,10 @@ export function RecordVerification({ renderSettings, onNotice }: {
   const recordTaken = rules.some(rule => rule.action === 'record' && rule.id !== draft?.id);
   const patch = (update: Partial<Rule>) => { setDraft(current => current ? { ...current, ...update } : current); setError(''); };
   const close = () => { setDraft(undefined); setError(''); };
-  const start = (rule?: Rule) => { setDraft(rule ?? newRule(rules.some(item => item.action === 'record'))); setWhenSelected(!!rule); setConsentSelected(!!rule); setError(''); };
+  const start = (rule?: Rule) => {
+    if (!rule && rules.length > 0) return;
+    setDraft(rule ?? newRule(false)); setWhenSelected(!!rule); setConsentSelected(!!rule); setError('');
+  };
   const changeMethod = (method: ConfirmationMethod) => {
     if (!draft) return;
     const settings = defaultConfig(method === 'otp' ? 'phone' : 'email');
@@ -76,6 +79,7 @@ export function RecordVerification({ renderSettings, onNotice }: {
   };
   const save = (settings: VerificationConfig) => {
     if (!draft) return;
+    if (!draft.id && rules.length > 0) { setError('Only one record verification configuration is allowed. Edit the existing configuration.'); return; }
     if (!whenSelected || !consentSelected) { setError('Select When and Consent Type.'); return; }
     if (draft.action === 'record' && recordTaken) { setError('Record creation already has a configuration. Edit the existing rule.'); return; }
     if (draft.action === 'criteria' && !draft.criteriaValues.length) { setError('Select at least one picklist value.'); return; }
@@ -146,8 +150,7 @@ export function RecordVerification({ renderSettings, onNotice }: {
     {error && <p className="record-auth-form__error" role="alert">{error}</p>}
   </>;
   return <div className="record-confirmation">
-    <div className="record-auth__intro"><p>Configure the channel used to obtain consent for a process in this module.</p>
-      {rules.length > 0 && <Button variant="primary" onClick={() => start()}>Configure</Button>}</div>
+    <div className="record-auth__intro"><p>Configure the channel used to obtain consent for a process in this module.</p></div>
     {rules.length === 0 && <Button variant="primary" onClick={() => start()}>Configure</Button>}
     {rules.map(rule => <section key={rule.id} className="record-auth__summary" aria-label={actionDescription(rule)}>
       <div className="record-auth__summary-title">

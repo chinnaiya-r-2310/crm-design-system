@@ -64,6 +64,8 @@ export function Input({
   const isCurrency = variant === 'currency';
   const isPassword = variant === 'password';
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [headerValue, setHeaderValue] = useState(inputProps.defaultValue ?? '');
+  const isHeader = variant === 'header';
 
   const rootStyle = {
     width: typeof width === 'number' ? `${width}px` : width,
@@ -145,6 +147,10 @@ export function Input({
       aria-describedby={helperText ? `${inputId}-helper` : undefined}
       readOnly={isLookup || readOnly}
       {...inputProps}
+      onChange={isHeader ? (event) => {
+        setHeaderValue(event.target.value);
+        inputProps.onChange?.(event);
+      } : inputProps.onChange}
       placeholder={resolvedPlaceholder}
       onWheel={resolvedType === 'number' ? (e) => e.currentTarget.blur() : inputProps.onWheel}
     />
@@ -188,6 +194,17 @@ export function Input({
       )}
     </div>
   );
+
+  if (isHeader) {
+    return (
+      <div className="input-root input-header" style={style} data-variant={rootVariant}>
+        <span className="input-header-measure" aria-hidden="true">
+          {(inputProps.value ?? headerValue) || resolvedPlaceholder || '\u00a0'}
+        </span>
+        {inputWrapper}
+      </div>
+    );
+  }
 
   // ── Horizontal layout — two-column grid with label alignment ────────────
   if (layout === 'horizontal' && label) {

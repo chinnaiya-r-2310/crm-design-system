@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="6 5.75 37 37" fill="none" overflow="visible" style="overflow:visible">
+  <g data-motion-root="" stroke="#5D7CFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <path id="home-outline" data-outline="" pathLength="1" d="M24.4 9C25.575 9 26.75 9.5 28 10.5L35.4 16.6C37.5 18.3 38.5 19.7 38.5 22.3V33C38.5 37.4 36.1 39.5 31.8 39.5H17.5C13.1 39.5 10.5 37.4 10.5 33V22.3C10.5 19.7 11.3 18.2 13.3 16.6L20.8 10.5C22.05 9.5 23.225 9 24.4 9Z" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path id="home-detail" pathLength="1" d="M22 34H27" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+  </g>
+</svg>

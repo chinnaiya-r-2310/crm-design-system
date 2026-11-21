@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Input } from './Input';
 import { DateTimeInput } from './DateTimeInput';
+import { expect, userEvent, within } from 'storybook/test';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -130,6 +131,38 @@ export const Default: Story = {
   },
 };
 
+
+export const HeaderInput: Story = {
+  name: 'Header input',
+  args: {
+    variant: 'header',
+    defaultValue: 'Untitled Joined Report',
+    'aria-label': 'Report title',
+    onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter') event.currentTarget.blur();
+    },
+  },
+  parameters: {
+    docs: { description: { story: 'Editable heading with a hover border. Hugs the text with a 100px minimum and expands to 390px on focus.' } },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('textbox', { name: 'Report title' });
+    const root = input.closest('.input-header')!;
+    await expect(input).toHaveValue('Untitled Joined Report');
+    await userEvent.hover(input);
+    await expect(root.getBoundingClientRect().width).toBeGreaterThanOrEqual(100);
+    await userEvent.click(input);
+    await expect(root.getBoundingClientRect().width).toBe(390);
+    await userEvent.clear(input);
+    await userEvent.type(input, 'Sales{Enter}');
+    await expect(input).not.toHaveFocus();
+    await expect(root.getBoundingClientRect().width).toBe(100);
+    await userEvent.click(input);
+    await userEvent.clear(input);
+    await userEvent.type(input, 'Untitled Joined Report{Enter}');
+  },
+};
 
 /** Small size: 27px tall with 13px text, for compact toolbars and section headers. */
 export const Small: Story = {

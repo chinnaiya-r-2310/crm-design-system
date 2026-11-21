@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import homeSvg from './animated/home.svg?raw';
+import animateHome from './animated/home.js';
+import workqueueSvg from './animated/workqueue.svg?raw';
+import animateWorkqueue from './animated/workqueue.js';
+import reportsSvg from './animated/reports.svg?raw';
+import animateReports from './animated/reports.js';
+import agentsSvg from './animated/agents.svg?raw';
+import animateAgents from './animated/agents.js';
+import mcpSvg from './animated/mcp.svg?raw';
+import animateMCP from './animated/mcp.js';
 import './NextGenLeftMenu.css';
 import {
   Search, More, ChevronDownFilled, ChevronUp, Folder, SidebarCollapse,
-  ModuleHome, ModuleAnalytics, ModuleReports, ModuleMyJobs,
+  ModuleMyJobs,
   ModuleContacts, ModuleLeads, ModuleDeals, ModuleAccounts,
   ModuleForecasts, ModuleSolutions, ModuleProducts, ModuleCases,
   ModuleActivities, ModuleMeeting, ModuleDocs, ModuleSocial, ModuleCustom,
 } from '../../foundations/icons/Icons';
-import { Tooltip } from '../Tooltip/Tooltip';
+import { Icon } from '../Icon/Icon';
 
 const PlusIcon = () => (
   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -19,12 +29,30 @@ const PlusIcon = () => (
 // Default data
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Both panel states share the same navigation so collapsing preserves every item.
 const DEFAULT_TOP_NAV = [
-  { id: 'home',        label: 'Home',        icon: ModuleHome },
-  { id: 'analytics',  label: 'Analytics',   icon: ModuleAnalytics },
-  { id: 'reports',    label: 'Reports',     icon: ModuleReports },
-  { id: 'my-requests',label: 'My Requests', icon: ModuleMyJobs },
+  { id: 'home', label: 'Home', iconName: 'CrmNewhome', color: 'var(--ds-icon-primary-link-blue)' },
+  { id: 'workqueue', label: 'Workqueue', iconName: 'CrmNewworkqueue', color: 'var(--ds-icon-primary-orange)' },
+  { id: 'analytics', label: 'Analytics', iconName: 'CrmNewDashboard', color: 'var(--ds-icon-primary-purple)' },
+  { id: 'reports', label: 'Reports', iconName: 'CrmNewReport', color: 'var(--ds-icon-primary-pink)' },
+  { id: 'my-requests', label: 'My Requests', iconName: 'CrmNewworkqueue', color: 'var(--ds-icon-primary-green)' },
+  { id: 'agents', label: 'Agents', iconName: 'CrmZiaNewAgent', color: 'var(--ds-icon-primary-orange-yellow)' },
+  { id: 'mcp', label: 'MCP', iconName: 'CrmCpq', color: 'var(--ds-icon-primary-greenish-cyan)' },
 ];
+
+// Only these supplied assets animate; all other navigation icons stay static.
+const ANIMATED_ICONS = {
+  home: { iconName: 'CrmNewhome', svg: homeSvg, bind: animateHome },
+  workqueue: { iconName: 'CrmNewworkqueue', svg: workqueueSvg, bind: animateWorkqueue },
+  reports: { iconName: 'CrmNewReport', svg: reportsSvg, bind: animateReports },
+  agents: { iconName: 'CrmZiaNewAgent', svg: agentsSvg, bind: animateAgents },
+  mcp: { iconName: 'CrmCpq', svg: mcpSvg, bind: animateMCP },
+};
+
+function animatedIconFor(item) {
+  const asset = ANIMATED_ICONS[item.id];
+  return asset?.iconName === item.iconName ? asset : undefined;
+}
 
 const DEFAULT_MODULES = [
   { id: 'contacts',   label: 'Contacts',   icon: ModuleContacts },
@@ -63,13 +91,33 @@ const DEFAULT_MODULES = [
 export function NextGenLeftMenu({
   appName = 'Zoho CRM',
   teamspaceName = 'CRM Teamspace',
-  topNavItems = DEFAULT_TOP_NAV,
+  topNavItems,
   modules = DEFAULT_MODULES,
   activeId,
   onItemClick,
   defaultOpenFolders = ['activity'],
   width = 240,
+  defaultCollapsed = false,
+  collapsed: controlledCollapsed,
+  onCollapsedChange,
 }) {
+  const navigationRef = useRef(null);
+  useEffect(() => {
+    const disposers = [...navigationRef.current.querySelectorAll('[data-nglm-animation]')].map(host => {
+      const svg = host.querySelector('svg');
+      const trigger = host.closest('button');
+      return ANIMATED_ICONS[host.dataset.nglmAnimation].bind(trigger, svg);
+    });
+    return () => disposers.forEach(dispose => dispose());
+  });
+
+  const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed);
+  const collapsed = controlledCollapsed ?? internalCollapsed;
+  const navigationItems = topNavItems ?? DEFAULT_TOP_NAV;
+  const toggleCollapsed = () => {
+    if (controlledCollapsed === undefined) setInternalCollapsed(!collapsed);
+    onCollapsedChange?.(!collapsed);
+  };
   const [openFolders, setOpenFolders] = useState(() => new Set(defaultOpenFolders));
   const [search, setSearch] = useState('');
 
@@ -103,7 +151,7 @@ export function NextGenLeftMenu({
     const IconComp = item.icon;
     const isActive = activeId === item.id;
     return (
-      <Tooltip key={item.id} content={item.label} variant="black" placement="right" wrapperStyle={{ display: 'block', width: '100%' }}>
+      <div key={item.id} style={{ display: 'block', width: '100%' }}>
         <button
           type="button"
           className={`nglm-item nglm-module-item${isActive ? ' nglm-active' : ''}`}
@@ -120,7 +168,7 @@ export function NextGenLeftMenu({
             <More />
           </button>
         </button>
-      </Tooltip>
+      </div>
     );
   };
 
@@ -129,7 +177,7 @@ export function NextGenLeftMenu({
     const hasChildren = (item.children || []).length > 0;
     return (
       <div key={item.id} className="nglm-folder">
-        <Tooltip content={item.label} variant="black" placement="right" wrapperStyle={{ display: 'block', width: '100%' }}>
+        <div style={{ display: 'block', width: '100%' }}>
           <button
             type="button"
             className="nglm-item nglm-module-item nglm-folder-trigger"
@@ -149,7 +197,7 @@ export function NextGenLeftMenu({
               {isOpen ? <ChevronUp /> : <ChevronDownFilled />}
             </span>
           </button>
-        </Tooltip>
+        </div>
         {isOpen && hasChildren && (
           <div className="nglm-folder-children">
             {(item.children || []).map(child => renderItem(child))}
@@ -159,31 +207,67 @@ export function NextGenLeftMenu({
     );
   };
 
+  if (collapsed) {
+    return (
+      <nav ref={navigationRef} className="nglm-root nglm-root--collapsed" aria-label={`${appName} navigation`}>
+        <div className="nglm-compact-items">
+          {navigationItems.map(item => {
+            const IconComp = item.icon;
+            return (
+              <div key={item.id} style={{ display: 'block', width: '100%' }}>
+                <button
+                  type="button"
+                  className={`nglm-compact-item${activeId === item.id ? ' nglm-active' : ''}`}
+                  aria-current={activeId === item.id ? 'page' : undefined}
+                  onClick={() => onItemClick?.(item.id)}
+                >
+                  <span className="nglm-item-icon" style={{ color: item.color }}>
+                    {animatedIconFor(item) ? (
+                      <span className="nglm-animated-icon" data-nglm-animation={item.id} aria-hidden="true" dangerouslySetInnerHTML={{ __html: animatedIconFor(item).svg }} />
+                    ) : item.iconName ? <Icon name={item.iconName} size={16} /> : IconComp && <IconComp />}
+                  </span>
+                  <span>{item.label}</span>
+                </button>
+              </div>
+            );
+          })}
+        </div>
+        <button type="button" className="nglm-icon-btn nglm-expand-btn" aria-label="Expand sidebar" aria-expanded={false} onClick={toggleCollapsed}>
+          <SidebarCollapse />
+        </button>
+      </nav>
+    );
+  }
+
   return (
-    <nav className="nglm-root" style={{ width: typeof width === 'number' ? `${width}px` : width }}>
+    <nav ref={navigationRef} className="nglm-root" aria-label={`${appName} navigation`} style={{ width: typeof width === 'number' ? `${width}px` : width }}>
       {/* App header */}
       <div className="nglm-header">
         <div className="nglm-app-badge">Z</div>
         <span className="nglm-app-name">{appName}</span>
         <ChevronDownFilled className="nglm-header-chevron" />
-        <button type="button" className="nglm-icon-btn" aria-label="Collapse sidebar">
+        <button type="button" className="nglm-icon-btn" aria-label="Collapse sidebar" aria-expanded={true} onClick={toggleCollapsed}>
           <SidebarCollapse />
         </button>
       </div>
 
       {/* Top navigation */}
       <div className="nglm-top-nav">
-        {topNavItems.map(item => {
+        {navigationItems.map(item => {
           const IconComp = item.icon;
           const isActive = activeId === item.id;
           return (
-            <Tooltip key={item.id} content={item.label} variant="black" placement="right" wrapperStyle={{ display: 'block', width: '100%' }}>
+            <div key={item.id} style={{ display: 'block', width: '100%' }}>
               <button
                 type="button"
                 className={`nglm-item${isActive ? ' nglm-active' : ''}`}
                 onClick={() => onItemClick?.(item.id)}
               >
-                {IconComp && <span className="nglm-item-icon"><IconComp /></span>}
+                <span className="nglm-item-icon" style={{ color: item.color }}>
+                  {animatedIconFor(item) ? (
+                    <span className="nglm-animated-icon" data-nglm-animation={item.id} aria-hidden="true" dangerouslySetInnerHTML={{ __html: animatedIconFor(item).svg }} />
+                  ) : item.iconName ? <Icon name={item.iconName} size={16} /> : IconComp && <IconComp />}
+                </span>
                 <span className="nglm-item-label">{item.label}</span>
                 <button
                   type="button"
@@ -194,7 +278,7 @@ export function NextGenLeftMenu({
                   <PlusIcon />
                 </button>
               </button>
-            </Tooltip>
+            </div>
           );
         })}
       </div>

@@ -719,9 +719,11 @@ export const RecordConfiguration: Story = {
     await expect(canvas.getByRole('button', { name: 'Verify as' })).toBeVisible();
     await userEvent.click(canvas.getByRole('tab', { name: 'Record Verification' }));
     await expect(canvas.getByText('Record creation', { exact: true })).toBeVisible();
-    form = await open();
+    await expect(canvas.queryByRole('button', { name: 'Configure', exact: true })).not.toBeInTheDocument();
+    await expect(canvasElement.querySelectorAll('.record-auth__summary')).toHaveLength(1);
+    await userEvent.click(canvas.getByRole('button', { name: 'Edit Record creation' }));
+    form = within(await body.findByRole('dialog'));
     await userEvent.click(form.getByRole('button', { name: 'When', exact: true }));
-    await expect(body.getByRole('option', { name: /Record creation/ })).toHaveAttribute('aria-disabled', 'true');
     await choose('Picklist value Ask for consent when a picklist is set to a value.');
     await expect(form.getByRole('button', { name: 'Picklist', exact: true })).toBeVisible();
     await userEvent.click(form.getByRole('button', { name: 'Values', exact: true }));
@@ -749,7 +751,10 @@ export const RecordConfiguration: Story = {
     await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
     const enabled = canvas.getByRole('switch', { name: 'Enable Status is Open, In progress' });
     await userEvent.click(enabled); await expect(enabled).not.toBeChecked();
-    form = await open();
+    await expect(canvas.queryByRole('button', { name: 'Configure', exact: true })).not.toBeInTheDocument();
+    await expect(canvasElement.querySelectorAll('.record-auth__summary')).toHaveLength(1);
+    await userEvent.click(canvas.getByRole('button', { name: 'Edit Status is Open, In progress' }));
+    form = within(await body.findByRole('dialog'));
     await userEvent.click(form.getByRole('button', { name: 'When', exact: true }));
     await choose('Button actions Ask for consent via a custom button on the record’s Detail page.');
     await userEvent.click(form.getByRole('button', { name: 'Consent Type', exact: true }));
@@ -796,5 +801,10 @@ export const RecordConfiguration: Story = {
     const confirmation = within(await body.findByRole('alertdialog'));
     await userEvent.click(confirmation.getByRole('button', { name: 'Delete', exact: true }));
     await waitFor(() => expect(canvas.queryByText('Approve shipment', { exact: true })).not.toBeInTheDocument());
+    await expect(canvas.getByRole('button', { name: 'Configure', exact: true })).toBeVisible();
+    await expect(canvasElement.querySelectorAll('.record-auth__summary')).toHaveLength(0);
+    form = await open();
+    await expect(form.getByRole('button', { name: 'When', exact: true })).toHaveTextContent('Select');
+    await userEvent.click(form.getByRole('button', { name: 'Cancel' }));
   },
 };

@@ -40,6 +40,47 @@
      .input-root[data-size="lg"]  → .input-input-wrapper height 40px
    ───────────────────────────────────────────────────────────────────────── */
 
+/* Header titles hug their text at rest and expand for editing. */
+.input-root.input-header {
+  display: inline-grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: max-content;
+  min-width: 100px;
+}
+
+.input-root.input-header:focus-within {
+  width: 390px;
+}
+
+.input-header-measure,
+.input-header > .input-input-wrapper {
+  grid-area: 1 / 1;
+}
+
+.input-header-measure {
+  visibility: hidden;
+  white-space: pre;
+  padding: 0 11px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-h2);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.input-header > .input-input-wrapper {
+  min-width: 0;
+  contain: inline-size;
+}
+
+.input-header > .input-input-wrapper:not(:hover):not(:focus-within):not([data-state]) {
+  border-color: transparent;
+}
+
+.input-header .input-input {
+  font-size: var(--ds-font-size-h2);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-text-heading);
+}
+
 /* ── Root ───────────────────────────────────────────────────────────────── */
 
 .input-root {

@@ -307,3 +307,79 @@
   gap: 1px;
   padding-left: 22px;
 }
+
+/* Compact rail: matches Joined Reports V2 without importing work-item styles. */
+.nglm-root--collapsed {
+  width: 72px;
+  flex-shrink: 0;
+  align-items: center;
+  color: var(--ds-bg-common-white);
+}
+
+.nglm-compact-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  padding-top: var(--ds-spacing-3, 12px);
+  overflow-y: auto;
+}
+
+.nglm-compact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-spacing-2, 8px);
+  width: 100%;
+  padding: var(--ds-spacing-3, 12px) var(--ds-spacing-1, 4px);
+  box-sizing: border-box;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: var(--ds-font-size-xs);
+  line-height: 16px;
+  cursor: pointer;
+}
+
+.nglm-compact-item > span:last-child {
+  color: #c2cbde;
+  font-size: var(--ds-font-size-xs, 11px);
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nglm-compact-item.nglm-active,
+.nglm-compact-item:hover,
+.nglm-compact-item:focus-visible { opacity: 1; }
+
+.nglm-expand-btn {
+  margin-block: auto 18px;
+  color: var(--ds-bg-common-white);
+}
+
+.nglm-compact-items + .nglm-expand-btn { flex-shrink: 0; }
+
+.nglm-animated-icon,
+.nglm-animated-icon > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* The supplied 50px artwork must scale its strokes with the navigation slot.
+   Fixed-width strokes obscure details at the shared 16px menu size. */
+.nglm-animated-icon [vector-effect="non-scaling-stroke"] {
+  vector-effect: none;
+}
+
+.nglm-compact-item:focus-visible,
+.nglm-icon-btn:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline);
+  outline-offset: -2px;
+}
