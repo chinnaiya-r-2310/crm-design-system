@@ -1215,6 +1215,27 @@
               "computed": false
             },
             "required": false
+          },
+          "variant": {
+            "defaultValue": {
+              "value": "'default'",
+              "computed": false
+            },
+            "required": false
+          },
+          "title": {
+            "defaultValue": {
+              "value": "'Change Module Icon'",
+              "computed": false
+            },
+            "required": false
+          },
+          "closeAriaLabel": {
+            "defaultValue": {
+              "value": "'Close icon picker'",
+              "computed": false
+            },
+            "required": false
           }
         }
       },
@@ -1223,6 +1244,16 @@
           "id": "design-system-components-icon-picker--default",
           "name": "Default",
           "snippet": "const Default = () => <IconPicker\n    recommended={RECOMMENDED}\n    initials=\"ST\"\n    defaultValue=\"IndustryInvoice\"\n    rows={5}\n    tooltipDelay={500} />;"
+        },
+        {
+          "id": "design-system-components-icon-picker--with-hook-title-and-close",
+          "name": "With hook, title and close",
+          "snippet": "const WithHookTitleAndClose = args => {\n  const [open, setOpen] = useState(true);\n  return open\n    ? <IconPicker {...args} onClose={() => { args.onClose?.(); setOpen(false); }} />\n    : <button type=\"button\" onClick={() => setOpen(true)}>Change Module Icon</button>;\n};"
+        },
+        {
+          "id": "design-system-components-icon-picker--all-variant",
+          "name": "All Variant",
+          "snippet": "const AllVariant = () => {\n    const [popoverOpen, setPopoverOpen] = useState(true);\n    const sectionStyle = { display: 'flex', flexDirection: 'column', gap: 'var(--ds-spacing-4, 16px)' };\n    const headingStyle = { margin: 0, fontFamily: 'var(--ds-font-family-base)', fontSize: 'var(--ds-font-size-md)', color: 'var(--ds-text-label)' };\n\n    return (\n        <div\n            style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: '64px', padding: 'var(--ds-spacing-4, 16px)' }}>\n            <section aria-label=\"Dropdown UI\" style={sectionStyle}>\n                <h2 style={headingStyle}>Dropdown UI</h2>\n                <IconPicker\n                    recommended={RECOMMENDED}\n                    initials=\"ST\"\n                    defaultValue=\"IndustryInvoice\"\n                    rows={5}\n                    tooltipDelay={500}\n                    variant=\"default\" />\n            </section>\n            <section aria-label=\"Popover UI\" style={sectionStyle}>\n                <h2 style={headingStyle}>Popover UI</h2>\n                {popoverOpen\n                  ? <IconPicker {...args} {...WithHookTitleAndClose.args} onClose={() => { args.onClose?.(); setPopoverOpen(false); }} />\n                  : <button type=\"button\" onClick={() => setPopoverOpen(true)}>Change Module Icon</button>}\n            </section>\n        </div>\n    );\n};"
         },
         {
           "id": "design-system-components-icon-picker--without-recommended",
@@ -5148,6 +5179,6 @@
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 5049
+    "durationMs": 5440
   }
 }

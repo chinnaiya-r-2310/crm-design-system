@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">21/60 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">55/60 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/381 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">21/60 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">55/60 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/383 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.0s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.4s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -10506,9 +10506,9 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> IconPicker</h2>
       <div class="badges">
-        <label for="c-22-design-system-components-icon-picker-props" class="badge ok as-toggle">9 prop types</label>
+        <label for="c-22-design-system-components-icon-picker-props" class="badge ok as-toggle">12 prop types</label>
         <label for="c-22-design-system-components-icon-picker-info" class="badge info as-toggle">1 info</label>
-        <label for="c-22-design-system-components-icon-picker-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-22-design-system-components-icon-picker-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -10542,11 +10542,13 @@ Automatically reflects iconMap — add a new entry there and it appears here.</d
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">9 prop types</span>
+              <span class="badge ok">12 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/IconPicker/IconPicker.js::IconPicker</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>autoFocus?: any = false
+
+closeAriaLabel?: any = &#39;Close icon picker&#39;
 
 defaultValue?: any = null
 
@@ -10562,7 +10564,11 @@ rows?: any = 5
 
 searchPlaceholder?: any = &#39;Search&#39;
 
-tooltipDelay?: any = 500</code></pre>
+title?: any = &#39;Change Module Icon&#39;
+
+tooltipDelay?: any = 500
+
+variant?: any = &#39;default&#39;</code></pre>
           </div>
         </div>
     
@@ -10591,6 +10597,55 @@ tooltipDelay?: any = 500</code></pre>
     defaultValue=&quot;IndustryInvoice&quot;
     rows={5}
     tooltipDelay={500} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With hook, title and close</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithHookTitleAndClose = args =&gt; {
+  const [open, setOpen] = useState(true);
+  return open
+    ? &lt;IconPicker {...args} onClose={() =&gt; { args.onClose?.(); setOpen(false); }} /&gt;
+    : &lt;button type=&quot;button&quot; onClick={() =&gt; setOpen(true)}&gt;Change Module Icon&lt;/button&gt;;
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All Variant</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const AllVariant = () =&gt; {
+    const [popoverOpen, setPopoverOpen] = useState(true);
+    const sectionStyle = { display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: &#39;var(--ds-spacing-4, 16px)&#39; };
+    const headingStyle = { margin: 0, fontFamily: &#39;var(--ds-font-family-base)&#39;, fontSize: &#39;var(--ds-font-size-md)&#39;, color: &#39;var(--ds-text-label)&#39; };
+
+    return (
+        &lt;div
+            style={{ display: &#39;flex&#39;, flexWrap: &#39;wrap&#39;, alignItems: &#39;flex-start&#39;, gap: &#39;64px&#39;, padding: &#39;var(--ds-spacing-4, 16px)&#39; }}&gt;
+            &lt;section aria-label=&quot;Dropdown UI&quot; style={sectionStyle}&gt;
+                &lt;h2 style={headingStyle}&gt;Dropdown UI&lt;/h2&gt;
+                &lt;IconPicker
+                    recommended={RECOMMENDED}
+                    initials=&quot;ST&quot;
+                    defaultValue=&quot;IndustryInvoice&quot;
+                    rows={5}
+                    tooltipDelay={500}
+                    variant=&quot;default&quot; /&gt;
+            &lt;/section&gt;
+            &lt;section aria-label=&quot;Popover UI&quot; style={sectionStyle}&gt;
+                &lt;h2 style={headingStyle}&gt;Popover UI&lt;/h2&gt;
+                {popoverOpen
+                  ? &lt;IconPicker {...args} {...WithHookTitleAndClose.args} onClose={() =&gt; { args.onClose?.(); setPopoverOpen(false); }} /&gt;
+                  : &lt;button type=&quot;button&quot; onClick={() =&gt; setPopoverOpen(true)}&gt;Change Module Icon&lt;/button&gt;}
+            &lt;/section&gt;
+        &lt;/div&gt;
+    );
+};</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
