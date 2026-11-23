@@ -26,6 +26,67 @@
   font-family: var(--ds-font-family-base);
 }
 
+/* ── Optional popover chrome — the default panel and grid stay unchanged ── */
+
+.icon-picker--popover {
+  position: relative;
+}
+
+.icon-picker-hook {
+  position: absolute;
+  top: 32px;
+  left: -7px;
+  width: 12px;
+  height: 12px;
+  background: var(--ds-bg-common-card, #FFFFFF);
+  border-left: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
+  border-bottom: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.icon-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.icon-picker-title {
+  margin: 0;
+  min-width: 0;
+  font-size: var(--ds-font-size-lg, 16px);
+  font-weight: var(--ds-font-weight-semibold, 600);
+  line-height: 22px;
+  color: var(--ds-text-base, #202B46);
+  overflow-wrap: anywhere;
+}
+
+.icon-picker-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  padding: 5px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-text-label, #65748F);
+  cursor: pointer;
+}
+
+.icon-picker-close:hover {
+  background: var(--ds-bg-scale-bg1, #F5F7FA);
+}
+
+.icon-picker-close:focus-visible {
+  outline: 1px solid var(--ds-focus-default, #555BFF);
+  outline-offset: 1px;
+}
+
 /* ── Search ──────────────────────────────────────────────────────────────── */
 
 .icon-picker-search {
@@ -178,6 +239,8 @@
 
 .icon-picker-cell--selected,
 .icon-picker-cell--selected:hover {
+  /* Keep the overflowing tick and its outside ring above neighboring tiles. */
+  z-index: 1;
   background: color-mix(in srgb, var(--ds-text-link) 5%, transparent);
   border-color: var(--ds-text-link);
 }
@@ -198,6 +261,8 @@
   justify-content: center;
   width: 12px;
   height: 12px;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 1px #FFFFFF;
   border-radius: 50%;
   background: var(--ds-text-link);
   color: var(--ds-icon-primary-white);

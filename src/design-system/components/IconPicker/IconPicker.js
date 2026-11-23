@@ -1,7 +1,7 @@
 import { useId, useMemo, useRef, useState } from 'react';
 import { Icon } from '../Icon/Icon';
 import { Tooltip } from '../Tooltip/Tooltip.js';
-import { Check, Search as SearchIcon } from '../../foundations/icons/Icons';
+import { Check, Search as SearchIcon, SourceClose } from '../../foundations/icons/Icons';
 import { crmIconMetadata } from '../../foundations/icons/CrmCatalog';
 import { industryIconCatalog, industryIconMetadata } from '../../foundations/icons/industryIcons';
 import './IconPicker.css';
@@ -160,11 +160,18 @@ export function IconPicker({
   /** Milliseconds before an icon's name tooltip appears. */
   tooltipDelay = 500,
   autoFocus = false,
+  /** 'popover' adds a left-side hook, title and close button without changing the grid. */
+  variant = 'default',
+  title = 'Change Module Icon',
+  onClose,
+  closeAriaLabel = 'Close icon picker',
 }) {
   const [internalValue, setInternalValue] = useState(defaultValue);
   const [query, setQuery] = useState('');
   const searchRef = useRef(null);
   const recommendedId = useId();
+  const titleId = useId();
+  const isPopover = variant === 'popover';
 
   const value = controlledValue !== undefined ? controlledValue : internalValue;
   const trimmed = query.trim().toLowerCase();
@@ -195,7 +202,28 @@ export function IconPicker({
   }
 
   return (
-    <div className="icon-picker">
+    <div
+      className={isPopover ? 'icon-picker icon-picker--popover' : 'icon-picker'}
+      role={isPopover ? 'dialog' : undefined}
+      aria-labelledby={isPopover ? titleId : undefined}
+      onKeyDown={isPopover ? e => {
+        if (e.key === 'Escape' && !e.defaultPrevented) {
+          e.stopPropagation();
+          onClose?.();
+        }
+      } : undefined}
+    >
+      {isPopover && (
+        <>
+          <span className="icon-picker-hook" aria-hidden="true" />
+          <div className="icon-picker-header">
+            <h2 id={titleId} className="icon-picker-title">{title}</h2>
+            <button type="button" className="icon-picker-close" onClick={onClose} aria-label={closeAriaLabel}>
+              <SourceClose width={12} height={12} aria-hidden="true" />
+            </button>
+          </div>
+        </>
+      )}
       <div className="icon-picker-search">
         <span className="icon-picker-search-icon"><SearchIcon aria-hidden="true" /></span>
         <input
