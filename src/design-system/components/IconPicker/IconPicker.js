@@ -83,7 +83,7 @@ function IconCell({ item, selected, focusable, onSelect, onKeyDown, cellRef, too
 // Section — a listbox grid with roving tabindex and arrow-key navigation
 // ─────────────────────────────────────────────────────────────────────────────
 
-function IconGrid({ label, labelId, items, value, onSelect, scroll, rows, tooltipDelay }) {
+function IconGrid({ label, labelId, items, value, onSelect, tooltipDelay }) {
   const refs = useRef([]);
   const selectedIndex = items.findIndex(i => i.name === value);
   const [activeIndex, setActiveIndex] = useState(null);
@@ -115,8 +115,7 @@ function IconGrid({ label, labelId, items, value, onSelect, scroll, rows, toolti
       role="listbox"
       aria-labelledby={labelId}
       aria-label={labelId ? undefined : label}
-      className={scroll ? 'icon-picker-grid icon-picker-grid--scroll' : 'icon-picker-grid'}
-      style={scroll ? { '--icon-picker-rows': rows } : undefined}
+      className="icon-picker-grid"
     >
       {items.map((item, index) => (
         <IconCell
@@ -217,21 +216,26 @@ export function IconPicker({
         )}
       </div>
 
-      {showRecommended && (
-        <>
-          <div className="icon-picker-section">
-            <span id={recommendedId} className="icon-picker-label">{recommendedLabel}</span>
-            <IconGrid labelId={recommendedId} items={recommendedItems} value={value} onSelect={select} tooltipDelay={tooltipDelay} />
-          </div>
-          <hr className="icon-picker-divider" />
-        </>
-      )}
+      <div
+        className={showRecommended ? 'icon-picker-content icon-picker-content--recommended' : 'icon-picker-content'}
+        style={{ '--icon-picker-rows': rows, '--icon-picker-recommended-rows': Math.ceil(recommendedItems.length / COLUMNS) }}
+      >
+        {showRecommended && (
+          <>
+            <div className="icon-picker-section">
+              <span id={recommendedId} className="icon-picker-label">{recommendedLabel}</span>
+              <IconGrid labelId={recommendedId} items={recommendedItems} value={value} onSelect={select} tooltipDelay={tooltipDelay} />
+            </div>
+            <hr className="icon-picker-divider" />
+          </>
+        )}
 
-      {visibleItems.length > 0 ? (
-        <IconGrid label="All icons" items={visibleItems} value={value} onSelect={select} scroll rows={rows} tooltipDelay={tooltipDelay} />
-      ) : (
-        <p className="icon-picker-empty" role="status">{noResultsText}</p>
-      )}
+        {visibleItems.length > 0 ? (
+          <IconGrid label="All icons" items={visibleItems} value={value} onSelect={select} tooltipDelay={tooltipDelay} />
+        ) : (
+          <p className="icon-picker-empty" role="status">{noResultsText}</p>
+        )}
+      </div>
     </div>
   );
 }

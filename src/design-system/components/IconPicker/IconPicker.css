@@ -3,9 +3,10 @@
 
    .icon-picker
      .icon-picker-search
-     .icon-picker-section  (Recommended — hidden while searching)
-     .icon-picker-divider
-     .icon-picker-grid--scroll | .icon-picker-empty
+     .icon-picker-content  (shared scroll area)
+       .icon-picker-section  (Recommended — hidden while searching)
+       .icon-picker-divider
+       .icon-picker-grid | .icon-picker-empty
    ──────────────────────────────────────────────────────────────────────────── */
 
 .icon-picker {
@@ -117,16 +118,32 @@
   gap: var(--icon-picker-gap);
 }
 
-.icon-picker-grid--scroll {
+.icon-picker-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   /* Room for the selected badge, which sits outside the cell's top-right corner. */
   padding: 4px 4px 0 0;
   margin: -4px -4px 0 0;
   max-height: calc(
     var(--icon-picker-rows, 5) * var(--icon-picker-cell) +
-    (var(--icon-picker-rows, 5) - 1) * var(--icon-picker-gap) + 4px
+    (var(--icon-picker-rows, 5) - 1) * var(--icon-picker-gap) + 4px +
+    var(--icon-picker-recommended-height, 0px)
   );
   overflow-y: auto;
   overscroll-behavior: contain;
+}
+
+.icon-picker-content--recommended {
+  /* Preserve the panel height: section padding, label, gaps, divider and recommended rows. */
+  --icon-picker-recommended-height: calc(
+    51px + var(--icon-picker-recommended-rows) * var(--icon-picker-cell) +
+    (var(--icon-picker-recommended-rows) - 1) * var(--icon-picker-gap)
+  );
+}
+
+.icon-picker-content > * {
+  flex-shrink: 0;
 }
 
 .icon-picker-cell-wrap {
