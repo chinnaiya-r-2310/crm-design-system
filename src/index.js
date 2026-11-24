@@ -36,6 +36,8 @@ export { ProgressBar } from './design-system/components/ProgressBar';
 export { MessageInfo } from './design-system/components/MessageInfo';
 export { NextGenTopBand } from './design-system/components/NextGenTopBand';
 export { WMSBar } from './design-system/components/WMSBar';
+export { WMSToaster } from './design-system/components/WMSToaster';
+export { FormulaBuilder } from './design-system/components/FormulaBuilder';
 
 // ── Foundations / Icons ───────────────────────────────────────────────────────
 export {

@@ -19,9 +19,10 @@ import './Dragger.css';
 
    Props (continued):
      gripperOnHover — when true, the drag icon is shown only while the entity is hovered
+     dragHandleOnly — start dragging only from the grip or a custom data-drag-handle
    ─────────────────────────────────────────────────────────────────────────────── */
 
-export function Dragger({ items, onChange, gripperOnHover = false, renderItem }) {
+export function Dragger({ items, onChange, gripperOnHover = false, renderItem, dragHandleOnly = false }) {
   const [dragging, setDragging] = useState(null);
   const [highlighted, setHighlighted] = useState(null);
   const containerRef = useRef(null);
@@ -77,6 +78,7 @@ export function Dragger({ items, onChange, gripperOnHover = false, renderItem })
   const startDrag = (event, item) => {
     if (latest.current.items.length < 2 || event.button !== 0) return;
     const source = event.currentTarget;
+    if (dragHandleOnly && !event.target.closest('.dragger-grip, [data-drag-handle]')) return;
     const startY = event.clientY;
     const disarm = () => {
       window.removeEventListener('pointermove', arm);

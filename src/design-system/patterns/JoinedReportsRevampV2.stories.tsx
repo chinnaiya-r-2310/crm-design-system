@@ -4,19 +4,22 @@ import { createPortal } from 'react-dom';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Button } from '../components/Button/Button';
+import { Checkbox } from '../components/Checkbox/Checkbox';
+import { FormulaBuilder } from '../components/FormulaBuilder/FormulaBuilder';
 import { Dropdown } from '../components/Dropdown/Dropdown';
 import { NextGenTopBand } from '../components/NextGenTopBand/NextGenTopBand';
 import { NextGenLeftMenu } from '../components/NextGenLeftMenu/NextGenLeftMenu';
 import { FormTable } from '../components/FormTable/FormTable';
 import { Icon } from '../components/Icon/Icon';
 import { Input } from '../components/Input/Input';
-import { Radio } from '../components/Radio/Radio';
 import { MessageBox } from '../components/MessageBox/MessageBox';
+import { MessageInfo } from '../components/MessageInfo/MessageInfo';
 import { Modal } from '../components/Modal/Modal';
 import { Tooltip } from '../components/Tooltip/Tooltip';
 import { Tabs } from '../components/Tabs/Tabs';
 import { Dragger } from '../components/Dragger/Dragger';
 import { ChevronDownFilled, Info } from '../foundations/icons/Icons';
+import { BuilderBackground as DefaultBuilderBackground } from './JoinedReportsRevamp.stories';
 import './JoinedReportsRevampV2.css';
 import './CrossModuleReports.css';
 
@@ -188,7 +191,7 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
       disableAutoFocus
       closeOnEscape={false}
       onClose={onClose}
-      saveLabel="Save"
+      saveLabel="Done"
       onSave={save}
       footerStart={step === 'group' ? (
         <Button variant="default" onClick={() => setStep('select')}>Back</Button>
@@ -236,6 +239,12 @@ function JoinedReportFlow({ primaryReportName, initialStep, initialReportCount, 
                 addLabel: 'Add report',
               })}
             />
+            {!isEdit && (
+              <MessageInfo
+                variant="note"
+                message={<>Category columns are not supported in the joined report. Those columns cannot be viewed. Reports from <strong>any module</strong> can now be joined — a common group is mapped per report after saving.</>}
+              />
+            )}
           </>
         )}
 
@@ -516,17 +525,122 @@ function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; 
   );
 }
 
-function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount }: { onEdit: () => void; onCreate: () => void; saved: boolean; reports: string[]; initialGroupCount: number }) {
+function PreviewSortMenu({ label, direction, onSort }: {
+  label: string;
+  direction?: 'ascending' | 'descending';
+  onSort: (direction: 'ascending' | 'descending') => void;
+}) {
+  const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const menu = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!position) return;
+    menu.current?.querySelector<HTMLButtonElement>('[aria-checked="true"]')?.focus();
+    const dismiss = (event: PointerEvent) => {
+      if (!menu.current?.contains(event.target as Node) && !trigger.current?.contains(event.target as Node)) setPosition(null);
+    };
+    const close = () => setPosition(null);
+    document.addEventListener('pointerdown', dismiss);
+    window.addEventListener('scroll', close, true);
+    window.addEventListener('resize', close);
+    return () => {
+      document.removeEventListener('pointerdown', dismiss);
+      window.removeEventListener('scroll', close, true);
+      window.removeEventListener('resize', close);
+    };
+  }, [position]);
+  return (<>
+    <button ref={trigger} type="button" className="jrv2-preview-sort" aria-label={`Sort by ${label}`}
+      aria-haspopup="menu" aria-expanded={!!position}
+      onClick={() => {
+        const rect = trigger.current!.getBoundingClientRect();
+        setPosition(current => current ? null : {
+          top: Math.max(4, Math.min(rect.bottom + 4, window.innerHeight - 84)),
+          left: Math.max(4, Math.min(rect.right - 128, window.innerWidth - 132)),
+        });
+      }}>
+      <span>{label}</span>
+      <span className="jrv2-preview-sort-icons" aria-hidden="true">
+        <ChevronDownFilled className={`jrv2-preview-sort-up${direction === 'ascending' ? ' jrv2-preview-sort-active' : ''}`} />
+        <ChevronDownFilled className={direction === 'descending' ? 'jrv2-preview-sort-active' : ''} />
+      </span>
+    </button>
+    {position && createPortal(
+      <div ref={menu} className="jrv2-preview-sort-menu" role="menu" aria-label={`Sort ${label}`} style={position}
+        onKeyDown={event => {
+          if (event.key === 'Escape' || event.key === 'Tab') {
+            setPosition(null);
+            if (event.key === 'Escape') { event.preventDefault(); trigger.current?.focus(); }
+          } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Home' || event.key === 'End') {
+            event.preventDefault();
+            const options = Array.from(menu.current!.querySelectorAll<HTMLButtonElement>('button'));
+            const active = options.indexOf(document.activeElement as HTMLButtonElement);
+            options[event.key === 'Home' ? 0 : event.key === 'End' ? 1 : (active + 1) % 2].focus();
+          }
+        }}>
+        {(['ascending', 'descending'] as const).map(order => (
+          <button key={order} type="button" role="menuitemradio" aria-checked={(direction ?? 'ascending') === order}
+            onClick={() => { onSort(order); setPosition(null); trigger.current?.focus(); }}>
+            <span aria-hidden="true">{order === 'ascending' ? '↑' : '↓'}</span>
+            {order === 'ascending' ? 'Asc' : 'Desc'}
+          </button>
+        ))}
+      </div>, document.body
+    )}
+  </>);
+}
+
+function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, initialGroupCount }: { onEdit: () => void; onCreate: () => void; saved: boolean; reports: string[]; initialGroupCount: number }) {
+  const [reportNames, setReportNames] = useState<Record<number, string>>({});
+  const reports = sourceReports.map((report, index) => reportNames[index] || report);
+  const [editingReport, setEditingReport] = useState<number | null>(null);
+  const [reportNameDraft, setReportNameDraft] = useState('');
+  const commitReportName = (index: number) => {
+    const name = reportNameDraft.trim();
+    if (!name) return;
+    setReportNames(current => ({ ...current, [index]: name }));
+    setEditingReport(null);
+  };
   const [reportTitle, setReportTitle] = useState('Untitled Joined Report');
   const [previewScrolled, setPreviewScrolled] = useState(false);
+  const previewColumns = [
+    'Created Date - By Month and Year', 'Assigned user', 'Account',
+    ...sourceReports.flatMap((_, index) => JOINED_PREVIEW_METRICS[index]),
+  ];
+  const [previewWidths, setPreviewWidths] = useState<Record<number, number>>({});
+  const previewWidth = (index: number) => previewWidths[index] ?? (index === 0 ? 280 : 180);
+  const [previewSort, setPreviewSort] = useState<{ column: number; direction: 'ascending' | 'descending' } | null>(null);
+  const previewResize = useRef<{ column: number; startX: number; width: number } | null>(null);
+  const setPreviewColumnWidth = (column: number, width: number) => {
+    setPreviewWidths(current => ({ ...current, [column]: Math.max(100, Math.min(600, width)) }));
+  };
+  const sortedPreviewMonths = JOINED_PREVIEW_MONTHS.map(month => {
+    const rows = month.rows.map((values, index) => ({
+      values, index, owner: index < 2 ? 'Selvam' : 'Priya',
+      account: index % 2 === 0 ? 'Fabrikam Inc' : 'Northwind Traders',
+    }));
+    if (previewSort && previewSort.column > 0) {
+      const { column, direction } = previewSort;
+      rows.sort((a, b) => {
+        const comparison = column === 1 ? a.owner.localeCompare(b.owner)
+          : column === 2 ? a.account.localeCompare(b.account)
+          : a.values[column - 3] - b.values[column - 3];
+        return (direction === 'ascending' ? comparison : -comparison) || a.index - b.index;
+      });
+    }
+    return { ...month, sortedRows: rows };
+  });
+  if (previewSort?.column === 0 && previewSort.direction === 'descending') sortedPreviewMonths.reverse();
   const [rowGroups, setRowGroups] = useState(() => [
     { id: 1, field: 'Created Date', interval: 'Month and Year', order: 'Asc' },
     { id: 2, field: 'Assigned user', interval: '', order: 'Asc' },
     { id: 3, field: 'Account', interval: '', order: 'Asc' },
-  ].slice(0, initialGroupCount));
+  ].slice(0, initialGroupCount).map(group => ({
+    ...group,
+    mappedFields: sourceReports.map(() => group.field),
+    mappingOrder: sourceReports.map((_, index) => index),
+  })));
   const [groupDraft, setGroupDraft] = useState<(typeof rowGroups)[number] | null>(null);
-  const [mappingMode, setMappingMode] = useState<'recommended' | 'manual'>('recommended');
-  const [recommendedField, setRecommendedField] = useState('');
   const [mappedFields, setMappedFields] = useState<string[]>([]);
   const [mappingOrder, setMappingOrder] = useState(() => reports.map((_, index) => index));
   const reorderMapping = (source: number, target: number) => {
@@ -572,26 +686,30 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
   ];
   const saveGroup = () => {
     if (!groupDraft) return;
-    if (isAddingGroup && (hasMixedDataTypes || !groupDraft.field.trim() || reports.some((_, index) => !mappedFields[index]))) {
+    if (hasMixedDataTypes || !groupDraft.field.trim() || reports.some((_, index) => !mappedFields[index])) {
       setGroupError(true);
       return;
     }
-    const nextGroup = isAddingGroup
-      ? { ...groupDraft, interval: allMappedFieldsAreDates ? groupDraft.interval || 'Month and Year' : '' }
-      : groupDraft;
+    const nextGroup = {
+      ...groupDraft,
+      interval: allMappedFieldsAreDates ? groupDraft.interval || 'Month and Year' : '',
+      mappedFields: [...mappedFields],
+      mappingOrder: [...mappingOrder],
+    };
     setRowGroups(current => current.some(group => group.id === nextGroup.id)
       ? current.map(group => group.id === nextGroup.id ? nextGroup : group)
       : [...current, nextGroup]);
     setGroupDraft(null);
   };
   const [reportSettings, setReportSettings] = useState<Record<string, {
-    tab: string; columns: string[]; aggregates: string[]; hasFilters: boolean;
+    tab: string; columns: string[]; aggregates: string[]; hasFilters: boolean; showRowCount: boolean;
   }>>({});
   const getReportSettings = (report: string) => reportSettings[report] ?? {
     tab: 'columns',
     columns: ['Account Name', 'Assistant', 'Asst Phone', 'Average Time Spent (Minutes)', 'Contact Name', 'Contact Owner'],
-    aggregates: ['Count of Contacts', 'Avg Time Spent'],
+    aggregates: ['Revenue per Lead', 'Projected Revenue', 'Avg of Annual Revenue', 'Min of Annual Revenue', 'Sum of Auto_Currency_aklnmyoh'],
     hasFilters: false,
+    showRowCount: true,
   };
   const updateReportSettings = (report: string, patch: Partial<ReturnType<typeof getReportSettings>>) => {
     setReportSettings(current => ({ ...current, [report]: { ...getReportSettings(report), ...patch } }));
@@ -600,6 +718,34 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
   const [hasFilters, setHasFilters] = useState(saved);
   const [columns, setColumns] = useState(['Lead Name', 'Email', 'Company', 'Created Time', 'Lead Owner', 'First Name', 'Last Name']);
   const [aggregates, setAggregates] = useState(['Avg of Annual Revenue', 'Sum of Annual Revenue', 'Count of Unique Leads']);
+  const [aggregateDraft, setAggregateDraft] = useState<{ report: string; selected: string[]; showRowCount: boolean } | null>(null);
+  const [aggregateSearch, setAggregateSearch] = useState('');
+  const [formulaOpen, setFormulaOpen] = useState(false);
+  const [formulaColumns, setFormulaColumns] = useState([
+    { label: 'percent summary formula', formula: 'Annual Revenue / 100' },
+    { label: 'ukh,hh', formula: 'Annual Revenue' },
+    { label: 'Revenue per Lead', formula: 'Annual Revenue / Count of Unique Leads' },
+    { label: 'Projected Revenue', formula: 'Annual Revenue * Probability / 100' },
+    { label: 'Revenue in Thousands', formula: 'Annual Revenue / 1000' },
+    { label: 'Probability Percentage', formula: 'Probability / 100' },
+  ]);
+  const [editingFormula, setEditingFormula] = useState<string | null>(null);
+  const openAggregateEditor = (report: string) => {
+    const settings = getReportSettings(report);
+    setAggregateDraft({ report, selected: [...settings.aggregates], showRowCount: settings.showRowCount });
+    setAggregateSearch('');
+  };
+  const aggregateOptions = [...new Set([
+    'Count of Unique Leads',
+    ...['Annual Revenue', 'Auto_Currency_aklnmyoh', 'Auto_Currency_cajrfwgg'].flatMap(field =>
+      ['Avg', 'Sum', 'Min', 'Max'].map(operation => `${operation} of ${field}`)),
+    ...(aggregateDraft ? getReportSettings(aggregateDraft.report).aggregates : []),
+  ])].filter(label => !formulaColumns.some(column => column.label === label));
+  const matchesAggregateSearch = (label: string) => label.toLowerCase().includes(aggregateSearch.trim().toLowerCase());
+  const toggleAggregate = (label: string) => setAggregateDraft(current => current && ({
+    ...current,
+    selected: current.selected.includes(label) ? current.selected.filter(value => value !== label) : [...current.selected, label],
+  }));
   return (
     <div className="jrv2-builder">
       <NextGenLeftMenu activeId="reports" defaultCollapsed />
@@ -645,39 +791,78 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
         </div>
 
         <div className="jrv2-builder-body">
-          <section className={`jrv2-builder-panel${saved ? ' jrv2-builder-panel--joined' : ''}${isAddingGroup ? ' jrv2-builder-panel--group-editor' : ''}`} aria-label="Joined report structure">
-            {saved && isAddingGroup && groupDraft ? (
-              <section className="jrv2-row-group-editor" aria-label="Add row group">
-                <h2 className="jrv2-builder-panel-title">Add Row Group</h2>
+          <section className={`jrv2-builder-panel${saved ? ' jrv2-builder-panel--joined' : ''}${groupDraft || aggregateDraft ? ' jrv2-builder-panel--group-editor' : ''}${aggregateDraft ? ' jrv2-builder-panel--aggregate-editor' : ''}`} aria-label="Joined report structure">
+            {saved && aggregateDraft ? (
+              <section className="jrv2-row-group-editor jrv2-aggregate-editor" aria-label="Aggregate columns">
+                <header className="jrv2-aggregate-heading">
+                  <h2 className="jrv2-builder-panel-title">Aggregate Columns</h2>
+                  <Tooltip content="Create Aggregate Formula" variant="white" placement="top" followCursor>
+                    <button type="button" className="jrv2-builder-edit-btn" aria-label="Create Aggregate Formula" onClick={() => { setEditingFormula(null); setFormulaOpen(true); }}>+</button>
+                  </Tooltip>
+                </header>
+                <div className="jrv2-aggregate-content">
+                  <Input width="100%" type="search" aria-label="Search aggregate columns" placeholder="Search" value={aggregateSearch}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) => setAggregateSearch(event.target.value)} />
+                  <Checkbox label="Show Row Count" checked={aggregateDraft.showRowCount}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) => setAggregateDraft({ ...aggregateDraft, showRowCount: event.target.checked })} />
+                  <div className="jrv2-aggregate-section-heading">
+                    <h3 className="jrv2-joined-label">Report Columns</h3>
+                    {formulaColumns.some(column => aggregateDraft.selected.includes(column.label)) && (
+                      <button type="button" className="jrv2-aggregate-clear" aria-label="Clear all report columns" onClick={() => setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value => !formulaColumns.some(column => column.label === value)) })}>Clear all</button>
+                    )}
+                  </div>
+                  {formulaColumns.filter(column => matchesAggregateSearch(column.label)).map(column => (
+                    <div className="jrv2-aggregate-option" key={column.label}>
+                      <Checkbox label={column.label} checked={aggregateDraft.selected.includes(column.label)} onChange={() => toggleAggregate(column.label)} />
+                      <Dropdown width="auto" triggerAriaLabel={`Options for ${column.label}`} triggerButtonVariant="ghost" triggerIcon="⋯" showSelectionIndicator={false}
+                        options={[{ value: 'edit', label: 'Edit' }, { value: 'remove', label: 'Remove' }]} onChange={(action: string) => {
+                          if (action === 'edit') { setEditingFormula(column.label); setFormulaOpen(true); }
+                          else setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value => value !== column.label) });
+                        }} />
+                    </div>
+                  ))}
+                  <div className="jrv2-aggregate-section-heading">
+                    <h3 className="jrv2-joined-label">{Number(aggregateDraft.report) === 0 ? 'Leads' : reports[Number(aggregateDraft.report)]}</h3>
+                    {aggregateOptions.some(label => aggregateDraft.selected.includes(label)) && (
+                      <button type="button" className="jrv2-aggregate-clear" aria-label="Clear all module columns" onClick={() => setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value => !aggregateOptions.includes(value)) })}>Clear all</button>
+                    )}
+                  </div>
+                  {aggregateOptions.filter(matchesAggregateSearch).map(label => (
+                    <Checkbox key={label} label={label} checked={aggregateDraft.selected.includes(label)} onChange={() => toggleAggregate(label)} />
+                  ))}
+                  {!aggregateOptions.some(matchesAggregateSearch) && !formulaColumns.some(column => matchesAggregateSearch(column.label)) && <p className="jrv2-joined-muted" role="status">No matching columns</p>}
+                </div>
+                <footer className="jrv2-row-group-footer">
+                  <Button variant="primary" onClick={() => {
+                    updateReportSettings(aggregateDraft.report, { aggregates: aggregateDraft.selected, showRowCount: aggregateDraft.showRowCount });
+                    setAggregateDraft(null);
+                  }}>Done</Button>
+                  <Button variant="default" onClick={() => setAggregateDraft(null)}>Cancel</Button>
+                </footer>
+              </section>
+            ) : saved && groupDraft ? (
+              <section className="jrv2-row-group-editor" aria-label={isAddingGroup ? 'Add row group' : 'Edit row group'}>
+                <div className="jrv2-row-group-heading">
+                  <h2 className="jrv2-builder-panel-title">{isAddingGroup ? 'Add Row Group' : 'Edit Row Group'}</h2>
+                  <Dropdown width="auto" triggerAriaLabel="Recommended Fields" triggerButtonVariant="link-primary" triggerIcon={<span className="jrv2-recommended-trigger">Recommended Fields <ChevronDownFilled aria-hidden="true" /></span>} options={recommendedOptions} value="" showSelectionIndicator={false} panelStyle={{ '--dropdown-group-heading-margin': '4px 16px 0', '--dropdown-panel-padding-top': '2px', '--dropdown-option-padding-left': '10px' }} onChange={(field: string) => {
+                    setMappedFields(reports.map(() => field));
+                    setGroupDraft({ ...groupDraft, field, interval: field.includes('Date') ? 'Month and Year' : '' });
+                    setGroupError(false);
+                  }} />
+                </div>
                 <div className="jrv2-joined-group-form">
-          <h3 className="jrv2-row-group-heading">Choose a field from each report</h3>
           <>
-            <div className="jrv2-row-group-choices">
-              <Radio name="jrv2-mapping-mode" label="Recommended Fields" checked={mappingMode === 'recommended'} onChange={() => {
-                setMappingMode('recommended');
-                setMappedFields(reports.map(() => recommendedField));
-              }} />
-              <Radio name="jrv2-mapping-mode" label="Choose Manually" checked={mappingMode === 'manual'} onChange={() => setMappingMode('manual')} />
-            </div>
-              {mappingMode === 'recommended' && <div className="jrv2-row-group-recommended">
-                <Dropdown width="100%" placeholder="Choose recommended fields" triggerAriaLabel="Choose recommended fields" disabled={mappingMode !== 'recommended'} options={recommendedOptions} value={recommendedField} onChange={(field: string) => {
-                  setRecommendedField(field);
-                  setMappedFields(reports.map(() => field));
-                  setGroupDraft({ ...groupDraft, field, interval: field.includes('Date') ? 'Month and Year' : '' });
-                  setGroupError(false);
-                }} />
-              </div>}
-            {(mappingMode === 'manual' || recommendedField) && <div className="jrv2-row-group-mapping">
+            <div className="jrv2-row-group-mapping">
               <div className="jrv2-mapping-table" role="table" aria-label="Report field mapping">
                 <div className="jrv2-mapping-row jrv2-mapping-header" role="row">
                   <div role="columnheader">Report</div><div role="columnheader">Group by field</div>
                 </div>
-                <Dragger items={mappingOrder.map(String)} onChange={(order: string[]) => setMappingOrder(order.map(Number))} gripperOnHover renderItem={(id: string) => {
+                <Dragger dragHandleOnly items={mappingOrder.map(String)} onChange={(order: string[]) => setMappingOrder(order.map(Number))} gripperOnHover renderItem={(id: string) => {
                   const index = Number(id);
                   const position = mappingOrder.indexOf(index);
                   return <div className="jrv2-mapping-row" role="row">
                     <div role="cell">
-                      {reports.length > 1 && <button type="button" className="jrv2-mapping-grip"
+                      {reports.length > 1 && <button type="button" className="jrv2-mapping-grip" data-drag-handle
                         aria-label={`Reorder ${reports[index]}`}
                         aria-description="Drag to reorder, or use the Up and Down arrow keys."
                         onKeyDown={event => {
@@ -686,13 +871,13 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
                           if (target >= 0 && target < mappingOrder.length) reorderMapping(index, mappingOrder[target]);
                         }}
                       ><Icon name="CrmMaskDrag" size={12} /></button>}
-                      {reports[index]}
+                      <span className="jrv2-mapping-report-name" title={reports[index]}>{reports[index]}</span>
                     </div>
-                    <div role="cell"><Dropdown width="100%" placeholder="Select field" triggerAriaLabel={`Group by field for ${reports[index]}`} options={mappingOptions} disabled={mappingMode !== 'manual'} value={mappedFields[index] || ''} error={groupError && !mappedFields[index] ? 'Select a field' : undefined} onChange={(field: string) => setMappedFields(current => reports.map((_, fieldIndex) => fieldIndex === index ? field : current[fieldIndex] || ''))} /></div>
+                    <div role="cell"><Dropdown width="100%" placeholder="Select field" triggerAriaLabel={`Group by field for ${reports[index]}`} options={mappingOptions} value={mappedFields[index] || ''} error={groupError && !mappedFields[index] ? 'Select a field' : undefined} onChange={(field: string) => setMappedFields(current => reports.map((_, fieldIndex) => fieldIndex === index ? field : current[fieldIndex] || ''))} /></div>
                   </div>;
                 }} />
               </div>
-            </div>}
+            </div>
           </>
           {hasMixedDataTypes && <MessageBox
             variant="warning"
@@ -706,6 +891,10 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
                 <div className="jrv2-row-group-footer">
                   <Button variant="primary" disabled={hasMixedDataTypes} onClick={saveGroup}>Done</Button>
                   <Button variant="default" onClick={() => setGroupDraft(null)}>Cancel</Button>
+                  <Button className="jrv2-delete-group" variant="ghost-red" onClick={() => {
+                    setRowGroups(current => current.filter(group => group.id !== groupDraft.id));
+                    setGroupDraft(null);
+                  }}>Delete Group</Button>
                 </div>
               </section>
             ) : saved ? (<>
@@ -714,8 +903,22 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
               </header>
               <section className="jrv2-joined-groups" aria-label="Row groups">
                 <h3 className="jrv2-joined-label">Row Groups</h3>
-                {rowGroups.map(group => (
-                  <div className="jrv2-joined-group" key={group.id}>
+                <div className="jrv2-group-list">
+                <Dragger dragHandleOnly items={rowGroups.map(group => String(group.id))} onChange={(order: string[]) => setRowGroups(groups => order.map(id => groups.find(group => String(group.id) === id)!))} gripperOnHover renderItem={(id: string) => {
+                  const group = rowGroups.find(item => String(item.id) === id)!;
+                  return <div className="jrv2-joined-group" key={group.id}>
+                    {rowGroups.length > 1 && <button type="button" className="jrv2-group-grip" data-drag-handle aria-label={`Reorder ${group.field} group`} onKeyDown={event => {
+                      if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+                      event.preventDefault();
+                      setRowGroups(groups => {
+                        const from = groups.findIndex(item => item.id === group.id);
+                        const to = from + (event.key === 'ArrowUp' ? -1 : 1);
+                        if (to < 0 || to >= groups.length) return groups;
+                        const next = [...groups];
+                        [next[from], next[to]] = [next[to], next[from]];
+                        return next;
+                      });
+                    }}><Icon name="CrmMaskDrag" size={12} /></button>}
                     <div className="jrv2-joined-group-name">
                       <span>{group.field}</span>
                       {group.interval && <span className="jrv2-joined-muted">By {group.interval}</span>}
@@ -728,46 +931,72 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
                     >
                       {group.order}
                     </button>
-                    <button type="button" className="jrv2-builder-edit-btn" aria-label={`Edit ${group.field} group`} onClick={() => setGroupDraft({ ...group })}>
+                    <button type="button" className="jrv2-builder-edit-btn" aria-label={`Edit ${group.field} group`} onClick={() => {
+                      setMappedFields([...group.mappedFields]);
+                      setMappingOrder([...group.mappingOrder]);
+                      setGroupError(false);
+                      setGroupDraft({ ...group });
+                    }}>
                       <Icon name="CrmEditFilledMd" size={13} />
                     </button>
-                  </div>
-                ))}
+                  </div>;
+                }} />
+                </div>
                 <Button variant="link-primary" className="jrv2-joined-add" onClick={() => {
-                  setMappingMode('recommended');
-                  setRecommendedField('');
                   setMappedFields(reports.map(() => ''));
                   setMappingOrder(reports.map((_, index) => index));
                   setGroupError(false);
-                  setGroupDraft({ id: Date.now(), field: '', interval: '', order: 'Asc' });
-                }}>+ Add New Group</Button>
+                  setGroupDraft({ id: Date.now(), field: '', interval: '', order: 'Asc', mappedFields: [], mappingOrder: [] });
+                }}>Add New Group</Button>
               </section>
               {reports.map((report, index) => {
-                const settings = getReportSettings(report);
+                const settingsKey = String(index);
+                const settings = getReportSettings(settingsKey);
                 return (
-                  <details className="jrv2-joined-report" key={`${index}-${report}`} open={index === 0}>
+                  <details className="jrv2-joined-report" key={index} open={index === 0}>
                     <summary className="jrv2-report-toggle" aria-label={`Report ${index + 1}: ${report}`}>
                       <div>
-                        <h3 className="jrv2-joined-label">Report {index + 1}</h3>
-                        <p>{report}</p>
+                        <div className="jrv2-report-label-row">
+                          <h3 className="jrv2-joined-label">Report {index + 1}</h3>
+                        </div>
+                        <div className="jrv2-report-name-row">
+                          <p>{report}</p>
+                          <Tooltip content="rename" variant="black" placement="top" wrapperStyle={{ display: 'inline-flex', flexShrink: 0 }}>
+                            <button type="button" className="jrv2-report-rename" aria-label={`Rename Report ${index + 1}`}
+                              onClick={event => {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                setReportNameDraft(report);
+                                setEditingReport(index);
+                              }}>
+                              <Icon name="CrmEditFilledMd" size={13} />
+                            </button>
+                          </Tooltip>
+                        </div>
                       </div>
                       <ChevronDownFilled size={12} className="jrv2-report-chevron" />
                     </summary>
                     <div className="jrv2-report-content" role="region" aria-label={`${report} settings`}>
                       <div className="jrv2-builder-tabs">
                         <Tabs tabs={[{ id: 'columns', label: 'Columns' }, { id: 'filters', label: 'Filters' }]}
-                          activeTab={settings.tab} onChange={(tab: string) => updateReportSettings(report, { tab })}
+                          activeTab={settings.tab} onChange={(tab: string) => updateReportSettings(settingsKey, { tab })}
                           variant="secondary" size="md" />
                       </div>
                       {settings.tab === 'filters' ? (
                         <BuilderFilters hasFilters={settings.hasFilters}
-                          onAdd={() => updateReportSettings(report, { hasFilters: true })}
-                          onDelete={() => updateReportSettings(report, { hasFilters: false })} />
+                          onAdd={() => updateReportSettings(settingsKey, { hasFilters: true })}
+                          onDelete={() => updateReportSettings(settingsKey, { hasFilters: false })} />
                       ) : (<>
                         <div className="jrv2-builder-row"><h4 className="jrv2-joined-label">Columns</h4></div>
-                        <Dragger items={settings.columns} onChange={(columns: string[]) => updateReportSettings(report, { columns })} />
-                        <div className="jrv2-builder-row jrv2-builder-row--section"><h4 className="jrv2-joined-label">Aggregate columns</h4></div>
-                        <Dragger items={settings.aggregates} onChange={(aggregates: string[]) => updateReportSettings(report, { aggregates })} />
+                        <Dragger dragHandleOnly items={settings.columns} onChange={(columns: string[]) => updateReportSettings(settingsKey, { columns })} />
+                        <div className="jrv2-builder-row jrv2-builder-row--section">
+                          <h4 className="jrv2-joined-label">Aggregate columns</h4>
+                          <button type="button" className="jrv2-builder-edit-btn" aria-label={`Edit aggregate columns for Report ${index + 1}`} onClick={() => openAggregateEditor(settingsKey)}>
+                            <Icon name="CrmEditFilledMd" size={13} />
+                          </button>
+                        </div>
+                        <Dragger dragHandleOnly items={settings.aggregates} onChange={(aggregates: string[]) => updateReportSettings(settingsKey, { aggregates })}
+                          renderItem={(label: string) => <span className="jrv2-aggregate-label" title={label}>{label}</span>} />
                       </>)}
                     </div>
                   </details>
@@ -791,12 +1020,12 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
                 <span className="jrv2-builder-block-title">Columns</span>
                 <button type="button" className="jrv2-builder-edit-btn" aria-label="Edit columns"><Icon name="CrmEditFilledMd" size={13} className="jrv2-builder-edit-icon" /></button>
               </div>
-              <Dragger items={columns} onChange={setColumns} />
+              <Dragger dragHandleOnly items={columns} onChange={setColumns} />
               <div className="jrv2-builder-row jrv2-builder-row--section">
                 <span className="jrv2-builder-block-title">Aggregate Columns</span>
                 <button type="button" className="jrv2-builder-edit-btn" aria-label="Edit aggregate columns"><Icon name="CrmEditFilledMd" size={13} className="jrv2-builder-edit-icon" /></button>
               </div>
-              <Dragger items={aggregates} onChange={setAggregates} />
+              <Dragger dragHandleOnly items={aggregates} onChange={setAggregates} />
               </>)}
             </div>
 
@@ -814,7 +1043,10 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
                 className={`jrv2-joined-preview-scroll${previewScrolled ? ' jrv2-joined-preview-scroll--scrolled' : ''}`}
                 onScroll={event => setPreviewScrolled(event.currentTarget.scrollLeft > 0)}
               >
-                <table className="jrv2-builder-table jrv2-joined-preview-table" aria-label="Joined report preview">
+                <table className="jrv2-builder-table jrv2-joined-preview-table" aria-label="Joined report preview" style={{ width: previewColumns.reduce((sum, _, index) => sum + previewWidth(index), 0) }}>
+                  <colgroup>
+                    {previewColumns.map((label, index) => <col key={`${index}-${label}`} style={{ width: previewWidth(index) }} />)}
+                  </colgroup>
                   <thead>
                     <tr>
                       <th aria-label="Grouping field" />
@@ -824,19 +1056,50 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
                       ))}
                     </tr>
                     <tr>
-                      <th scope="col">Created Date - By Month and Year</th>
-                      <th scope="col">Assigned user</th>
-                      <th scope="col">Account</th>
-                      {reports.flatMap((_, index) => JOINED_PREVIEW_METRICS[index].map(metric => <th key={metric} scope="col">{metric}</th>))}
+                      {previewColumns.map((label, column) => (
+                        <th key={`${column}-${label}`} scope="col" aria-sort={previewSort?.column === column ? previewSort.direction : 'none'}>
+                          <PreviewSortMenu label={label}
+                            direction={previewSort?.column === column ? previewSort.direction : undefined}
+                            onSort={direction => setPreviewSort({ column, direction })} />
+                          <span
+                            className="jrv2-preview-resize" role="separator" aria-orientation="vertical"
+                            aria-label={`Resize ${label} column`} tabIndex={0}
+                            aria-valuemin={100} aria-valuemax={600} aria-valuenow={previewWidth(column)}
+                            onPointerDown={event => {
+                              if (event.button !== 0) return;
+                              event.preventDefault();
+                              event.stopPropagation();
+                              previewResize.current = { column, startX: event.clientX, width: previewWidth(column) };
+                              event.currentTarget.setPointerCapture(event.pointerId);
+                            }}
+                            onPointerMove={event => {
+                              const resize = previewResize.current;
+                              if (!resize || resize.column !== column) return;
+                              setPreviewColumnWidth(column, resize.width + event.clientX - resize.startX);
+                            }}
+                            onPointerUp={event => {
+                              previewResize.current = null;
+                              if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+                            }}
+                            onLostPointerCapture={() => { previewResize.current = null; }}
+                            onPointerCancel={() => { previewResize.current = null; }}
+                            onKeyDown={event => {
+                              if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+                              event.preventDefault();
+                              setPreviewColumnWidth(column, previewWidth(column) + (event.key === 'ArrowRight' ? 10 : -10));
+                            }}
+                          />
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {JOINED_PREVIEW_MONTHS.flatMap(month => [
-                      ...month.rows.map((values, index) => (
-                        <tr key={`${month.label}-${index}`}>
+                    {sortedPreviewMonths.flatMap(month => [
+                      ...month.sortedRows.map(({ values, index: originalIndex, owner, account }, index) => (
+                        <tr key={`${month.label}-${originalIndex}`}>
                           <td>{index === 0 ? month.label : ''}</td>
-                          <td>{index % 2 === 0 ? index === 0 ? 'Selvam' : 'Priya' : ''}</td>
-                          <td>{index % 2 === 0 ? 'Fabrikam Inc' : 'Northwind Traders'}</td>
+                          <td>{index === 0 || month.sortedRows[index - 1].owner !== owner ? owner : ''}</td>
+                          <td>{account}</td>
                           {values.slice(0, reports.reduce((count, _, reportIndex) => count + JOINED_PREVIEW_METRICS[reportIndex].length, 0)).map((value, metricIndex) => <td className="jrv2-preview-number" key={metricIndex}>{value}</td>)}
                         </tr>
                       )),
@@ -899,12 +1162,31 @@ function BuilderBackground({ onEdit, onCreate, saved, reports, initialGroupCount
           </section>
         </div>
       </div>
-      <Modal isOpen={Boolean(groupDraft) && !isAddingGroup} title="Joined Row Group" width={560} onClose={() => setGroupDraft(null)} saveLabel="Save" onSave={saveGroup}>
-        {groupDraft && (<div className="jrv2-joined-group-form">
-          <Dropdown label="Group field" width="100%" options={mappingOptions} value={groupDraft.field} onChange={(field: string) => setGroupDraft({ ...groupDraft, field })} />
-          <Dropdown label="Group by" width="100%" options={['Month and Year', 'Quarter and Year', 'Year', 'Day'].map(value => ({ value, label: value }))} value={groupDraft.interval} onChange={(interval: string) => setGroupDraft({ ...groupDraft, interval })} />
-          <Dropdown label="Sort order" width="100%" options={['Asc', 'Desc'].map(value => ({ value, label: value }))} value={groupDraft.order} onChange={(order: string) => setGroupDraft({ ...groupDraft, order })} />
-        </div>)}
+      <Modal className="jrv2-rename-modal" isOpen={editingReport !== null} title={`Rename Report ${(editingReport ?? 0) + 1}`}
+        width={600} saveLabel="Done" onClose={() => setEditingReport(null)}
+        onSave={() => { if (editingReport !== null) commitReportName(editingReport); }}>
+        <form onSubmit={event => {
+          event.preventDefault();
+          if (editingReport !== null) commitReportName(editingReport);
+        }} onKeyDown={event => {
+          if (event.key === 'Escape') setEditingReport(null);
+        }}>
+          <Input label="Report Name" aria-label="Report Name" width="100%" required
+            value={reportNameDraft} onChange={(event: ChangeEvent<HTMLInputElement>) => setReportNameDraft(event.target.value)} />
+        </form>
+      </Modal>
+      <Modal isOpen={formulaOpen} title={editingFormula ? 'Edit Summary Formula' : 'New Summary Formula'} width={1000} onClose={() => setFormulaOpen(false)} showFooter={false}>
+        {formulaOpen && <FormulaBuilder
+          title={editingFormula ? 'Edit Summary Formula' : 'New Summary Formula'}
+          defaultFormula={formulaColumns.find(column => column.label === editingFormula)?.formula || ''}
+          fields={[{ name: 'Leads', items: [{ id: 'annual-revenue', label: 'Annual Revenue' }, { id: 'employees', label: 'No of Employees' }] }]}
+          onCancel={() => setFormulaOpen(false)}
+          onDone={({ formula }: { formula: string }) => {
+            const label = editingFormula || `Summary formula ${formulaColumns.length + 1}`;
+            setFormulaColumns(current => editingFormula ? current.map(column => column.label === editingFormula ? { label, formula } : column) : [...current, { label, formula }]);
+            setAggregateDraft(current => current && ({ ...current, selected: [...new Set([...current.selected, label])] }));
+            setFormulaOpen(false);
+          }} />}
       </Modal>
     </div>
   );
@@ -929,13 +1211,21 @@ function JoinedReportsRevampV2Page({ primaryReportName, initialStep, initialRepo
 
   return (
     <>
-      <BuilderBackground
-        saved={isSaved}
-        reports={savedReports}
-        initialGroupCount={initialGroupCount}
-        onEdit={() => { setMode('edit'); setSession(current => current + 1); setOpen(true); }}
-        onCreate={() => { setMode('create'); setSession(current => current + 1); setOpen(true); }}
-      />
+      {isSaved ? (
+        <BuilderBackground
+          saved
+          reports={savedReports}
+          initialGroupCount={initialGroupCount}
+          onEdit={() => { setMode('edit'); setSession(current => current + 1); setOpen(true); }}
+          onCreate={() => { setMode('create'); setSession(current => current + 1); setOpen(true); }}
+        />
+      ) : (
+        <DefaultBuilderBackground
+          saved={false}
+          onEdit={() => { setMode('edit'); setSession(current => current + 1); setOpen(true); }}
+          onCreate={() => { setMode('create'); setSession(current => current + 1); setOpen(true); }}
+        />
+      )}
       {banner && createPortal(
         <div className="jrv2-note-banner" key={banner.id}>
           <MessageBox variant={banner.variant} message={banner.message} onClose={() => setBanner(null)} />
@@ -951,11 +1241,10 @@ function JoinedReportsRevampV2Page({ primaryReportName, initialStep, initialRepo
         initialReportCount={initialReportCount}
         onClose={() => setOpen(false)}
         onNotify={notify}
-        onSaved={(name, reports) => {
+        onSaved={(_name, reports) => {
           setSavedReports(reports);
           setIsSaved(true);
           setOpen(false);
-          notify('success', `Joined Report "${name}" saved.`);
         }}
       />
     </>
@@ -976,7 +1265,7 @@ const meta = {
           'Isolated V2 flow without a report-name field or stepper. Step 1 selects up to three reports; step 2 groups records by field ' +
           '(vertically centred). Built from existing Modal, Input, Dropdown, Button, Icon and MessageBox components. ' +
           'Controls: the primary report name, the starting step (step 2 shows the centred layout) and how many reports ' +
-          'are already selected. Save validates report selections, closes the modal and shows Untitled Joined Report with an edit link. ' +
+          'are already selected. Done validates report selections, closes the modal and shows Untitled Joined Report with an edit link. ' +
           'No network calls are made.',
       },
     },
@@ -1001,6 +1290,39 @@ type Story = StoryObj<typeof meta>;
 export const V2: Story = {
   name: 'V2',
   args: { startOpen: false, saved: false },
+  play: async ({ canvasElement, mount, args }) => {
+    await mount(<JoinedReportsRevampV2Page key="creation-test" {...args} />);
+    const canvas = within(canvasElement);
+    const page = within(document.body);
+    await expect(canvas.getByLabelText('Main navigation')).toHaveClass('jr-builder-nav');
+    await expect(canvas.getByText('Leads By Source', { exact: true })).toBeVisible();
+    await expect(canvas.getByRole('table', { name: 'Report 1 Leads By Source' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Create Joined Report', exact: true }));
+    let dialog = within(await page.findByRole('dialog'));
+    await expect(dialog.getByRole('status')).toHaveTextContent('Category columns are not supported in the joined report.');
+    await expect(dialog.getByRole('status')).toHaveTextContent('Reports from any module can now be joined — a common group is mapped per report after saving.');
+    await userEvent.click(dialog.getByRole('button', { name: 'Report 2', exact: true }));
+    await userEvent.click(await page.findByRole('option', { name: 'Sales Pipeline by Region', exact: true }));
+    await userEvent.click(dialog.getByRole('button', { name: 'Done', exact: true }));
+    await waitFor(() => expect(page.queryByRole('dialog')).not.toBeInTheDocument());
+    await expect(canvas.getByRole('heading', { name: 'Report 2', exact: true })).toBeVisible();
+    await expect(page.queryByText(/Joined Report .* saved\./)).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Edit Joined Report', exact: true }));
+    dialog = within(await page.findByRole('dialog'));
+    await userEvent.click(dialog.getByRole('button', { name: 'Add report', exact: true }));
+    await userEvent.click(dialog.getByRole('button', { name: 'Report 3', exact: true }));
+    await userEvent.click(await page.findByRole('option', { name: 'Won Deals This Quarter', exact: true }));
+    await userEvent.click(dialog.getByRole('button', { name: 'Done', exact: true }));
+    await waitFor(() => expect(page.queryByRole('dialog')).not.toBeInTheDocument());
+    await expect(canvas.getByRole('heading', { name: 'Report 3', exact: true })).toBeVisible();
+    await expect(page.queryByText(/Joined Report .* saved\./)).not.toBeInTheDocument();
+
+    // Keep the interactive story at the creation entry point after testing save/edit.
+    await mount(<JoinedReportsRevampV2Page key="creation-ready" {...args} />);
+    await expect(canvas.getByRole('button', { name: 'Create Joined Report', exact: true })).toBeVisible();
+    await expect(canvas.queryByRole('button', { name: 'Edit Joined Report', exact: true })).not.toBeInTheDocument();
+  },
 };
 
 export const V2Summary: Story = {
@@ -1009,6 +1331,36 @@ export const V2Summary: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { name: 'Report 3', exact: true })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Edit aggregate columns for Report 1' }));
+    let aggregateEditor = within(canvas.getByRole('region', { name: 'Aggregate columns' }));
+    await expect(aggregateEditor.getByRole('checkbox', { name: 'Show Row Count' })).toBeChecked();
+    await expect(aggregateEditor.getAllByRole('checkbox').filter(checkbox => (checkbox as HTMLInputElement).checked)).toHaveLength(6);
+    await expect(aggregateEditor.getByRole('button', { name: 'Create Aggregate Formula' })).toBeVisible();
+    await expect(aggregateEditor.getByRole('checkbox', { name: 'Revenue per Lead', exact: true })).toBeInTheDocument();
+    await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'percent summary formula', exact: true }));
+    await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'Count of Unique Leads', exact: true }));
+    await userEvent.click(aggregateEditor.getByRole('button', { name: 'Clear all report columns' }));
+    await expect(aggregateEditor.getByRole('checkbox', { name: 'percent summary formula', exact: true })).not.toBeChecked();
+    await expect(aggregateEditor.queryByRole('button', { name: 'Clear all report columns' })).not.toBeInTheDocument();
+    await expect(aggregateEditor.getByRole('checkbox', { name: 'Count of Unique Leads', exact: true })).toBeChecked();
+    await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'percent summary formula', exact: true }));
+    await userEvent.click(aggregateEditor.getByRole('button', { name: 'Clear all module columns' }));
+    await expect(aggregateEditor.getByRole('checkbox', { name: 'percent summary formula', exact: true })).toBeChecked();
+    await expect(aggregateEditor.getByRole('checkbox', { name: 'Count of Unique Leads', exact: true })).not.toBeChecked();
+    await expect(aggregateEditor.queryByRole('button', { name: 'Clear all module columns' })).not.toBeInTheDocument();
+    await expect(aggregateEditor.getByRole('button', { name: 'Clear all report columns' })).toBeVisible();
+    await userEvent.type(aggregateEditor.getByRole('searchbox', { name: 'Search aggregate columns' }), 'Annual Revenue');
+    await expect(aggregateEditor.queryByRole('checkbox', { name: 'Count of Unique Leads' })).not.toBeInTheDocument();
+    await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'Sum of Annual Revenue', exact: true }));
+    await userEvent.click(aggregateEditor.getByRole('button', { name: 'Done', exact: true }));
+    const firstReportSettings = within(canvas.getByRole('region', { name: 'Monthly Sales Pipeline settings' }));
+    await expect(firstReportSettings.getByText('Sum of Annual Revenue', { exact: true })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Edit aggregate columns for Report 1' }));
+    aggregateEditor = within(canvas.getByRole('region', { name: 'Aggregate columns' }));
+    await expect(aggregateEditor.getByRole('checkbox', { name: 'Sum of Annual Revenue', exact: true })).toBeChecked();
+    await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'Sum of Annual Revenue', exact: true }));
+    await userEvent.click(aggregateEditor.getByRole('button', { name: 'Cancel', exact: true }));
+    await expect(within(canvas.getByRole('region', { name: 'Monthly Sales Pipeline settings' })).getByText('Sum of Annual Revenue', { exact: true })).toBeVisible();
     const title = canvas.getByRole('textbox', { name: 'Report title' });
     await expect(title).toHaveValue('Untitled Joined Report');
     const titleField = title.closest('.jrv2-builder-title-input')!;
@@ -1028,7 +1380,48 @@ export const V2Summary: Story = {
     await userEvent.tab();
     await expect(title).toHaveValue('Untitled Joined Report');
     await expect(canvas.getAllByRole('button', { name: /sort order: Asc/ })).toHaveLength(3);
+    const groups = canvas.getByRole('region', { name: 'Row groups' });
+    await expect(within(groups).getAllByRole('button', { name: /^Reorder .* group$/ })).toHaveLength(3);
+    const accountGrip = within(groups).getByRole('button', { name: 'Reorder Account group' });
+    accountGrip.focus();
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(Array.from(groups.querySelectorAll('.jrv2-joined-group-name > span:first-child')).map(node => node.textContent)).toEqual(['Created Date', 'Account', 'Assigned user']);
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(Array.from(groups.querySelectorAll('.jrv2-joined-group-name > span:first-child')).map(node => node.textContent)).toEqual(['Created Date', 'Assigned user', 'Account']);
     const table = canvas.getByRole('table', { name: 'Joined report preview' });
+    const tableQueries = within(table);
+    const countSort = tableQueries.getByRole('button', { name: 'Sort by Count of contacts', exact: true });
+    const firstMonthValues = () => Array.from(table.querySelectorAll('tbody tr')).slice(0, 4).map(row => Number(row.children[3].textContent));
+    const page = within(canvasElement.ownerDocument.body);
+    await userEvent.click(countSort);
+    await expect(page.getByRole('menu', { name: 'Sort Count of contacts' })).toBeVisible();
+    await userEvent.click(page.getByRole('menuitemradio', { name: 'Asc', exact: true }));
+    await expect(countSort.closest('th')).toHaveAttribute('aria-sort', 'ascending');
+    await expect(firstMonthValues()).toEqual([48, 61, 79, 80]);
+    await userEvent.click(countSort);
+    await userEvent.click(page.getByRole('menuitemradio', { name: 'Desc', exact: true }));
+    await expect(countSort.closest('th')).toHaveAttribute('aria-sort', 'descending');
+    await expect(firstMonthValues()).toEqual([80, 79, 61, 48]);
+    await expect(table.querySelector('tbody tr:nth-child(5) td:nth-child(4)')).toHaveTextContent('268');
+    const dateSort = tableQueries.getByRole('button', { name: 'Sort by Created Date - By Month and Year', exact: true });
+    await userEvent.click(dateSort);
+    await userEvent.click(page.getByRole('menuitemradio', { name: 'Desc', exact: true }));
+    await expect(table.querySelector('tbody tr td')).toHaveTextContent('Sep 2026');
+    await userEvent.click(dateSort);
+    await userEvent.click(page.getByRole('menuitemradio', { name: 'Asc', exact: true }));
+    await expect(table.querySelector('tbody tr td')).toHaveTextContent('Jul 2026');
+    await userEvent.click(dateSort);
+    await userEvent.keyboard('{Escape}');
+    await expect(page.queryByRole('menu', { name: 'Sort Created Date - By Month and Year' })).not.toBeInTheDocument();
+    const resize = tableQueries.getByRole('separator', { name: 'Resize Account column' });
+    const accountHeader = resize.closest('th')!;
+    const initialColumnWidth = accountHeader.getBoundingClientRect().width;
+    resize.focus();
+    await userEvent.keyboard('{ArrowRight}{ArrowRight}');
+    await expect(resize).toHaveAttribute('aria-valuenow', '200');
+    await expect(accountHeader.getBoundingClientRect().width).toBe(initialColumnWidth + 20);
+    await userEvent.keyboard('{ArrowLeft}{ArrowLeft}');
+    await expect(resize).toHaveAttribute('aria-valuenow', '180');
     const total = within(table).getByRole('rowheader', { name: 'Grand Total', exact: true });
     await expect(total.closest('tfoot')).not.toBeNull();
     await expect(total).toBeVisible();
@@ -1046,6 +1439,63 @@ export const V2Summary: Story = {
     scroller.scrollTo(0, 0);
     scroller.dispatchEvent(new Event('scroll', { bubbles: true }));
     await waitFor(() => expect(scroller).not.toHaveClass('jrv2-joined-preview-scroll--scrolled'));
+    for (const [index, originalName] of ['Monthly Sales Pipeline', 'Sales Pipeline by Region', 'Sales Performance by Owner'].entries()) {
+      const heading = canvas.getByRole('heading', { name: `Report ${index + 1}`, exact: true });
+      const section = heading.closest('details')!;
+      const summary = section.querySelector('summary')!;
+      const rename = section.querySelector<HTMLButtonElement>('.jrv2-report-rename')!;
+      if (!section.open) {
+        await userEvent.hover(summary);
+        await expect(rename).not.toBeVisible();
+        await userEvent.click(summary);
+      }
+      await userEvent.unhover(summary);
+      await userEvent.click(title);
+      await expect(rename).not.toBeVisible();
+      summary.focus();
+      await expect(rename).toBeVisible();
+      if (index === 0) {
+        await userEvent.hover(rename);
+        await expect(await within(document.body).findByRole('tooltip')).toHaveTextContent('rename');
+        await userEvent.unhover(rename);
+        rename.focus();
+        await expect(await within(document.body).findByRole('tooltip')).toHaveTextContent('rename');
+        rename.blur();
+      }
+      const previousName = section.querySelector('summary p')!.textContent || originalName;
+      await userEvent.click(rename);
+      let renameDialog = within(await within(document.body).findByRole('dialog', { name: `Rename Report ${index + 1}` }));
+      const input = renameDialog.getByRole('textbox', { name: 'Report Name' });
+      await expect(input).toHaveValue(previousName);
+      await expect(input.closest('.input-input-wrapper')!.getBoundingClientRect().width).toBe(390);
+      const renameBody = input.closest('.modal-body')!;
+      await expect(renameBody.scrollWidth).toBeLessThanOrEqual(renameBody.clientWidth);
+      const renameBounds = renameBody.closest('.modal-dialog')!.getBoundingClientRect();
+      await expect(renameBounds.right - input.getBoundingClientRect().right).toBeGreaterThanOrEqual(30);
+      await userEvent.clear(input);
+      await userEvent.type(input, 'Discarded name');
+      await userEvent.click(renameDialog.getByRole('button', { name: 'Cancel', exact: true }));
+      await waitFor(() => expect(within(document.body).queryByRole('dialog', { name: `Rename Report ${index + 1}` })).not.toBeInTheDocument());
+      await expect(within(section).getByText(previousName, { exact: true })).toBeVisible();
+      await userEvent.hover(summary);
+      await userEvent.click(rename);
+      renameDialog = within(await within(document.body).findByRole('dialog', { name: `Rename Report ${index + 1}` }));
+      await userEvent.clear(renameDialog.getByRole('textbox', { name: 'Report Name' }));
+      await userEvent.click(renameDialog.getByRole('button', { name: 'Done', exact: true }));
+      await expect(renameDialog.getByRole('textbox', { name: 'Report Name' })).toBeVisible();
+      await userEvent.type(renameDialog.getByRole('textbox', { name: 'Report Name' }), `Renamed report ${index + 1}`);
+      await userEvent.click(renameDialog.getByRole('button', { name: 'Done', exact: true }));
+      await waitFor(() => expect(within(document.body).queryByRole('dialog', { name: `Rename Report ${index + 1}` })).not.toBeInTheDocument());
+      await expect(section.open).toBe(true);
+      await expect(within(section).getByText(`Renamed report ${index + 1}`, { exact: true })).toBeVisible();
+      await expect(within(table).getByRole('columnheader', { name: `Report ${index + 1} — Renamed report ${index + 1}` })).toBeVisible();
+      await userEvent.hover(summary);
+      await userEvent.click(rename);
+      renameDialog = within(await within(document.body).findByRole('dialog', { name: `Rename Report ${index + 1}` }));
+      await userEvent.clear(renameDialog.getByRole('textbox', { name: 'Report Name' }));
+      await userEvent.type(renameDialog.getByRole('textbox', { name: 'Report Name' }), `${previousName}{Enter}`);
+      await waitFor(() => expect(within(document.body).queryByRole('dialog', { name: `Rename Report ${index + 1}` })).not.toBeInTheDocument());
+    }
   },
 };
 
@@ -1067,18 +1517,44 @@ export const V2AddGroup: Story = {
     await expect(secondReport.getByText('No filters applied')).toBeVisible();
     await expect(firstReport.getByText('Lead Source is Advertisement or Partner')).toBeVisible();
     await userEvent.click(firstReport.getByRole('tab', { name: 'Columns' }));
-    await userEvent.click(canvas.getByRole('button', { name: '+ Add New Group' }));
+    await expect(canvas.queryByRole('button', { name: /^Reorder .* group$/ })).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Edit Created Date group' }));
+    let editPanel = within(canvas.getByRole('region', { name: 'Edit row group' }));
+    await expect(editPanel.getByRole('heading', { name: 'Edit Row Group', exact: true })).toBeVisible();
+    await expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
+    await expect(editPanel.getAllByRole('button', { name: /^Group by field for / })).toHaveLength(3);
+    await expect(editPanel.getByRole('button', { name: 'Date granularity' })).toHaveTextContent('By Month and Year');
+    const groupName = editPanel.getByRole('textbox');
+    await userEvent.clear(groupName);
+    await userEvent.type(groupName, 'Monthly records');
+    await userEvent.click(editPanel.getByRole('button', { name: 'Done', exact: true }));
+    await expect(canvas.getByRole('button', { name: 'Edit Monthly records group' })).toBeVisible();
+    await expect(canvas.queryByRole('button', { name: /^Reorder .* group$/ })).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Edit Monthly records group' }));
+    editPanel = within(canvas.getByRole('region', { name: 'Edit row group' }));
+    await expect(editPanel.getByRole('textbox')).toHaveValue('Monthly records');
+    await expect(editPanel.getAllByRole('button', { name: /^Group by field for / })[0]).toHaveTextContent('Created Date');
+    await userEvent.clear(editPanel.getByRole('textbox'));
+    await userEvent.type(editPanel.getByRole('textbox'), 'Discarded name');
+    await userEvent.click(editPanel.getByRole('button', { name: 'Cancel', exact: true }));
+    await expect(canvas.getByRole('button', { name: 'Edit Monthly records group' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Add New Group' }));
     const panel = canvas.getByRole('region', { name: 'Add row group' });
     await expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
     const editor = within(panel);
     await expect(editor.queryByRole('button', { name: 'Back to joined report structure' })).not.toBeInTheDocument();
-    await expect(editor.queryByRole('table', { name: 'Report field mapping' })).not.toBeInTheDocument();
-    await userEvent.click(editor.getByRole('button', { name: 'Choose recommended fields' }));
+    await expect(editor.queryByRole('radio')).not.toBeInTheDocument();
+    await expect(editor.getByRole('table', { name: 'Report field mapping' })).toBeVisible();
+    await expect(editor.getAllByRole('button', { name: /^Group by field for / })[0]).toBeEnabled();
+    await userEvent.click(editor.getByRole('button', { name: 'Recommended Fields' }));
     await userEvent.click(await within(document.body).findByRole('option', { name: 'Account', exact: true }));
     const mapping = await editor.findByRole('table', { name: 'Report field mapping' });
     await expect(within(mapping).getAllByRole('row')).toHaveLength(4);
     await expect(editor.queryByRole('button', { name: 'Date granularity' })).not.toBeInTheDocument();
-    await userEvent.click(editor.getByRole('button', { name: 'Choose recommended fields' }));
+    await userEvent.click(editor.getByRole('button', { name: 'Recommended Fields' }));
+    const recommendedAccount = await within(document.body).findByRole('option', { name: 'Account', exact: true });
+    await expect(recommendedAccount).toHaveAttribute('aria-selected', 'false');
+    await expect(recommendedAccount.querySelector('.dropdown-option-check')).toBeNull();
     await userEvent.click(await within(document.body).findByRole('option', { name: 'Created Date', exact: true }));
     await expect(editor.getByRole('button', { name: 'Date granularity' })).toBeVisible();
     await userEvent.click(editor.getByRole('button', { name: 'Date granularity' }));
@@ -1086,8 +1562,7 @@ export const V2AddGroup: Story = {
       await expect(within(document.body).getByRole('option', { name, exact: true })).toBeVisible();
     }
     await userEvent.click(within(document.body).getByRole('option', { name: 'By Week', exact: true }));
-    await userEvent.click(editor.getByRole('radio', { name: 'Choose Manually' }));
-    await expect(editor.queryByRole('button', { name: 'Choose recommended fields' })).not.toBeInTheDocument();
+    await expect(editor.getByRole('button', { name: 'Recommended Fields' })).toBeVisible();
     await expect(within(mapping).getAllByRole('row')).toHaveLength(4);
     const fieldSelectors = editor.getAllByRole('button', { name: /^Group by field for / });
     await userEvent.click(fieldSelectors[2]);
@@ -1101,5 +1576,11 @@ export const V2AddGroup: Story = {
     await expect(editor.queryByRole('status')).not.toBeInTheDocument();
     await expect(editor.getByRole('button', { name: 'Done', exact: true })).toBeEnabled();
     await expect(editor.getByRole('button', { name: 'Date granularity' })).toBeVisible();
+    const deleteGroup = editor.getByRole('button', { name: 'Delete Group', exact: true });
+    await expect(deleteGroup).toHaveAttribute('data-variant', 'ghost-red');
+    await userEvent.click(deleteGroup);
+    await expect(canvas.queryByRole('region', { name: 'Add row group' })).not.toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Add New Group' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Add New Group' }));
   },
 };

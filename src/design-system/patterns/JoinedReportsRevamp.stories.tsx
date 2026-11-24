@@ -535,7 +535,7 @@ function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; 
   );
 }
 
-function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; onCreate: () => void; saved: boolean }) {
+export function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; onCreate: () => void; saved: boolean }) {
   const [builderTab, setBuilderTab] = useState('columns');
   const [hasFilters, setHasFilters] = useState(saved);
   const [columns, setColumns] = useState(['Lead Name', 'Email', 'Company', 'Created Time', 'Lead Owner', 'First Name', 'Last Name']);
@@ -748,6 +748,7 @@ function JoinedReportsRevampPage({ primaryReportName, initialStep, initialReport
 
 const meta = {
   title: 'Work Items/Joined Reports - Revamp',
+  excludeStories: ['BuilderBackground'],
   parameters: {
     layout: 'fullscreen',
     docs: {

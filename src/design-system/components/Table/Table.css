@@ -37,7 +37,7 @@
 
 .table-header-row {
   height: 36px;
-  border-bottom: 1px solid var(--ds-components-table-header-outline-border, #D9E0EB);
+  border-bottom: 2px solid var(--ds-components-table-header-outline-border, #D9E0EB);
 }
 
 /* ── Header cell ─────────────────────────────────────────────────────────── */
@@ -381,6 +381,7 @@
 }
 
 .table-report thead th {
+  border-bottom-width: 2px;
   background: var(--ds-components-table-header-bg);
   font-weight: var(--ds-font-weight-medium);
   color: var(--ds-text-heading);

@@ -1,0 +1,124 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   WMSToaster — Figma: Chinnaiya-Style-Sheet node 93780-156008 ("Toast Message")
+   Status toast card: status badge + title + minimize/close, optional body,
+   optional action buttons. Minimized state shows the header only.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.wmst-root {
+  --wmst-badge-bg: var(--icons-background-green, #e5faf1);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  width: 450px;
+  max-width: 100%;
+  padding: 12px 20px 20px;
+  background: var(--ds-bg-common-card, #fff);
+  border: 1px solid var(--ds-border-default, #dcdbee);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
+  color: var(--ds-text-base, #313949);
+}
+
+.wmst-root.wmst-minimized {
+  padding-bottom: 12px;
+}
+
+.wmst-error   { --wmst-badge-bg: var(--icons-background-negative-red, #ffe8e9); }
+.wmst-info    { --wmst-badge-bg: var(--icons-background-link-blue, #eff0ff); }
+.wmst-warning { --wmst-badge-bg: var(--icons-background-orange, #fff2de); }
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.wmst-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  width: 100%;
+  min-width: 0;
+}
+
+.wmst-title-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.wmst-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 5px;
+  border-radius: 100px;
+  background: var(--wmst-badge-bg);
+}
+
+.wmst-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--ds-text-heading, #202123);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wmst-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.wmst-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: none;
+  border-radius: 100px;
+  background: transparent;
+  color: var(--ds-text-label, #616e88);
+  cursor: pointer;
+}
+
+.wmst-icon-btn:hover {
+  background: var(--ds-components-dropdown-hover-bg, #e9eef4);
+}
+
+.wmst-icon-btn:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline, #5464f2);
+  outline-offset: 1px;
+}
+
+/* ── Body ────────────────────────────────────────────────────────────────── */
+
+.wmst-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.wmst-message {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--ds-text-label, #616e88);
+}
+
+.wmst-message a {
+  color: var(--ds-text-link, #5464f2);
+  text-decoration: underline;
+}
+
+.wmst-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

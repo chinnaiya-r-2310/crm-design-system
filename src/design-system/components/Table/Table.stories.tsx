@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect } from 'storybook/test';
 import { SetupTable } from './Table';
 import type { SetupTableRow, TableColumn } from './Table';
 import { Switch } from '../Switch/Switch';
@@ -229,5 +230,11 @@ export const ReportTable: Story = {
   render: () => (
     <SetupTable variant="report" columns={REPORT_COLUMNS} rows={REPORT_ROWS} width={1100} />
   ),
+  play: async ({ canvasElement }) => {
+    for (const header of canvasElement.querySelectorAll('thead th')) {
+      await expect(header).toHaveStyle({ borderBottomWidth: '2px' });
+    }
+    await expect(canvasElement.querySelector('tbody td')).toHaveStyle({ borderBottomWidth: '1px' });
+  },
 };
 

@@ -176,7 +176,7 @@
   border: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
   border-radius: 6px;
   box-shadow: 0 2px 8px 0 var(--ds-shadow-dropdown, rgba(0, 0, 0, 0.15));
-  padding: 6px 0;
+  padding: var(--dropdown-panel-padding-top, 6px) 0 6px;
   box-sizing: border-box;
 }
 
@@ -497,7 +497,7 @@
   height: 32px;
   display: flex;
   align-items: center;
-  margin: 12px 6px 0;
+  margin: var(--dropdown-group-heading-margin, 12px 6px 0);
   padding: 0;
   font-family: var(--ds-font-family-base);
   font-size: var(--ds-font-size-base);

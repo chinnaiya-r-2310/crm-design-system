@@ -358,6 +358,7 @@ table[aria-label="Reports"] tbody tr:first-child > td.jr-cell--actions {
 }
 
 .jr-builder-edit {
+  white-space: nowrap;
   padding: 0;
   border: 0;
   background: transparent;
