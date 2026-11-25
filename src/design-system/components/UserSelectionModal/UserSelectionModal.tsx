@@ -95,6 +95,7 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
   const [editingRecipient, setEditingRecipient] = useState<AdditionalRecipientOption | null>(null);
   const [recipientOverrides, setRecipientOverrides] = useState<AdditionalRecipientOption[]>([]);
   const [deletedRecipientIds, setDeletedRecipientIds] = useState<string[]>([]);
+  const [pendingDeleteRecipient, setPendingDeleteRecipient] = useState<AdditionalRecipientOption | null>(null);
   const [recipientName, setRecipientName] = useState('');
   const [recipientAddress, setRecipientAddress] = useState('');
   const [creationErrors, setCreationErrors] = useState<{ name?: string; email?: string }>({});
@@ -222,6 +223,12 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
           <label className="user-selection-search dropdown-search-box dropdown-search-box--joined">
             <span className="dropdown-search-icon"><Search aria-hidden="true" /></span>
             <input ref={searchRef} type="search" aria-label="Search recipients" placeholder="Search" value={query} onChange={event => setQuery(event.target.value)} />
+            {query && <button type="button" className="dropdown-clear-btn" aria-label="Clear search"
+              onClick={() => { setQuery(''); searchRef.current?.focus(); }}>
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
+                <path d="M1 1L7 7M7 1L1 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+              </svg>
+            </button>}
           </label>
         </div>
         <div className="user-selection-results">
@@ -342,9 +349,7 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
                 setEditingRecipient(item); setRecipientName(item.label); setRecipientAddress(item.email);
                 setCreationErrors({}); setCreatingRecipient(true);
               } else {
-                setDeletedRecipientIds(current => [...current, item.value]);
-                setRecipientDraft(current => current.filter(selected => selected.value !== item.value));
-                setRecipientError('');
+                setPendingDeleteRecipient(item);
               }
             }} />
         </div> },
@@ -364,6 +369,17 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
       ]} emptyMessage="No recipients available" />
     {recipientError && <div className="input-root" data-variant="error"><span className="input-helper-text" role="alert">{recipientError}</span></div>}
   </Modal>}
+  {pendingDeleteRecipient && <Modal type="alert" variant="error" isOpen
+    title={`Delete "${pendingDeleteRecipient.label}"`} width={460}
+    confirmLabel="Delete" cancelLabel="Cancel"
+    onClose={() => setPendingDeleteRecipient(null)} onCancel={() => setPendingDeleteRecipient(null)}
+    onSave={() => {
+      setDeletedRecipientIds(current => [...current, pendingDeleteRecipient.value]);
+      setRecipientDraft(current => current.filter(selected => selected.value !== pendingDeleteRecipient.value));
+      setRecipientError('');
+      setPendingDeleteRecipient(null);
+    }}
+  />}
   {creatingRecipient && <Modal isOpen title={editingRecipient ? 'Edit Recipient' : 'Create Recipient'} width={730} className="user-selection-recipient-modal user-selection-recipient-editor"
     onClose={() => setCreatingRecipient(false)} onCancel={() => setCreatingRecipient(false)} saveLabel="Save" onSave={() => {
       const address = recipientAddress.trim();

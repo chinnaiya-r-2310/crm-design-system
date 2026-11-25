@@ -93,6 +93,15 @@ export const Default: Story = {
     await userEvent.type(directory.getByRole('searchbox'), 'Jacob');
     await expect(directory.getByRole('button', { name: /Jacob Jones/ })).toBeVisible();
     await expect(directory.queryByRole('button', { name: /Esther Howard/ })).not.toBeInTheDocument();
+    const clear = directory.getByRole('button', { name: 'Clear search' });
+    await expect(clear).toHaveClass('dropdown-clear-btn');
+    await expect(getComputedStyle(clear).width).toBe('16px');
+    await expect(getComputedStyle(clear).height).toBe('16px');
+    await userEvent.click(clear);
+    await expect(directory.getByRole('searchbox')).toHaveValue('');
+    await expect(directory.getByRole('searchbox')).toHaveFocus();
+    await expect(directory.queryByRole('button', { name: 'Clear search' })).not.toBeInTheDocument();
+    await expect(directory.getByRole('button', { name: /Esther Howard/ })).toBeVisible();
     await userEvent.click(page.getByRole('button', { name: 'Cancel' }));
     await expect(page.getByRole('status')).toHaveTextContent('No recipients selected');
   },
@@ -490,6 +499,18 @@ export const IndividualUsersAdditionalRecipients: Story = {
     await userEvent.hover(picker.getByRole('checkbox', { name: 'Select Support' }).closest('tr')!);
     await userEvent.click(picker.getByRole('button', { name: 'More options for Support' }));
     await userEvent.click(page.getByRole('option', { name: 'Delete', exact: true }));
+    let confirmation = within(await page.findByRole('alertdialog', { name: 'Delete "Support"' }));
+    await expect(picker.getByRole('checkbox', { name: 'Select Support' })).toBeInTheDocument();
+    await userEvent.click(confirmation.getByRole('button', { name: 'Cancel', exact: true }));
+    await waitFor(() => expect(page.queryByRole('alertdialog')).toBeNull());
+    await expect(picker.getByRole('checkbox', { name: 'Select Support' })).toBeInTheDocument();
+    await userEvent.hover(picker.getByRole('checkbox', { name: 'Select Support' }).closest('tr')!);
+    await userEvent.click(picker.getByRole('button', { name: 'More options for Support' }));
+    await userEvent.click(page.getByRole('option', { name: 'Delete', exact: true }));
+    confirmation = within(await page.findByRole('alertdialog', { name: 'Delete "Support"' }));
+    await expect(confirmation.getByRole('button', { name: 'Delete', exact: true })).toHaveAttribute('data-variant', 'negative');
+    await userEvent.click(confirmation.getByRole('button', { name: 'Delete', exact: true }));
+    await waitFor(() => expect(page.queryByRole('alertdialog')).toBeNull());
     await expect(picker.queryByRole('checkbox', { name: 'Select Support' })).not.toBeInTheDocument();
     await userEvent.click(picker.getByRole('checkbox', { name: 'Select Operations Team' }));
     await userEvent.click(picker.getByRole('button', { name: 'Cancel' }));

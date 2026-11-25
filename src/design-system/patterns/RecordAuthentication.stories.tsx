@@ -489,23 +489,9 @@ export const EmailVerification: Story = {
       else await expect(templateGeometry).toEqual(emailTemplateGeometry);
       await userEvent.hover(field);
       await expect(getComputedStyle(field).borderColor).toBe(border);
-      if (title === 'Edit Email Content') {
-      await expect(preview.getByRole('button', { name: 'English (United States)' })).toBeVisible();
-      await userEvent.click(preview.getByRole('button', { name: 'English (United States)' }));
-      const languageMenu = body.getByRole('listbox');
-      const languageMenuWidth = languageMenu.getBoundingClientRect().width;
-      for (const label of languageMenu.querySelectorAll('.dropdown-option-label')) {
-        await expect(label.scrollWidth).toBeLessThanOrEqual(label.clientWidth);
-      }
-      await userEvent.click(body.getByRole('option', { name: 'French', exact: true }));
-      const frenchTrigger = preview.getByRole('button', { name: 'French', exact: true });
-      await expect(frenchTrigger).toBeVisible();
-      await userEvent.click(frenchTrigger);
-      await expect(Math.round(body.getByRole('listbox').getBoundingClientRect().width)).toBe(Math.round(languageMenuWidth));
-      await expect(languageMenuWidth).toBeGreaterThan(frenchTrigger.getBoundingClientRect().width);
-      await userEvent.click(body.getByRole('option', { name: 'French', exact: true }));
-      } else {
-        await expect(preview.queryByRole('button', { name: 'English (United States)' })).not.toBeInTheDocument();
+      await expect(preview.queryByRole('button', { name: 'Template language' })).not.toBeInTheDocument();
+      await expect(preview.queryByRole('button', { name: 'English (United States)' })).not.toBeInTheDocument();
+      if (title !== 'Edit Email Content') {
         await expect(preview.getByRole('heading', { name: 'Email address verified' })).toBeVisible();
         await expect(editor.closest('.record-auth-template')).toHaveClass('record-auth-template--page');
         await expect(editor).not.toHaveTextContent('${Organization.OrganizationName}');
@@ -520,6 +506,28 @@ export const EmailVerification: Story = {
         const from = preview.getByRole('button', { name: 'Record Owner’s Email' });
         await expect(getComputedStyle(from).fontSize).toBe('14px');
         if (window.innerWidth >= 900) await expect(Math.round(from.getBoundingClientRect().width)).toBe(390);
+        await userEvent.click(from);
+        const senderList = within(await body.findByRole('listbox'));
+        for (const group of ['My Email', 'Other Emails', 'Organization Emails']) {
+          await expect(senderList.getByText(group, { exact: true })).toBeInTheDocument();
+        }
+        const senderLabels = [
+          'My Email (alex.morgan@example.com)', 'Record Owner’s Email', 'Account Manager’s Email',
+          'Created By User’s Email', 'Sales Representative’s Email', 'Customer Success Manager’s Email',
+          'Sales Team (sales@example.com)', 'Customer Support (support@example.com)',
+          'Support Notifications (notifications@example.com)',
+        ];
+        await expect(senderList.getAllByRole('option')).toHaveLength(senderLabels.length);
+        for (const label of senderLabels) {
+          await expect(senderList.getByRole('option', { name: label, exact: true })).toBeInTheDocument();
+        }
+        await expect(senderList.getByRole('option', { name: 'Record Owner’s Email' })).toHaveAttribute('aria-selected', 'true');
+        const senderSearch = senderList.getByRole('textbox');
+        await userEvent.type(senderSearch, 'Support');
+        await expect(senderList.getAllByRole('option')).toHaveLength(2);
+        await expect(senderList.queryByText('Other Emails', { exact: true })).not.toBeInTheDocument();
+        await userEvent.click(senderList.getByRole('option', { name: 'Support Notifications (notifications@example.com)' }));
+        await expect(preview.getByRole('button', { name: 'Support Notifications (notifications@example.com)' })).toBeVisible();
         for (const label of ['From', 'Subject']) {
           await expect(getComputedStyle(preview.getByText(label, { exact: true })).textAlign).toBe('right');
         }

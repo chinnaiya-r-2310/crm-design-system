@@ -8,6 +8,17 @@ import './RecordAuthentication.css';
 
 export type TemplateSettings = { subject: string; sender: string; body: string };
 const DEFAULT_SUBJECT = 'Verify your email address with ${Organization.OrganizationName}';
+const SENDER_OPTIONS = [
+  { value: 'my-email', label: 'My Email (alex.morgan@example.com)', group: 'My Email' },
+  { value: 'owner', label: 'Record Owner’s Email', group: 'Other Emails' },
+  { value: 'multi-user', label: 'Account Manager’s Email', group: 'Other Emails' },
+  { value: 'layout-id', label: 'Created By User’s Email', group: 'Other Emails' },
+  { value: 'user-4', label: 'Sales Representative’s Email', group: 'Other Emails' },
+  { value: 'user-1', label: 'Customer Success Manager’s Email', group: 'Other Emails' },
+  { value: 'visual-team', label: 'Sales Team (sales@example.com)', group: 'Other Emails' },
+  { value: 'organization', label: 'Customer Support (support@example.com)', group: 'Organization Emails' },
+  { value: 'support-ticket', label: 'Support Notifications (notifications@example.com)', group: 'Organization Emails' },
+];
 function templateDefaults(kind: 'email' | 'page', validity = '7'): TemplateSettings {
   return {
     sender: 'owner', subject: DEFAULT_SUBJECT,
@@ -24,7 +35,6 @@ export function TemplateDialog({ kind, initial, validity, onClose, onSave, readO
   onClose: () => void; onSave?: (settings: TemplateSettings) => void;
 }) {
   const [settings, setSettings] = useState(() => initial ?? defaults ?? templateDefaults(kind, validity));
-  const [language, setLanguage] = useState('en-US');
   const [editorContent, setEditorContent] = useState(settings.body);
   const [editorKey, setEditorKey] = useState(0);
   const reset = () => {
@@ -34,27 +44,16 @@ export function TemplateDialog({ kind, initial, validity, onClose, onSave, readO
   return <Modal isOpen title={title ?? (readOnly ? (kind === 'email' ? 'Verification Link Email Preview' : 'Verification Page Preview') : (kind === 'email' ? 'Edit Email Content' : 'Edit Verification Page'))} width={865}
     className={`record-auth-template-modal${readOnly ? ' record-auth-preview-modal' : ''}`} disableAutoFocus
     showFooter={!readOnly} showClose={readOnly} closeLabel="Close preview"
-    headerActions={!readOnly && kind === 'email' ? <Dropdown aria-label="Template language" width="fit-content" value={language} onChange={setLanguage}
-      panelStyle={{ width: 'max-content', maxWidth: 'calc(100vw - 24px)' }}
-      options={[
-        { value: 'en-US', label: 'English (United States)' },
-        { value: 'en-GB', label: 'English (United Kingdom)' },
-        { value: 'fr', label: 'French' }, { value: 'de', label: 'German' },
-        { value: 'es', label: 'Spanish' }, { value: 'it', label: 'Italian' },
-        { value: 'pt', label: 'Portuguese' }, { value: 'nl', label: 'Dutch' },
-        { value: 'ja', label: 'Japanese' }, { value: 'zh', label: 'Chinese (Simplified)' },
-        { value: 'hi', label: 'Hindi' }, { value: 'ta', label: 'Tamil' },
-      ]} /> : undefined}
     footerStart={<Button variant="ghost-blue" onClick={reset}>Reset to default</Button>}
     onClose={onClose} onSave={() => onSave?.(settings)}>
     <div className={`record-auth-template${kind === 'page' ? ' record-auth-template--page' : ''}`}>
       {readOnly && kind === 'email' && <dl className="record-auth-preview__fields">
-        <dt>From</dt><dd>{settings.sender === 'organization' ? 'Organization Email' : 'Record Owner’s Email'}</dd>
+        <dt>From</dt><dd>{SENDER_OPTIONS.find(option => option.value === settings.sender)?.label ?? settings.sender}</dd>
         <dt>Subject</dt><dd>{settings.subject}</dd>
       </dl>}
       {!readOnly && kind === 'email' && <div className="record-auth-template__fields">
-        <Dropdown label="From" aria-label="From" width="100%" value={settings.sender}
-          options={[{ value: 'owner', label: 'Record Owner’s Email' }, { value: 'organization', label: 'Organization Email' }]}
+        <Dropdown label="From" aria-label="From" width="100%" value={settings.sender} searchable
+          options={SENDER_OPTIONS}
           onChange={(sender: string) => setSettings(current => ({ ...current, sender }))} />
         <Input label="Subject" width="100%" value={settings.subject}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSettings(current => ({ ...current, subject: event.target.value }))} />

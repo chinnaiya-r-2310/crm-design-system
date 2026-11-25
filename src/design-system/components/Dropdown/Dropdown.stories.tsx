@@ -461,3 +461,85 @@ export const WithSubmenu = () => {
   );
 };
 
+const CUSTOM_VIEW_OPTIONS = [
+  { value: 'lead-widget-1', label: 'Lead widget view 1' },
+  { value: 'lead-widget-2', label: 'Lead widget view 2' },
+  { value: 'lead-widget-3', label: 'Lead widget view 3' },
+  { value: 'lead-widget-4', label: 'Lead widget view 4' },
+  { value: 'lead-widget-5', label: 'Lead widget view 5' },
+];
+
+/** Refresh button at the top of the panel — labelled pill. */
+export const WithRefreshButton: Story = {
+  render: () => {
+    const [val, setVal] = useState('');
+    const [count, setCount] = useState(0);
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 390 }}>
+        <Dropdown
+          label="Form"
+          options={[
+            { value: 'contact', label: 'Contact Us Form' },
+            { value: 'subscription', label: 'Subscription Form' },
+            { value: 'compliant', label: 'Compliant Query Form' },
+          ]}
+          value={val}
+          onChange={setVal}
+          onRefresh={() => setCount(c => c + 1)}
+          width={390}
+        />
+        <span style={{ fontSize: 12, color: '#616E88' }}>Refreshed {count} times</span>
+      </div>
+    );
+  },
+};
+
+/** Refresh button in icon-only form. */
+export const WithRefreshIcon: Story = {
+  render: () => {
+    const [val, setVal] = useState('');
+    return (
+      <Dropdown
+        label="Form"
+        options={[
+          { value: 'contact', label: 'Contact Us Form' },
+          { value: 'subscription', label: 'Subscription Form' },
+        ]}
+        value={val}
+        onChange={setVal}
+        onRefresh={() => {}}
+        refreshVariant="icon"
+        refreshLabel="Refresh forms"
+        width={390}
+      />
+    );
+  },
+};
+
+/** Footer action with a submenu — "New Custom View ›" opens Use Canvas / Use Widget. */
+export const WithFooterSubmenu: Story = {
+  render: () => {
+    const [val, setVal] = useState('');
+    const [last, setLast] = useState('');
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 223 }}>
+        <Dropdown
+          label="Custom View"
+          options={CUSTOM_VIEW_OPTIONS}
+          value={val}
+          onChange={setVal}
+          footerAction={{
+            label: 'New Custom View',
+            submenu: [
+              { label: 'Use Canvas', onClick: () => setLast('Canvas') },
+              { label: 'Use Widget', onClick: () => setLast('Widget') },
+            ],
+          }}
+          width={223}
+        />
+        <span style={{ fontSize: 12, color: '#616E88' }}>Last action: {last || 'none'}</span>
+      </div>
+    );
+  },
+};
+

@@ -59,6 +59,36 @@ export function changeUsageMeasure(trigger: UsageTrigger, name: string): UsageTr
     mode, value: mode === trigger.mode ? trigger.value : mode === 'pct' ? '80' : '90000',
     valueTo: mode === trigger.mode ? trigger.valueTo : mode === 'pct' ? '100' : '100000' };
 }
+export function usageBasisValue(trigger: Pick<UsageTrigger, 'measure' | 'calculation'>): string {
+  return `${trigger.measure}:${trigger.calculation}`;
+}
+export function usageBasisOptions(feature: string) {
+  return usageMeasures(feature).flatMap(field => field.aggs.map(calculation => {
+    const name = prettyUsageName(field.name).replace(/Credits/g, 'Credit');
+    const label = field.kind === 'total' || calculation === 'sum'
+      ? (/^Total\b/.test(name) ? name : `Total ${name}`)
+      : `${AGGREGATION_LABELS[calculation]} of ${name}`;
+    const explanation = field.kind === 'total'
+      ? `Tracks the current running total of ${name}.`
+      : ({
+        sum: `Adds up ${name} across the matching ${USAGE_FEATURES[feature].recordNoun}.`,
+        count: `Counts the matching ${USAGE_FEATURES[feature].recordNoun} with a recorded value for ${name}, not the sum of those values.`,
+        count_distinct: `Counts the unique recorded values of ${name} across the matching ${USAGE_FEATURES[feature].recordNoun}.`,
+        avg: `Calculates the average of ${name} by dividing the sum of the recorded values by the number of values.`,
+        max: `Returns the highest recorded value of ${name}.`,
+        min: `Returns the lowest recorded value of ${name}.`,
+      } as Record<string, string>)[calculation];
+    return { value: usageBasisValue({ measure: field.name, calculation }), label,
+      description: `${explanation} ${field.description}`,
+      aggregation: field.kind === 'total' ? 'Total' : AGGREGATION_LABELS[calculation] };
+  }));
+}
+export function changeUsageBasis(trigger: UsageTrigger, value: string): UsageTrigger {
+  const option = usageBasisOptions(trigger.feature).find(option => option.value === value);
+  if (!option) return trigger;
+  const [measure, calculation] = option.value.split(':');
+  return { ...changeUsageMeasure(trigger, measure), calculation };
+}
 export function usageWindowApplies(trigger: UsageTrigger): boolean {
   const field = selectedUsageMeasure(trigger);
   return !!field && !(['data_storage', 'file_storage', 'email_storage', 'mail_merge'].includes(trigger.feature) &&

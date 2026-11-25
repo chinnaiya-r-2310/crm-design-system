@@ -1,6 +1,59 @@
 import { describe, expect, it } from 'vitest';
 import { USAGE_FEATURES } from './UsageLimitNotification.data';
-import { usageNotificationMessage, COMPARISON_OPTIONS, changeUsageMeasure, createUsageTrigger, INTERVAL_OPTIONS, usageMeasures, usageTriggerSummary, usageWindowApplies, validateUsageTrigger } from './UsageLimitNotification.logic';
+import { usageNotificationMessage, COMPARISON_OPTIONS, changeUsageBasis, changeUsageMeasure, createUsageTrigger, INTERVAL_OPTIONS, usageBasisOptions, usageBasisValue, usageMeasures, usageTriggerSummary, usageWindowApplies, validateUsageTrigger } from './UsageLimitNotification.logic';
+
+describe('combined Based on options', () => {
+  it('lists the requested API combinations without exposing the internal total calculation', () => {
+    const options = usageBasisOptions('api');
+    expect(options.map(option => option.label)).toEqual(expect.arrayContaining([
+      'Total Free Credit Used', 'Total Credit Used per API', 'Count of Credit Used per API',
+      'Average of Credit Used per API', 'Maximum of Credit Used per API', 'Minimum of Credit Used per API',
+    ]));
+    expect(options[0].value).toBe('free_credits_used_this_cycle:max');
+    expect(options[0].aggregation).toBe('Total');
+    expect(options.find(option => option.label === 'Total Credit Used per API')?.aggregation).toBe('Total');
+    expect(options.find(option => option.label === 'Average of Credit Used per API')?.aggregation).toBe('Average');
+  });
+  it('explains each calculation in its info tooltip while retaining the measure context', () => {
+    const options = usageBasisOptions('api');
+    const descriptions = {
+      sum: 'Adds up Credit Used per API across the matching API calls.',
+      count: 'Counts the matching API calls with a recorded value for Credit Used per API, not the sum of those values.',
+      avg: 'Calculates the average of Credit Used per API by dividing the sum of the recorded values by the number of values.',
+      max: 'Returns the highest recorded value of Credit Used per API.',
+      min: 'Returns the lowest recorded value of Credit Used per API.',
+    };
+    for (const [calculation, explanation] of Object.entries(descriptions)) {
+      expect(options.find(option => option.value === `credits_used_per_api:${calculation}`)?.description)
+        .toBe(`${explanation} Credits charged by one API call across every tier.`);
+    }
+    expect(new Set(Object.keys(descriptions).map(calculation =>
+      options.find(option => option.value === `credits_used_per_api:${calculation}`)?.description)).size).toBe(5);
+    expect(options[0].description).toBe('Tracks the current running total of Free Credit Used. Free credits spent so far this cycle. Resets when the cycle rolls over.');
+    for (const feature of Object.keys(USAGE_FEATURES)) {
+      for (const option of usageBasisOptions(feature)) {
+        expect(option.description).not.toContain('undefined');
+      }
+    }
+  });
+  it('round trips every supported combination and preserves threshold validation', () => {
+    for (const feature of Object.keys(USAGE_FEATURES)) {
+      const options = usageBasisOptions(feature);
+      expect(options).toHaveLength(usageMeasures(feature).reduce((count, field) => count + field.aggs.length, 0));
+      expect(new Set(options.map(option => option.value)).size).toBe(options.length);
+      for (const option of options) {
+        const selected = changeUsageBasis(createUsageTrigger(feature), option.value);
+        expect(usageBasisValue(selected)).toBe(option.value);
+        expect(validateUsageTrigger(selected)).toBeUndefined();
+      }
+    }
+  });
+  it('ignores unsupported combinations', () => {
+    const trigger = createUsageTrigger('api');
+    expect(changeUsageBasis(trigger, 'credits_used_per_api:invalid')).toBe(trigger);
+    expect(usageBasisOptions('unsupported-feature')).toEqual([]);
+  });
+});
 
 describe('reference usage notification trigger', () => {
   it('loads all 15 features and only selectable measures', () => {

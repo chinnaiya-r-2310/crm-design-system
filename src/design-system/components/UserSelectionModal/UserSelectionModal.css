@@ -27,6 +27,9 @@
 .user-selection-search-row .user-selection-search:focus-within { border-bottom-color: var(--ds-components-input-focus-outline); box-shadow: none; }
 .user-selection-picker .user-selection-search-row .dropdown-trigger:focus-visible { outline: none; }
 .user-selection-search input::placeholder { color: var(--ds-text-muted); }
+/* Use the shared search clear control instead of the browser-native icon. */
+.user-selection-search input::-webkit-search-cancel-button,
+.user-selection-search input::-webkit-search-decoration { -webkit-appearance: none; display: none; }
 .user-selection-results { display: flex; flex-direction: column; min-height: 0; flex: 1; overflow-y: auto; }
 .user-selection-results > .user-selection-result { flex-shrink: 0; }
 .user-selection-results > .user-selection-empty--available { display: grid; flex: 1; place-items: center; margin: 0; text-align: center; font-size: var(--ds-font-size-base); }

@@ -581,7 +581,7 @@ function PreviewSortMenu({ label, direction, onSort }: {
         {(['ascending', 'descending'] as const).map(order => (
           <button key={order} type="button" role="menuitemradio" aria-checked={(direction ?? 'ascending') === order}
             onClick={() => { onSort(order); setPosition(null); trigger.current?.focus(); }}>
-            <span aria-hidden="true">{order === 'ascending' ? '↑' : '↓'}</span>
+            <Icon name={order === 'ascending' ? 'CrmArrowDownLinedzcicnarrowuplined' : 'CrmArrowDownLined'} size={18} />
             {order === 'ascending' ? 'Asc' : 'Desc'}
           </button>
         ))}
@@ -640,6 +640,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
     mappedFields: sourceReports.map(() => group.field),
     mappingOrder: sourceReports.map((_, index) => index),
   })));
+  const [highlightedGroupId, setHighlightedGroupId] = useState<number | null>(null);
   const [groupDraft, setGroupDraft] = useState<(typeof rowGroups)[number] | null>(null);
   const [mappedFields, setMappedFields] = useState<string[]>([]);
   const [mappingOrder, setMappingOrder] = useState(() => reports.map((_, index) => index));
@@ -699,6 +700,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
     setRowGroups(current => current.some(group => group.id === nextGroup.id)
       ? current.map(group => group.id === nextGroup.id ? nextGroup : group)
       : [...current, nextGroup]);
+    if (isAddingGroup) setHighlightedGroupId(nextGroup.id);
     setGroupDraft(null);
   };
   const [reportSettings, setReportSettings] = useState<Record<string, {
@@ -797,7 +799,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                 <header className="jrv2-aggregate-heading">
                   <h2 className="jrv2-builder-panel-title">Aggregate Columns</h2>
                   <Tooltip content="Create Aggregate Formula" variant="white" placement="top" followCursor>
-                    <button type="button" className="jrv2-builder-edit-btn" aria-label="Create Aggregate Formula" onClick={() => { setEditingFormula(null); setFormulaOpen(true); }}>+</button>
+                    <button type="button" className="jrv2-builder-edit-btn jrv2-joined-add" aria-label="Create Aggregate Formula" onClick={() => { setEditingFormula(null); setFormulaOpen(true); }}>+</button>
                   </Tooltip>
                 </header>
                 <div className="jrv2-aggregate-content">
@@ -811,13 +813,23 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                       <button type="button" className="jrv2-aggregate-clear" aria-label="Clear all report columns" onClick={() => setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value => !formulaColumns.some(column => column.label === value)) })}>Clear all</button>
                     )}
                   </div>
-                  {formulaColumns.filter(column => matchesAggregateSearch(column.label)).map(column => (
-                    <div className="jrv2-aggregate-option" key={column.label}>
+                  {formulaColumns.filter(column => matchesAggregateSearch(column.label)).map((column, index) => (
+                    <div className={`jrv2-aggregate-option${index === 0 ? ' jrv2-aggregate-option--initial' : ''}`} key={column.label}>
                       <Checkbox label={column.label} checked={aggregateDraft.selected.includes(column.label)} onChange={() => toggleAggregate(column.label)} />
-                      <Dropdown width="auto" triggerAriaLabel={`Options for ${column.label}`} triggerButtonVariant="ghost" triggerIcon="⋯" showSelectionIndicator={false}
-                        options={[{ value: 'edit', label: 'Edit' }, { value: 'remove', label: 'Remove' }]} onChange={(action: string) => {
+                      <Dropdown width="auto" triggerAriaLabel={`Options for ${column.label}`} triggerButtonVariant="link-default" triggerIcon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="3.80 25.60 17.00 7.00" width={17} height={7} aria-hidden="true" focusable="false">
+                        <path d="M 8.8,29.1 A 1.5,1.5 0 0,1 7.3,30.6 A 1.5,1.5 0 0,1 5.8,29.1 A 1.5,1.5 0 0,1 7.3,27.6 A 1.5,1.5 0 0,1 8.8,29.1 Z" fill="var(--ds-text-label)" stroke="none" />
+                        <path d="M 13.8,29.1 A 1.5,1.5 0 0,1 12.3,30.6 A 1.5,1.5 0 0,1 10.8,29.1 A 1.5,1.5 0 0,1 12.3,27.6 A 1.5,1.5 0 0,1 13.8,29.1 Z" fill="var(--ds-text-label)" stroke="none" />
+                        <path d="M 18.8,29.1 A 1.5,1.5 0 0,1 17.3,30.6 A 1.5,1.5 0 0,1 15.8,29.1 A 1.5,1.5 0 0,1 17.3,27.6 A 1.5,1.5 0 0,1 18.8,29.1 Z" fill="var(--ds-text-label)" stroke="none" />
+                      </svg>} showSelectionIndicator={false}
+                        options={[{ value: 'edit', label: 'Edit' }, { value: 'delete', label: 'Delete' }]} onChange={(action: string) => {
                           if (action === 'edit') { setEditingFormula(column.label); setFormulaOpen(true); }
-                          else setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value => value !== column.label) });
+                          else if (action === 'delete') {
+                            setFormulaColumns(current => current.filter(item => item.label !== column.label));
+                            setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value => value !== column.label) });
+                            setReportSettings(current => Object.fromEntries(Object.entries(current).map(([report, settings]) => [report, {
+                              ...settings, aggregates: settings.aggregates.filter(value => value !== column.label),
+                            }])));
+                          }
                         }} />
                     </div>
                   ))}
@@ -902,11 +914,21 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                 <h2>Joined Report</h2>
               </header>
               <section className="jrv2-joined-groups" aria-label="Row groups">
-                <h3 className="jrv2-joined-label">Row Groups</h3>
+                <div className="jrv2-group-heading">
+                  <h3 className="jrv2-joined-label">Row Groups</h3>
+                  <Tooltip content="Add Row Group" variant="white" placement="top" followCursor>
+                    <button type="button" className="jrv2-builder-edit-btn jrv2-joined-add" aria-label="Add New Group" onClick={() => {
+                      setMappedFields(reports.map(() => ''));
+                      setMappingOrder(reports.map((_, index) => index));
+                      setGroupError(false);
+                      setGroupDraft({ id: Date.now(), field: '', interval: '', order: 'Asc', mappedFields: [], mappingOrder: [] });
+                    }}>+</button>
+                  </Tooltip>
+                </div>
                 <div className="jrv2-group-list">
                 <Dragger dragHandleOnly items={rowGroups.map(group => String(group.id))} onChange={(order: string[]) => setRowGroups(groups => order.map(id => groups.find(group => String(group.id) === id)!))} gripperOnHover renderItem={(id: string) => {
                   const group = rowGroups.find(item => String(item.id) === id)!;
-                  return <div className="jrv2-joined-group" key={group.id}>
+                  return <div className={`jrv2-joined-group${group.id === highlightedGroupId ? ' jrv2-joined-group--highlighted' : ''}`} key={group.id}>
                     {rowGroups.length > 1 && <button type="button" className="jrv2-group-grip" data-drag-handle aria-label={`Reorder ${group.field} group`} onKeyDown={event => {
                       if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
                       event.preventDefault();
@@ -942,12 +964,6 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                   </div>;
                 }} />
                 </div>
-                <Button variant="link-primary" className="jrv2-joined-add" onClick={() => {
-                  setMappedFields(reports.map(() => ''));
-                  setMappingOrder(reports.map((_, index) => index));
-                  setGroupError(false);
-                  setGroupDraft({ id: Date.now(), field: '', interval: '', order: 'Asc', mappedFields: [], mappingOrder: [] });
-                }}>Add New Group</Button>
               </section>
               {reports.map((report, index) => {
                 const settingsKey = String(index);
@@ -1334,9 +1350,18 @@ export const V2Summary: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Edit aggregate columns for Report 1' }));
     let aggregateEditor = within(canvas.getByRole('region', { name: 'Aggregate columns' }));
     await expect(aggregateEditor.getByRole('checkbox', { name: 'Show Row Count' })).toBeChecked();
+    const rowCountLabel = aggregateEditor.getByRole('checkbox', { name: 'Show Row Count' }).closest('.checkbox-root')!;
+    await expect(getComputedStyle(rowCountLabel).alignItems).toBe('center');
+    await expect(getComputedStyle(rowCountLabel.querySelector('.checkbox-control')!).marginTop).toBe('0px');
     await expect(aggregateEditor.getAllByRole('checkbox').filter(checkbox => (checkbox as HTMLInputElement).checked)).toHaveLength(6);
     await expect(aggregateEditor.getByRole('button', { name: 'Create Aggregate Formula' })).toBeVisible();
     await expect(aggregateEditor.getByRole('checkbox', { name: 'Revenue per Lead', exact: true })).toBeInTheDocument();
+    const formulaOptions = aggregateEditor.getByRole('button', { name: 'Options for percent summary formula' });
+    await userEvent.click(formulaOptions);
+    const formulaMenu = within(canvasElement.ownerDocument.body);
+    await expect(formulaMenu.getByRole('option', { name: 'Edit', exact: true })).toBeVisible();
+    await expect(formulaMenu.getByRole('option', { name: 'Delete', exact: true })).toBeVisible();
+    await userEvent.keyboard('{Escape}');
     await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'percent summary formula', exact: true }));
     await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'Count of Unique Leads', exact: true }));
     await userEvent.click(aggregateEditor.getByRole('button', { name: 'Clear all report columns' }));
@@ -1395,6 +1420,9 @@ export const V2Summary: Story = {
     const page = within(canvasElement.ownerDocument.body);
     await userEvent.click(countSort);
     await expect(page.getByRole('menu', { name: 'Sort Count of contacts' })).toBeVisible();
+    const sortMenu = page.getByRole('menu', { name: 'Sort Count of contacts' });
+    await expect(getComputedStyle(sortMenu).fontFamily).toContain('Zoho Puvi');
+    await expect(sortMenu.querySelectorAll('svg')).toHaveLength(2);
     await userEvent.click(page.getByRole('menuitemradio', { name: 'Asc', exact: true }));
     await expect(countSort.closest('th')).toHaveAttribute('aria-sort', 'ascending');
     await expect(firstMonthValues()).toEqual([48, 61, 79, 80]);
@@ -1422,6 +1450,14 @@ export const V2Summary: Story = {
     await expect(accountHeader.getBoundingClientRect().width).toBe(initialColumnWidth + 20);
     await userEvent.keyboard('{ArrowLeft}{ArrowLeft}');
     await expect(resize).toHaveAttribute('aria-valuenow', '180');
+    await userEvent.keyboard('{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}');
+    await expect(resize).toHaveAttribute('aria-valuenow', '100');
+    const accountCell = table.querySelector('tbody tr td:nth-child(3)')!;
+    await expect(getComputedStyle(accountCell).textOverflow).toBe('ellipsis');
+    await expect(getComputedStyle(accountCell).overflow).toBe('hidden');
+    await expect(accountCell.scrollWidth).toBeGreaterThan(accountCell.clientWidth);
+    await expect(getComputedStyle(table).minWidth).toBe('100%');
+    await userEvent.keyboard('{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}');
     const total = within(table).getByRole('rowheader', { name: 'Grand Total', exact: true });
     await expect(total.closest('tfoot')).not.toBeNull();
     await expect(total).toBeVisible();
@@ -1580,7 +1616,22 @@ export const V2AddGroup: Story = {
     await expect(deleteGroup).toHaveAttribute('data-variant', 'ghost-red');
     await userEvent.click(deleteGroup);
     await expect(canvas.queryByRole('region', { name: 'Add row group' })).not.toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: 'Add New Group' })).toBeVisible();
+    const addGroup = canvas.getByRole('button', { name: 'Add New Group' });
+    await expect(addGroup).toBeVisible();
+    await expect(addGroup.closest('.jrv2-group-heading')).toContainElement(canvas.getByRole('heading', { name: 'Row Groups', exact: true }));
+    await expect(addGroup).toHaveClass('jrv2-builder-edit-btn');
+    await expect(addGroup).toHaveTextContent('+');
+    await userEvent.click(addGroup);
+    const newGroupEditor = within(canvas.getByRole('region', { name: 'Add row group' }));
+    await userEvent.click(newGroupEditor.getByRole('button', { name: 'Recommended Fields' }));
+    await userEvent.click(await within(document.body).findByRole('option', { name: 'Account', exact: true }));
+    await userEvent.clear(newGroupEditor.getByRole('textbox'));
+    await userEvent.type(newGroupEditor.getByRole('textbox'), 'Account grouping');
+    await userEvent.click(newGroupEditor.getByRole('button', { name: 'Done', exact: true }));
+    const addedGroup = canvas.getByRole('button', { name: 'Edit Account grouping group' }).closest('.jrv2-joined-group');
+    await expect(addedGroup).toHaveClass('jrv2-joined-group--highlighted');
+    await expect(canvas.getByRole('button', { name: 'Edit Monthly records group' }).closest('.jrv2-joined-group')).not.toHaveClass('jrv2-joined-group--highlighted');
+    await expect(canvas.getByRole('button', { name: 'Reorder Account grouping group' })).toBeInTheDocument();
     await userEvent.click(canvas.getByRole('button', { name: 'Add New Group' }));
   },
 };

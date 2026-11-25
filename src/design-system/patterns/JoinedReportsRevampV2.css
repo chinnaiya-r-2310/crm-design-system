@@ -510,6 +510,7 @@ table[aria-label="Reports"] tbody tr:first-child > td.jrv2-cell--actions {
 }
 
 .jrv2-joined-preview-table {
+  min-width: 100%;
   table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
@@ -558,7 +559,8 @@ table[aria-label="Reports"] tbody tr:first-child > td.jrv2-cell--actions {
   background: var(--ds-bg-primary, #fff);
   box-shadow: 0 2px 8px #0003;
   color: var(--ds-text-base, #313949);
-  font-size: 14px;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
 }
 
 .jrv2-preview-sort-menu button {
@@ -582,9 +584,8 @@ table[aria-label="Reports"] tbody tr:first-child > td.jrv2-cell--actions {
   background: var(--ds-bg-selected, #e6f1ff);
 }
 
-.jrv2-preview-sort-menu button > span {
-  font-size: 20px;
-  line-height: 18px;
+.jrv2-preview-sort-menu button > svg {
+  flex-shrink: 0;
 }
 
 .jrv2-preview-sort-icons {
@@ -592,6 +593,11 @@ table[aria-label="Reports"] tbody tr:first-child > td.jrv2-cell--actions {
   flex: none;
   flex-direction: column;
   color: var(--ds-text-label);
+  opacity: 0;
+}
+
+th:hover .jrv2-preview-sort-icons {
+  opacity: 1;
 }
 
 .jrv2-preview-sort-icons svg {
@@ -678,6 +684,9 @@ table[aria-label="Reports"] tbody tr:first-child > td.jrv2-cell--actions {
   padding: 0 var(--ds-spacing-4, 16px);
   line-height: 18px;
   border-width: 0 1px 1px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .jrv2-joined-preview-table tr > :last-child {
@@ -858,8 +867,20 @@ table[aria-label="Reports"] tbody tr:first-child > td.jrv2-cell--actions {
   color: var(--ds-text-heading);
 }
 
-.jrv2-joined-groups > .jrv2-joined-label {
+.jrv2-group-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin: 0 20px 10px;
+}
+
+.jrv2-group-heading .jrv2-joined-label {
+  margin: 0;
+}
+
+.jrv2-joined-group--highlighted {
+  background: var(--ds-bg-selected, #e6f1ff);
 }
 
 .jrv2-group-list .dragger {
@@ -943,7 +964,12 @@ table[aria-label="Reports"] tbody tr:first-child > td.jrv2-cell--actions {
 }
 
 .jrv2-joined-add {
-  margin: 8px 20px 20px;
+  flex-shrink: 0;
+}
+
+.jrv2-joined-add:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline);
+  outline-offset: 2px;
 }
 
 .jrv2-joined-report {
@@ -1091,34 +1117,40 @@ table[aria-label="Reports"] tbody tr:first-child > td.jrv2-cell--actions {
   position: relative;
 }
 
+.jrv2-aggregate-option > .checkbox-root {
+  flex: 1;
+}
+
 .jrv2-aggregate-option > .dropdown-root {
-  position: absolute;
-  right: 100%;
+  flex-shrink: 0;
+  margin-left: auto;
   opacity: 0;
   pointer-events: none;
 }
 
-.jrv2-builder-panel:hover .jrv2-aggregate-option > .dropdown-root,
-.jrv2-aggregate-option:focus-within > .dropdown-root {
+.jrv2-aggregate-option:hover > .dropdown-root,
+.jrv2-aggregate-option:focus-within > .dropdown-root,
+.jrv2-aggregate-content:not(:has(.jrv2-aggregate-option:hover, .jrv2-aggregate-option:focus-within)) .jrv2-aggregate-option--initial > .dropdown-root {
   opacity: 1;
   pointer-events: auto;
 }
 
-.jrv2-aggregate-option > .dropdown-root .btn {
-  width: var(--ds-spacing-5, 20px);
+.jrv2-aggregate-option > .dropdown-root .button-btn {
+  width: 24px;
   min-width: 0;
-  height: var(--ds-spacing-5, 20px);
+  height: 24px;
+  color: var(--ds-text-label);
   padding: 0;
   border: 1px solid transparent;
   border-radius: 50%;
   background: transparent;
 }
 
-.jrv2-aggregate-option > .dropdown-root .btn:hover,
-.jrv2-aggregate-option > .dropdown-root .btn:focus-visible,
-.jrv2-aggregate-option > .dropdown-root .btn[data-open='true'] {
-  background: var(--ds-bg-scale-bg4);
-  border-color: var(--ds-border-lighter);
+.jrv2-aggregate-option > .dropdown-root .button-btn:hover,
+.jrv2-aggregate-option > .dropdown-root .button-btn:focus-visible,
+.jrv2-aggregate-option > .dropdown-root .button-btn[data-open='true'] {
+  background: var(--ds-components-dropdown-hover-bg, #F2F5FE);
+  border-color: transparent;
 }
 
 .jrv2-aggregate-heading {
@@ -1129,10 +1161,10 @@ table[aria-label="Reports"] tbody tr:first-child > td.jrv2-cell--actions {
   padding-right: var(--ds-spacing-5, 20px);
 }
 
-.jrv2-aggregate-heading .jrv2-builder-edit-btn {
+.jrv2-builder-edit-btn.jrv2-joined-add {
   background: var(--ds-bg-scale-bg4);
-  color: var(--ds-text-heading);
-  font-size: var(--ds-font-size-h3);
+  color: var(--ds-text-label);
+  font-size: calc(var(--ds-font-size-h3) + 2px);
 }
 
 .jrv2-aggregate-content {
@@ -1159,11 +1191,11 @@ table[aria-label="Reports"] tbody tr:first-child > td.jrv2-cell--actions {
 
 .jrv2-aggregate-content .checkbox-root {
   min-width: 0;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .jrv2-aggregate-content .checkbox-control {
-  margin-top: var(--ds-spacing-1, 4px);
+  margin-top: 0;
 }
 
 .jrv2-aggregate-content .checkbox-label-text {

@@ -585,6 +585,57 @@
   color: var(--ds-text-muted, #8C9BAB);
 }
 
+/* ── Refresh button (Figma: Dropdown Refresh Btn) ────────────────────────── */
+
+.dropdown-refresh-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 6px 8px 0;
+}
+
+.dropdown-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 22px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 26px;
+  background: linear-gradient(to top, #124DC3, #5767F6);
+  box-shadow: 0 4px 5px rgba(84, 100, 242, 0.4);
+  color: var(--ds-common-bg-full-white, #fff);
+  font-family: var(--ds-font-family-base);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.dropdown-refresh-btn[data-variant="icon"] {
+  width: 50px;
+  padding: 2px 10px;
+}
+
+.dropdown-refresh-btn:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline, #5464F2);
+  outline-offset: 2px;
+}
+
+/* ── Footer submenu button: chevron pushed to the right edge ─────────────── */
+
+.dropdown-footer-action-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-footer-action-btn > .dropdown-submenu-chevron {
+  order: 1;
+  margin-left: auto;
+}
+
 /* ── Helper text ─────────────────────────────────────────────────────────── */
 
 .dropdown-helper-text {

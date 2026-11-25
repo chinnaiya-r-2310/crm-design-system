@@ -25,10 +25,10 @@ import { UsageRecipientDialog } from './UsageRecipientDialog';
 import type { UsageRecipient } from './UsageRecipientDialog';
 import type { TemplateSettings } from './TemplateDialog';
 import {
-  AGGREGATION_LABELS, COMPARISON_OPTIONS, INTERVAL_OPTIONS, WINDOW_OPTIONS, WINDOW_MAX,
+  COMPARISON_OPTIONS, INTERVAL_OPTIONS, WINDOW_OPTIONS, WINDOW_MAX,
   USAGE_MESSAGE_FIELDS, usageNotificationMessage,
-  changeUsageMeasure, createUsageTrigger, prettyUsageName, selectedUsageMeasure,
-  usageMeasures, usageTriggerSummary, usageValueUnit, usageWindowApplies, validateUsageTrigger,
+  changeUsageBasis, createUsageTrigger, prettyUsageName, selectedUsageMeasure,
+  usageBasisOptions, usageBasisValue, usageTriggerSummary, usageValueUnit, usageWindowApplies, validateUsageTrigger,
 } from './UsageLimitNotification.logic';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -57,6 +57,28 @@ type Story = StoryObj;
 // ─────────────────────────────────────────────────────────────────────────────
 
 const FEATURE_OPTIONS = Object.entries(USAGE_FEATURES).map(([value, feature]) => ({ value, label: feature.label }));
+
+function UsageBasisDropdown({ feature, value, onChange, error }: {
+  feature: string; value: string; onChange: (value: string) => void; error: boolean;
+}) {
+  const [filter, setFilter] = useState('All');
+  const options = usageBasisOptions(feature);
+  return (
+    <Dropdown layout="vertical" triggerAriaLabel="Based on" width={390} tooltipVariant="white" tooltipMaxWidth={600}
+      error={error}
+      helperText={error ? <span role="alert">Select a supported measure and calculation.</span> : undefined}
+      moduleFilter={['All', ...new Set(options.map(option => option.aggregation))]}
+      moduleValue={filter} onModuleChange={setFilter} moduleFilterAriaLabel="Calculation filter"
+      options={options.map(option => ({
+        value: option.value, label: option.label,
+        module: filter === 'All' ? undefined : option.aggregation,
+        trailingIcon: <Tooltip content={option.description} variant="white" maxWidth={600} placement="top" followCursor>
+          <CrmAlertInfo className="usage-notification-measure-info" width={12} height={12} tabIndex={0} role="img" aria-label={`About ${option.label}`} />
+        </Tooltip>,
+      }))}
+      value={value} onChange={onChange} />
+  );
+}
 
 
 const ZOHO_USER_OPTIONS = [
@@ -360,6 +382,48 @@ export const CreateNotification: Story = {
     await userEvent.click(page.getByRole('option', { name: 'Webhooks', exact: true }));
     await expect(page.queryByRole('alert')).not.toBeInTheDocument();
     await expect(page.getByRole('button', { name: 'Based on', exact: true })).toBeVisible();
+    await expect(page.queryByRole('button', { name: 'Calculation', exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole('button', { name: 'Feature', exact: true }));
+    await userEvent.click(page.getByRole('option', { name: 'API', exact: true }));
+    await expect(page.getByRole('button', { name: 'Based on', exact: true })).toHaveTextContent('Total Free Credit Used');
+    await userEvent.click(page.getByRole('button', { name: 'Based on', exact: true }));
+    for (const label of ['Total Credit Used per API', 'Count of Credit Used per API', 'Average of Credit Used per API']) {
+      await expect(page.getByRole('option', { name: label, exact: true })).toBeInTheDocument();
+    }
+    for (const [label, explanation] of [
+      ['Total Credit Used per API', 'Adds up Credit Used per API'],
+      ['Count of Credit Used per API', 'Counts the matching API calls'],
+      ['Average of Credit Used per API', 'Calculates the average of Credit Used per API'],
+      ['Maximum of Credit Used per API', 'Returns the highest recorded value'],
+      ['Minimum of Credit Used per API', 'Returns the lowest recorded value'],
+    ]) {
+      const info = page.getByRole('option', { name: label, exact: true })
+        .querySelector('.usage-notification-measure-info')!;
+      await userEvent.hover(info);
+      await expect(await page.findByRole('tooltip')).toHaveTextContent(explanation);
+      await userEvent.unhover(info);
+      await waitFor(() => expect(page.queryByRole('tooltip')).not.toBeInTheDocument());
+    }
+    await userEvent.click(page.getByRole('button', { name: 'Calculation filter', exact: true }));
+    await userEvent.click(within(page.getByRole('listbox', { name: 'Calculation filter' })).getByRole('option', { name: 'Total', exact: true }));
+    await expect(page.getByRole('option', { name: 'Total Free Credit Used', exact: true })).toBeInTheDocument();
+    await expect(page.queryByRole('option', { name: 'Average of Credit Used per API', exact: true })).not.toBeInTheDocument();
+    const basisSearch = page.getByRole('textbox', { name: 'Search options', exact: true });
+    await userEvent.type(basisSearch, 'per API');
+    await expect(page.getByRole('option', { name: 'Total Credit Used per API', exact: true })).toBeInTheDocument();
+    await expect(page.queryByRole('option', { name: 'Total Free Credit Used', exact: true })).not.toBeInTheDocument();
+    await userEvent.clear(basisSearch);
+    await userEvent.click(page.getByRole('button', { name: 'Calculation filter', exact: true }));
+    await userEvent.click(within(page.getByRole('listbox', { name: 'Calculation filter' })).getByRole('option', { name: 'All', exact: true }));
+    await expect(page.getByRole('option', { name: 'Count of Credit Used per API', exact: true })).toBeInTheDocument();
+    await userEvent.click(page.getByRole('button', { name: 'Calculation filter', exact: true }));
+    await userEvent.click(within(page.getByRole('listbox', { name: 'Calculation filter' })).getByRole('option', { name: 'Average', exact: true }));
+    await expect(page.queryByRole('option', { name: 'Total Credit Used per API', exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole('option', { name: 'Average of Credit Used per API', exact: true }));
+    await expect(page.getByRole('button', { name: 'Based on', exact: true })).toHaveTextContent('Average of Credit Used per API');
+    await expect(page.queryByRole('button', { name: 'Calculation', exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole('button', { name: 'Feature', exact: true }));
+    await userEvent.click(page.getByRole('option', { name: 'Webhooks', exact: true }));
     await userEvent.click(await page.findByRole('button', { name: 'Select User', exact: true }));
     const directory = within(await page.findByRole('region', { name: 'Available recipients' }));
     await waitFor(() => expect(page.getByText('Email: You can select up to 90 CRM users and add up to 10 additional email addresses. The total number of email recipients cannot exceed 100.')).toBeVisible());
@@ -852,25 +916,10 @@ export const CreateNotification: Story = {
             <>
               <FormRow label="Based on" align="start" labelOffset={7}>
                 <div style={{ display: 'flex', alignItems: 'start', flexWrap: 'wrap', gap: 'calc(var(--ds-font-size-base) * 0.6)' }}>
-                  <Dropdown layout="vertical" triggerAriaLabel="Based on" width={390} tooltipVariant="white" tooltipMaxWidth={600}
-                    error={measureError}
-                    helperText={measureError ? <span role="alert">Select a supported measure and calculation.</span> : undefined}
-                    options={usageMeasures(trigger.feature).map(field => ({
-                      value: field.name,
-                      label: prettyUsageName(field.name),
-                      trailingIcon: <Tooltip content={field.description} variant="white" maxWidth={600} placement="top" followCursor>
-                        <CrmAlertInfo className="usage-notification-measure-info" width={12} height={12} tabIndex={0} role="img" aria-label={`About ${prettyUsageName(field.name)}`} />
-                      </Tooltip>,
-                    }))}
-                    value={trigger.measure} onChange={(value: string) => {
-                      setTrigger(current => changeUsageMeasure(current, value)); setTriggerError(undefined);
+                  <UsageBasisDropdown key={trigger.feature} feature={trigger.feature} error={measureError}
+                    value={usageBasisValue(trigger)} onChange={(value: string) => {
+                      setTrigger(current => changeUsageBasis(current, value)); setTriggerError(undefined);
                     }} />
-                  {measure && measure.aggs.length > 1 && <>
-                    <span style={labelStyle}>by</span>
-                    <Dropdown layout="vertical" triggerAriaLabel="Calculation" width={150}
-                      options={measure.aggs.map(value => ({ value, label: AGGREGATION_LABELS[value] }))}
-                      value={trigger.calculation} onChange={(calculation: string) => updateTrigger({ calculation })} />
-                  </>}
                 </div>
               </FormRow>
               {measure && <FormRow label="When">
