@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">21/62 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">57/62 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/394 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">21/62 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">57/62 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/397 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>7.8s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>7.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -7015,9 +7015,9 @@ gripperOnHover?: any = false</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Dropdown</h2>
       <div class="badges">
-        <label for="c-16-design-system-components-dropdown-props" class="badge ok as-toggle">12 prop types</label>
+        <label for="c-16-design-system-components-dropdown-props" class="badge ok as-toggle">15 prop types</label>
         <label for="c-16-design-system-components-dropdown-info" class="badge info as-toggle">1 info</label>
-        <label for="c-16-design-system-components-dropdown-stories" class="badge ok as-toggle">18 stories</label>
+        <label for="c-16-design-system-components-dropdown-stories" class="badge ok as-toggle">21 stories</label>
         
         
       </div>
@@ -7051,7 +7051,7 @@ gripperOnHover?: any = false</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">12 prop types</span>
+              <span class="badge ok">15 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/Dropdown/Dropdown.js::Dropdown</code></pre>
             <pre><code>Props:</code></pre>
@@ -7061,11 +7061,17 @@ clearAriaLabel?: any = &#39;Clear selection&#39;
 
 layout?: any = &#39;horizontal&#39;
 
+moduleFilterAriaLabel?: any = &#39;Module&#39;
+
 multiSelect?: any = false
 
 options?: any = []
 
 placeholder?: any = &#39;Select&#39;
+
+refreshLabel?: any = &#39;Refresh&#39;
+
+refreshVariant?: any = &#39;label&#39;
 
 searchable?: any = false
 
@@ -7508,6 +7514,92 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       onChange={setValue}
       placeholder=&quot;Select&quot;
     /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Refresh Button</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Refresh button at the top of the panel — labelled pill.</div>
+              <pre><code>const WithRefreshButton = () =&gt; {
+  const [val, setVal] = useState(&#39;&#39;);
+  const [count, setCount] = useState(0);
+  return (
+    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8, width: 390 }}&gt;
+      &lt;Dropdown
+        label=&quot;Form&quot;
+        options={[
+          { value: &#39;contact&#39;, label: &#39;Contact Us Form&#39; },
+          { value: &#39;subscription&#39;, label: &#39;Subscription Form&#39; },
+          { value: &#39;compliant&#39;, label: &#39;Compliant Query Form&#39; },
+        ]}
+        value={val}
+        onChange={setVal}
+        onRefresh={() =&gt; setCount(c =&gt; c + 1)}
+        width={390}
+      /&gt;
+      &lt;span style={{ fontSize: 12, color: &#39;#616E88&#39; }}&gt;Refreshed {count} times&lt;/span&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Refresh Icon</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Refresh button in icon-only form.</div>
+              <pre><code>const WithRefreshIcon = () =&gt; {
+  const [val, setVal] = useState(&#39;&#39;);
+  return (
+    &lt;Dropdown
+      label=&quot;Form&quot;
+      options={[
+        { value: &#39;contact&#39;, label: &#39;Contact Us Form&#39; },
+        { value: &#39;subscription&#39;, label: &#39;Subscription Form&#39; },
+      ]}
+      value={val}
+      onChange={setVal}
+      onRefresh={() =&gt; {}}
+      refreshVariant=&quot;icon&quot;
+      refreshLabel=&quot;Refresh forms&quot;
+      width={390}
+    /&gt;
+  );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Footer Submenu</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Footer action with a submenu — &quot;New Custom View ›&quot; opens Use Canvas / Use Widget.</div>
+              <pre><code>const WithFooterSubmenu = () =&gt; {
+  const [val, setVal] = useState(&#39;&#39;);
+  const [last, setLast] = useState(&#39;&#39;);
+  return (
+    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8, width: 223 }}&gt;
+      &lt;Dropdown
+        label=&quot;Custom View&quot;
+        options={CUSTOM_VIEW_OPTIONS}
+        value={val}
+        onChange={setVal}
+        footerAction={{
+          label: &#39;New Custom View&#39;,
+          submenu: [
+            { label: &#39;Use Canvas&#39;, onClick: () =&gt; setLast(&#39;Canvas&#39;) },
+            { label: &#39;Use Widget&#39;, onClick: () =&gt; setLast(&#39;Widget&#39;) },
+          ],
+        }}
+        width={223}
+      /&gt;
+      &lt;span style={{ fontSize: 12, color: &#39;#616E88&#39; }}&gt;Last action: {last || &#39;none&#39;}&lt;/span&gt;
+    &lt;/div&gt;
   );
 };</code></pre>
             </div>
@@ -11448,13 +11540,13 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  1256 | // ─────────────────────────────────────────────────────────────────────────────
-  1257 |
-&gt; 1258 | const meta = {
+  1272 | // ─────────────────────────────────────────────────────────────────────────────
+  1273 |
+&gt; 1274 | const meta = {
        | ^
-  1259 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
-  1260 |   parameters: {
-  1261 |     layout: &#39;fullscreen&#39;,
+  1275 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
+  1276 |   parameters: {
+  1277 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/JoinedReportsRevampV2.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -12040,7 +12132,7 @@ function PreviewSortMenu({ label, direction, onSort }: {
         {([&#39;ascending&#39;, &#39;descending&#39;] as const).map(order =&gt; (
           &lt;button key={order} type=&quot;button&quot; role=&quot;menuitemradio&quot; aria-checked={(direction ?? &#39;ascending&#39;) === order}
             onClick={() =&gt; { onSort(order); setPosition(null); trigger.current?.focus(); }}&gt;
-            &lt;span aria-hidden=&quot;true&quot;&gt;{order === &#39;ascending&#39; ? &#39;↑&#39; : &#39;↓&#39;}&lt;/span&gt;
+            &lt;Icon name={order === &#39;ascending&#39; ? &#39;CrmArrowDownLinedzcicnarrowuplined&#39; : &#39;CrmArrowDownLined&#39;} size={18} /&gt;
             {order === &#39;ascending&#39; ? &#39;Asc&#39; : &#39;Desc&#39;}
           &lt;/button&gt;
         ))}
@@ -12099,6 +12191,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
     mappedFields: sourceReports.map(() =&gt; group.field),
     mappingOrder: sourceReports.map((_, index) =&gt; index),
   })));
+  const [highlightedGroupId, setHighlightedGroupId] = useState&lt;number | null&gt;(null);
   const [groupDraft, setGroupDraft] = useState&lt;(typeof rowGroups)[number] | null&gt;(null);
   const [mappedFields, setMappedFields] = useState&lt;string[]&gt;([]);
   const [mappingOrder, setMappingOrder] = useState(() =&gt; reports.map((_, index) =&gt; index));
@@ -12158,6 +12251,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
     setRowGroups(current =&gt; current.some(group =&gt; group.id === nextGroup.id)
       ? current.map(group =&gt; group.id === nextGroup.id ? nextGroup : group)
       : [...current, nextGroup]);
+    if (isAddingGroup) setHighlightedGroupId(nextGroup.id);
     setGroupDraft(null);
   };
   const [reportSettings, setReportSettings] = useState&lt;Record&lt;string, {
@@ -12256,7 +12350,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                 &lt;header className=&quot;jrv2-aggregate-heading&quot;&gt;
                   &lt;h2 className=&quot;jrv2-builder-panel-title&quot;&gt;Aggregate Columns&lt;/h2&gt;
                   &lt;Tooltip content=&quot;Create Aggregate Formula&quot; variant=&quot;white&quot; placement=&quot;top&quot; followCursor&gt;
-                    &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn&quot; aria-label=&quot;Create Aggregate Formula&quot; onClick={() =&gt; { setEditingFormula(null); setFormulaOpen(true); }}&gt;+&lt;/button&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn jrv2-joined-add&quot; aria-label=&quot;Create Aggregate Formula&quot; onClick={() =&gt; { setEditingFormula(null); setFormulaOpen(true); }}&gt;+&lt;/button&gt;
                   &lt;/Tooltip&gt;
                 &lt;/header&gt;
                 &lt;div className=&quot;jrv2-aggregate-content&quot;&gt;
@@ -12270,13 +12364,23 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                       &lt;button type=&quot;button&quot; className=&quot;jrv2-aggregate-clear&quot; aria-label=&quot;Clear all report columns&quot; onClick={() =&gt; setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value =&gt; !formulaColumns.some(column =&gt; column.label === value)) })}&gt;Clear all&lt;/button&gt;
                     )}
                   &lt;/div&gt;
-                  {formulaColumns.filter(column =&gt; matchesAggregateSearch(column.label)).map(column =&gt; (
-                    &lt;div className=&quot;jrv2-aggregate-option&quot; key={column.label}&gt;
+                  {formulaColumns.filter(column =&gt; matchesAggregateSearch(column.label)).map((column, index) =&gt; (
+                    &lt;div className={`jrv2-aggregate-option${index === 0 ? &#39; jrv2-aggregate-option--initial&#39; : &#39;&#39;}`} key={column.label}&gt;
                       &lt;Checkbox label={column.label} checked={aggregateDraft.selected.includes(column.label)} onChange={() =&gt; toggleAggregate(column.label)} /&gt;
-                      &lt;Dropdown width=&quot;auto&quot; triggerAriaLabel={`Options for ${column.label}`} triggerButtonVariant=&quot;ghost&quot; triggerIcon=&quot;⋯&quot; showSelectionIndicator={false}
-                        options={[{ value: &#39;edit&#39;, label: &#39;Edit&#39; }, { value: &#39;remove&#39;, label: &#39;Remove&#39; }]} onChange={(action: string) =&gt; {
+                      &lt;Dropdown width=&quot;auto&quot; triggerAriaLabel={`Options for ${column.label}`} triggerButtonVariant=&quot;link-default&quot; triggerIcon={&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;3.80 25.60 17.00 7.00&quot; width={17} height={7} aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;
+                        &lt;path d=&quot;M 8.8,29.1 A 1.5,1.5 0 0,1 7.3,30.6 A 1.5,1.5 0 0,1 5.8,29.1 A 1.5,1.5 0 0,1 7.3,27.6 A 1.5,1.5 0 0,1 8.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
+                        &lt;path d=&quot;M 13.8,29.1 A 1.5,1.5 0 0,1 12.3,30.6 A 1.5,1.5 0 0,1 10.8,29.1 A 1.5,1.5 0 0,1 12.3,27.6 A 1.5,1.5 0 0,1 13.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
+                        &lt;path d=&quot;M 18.8,29.1 A 1.5,1.5 0 0,1 17.3,30.6 A 1.5,1.5 0 0,1 15.8,29.1 A 1.5,1.5 0 0,1 17.3,27.6 A 1.5,1.5 0 0,1 18.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
+                      &lt;/svg&gt;} showSelectionIndicator={false}
+                        options={[{ value: &#39;edit&#39;, label: &#39;Edit&#39; }, { value: &#39;delete&#39;, label: &#39;Delete&#39; }]} onChange={(action: string) =&gt; {
                           if (action === &#39;edit&#39;) { setEditingFormula(column.label); setFormulaOpen(true); }
-                          else setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value =&gt; value !== column.label) });
+                          else if (action === &#39;delete&#39;) {
+                            setFormulaColumns(current =&gt; current.filter(item =&gt; item.label !== column.label));
+                            setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value =&gt; value !== column.label) });
+                            setReportSettings(current =&gt; Object.fromEntries(Object.entries(current).map(([report, settings]) =&gt; [report, {
+                              ...settings, aggregates: settings.aggregates.filter(value =&gt; value !== column.label),
+                            }])));
+                          }
                         }} /&gt;
                     &lt;/div&gt;
                   ))}
@@ -12361,11 +12465,21 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                 &lt;h2&gt;Joined Report&lt;/h2&gt;
               &lt;/header&gt;
               &lt;section className=&quot;jrv2-joined-groups&quot; aria-label=&quot;Row groups&quot;&gt;
-                &lt;h3 className=&quot;jrv2-joined-label&quot;&gt;Row Groups&lt;/h3&gt;
+                &lt;div className=&quot;jrv2-group-heading&quot;&gt;
+                  &lt;h3 className=&quot;jrv2-joined-label&quot;&gt;Row Groups&lt;/h3&gt;
+                  &lt;Tooltip content=&quot;Add Row Group&quot; variant=&quot;white&quot; placement=&quot;top&quot; followCursor&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn jrv2-joined-add&quot; aria-label=&quot;Add New Group&quot; onClick={() =&gt; {
+                      setMappedFields(reports.map(() =&gt; &#39;&#39;));
+                      setMappingOrder(reports.map((_, index) =&gt; index));
+                      setGroupError(false);
+                      setGroupDraft({ id: Date.now(), field: &#39;&#39;, interval: &#39;&#39;, order: &#39;Asc&#39;, mappedFields: [], mappingOrder: [] });
+                    }}&gt;+&lt;/button&gt;
+                  &lt;/Tooltip&gt;
+                &lt;/div&gt;
                 &lt;div className=&quot;jrv2-group-list&quot;&gt;
                 &lt;Dragger dragHandleOnly items={rowGroups.map(group =&gt; String(group.id))} onChange={(order: string[]) =&gt; setRowGroups(groups =&gt; order.map(id =&gt; groups.find(group =&gt; String(group.id) === id)!))} gripperOnHover renderItem={(id: string) =&gt; {
                   const group = rowGroups.find(item =&gt; String(item.id) === id)!;
-                  return &lt;div className=&quot;jrv2-joined-group&quot; key={group.id}&gt;
+                  return &lt;div className={`jrv2-joined-group${group.id === highlightedGroupId ? &#39; jrv2-joined-group--highlighted&#39; : &#39;&#39;}`} key={group.id}&gt;
                     {rowGroups.length &gt; 1 &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;jrv2-group-grip&quot; data-drag-handle aria-label={`Reorder ${group.field} group`} onKeyDown={event =&gt; {
                       if (event.key !== &#39;ArrowUp&#39; &amp;&amp; event.key !== &#39;ArrowDown&#39;) return;
                       event.preventDefault();
@@ -12401,12 +12515,6 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                   &lt;/div&gt;;
                 }} /&gt;
                 &lt;/div&gt;
-                &lt;Button variant=&quot;link-primary&quot; className=&quot;jrv2-joined-add&quot; onClick={() =&gt; {
-                  setMappedFields(reports.map(() =&gt; &#39;&#39;));
-                  setMappingOrder(reports.map((_, index) =&gt; index));
-                  setGroupError(false);
-                  setGroupDraft({ id: Date.now(), field: &#39;&#39;, interval: &#39;&#39;, order: &#39;Asc&#39;, mappedFields: [], mappingOrder: [] });
-                }}&gt;Add New Group&lt;/Button&gt;
               &lt;/section&gt;
               {reports.map((report, index) =&gt; {
                 const settingsKey = String(index);
@@ -12793,9 +12901,18 @@ export const V2Summary: Story = {
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit aggregate columns for Report 1&#39; }));
     let aggregateEditor = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Aggregate columns&#39; }));
     await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Show Row Count&#39; })).toBeChecked();
+    const rowCountLabel = aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Show Row Count&#39; }).closest(&#39;.checkbox-root&#39;)!;
+    await expect(getComputedStyle(rowCountLabel).alignItems).toBe(&#39;center&#39;);
+    await expect(getComputedStyle(rowCountLabel.querySelector(&#39;.checkbox-control&#39;)!).marginTop).toBe(&#39;0px&#39;);
     await expect(aggregateEditor.getAllByRole(&#39;checkbox&#39;).filter(checkbox =&gt; (checkbox as HTMLInputElement).checked)).toHaveLength(6);
     await expect(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Create Aggregate Formula&#39; })).toBeVisible();
     await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue per Lead&#39;, exact: true })).toBeInTheDocument();
+    const formulaOptions = aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Options for percent summary formula&#39; });
+    await userEvent.click(formulaOptions);
+    const formulaMenu = within(canvasElement.ownerDocument.body);
+    await expect(formulaMenu.getByRole(&#39;option&#39;, { name: &#39;Edit&#39;, exact: true })).toBeVisible();
+    await expect(formulaMenu.getByRole(&#39;option&#39;, { name: &#39;Delete&#39;, exact: true })).toBeVisible();
+    await userEvent.keyboard(&#39;{Escape}&#39;);
     await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;percent summary formula&#39;, exact: true }));
     await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Count of Unique Leads&#39;, exact: true }));
     await userEvent.click(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Clear all report columns&#39; }));
@@ -12854,6 +12971,9 @@ export const V2Summary: Story = {
     const page = within(canvasElement.ownerDocument.body);
     await userEvent.click(countSort);
     await expect(page.getByRole(&#39;menu&#39;, { name: &#39;Sort Count of contacts&#39; })).toBeVisible();
+    const sortMenu = page.getByRole(&#39;menu&#39;, { name: &#39;Sort Count of contacts&#39; });
+    await expect(getComputedStyle(sortMenu).fontFamily).toContain(&#39;Zoho Puvi&#39;);
+    await expect(sortMenu.querySelectorAll(&#39;svg&#39;)).toHaveLength(2);
     await userEvent.click(page.getByRole(&#39;menuitemradio&#39;, { name: &#39;Asc&#39;, exact: true }));
     await expect(countSort.closest(&#39;th&#39;)).toHaveAttribute(&#39;aria-sort&#39;, &#39;ascending&#39;);
     await expect(firstMonthValues()).toEqual([48, 61, 79, 80]);
@@ -12881,6 +13001,14 @@ export const V2Summary: Story = {
     await expect(accountHeader.getBoundingClientRect().width).toBe(initialColumnWidth + 20);
     await userEvent.keyboard(&#39;{ArrowLeft}{ArrowLeft}&#39;);
     await expect(resize).toHaveAttribute(&#39;aria-valuenow&#39;, &#39;180&#39;);
+    await userEvent.keyboard(&#39;{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}&#39;);
+    await expect(resize).toHaveAttribute(&#39;aria-valuenow&#39;, &#39;100&#39;);
+    const accountCell = table.querySelector(&#39;tbody tr td:nth-child(3)&#39;)!;
+    await expect(getComputedStyle(accountCell).textOverflow).toBe(&#39;ellipsis&#39;);
+    await expect(getComputedStyle(accountCell).overflow).toBe(&#39;hidden&#39;);
+    await expect(accountCell.scrollWidth).toBeGreaterThan(accountCell.clientWidth);
+    await expect(getComputedStyle(table).minWidth).toBe(&#39;100%&#39;);
+    await userEvent.keyboard(&#39;{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}&#39;);
     const total = within(table).getByRole(&#39;rowheader&#39;, { name: &#39;Grand Total&#39;, exact: true });
     await expect(total.closest(&#39;tfoot&#39;)).not.toBeNull();
     await expect(total).toBeVisible();
@@ -13039,7 +13167,22 @@ export const V2AddGroup: Story = {
     await expect(deleteGroup).toHaveAttribute(&#39;data-variant&#39;, &#39;ghost-red&#39;);
     await userEvent.click(deleteGroup);
     await expect(canvas.queryByRole(&#39;region&#39;, { name: &#39;Add row group&#39; })).not.toBeInTheDocument();
-    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Add New Group&#39; })).toBeVisible();
+    const addGroup = canvas.getByRole(&#39;button&#39;, { name: &#39;Add New Group&#39; });
+    await expect(addGroup).toBeVisible();
+    await expect(addGroup.closest(&#39;.jrv2-group-heading&#39;)).toContainElement(canvas.getByRole(&#39;heading&#39;, { name: &#39;Row Groups&#39;, exact: true }));
+    await expect(addGroup).toHaveClass(&#39;jrv2-builder-edit-btn&#39;);
+    await expect(addGroup).toHaveTextContent(&#39;+&#39;);
+    await userEvent.click(addGroup);
+    const newGroupEditor = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Add row group&#39; }));
+    await userEvent.click(newGroupEditor.getByRole(&#39;button&#39;, { name: &#39;Recommended Fields&#39; }));
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Account&#39;, exact: true }));
+    await userEvent.clear(newGroupEditor.getByRole(&#39;textbox&#39;));
+    await userEvent.type(newGroupEditor.getByRole(&#39;textbox&#39;), &#39;Account grouping&#39;);
+    await userEvent.click(newGroupEditor.getByRole(&#39;button&#39;, { name: &#39;Done&#39;, exact: true }));
+    const addedGroup = canvas.getByRole(&#39;button&#39;, { name: &#39;Edit Account grouping group&#39; }).closest(&#39;.jrv2-joined-group&#39;);
+    await expect(addedGroup).toHaveClass(&#39;jrv2-joined-group--highlighted&#39;);
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit Monthly records group&#39; }).closest(&#39;.jrv2-joined-group&#39;)).not.toHaveClass(&#39;jrv2-joined-group--highlighted&#39;);
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Reorder Account grouping group&#39; })).toBeInTheDocument();
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add New Group&#39; }));
   },
 };
@@ -19303,23 +19446,9 @@ export const EmailVerification: Story = {
       else await expect(templateGeometry).toEqual(emailTemplateGeometry);
       await userEvent.hover(field);
       await expect(getComputedStyle(field).borderColor).toBe(border);
-      if (title === &#39;Edit Email Content&#39;) {
-      await expect(preview.getByRole(&#39;button&#39;, { name: &#39;English (United States)&#39; })).toBeVisible();
-      await userEvent.click(preview.getByRole(&#39;button&#39;, { name: &#39;English (United States)&#39; }));
-      const languageMenu = body.getByRole(&#39;listbox&#39;);
-      const languageMenuWidth = languageMenu.getBoundingClientRect().width;
-      for (const label of languageMenu.querySelectorAll(&#39;.dropdown-option-label&#39;)) {
-        await expect(label.scrollWidth).toBeLessThanOrEqual(label.clientWidth);
-      }
-      await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;French&#39;, exact: true }));
-      const frenchTrigger = preview.getByRole(&#39;button&#39;, { name: &#39;French&#39;, exact: true });
-      await expect(frenchTrigger).toBeVisible();
-      await userEvent.click(frenchTrigger);
-      await expect(Math.round(body.getByRole(&#39;listbox&#39;).getBoundingClientRect().width)).toBe(Math.round(languageMenuWidth));
-      await expect(languageMenuWidth).toBeGreaterThan(frenchTrigger.getBoundingClientRect().width);
-      await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;French&#39;, exact: true }));
-      } else {
-        await expect(preview.queryByRole(&#39;button&#39;, { name: &#39;English (United States)&#39; })).not.toBeInTheDocument();
+      await expect(preview.queryByRole(&#39;button&#39;, { name: &#39;Template language&#39; })).not.toBeInTheDocument();
+      await expect(preview.queryByRole(&#39;button&#39;, { name: &#39;English (United States)&#39; })).not.toBeInTheDocument();
+      if (title !== &#39;Edit Email Content&#39;) {
         await expect(preview.getByRole(&#39;heading&#39;, { name: &#39;Email address verified&#39; })).toBeVisible();
         await expect(editor.closest(&#39;.record-auth-template&#39;)).toHaveClass(&#39;record-auth-template--page&#39;);
         await expect(editor).not.toHaveTextContent(&#39;${Organization.OrganizationName}&#39;);
@@ -19334,6 +19463,28 @@ export const EmailVerification: Story = {
         const from = preview.getByRole(&#39;button&#39;, { name: &#39;Record Owner’s Email&#39; });
         await expect(getComputedStyle(from).fontSize).toBe(&#39;14px&#39;);
         if (window.innerWidth &gt;= 900) await expect(Math.round(from.getBoundingClientRect().width)).toBe(390);
+        await userEvent.click(from);
+        const senderList = within(await body.findByRole(&#39;listbox&#39;));
+        for (const group of [&#39;My Email&#39;, &#39;Other Emails&#39;, &#39;Organization Emails&#39;]) {
+          await expect(senderList.getByText(group, { exact: true })).toBeInTheDocument();
+        }
+        const senderLabels = [
+          &#39;My Email (alex.morgan@example.com)&#39;, &#39;Record Owner’s Email&#39;, &#39;Account Manager’s Email&#39;,
+          &#39;Created By User’s Email&#39;, &#39;Sales Representative’s Email&#39;, &#39;Customer Success Manager’s Email&#39;,
+          &#39;Sales Team (sales@example.com)&#39;, &#39;Customer Support (support@example.com)&#39;,
+          &#39;Support Notifications (notifications@example.com)&#39;,
+        ];
+        await expect(senderList.getAllByRole(&#39;option&#39;)).toHaveLength(senderLabels.length);
+        for (const label of senderLabels) {
+          await expect(senderList.getByRole(&#39;option&#39;, { name: label, exact: true })).toBeInTheDocument();
+        }
+        await expect(senderList.getByRole(&#39;option&#39;, { name: &#39;Record Owner’s Email&#39; })).toHaveAttribute(&#39;aria-selected&#39;, &#39;true&#39;);
+        const senderSearch = senderList.getByRole(&#39;textbox&#39;);
+        await userEvent.type(senderSearch, &#39;Support&#39;);
+        await expect(senderList.getAllByRole(&#39;option&#39;)).toHaveLength(2);
+        await expect(senderList.queryByText(&#39;Other Emails&#39;, { exact: true })).not.toBeInTheDocument();
+        await userEvent.click(senderList.getByRole(&#39;option&#39;, { name: &#39;Support Notifications (notifications@example.com)&#39; }));
+        await expect(preview.getByRole(&#39;button&#39;, { name: &#39;Support Notifications (notifications@example.com)&#39; })).toBeVisible();
         for (const label of [&#39;From&#39;, &#39;Subject&#39;]) {
           await expect(getComputedStyle(preview.getByText(label, { exact: true })).textAlign).toBe(&#39;right&#39;);
         }
@@ -24422,10 +24573,10 @@ import { UsageRecipientDialog } from &#39;./UsageRecipientDialog&#39;;
 import type { UsageRecipient } from &#39;./UsageRecipientDialog&#39;;
 import type { TemplateSettings } from &#39;./TemplateDialog&#39;;
 import {
-  AGGREGATION_LABELS, COMPARISON_OPTIONS, INTERVAL_OPTIONS, WINDOW_OPTIONS, WINDOW_MAX,
+  COMPARISON_OPTIONS, INTERVAL_OPTIONS, WINDOW_OPTIONS, WINDOW_MAX,
   USAGE_MESSAGE_FIELDS, usageNotificationMessage,
-  changeUsageMeasure, createUsageTrigger, prettyUsageName, selectedUsageMeasure,
-  usageMeasures, usageTriggerSummary, usageValueUnit, usageWindowApplies, validateUsageTrigger,
+  changeUsageBasis, createUsageTrigger, prettyUsageName, selectedUsageMeasure,
+  usageBasisOptions, usageBasisValue, usageTriggerSummary, usageValueUnit, usageWindowApplies, validateUsageTrigger,
 } from &#39;./UsageLimitNotification.logic&#39;;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -24454,6 +24605,28 @@ type Story = StoryObj;
 // ─────────────────────────────────────────────────────────────────────────────
 
 const FEATURE_OPTIONS = Object.entries(USAGE_FEATURES).map(([value, feature]) =&gt; ({ value, label: feature.label }));
+
+function UsageBasisDropdown({ feature, value, onChange, error }: {
+  feature: string; value: string; onChange: (value: string) =&gt; void; error: boolean;
+}) {
+  const [filter, setFilter] = useState(&#39;All&#39;);
+  const options = usageBasisOptions(feature);
+  return (
+    &lt;Dropdown layout=&quot;vertical&quot; triggerAriaLabel=&quot;Based on&quot; width={390} tooltipVariant=&quot;white&quot; tooltipMaxWidth={600}
+      error={error}
+      helperText={error ? &lt;span role=&quot;alert&quot;&gt;Select a supported measure and calculation.&lt;/span&gt; : undefined}
+      moduleFilter={[&#39;All&#39;, ...new Set(options.map(option =&gt; option.aggregation))]}
+      moduleValue={filter} onModuleChange={setFilter} moduleFilterAriaLabel=&quot;Calculation filter&quot;
+      options={options.map(option =&gt; ({
+        value: option.value, label: option.label,
+        module: filter === &#39;All&#39; ? undefined : option.aggregation,
+        trailingIcon: &lt;Tooltip content={option.description} variant=&quot;white&quot; maxWidth={600} placement=&quot;top&quot; followCursor&gt;
+          &lt;CrmAlertInfo className=&quot;usage-notification-measure-info&quot; width={12} height={12} tabIndex={0} role=&quot;img&quot; aria-label={`About ${option.label}`} /&gt;
+        &lt;/Tooltip&gt;,
+      }))}
+      value={value} onChange={onChange} /&gt;
+  );
+}
 
 
 const ZOHO_USER_OPTIONS = [
@@ -24757,6 +24930,48 @@ export const CreateNotification: Story = {
     await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Webhooks&#39;, exact: true }));
     await expect(page.queryByRole(&#39;alert&#39;)).not.toBeInTheDocument();
     await expect(page.getByRole(&#39;button&#39;, { name: &#39;Based on&#39;, exact: true })).toBeVisible();
+    await expect(page.queryByRole(&#39;button&#39;, { name: &#39;Calculation&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Feature&#39;, exact: true }));
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;API&#39;, exact: true }));
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Based on&#39;, exact: true })).toHaveTextContent(&#39;Total Free Credit Used&#39;);
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Based on&#39;, exact: true }));
+    for (const label of [&#39;Total Credit Used per API&#39;, &#39;Count of Credit Used per API&#39;, &#39;Average of Credit Used per API&#39;]) {
+      await expect(page.getByRole(&#39;option&#39;, { name: label, exact: true })).toBeInTheDocument();
+    }
+    for (const [label, explanation] of [
+      [&#39;Total Credit Used per API&#39;, &#39;Adds up Credit Used per API&#39;],
+      [&#39;Count of Credit Used per API&#39;, &#39;Counts the matching API calls&#39;],
+      [&#39;Average of Credit Used per API&#39;, &#39;Calculates the average of Credit Used per API&#39;],
+      [&#39;Maximum of Credit Used per API&#39;, &#39;Returns the highest recorded value&#39;],
+      [&#39;Minimum of Credit Used per API&#39;, &#39;Returns the lowest recorded value&#39;],
+    ]) {
+      const info = page.getByRole(&#39;option&#39;, { name: label, exact: true })
+        .querySelector(&#39;.usage-notification-measure-info&#39;)!;
+      await userEvent.hover(info);
+      await expect(await page.findByRole(&#39;tooltip&#39;)).toHaveTextContent(explanation);
+      await userEvent.unhover(info);
+      await waitFor(() =&gt; expect(page.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument());
+    }
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Calculation filter&#39;, exact: true }));
+    await userEvent.click(within(page.getByRole(&#39;listbox&#39;, { name: &#39;Calculation filter&#39; })).getByRole(&#39;option&#39;, { name: &#39;Total&#39;, exact: true }));
+    await expect(page.getByRole(&#39;option&#39;, { name: &#39;Total Free Credit Used&#39;, exact: true })).toBeInTheDocument();
+    await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Average of Credit Used per API&#39;, exact: true })).not.toBeInTheDocument();
+    const basisSearch = page.getByRole(&#39;textbox&#39;, { name: &#39;Search options&#39;, exact: true });
+    await userEvent.type(basisSearch, &#39;per API&#39;);
+    await expect(page.getByRole(&#39;option&#39;, { name: &#39;Total Credit Used per API&#39;, exact: true })).toBeInTheDocument();
+    await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Total Free Credit Used&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.clear(basisSearch);
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Calculation filter&#39;, exact: true }));
+    await userEvent.click(within(page.getByRole(&#39;listbox&#39;, { name: &#39;Calculation filter&#39; })).getByRole(&#39;option&#39;, { name: &#39;All&#39;, exact: true }));
+    await expect(page.getByRole(&#39;option&#39;, { name: &#39;Count of Credit Used per API&#39;, exact: true })).toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Calculation filter&#39;, exact: true }));
+    await userEvent.click(within(page.getByRole(&#39;listbox&#39;, { name: &#39;Calculation filter&#39; })).getByRole(&#39;option&#39;, { name: &#39;Average&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Total Credit Used per API&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Average of Credit Used per API&#39;, exact: true }));
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Based on&#39;, exact: true })).toHaveTextContent(&#39;Average of Credit Used per API&#39;);
+    await expect(page.queryByRole(&#39;button&#39;, { name: &#39;Calculation&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Feature&#39;, exact: true }));
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Webhooks&#39;, exact: true }));
     await userEvent.click(await page.findByRole(&#39;button&#39;, { name: &#39;Select User&#39;, exact: true }));
     const directory = within(await page.findByRole(&#39;region&#39;, { name: &#39;Available recipients&#39; }));
     await waitFor(() =&gt; expect(page.getByText(&#39;Email: You can select up to 90 CRM users and add up to 10 additional email addresses. The total number of email recipients cannot exceed 100.&#39;)).toBeVisible());
@@ -25249,25 +25464,10 @@ export const CreateNotification: Story = {
             &lt;&gt;
               &lt;FormRow label=&quot;Based on&quot; align=&quot;start&quot; labelOffset={7}&gt;
                 &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;start&#39;, flexWrap: &#39;wrap&#39;, gap: &#39;calc(var(--ds-font-size-base) * 0.6)&#39; }}&gt;
-                  &lt;Dropdown layout=&quot;vertical&quot; triggerAriaLabel=&quot;Based on&quot; width={390} tooltipVariant=&quot;white&quot; tooltipMaxWidth={600}
-                    error={measureError}
-                    helperText={measureError ? &lt;span role=&quot;alert&quot;&gt;Select a supported measure and calculation.&lt;/span&gt; : undefined}
-                    options={usageMeasures(trigger.feature).map(field =&gt; ({
-                      value: field.name,
-                      label: prettyUsageName(field.name),
-                      trailingIcon: &lt;Tooltip content={field.description} variant=&quot;white&quot; maxWidth={600} placement=&quot;top&quot; followCursor&gt;
-                        &lt;CrmAlertInfo className=&quot;usage-notification-measure-info&quot; width={12} height={12} tabIndex={0} role=&quot;img&quot; aria-label={`About ${prettyUsageName(field.name)}`} /&gt;
-                      &lt;/Tooltip&gt;,
-                    }))}
-                    value={trigger.measure} onChange={(value: string) =&gt; {
-                      setTrigger(current =&gt; changeUsageMeasure(current, value)); setTriggerError(undefined);
+                  &lt;UsageBasisDropdown key={trigger.feature} feature={trigger.feature} error={measureError}
+                    value={usageBasisValue(trigger)} onChange={(value: string) =&gt; {
+                      setTrigger(current =&gt; changeUsageBasis(current, value)); setTriggerError(undefined);
                     }} /&gt;
-                  {measure &amp;&amp; measure.aggs.length &gt; 1 &amp;&amp; &lt;&gt;
-                    &lt;span style={labelStyle}&gt;by&lt;/span&gt;
-                    &lt;Dropdown layout=&quot;vertical&quot; triggerAriaLabel=&quot;Calculation&quot; width={150}
-                      options={measure.aggs.map(value =&gt; ({ value, label: AGGREGATION_LABELS[value] }))}
-                      value={trigger.calculation} onChange={(calculation: string) =&gt; updateTrigger({ calculation })} /&gt;
-                  &lt;/&gt;}
                 &lt;/div&gt;
               &lt;/FormRow&gt;
               {measure &amp;&amp; &lt;FormRow label=&quot;When&quot;&gt;
@@ -26079,25 +26279,10 @@ export const CreateNotification: Story = {
           &lt;&gt;
             &lt;FormRow label=&quot;Based on&quot; align=&quot;start&quot; labelOffset={7}&gt;
               &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;start&#39;, flexWrap: &#39;wrap&#39;, gap: &#39;calc(var(--ds-font-size-base) * 0.6)&#39; }}&gt;
-                &lt;Dropdown layout=&quot;vertical&quot; triggerAriaLabel=&quot;Based on&quot; width={390} tooltipVariant=&quot;white&quot; tooltipMaxWidth={600}
-                  error={measureError}
-                  helperText={measureError ? &lt;span role=&quot;alert&quot;&gt;Select a supported measure and calculation.&lt;/span&gt; : undefined}
-                  options={usageMeasures(trigger.feature).map(field =&gt; ({
-                    value: field.name,
-                    label: prettyUsageName(field.name),
-                    trailingIcon: &lt;Tooltip content={field.description} variant=&quot;white&quot; maxWidth={600} placement=&quot;top&quot; followCursor&gt;
-                      &lt;CrmAlertInfo className=&quot;usage-notification-measure-info&quot; width={12} height={12} tabIndex={0} role=&quot;img&quot; aria-label={`About ${prettyUsageName(field.name)}`} /&gt;
-                    &lt;/Tooltip&gt;,
-                  }))}
-                  value={trigger.measure} onChange={(value: string) =&gt; {
-                    setTrigger(current =&gt; changeUsageMeasure(current, value)); setTriggerError(undefined);
+                &lt;UsageBasisDropdown key={trigger.feature} feature={trigger.feature} error={measureError}
+                  value={usageBasisValue(trigger)} onChange={(value: string) =&gt; {
+                    setTrigger(current =&gt; changeUsageBasis(current, value)); setTriggerError(undefined);
                   }} /&gt;
-                {measure &amp;&amp; measure.aggs.length &gt; 1 &amp;&amp; &lt;&gt;
-                  &lt;span style={labelStyle}&gt;by&lt;/span&gt;
-                  &lt;Dropdown layout=&quot;vertical&quot; triggerAriaLabel=&quot;Calculation&quot; width={150}
-                    options={measure.aggs.map(value =&gt; ({ value, label: AGGREGATION_LABELS[value] }))}
-                    value={trigger.calculation} onChange={(calculation: string) =&gt; updateTrigger({ calculation })} /&gt;
-                &lt;/&gt;}
               &lt;/div&gt;
             &lt;/FormRow&gt;
             {measure &amp;&amp; &lt;FormRow label=&quot;When&quot;&gt;
@@ -33126,13 +33311,13 @@ export const CreateDeal: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  1256 | // ─────────────────────────────────────────────────────────────────────────────
-  1257 |
-&gt; 1258 | const meta = {
+  1272 | // ─────────────────────────────────────────────────────────────────────────────
+  1273 |
+&gt; 1274 | const meta = {
        | ^
-  1259 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
-  1260 |   parameters: {
-  1261 |     layout: &#39;fullscreen&#39;,
+  1275 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
+  1276 |   parameters: {
+  1277 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/JoinedReportsRevampV2.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -33718,7 +33903,7 @@ function PreviewSortMenu({ label, direction, onSort }: {
         {([&#39;ascending&#39;, &#39;descending&#39;] as const).map(order =&gt; (
           &lt;button key={order} type=&quot;button&quot; role=&quot;menuitemradio&quot; aria-checked={(direction ?? &#39;ascending&#39;) === order}
             onClick={() =&gt; { onSort(order); setPosition(null); trigger.current?.focus(); }}&gt;
-            &lt;span aria-hidden=&quot;true&quot;&gt;{order === &#39;ascending&#39; ? &#39;↑&#39; : &#39;↓&#39;}&lt;/span&gt;
+            &lt;Icon name={order === &#39;ascending&#39; ? &#39;CrmArrowDownLinedzcicnarrowuplined&#39; : &#39;CrmArrowDownLined&#39;} size={18} /&gt;
             {order === &#39;ascending&#39; ? &#39;Asc&#39; : &#39;Desc&#39;}
           &lt;/button&gt;
         ))}
@@ -33777,6 +33962,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
     mappedFields: sourceReports.map(() =&gt; group.field),
     mappingOrder: sourceReports.map((_, index) =&gt; index),
   })));
+  const [highlightedGroupId, setHighlightedGroupId] = useState&lt;number | null&gt;(null);
   const [groupDraft, setGroupDraft] = useState&lt;(typeof rowGroups)[number] | null&gt;(null);
   const [mappedFields, setMappedFields] = useState&lt;string[]&gt;([]);
   const [mappingOrder, setMappingOrder] = useState(() =&gt; reports.map((_, index) =&gt; index));
@@ -33836,6 +34022,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
     setRowGroups(current =&gt; current.some(group =&gt; group.id === nextGroup.id)
       ? current.map(group =&gt; group.id === nextGroup.id ? nextGroup : group)
       : [...current, nextGroup]);
+    if (isAddingGroup) setHighlightedGroupId(nextGroup.id);
     setGroupDraft(null);
   };
   const [reportSettings, setReportSettings] = useState&lt;Record&lt;string, {
@@ -33934,7 +34121,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                 &lt;header className=&quot;jrv2-aggregate-heading&quot;&gt;
                   &lt;h2 className=&quot;jrv2-builder-panel-title&quot;&gt;Aggregate Columns&lt;/h2&gt;
                   &lt;Tooltip content=&quot;Create Aggregate Formula&quot; variant=&quot;white&quot; placement=&quot;top&quot; followCursor&gt;
-                    &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn&quot; aria-label=&quot;Create Aggregate Formula&quot; onClick={() =&gt; { setEditingFormula(null); setFormulaOpen(true); }}&gt;+&lt;/button&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn jrv2-joined-add&quot; aria-label=&quot;Create Aggregate Formula&quot; onClick={() =&gt; { setEditingFormula(null); setFormulaOpen(true); }}&gt;+&lt;/button&gt;
                   &lt;/Tooltip&gt;
                 &lt;/header&gt;
                 &lt;div className=&quot;jrv2-aggregate-content&quot;&gt;
@@ -33948,13 +34135,23 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                       &lt;button type=&quot;button&quot; className=&quot;jrv2-aggregate-clear&quot; aria-label=&quot;Clear all report columns&quot; onClick={() =&gt; setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value =&gt; !formulaColumns.some(column =&gt; column.label === value)) })}&gt;Clear all&lt;/button&gt;
                     )}
                   &lt;/div&gt;
-                  {formulaColumns.filter(column =&gt; matchesAggregateSearch(column.label)).map(column =&gt; (
-                    &lt;div className=&quot;jrv2-aggregate-option&quot; key={column.label}&gt;
+                  {formulaColumns.filter(column =&gt; matchesAggregateSearch(column.label)).map((column, index) =&gt; (
+                    &lt;div className={`jrv2-aggregate-option${index === 0 ? &#39; jrv2-aggregate-option--initial&#39; : &#39;&#39;}`} key={column.label}&gt;
                       &lt;Checkbox label={column.label} checked={aggregateDraft.selected.includes(column.label)} onChange={() =&gt; toggleAggregate(column.label)} /&gt;
-                      &lt;Dropdown width=&quot;auto&quot; triggerAriaLabel={`Options for ${column.label}`} triggerButtonVariant=&quot;ghost&quot; triggerIcon=&quot;⋯&quot; showSelectionIndicator={false}
-                        options={[{ value: &#39;edit&#39;, label: &#39;Edit&#39; }, { value: &#39;remove&#39;, label: &#39;Remove&#39; }]} onChange={(action: string) =&gt; {
+                      &lt;Dropdown width=&quot;auto&quot; triggerAriaLabel={`Options for ${column.label}`} triggerButtonVariant=&quot;link-default&quot; triggerIcon={&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;3.80 25.60 17.00 7.00&quot; width={17} height={7} aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;
+                        &lt;path d=&quot;M 8.8,29.1 A 1.5,1.5 0 0,1 7.3,30.6 A 1.5,1.5 0 0,1 5.8,29.1 A 1.5,1.5 0 0,1 7.3,27.6 A 1.5,1.5 0 0,1 8.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
+                        &lt;path d=&quot;M 13.8,29.1 A 1.5,1.5 0 0,1 12.3,30.6 A 1.5,1.5 0 0,1 10.8,29.1 A 1.5,1.5 0 0,1 12.3,27.6 A 1.5,1.5 0 0,1 13.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
+                        &lt;path d=&quot;M 18.8,29.1 A 1.5,1.5 0 0,1 17.3,30.6 A 1.5,1.5 0 0,1 15.8,29.1 A 1.5,1.5 0 0,1 17.3,27.6 A 1.5,1.5 0 0,1 18.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
+                      &lt;/svg&gt;} showSelectionIndicator={false}
+                        options={[{ value: &#39;edit&#39;, label: &#39;Edit&#39; }, { value: &#39;delete&#39;, label: &#39;Delete&#39; }]} onChange={(action: string) =&gt; {
                           if (action === &#39;edit&#39;) { setEditingFormula(column.label); setFormulaOpen(true); }
-                          else setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value =&gt; value !== column.label) });
+                          else if (action === &#39;delete&#39;) {
+                            setFormulaColumns(current =&gt; current.filter(item =&gt; item.label !== column.label));
+                            setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value =&gt; value !== column.label) });
+                            setReportSettings(current =&gt; Object.fromEntries(Object.entries(current).map(([report, settings]) =&gt; [report, {
+                              ...settings, aggregates: settings.aggregates.filter(value =&gt; value !== column.label),
+                            }])));
+                          }
                         }} /&gt;
                     &lt;/div&gt;
                   ))}
@@ -34039,11 +34236,21 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                 &lt;h2&gt;Joined Report&lt;/h2&gt;
               &lt;/header&gt;
               &lt;section className=&quot;jrv2-joined-groups&quot; aria-label=&quot;Row groups&quot;&gt;
-                &lt;h3 className=&quot;jrv2-joined-label&quot;&gt;Row Groups&lt;/h3&gt;
+                &lt;div className=&quot;jrv2-group-heading&quot;&gt;
+                  &lt;h3 className=&quot;jrv2-joined-label&quot;&gt;Row Groups&lt;/h3&gt;
+                  &lt;Tooltip content=&quot;Add Row Group&quot; variant=&quot;white&quot; placement=&quot;top&quot; followCursor&gt;
+                    &lt;button type=&quot;button&quot; className=&quot;jrv2-builder-edit-btn jrv2-joined-add&quot; aria-label=&quot;Add New Group&quot; onClick={() =&gt; {
+                      setMappedFields(reports.map(() =&gt; &#39;&#39;));
+                      setMappingOrder(reports.map((_, index) =&gt; index));
+                      setGroupError(false);
+                      setGroupDraft({ id: Date.now(), field: &#39;&#39;, interval: &#39;&#39;, order: &#39;Asc&#39;, mappedFields: [], mappingOrder: [] });
+                    }}&gt;+&lt;/button&gt;
+                  &lt;/Tooltip&gt;
+                &lt;/div&gt;
                 &lt;div className=&quot;jrv2-group-list&quot;&gt;
                 &lt;Dragger dragHandleOnly items={rowGroups.map(group =&gt; String(group.id))} onChange={(order: string[]) =&gt; setRowGroups(groups =&gt; order.map(id =&gt; groups.find(group =&gt; String(group.id) === id)!))} gripperOnHover renderItem={(id: string) =&gt; {
                   const group = rowGroups.find(item =&gt; String(item.id) === id)!;
-                  return &lt;div className=&quot;jrv2-joined-group&quot; key={group.id}&gt;
+                  return &lt;div className={`jrv2-joined-group${group.id === highlightedGroupId ? &#39; jrv2-joined-group--highlighted&#39; : &#39;&#39;}`} key={group.id}&gt;
                     {rowGroups.length &gt; 1 &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;jrv2-group-grip&quot; data-drag-handle aria-label={`Reorder ${group.field} group`} onKeyDown={event =&gt; {
                       if (event.key !== &#39;ArrowUp&#39; &amp;&amp; event.key !== &#39;ArrowDown&#39;) return;
                       event.preventDefault();
@@ -34079,12 +34286,6 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                   &lt;/div&gt;;
                 }} /&gt;
                 &lt;/div&gt;
-                &lt;Button variant=&quot;link-primary&quot; className=&quot;jrv2-joined-add&quot; onClick={() =&gt; {
-                  setMappedFields(reports.map(() =&gt; &#39;&#39;));
-                  setMappingOrder(reports.map((_, index) =&gt; index));
-                  setGroupError(false);
-                  setGroupDraft({ id: Date.now(), field: &#39;&#39;, interval: &#39;&#39;, order: &#39;Asc&#39;, mappedFields: [], mappingOrder: [] });
-                }}&gt;Add New Group&lt;/Button&gt;
               &lt;/section&gt;
               {reports.map((report, index) =&gt; {
                 const settingsKey = String(index);
@@ -34471,9 +34672,18 @@ export const V2Summary: Story = {
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit aggregate columns for Report 1&#39; }));
     let aggregateEditor = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Aggregate columns&#39; }));
     await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Show Row Count&#39; })).toBeChecked();
+    const rowCountLabel = aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Show Row Count&#39; }).closest(&#39;.checkbox-root&#39;)!;
+    await expect(getComputedStyle(rowCountLabel).alignItems).toBe(&#39;center&#39;);
+    await expect(getComputedStyle(rowCountLabel.querySelector(&#39;.checkbox-control&#39;)!).marginTop).toBe(&#39;0px&#39;);
     await expect(aggregateEditor.getAllByRole(&#39;checkbox&#39;).filter(checkbox =&gt; (checkbox as HTMLInputElement).checked)).toHaveLength(6);
     await expect(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Create Aggregate Formula&#39; })).toBeVisible();
     await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue per Lead&#39;, exact: true })).toBeInTheDocument();
+    const formulaOptions = aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Options for percent summary formula&#39; });
+    await userEvent.click(formulaOptions);
+    const formulaMenu = within(canvasElement.ownerDocument.body);
+    await expect(formulaMenu.getByRole(&#39;option&#39;, { name: &#39;Edit&#39;, exact: true })).toBeVisible();
+    await expect(formulaMenu.getByRole(&#39;option&#39;, { name: &#39;Delete&#39;, exact: true })).toBeVisible();
+    await userEvent.keyboard(&#39;{Escape}&#39;);
     await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;percent summary formula&#39;, exact: true }));
     await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Count of Unique Leads&#39;, exact: true }));
     await userEvent.click(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Clear all report columns&#39; }));
@@ -34532,6 +34742,9 @@ export const V2Summary: Story = {
     const page = within(canvasElement.ownerDocument.body);
     await userEvent.click(countSort);
     await expect(page.getByRole(&#39;menu&#39;, { name: &#39;Sort Count of contacts&#39; })).toBeVisible();
+    const sortMenu = page.getByRole(&#39;menu&#39;, { name: &#39;Sort Count of contacts&#39; });
+    await expect(getComputedStyle(sortMenu).fontFamily).toContain(&#39;Zoho Puvi&#39;);
+    await expect(sortMenu.querySelectorAll(&#39;svg&#39;)).toHaveLength(2);
     await userEvent.click(page.getByRole(&#39;menuitemradio&#39;, { name: &#39;Asc&#39;, exact: true }));
     await expect(countSort.closest(&#39;th&#39;)).toHaveAttribute(&#39;aria-sort&#39;, &#39;ascending&#39;);
     await expect(firstMonthValues()).toEqual([48, 61, 79, 80]);
@@ -34559,6 +34772,14 @@ export const V2Summary: Story = {
     await expect(accountHeader.getBoundingClientRect().width).toBe(initialColumnWidth + 20);
     await userEvent.keyboard(&#39;{ArrowLeft}{ArrowLeft}&#39;);
     await expect(resize).toHaveAttribute(&#39;aria-valuenow&#39;, &#39;180&#39;);
+    await userEvent.keyboard(&#39;{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}&#39;);
+    await expect(resize).toHaveAttribute(&#39;aria-valuenow&#39;, &#39;100&#39;);
+    const accountCell = table.querySelector(&#39;tbody tr td:nth-child(3)&#39;)!;
+    await expect(getComputedStyle(accountCell).textOverflow).toBe(&#39;ellipsis&#39;);
+    await expect(getComputedStyle(accountCell).overflow).toBe(&#39;hidden&#39;);
+    await expect(accountCell.scrollWidth).toBeGreaterThan(accountCell.clientWidth);
+    await expect(getComputedStyle(table).minWidth).toBe(&#39;100%&#39;);
+    await userEvent.keyboard(&#39;{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}&#39;);
     const total = within(table).getByRole(&#39;rowheader&#39;, { name: &#39;Grand Total&#39;, exact: true });
     await expect(total.closest(&#39;tfoot&#39;)).not.toBeNull();
     await expect(total).toBeVisible();
@@ -34717,7 +34938,22 @@ export const V2AddGroup: Story = {
     await expect(deleteGroup).toHaveAttribute(&#39;data-variant&#39;, &#39;ghost-red&#39;);
     await userEvent.click(deleteGroup);
     await expect(canvas.queryByRole(&#39;region&#39;, { name: &#39;Add row group&#39; })).not.toBeInTheDocument();
-    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Add New Group&#39; })).toBeVisible();
+    const addGroup = canvas.getByRole(&#39;button&#39;, { name: &#39;Add New Group&#39; });
+    await expect(addGroup).toBeVisible();
+    await expect(addGroup.closest(&#39;.jrv2-group-heading&#39;)).toContainElement(canvas.getByRole(&#39;heading&#39;, { name: &#39;Row Groups&#39;, exact: true }));
+    await expect(addGroup).toHaveClass(&#39;jrv2-builder-edit-btn&#39;);
+    await expect(addGroup).toHaveTextContent(&#39;+&#39;);
+    await userEvent.click(addGroup);
+    const newGroupEditor = within(canvas.getByRole(&#39;region&#39;, { name: &#39;Add row group&#39; }));
+    await userEvent.click(newGroupEditor.getByRole(&#39;button&#39;, { name: &#39;Recommended Fields&#39; }));
+    await userEvent.click(await within(document.body).findByRole(&#39;option&#39;, { name: &#39;Account&#39;, exact: true }));
+    await userEvent.clear(newGroupEditor.getByRole(&#39;textbox&#39;));
+    await userEvent.type(newGroupEditor.getByRole(&#39;textbox&#39;), &#39;Account grouping&#39;);
+    await userEvent.click(newGroupEditor.getByRole(&#39;button&#39;, { name: &#39;Done&#39;, exact: true }));
+    const addedGroup = canvas.getByRole(&#39;button&#39;, { name: &#39;Edit Account grouping group&#39; }).closest(&#39;.jrv2-joined-group&#39;);
+    await expect(addedGroup).toHaveClass(&#39;jrv2-joined-group--highlighted&#39;);
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Edit Monthly records group&#39; }).closest(&#39;.jrv2-joined-group&#39;)).not.toHaveClass(&#39;jrv2-joined-group--highlighted&#39;);
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Reorder Account grouping group&#39; })).toBeInTheDocument();
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Add New Group&#39; }));
   },
 };
@@ -38751,23 +38987,9 @@ export const EmailVerification: Story = {
       else await expect(templateGeometry).toEqual(emailTemplateGeometry);
       await userEvent.hover(field);
       await expect(getComputedStyle(field).borderColor).toBe(border);
-      if (title === &#39;Edit Email Content&#39;) {
-      await expect(preview.getByRole(&#39;button&#39;, { name: &#39;English (United States)&#39; })).toBeVisible();
-      await userEvent.click(preview.getByRole(&#39;button&#39;, { name: &#39;English (United States)&#39; }));
-      const languageMenu = body.getByRole(&#39;listbox&#39;);
-      const languageMenuWidth = languageMenu.getBoundingClientRect().width;
-      for (const label of languageMenu.querySelectorAll(&#39;.dropdown-option-label&#39;)) {
-        await expect(label.scrollWidth).toBeLessThanOrEqual(label.clientWidth);
-      }
-      await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;French&#39;, exact: true }));
-      const frenchTrigger = preview.getByRole(&#39;button&#39;, { name: &#39;French&#39;, exact: true });
-      await expect(frenchTrigger).toBeVisible();
-      await userEvent.click(frenchTrigger);
-      await expect(Math.round(body.getByRole(&#39;listbox&#39;).getBoundingClientRect().width)).toBe(Math.round(languageMenuWidth));
-      await expect(languageMenuWidth).toBeGreaterThan(frenchTrigger.getBoundingClientRect().width);
-      await userEvent.click(body.getByRole(&#39;option&#39;, { name: &#39;French&#39;, exact: true }));
-      } else {
-        await expect(preview.queryByRole(&#39;button&#39;, { name: &#39;English (United States)&#39; })).not.toBeInTheDocument();
+      await expect(preview.queryByRole(&#39;button&#39;, { name: &#39;Template language&#39; })).not.toBeInTheDocument();
+      await expect(preview.queryByRole(&#39;button&#39;, { name: &#39;English (United States)&#39; })).not.toBeInTheDocument();
+      if (title !== &#39;Edit Email Content&#39;) {
         await expect(preview.getByRole(&#39;heading&#39;, { name: &#39;Email address verified&#39; })).toBeVisible();
         await expect(editor.closest(&#39;.record-auth-template&#39;)).toHaveClass(&#39;record-auth-template--page&#39;);
         await expect(editor).not.toHaveTextContent(&#39;${Organization.OrganizationName}&#39;);
@@ -38782,6 +39004,28 @@ export const EmailVerification: Story = {
         const from = preview.getByRole(&#39;button&#39;, { name: &#39;Record Owner’s Email&#39; });
         await expect(getComputedStyle(from).fontSize).toBe(&#39;14px&#39;);
         if (window.innerWidth &gt;= 900) await expect(Math.round(from.getBoundingClientRect().width)).toBe(390);
+        await userEvent.click(from);
+        const senderList = within(await body.findByRole(&#39;listbox&#39;));
+        for (const group of [&#39;My Email&#39;, &#39;Other Emails&#39;, &#39;Organization Emails&#39;]) {
+          await expect(senderList.getByText(group, { exact: true })).toBeInTheDocument();
+        }
+        const senderLabels = [
+          &#39;My Email (alex.morgan@example.com)&#39;, &#39;Record Owner’s Email&#39;, &#39;Account Manager’s Email&#39;,
+          &#39;Created By User’s Email&#39;, &#39;Sales Representative’s Email&#39;, &#39;Customer Success Manager’s Email&#39;,
+          &#39;Sales Team (sales@example.com)&#39;, &#39;Customer Support (support@example.com)&#39;,
+          &#39;Support Notifications (notifications@example.com)&#39;,
+        ];
+        await expect(senderList.getAllByRole(&#39;option&#39;)).toHaveLength(senderLabels.length);
+        for (const label of senderLabels) {
+          await expect(senderList.getByRole(&#39;option&#39;, { name: label, exact: true })).toBeInTheDocument();
+        }
+        await expect(senderList.getByRole(&#39;option&#39;, { name: &#39;Record Owner’s Email&#39; })).toHaveAttribute(&#39;aria-selected&#39;, &#39;true&#39;);
+        const senderSearch = senderList.getByRole(&#39;textbox&#39;);
+        await userEvent.type(senderSearch, &#39;Support&#39;);
+        await expect(senderList.getAllByRole(&#39;option&#39;)).toHaveLength(2);
+        await expect(senderList.queryByText(&#39;Other Emails&#39;, { exact: true })).not.toBeInTheDocument();
+        await userEvent.click(senderList.getByRole(&#39;option&#39;, { name: &#39;Support Notifications (notifications@example.com)&#39; }));
+        await expect(preview.getByRole(&#39;button&#39;, { name: &#39;Support Notifications (notifications@example.com)&#39; })).toBeVisible();
         for (const label of [&#39;From&#39;, &#39;Subject&#39;]) {
           await expect(getComputedStyle(preview.getByText(label, { exact: true })).textAlign).toBe(&#39;right&#39;);
         }
@@ -41202,10 +41446,10 @@ import { UsageRecipientDialog } from &#39;./UsageRecipientDialog&#39;;
 import type { UsageRecipient } from &#39;./UsageRecipientDialog&#39;;
 import type { TemplateSettings } from &#39;./TemplateDialog&#39;;
 import {
-  AGGREGATION_LABELS, COMPARISON_OPTIONS, INTERVAL_OPTIONS, WINDOW_OPTIONS, WINDOW_MAX,
+  COMPARISON_OPTIONS, INTERVAL_OPTIONS, WINDOW_OPTIONS, WINDOW_MAX,
   USAGE_MESSAGE_FIELDS, usageNotificationMessage,
-  changeUsageMeasure, createUsageTrigger, prettyUsageName, selectedUsageMeasure,
-  usageMeasures, usageTriggerSummary, usageValueUnit, usageWindowApplies, validateUsageTrigger,
+  changeUsageBasis, createUsageTrigger, prettyUsageName, selectedUsageMeasure,
+  usageBasisOptions, usageBasisValue, usageTriggerSummary, usageValueUnit, usageWindowApplies, validateUsageTrigger,
 } from &#39;./UsageLimitNotification.logic&#39;;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -41234,6 +41478,28 @@ type Story = StoryObj;
 // ─────────────────────────────────────────────────────────────────────────────
 
 const FEATURE_OPTIONS = Object.entries(USAGE_FEATURES).map(([value, feature]) =&gt; ({ value, label: feature.label }));
+
+function UsageBasisDropdown({ feature, value, onChange, error }: {
+  feature: string; value: string; onChange: (value: string) =&gt; void; error: boolean;
+}) {
+  const [filter, setFilter] = useState(&#39;All&#39;);
+  const options = usageBasisOptions(feature);
+  return (
+    &lt;Dropdown layout=&quot;vertical&quot; triggerAriaLabel=&quot;Based on&quot; width={390} tooltipVariant=&quot;white&quot; tooltipMaxWidth={600}
+      error={error}
+      helperText={error ? &lt;span role=&quot;alert&quot;&gt;Select a supported measure and calculation.&lt;/span&gt; : undefined}
+      moduleFilter={[&#39;All&#39;, ...new Set(options.map(option =&gt; option.aggregation))]}
+      moduleValue={filter} onModuleChange={setFilter} moduleFilterAriaLabel=&quot;Calculation filter&quot;
+      options={options.map(option =&gt; ({
+        value: option.value, label: option.label,
+        module: filter === &#39;All&#39; ? undefined : option.aggregation,
+        trailingIcon: &lt;Tooltip content={option.description} variant=&quot;white&quot; maxWidth={600} placement=&quot;top&quot; followCursor&gt;
+          &lt;CrmAlertInfo className=&quot;usage-notification-measure-info&quot; width={12} height={12} tabIndex={0} role=&quot;img&quot; aria-label={`About ${option.label}`} /&gt;
+        &lt;/Tooltip&gt;,
+      }))}
+      value={value} onChange={onChange} /&gt;
+  );
+}
 
 
 const ZOHO_USER_OPTIONS = [
@@ -41537,6 +41803,48 @@ export const CreateNotification: Story = {
     await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Webhooks&#39;, exact: true }));
     await expect(page.queryByRole(&#39;alert&#39;)).not.toBeInTheDocument();
     await expect(page.getByRole(&#39;button&#39;, { name: &#39;Based on&#39;, exact: true })).toBeVisible();
+    await expect(page.queryByRole(&#39;button&#39;, { name: &#39;Calculation&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Feature&#39;, exact: true }));
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;API&#39;, exact: true }));
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Based on&#39;, exact: true })).toHaveTextContent(&#39;Total Free Credit Used&#39;);
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Based on&#39;, exact: true }));
+    for (const label of [&#39;Total Credit Used per API&#39;, &#39;Count of Credit Used per API&#39;, &#39;Average of Credit Used per API&#39;]) {
+      await expect(page.getByRole(&#39;option&#39;, { name: label, exact: true })).toBeInTheDocument();
+    }
+    for (const [label, explanation] of [
+      [&#39;Total Credit Used per API&#39;, &#39;Adds up Credit Used per API&#39;],
+      [&#39;Count of Credit Used per API&#39;, &#39;Counts the matching API calls&#39;],
+      [&#39;Average of Credit Used per API&#39;, &#39;Calculates the average of Credit Used per API&#39;],
+      [&#39;Maximum of Credit Used per API&#39;, &#39;Returns the highest recorded value&#39;],
+      [&#39;Minimum of Credit Used per API&#39;, &#39;Returns the lowest recorded value&#39;],
+    ]) {
+      const info = page.getByRole(&#39;option&#39;, { name: label, exact: true })
+        .querySelector(&#39;.usage-notification-measure-info&#39;)!;
+      await userEvent.hover(info);
+      await expect(await page.findByRole(&#39;tooltip&#39;)).toHaveTextContent(explanation);
+      await userEvent.unhover(info);
+      await waitFor(() =&gt; expect(page.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument());
+    }
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Calculation filter&#39;, exact: true }));
+    await userEvent.click(within(page.getByRole(&#39;listbox&#39;, { name: &#39;Calculation filter&#39; })).getByRole(&#39;option&#39;, { name: &#39;Total&#39;, exact: true }));
+    await expect(page.getByRole(&#39;option&#39;, { name: &#39;Total Free Credit Used&#39;, exact: true })).toBeInTheDocument();
+    await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Average of Credit Used per API&#39;, exact: true })).not.toBeInTheDocument();
+    const basisSearch = page.getByRole(&#39;textbox&#39;, { name: &#39;Search options&#39;, exact: true });
+    await userEvent.type(basisSearch, &#39;per API&#39;);
+    await expect(page.getByRole(&#39;option&#39;, { name: &#39;Total Credit Used per API&#39;, exact: true })).toBeInTheDocument();
+    await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Total Free Credit Used&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.clear(basisSearch);
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Calculation filter&#39;, exact: true }));
+    await userEvent.click(within(page.getByRole(&#39;listbox&#39;, { name: &#39;Calculation filter&#39; })).getByRole(&#39;option&#39;, { name: &#39;All&#39;, exact: true }));
+    await expect(page.getByRole(&#39;option&#39;, { name: &#39;Count of Credit Used per API&#39;, exact: true })).toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Calculation filter&#39;, exact: true }));
+    await userEvent.click(within(page.getByRole(&#39;listbox&#39;, { name: &#39;Calculation filter&#39; })).getByRole(&#39;option&#39;, { name: &#39;Average&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Total Credit Used per API&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Average of Credit Used per API&#39;, exact: true }));
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Based on&#39;, exact: true })).toHaveTextContent(&#39;Average of Credit Used per API&#39;);
+    await expect(page.queryByRole(&#39;button&#39;, { name: &#39;Calculation&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Feature&#39;, exact: true }));
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Webhooks&#39;, exact: true }));
     await userEvent.click(await page.findByRole(&#39;button&#39;, { name: &#39;Select User&#39;, exact: true }));
     const directory = within(await page.findByRole(&#39;region&#39;, { name: &#39;Available recipients&#39; }));
     await waitFor(() =&gt; expect(page.getByText(&#39;Email: You can select up to 90 CRM users and add up to 10 additional email addresses. The total number of email recipients cannot exceed 100.&#39;)).toBeVisible());
@@ -42029,25 +42337,10 @@ export const CreateNotification: Story = {
             &lt;&gt;
               &lt;FormRow label=&quot;Based on&quot; align=&quot;start&quot; labelOffset={7}&gt;
                 &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;start&#39;, flexWrap: &#39;wrap&#39;, gap: &#39;calc(var(--ds-font-size-base) * 0.6)&#39; }}&gt;
-                  &lt;Dropdown layout=&quot;vertical&quot; triggerAriaLabel=&quot;Based on&quot; width={390} tooltipVariant=&quot;white&quot; tooltipMaxWidth={600}
-                    error={measureError}
-                    helperText={measureError ? &lt;span role=&quot;alert&quot;&gt;Select a supported measure and calculation.&lt;/span&gt; : undefined}
-                    options={usageMeasures(trigger.feature).map(field =&gt; ({
-                      value: field.name,
-                      label: prettyUsageName(field.name),
-                      trailingIcon: &lt;Tooltip content={field.description} variant=&quot;white&quot; maxWidth={600} placement=&quot;top&quot; followCursor&gt;
-                        &lt;CrmAlertInfo className=&quot;usage-notification-measure-info&quot; width={12} height={12} tabIndex={0} role=&quot;img&quot; aria-label={`About ${prettyUsageName(field.name)}`} /&gt;
-                      &lt;/Tooltip&gt;,
-                    }))}
-                    value={trigger.measure} onChange={(value: string) =&gt; {
-                      setTrigger(current =&gt; changeUsageMeasure(current, value)); setTriggerError(undefined);
+                  &lt;UsageBasisDropdown key={trigger.feature} feature={trigger.feature} error={measureError}
+                    value={usageBasisValue(trigger)} onChange={(value: string) =&gt; {
+                      setTrigger(current =&gt; changeUsageBasis(current, value)); setTriggerError(undefined);
                     }} /&gt;
-                  {measure &amp;&amp; measure.aggs.length &gt; 1 &amp;&amp; &lt;&gt;
-                    &lt;span style={labelStyle}&gt;by&lt;/span&gt;
-                    &lt;Dropdown layout=&quot;vertical&quot; triggerAriaLabel=&quot;Calculation&quot; width={150}
-                      options={measure.aggs.map(value =&gt; ({ value, label: AGGREGATION_LABELS[value] }))}
-                      value={trigger.calculation} onChange={(calculation: string) =&gt; updateTrigger({ calculation })} /&gt;
-                  &lt;/&gt;}
                 &lt;/div&gt;
               &lt;/FormRow&gt;
               {measure &amp;&amp; &lt;FormRow label=&quot;When&quot;&gt;
@@ -42859,25 +43152,10 @@ export const CreateNotification: Story = {
           &lt;&gt;
             &lt;FormRow label=&quot;Based on&quot; align=&quot;start&quot; labelOffset={7}&gt;
               &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;start&#39;, flexWrap: &#39;wrap&#39;, gap: &#39;calc(var(--ds-font-size-base) * 0.6)&#39; }}&gt;
-                &lt;Dropdown layout=&quot;vertical&quot; triggerAriaLabel=&quot;Based on&quot; width={390} tooltipVariant=&quot;white&quot; tooltipMaxWidth={600}
-                  error={measureError}
-                  helperText={measureError ? &lt;span role=&quot;alert&quot;&gt;Select a supported measure and calculation.&lt;/span&gt; : undefined}
-                  options={usageMeasures(trigger.feature).map(field =&gt; ({
-                    value: field.name,
-                    label: prettyUsageName(field.name),
-                    trailingIcon: &lt;Tooltip content={field.description} variant=&quot;white&quot; maxWidth={600} placement=&quot;top&quot; followCursor&gt;
-                      &lt;CrmAlertInfo className=&quot;usage-notification-measure-info&quot; width={12} height={12} tabIndex={0} role=&quot;img&quot; aria-label={`About ${prettyUsageName(field.name)}`} /&gt;
-                    &lt;/Tooltip&gt;,
-                  }))}
-                  value={trigger.measure} onChange={(value: string) =&gt; {
-                    setTrigger(current =&gt; changeUsageMeasure(current, value)); setTriggerError(undefined);
+                &lt;UsageBasisDropdown key={trigger.feature} feature={trigger.feature} error={measureError}
+                  value={usageBasisValue(trigger)} onChange={(value: string) =&gt; {
+                    setTrigger(current =&gt; changeUsageBasis(current, value)); setTriggerError(undefined);
                   }} /&gt;
-                {measure &amp;&amp; measure.aggs.length &gt; 1 &amp;&amp; &lt;&gt;
-                  &lt;span style={labelStyle}&gt;by&lt;/span&gt;
-                  &lt;Dropdown layout=&quot;vertical&quot; triggerAriaLabel=&quot;Calculation&quot; width={150}
-                    options={measure.aggs.map(value =&gt; ({ value, label: AGGREGATION_LABELS[value] }))}
-                    value={trigger.calculation} onChange={(calculation: string) =&gt; updateTrigger({ calculation })} /&gt;
-                &lt;/&gt;}
               &lt;/div&gt;
             &lt;/FormRow&gt;
             {measure &amp;&amp; &lt;FormRow label=&quot;When&quot;&gt;
