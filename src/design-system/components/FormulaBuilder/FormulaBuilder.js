@@ -7,6 +7,24 @@ import { Input } from '../Input/Input';
 import { Dropdown } from '../Dropdown/Dropdown';
 import { Textarea } from '../Textarea/Textarea';
 import { Tooltip } from '../Tooltip/Tooltip';
+import { Modal } from '../Modal/Modal';
+
+// Names from the Icon Gallery's existing field-builder collection.
+const FIELD_TYPE_ICONS = {
+  text: 'LibBuilderSingleLine',
+  number: 'LibBuilderNumber',
+  decimal: 'LibBuilderDecimal',
+  currency: 'LibBuilderCurrency',
+  percent: 'LibBuilderPercent',
+  percentage: 'LibBuilderPercent',
+  picklist: 'LibBuilderPickList',
+  lookup: 'LibBuilderLookup',
+  user: 'LibBuilderUser',
+  email: 'LibBuilderEmail',
+  phone: 'LibBuilderPhone',
+  date: 'LibBuilderDate',
+  datetime: 'LibBuilderDateTime',
+};
 
 export const OPERATORS = [
   { symbol: '+', label: 'Add', insert: ' + ' },
@@ -61,7 +79,7 @@ function ChevronIcon({ open }) {
   );
 }
 
-function ItemList({ groups, query, onInsert }) {
+function ItemList({ groups, query, onInsert, showFieldIcons }) {
   const [collapsed, setCollapsed] = useState({});
   const q = query.trim().toLowerCase();
 
@@ -100,7 +118,14 @@ function ItemList({ groups, query, onInsert }) {
             {group.items.map(item => (
               <li key={item.id} className="fb-item">
                 <span className="fb-item-main">
-                  {item.icon && <Icon name={item.icon} size={12} aria-hidden="true" />}
+                  {(item.icon || showFieldIcons) && (
+                    <Icon
+                      name={item.icon || FIELD_TYPE_ICONS[item.fieldType] || FIELD_TYPE_ICONS.text}
+                      size={16}
+                      className="fb-field-icon"
+                      aria-hidden="true"
+                    />
+                  )}
                   <span className="fb-item-label">{item.label}</span>
                   {item.description && (
                     <Tooltip content={item.description} placement="top" followCursor>
@@ -129,6 +154,8 @@ function ItemList({ groups, query, onInsert }) {
 
 export function FormulaBuilder({
   title = 'New Formula',
+  variant = 'default',
+  isOpen = true,
   defaultTab = 'fields',
   functions = [],
   fields = [],
@@ -186,9 +213,9 @@ export function FormulaBuilder({
 
   const listGroups = activeTab === 'functions' ? functions : fields;
 
-  return (
-    <section className="fb-root" aria-labelledby={titleId}>
-      <h2 id={titleId} className="fb-title">{title}</h2>
+  const content = (
+    <section className="fb-root" aria-labelledby={variant === 'modal' ? undefined : titleId} aria-label={variant === 'modal' ? title : undefined}>
+      {variant !== 'modal' && <h2 id={titleId} className="fb-title">{title}</h2>}
 
       <div className="fb-panels">
         {/* ── Left: functions and fields ── */}
@@ -225,6 +252,7 @@ export function FormulaBuilder({
                   key={activeTab}
                   groups={listGroups}
                   query={query}
+                  showFieldIcons={activeTab === 'fields'}
                   onInsert={item => insertText(item.insert ?? item.label)}
                 />
               </div>
@@ -311,6 +339,16 @@ export function FormulaBuilder({
       </div>
     </section>
   );
+
+  if (variant === 'modal') {
+    return (
+      <Modal className="fb-modal" isOpen={isOpen} title={title} width={1200} onClose={onCancel} showFooter={false}>
+        {content}
+      </Modal>
+    );
+  }
+
+  return content;
 }
 
 export default FormulaBuilder;

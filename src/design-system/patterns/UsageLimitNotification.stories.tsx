@@ -111,7 +111,7 @@ const labelStyle: React.CSSProperties = {
   fontWeight: 'var(--ds-font-weight-regular)',
   color:      'var(--ds-text-label)',
   whiteSpace: 'nowrap',
-  textAlign:  'right',
+  textAlign:  'start',
 };
 
 const sectionHeadingStyle: React.CSSProperties = {
@@ -235,6 +235,7 @@ type UsageListRow = {
     trigger: ReturnType<typeof createUsageTrigger>; recipients: UsageRecipient[];
     pushEmailEnabled: boolean; externalAppsEnabled: boolean;
     notifyPush: boolean; notifyEmail: boolean; notifyZohoCliq: boolean; notifySlack: boolean;
+    externalAppOrder?: string[];
     users: TagItem[]; channels: TagItem[]; slackUsers?: TagItem[]; slackChannels?: TagItem[]; slackTeam?: string; message: string; template?: TemplateSettings;
   };
 };
@@ -452,24 +453,30 @@ export const CreateNotification: Story = {
     const cliq = within(page.getByRole('group', { name: 'Zoho Cliq recipients' }));
     await userEvent.click(cliq.getByRole('button', { name: 'Select Recipients' }));
     await waitFor(() => expect(page.getByText('Zoho Cliq Notification', { exact: true })).toBeVisible());
-    await expect(page.getByPlaceholderText('Select recipients')).toBeVisible();
+    await expect(await page.findByPlaceholderText('Select recipients')).toBeVisible();
     await userEvent.click(page.getAllByRole('button', { name: 'Cancel', exact: true }).at(-1)!);
     await waitFor(() => expect(page.queryByText('Zoho Cliq Notification', { exact: true })).not.toBeInTheDocument());
     await userEvent.click(page.getByRole('checkbox', { name: 'Slack', exact: true }));
     const slack = within(page.getByRole('group', { name: 'Slack recipients' }));
     await userEvent.click(slack.getByRole('button', { name: 'Select Recipients' }));
     await waitFor(() => expect(page.getByText('Slack Notification', { exact: true })).toBeVisible());
-    await expect(page.getByPlaceholderText('Select recipients')).toBeDisabled();
+    await expect(page.queryByRole('checkbox', { name: 'Notify to users' })).not.toBeInTheDocument();
+    await expect(page.queryByRole('checkbox', { name: 'Notify in Channels' })).not.toBeInTheDocument();
+    await expect(page.queryByPlaceholderText('Select recipients')).not.toBeInTheDocument();
+    await expect(page.queryByText('Select a team first to choose recipients.')).not.toBeInTheDocument();
     await expect(page.getByRole('button', { name: 'Slack team' })).toHaveTextContent('Select');
     const appModal = page.getByText('Slack Notification', { exact: true }).closest('.modal-dialog') as HTMLElement;
     await expect(appModal.style.width).toBe('fit-content');
-    await expect(getComputedStyle(appModal.querySelector('.usage-app-recipients')!).gap).toBe('28px');
+    await expect(appModal.querySelector('.usage-app-recipients')).toBeNull();
     await userEvent.click(page.getByRole('button', { name: 'Slack team' }));
     await expect(page.queryByRole('option', { name: 'Select', exact: true })).not.toBeInTheDocument();
     await expect(page.getByRole('option', { name: 'Bennett Electronics', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Authorise another team', exact: true })).toBeVisible();
     await userEvent.click(page.getByRole('option', { name: 'scranton store', exact: true }));
     await expect(page.getByPlaceholderText('Select recipients')).toBeEnabled();
+    await expect(page.queryByText('Select a team first to choose recipients.')).not.toBeInTheDocument();
+    await expect(page.getByRole('checkbox', { name: 'Notify to users' })).toBeEnabled();
+    await expect(getComputedStyle(appModal.querySelector('.usage-app-recipients')!).gap).toBe('28px');
     await userEvent.click(page.getByRole('checkbox', { name: 'Notify in Channels' }));
     await expect(page.getByPlaceholderText('Select channels')).toBeVisible();
     await userEvent.click(page.getByRole('button', { name: 'Done', exact: true }));
@@ -485,7 +492,8 @@ export const CreateNotification: Story = {
     await waitFor(() => expect(page.queryByText('Slack Notification', { exact: true })).not.toBeInTheDocument());
     await userEvent.click(page.getByRole('button', { name: 'Cancel', exact: true }));
   },
-  render: () => {
+  render: (args) => {
+    const addExternalAppsVariant = args.externalAppsVariant === 'dropdown';
     const [open, setOpen] = useState(false);
     const [sidebarId, setSidebarId] = useState('admin-tools');
     const [featureFilter, setFeatureFilter] = useState('all');
@@ -556,6 +564,12 @@ export const CreateNotification: Story = {
     const [notifyEmail,    setNotifyEmail]    = useState(true);
     const [notifyZohoCliq, setNotifyZohoCliq] = useState(true);
     const [notifySlack,    setNotifySlack]    = useState(false);
+    const [externalAppOrder, setExternalAppOrder] = useState<string[]>([]);
+    const removeExternalApp = (app: string) => {
+      setExternalAppOrder(current => current.filter(value => value !== app));
+      if (app === 'cliq') setNotifyZohoCliq(false);
+      else setNotifySlack(false);
+    };
 
     // Message
     const criteriaKey = JSON.stringify(trigger);
@@ -668,8 +682,11 @@ export const CreateNotification: Story = {
       setExternalAppsEnabled(!systemEdit && (config?.externalAppsEnabled ?? !!row?.channels?.some(channel => ['Zoho Cliq', 'Slack'].includes(channel))));
       setNotifyPush(systemEdit || (config?.notifyPush ?? (row ? !!row.channels?.includes('Push Notification') : true)));
       setNotifyEmail(systemEdit || (config?.notifyEmail ?? (row ? !!row.channels?.includes('Emails') : true)));
-      setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes('Zoho Cliq') : true));
+      setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes('Zoho Cliq') : !addExternalAppsVariant));
       setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes('Slack'));
+      setExternalAppOrder(config?.externalAppOrder ?? (row?.channels ?? [])
+        .filter(channel => channel === 'Zoho Cliq' || channel === 'Slack')
+        .map(channel => channel === 'Zoho Cliq' ? 'cliq' : 'slack'));
       setZohoCommittedUsers(config?.users ?? []);
       setZohoCommittedChannels(config?.channels ?? []);
       setSlackCommittedUsers(config?.slackUsers ?? []);
@@ -790,7 +807,7 @@ export const CreateNotification: Story = {
           className="usage-app-modal"
         >
           <div className="usage-app-modal__content">
-            {recipientApp === 'Slack' && <Dropdown label="Team" placeholder="Select" width="100%" columns="auto minmax(0, 1fr)"
+            {recipientApp === 'Slack' && <Dropdown label="Team" placeholder="Select" width="100%"
               triggerAriaLabel="Slack team" value={slackDraftTeam}
               options={slackTeams}
               onChange={(team: string) => {
@@ -801,10 +818,11 @@ export const CreateNotification: Story = {
               }}
               panelStyle={{ '--usage-slack-team-menu': 1 } as React.CSSProperties}
               footerAction={{ label: 'Authorise another team', icon: null, onClick: () => {} }} />}
-            <fieldset className="usage-app-recipients" disabled={recipientApp === 'Slack' && !slackDraftTeam}>
+            {(recipientApp !== 'Slack' || slackDraftTeam) && <fieldset className="usage-app-recipients">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <Checkbox
                 label="Notify to users"
+                disabled={recipientApp === 'Slack' && !slackDraftTeam}
                 checked={zohoNotifyUsers}
                 onChange={(e) => setZohoNotifyUsers(e.target.checked)}
               />
@@ -814,6 +832,7 @@ export const CreateNotification: Story = {
                   options={ZOHO_USER_OPTIONS}
                   onChange={setZohoDraftUsers}
                   placeholder="Select recipients"
+                  disabled={recipientApp === 'Slack' && !slackDraftTeam}
                   width="100%"
                 />
               )}
@@ -821,6 +840,7 @@ export const CreateNotification: Story = {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <Checkbox
                 label="Notify in Channels"
+                disabled={recipientApp === 'Slack' && !slackDraftTeam}
                 checked={zohoNotifyChannels}
                 onChange={(e) => setZohoNotifyChannels(e.target.checked)}
               />
@@ -830,11 +850,12 @@ export const CreateNotification: Story = {
                   options={ZOHO_CHANNEL_OPTIONS}
                   onChange={setZohoDraftChannels}
                   placeholder="Select channels"
+                  disabled={recipientApp === 'Slack' && !slackDraftTeam}
                   width="100%"
                 />
               )}
             </div>
-            </fieldset>
+            </fieldset>}
           </div>
         </Modal>
 
@@ -871,7 +892,7 @@ export const CreateNotification: Story = {
               modifiedTime: new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' }).format(new Date()),
               channels, status: existing?.status ?? 'Active', summary: usageTriggerSummary(trigger),
               config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
-                notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
+                notifyPush, notifyEmail, notifyZohoCliq, notifySlack, externalAppOrder, users: zohoCommittedUsers,
                 channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
                 message, template: emailTemplate },
             };
@@ -983,7 +1004,7 @@ export const CreateNotification: Story = {
             {/* Push Notification / Email */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <span style={subHeadingStyle}>Push Notification / Email</span>
+                <h3 style={{ ...subHeadingStyle, margin: 0 }}>Push Notification / Email</h3>
                 {!isSystemDefined && <Switch
                   checked={pushEmailEnabled}
                   onChange={(e) => setPushEmailEnabled(e.target.checked)}
@@ -1099,28 +1120,33 @@ export const CreateNotification: Story = {
 
             {/* External apps */}
             {!isSystemDefined && <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <span style={subHeadingStyle}>External apps</span>
+              {addExternalAppsVariant ? (
+                externalAppsEnabled && (notifyZohoCliq || notifySlack) && <h3 style={{ ...subHeadingStyle, margin: 0 }}>External apps</h3>
+              ) : <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <h3 style={{ ...subHeadingStyle, margin: 0 }}>External apps</h3>
                 <Switch
                   checked={externalAppsEnabled}
                   onChange={(e) => setExternalAppsEnabled(e.target.checked)}
                   aria-label="Toggle external app notifications"
                 />
-              </div>
+              </div>}
 
               {externalAppsEnabled && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  <FormRow label="Notify Via" align="center">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      {/* Isolate Checkbox's align-self: flex-start so the row can center it. */}
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {(addExternalAppsVariant ? externalAppOrder : ['cliq', 'slack']).map(app => app === 'cliq' ? (
+                  (!addExternalAppsVariant || notifyZohoCliq) && <FormRow key={app} label={addExternalAppsVariant ? 'Notify via Zoho Cliq' : 'Notify Via'} align="center">
+                    <div className={addExternalAppsVariant ? 'usage-external-app-row' : undefined} style={{ display: 'flex', alignItems: 'center', gap: addExternalAppsVariant ? 'var(--ds-space-6, 6px)' : 12 }}>
+                      {/* Keep the checkbox in the original variant only. */}
+                      {!addExternalAppsVariant && <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Checkbox
                           label="Zoho Cliq"
                           checked={notifyZohoCliq}
                           onChange={(e) => setNotifyZohoCliq(e.target.checked)}
                         />
-                      </div>
+                      </div>}
                       <div style={{
+                        flex: addExternalAppsVariant ? 1 : undefined,
+                        minWidth: 0,
                         opacity:       notifyZohoCliq ? 1 : 0,
                         pointerEvents: notifyZohoCliq ? 'auto' : 'none',
                       }}>
@@ -1158,14 +1184,20 @@ export const CreateNotification: Story = {
                           </button>}
                         </div>
                       </div>
+                      {addExternalAppsVariant && <button type="button" className="usage-external-app-remove"
+                        aria-label="Remove Zoho Cliq" onClick={() => removeExternalApp('cliq')}>
+                        <Icon name="CrmMinusRounded" size={16} />
+                      </button>}
                     </div>
                   </FormRow>
-                  <div className="usage-slack-row" style={{ paddingLeft: `calc(${LABEL_COL} + 20px)`, display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <Checkbox
+                  ) : (
+                  (!addExternalAppsVariant || notifySlack) && <FormRow key={app} label={addExternalAppsVariant ? 'Notify via Slack' : ''}>
+                    <div className={`usage-slack-row${addExternalAppsVariant ? ' usage-external-app-row' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: addExternalAppsVariant ? 'var(--ds-space-6, 6px)' : 12 }}>
+                    {!addExternalAppsVariant && <Checkbox
                       label="Slack"
                       checked={notifySlack}
                       onChange={(e) => setNotifySlack(e.target.checked)}
-                    />
+                    />}
                     {notifySlack && <div className={`usage-recipient-field usage-cliq-field${slackCommittedUsers.length || slackCommittedChannels.length ? ' usage-recipient-editable' : ''}`}
                       role="group" aria-label="Slack recipients" onClick={(event) => {
                         if (!(event.target instanceof Element) || !event.target.closest('button')) openAppRecipients('Slack');
@@ -1190,7 +1222,40 @@ export const CreateNotification: Story = {
                         className="usage-cliq-edit" aria-label="Edit Slack recipients" aria-haspopup="dialog"
                         onClick={() => openAppRecipients('Slack')}><Icon name="CrmEditFilledMd" size={13} /></button>}
                     </div>}
-                  </div>
+                    {addExternalAppsVariant && <button type="button" className="usage-external-app-remove"
+                      aria-label="Remove Slack" onClick={() => removeExternalApp('slack')}>
+                      <Icon name="CrmMinusRounded" size={16} />
+                    </button>}
+                    </div>
+                  </FormRow>
+                  ))}
+                </div>
+              )}
+
+              {addExternalAppsVariant && !(externalAppsEnabled && notifyZohoCliq && notifySlack) && (
+                <div style={{ alignSelf: 'flex-start', marginBlock: -6 }}>
+                  <Dropdown
+                    width={190}
+                    triggerButtonVariant="ghost-blue"
+                    triggerAriaLabel="Add External Apps"
+                    placeholder="Add External Apps"
+                    panelStyle={{ '--dropdown-option-padding-left': '10px' }}
+                    value=""
+                    showSelectionIndicator={false}
+                    options={[
+                      ...(!externalAppsEnabled || !notifyZohoCliq ? [{ value: 'cliq', label: 'Zoho Cliq' }] : []),
+                      ...(!externalAppsEnabled || !notifySlack ? [{ value: 'slack', label: 'Slack' }] : []),
+                    ]}
+                    onChange={(app: string) => {
+                      setExternalAppOrder(current => !externalAppsEnabled ? [app] : current.includes(app) ? current : [...current, app]);
+                      if (!externalAppsEnabled) {
+                        setNotifyZohoCliq(app === 'cliq');
+                        setNotifySlack(app === 'slack');
+                      } else if (app === 'cliq') setNotifyZohoCliq(true);
+                      else setNotifySlack(true);
+                      setExternalAppsEnabled(true);
+                    }}
+                  />
                 </div>
               )}
             </div>}
@@ -1245,5 +1310,103 @@ export const CreateNotification: Story = {
         />}
       </>
     );
+  },
+};
+
+export const AddExternalApps: Story = {
+  name: 'Create Notification — Add External Apps',
+  args: { externalAppsVariant: 'dropdown' },
+  render: CreateNotification.render,
+  play: async ({ canvasElement }) => {
+    if (!navigator.webdriver && !new URLSearchParams(window.location.search).has('playModal')) return;
+    const page = within(canvasElement.ownerDocument.body);
+    await userEvent.click(page.getByRole('button', { name: 'Create Notification', exact: true }));
+    await expect(page.queryByRole('switch', { name: 'Toggle external app notifications' })).not.toBeInTheDocument();
+    await expect(page.queryByRole('checkbox', { name: 'Zoho Cliq', exact: true })).not.toBeInTheDocument();
+    const addApps = page.getByRole('button', { name: 'Add External Apps', exact: true });
+    await expect(addApps).toHaveAttribute('data-variant', 'ghost-blue');
+    await userEvent.click(addApps);
+    await expect(page.getByRole('option', { name: 'Slack', exact: true })).toBeVisible();
+    await userEvent.click(page.getByRole('option', { name: 'Zoho Cliq', exact: true }));
+    await expect(page.queryByRole('checkbox', { name: 'Zoho Cliq', exact: true })).not.toBeInTheDocument();
+    await expect(page.getByText('Notify via Zoho Cliq', { exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Remove Zoho Cliq', exact: true })).toBeVisible();
+    await expect(page.queryByRole('checkbox', { name: 'Slack', exact: true })).not.toBeInTheDocument();
+    const cliq = within(page.getByRole('group', { name: 'Zoho Cliq recipients' }));
+    await userEvent.click(cliq.getByRole('button', { name: 'Select Recipients' }));
+    await waitFor(() => expect(page.getByText('Zoho Cliq Notification', { exact: true })).toBeVisible());
+    await expect(page.getByPlaceholderText('Select recipients').closest('.tags-container')!.getBoundingClientRect().width).toBe(390);
+    await userEvent.click(page.getByRole('checkbox', { name: 'Notify in Channels' }));
+    await expect(page.getByPlaceholderText('Select channels').closest('.tags-container')!.getBoundingClientRect().width).toBe(390);
+    await userEvent.click(page.getAllByRole('button', { name: 'Cancel', exact: true }).at(-1)!);
+    await waitFor(() => expect(page.queryByText('Zoho Cliq Notification', { exact: true })).not.toBeInTheDocument());
+    const heading = page.getByRole('heading', { name: 'External apps', exact: true });
+    await expect(heading).toBeVisible();
+    const nextAddApps = page.getByRole('button', { name: 'Add External Apps', exact: true });
+    await expect(cliq.getByRole('button', { name: 'Select Recipients' }).getBoundingClientRect().bottom)
+      .toBeLessThanOrEqual(nextAddApps.getBoundingClientRect().top);
+    await expect(Math.abs(heading.getBoundingClientRect().left - nextAddApps.getBoundingClientRect().left)).toBeLessThanOrEqual(1);
+    await userEvent.click(nextAddApps);
+    await expect(page.queryByRole('option', { name: 'Zoho Cliq', exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole('option', { name: 'Slack', exact: true }));
+    await expect(page.queryByRole('checkbox', { name: 'Slack', exact: true })).not.toBeInTheDocument();
+    await expect(page.getByText('Notify via Slack', { exact: true })).toBeVisible();
+    await expect(page.getByRole('group', { name: 'Slack recipients' })).toBeVisible();
+    await userEvent.click(within(page.getByRole('group', { name: 'Slack recipients' })).getByRole('button', { name: 'Select Recipients' }));
+    const teamDropdown = await page.findByRole('button', { name: 'Slack team' });
+    await expect(teamDropdown).toHaveTextContent('Select');
+    const teamRow = teamDropdown.closest('.dropdown-form-row')!;
+    const teamLabel = teamRow.querySelector('.dropdown-label')!;
+    await expect(getComputedStyle(teamLabel).textAlign).toBe('start');
+    const appDialog = teamDropdown.closest('.modal-dialog')!;
+    const appTitle = appDialog.querySelector('.modal-title')!;
+    await expect(teamLabel.getBoundingClientRect().left).toBeCloseTo(appTitle.getBoundingClientRect().left, 0);
+    await expect(getComputedStyle(teamRow).columnGap).toBe('20px');
+    await expect(teamDropdown.getBoundingClientRect().height).toBe(34);
+    await expect(teamDropdown.getBoundingClientRect().width).toBe(390);
+    await expect(page.queryByRole('checkbox', { name: 'Notify to users' })).not.toBeInTheDocument();
+    await expect(page.queryByRole('checkbox', { name: 'Notify in Channels' })).not.toBeInTheDocument();
+    await expect(page.queryByPlaceholderText('Select recipients')).not.toBeInTheDocument();
+    await expect(page.queryByText('Select a team first to choose recipients.')).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole('button', { name: 'Slack team' }));
+    await userEvent.click(page.getByRole('option', { name: 'scranton store', exact: true }));
+    await expect(page.getByRole('checkbox', { name: 'Notify to users' })).toBeEnabled();
+    await expect(page.getByRole('checkbox', { name: 'Notify in Channels' })).toBeEnabled();
+    await expect(page.getByPlaceholderText('Select recipients')).toBeVisible();
+    const usersField = page.getByPlaceholderText('Select recipients').closest('.tags-container')!;
+    await expect(usersField.getBoundingClientRect().width).toBe(390);
+    await expect(usersField.getBoundingClientRect().left).toBe(teamDropdown.getBoundingClientRect().left);
+    await userEvent.click(page.getByRole('checkbox', { name: 'Notify in Channels' }));
+    await expect(page.getByPlaceholderText('Select channels').closest('.tags-container')!.getBoundingClientRect().width).toBe(390);
+    await userEvent.click(page.getAllByRole('button', { name: 'Cancel', exact: true }).at(-1)!);
+    await waitFor(() => expect(page.queryByText('Slack Notification', { exact: true })).not.toBeInTheDocument());
+    await expect(within(heading.parentElement!).getAllByRole('group').map(group => group.getAttribute('aria-label')))
+      .toEqual(['Zoho Cliq recipients', 'Slack recipients']);
+    await expect(page.queryByRole('button', { name: 'Add External Apps', exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole('button', { name: 'Remove Zoho Cliq', exact: true }));
+    await expect(page.queryByRole('group', { name: 'Zoho Cliq recipients' })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole('button', { name: 'Add External Apps', exact: true }));
+    await expect(page.queryByRole('option', { name: 'Slack', exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole('option', { name: 'Zoho Cliq', exact: true }));
+    await expect(page.getByRole('group', { name: 'Zoho Cliq recipients' })).toBeVisible();
+    const externalSection = heading.parentElement!;
+    await expect(within(externalSection).getAllByRole('group').map(group => group.getAttribute('aria-label')))
+      .toEqual(['Slack recipients', 'Zoho Cliq recipients']);
+    const pushHeading = page.getByRole('heading', { name: 'Push Notification / Email', level: 3, exact: true });
+    await expect(heading.tagName).toBe(pushHeading.tagName);
+    const pushSection = pushHeading.parentElement!.parentElement!;
+    await expect(getComputedStyle(externalSection).rowGap).toBe(getComputedStyle(pushSection).rowGap);
+    await expect(getComputedStyle(heading).marginBottom).toBe('0px');
+    const removeSlack = page.getByRole('button', { name: 'Remove Slack', exact: true });
+    const slackField = page.getByRole('group', { name: 'Slack recipients' });
+    await expect(removeSlack.getBoundingClientRect().left - slackField.getBoundingClientRect().right).toBeCloseTo(6, 0);
+    const cliqField = page.getByRole('group', { name: 'Zoho Cliq recipients' });
+    await expect(page.getByRole('button', { name: 'Remove Zoho Cliq' }).getBoundingClientRect().left - cliqField.getBoundingClientRect().right).toBeCloseTo(6, 0);
+    await userEvent.click(removeSlack);
+    await expect(page.queryByRole('group', { name: 'Slack recipients' })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole('button', { name: 'Remove Zoho Cliq', exact: true }));
+    await expect(page.queryByRole('heading', { name: 'External apps', exact: true })).not.toBeInTheDocument();
+    await expect(page.getByRole('button', { name: 'Add External Apps', exact: true })).toBeVisible();
+    await userEvent.click(page.getByRole('button', { name: 'Cancel', exact: true }));
   },
 };

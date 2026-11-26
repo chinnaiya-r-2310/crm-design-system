@@ -655,16 +655,8 @@ th:hover .jrv2-preview-sort-icons {
 
 .jrv2-joined-preview-scroll--scrolled .jrv2-joined-preview-table tr > :first-child {
   border-right-color: transparent;
-}
-
-.jrv2-joined-preview-scroll--scrolled .jrv2-joined-preview-table tr > :first-child::after {
-  content: '';
-  position: absolute;
-  inset-block: 0;
-  left: 100%;
-  width: var(--ds-spacing-2, 8px);
-  pointer-events: none;
-  background: linear-gradient(to right, var(--ds-shadow-dropdown), transparent);
+  /* An outer shadow remains visible when cell contents are clipped for ellipsis. */
+  box-shadow: var(--ds-spacing-1, 4px) 0 var(--ds-spacing-2, 8px) calc(-1 * var(--ds-spacing-1, 4px)) var(--ds-shadow-dropdown);
 }
 
 .jrv2-joined-preview-table thead tr > :first-child {
@@ -1191,6 +1183,7 @@ th:hover .jrv2-preview-sort-icons {
 
 .jrv2-aggregate-content .checkbox-root {
   min-width: 0;
+  max-width: 100%;
   align-items: center;
 }
 
@@ -1199,7 +1192,10 @@ th:hover .jrv2-preview-sort-icons {
 }
 
 .jrv2-aggregate-content .checkbox-label-text {
-  overflow-wrap: anywhere;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .jrv2-aggregate-editor .jrv2-aggregate-heading .jrv2-builder-panel-title {

@@ -45,6 +45,8 @@ export function Tooltip({
   followCursor = false,
   iconLabel,
   disabled = false,
+  /** Only show when the matching child is visually truncated. */
+  overflowSelector,
   wrapperStyle,
   wrapperClassName,
   as: Wrapper = 'span',
@@ -75,6 +77,14 @@ export function Tooltip({
   };
 
   const show = useCallback((event) => {
+    if (overflowSelector) {
+      const label = wrapperRef.current?.querySelector(overflowSelector);
+      if (!label || (label.scrollWidth <= label.clientWidth && label.scrollHeight <= label.clientHeight)) {
+        clearShowTimer();
+        setVisible(false);
+        return;
+      }
+    }
     updatePosition(event);
     clearShowTimer();
     if (delay > 0) {
@@ -82,7 +92,7 @@ export function Tooltip({
     } else {
       setVisible(true);
     }
-  }, [updatePosition, delay]);
+  }, [updatePosition, delay, overflowSelector]);
 
   const hide = useCallback(() => {
     clearShowTimer();

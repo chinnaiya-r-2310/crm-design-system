@@ -9,8 +9,12 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 100%;
+  width: 1200px;
+  height: 800px;
+  max-width: 100%;
+  max-height: 90vh;
   min-width: 0;
+  min-height: 0;
   font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif);
   color: var(--ds-text-base, #313949);
 }
@@ -23,12 +27,25 @@
   color: var(--ds-text-heading, #202123);
 }
 
+/* Modal sizing belongs to FormulaBuilder, not to its callers. */
+.fb-modal {
+  height: 800px;
+  max-width: 100vw;
+}
+
+.fb-modal .fb-root {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+}
+
 /* ── Panels ──────────────────────────────────────────────────────────────── */
 
 .fb-panels {
   display: grid;
   grid-template-columns: 250px minmax(0, 1fr);
-  min-height: 616px;
+  flex: 1;
+  min-height: 0;
   border: 1px solid var(--ds-border-default, #d6d6e3);
   border-radius: 6px;
   background: var(--ds-bg-common-card, #fff);
@@ -175,6 +192,11 @@
   min-width: 0;
 }
 
+.fb-field-icon {
+  flex-shrink: 0;
+  color: var(--ds-icon-primary-label-grey);
+}
+
 .fb-item-label {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -221,7 +243,7 @@
   flex-direction: column;
   min-width: 0;
   min-height: 0;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .fb-operators {
@@ -366,6 +388,7 @@
 /* ── Footer ──────────────────────────────────────────────────────────────── */
 
 .fb-footer {
+  flex-shrink: 0;
   display: flex;
   justify-content: flex-end;
   gap: 10px;

@@ -69,7 +69,7 @@ const meta: Meta<typeof Modal> = {
         component: [
           'Dialog modal with header, form body, optional footer note, and Cancel/Save actions.',
           'Figma: Chinnaiya Style Sheet node 150:25791.',
-          'Renders into `document.body` via React portal. Closes on backdrop click or Escape key.',
+          'Renders into `document.body` via React portal. Traps Tab/Shift+Tab in the topmost modal and restores focus on close. Escape closes only when showClose and closeOnEscape are enabled; backdrop clicks do not dismiss.',
         ].join(' '),
       },
     },
@@ -113,6 +113,23 @@ export const Default: Story = {
       </>
     );
   },
+  play: async ({ canvasElement }) => {
+    const page = within(canvasElement.ownerDocument.body);
+    const trigger = within(canvasElement).getByRole('button', { name: 'Open Modal' });
+    await userEvent.click(trigger);
+    const dialog = await page.findByRole('dialog', { name: 'Edit Record' });
+    const fields = within(dialog).getAllByRole('textbox');
+    await waitFor(() => expect(fields[0]).toHaveFocus());
+    await userEvent.tab({ shift: true });
+    await expect(within(dialog).getByRole('button', { name: 'Save', exact: true })).toHaveFocus();
+    await userEvent.tab();
+    await expect(fields[0]).toHaveFocus();
+    await userEvent.keyboard('{Escape}');
+    await expect(dialog).toBeInTheDocument();
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(page.queryByRole('dialog')).not.toBeInTheDocument());
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
   args: {
     title: 'Edit Record',
     width: 569,
@@ -147,6 +164,61 @@ export const ScrollableForm: Story = {
     await waitFor(() => expect(footer).not.toHaveAttribute('data-shadow'));
     expect(lastInput).toHaveFocus();
     expect(lastInput.getBoundingClientRect().bottom).toBeLessThan(footer.getBoundingClientRect().top - 4);
+  },
+};
+
+/** Focus ownership follows open order, including portals preceding their parent in the DOM. */
+export const NestedFocus: Story = {
+  render: () => {
+    const [parentOpen, setParentOpen] = useState(false);
+    const [childOpen, setChildOpen] = useState(false);
+    return <>
+      <Button onClick={() => setParentOpen(true)}>Open parent</Button>
+      <Modal isOpen={childOpen} title="Nested dialog" onClose={() => setChildOpen(false)} onSave={() => setChildOpen(false)}>
+        <Input label="Disabled field" disabled />
+        <Input label="Nested name" />
+      </Modal>
+      <Modal isOpen={parentOpen} title="Parent dialog" onClose={() => setParentOpen(false)} onSave={() => setParentOpen(false)}>
+        <Button onClick={() => setChildOpen(true)}>Open child</Button>
+      </Modal>
+    </>;
+  },
+  play: async ({ canvasElement }) => {
+    const page = within(canvasElement.ownerDocument.body);
+    const trigger = within(canvasElement).getByRole('button', { name: 'Open parent' });
+    await userEvent.click(trigger);
+    const parent = await page.findByRole('dialog', { name: 'Parent dialog' });
+    const openChild = within(parent).getByRole('button', { name: 'Open child' });
+    await waitFor(() => expect(openChild).toHaveFocus());
+    await userEvent.click(openChild);
+    const child = await page.findByRole('dialog', { name: 'Nested dialog' });
+    const name = within(child).getByRole('textbox', { name: 'Nested name' });
+    await waitFor(() => expect(name).toHaveFocus());
+    await userEvent.tab({ shift: true });
+    await expect(within(child).getByRole('button', { name: 'Save' })).toHaveFocus();
+    await userEvent.tab();
+    await expect(name).toHaveFocus();
+    await userEvent.click(within(child).getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(page.queryByRole('dialog', { name: 'Nested dialog' })).not.toBeInTheDocument());
+    await waitFor(() => expect(openChild).toHaveFocus());
+    within(parent).getByRole('button', { name: 'Save' }).focus();
+    await userEvent.tab();
+    await waitFor(() => expect(openChild).toHaveFocus());
+    await userEvent.click(within(parent).getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(page.queryByRole('dialog')).not.toBeInTheDocument());
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
+};
+
+export const NoFocusableContent: Story = {
+  render: () => <Modal isOpen title="Read-only dialog" showFooter={false} onClose={() => {}}><p>Notification details</p></Modal>,
+  play: async ({ canvasElement }) => {
+    const dialog = await within(canvasElement.ownerDocument.body).findByRole('dialog', { name: 'Read-only dialog' });
+    await expect(dialog).toHaveFocus();
+    await userEvent.tab();
+    await expect(dialog).toHaveFocus();
+    await userEvent.tab({ shift: true });
+    await expect(dialog).toHaveFocus();
   },
 };
 

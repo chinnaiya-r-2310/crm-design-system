@@ -116,6 +116,9 @@ p.user-selection-empty { padding: 10px; }
 .user-selection-recipient-editor .input-field-column { width: auto; min-width: 0; }
 .user-selection-recipient-editor .input-input-wrapper[data-required]::before { display: none; }
 .user-selection-recipient-editor .input-helper-text { overflow-wrap: anywhere; }
+.user-selection-recipient-modal .modal-header-title-row { flex-wrap: wrap; }
+.user-selection-recipient-modal .user-selection-recipient-search { flex: 0 1 240px; width: 240px; max-width: 100%; box-sizing: border-box; margin-left: 0; font-family: var(--ds-font-family-base, 'Zoho Puvi', sans-serif); }
+.user-selection-recipient-search input::placeholder { font-family: inherit; }
 .user-selection-recipient-modal .modal-header-title-row > .button-btn { margin-left: auto; }
 .user-selection-recipient-modal .table-table { width: 100% !important; min-width: 782px; }
 .user-selection-recipient-modal .checkbox-root[data-disabled] .checkbox-label-text { opacity: 1; }

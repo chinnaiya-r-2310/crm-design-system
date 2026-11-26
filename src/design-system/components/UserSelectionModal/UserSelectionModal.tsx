@@ -79,6 +79,8 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
   const emailRef = useRef<HTMLInputElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const [recipientPickerOpen, setRecipientPickerOpen] = useState(false);
+  const [recipientQuery, setRecipientQuery] = useState('');
+  const recipientSearchRef = useRef<HTMLInputElement>(null);
   const [recipientDraft, setRecipientDraft] = useState<UserSelection[]>([]);
   const [recipientError, setRecipientError] = useState('');
   const [createdRecipients, setCreatedRecipients] = useState<AdditionalRecipientOption[]>([]);
@@ -116,6 +118,7 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
       return recipient?.verified ? [{ ...item, label: recipient.email }] : [];
     }));
     setRecipientError('');
+    setRecipientQuery('');
     setRecipientPickerOpen(true);
   };
   const remove = (id: string) => {
@@ -326,9 +329,15 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
     </div>}
   </Modal>
   {recipientPickerOpen && <Modal isOpen title="Select Recipient" width={900} className="user-selection-recipient-modal"
-    headerActions={<Button variant="outline-blue" onClick={() => {
-      setEditingRecipient(null); setRecipientName(''); setRecipientAddress(''); setCreationErrors({}); setCreatingRecipient(true);
-    }}>Create Recipient</Button>}
+    headerActions={<>
+      <Input variant="search" className="user-selection-recipient-search" width={240}
+        inputRef={recipientSearchRef} aria-label="Search additional recipients" placeholder="Search"
+        value={recipientQuery} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRecipientQuery(event.target.value)}
+        clearLabel="Clear recipient search" onClear={() => setRecipientQuery('')} />
+      <Button variant="outline-blue" onClick={() => {
+        setEditingRecipient(null); setRecipientName(''); setRecipientAddress(''); setCreationErrors({}); setCreatingRecipient(true);
+      }}>Create Recipient</Button>
+    </>}
     onClose={() => setRecipientPickerOpen(false)} onCancel={() => setRecipientPickerOpen(false)}
     saveLabel="Done" onSave={() => {
       const users = draft.filter(item => item.kind !== 'email');
@@ -337,7 +346,9 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
       }
       setDraft([...users, ...recipientDraft]); setLimitError(''); setRecipientPickerOpen(false);
     }}>
-    <SetupTable width="100%" resizable={false} maxHeight={360} rows={recipientRows.map(item => ({ ...item, id: item.value }))}
+    <SetupTable width="100%" resizable={false} maxHeight={360} rows={recipientRows
+      .filter(item => `${item.label} ${item.email}`.toLowerCase().includes(recipientQuery.trim().toLowerCase()))
+      .map(item => ({ ...item, id: item.value }))}
       columns={[
         { key: 'actions', label: '', width: 42, render: (_: unknown, item: AdditionalRecipientOption) => <div className="user-selection-recipient-actions"
           ref={item.value === newRecipientId ? newRecipientRef : undefined} data-new-recipient={item.value === newRecipientId || undefined}>
@@ -366,7 +377,7 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
           }} /> },
         { key: 'email', label: 'Email Address', width: 300 },
         { key: 'verified', label: 'Verification Status', width: 190, render: (verified: boolean) => verified ? 'Verified' : 'Not Verified' },
-      ]} emptyMessage="No recipients available" />
+      ]} emptyMessage={recipientQuery.trim() ? 'No recipients found' : 'No recipients available'} />
     {recipientError && <div className="input-root" data-variant="error"><span className="input-helper-text" role="alert">{recipientError}</span></div>}
   </Modal>}
   {pendingDeleteRecipient && <Modal type="alert" variant="error" isOpen

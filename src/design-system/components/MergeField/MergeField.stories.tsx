@@ -506,6 +506,40 @@ export const MultilineAddingTagComplete: Story = {
   ),
 };
 
+export const MultilineTagSpacing: Story = {
+  name: 'Multiline / Tag spacing',
+  args: {
+    layout: 'vertical',
+    width: 240,
+    defaultValue: '#recordname\n#queuename\n#user #dateandtime #recordname #queuename',
+    mergeFields: NOTIFICATION_FIELDS,
+  },
+  play: async ({ canvasElement }) => {
+    const field = within(canvasElement).getByRole('textbox');
+    await waitFor(() => expect(field.querySelectorAll('.mergefield-token')).toHaveLength(6));
+    const assertSpacing = () => {
+      const rects = Array.from(field.querySelectorAll('.mergefield-token'), (tag) => tag.getBoundingClientRect());
+      let checked = 0;
+      for (let i = 1; i < rects.length; i += 1) {
+        if (rects[i].top > rects[i - 1].top + 1) {
+          expect(rects[i].top - rects[i - 1].bottom).toBeGreaterThanOrEqual(2);
+          checked += 1;
+        }
+      }
+      expect(checked).toBeGreaterThanOrEqual(2);
+    };
+    assertSpacing();
+    // Also cover narrow editors, where adjacent tokens wrap without a newline.
+    const originalWidth = field.style.width;
+    field.style.width = '170px';
+    try {
+      assertSpacing();
+    } finally {
+      field.style.width = originalWidth;
+    }
+  },
+};
+
 export const MultilineError: Story = {
   name: 'Multiline / Error',
   args: {

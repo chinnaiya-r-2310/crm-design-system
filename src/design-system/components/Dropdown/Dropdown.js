@@ -507,7 +507,11 @@ export function Dropdown({
   );
 
   const optionListEl = (
-    <div className='dropdown-option-list' ref={listRef}>
+    <div
+      className='dropdown-option-list'
+      ref={listRef}
+      onMouseLeave={() => setActiveIndex(-1)}
+    >
       {filtered.length === 0 ? (
         <div className='dropdown-no-results'>No results found</div>
       ) : hasGroups ? (

@@ -26,6 +26,12 @@ const ALERT_ICONS = {
 const SINGLE_BTN_VARIANTS = new Set(['success', 'info', 'denial']);
 let scrollLockCount = 0;
 let previousBodyOverflow = '';
+const modalStack = [];
+const focusableSelector = 'a[href], button, input, select, textarea, [tabindex], [contenteditable="true"]';
+const getFocusableElements = (root) => Array.from(root.querySelectorAll(focusableSelector)).filter(
+  element => element.tabIndex >= 0 && !element.matches(':disabled') && !element.closest('[inert]')
+    && element.getClientRects().length > 0 && getComputedStyle(element).visibility !== 'hidden'
+);
 
 function alertConfirmVariant(variant) {
   return variant === 'error' ? 'negative' : 'primary';
@@ -92,6 +98,42 @@ export function Modal({
     onClose();
   }, [onCancel, onClose]);
 
+  // Only the most recently opened modal owns keyboard focus. Recompute controls
+  // on each Tab so conditional fields and disabled fieldsets are respected.
+  useEffect(() => {
+    if (!isVisible) return;
+    const dialog = dialogRef.current;
+    const opener = document.activeElement;
+    modalStack.push(dialog);
+    const handleTab = (event) => {
+      if (event.key !== 'Tab' || modalStack.at(-1) !== dialog) return;
+      // Dropdowns and Tags render their listboxes outside the dialog portal.
+      // Include an active listbox so its search remains usable without letting
+      // Tab escape to the page at either boundary.
+      const portal = event.target instanceof Element && !dialog.contains(event.target)
+        ? event.target.closest('[role="listbox"]') : null;
+      const controls = [...getFocusableElements(dialog), ...(portal ? getFocusableElements(portal) : [])];
+      const first = controls[0] ?? dialog;
+      const last = controls.at(-1) ?? dialog;
+      const active = document.activeElement;
+      if (!controls.length || (!dialog.contains(active) && !portal)
+        || (event.shiftKey ? active === first || active === dialog : active === last)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      }
+    };
+    document.addEventListener('keydown', handleTab);
+    // Even dialogs with no editable fields (alerts) need an initial focus target.
+    if (!disableAutoFocus) (getFocusableElements(dialog)[0] ?? dialog).focus();
+    return () => {
+      const wasTop = modalStack.at(-1) === dialog;
+      const index = modalStack.indexOf(dialog);
+      if (index !== -1) modalStack.splice(index, 1);
+      document.removeEventListener('keydown', handleTab);
+      if (wasTop && opener instanceof HTMLElement && opener.isConnected) opener.focus();
+    };
+  }, [isVisible]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Auto-focus the first editable form field when the modal opens
   useEffect(() => {
     if (isVisible && !isClosing && !disableAutoFocus) {
@@ -99,7 +141,7 @@ export function Modal({
         const first = dialogRef.current?.querySelector(
           'input[type="text"]:not([disabled]):not([readonly]):not(.tags-input):not(.dropdown-search-input), input[type="email"]:not([disabled]), input[type="tel"]:not([disabled]), input[type="number"]:not([disabled]), input[type="search"]:not([disabled]), input:not([type]):not([disabled]):not([readonly]):not(.tags-input), textarea:not([disabled])'
         );
-        first?.focus();
+        if (modalStack.at(-1) === dialogRef.current) first?.focus();
       }, 50);
       return () => clearTimeout(t);
     }
@@ -109,8 +151,7 @@ export function Modal({
   useEffect(() => {
     if (!isVisible || !closeOnEscape || !showClose) return;
     const handler = (e) => {
-      const dialogs = document.querySelectorAll('.modal-dialog');
-      if (e.key === 'Escape' && dialogs[dialogs.length - 1] === dialogRef.current) onClose();
+      if (e.key === 'Escape' && modalStack.at(-1) === dialogRef.current) onClose();
     };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
@@ -165,6 +206,7 @@ export function Modal({
           ref={dialogRef}
           className='modal-dialog'
           role="alertdialog"
+          tabIndex={-1}
           aria-modal="true"
           aria-labelledby={titleId}
           style={{ width }}
@@ -203,6 +245,7 @@ export function Modal({
         ref={dialogRef}
         className={`modal-dialog${className ? ` ${className}` : ''}`}
         role="dialog"
+        tabIndex={-1}
         aria-modal="true"
         aria-labelledby={titleId}
         style={{ width }}

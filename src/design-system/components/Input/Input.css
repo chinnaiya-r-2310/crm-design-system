@@ -132,13 +132,14 @@
   box-sizing: border-box;
 }
 
-/* Horizontal only — right-align label text so it sits close to the input.
+/* Horizontal only — start-align labels with the form's content edge.
+   Preserve the existing column proportions and field widths.
    Single line:   label text is centred against the 34px input height.
    Multi-line:    label wraps downward; input stays fixed at top of its cell,
                   giving "first-line alignment."
    padding-top nudge: (input-height − line-height) / 2 = (34 − 20) / 2 = 7px */
 .input-form-row .input-label {
-  text-align: right;
+  text-align: start;
   padding-top: 7px;
 }
 
@@ -458,6 +459,17 @@
   line-height: var(--ds-line-height-xs);  /* 15px */
   color: var(--ds-text-base);             /* #313949 */
 }
+
+/* Compact search — base-size Puvi text in modal headers and toolbars. */
+.input-search { min-width: 0; }
+.input-search > .input-input-wrapper { height: 30px; gap: 6px; padding: 0 8px; }
+.input-search .input-input { padding: 0; font-family: var(--ds-font-family-base); font-size: var(--ds-font-size-base); font-weight: var(--ds-font-weight-regular); }
+.input-search .input-input::placeholder { font-family: inherit; font-size: inherit; font-weight: inherit; }
+.input-search .input-input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.input-search-icon { display: flex; align-items: center; flex-shrink: 0; color: var(--ds-text-muted, #8C9BAB); }
+.input-search-clear { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 16px; height: 16px; padding: 0; border: 0; border-radius: 50%; background: var(--ds-bg-muted, #EAF0F4); color: var(--ds-text-label); cursor: pointer; }
+.input-search-clear:hover { background: var(--ds-components-dropdown-hover-bg, #F2F5FE); }
+.input-search-clear:focus-visible { outline: 2px solid var(--ds-components-input-focus-outline); outline-offset: 2px; }
 
 /* ─────────────────────── Currency variant ──────────────────────────────── */
 

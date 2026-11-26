@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
@@ -535,23 +535,25 @@ function BuilderFilters({ hasFilters, onAdd, onDelete }: { hasFilters: boolean; 
   );
 }
 
-export function BuilderBackground({ onEdit, onCreate, saved }: { onEdit: () => void; onCreate: () => void; saved: boolean }) {
+export function BuilderBackground({ onEdit, onCreate, saved, navigation }: { onEdit: () => void; onCreate: () => void; saved: boolean; navigation?: ReactNode }) {
   const [builderTab, setBuilderTab] = useState('columns');
   const [hasFilters, setHasFilters] = useState(saved);
   const [columns, setColumns] = useState(['Lead Name', 'Email', 'Company', 'Created Time', 'Lead Owner', 'First Name', 'Last Name']);
   const [aggregates, setAggregates] = useState(['Avg of Annual Revenue', 'Sum of Annual Revenue', 'Count of Unique Leads']);
   return (
     <div className="jr-builder">
-      <aside className="jr-builder-nav" aria-label="Main navigation">
-        {BUILDER_NAV.map(item => (
-          <div key={item.label} className={`jr-builder-nav-item${item.active ? ' jr-builder-nav-item--active' : ''}`}>
-            <span className="jr-builder-nav-icon" style={{ color: item.color }}>
-              <Icon name={item.icon} size={20} />
-            </span>
-            <span>{item.label}</span>
-          </div>
-        ))}
-      </aside>
+      {navigation ?? (
+        <aside className="jr-builder-nav" aria-label="Main navigation">
+          {BUILDER_NAV.map(item => (
+            <div key={item.label} className={`jr-builder-nav-item${item.active ? ' jr-builder-nav-item--active' : ''}`}>
+              <span className="jr-builder-nav-icon" style={{ color: item.color }}>
+                <Icon name={item.icon} size={20} />
+              </span>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </aside>
+      )}
 
       <div className="jr-builder-main">
         <NextGenTopBand moduleLabel="Reports" searchPlaceholder="Search records" showTerritory={false} />

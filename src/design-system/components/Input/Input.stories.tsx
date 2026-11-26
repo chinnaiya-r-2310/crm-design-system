@@ -164,6 +164,27 @@ export const HeaderInput: Story = {
   },
 };
 
+export const SearchInput: Story = {
+  name: 'Search box',
+  args: { variant: 'search', width: 240, 'aria-label': 'Search recipients', placeholder: 'Search' },
+  parameters: { docs: { description: { story: 'Compact 30px search with a leading icon, clear action, and base-size Puvi text. Controlled fields supply onClear to reset their value.' } } },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Search recipients' });
+    const baseSize = getComputedStyle(search).getPropertyValue('--ds-font-size-base').trim();
+    await expect(getComputedStyle(search).fontFamily).toContain('Puvi');
+    await expect(getComputedStyle(search).fontSize).toBe(baseSize);
+    await expect(getComputedStyle(search, '::placeholder').fontSize).toBe(baseSize);
+    await expect(getComputedStyle(search, '::placeholder').fontFamily).toContain('Puvi');
+    await expect(search.closest('.input-input-wrapper')!.getBoundingClientRect().height).toBe(30);
+    await userEvent.type(search, 'Operations');
+    await expect(search).toHaveValue('Operations');
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear search' }));
+    await expect(search).toHaveValue('');
+    await expect(search).toHaveFocus();
+  },
+};
+
 /** Small size: 27px tall with 13px text, for compact toolbars and section headers. */
 export const Small: Story = {
   args: {

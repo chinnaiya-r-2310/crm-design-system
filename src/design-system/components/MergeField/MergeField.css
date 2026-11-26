@@ -40,7 +40,7 @@
 }
 
 .mergefield-form-row .mergefield-label {
-  text-align: right;
+  text-align: start;
   padding-top: 7px;
 }
 
@@ -222,9 +222,9 @@
   transition: min-height 200ms ease, max-height 200ms ease;
 }
 
-/* Figma body text line height for the multiline field (singleline keeps its 32px). */
+/* Match Textarea's body text line height (singleline keeps its 32px). */
 .mergefield-editable:not([data-singleline]) {
-  line-height: 23px; /* 22px capsule + 1px gap between capsule rows */
+  line-height: var(--ds-line-height-base);
   /* Scrollbar is invisible until the field is hovered or focused. It may overlap the lock strip. */
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -306,6 +306,14 @@
 
 .mergefield-token[data-selected] {
   background: var(--ds-bg-scale-bg5, #DFE4EF);
+}
+
+/* Let only lines containing capsules grow: the 22px chip plus 1px above
+   and below reserves at least 2px between chips on adjacent lines. Plain-text
+   lines retain Textarea's base line height; no editor-wide override is needed. */
+.mergefield-editable:not([data-singleline]) .mergefield-token {
+  margin: 1px 4px;
+  vertical-align: middle;
 }
 
 /* Singleline: the line box is exactly 32px (line-height), so a 24px capsule

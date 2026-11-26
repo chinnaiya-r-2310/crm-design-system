@@ -8,18 +8,43 @@
   border: 0;
 }
 .usage-slack-row > .checkbox-root { align-self: center; }
+.usage-external-app-row { width: 390px; max-width: 100%; }
+.usage-external-app-row > .usage-recipient-field { flex: 1; min-width: 0; width: auto; }
+.usage-external-app-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-text-danger-link);
+  cursor: pointer;
+}
+.usage-external-app-remove:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline);
+  outline-offset: 2px;
+}
 .usage-app-modal { max-width: calc(100vw - 32px); }
 .usage-app-modal__content {
   display: flex;
   flex-direction: column;
   gap: 28px;
-  width: 400px;
+  width: 390px;
   max-width: 100%;
 }
-.usage-app-modal .dropdown-form-row { align-items: center; }
-.usage-app-modal .dropdown-form-row .dropdown-label {
-  text-align: left;
-  padding-top: 0;
+.usage-app-modal__content:has(> .dropdown-root) { width: 565px; }
+.usage-app-modal__content .dropdown-form-row {
+  grid-template-columns: minmax(0, 155px) minmax(0, 390px);
+}
+.usage-app-modal__content .dropdown-field-column { min-width: 0; }
+.usage-app-modal__content > .usage-app-recipients {
+  width: 390px;
+  max-width: 100%;
+  align-self: flex-end;
 }
 .dropdown-panel[style*="--usage-slack-team-menu"] .dropdown-footer-action-icon { display: none; }
 .dropdown-panel[style*="--usage-slack-team-menu"] .dropdown-footer-action-btn {

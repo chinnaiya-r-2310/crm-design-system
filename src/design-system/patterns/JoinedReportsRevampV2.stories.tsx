@@ -709,7 +709,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
   const getReportSettings = (report: string) => reportSettings[report] ?? {
     tab: 'columns',
     columns: ['Account Name', 'Assistant', 'Asst Phone', 'Average Time Spent (Minutes)', 'Contact Name', 'Contact Owner'],
-    aggregates: ['Revenue per Lead', 'Projected Revenue', 'Avg of Annual Revenue', 'Min of Annual Revenue', 'Sum of Auto_Currency_aklnmyoh'],
+    aggregates: ['Revenue per Lead', 'Projected Revenue', 'Avg of Annual Revenue', 'Min of Annual Revenue', 'Sum of Expected Revenue'],
     hasFilters: false,
     showRowCount: true,
   };
@@ -722,10 +722,11 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
   const [aggregates, setAggregates] = useState(['Avg of Annual Revenue', 'Sum of Annual Revenue', 'Count of Unique Leads']);
   const [aggregateDraft, setAggregateDraft] = useState<{ report: string; selected: string[]; showRowCount: boolean } | null>(null);
   const [aggregateSearch, setAggregateSearch] = useState('');
+  const [activeFormulaOptions, setActiveFormulaOptions] = useState<string | null>(null);
   const [formulaOpen, setFormulaOpen] = useState(false);
   const [formulaColumns, setFormulaColumns] = useState([
-    { label: 'percent summary formula', formula: 'Annual Revenue / 100' },
-    { label: 'ukh,hh', formula: 'Annual Revenue' },
+    { label: 'Revenue Percentage', formula: 'Annual Revenue / 100' },
+    { label: 'Total Annual Revenue', formula: 'Annual Revenue' },
     { label: 'Revenue per Lead', formula: 'Annual Revenue / Count of Unique Leads' },
     { label: 'Projected Revenue', formula: 'Annual Revenue * Probability / 100' },
     { label: 'Revenue in Thousands', formula: 'Annual Revenue / 1000' },
@@ -739,7 +740,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
   };
   const aggregateOptions = [...new Set([
     'Count of Unique Leads',
-    ...['Annual Revenue', 'Auto_Currency_aklnmyoh', 'Auto_Currency_cajrfwgg'].flatMap(field =>
+    ...['Annual Revenue', 'Expected Revenue', 'Actual Revenue'].flatMap(field =>
       ['Avg', 'Sum', 'Min', 'Max'].map(operation => `${operation} of ${field}`)),
     ...(aggregateDraft ? getReportSettings(aggregateDraft.report).aggregates : []),
   ])].filter(label => !formulaColumns.some(column => column.label === label));
@@ -813,14 +814,18 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                       <button type="button" className="jrv2-aggregate-clear" aria-label="Clear all report columns" onClick={() => setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value => !formulaColumns.some(column => column.label === value)) })}>Clear all</button>
                     )}
                   </div>
-                  {formulaColumns.filter(column => matchesAggregateSearch(column.label)).map((column, index) => (
-                    <div className={`jrv2-aggregate-option${index === 0 ? ' jrv2-aggregate-option--initial' : ''}`} key={column.label}>
-                      <Checkbox label={column.label} checked={aggregateDraft.selected.includes(column.label)} onChange={() => toggleAggregate(column.label)} />
+                  {formulaColumns.filter(column => matchesAggregateSearch(column.label)).map(column => (
+                    <div className={`jrv2-aggregate-option${column.label === (formulaColumns.find(item => item.label === activeFormulaOptions && matchesAggregateSearch(item.label))?.label ?? formulaColumns.find(item => matchesAggregateSearch(item.label))?.label) ? ' jrv2-aggregate-option--initial' : ''}`} key={column.label}
+                      onMouseEnter={() => setActiveFormulaOptions(column.label)}
+                      onFocus={() => setActiveFormulaOptions(column.label)}>
+                      <Tooltip content={column.label} overflowSelector=".checkbox-label-text" variant="white" placement="top" wrapperStyle={{ display: 'flex', flex: 1, minWidth: 0 }}>
+                        <Checkbox label={column.label} checked={aggregateDraft.selected.includes(column.label)} onChange={() => toggleAggregate(column.label)} />
+                      </Tooltip>
                       <Dropdown width="auto" triggerAriaLabel={`Options for ${column.label}`} triggerButtonVariant="link-default" triggerIcon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="3.80 25.60 17.00 7.00" width={17} height={7} aria-hidden="true" focusable="false">
                         <path d="M 8.8,29.1 A 1.5,1.5 0 0,1 7.3,30.6 A 1.5,1.5 0 0,1 5.8,29.1 A 1.5,1.5 0 0,1 7.3,27.6 A 1.5,1.5 0 0,1 8.8,29.1 Z" fill="var(--ds-text-label)" stroke="none" />
                         <path d="M 13.8,29.1 A 1.5,1.5 0 0,1 12.3,30.6 A 1.5,1.5 0 0,1 10.8,29.1 A 1.5,1.5 0 0,1 12.3,27.6 A 1.5,1.5 0 0,1 13.8,29.1 Z" fill="var(--ds-text-label)" stroke="none" />
                         <path d="M 18.8,29.1 A 1.5,1.5 0 0,1 17.3,30.6 A 1.5,1.5 0 0,1 15.8,29.1 A 1.5,1.5 0 0,1 17.3,27.6 A 1.5,1.5 0 0,1 18.8,29.1 Z" fill="var(--ds-text-label)" stroke="none" />
-                      </svg>} showSelectionIndicator={false}
+                      </svg>} showSelectionIndicator={false} panelStyle={{ width: 'max-content' }}
                         options={[{ value: 'edit', label: 'Edit' }, { value: 'delete', label: 'Delete' }]} onChange={(action: string) => {
                           if (action === 'edit') { setEditingFormula(column.label); setFormulaOpen(true); }
                           else if (action === 'delete') {
@@ -840,7 +845,9 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                     )}
                   </div>
                   {aggregateOptions.filter(matchesAggregateSearch).map(label => (
-                    <Checkbox key={label} label={label} checked={aggregateDraft.selected.includes(label)} onChange={() => toggleAggregate(label)} />
+                    <Tooltip key={label} content={label} overflowSelector=".checkbox-label-text" variant="white" placement="top" wrapperStyle={{ display: 'flex', minWidth: 0 }}>
+                      <Checkbox label={label} checked={aggregateDraft.selected.includes(label)} onChange={() => toggleAggregate(label)} />
+                    </Tooltip>
                   ))}
                   {!aggregateOptions.some(matchesAggregateSearch) && !formulaColumns.some(column => matchesAggregateSearch(column.label)) && <p className="jrv2-joined-muted" role="status">No matching columns</p>}
                 </div>
@@ -883,7 +890,10 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                           if (target >= 0 && target < mappingOrder.length) reorderMapping(index, mappingOrder[target]);
                         }}
                       ><Icon name="CrmMaskDrag" size={12} /></button>}
-                      <span className="jrv2-mapping-report-name" title={reports[index]}>{reports[index]}</span>
+                      <span className="jrv2-mapping-report-name" onMouseEnter={event => {
+                        const label = event.currentTarget;
+                        label.title = label.scrollWidth > label.clientWidth ? reports[index] : '';
+                      }}>{reports[index]}</span>
                     </div>
                     <div role="cell"><Dropdown width="100%" placeholder="Select field" triggerAriaLabel={`Group by field for ${reports[index]}`} options={mappingOptions} value={mappedFields[index] || ''} error={groupError && !mappedFields[index] ? 'Select a field' : undefined} onChange={(field: string) => setMappedFields(current => reports.map((_, fieldIndex) => fieldIndex === index ? field : current[fieldIndex] || ''))} /></div>
                   </div>;
@@ -977,7 +987,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                         </div>
                         <div className="jrv2-report-name-row">
                           <p>{report}</p>
-                          <Tooltip content="rename" variant="black" placement="top" wrapperStyle={{ display: 'inline-flex', flexShrink: 0 }}>
+                          <Tooltip content="Rename" variant="black" placement="top" wrapperStyle={{ display: 'inline-flex', flexShrink: 0 }}>
                             <button type="button" className="jrv2-report-rename" aria-label={`Rename Report ${index + 1}`}
                               onClick={event => {
                                 event.preventDefault();
@@ -1012,7 +1022,10 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                           </button>
                         </div>
                         <Dragger dragHandleOnly items={settings.aggregates} onChange={(aggregates: string[]) => updateReportSettings(settingsKey, { aggregates })}
-                          renderItem={(label: string) => <span className="jrv2-aggregate-label" title={label}>{label}</span>} />
+                          renderItem={(label: string) => <span className="jrv2-aggregate-label" onMouseEnter={event => {
+                            const target = event.currentTarget;
+                            target.title = target.scrollWidth > target.clientWidth ? label : '';
+                          }}>{label}</span>} />
                       </>)}
                     </div>
                   </details>
@@ -1191,11 +1204,11 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
             value={reportNameDraft} onChange={(event: ChangeEvent<HTMLInputElement>) => setReportNameDraft(event.target.value)} />
         </form>
       </Modal>
-      <Modal isOpen={formulaOpen} title={editingFormula ? 'Edit Summary Formula' : 'New Summary Formula'} width={1000} onClose={() => setFormulaOpen(false)} showFooter={false}>
-        {formulaOpen && <FormulaBuilder
+      {formulaOpen && <FormulaBuilder
+          variant="modal"
           title={editingFormula ? 'Edit Summary Formula' : 'New Summary Formula'}
           defaultFormula={formulaColumns.find(column => column.label === editingFormula)?.formula || ''}
-          fields={[{ name: 'Leads', items: [{ id: 'annual-revenue', label: 'Annual Revenue' }, { id: 'employees', label: 'No of Employees' }] }]}
+          fields={[{ name: 'Leads', items: [{ id: 'annual-revenue', label: 'Annual Revenue', fieldType: 'currency' }, { id: 'employees', label: 'No of Employees', fieldType: 'number' }] }]}
           onCancel={() => setFormulaOpen(false)}
           onDone={({ formula }: { formula: string }) => {
             const label = editingFormula || `Summary formula ${formulaColumns.length + 1}`;
@@ -1203,7 +1216,6 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
             setAggregateDraft(current => current && ({ ...current, selected: [...new Set([...current.selected, label])] }));
             setFormulaOpen(false);
           }} />}
-      </Modal>
     </div>
   );
 }
@@ -1238,6 +1250,7 @@ function JoinedReportsRevampV2Page({ primaryReportName, initialStep, initialRepo
       ) : (
         <DefaultBuilderBackground
           saved={false}
+          navigation={<NextGenLeftMenu activeId="reports" defaultCollapsed />}
           onEdit={() => { setMode('edit'); setSession(current => current + 1); setOpen(true); }}
           onCreate={() => { setMode('create'); setSession(current => current + 1); setOpen(true); }}
         />
@@ -1310,7 +1323,7 @@ export const V2: Story = {
     await mount(<JoinedReportsRevampV2Page key="creation-test" {...args} />);
     const canvas = within(canvasElement);
     const page = within(document.body);
-    await expect(canvas.getByLabelText('Main navigation')).toHaveClass('jr-builder-nav');
+    await expect(canvas.getByRole('button', { name: 'Expand sidebar' })).toBeVisible();
     await expect(canvas.getByText('Leads By Source', { exact: true })).toBeVisible();
     await expect(canvas.getByRole('table', { name: 'Report 1 Leads By Source' })).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Create Joined Report', exact: true }));
@@ -1356,21 +1369,53 @@ export const V2Summary: Story = {
     await expect(aggregateEditor.getAllByRole('checkbox').filter(checkbox => (checkbox as HTMLInputElement).checked)).toHaveLength(6);
     await expect(aggregateEditor.getByRole('button', { name: 'Create Aggregate Formula' })).toBeVisible();
     await expect(aggregateEditor.getByRole('checkbox', { name: 'Revenue per Lead', exact: true })).toBeInTheDocument();
-    const formulaOptions = aggregateEditor.getByRole('button', { name: 'Options for percent summary formula' });
+    await expect(aggregateEditor.getByRole('checkbox', { name: 'Total Annual Revenue', exact: true })).toBeInTheDocument();
+    for (const name of ['Revenue Percentage', 'Sum of Expected Revenue', 'Sum of Actual Revenue']) {
+      const label = aggregateEditor.getByRole('checkbox', { name, exact: true }).closest('.checkbox-root')!;
+      const text = label.querySelector('.checkbox-label-text') as HTMLElement;
+      const body = within(canvasElement.ownerDocument.body);
+      await expect(getComputedStyle(text).textOverflow).toBe('ellipsis');
+      await userEvent.hover(label);
+      if (text.scrollWidth > text.clientWidth) {
+        await expect(await body.findByRole('tooltip')).toHaveTextContent(name);
+      } else {
+        await expect(body.queryByRole('tooltip')).not.toBeInTheDocument();
+      }
+      await userEvent.unhover(label);
+      const previousMaxWidth = text.style.maxWidth;
+      text.style.maxWidth = '40px';
+      await userEvent.hover(label);
+      await expect(await body.findByRole('tooltip')).toHaveTextContent(name);
+      await userEvent.unhover(label);
+      text.style.maxWidth = previousMaxWidth;
+    }
+    const lastHoveredOptions = aggregateEditor.getByRole('button', { name: 'Options for Revenue per Lead' });
+    await userEvent.hover(lastHoveredOptions.closest('.jrv2-aggregate-option')!);
+    await userEvent.hover(canvas.getByRole('textbox', { name: 'Report title' }));
+    await expect(getComputedStyle(lastHoveredOptions.closest('.dropdown-root')!).opacity).toBe('1');
+    await expect(getComputedStyle(aggregateEditor.getByRole('button', { name: 'Options for Revenue Percentage' }).closest('.dropdown-root')!).opacity).toBe('0');
+    const formulaOptions = aggregateEditor.getByRole('button', { name: 'Options for Revenue Percentage' });
+    await userEvent.hover(formulaOptions.closest('.jrv2-aggregate-option')!);
     await userEvent.click(formulaOptions);
     const formulaMenu = within(canvasElement.ownerDocument.body);
     await expect(formulaMenu.getByRole('option', { name: 'Edit', exact: true })).toBeVisible();
     await expect(formulaMenu.getByRole('option', { name: 'Delete', exact: true })).toBeVisible();
+    const actionPanel = formulaMenu.getByRole('option', { name: 'Edit', exact: true }).closest('.dropdown-panel')!;
+    await expect(actionPanel.getBoundingClientRect().width).toBeGreaterThan(formulaOptions.getBoundingClientRect().width);
+    for (const label of actionPanel.querySelectorAll('.dropdown-option-label')) {
+      await expect(label.clientWidth).toBeGreaterThan(0);
+      await expect(label.scrollWidth).toBeLessThanOrEqual(label.clientWidth);
+    }
     await userEvent.keyboard('{Escape}');
-    await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'percent summary formula', exact: true }));
+    await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'Revenue Percentage', exact: true }));
     await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'Count of Unique Leads', exact: true }));
     await userEvent.click(aggregateEditor.getByRole('button', { name: 'Clear all report columns' }));
-    await expect(aggregateEditor.getByRole('checkbox', { name: 'percent summary formula', exact: true })).not.toBeChecked();
+    await expect(aggregateEditor.getByRole('checkbox', { name: 'Revenue Percentage', exact: true })).not.toBeChecked();
     await expect(aggregateEditor.queryByRole('button', { name: 'Clear all report columns' })).not.toBeInTheDocument();
     await expect(aggregateEditor.getByRole('checkbox', { name: 'Count of Unique Leads', exact: true })).toBeChecked();
-    await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'percent summary formula', exact: true }));
+    await userEvent.click(aggregateEditor.getByRole('checkbox', { name: 'Revenue Percentage', exact: true }));
     await userEvent.click(aggregateEditor.getByRole('button', { name: 'Clear all module columns' }));
-    await expect(aggregateEditor.getByRole('checkbox', { name: 'percent summary formula', exact: true })).toBeChecked();
+    await expect(aggregateEditor.getByRole('checkbox', { name: 'Revenue Percentage', exact: true })).toBeChecked();
     await expect(aggregateEditor.getByRole('checkbox', { name: 'Count of Unique Leads', exact: true })).not.toBeChecked();
     await expect(aggregateEditor.queryByRole('button', { name: 'Clear all module columns' })).not.toBeInTheDocument();
     await expect(aggregateEditor.getByRole('button', { name: 'Clear all report columns' })).toBeVisible();
@@ -1472,6 +1517,7 @@ export const V2Summary: Story = {
     await expect(total).toBeVisible();
     await expect(getComputedStyle(total).position).toBe('sticky');
     await expect(getComputedStyle(total).borderRightColor).toBe('rgba(0, 0, 0, 0)');
+    await expect(getComputedStyle(total).boxShadow).not.toBe('none');
     scroller.scrollTo(0, 0);
     scroller.dispatchEvent(new Event('scroll', { bubbles: true }));
     await waitFor(() => expect(scroller).not.toHaveClass('jrv2-joined-preview-scroll--scrolled'));
@@ -1492,10 +1538,10 @@ export const V2Summary: Story = {
       await expect(rename).toBeVisible();
       if (index === 0) {
         await userEvent.hover(rename);
-        await expect(await within(document.body).findByRole('tooltip')).toHaveTextContent('rename');
+        await expect(await within(document.body).findByRole('tooltip')).toHaveTextContent('Rename');
         await userEvent.unhover(rename);
         rename.focus();
-        await expect(await within(document.body).findByRole('tooltip')).toHaveTextContent('rename');
+        await expect(await within(document.body).findByRole('tooltip')).toHaveTextContent('Rename');
         rename.blur();
       }
       const previousName = section.querySelector('summary p')!.textContent || originalName;
