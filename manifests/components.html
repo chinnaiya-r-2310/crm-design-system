@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>7.9s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -19638,7 +19638,7 @@ export const EmailVerification: Story = {
           await expect(senderList.getByText(group, { exact: true })).toBeInTheDocument();
         }
         const senderLabels = [
-          &#39;My Email (alex.morgan@example.com)&#39;, &#39;Record Owner’s Email&#39;, &#39;Account Manager’s Email&#39;,
+          &#39;alex.morgan@example.com&#39;, &#39;Record Owner’s Email&#39;, &#39;Account Manager’s Email&#39;,
           &#39;Created By User’s Email&#39;, &#39;Sales Representative’s Email&#39;, &#39;Customer Success Manager’s Email&#39;,
           &#39;Sales Team (sales@example.com)&#39;, &#39;Customer Support (support@example.com)&#39;,
           &#39;Support Notifications (notifications@example.com)&#39;,
@@ -24739,7 +24739,7 @@ import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
 import { Button } from &#39;../components/Button/Button&#39;;
 import { MergeField } from &#39;../components/MergeField/MergeField&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
-import { CrmAlertInfo, More, Search } from &#39;../foundations/icons/Icons&#39;;
+import { CrmAlertInfo, Info, More, Search } from &#39;../foundations/icons/Icons&#39;;
 import { NextGenTopBand } from &#39;../components/NextGenTopBand/NextGenTopBand&#39;;
 import { VerticalTabs } from &#39;../components/VerticalTabs/VerticalTabs&#39;;
 import { SETUP_MENU_ITEMS } from &#39;../components/VerticalTabs/setupMenuItems&#39;;
@@ -24838,7 +24838,7 @@ const labelStyle: React.CSSProperties = {
   fontWeight: &#39;var(--ds-font-weight-regular)&#39;,
   color:      &#39;var(--ds-text-label)&#39;,
   whiteSpace: &#39;nowrap&#39;,
-  textAlign:  &#39;start&#39;,
+  textAlign:  &#39;right&#39;,
 };
 
 const sectionHeadingStyle: React.CSSProperties = {
@@ -24958,6 +24958,7 @@ type UsageListRow = {
   modifier?: string; modifiedDate?: string; modifiedTime?: string;
   channels?: string[]; status?: &#39;Active&#39; | &#39;Paused&#39; | &#39;Completed&#39;; system?: boolean;
   summary?: string;
+  newlyAdded?: boolean;
   config?: {
     trigger: ReturnType&lt;typeof createUsageTrigger&gt;; recipients: UsageRecipient[];
     pushEmailEnabled: boolean; externalAppsEnabled: boolean;
@@ -25057,14 +25058,19 @@ function UsageChannelsCell({ channels = [] }: { channels?: string[] }) {
 const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) =&gt; void) =&gt; [
   { key: &#39;actions&#39;, label: &#39;&#39;, width: 31, render: (_value: unknown, row: UsageListRow) =&gt; &lt;UsageRowActions row={row} onAction={onAction} /&gt; },
   { key: &#39;name&#39;, label: &#39;Notification Name&#39;, width: &#39;25%&#39;, render: (_value: unknown, row: UsageListRow) =&gt;
-    &lt;Tooltip variant=&quot;white&quot; placement=&quot;top&quot; maxWidth={600} wrapperStyle={{ display: &#39;inline-flex&#39;, maxWidth: &#39;100%&#39;, minWidth: 0, verticalAlign: &#39;middle&#39; }} content={row.summary || `${row.feature}: ${row.name}. Notify via ${row.channels?.join(&#39;, &#39;)}.`}&gt;
+    &lt;span className=&quot;usage-page__name-cell&quot; data-new-notification={row.newlyAdded || undefined}&gt;
       &lt;button type=&quot;button&quot; className=&quot;usage-page__name&quot; aria-haspopup=&quot;dialog&quot; onClick={() =&gt; onAction(&#39;edit&#39;, row)}&gt;{row.name}&lt;/button&gt;
-    &lt;/Tooltip&gt; },
+      &lt;Tooltip variant=&quot;white&quot; placement=&quot;top&quot; followCursor maxWidth={600}
+        content={row.summary || `${row.feature}: ${row.name}. Notify via ${row.channels?.join(&#39;, &#39;)}.`}&gt;
+        &lt;Info className=&quot;usage-page__summary-info&quot; width={16} height={16} role=&quot;img&quot;
+          aria-label={`Summary: ${row.summary || `${row.feature}: ${row.name}`}`} /&gt;
+      &lt;/Tooltip&gt;
+    &lt;/span&gt; },
   { key: &#39;feature&#39;, label: &#39;Feature&#39;, width: &#39;13%&#39; },
   { key: &#39;channels&#39;, label: &#39;Notify via&#39;, width: &#39;22%&#39;, render: (_value: unknown, row: UsageListRow) =&gt; &lt;UsageChannelsCell channels={row.channels} /&gt; },
   { key: &#39;creator&#39;, label: &#39;Created by&#39;, width: &#39;14%&#39;, render: personCell(&#39;creator&#39;) },
   { key: &#39;modifier&#39;, label: &#39;Modified by&#39;, width: &#39;14%&#39;, render: personCell(&#39;modifier&#39;) },
-  { key: &#39;status&#39;, label: &#39;Status&#39;, width: 120, render: (_value: unknown, row: UsageListRow) =&gt; &lt;span&gt;{row.status}&lt;/span&gt; },
+  { key: &#39;status&#39;, label: &#39;Status&#39;, width: 120, render: (_value: unknown, row: UsageListRow) =&gt; &lt;span className=&quot;usage-page__status&quot; data-status={row.status}&gt;{row.status}&lt;/span&gt; },
 ];
 
 export const CreateNotification: Story = {
@@ -25251,12 +25257,21 @@ export const CreateNotification: Story = {
     const [editingId, setEditingId] = useState&lt;string&gt;();
     const isSystemDefined = !!savedRows.find(row =&gt; row.id === editingId)?.system;
     const [pendingDelete, setPendingDelete] = useState&lt;UsageListRow&gt;();
-    const [deleteSuccess, setDeleteSuccess] = useState&lt;string&gt;();
+    const [successMessage, setSuccessMessage] = useState&lt;string&gt;();
+    const [newNotificationId, setNewNotificationId] = useState&lt;string&gt;();
     useEffect(() =&gt; {
-      if (!deleteSuccess) return;
-      const timeout = window.setTimeout(() =&gt; setDeleteSuccess(undefined), 4000);
+      if (!successMessage) return;
+      const timeout = window.setTimeout(() =&gt; setSuccessMessage(undefined), 4000);
       return () =&gt; window.clearTimeout(timeout);
-    }, [deleteSuccess]);
+    }, [successMessage]);
+    useEffect(() =&gt; {
+      if (!newNotificationId) return;
+      const timeout = window.setTimeout(() =&gt; {
+        setSavedRows(current =&gt; current.map(row =&gt; row.id === newNotificationId ? { ...row, newlyAdded: false } : row));
+        setNewNotificationId(undefined);
+      }, 4000);
+      return () =&gt; window.clearTimeout(timeout);
+    }, [newNotificationId]);
     const visibleRows = savedRows.filter(row =&gt;
       (featureFilter === &#39;all&#39; || row.feature === featureFilter) &amp;&amp;
       (typeFilter === &#39;all&#39; || (typeFilter === &#39;system&#39; ? row.system : !row.system)) &amp;&amp;
@@ -25428,8 +25443,11 @@ export const CreateNotification: Story = {
     const onRowAction = (action: RowAction, row: UsageListRow) =&gt; {
       if (action === &#39;edit&#39; || action === &#39;clone&#39;) openEditor(row, action === &#39;clone&#39;);
       else if (action === &#39;delete&#39;) { if (!row.system) setPendingDelete(row); }
-      else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
-        ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+      else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) {
+        setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
+          ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+        setSuccessMessage(`${row.name} ${action === &#39;pause&#39; ? &#39;paused&#39; : &#39;resumed&#39;} successfully.`);
+      }
     };
     const columns = usageListColumns(onRowAction);
 
@@ -25465,8 +25483,8 @@ export const CreateNotification: Story = {
           input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         `}&lt;/style&gt;
 
-        {deleteSuccess &amp;&amp; &lt;MessageBox variant=&quot;success&quot; className=&quot;usage-page__success-alert&quot;
-          message={`${deleteSuccess} deleted successfully.`} onClose={() =&gt; setDeleteSuccess(undefined)} /&gt;}
+        {successMessage &amp;&amp; &lt;MessageBox variant=&quot;success&quot; className=&quot;usage-page__success-alert&quot;
+          message={successMessage} onClose={() =&gt; setSuccessMessage(undefined)} /&gt;}
 
         &lt;div className=&quot;usage-page&quot;&gt;
           &lt;aside className=&quot;usage-page__sidebar&quot; aria-label=&quot;Setup navigation&quot;&gt;
@@ -25475,7 +25493,7 @@ export const CreateNotification: Story = {
           &lt;/aside&gt;
           &lt;header className=&quot;usage-page__topband&quot;&gt;&lt;NextGenTopBand moduleLabel={null} showTerritory={false} /&gt;&lt;/header&gt;
           &lt;main className=&quot;usage-page__workspace&quot; aria-label=&quot;Usage limit notifications&quot;&gt;
-            &lt;Tabs tabs={[{ id: &#39;usage&#39;, label: &#39;Usage Limits&#39; }, { id: &#39;admin&#39;, label: &#39;Admin tool&#39; }]}
+            &lt;Tabs tabs={[{ id: &#39;admin&#39;, label: &#39;Admin tool&#39; }, { id: &#39;usage&#39;, label: &#39;Usage Limits&#39; }]}
               activeTab={pageTab} onChange={setPageTab} /&gt;
             {pageTab === &#39;usage&#39; ? &lt;&gt;
               &lt;div className=&quot;usage-page__sections&quot;&gt;
@@ -25623,7 +25641,9 @@ export const CreateNotification: Story = {
                 channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
                 message, template: emailTemplate },
             };
-            setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row) : [...current, saved]);
+            setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row)
+              : [{ ...saved, newlyAdded: true }, ...current.map(row =&gt; ({ ...row, newlyAdded: false }))]);
+            if (!editingId) setNewNotificationId(saved.id);
             setNameError(false);
             setOpen(false);
           }}
@@ -25859,7 +25879,7 @@ export const CreateNotification: Story = {
               &lt;/div&gt;}
 
               {externalAppsEnabled &amp;&amp; (
-                &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8 }}&gt;
+                &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: &#39;var(--ds-line-height-base)&#39; }}&gt;
                   {(addExternalAppsVariant ? externalAppOrder : [&#39;cliq&#39;, &#39;slack&#39;]).map(app =&gt; app === &#39;cliq&#39; ? (
                   (!addExternalAppsVariant || notifyZohoCliq) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Zoho Cliq&#39; : &#39;Notify Via&#39;} align=&quot;center&quot;&gt;
                     &lt;div className={addExternalAppsVariant ? &#39;usage-external-app-row&#39; : undefined} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
@@ -26013,7 +26033,7 @@ export const CreateNotification: Story = {
           onSave={() =&gt; {
             if (!pendingDelete.system) {
               setSavedRows(current =&gt; current.filter(row =&gt; row.id !== pendingDelete.id));
-              setDeleteSuccess(pendingDelete.name);
+              setSuccessMessage(`${pendingDelete.name} deleted successfully.`);
             }
             setPendingDelete(undefined);
           }}
@@ -26084,11 +26104,10 @@ export const AddExternalApps: Story = {
     await expect(teamDropdown).toHaveTextContent(&#39;Select&#39;);
     const teamRow = teamDropdown.closest(&#39;.dropdown-form-row&#39;)!;
     const teamLabel = teamRow.querySelector(&#39;.dropdown-label&#39;)!;
-    await expect(getComputedStyle(teamLabel).textAlign).toBe(&#39;start&#39;);
-    const appDialog = teamDropdown.closest(&#39;.modal-dialog&#39;)!;
-    const appTitle = appDialog.querySelector(&#39;.modal-title&#39;)!;
-    await expect(teamLabel.getBoundingClientRect().left).toBeCloseTo(appTitle.getBoundingClientRect().left, 0);
+    await expect(getComputedStyle(teamLabel).textAlign).toBe(&#39;right&#39;);
     await expect(getComputedStyle(teamRow).columnGap).toBe(&#39;20px&#39;);
+    await expect(teamDropdown.getBoundingClientRect().left - teamLabel.getBoundingClientRect().right).toBeCloseTo(20, 0);
+    await expect(teamLabel.getBoundingClientRect().width).toBeLessThan(60);
     await expect(teamDropdown.getBoundingClientRect().height).toBe(34);
     await expect(teamDropdown.getBoundingClientRect().width).toBe(390);
     await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).not.toBeInTheDocument();
@@ -26096,6 +26115,7 @@ export const AddExternalApps: Story = {
     await expect(page.queryByPlaceholderText(&#39;Select recipients&#39;)).not.toBeInTheDocument();
     await expect(page.queryByText(&#39;Select a team first to choose recipients.&#39;)).not.toBeInTheDocument();
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Slack team&#39; }));
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Authorise another team&#39;, exact: true })).toBeVisible();
     await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;scranton store&#39;, exact: true }));
     await expect(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).toBeEnabled();
     await expect(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; })).toBeEnabled();
@@ -26128,6 +26148,10 @@ export const AddExternalApps: Story = {
     const slackField = page.getByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; });
     await expect(removeSlack.getBoundingClientRect().left - slackField.getBoundingClientRect().right).toBeCloseTo(6, 0);
     const cliqField = page.getByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; });
+    await expect(cliqField.getBoundingClientRect().top - slackField.getBoundingClientRect().bottom).toBeCloseTo(20, 0);
+    const messageHint = page.getByText(&#39;Type # to insert merge field&#39;, { exact: true });
+    const labelColor = getComputedStyle(page.getByText(&#39;Notify via Zoho Cliq&#39;, { exact: true })).color;
+    await expect(getComputedStyle(messageHint).color).toBe(labelColor);
     await expect(page.getByRole(&#39;button&#39;, { name: &#39;Remove Zoho Cliq&#39; }).getBoundingClientRect().left - cliqField.getBoundingClientRect().right).toBeCloseTo(6, 0);
     await userEvent.click(removeSlack);
     await expect(page.queryByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; })).not.toBeInTheDocument();
@@ -26135,6 +26159,58 @@ export const AddExternalApps: Story = {
     await expect(page.queryByRole(&#39;heading&#39;, { name: &#39;External apps&#39;, exact: true })).not.toBeInTheDocument();
     await expect(page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true })).toBeVisible();
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }));
+    const primaryTabs = canvasElement.querySelector(&#39;.usage-page__workspace &gt; .tabs-tab-bar&#39;)!;
+    await expect(within(primaryTabs as HTMLElement).getAllByRole(&#39;tab&#39;).map(tab =&gt; tab.textContent)).toEqual([&#39;Admin tool&#39;, &#39;Usage Limits&#39;]);
+    const firstName = page.getByRole(&#39;button&#39;, { name: &#39;Reached add-on limit 60%&#39;, exact: true });
+    const { page: browserPage } = await import(&#39;vitest/browser&#39;);
+    const summaryTrigger = firstName.parentElement!.querySelector(&#39;.tooltip-wrapper&#39;)!;
+    await browserPage.elementLocator(primaryTabs).hover();
+    await expect(summaryTrigger).not.toBeVisible();
+    await browserPage.elementLocator(firstName).hover();
+    await expect(summaryTrigger).toBeVisible();
+    await userEvent.hover(firstName);
+    await expect(page.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
+    firstName.focus();
+    await expect(page.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
+    const summaryIcon = firstName.parentElement!.querySelector(&#39;.usage-page__summary-info&#39;)!;
+    const iconBounds = summaryIcon.getBoundingClientRect();
+    const nameBounds = firstName.getBoundingClientRect();
+    await expect(iconBounds.width).toBe(16);
+    await expect(iconBounds.height).toBe(16);
+    await expect(Math.abs(iconBounds.top + iconBounds.height / 2 - nameBounds.top - nameBounds.height / 2)).toBeLessThanOrEqual(1);
+    await expect(summaryIcon.querySelector(&#39;circle&#39;)).toHaveAttribute(&#39;stroke&#39;, &#39;currentColor&#39;);
+    await expect(summaryIcon).toHaveAttribute(&#39;fill&#39;, &#39;none&#39;);
+    await userEvent.hover(summaryIcon);
+    await expect(await page.findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;60&#39;);
+    await userEvent.unhover(summaryIcon);
+    await waitFor(() =&gt; expect(page.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument());
+    const row = firstName.closest(&#39;tr&#39;)!;
+    const actions = within(row).getByRole(&#39;button&#39;, { name: &#39;More options for Reached add-on limit 60%&#39; });
+    await userEvent.hover(row);
+    await userEvent.click(actions);
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Pause&#39;, exact: true }));
+    await expect(page.getByText(&#39;Reached add-on limit 60% paused successfully.&#39;)).toBeVisible();
+    await expect(within(row).getByText(&#39;Paused&#39;, { exact: true })).toHaveAttribute(&#39;data-status&#39;, &#39;Paused&#39;);
+    await userEvent.click(actions);
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Resume&#39;, exact: true }));
+    await expect(page.getByText(&#39;Reached add-on limit 60% resumed successfully.&#39;)).toBeVisible();
+    await expect(within(row).getByText(&#39;Active&#39;, { exact: true })).toHaveAttribute(&#39;data-status&#39;, &#39;Active&#39;);
+    await userEvent.click(actions);
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Clone&#39;, exact: true }));
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
+    const newName = page.getByRole(&#39;button&#39;, { name: &#39;Reached add-on limit 60%_Cloned&#39;, exact: true });
+    const newRow = newName.closest(&#39;tr&#39;)!;
+    await expect(newRow).toBe(canvasElement.querySelector(&#39;.table-report tbody tr&#39;));
+    const newCell = newName.closest(&#39;td&#39;)!;
+    await expect(getComputedStyle(newCell).backgroundColor).toBe(&#39;rgb(253, 250, 222)&#39;);
+    const highlight = newCell.getAnimations()[0];
+    await expect(highlight).toBeDefined();
+    await expect(highlight.effect!.getTiming().duration).toBe(4000);
+    highlight.currentTime = 3000;
+    await expect(getComputedStyle(newCell).backgroundColor).not.toBe(&#39;rgb(253, 250, 222)&#39;);
+    await expect(getComputedStyle(newCell).backgroundColor).not.toBe(&#39;rgba(0, 0, 0, 0)&#39;);
+    await waitFor(() =&gt; expect(newRow.querySelector(&#39;[data-new-notification]&#39;)).toBeNull(), { timeout: 6000 });
+    await expect(getComputedStyle(newCell).backgroundColor).toBe(&#39;rgba(0, 0, 0, 0)&#39;);
   },
 };
 </code></pre></div>
@@ -26161,13 +26237,13 @@ export const AddExternalApps: Story = {
               
               
               <pre><code>Expected render to be an arrow function or function expression
-  1317 |   name: &#39;Create Notification — Add External Apps&#39;,
-  1318 |   args: { externalAppsVariant: &#39;dropdown&#39; },
-&gt; 1319 |   render: CreateNotification.render,
+  1337 |   name: &#39;Create Notification — Add External Apps&#39;,
+  1338 |   args: { externalAppsVariant: &#39;dropdown&#39; },
+&gt; 1339 |   render: CreateNotification.render,
        |           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  1320 |   play: async ({ canvasElement }) =&gt; {
-  1321 |     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
-  1322 |     const page = within(canvasElement.ownerDocument.body);</code></pre>
+  1340 |   play: async ({ canvasElement }) =&gt; {
+  1341 |     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
+  1342 |     const page = within(canvasElement.ownerDocument.body);</code></pre>
             </div>
           
           
@@ -26181,6 +26257,7 @@ export const AddExternalApps: Story = {
     CrmAlertInfo,
     Dropdown,
     Icon,
+    Info,
     Input,
     MergeField,
     MessageBox,
@@ -26239,12 +26316,21 @@ export const AddExternalApps: Story = {
   const [editingId, setEditingId] = useState&lt;string&gt;();
   const isSystemDefined = !!savedRows.find(row =&gt; row.id === editingId)?.system;
   const [pendingDelete, setPendingDelete] = useState&lt;UsageListRow&gt;();
-  const [deleteSuccess, setDeleteSuccess] = useState&lt;string&gt;();
+  const [successMessage, setSuccessMessage] = useState&lt;string&gt;();
+  const [newNotificationId, setNewNotificationId] = useState&lt;string&gt;();
   useEffect(() =&gt; {
-    if (!deleteSuccess) return;
-    const timeout = window.setTimeout(() =&gt; setDeleteSuccess(undefined), 4000);
+    if (!successMessage) return;
+    const timeout = window.setTimeout(() =&gt; setSuccessMessage(undefined), 4000);
     return () =&gt; window.clearTimeout(timeout);
-  }, [deleteSuccess]);
+  }, [successMessage]);
+  useEffect(() =&gt; {
+    if (!newNotificationId) return;
+    const timeout = window.setTimeout(() =&gt; {
+      setSavedRows(current =&gt; current.map(row =&gt; row.id === newNotificationId ? { ...row, newlyAdded: false } : row));
+      setNewNotificationId(undefined);
+    }, 4000);
+    return () =&gt; window.clearTimeout(timeout);
+  }, [newNotificationId]);
   const visibleRows = savedRows.filter(row =&gt;
     (featureFilter === &#39;all&#39; || row.feature === featureFilter) &amp;&amp;
     (typeFilter === &#39;all&#39; || (typeFilter === &#39;system&#39; ? row.system : !row.system)) &amp;&amp;
@@ -26416,8 +26502,11 @@ export const AddExternalApps: Story = {
   const onRowAction = (action: RowAction, row: UsageListRow) =&gt; {
     if (action === &#39;edit&#39; || action === &#39;clone&#39;) openEditor(row, action === &#39;clone&#39;);
     else if (action === &#39;delete&#39;) { if (!row.system) setPendingDelete(row); }
-    else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
-      ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+    else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) {
+      setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
+        ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+      setSuccessMessage(`${row.name} ${action === &#39;pause&#39; ? &#39;paused&#39; : &#39;resumed&#39;} successfully.`);
+    }
   };
   const columns = usageListColumns(onRowAction);
 
@@ -26453,8 +26542,8 @@ export const AddExternalApps: Story = {
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
       `}&lt;/style&gt;
 
-      {deleteSuccess &amp;&amp; &lt;MessageBox variant=&quot;success&quot; className=&quot;usage-page__success-alert&quot;
-        message={`${deleteSuccess} deleted successfully.`} onClose={() =&gt; setDeleteSuccess(undefined)} /&gt;}
+      {successMessage &amp;&amp; &lt;MessageBox variant=&quot;success&quot; className=&quot;usage-page__success-alert&quot;
+        message={successMessage} onClose={() =&gt; setSuccessMessage(undefined)} /&gt;}
 
       &lt;div className=&quot;usage-page&quot;&gt;
         &lt;aside className=&quot;usage-page__sidebar&quot; aria-label=&quot;Setup navigation&quot;&gt;
@@ -26463,7 +26552,7 @@ export const AddExternalApps: Story = {
         &lt;/aside&gt;
         &lt;header className=&quot;usage-page__topband&quot;&gt;&lt;NextGenTopBand moduleLabel={null} showTerritory={false} /&gt;&lt;/header&gt;
         &lt;main className=&quot;usage-page__workspace&quot; aria-label=&quot;Usage limit notifications&quot;&gt;
-          &lt;Tabs tabs={[{ id: &#39;usage&#39;, label: &#39;Usage Limits&#39; }, { id: &#39;admin&#39;, label: &#39;Admin tool&#39; }]}
+          &lt;Tabs tabs={[{ id: &#39;admin&#39;, label: &#39;Admin tool&#39; }, { id: &#39;usage&#39;, label: &#39;Usage Limits&#39; }]}
             activeTab={pageTab} onChange={setPageTab} /&gt;
           {pageTab === &#39;usage&#39; ? &lt;&gt;
             &lt;div className=&quot;usage-page__sections&quot;&gt;
@@ -26611,7 +26700,9 @@ export const AddExternalApps: Story = {
               channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
               message, template: emailTemplate },
           };
-          setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row) : [...current, saved]);
+          setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row)
+            : [{ ...saved, newlyAdded: true }, ...current.map(row =&gt; ({ ...row, newlyAdded: false }))]);
+          if (!editingId) setNewNotificationId(saved.id);
           setNameError(false);
           setOpen(false);
         }}
@@ -26847,7 +26938,7 @@ export const AddExternalApps: Story = {
             &lt;/div&gt;}
 
             {externalAppsEnabled &amp;&amp; (
-              &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8 }}&gt;
+              &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: &#39;var(--ds-line-height-base)&#39; }}&gt;
                 {(addExternalAppsVariant ? externalAppOrder : [&#39;cliq&#39;, &#39;slack&#39;]).map(app =&gt; app === &#39;cliq&#39; ? (
                 (!addExternalAppsVariant || notifyZohoCliq) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Zoho Cliq&#39; : &#39;Notify Via&#39;} align=&quot;center&quot;&gt;
                   &lt;div className={addExternalAppsVariant ? &#39;usage-external-app-row&#39; : undefined} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
@@ -27001,7 +27092,7 @@ export const AddExternalApps: Story = {
         onSave={() =&gt; {
           if (!pendingDelete.system) {
             setSavedRows(current =&gt; current.filter(row =&gt; row.id !== pendingDelete.id));
-            setDeleteSuccess(pendingDelete.name);
+            setSuccessMessage(`${pendingDelete.name} deleted successfully.`);
           }
           setPendingDelete(undefined);
         }}
@@ -39473,7 +39564,7 @@ export const EmailVerification: Story = {
           await expect(senderList.getByText(group, { exact: true })).toBeInTheDocument();
         }
         const senderLabels = [
-          &#39;My Email (alex.morgan@example.com)&#39;, &#39;Record Owner’s Email&#39;, &#39;Account Manager’s Email&#39;,
+          &#39;alex.morgan@example.com&#39;, &#39;Record Owner’s Email&#39;, &#39;Account Manager’s Email&#39;,
           &#39;Created By User’s Email&#39;, &#39;Sales Representative’s Email&#39;, &#39;Customer Success Manager’s Email&#39;,
           &#39;Sales Team (sales@example.com)&#39;, &#39;Customer Support (support@example.com)&#39;,
           &#39;Support Notifications (notifications@example.com)&#39;,
@@ -41896,7 +41987,7 @@ import { Checkbox } from &#39;../components/Checkbox/Checkbox&#39;;
 import { Button } from &#39;../components/Button/Button&#39;;
 import { MergeField } from &#39;../components/MergeField/MergeField&#39;;
 import { Tooltip } from &#39;../components/Tooltip/Tooltip&#39;;
-import { CrmAlertInfo, More, Search } from &#39;../foundations/icons/Icons&#39;;
+import { CrmAlertInfo, Info, More, Search } from &#39;../foundations/icons/Icons&#39;;
 import { NextGenTopBand } from &#39;../components/NextGenTopBand/NextGenTopBand&#39;;
 import { VerticalTabs } from &#39;../components/VerticalTabs/VerticalTabs&#39;;
 import { SETUP_MENU_ITEMS } from &#39;../components/VerticalTabs/setupMenuItems&#39;;
@@ -41995,7 +42086,7 @@ const labelStyle: React.CSSProperties = {
   fontWeight: &#39;var(--ds-font-weight-regular)&#39;,
   color:      &#39;var(--ds-text-label)&#39;,
   whiteSpace: &#39;nowrap&#39;,
-  textAlign:  &#39;start&#39;,
+  textAlign:  &#39;right&#39;,
 };
 
 const sectionHeadingStyle: React.CSSProperties = {
@@ -42115,6 +42206,7 @@ type UsageListRow = {
   modifier?: string; modifiedDate?: string; modifiedTime?: string;
   channels?: string[]; status?: &#39;Active&#39; | &#39;Paused&#39; | &#39;Completed&#39;; system?: boolean;
   summary?: string;
+  newlyAdded?: boolean;
   config?: {
     trigger: ReturnType&lt;typeof createUsageTrigger&gt;; recipients: UsageRecipient[];
     pushEmailEnabled: boolean; externalAppsEnabled: boolean;
@@ -42214,14 +42306,19 @@ function UsageChannelsCell({ channels = [] }: { channels?: string[] }) {
 const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) =&gt; void) =&gt; [
   { key: &#39;actions&#39;, label: &#39;&#39;, width: 31, render: (_value: unknown, row: UsageListRow) =&gt; &lt;UsageRowActions row={row} onAction={onAction} /&gt; },
   { key: &#39;name&#39;, label: &#39;Notification Name&#39;, width: &#39;25%&#39;, render: (_value: unknown, row: UsageListRow) =&gt;
-    &lt;Tooltip variant=&quot;white&quot; placement=&quot;top&quot; maxWidth={600} wrapperStyle={{ display: &#39;inline-flex&#39;, maxWidth: &#39;100%&#39;, minWidth: 0, verticalAlign: &#39;middle&#39; }} content={row.summary || `${row.feature}: ${row.name}. Notify via ${row.channels?.join(&#39;, &#39;)}.`}&gt;
+    &lt;span className=&quot;usage-page__name-cell&quot; data-new-notification={row.newlyAdded || undefined}&gt;
       &lt;button type=&quot;button&quot; className=&quot;usage-page__name&quot; aria-haspopup=&quot;dialog&quot; onClick={() =&gt; onAction(&#39;edit&#39;, row)}&gt;{row.name}&lt;/button&gt;
-    &lt;/Tooltip&gt; },
+      &lt;Tooltip variant=&quot;white&quot; placement=&quot;top&quot; followCursor maxWidth={600}
+        content={row.summary || `${row.feature}: ${row.name}. Notify via ${row.channels?.join(&#39;, &#39;)}.`}&gt;
+        &lt;Info className=&quot;usage-page__summary-info&quot; width={16} height={16} role=&quot;img&quot;
+          aria-label={`Summary: ${row.summary || `${row.feature}: ${row.name}`}`} /&gt;
+      &lt;/Tooltip&gt;
+    &lt;/span&gt; },
   { key: &#39;feature&#39;, label: &#39;Feature&#39;, width: &#39;13%&#39; },
   { key: &#39;channels&#39;, label: &#39;Notify via&#39;, width: &#39;22%&#39;, render: (_value: unknown, row: UsageListRow) =&gt; &lt;UsageChannelsCell channels={row.channels} /&gt; },
   { key: &#39;creator&#39;, label: &#39;Created by&#39;, width: &#39;14%&#39;, render: personCell(&#39;creator&#39;) },
   { key: &#39;modifier&#39;, label: &#39;Modified by&#39;, width: &#39;14%&#39;, render: personCell(&#39;modifier&#39;) },
-  { key: &#39;status&#39;, label: &#39;Status&#39;, width: 120, render: (_value: unknown, row: UsageListRow) =&gt; &lt;span&gt;{row.status}&lt;/span&gt; },
+  { key: &#39;status&#39;, label: &#39;Status&#39;, width: 120, render: (_value: unknown, row: UsageListRow) =&gt; &lt;span className=&quot;usage-page__status&quot; data-status={row.status}&gt;{row.status}&lt;/span&gt; },
 ];
 
 export const CreateNotification: Story = {
@@ -42408,12 +42505,21 @@ export const CreateNotification: Story = {
     const [editingId, setEditingId] = useState&lt;string&gt;();
     const isSystemDefined = !!savedRows.find(row =&gt; row.id === editingId)?.system;
     const [pendingDelete, setPendingDelete] = useState&lt;UsageListRow&gt;();
-    const [deleteSuccess, setDeleteSuccess] = useState&lt;string&gt;();
+    const [successMessage, setSuccessMessage] = useState&lt;string&gt;();
+    const [newNotificationId, setNewNotificationId] = useState&lt;string&gt;();
     useEffect(() =&gt; {
-      if (!deleteSuccess) return;
-      const timeout = window.setTimeout(() =&gt; setDeleteSuccess(undefined), 4000);
+      if (!successMessage) return;
+      const timeout = window.setTimeout(() =&gt; setSuccessMessage(undefined), 4000);
       return () =&gt; window.clearTimeout(timeout);
-    }, [deleteSuccess]);
+    }, [successMessage]);
+    useEffect(() =&gt; {
+      if (!newNotificationId) return;
+      const timeout = window.setTimeout(() =&gt; {
+        setSavedRows(current =&gt; current.map(row =&gt; row.id === newNotificationId ? { ...row, newlyAdded: false } : row));
+        setNewNotificationId(undefined);
+      }, 4000);
+      return () =&gt; window.clearTimeout(timeout);
+    }, [newNotificationId]);
     const visibleRows = savedRows.filter(row =&gt;
       (featureFilter === &#39;all&#39; || row.feature === featureFilter) &amp;&amp;
       (typeFilter === &#39;all&#39; || (typeFilter === &#39;system&#39; ? row.system : !row.system)) &amp;&amp;
@@ -42585,8 +42691,11 @@ export const CreateNotification: Story = {
     const onRowAction = (action: RowAction, row: UsageListRow) =&gt; {
       if (action === &#39;edit&#39; || action === &#39;clone&#39;) openEditor(row, action === &#39;clone&#39;);
       else if (action === &#39;delete&#39;) { if (!row.system) setPendingDelete(row); }
-      else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
-        ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+      else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) {
+        setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
+          ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+        setSuccessMessage(`${row.name} ${action === &#39;pause&#39; ? &#39;paused&#39; : &#39;resumed&#39;} successfully.`);
+      }
     };
     const columns = usageListColumns(onRowAction);
 
@@ -42622,8 +42731,8 @@ export const CreateNotification: Story = {
           input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         `}&lt;/style&gt;
 
-        {deleteSuccess &amp;&amp; &lt;MessageBox variant=&quot;success&quot; className=&quot;usage-page__success-alert&quot;
-          message={`${deleteSuccess} deleted successfully.`} onClose={() =&gt; setDeleteSuccess(undefined)} /&gt;}
+        {successMessage &amp;&amp; &lt;MessageBox variant=&quot;success&quot; className=&quot;usage-page__success-alert&quot;
+          message={successMessage} onClose={() =&gt; setSuccessMessage(undefined)} /&gt;}
 
         &lt;div className=&quot;usage-page&quot;&gt;
           &lt;aside className=&quot;usage-page__sidebar&quot; aria-label=&quot;Setup navigation&quot;&gt;
@@ -42632,7 +42741,7 @@ export const CreateNotification: Story = {
           &lt;/aside&gt;
           &lt;header className=&quot;usage-page__topband&quot;&gt;&lt;NextGenTopBand moduleLabel={null} showTerritory={false} /&gt;&lt;/header&gt;
           &lt;main className=&quot;usage-page__workspace&quot; aria-label=&quot;Usage limit notifications&quot;&gt;
-            &lt;Tabs tabs={[{ id: &#39;usage&#39;, label: &#39;Usage Limits&#39; }, { id: &#39;admin&#39;, label: &#39;Admin tool&#39; }]}
+            &lt;Tabs tabs={[{ id: &#39;admin&#39;, label: &#39;Admin tool&#39; }, { id: &#39;usage&#39;, label: &#39;Usage Limits&#39; }]}
               activeTab={pageTab} onChange={setPageTab} /&gt;
             {pageTab === &#39;usage&#39; ? &lt;&gt;
               &lt;div className=&quot;usage-page__sections&quot;&gt;
@@ -42780,7 +42889,9 @@ export const CreateNotification: Story = {
                 channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
                 message, template: emailTemplate },
             };
-            setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row) : [...current, saved]);
+            setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row)
+              : [{ ...saved, newlyAdded: true }, ...current.map(row =&gt; ({ ...row, newlyAdded: false }))]);
+            if (!editingId) setNewNotificationId(saved.id);
             setNameError(false);
             setOpen(false);
           }}
@@ -43016,7 +43127,7 @@ export const CreateNotification: Story = {
               &lt;/div&gt;}
 
               {externalAppsEnabled &amp;&amp; (
-                &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8 }}&gt;
+                &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: &#39;var(--ds-line-height-base)&#39; }}&gt;
                   {(addExternalAppsVariant ? externalAppOrder : [&#39;cliq&#39;, &#39;slack&#39;]).map(app =&gt; app === &#39;cliq&#39; ? (
                   (!addExternalAppsVariant || notifyZohoCliq) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Zoho Cliq&#39; : &#39;Notify Via&#39;} align=&quot;center&quot;&gt;
                     &lt;div className={addExternalAppsVariant ? &#39;usage-external-app-row&#39; : undefined} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
@@ -43170,7 +43281,7 @@ export const CreateNotification: Story = {
           onSave={() =&gt; {
             if (!pendingDelete.system) {
               setSavedRows(current =&gt; current.filter(row =&gt; row.id !== pendingDelete.id));
-              setDeleteSuccess(pendingDelete.name);
+              setSuccessMessage(`${pendingDelete.name} deleted successfully.`);
             }
             setPendingDelete(undefined);
           }}
@@ -43241,11 +43352,10 @@ export const AddExternalApps: Story = {
     await expect(teamDropdown).toHaveTextContent(&#39;Select&#39;);
     const teamRow = teamDropdown.closest(&#39;.dropdown-form-row&#39;)!;
     const teamLabel = teamRow.querySelector(&#39;.dropdown-label&#39;)!;
-    await expect(getComputedStyle(teamLabel).textAlign).toBe(&#39;start&#39;);
-    const appDialog = teamDropdown.closest(&#39;.modal-dialog&#39;)!;
-    const appTitle = appDialog.querySelector(&#39;.modal-title&#39;)!;
-    await expect(teamLabel.getBoundingClientRect().left).toBeCloseTo(appTitle.getBoundingClientRect().left, 0);
+    await expect(getComputedStyle(teamLabel).textAlign).toBe(&#39;right&#39;);
     await expect(getComputedStyle(teamRow).columnGap).toBe(&#39;20px&#39;);
+    await expect(teamDropdown.getBoundingClientRect().left - teamLabel.getBoundingClientRect().right).toBeCloseTo(20, 0);
+    await expect(teamLabel.getBoundingClientRect().width).toBeLessThan(60);
     await expect(teamDropdown.getBoundingClientRect().height).toBe(34);
     await expect(teamDropdown.getBoundingClientRect().width).toBe(390);
     await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).not.toBeInTheDocument();
@@ -43253,6 +43363,7 @@ export const AddExternalApps: Story = {
     await expect(page.queryByPlaceholderText(&#39;Select recipients&#39;)).not.toBeInTheDocument();
     await expect(page.queryByText(&#39;Select a team first to choose recipients.&#39;)).not.toBeInTheDocument();
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Slack team&#39; }));
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Authorise another team&#39;, exact: true })).toBeVisible();
     await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;scranton store&#39;, exact: true }));
     await expect(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).toBeEnabled();
     await expect(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; })).toBeEnabled();
@@ -43285,6 +43396,10 @@ export const AddExternalApps: Story = {
     const slackField = page.getByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; });
     await expect(removeSlack.getBoundingClientRect().left - slackField.getBoundingClientRect().right).toBeCloseTo(6, 0);
     const cliqField = page.getByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; });
+    await expect(cliqField.getBoundingClientRect().top - slackField.getBoundingClientRect().bottom).toBeCloseTo(20, 0);
+    const messageHint = page.getByText(&#39;Type # to insert merge field&#39;, { exact: true });
+    const labelColor = getComputedStyle(page.getByText(&#39;Notify via Zoho Cliq&#39;, { exact: true })).color;
+    await expect(getComputedStyle(messageHint).color).toBe(labelColor);
     await expect(page.getByRole(&#39;button&#39;, { name: &#39;Remove Zoho Cliq&#39; }).getBoundingClientRect().left - cliqField.getBoundingClientRect().right).toBeCloseTo(6, 0);
     await userEvent.click(removeSlack);
     await expect(page.queryByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; })).not.toBeInTheDocument();
@@ -43292,6 +43407,58 @@ export const AddExternalApps: Story = {
     await expect(page.queryByRole(&#39;heading&#39;, { name: &#39;External apps&#39;, exact: true })).not.toBeInTheDocument();
     await expect(page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true })).toBeVisible();
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }));
+    const primaryTabs = canvasElement.querySelector(&#39;.usage-page__workspace &gt; .tabs-tab-bar&#39;)!;
+    await expect(within(primaryTabs as HTMLElement).getAllByRole(&#39;tab&#39;).map(tab =&gt; tab.textContent)).toEqual([&#39;Admin tool&#39;, &#39;Usage Limits&#39;]);
+    const firstName = page.getByRole(&#39;button&#39;, { name: &#39;Reached add-on limit 60%&#39;, exact: true });
+    const { page: browserPage } = await import(&#39;vitest/browser&#39;);
+    const summaryTrigger = firstName.parentElement!.querySelector(&#39;.tooltip-wrapper&#39;)!;
+    await browserPage.elementLocator(primaryTabs).hover();
+    await expect(summaryTrigger).not.toBeVisible();
+    await browserPage.elementLocator(firstName).hover();
+    await expect(summaryTrigger).toBeVisible();
+    await userEvent.hover(firstName);
+    await expect(page.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
+    firstName.focus();
+    await expect(page.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
+    const summaryIcon = firstName.parentElement!.querySelector(&#39;.usage-page__summary-info&#39;)!;
+    const iconBounds = summaryIcon.getBoundingClientRect();
+    const nameBounds = firstName.getBoundingClientRect();
+    await expect(iconBounds.width).toBe(16);
+    await expect(iconBounds.height).toBe(16);
+    await expect(Math.abs(iconBounds.top + iconBounds.height / 2 - nameBounds.top - nameBounds.height / 2)).toBeLessThanOrEqual(1);
+    await expect(summaryIcon.querySelector(&#39;circle&#39;)).toHaveAttribute(&#39;stroke&#39;, &#39;currentColor&#39;);
+    await expect(summaryIcon).toHaveAttribute(&#39;fill&#39;, &#39;none&#39;);
+    await userEvent.hover(summaryIcon);
+    await expect(await page.findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;60&#39;);
+    await userEvent.unhover(summaryIcon);
+    await waitFor(() =&gt; expect(page.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument());
+    const row = firstName.closest(&#39;tr&#39;)!;
+    const actions = within(row).getByRole(&#39;button&#39;, { name: &#39;More options for Reached add-on limit 60%&#39; });
+    await userEvent.hover(row);
+    await userEvent.click(actions);
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Pause&#39;, exact: true }));
+    await expect(page.getByText(&#39;Reached add-on limit 60% paused successfully.&#39;)).toBeVisible();
+    await expect(within(row).getByText(&#39;Paused&#39;, { exact: true })).toHaveAttribute(&#39;data-status&#39;, &#39;Paused&#39;);
+    await userEvent.click(actions);
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Resume&#39;, exact: true }));
+    await expect(page.getByText(&#39;Reached add-on limit 60% resumed successfully.&#39;)).toBeVisible();
+    await expect(within(row).getByText(&#39;Active&#39;, { exact: true })).toHaveAttribute(&#39;data-status&#39;, &#39;Active&#39;);
+    await userEvent.click(actions);
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Clone&#39;, exact: true }));
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Save&#39;, exact: true }));
+    const newName = page.getByRole(&#39;button&#39;, { name: &#39;Reached add-on limit 60%_Cloned&#39;, exact: true });
+    const newRow = newName.closest(&#39;tr&#39;)!;
+    await expect(newRow).toBe(canvasElement.querySelector(&#39;.table-report tbody tr&#39;));
+    const newCell = newName.closest(&#39;td&#39;)!;
+    await expect(getComputedStyle(newCell).backgroundColor).toBe(&#39;rgb(253, 250, 222)&#39;);
+    const highlight = newCell.getAnimations()[0];
+    await expect(highlight).toBeDefined();
+    await expect(highlight.effect!.getTiming().duration).toBe(4000);
+    highlight.currentTime = 3000;
+    await expect(getComputedStyle(newCell).backgroundColor).not.toBe(&#39;rgb(253, 250, 222)&#39;);
+    await expect(getComputedStyle(newCell).backgroundColor).not.toBe(&#39;rgba(0, 0, 0, 0)&#39;);
+    await waitFor(() =&gt; expect(newRow.querySelector(&#39;[data-new-notification]&#39;)).toBeNull(), { timeout: 6000 });
+    await expect(getComputedStyle(newCell).backgroundColor).toBe(&#39;rgba(0, 0, 0, 0)&#39;);
   },
 };
 </code></pre></div>
@@ -43318,13 +43485,13 @@ export const AddExternalApps: Story = {
               
               
               <pre><code>Expected render to be an arrow function or function expression
-  1317 |   name: &#39;Create Notification — Add External Apps&#39;,
-  1318 |   args: { externalAppsVariant: &#39;dropdown&#39; },
-&gt; 1319 |   render: CreateNotification.render,
+  1337 |   name: &#39;Create Notification — Add External Apps&#39;,
+  1338 |   args: { externalAppsVariant: &#39;dropdown&#39; },
+&gt; 1339 |   render: CreateNotification.render,
        |           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  1320 |   play: async ({ canvasElement }) =&gt; {
-  1321 |     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
-  1322 |     const page = within(canvasElement.ownerDocument.body);</code></pre>
+  1340 |   play: async ({ canvasElement }) =&gt; {
+  1341 |     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
+  1342 |     const page = within(canvasElement.ownerDocument.body);</code></pre>
             </div>
           
           
@@ -43338,6 +43505,7 @@ export const AddExternalApps: Story = {
     CrmAlertInfo,
     Dropdown,
     Icon,
+    Info,
     Input,
     MergeField,
     MessageBox,
@@ -43396,12 +43564,21 @@ export const AddExternalApps: Story = {
   const [editingId, setEditingId] = useState&lt;string&gt;();
   const isSystemDefined = !!savedRows.find(row =&gt; row.id === editingId)?.system;
   const [pendingDelete, setPendingDelete] = useState&lt;UsageListRow&gt;();
-  const [deleteSuccess, setDeleteSuccess] = useState&lt;string&gt;();
+  const [successMessage, setSuccessMessage] = useState&lt;string&gt;();
+  const [newNotificationId, setNewNotificationId] = useState&lt;string&gt;();
   useEffect(() =&gt; {
-    if (!deleteSuccess) return;
-    const timeout = window.setTimeout(() =&gt; setDeleteSuccess(undefined), 4000);
+    if (!successMessage) return;
+    const timeout = window.setTimeout(() =&gt; setSuccessMessage(undefined), 4000);
     return () =&gt; window.clearTimeout(timeout);
-  }, [deleteSuccess]);
+  }, [successMessage]);
+  useEffect(() =&gt; {
+    if (!newNotificationId) return;
+    const timeout = window.setTimeout(() =&gt; {
+      setSavedRows(current =&gt; current.map(row =&gt; row.id === newNotificationId ? { ...row, newlyAdded: false } : row));
+      setNewNotificationId(undefined);
+    }, 4000);
+    return () =&gt; window.clearTimeout(timeout);
+  }, [newNotificationId]);
   const visibleRows = savedRows.filter(row =&gt;
     (featureFilter === &#39;all&#39; || row.feature === featureFilter) &amp;&amp;
     (typeFilter === &#39;all&#39; || (typeFilter === &#39;system&#39; ? row.system : !row.system)) &amp;&amp;
@@ -43573,8 +43750,11 @@ export const AddExternalApps: Story = {
   const onRowAction = (action: RowAction, row: UsageListRow) =&gt; {
     if (action === &#39;edit&#39; || action === &#39;clone&#39;) openEditor(row, action === &#39;clone&#39;);
     else if (action === &#39;delete&#39;) { if (!row.system) setPendingDelete(row); }
-    else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
-      ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+    else if (!row.system &amp;&amp; row.status !== &#39;Completed&#39;) {
+      setSavedRows(current =&gt; current.map(item =&gt; item.id === row.id &amp;&amp; !item.system
+        ? { ...item, status: action === &#39;pause&#39; ? &#39;Paused&#39; : &#39;Active&#39; } : item));
+      setSuccessMessage(`${row.name} ${action === &#39;pause&#39; ? &#39;paused&#39; : &#39;resumed&#39;} successfully.`);
+    }
   };
   const columns = usageListColumns(onRowAction);
 
@@ -43610,8 +43790,8 @@ export const AddExternalApps: Story = {
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
       `}&lt;/style&gt;
 
-      {deleteSuccess &amp;&amp; &lt;MessageBox variant=&quot;success&quot; className=&quot;usage-page__success-alert&quot;
-        message={`${deleteSuccess} deleted successfully.`} onClose={() =&gt; setDeleteSuccess(undefined)} /&gt;}
+      {successMessage &amp;&amp; &lt;MessageBox variant=&quot;success&quot; className=&quot;usage-page__success-alert&quot;
+        message={successMessage} onClose={() =&gt; setSuccessMessage(undefined)} /&gt;}
 
       &lt;div className=&quot;usage-page&quot;&gt;
         &lt;aside className=&quot;usage-page__sidebar&quot; aria-label=&quot;Setup navigation&quot;&gt;
@@ -43620,7 +43800,7 @@ export const AddExternalApps: Story = {
         &lt;/aside&gt;
         &lt;header className=&quot;usage-page__topband&quot;&gt;&lt;NextGenTopBand moduleLabel={null} showTerritory={false} /&gt;&lt;/header&gt;
         &lt;main className=&quot;usage-page__workspace&quot; aria-label=&quot;Usage limit notifications&quot;&gt;
-          &lt;Tabs tabs={[{ id: &#39;usage&#39;, label: &#39;Usage Limits&#39; }, { id: &#39;admin&#39;, label: &#39;Admin tool&#39; }]}
+          &lt;Tabs tabs={[{ id: &#39;admin&#39;, label: &#39;Admin tool&#39; }, { id: &#39;usage&#39;, label: &#39;Usage Limits&#39; }]}
             activeTab={pageTab} onChange={setPageTab} /&gt;
           {pageTab === &#39;usage&#39; ? &lt;&gt;
             &lt;div className=&quot;usage-page__sections&quot;&gt;
@@ -43768,7 +43948,9 @@ export const AddExternalApps: Story = {
               channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
               message, template: emailTemplate },
           };
-          setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row) : [...current, saved]);
+          setSavedRows(current =&gt; editingId ? current.map(row =&gt; row.id === editingId ? saved : row)
+            : [{ ...saved, newlyAdded: true }, ...current.map(row =&gt; ({ ...row, newlyAdded: false }))]);
+          if (!editingId) setNewNotificationId(saved.id);
           setNameError(false);
           setOpen(false);
         }}
@@ -44004,7 +44186,7 @@ export const AddExternalApps: Story = {
             &lt;/div&gt;}
 
             {externalAppsEnabled &amp;&amp; (
-              &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8 }}&gt;
+              &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: &#39;var(--ds-line-height-base)&#39; }}&gt;
                 {(addExternalAppsVariant ? externalAppOrder : [&#39;cliq&#39;, &#39;slack&#39;]).map(app =&gt; app === &#39;cliq&#39; ? (
                 (!addExternalAppsVariant || notifyZohoCliq) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Zoho Cliq&#39; : &#39;Notify Via&#39;} align=&quot;center&quot;&gt;
                   &lt;div className={addExternalAppsVariant ? &#39;usage-external-app-row&#39; : undefined} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
@@ -44158,7 +44340,7 @@ export const AddExternalApps: Story = {
         onSave={() =&gt; {
           if (!pendingDelete.system) {
             setSavedRows(current =&gt; current.filter(row =&gt; row.id !== pendingDelete.id));
-            setDeleteSuccess(pendingDelete.name);
+            setSuccessMessage(`${pendingDelete.name} deleted successfully.`);
           }
           setPendingDelete(undefined);
         }}

@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-BTXe9M7S.js";var t,n;e((()=>{throw t=null,n=globalThis.__vitest_worker__?.ctx?.pool,Error(`vitest/browser can be imported only inside the Browser Mode. `+(n?`Your test is running in ${n} pool. Make sure your regular tests are excluded from the "test.include" glob pattern.`:`Instead, it was imported outside of Vitest.`))}))();export{t as page};
