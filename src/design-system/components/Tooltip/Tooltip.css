@@ -45,7 +45,7 @@
   pointer-events: none;
   white-space: normal;
   width: max-content;
-  max-width: calc(100vw - 16px);
+  max-width: min(600px, calc(100vw - 16px));
   max-height: calc(100vh - 16px);
   overflow-wrap: anywhere;
 }

@@ -1,0 +1,10 @@
+.icon-gallery-copy {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.icon-gallery-tile:hover .icon-gallery-copy,
+.icon-gallery-tile:focus-within .icon-gallery-copy {
+  opacity: 1;
+  pointer-events: auto;
+}

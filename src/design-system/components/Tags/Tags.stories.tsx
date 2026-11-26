@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tags, type TagItem } from './Tags';
 
 const meta: Meta<typeof Tags> = {
@@ -22,59 +22,12 @@ type Story = StoryObj<typeof Tags>;
 
 const avatar = (n: number) => `/images/avatars/user_0${n}.jpg`;
 
-const TAG_OPTIONS: TagItem[] = [
-  { value: 'design',     label: 'Design' },
-  { value: 'frontend',   label: 'Frontend' },
-  { value: 'backend',    label: 'Backend' },
-  { value: 'qa',         label: 'QA' },
-  { value: 'devops',     label: 'DevOps' },
-  { value: 'product',    label: 'Product' },
-  { value: 'marketing',  label: 'Marketing' },
-];
-
 const ROLE_OPTIONS: TagItem[] = [
   { value: 'admin',   label: 'Admin' },
   { value: 'manager', label: 'Manager' },
   { value: 'viewer',  label: 'Viewer' },
   { value: 'editor',  label: 'Editor' },
 ];
-
-// ── Default (empty) ───────────────────────────────────────────────────────────
-
-export const Default: Story = {
-  render: () => {
-    const [tags, setTags] = useState<TagItem[]>([]);
-    return (
-      <Tags
-        value={tags}
-        options={TAG_OPTIONS}
-        onChange={setTags}
-        placeholder="Select tags"
-        width={390}
-      />
-    );
-  },
-};
-
-// ── With preselected values ───────────────────────────────────────────────────
-
-export const WithValues: Story = {
-  render: () => {
-    const [tags, setTags] = useState<TagItem[]>([
-      { value: 'design',   label: 'Design' },
-      { value: 'frontend', label: 'Frontend' },
-    ]);
-    return (
-      <Tags
-        value={tags}
-        options={TAG_OPTIONS}
-        onChange={setTags}
-        placeholder="Select tags"
-        width={390}
-      />
-    );
-  },
-};
 
 // ── With count badges ─────────────────────────────────────────────────────────
 
@@ -116,36 +69,6 @@ export const Roles: Story = {
         required
       />
     );
-  },
-};
-
-// ── Error state ───────────────────────────────────────────────────────────────
-
-export const ErrorState: Story = {
-  render: () => {
-    const [tags, setTags] = useState<TagItem[]>([]);
-    return (
-      <Tags
-        value={tags}
-        options={TAG_OPTIONS}
-        onChange={setTags}
-        error
-        width={390}
-        placeholder="Required"
-      />
-    );
-  },
-};
-
-// ── Disabled ──────────────────────────────────────────────────────────────────
-
-export const Disabled: Story = {
-  render: () => {
-    const tags: TagItem[] = [
-      { value: 'design',  label: 'Design' },
-      { value: 'backend', label: 'Backend' },
-    ];
-    return <Tags value={tags} options={TAG_OPTIONS} disabled width={390} />;
   },
 };
 

@@ -130,7 +130,7 @@ export function NextGenTopBand({
           onClick={openSearch}
           aria-label="Open search"
         >
-          <Search width={12} height={12} />
+          <Search width={15} height={15} />
           <span className="ngtb-search-placeholder">Search</span>
         </button>
 

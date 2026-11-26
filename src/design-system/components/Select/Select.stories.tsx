@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Select } from './Select';
+import { expect } from 'storybook/test';
 
 const LEAD_STATUS_OPTIONS = [
   { value: 'new',         label: 'New' },
@@ -16,8 +17,18 @@ const LEAD_STATUS_OPTIONS = [
 // ─────────────────────────────────────────────────────────────────────────────
 
 const meta: Meta<typeof Select> = {
-  title: 'Design System/Components/Select',
+  title: 'Design System/Components/Select with Piclist',
   component: Select,
+  args: {
+    columns: '1fr 390px',
+  },
+  play: async ({ canvasElement }) => {
+    const triggers = canvasElement.querySelectorAll('.select-select-wrapper');
+    await expect(triggers.length).toBeGreaterThan(0);
+    for (const trigger of triggers) {
+      await expect(trigger.getBoundingClientRect().width).toBe(390);
+    }
+  },
   parameters: {
     layout: 'centered',
     docs: {
@@ -99,7 +110,7 @@ type Story = StoryObj<typeof Select>;
 export const Default: Story = {
   args: {
     label: 'Lead Status',
-    width: 670,
+    width: 622,
     layout: 'horizontal',
     options: LEAD_STATUS_OPTIONS,
   },
@@ -111,7 +122,7 @@ export const WithValue: Story = {
   args: {
     label: 'Lead Status',
     value: 'qualified',
-    width: 670,
+    width: 622,
     layout: 'horizontal',
     options: LEAD_STATUS_OPTIONS,
   },
@@ -122,7 +133,7 @@ export const Hover: Story = {
   name: 'Hover',
   args: {
     label: 'Lead Status',
-    width: 670,
+    width: 622,
     layout: 'horizontal',
     options: LEAD_STATUS_OPTIONS,
     forceState: 'hover',
@@ -134,7 +145,7 @@ export const Focus: Story = {
   name: 'Focus',
   args: {
     label: 'Lead Status',
-    width: 670,
+    width: 622,
     layout: 'horizontal',
     options: LEAD_STATUS_OPTIONS,
     forceState: 'focus',
@@ -147,7 +158,7 @@ export const Required: Story = {
   args: {
     label: 'Lead Status',
     required: true,
-    width: 670,
+    width: 622,
     layout: 'horizontal',
     options: LEAD_STATUS_OPTIONS,
   },
@@ -160,7 +171,7 @@ export const Disabled: Story = {
     label: 'Lead Status',
     value: 'new',
     disabled: true,
-    width: 670,
+    width: 622,
     layout: 'horizontal',
     options: LEAD_STATUS_OPTIONS,
   },
@@ -173,7 +184,7 @@ export const ReadOnly: Story = {
     label: 'Lead Status',
     value: 'qualified',
     readOnly: true,
-    width: 670,
+    width: 622,
     layout: 'horizontal',
     options: LEAD_STATUS_OPTIONS,
   },
@@ -186,7 +197,7 @@ export const Error: Story = {
     label: 'Lead Status',
     helperText: 'Please select a lead status.',
     error: true,
-    width: 670,
+    width: 622,
     layout: 'horizontal',
     options: LEAD_STATUS_OPTIONS,
   },
@@ -200,7 +211,7 @@ export const FullAnatomy: Story = {
     placeholder: 'None',
     helperText: 'Select the current stage of this lead.',
     required: true,
-    width: 670,
+    width: 622,
     layout: 'horizontal',
     options: LEAD_STATUS_OPTIONS,
   },

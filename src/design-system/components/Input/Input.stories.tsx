@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Input } from './Input';
 import { DateTimeInput } from './DateTimeInput';
+import { expect, userEvent, within } from 'storybook/test';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -130,6 +131,59 @@ export const Default: Story = {
   },
 };
 
+
+export const HeaderInput: Story = {
+  name: 'Header input',
+  args: {
+    variant: 'header',
+    defaultValue: 'Untitled Joined Report',
+    'aria-label': 'Report title',
+    onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter') event.currentTarget.blur();
+    },
+  },
+  parameters: {
+    docs: { description: { story: 'Editable heading with a hover border. Hugs the text with a 100px minimum and expands to 390px on focus.' } },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('textbox', { name: 'Report title' });
+    const root = input.closest('.input-header')!;
+    await expect(input).toHaveValue('Untitled Joined Report');
+    await userEvent.hover(input);
+    await expect(root.getBoundingClientRect().width).toBeGreaterThanOrEqual(100);
+    await userEvent.click(input);
+    await expect(root.getBoundingClientRect().width).toBe(390);
+    await userEvent.clear(input);
+    await userEvent.type(input, 'Sales{Enter}');
+    await expect(input).not.toHaveFocus();
+    await expect(root.getBoundingClientRect().width).toBe(100);
+    await userEvent.click(input);
+    await userEvent.clear(input);
+    await userEvent.type(input, 'Untitled Joined Report{Enter}');
+  },
+};
+
+export const SearchInput: Story = {
+  name: 'Search box',
+  args: { variant: 'search', width: 240, 'aria-label': 'Search recipients', placeholder: 'Search' },
+  parameters: { docs: { description: { story: 'Compact 30px search with a leading icon, clear action, and base-size Puvi text. Controlled fields supply onClear to reset their value.' } } },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Search recipients' });
+    const baseSize = getComputedStyle(search).getPropertyValue('--ds-font-size-base').trim();
+    await expect(getComputedStyle(search).fontFamily).toContain('Puvi');
+    await expect(getComputedStyle(search).fontSize).toBe(baseSize);
+    await expect(getComputedStyle(search, '::placeholder').fontSize).toBe(baseSize);
+    await expect(getComputedStyle(search, '::placeholder').fontFamily).toContain('Puvi');
+    await expect(search.closest('.input-input-wrapper')!.getBoundingClientRect().height).toBe(30);
+    await userEvent.type(search, 'Operations');
+    await expect(search).toHaveValue('Operations');
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear search' }));
+    await expect(search).toHaveValue('');
+    await expect(search).toHaveFocus();
+  },
+};
 
 /** Small size: 27px tall with 13px text, for compact toolbars and section headers. */
 export const Small: Story = {
@@ -486,6 +540,62 @@ export const Currency: Story = {
     disabled: { control: 'boolean' },
   },
 };
+
+export const AllVariants: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => <InputVariants />,
+};
+
+function InputVariants() {
+  const [date, setDate] = useState('22/04/2025');
+  const [time, setTime] = useState('');
+  const variants: [string, Story][] = [
+    ['Default', Default],
+    ['Small', Small],
+    ['Long Label', LongLabel],
+    ['Hover', Hover],
+    ['Focus', Focus],
+    ['Required Field', Required],
+    ['Prefilled Value', Prefilled],
+    ['Full Anatomy', FullAnatomy],
+    ['Vertical Layout', Vertical],
+    ['Lookup', Lookup],
+    ['Required Lookup', RequiredLookup],
+    ['Disabled', Disabled],
+    ['Read Only', ReadOnly],
+    ['Disabled Lookup', DisabledLookup],
+    ['Read Only Lookup', ReadOnlyLookup],
+    ['Error', Error],
+    ['Error (Focused)', ErrorFocused],
+    ['Required + Error', RequiredError],
+    ['Auto Update', AutoUpdate],
+    ['Date & Time', DateTimeField],
+    ['Date & Time (Vertical)', DateTimeVertical],
+    ['Currency', Currency],
+    ['Password', Password],
+  ];
+
+  return (
+    <div style={{ display: 'grid', gap: 28, padding: 24 }}>
+      {variants.map(([name, story]) => (
+        <section key={name} aria-label={name}>
+          <h3 style={{ margin: '0 0 12px', fontSize: 14, color: 'var(--ds-text-heading)' }}>{name}</h3>
+          <Input {...story.args} />
+        </section>
+      ))}
+      <section aria-label="Date & Time (with Calendar)">
+        <h3 style={{ margin: '0 0 12px', fontSize: 14, color: 'var(--ds-text-heading)' }}>Date &amp; Time (with Calendar)</h3>
+        <DateTimeInput
+          width={390}
+          dateValue={date}
+          timeValue={time}
+          onDateChange={setDate}
+          onTimeChange={setTime}
+        />
+      </section>
+    </div>
+  );
+}
 
 export const Password: Story = {
   args: {

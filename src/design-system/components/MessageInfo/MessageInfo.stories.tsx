@@ -10,7 +10,7 @@ const SAMPLE_POINTS = [
 ];
 
 const meta: Meta<typeof MessageInfo> = {
-  title: 'Design System/Components/MessageInfo',
+  title: 'Design System/Components/Message Box',
   component: MessageInfo,
   parameters: {
     layout: 'padded',

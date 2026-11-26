@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Dropdown } from './Dropdown';
 
@@ -9,6 +10,13 @@ import { Dropdown } from './Dropdown';
 const meta: Meta<typeof Dropdown> = {
   title: 'Design System/Components/Dropdown',
   component: Dropdown,
+  play: async ({ canvasElement }) => {
+    const triggers = canvasElement.querySelectorAll('.dropdown-trigger');
+    await expect(triggers.length).toBeGreaterThan(0);
+    for (const trigger of triggers) {
+      await expect(trigger.getBoundingClientRect().width).toBe(390);
+    }
+  },
   parameters: {
     layout: 'centered',
     docs: {
@@ -99,6 +107,7 @@ export const Playground: Story = {
     label: 'Lead Status',
     options: LEAD_STATUS,
     width: 622,
+    columns: '1fr 390px',
   },
 };
 
@@ -114,7 +123,7 @@ export const Small: Story = {
         value={val}
         onChange={setVal}
         placeholder="Lead Status"
-        width={200}
+        width={390}
       />
     );
   },
@@ -135,7 +144,7 @@ export const Default: Story = {
         options={LEAD_STATUS}
         value={val}
         onChange={setVal}
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   }
@@ -152,7 +161,7 @@ export const WithValue: Story = {
         options={LEAD_STATUS}
         value={val}
         onChange={setVal}
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   },
@@ -169,7 +178,7 @@ export const Required: Story = {
         value={val}
         onChange={setVal}
         required
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   },
@@ -189,7 +198,7 @@ export const ErrorState: Story = {
         required
         error
         helperText="Please select a lead status."
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   },
@@ -203,7 +212,7 @@ export const Disabled: Story = {
       options={LEAD_STATUS}
       value="qualified"
       disabled
-      width={622}
+      width={622} columns="1fr 390px"
     />
   ),
 };
@@ -219,7 +228,7 @@ export const WithDisabledOptions: Story = {
         options={WITH_DISABLED}
         value={val}
         onChange={setVal}
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   },
@@ -254,7 +263,7 @@ export const ModuleFilter: Story = {
         value={val}
         onChange={setVal}
         moduleFilter={['Deals', 'Contacts', 'Accounts', 'Vendors']}
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   },
@@ -270,7 +279,7 @@ export const Searchable: Story = {
         value={val}
         onChange={setVal}
         searchable
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   },
@@ -289,7 +298,7 @@ export const SearchableScrollable: Story = {
         onChange={setVal}
         searchable
         helperText="Scroll or search to find your country."
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   },
@@ -307,7 +316,7 @@ export const VerticalLayout: Story = {
         value={val}
         onChange={setVal}
         layout="vertical"
-        width={300}
+        width={390}
       />
     );
   },
@@ -329,11 +338,11 @@ export const AllStates: Story = {
     const row: React.CSSProperties = { display: 'flex', flexDirection: 'column', gap: 16, width: 622 };
     return (
       <div style={row}>
-        <Dropdown label="Default" options={LEAD_STATUS} value={vals.default} onChange={set('default')} width={622} />
-        <Dropdown label="With Value" options={LEAD_STATUS} value={vals.value} onChange={set('value')} width={622} />
-        <Dropdown label="Required" options={LEAD_STATUS} value={vals.required} onChange={set('required')} required width={622} />
-        <Dropdown label="Error" options={LEAD_STATUS} value={vals.error} onChange={set('error')} error helperText="This field is required." width={622} />
-        <Dropdown label="Disabled" options={LEAD_STATUS} value={vals.disabled} disabled width={622} />
+        <Dropdown label="Default" options={LEAD_STATUS} value={vals.default} onChange={set('default')} width={622} columns="1fr 390px" />
+        <Dropdown label="With Value" options={LEAD_STATUS} value={vals.value} onChange={set('value')} width={622} columns="1fr 390px" />
+        <Dropdown label="Required" options={LEAD_STATUS} value={vals.required} onChange={set('required')} required width={622} columns="1fr 390px" />
+        <Dropdown label="Error" options={LEAD_STATUS} value={vals.error} onChange={set('error')} error helperText="This field is required." width={622} columns="1fr 390px" />
+        <Dropdown label="Disabled" options={LEAD_STATUS} value={vals.disabled} disabled width={622} columns="1fr 390px" />
       </div>
     );
   },
@@ -353,7 +362,7 @@ export const MultiSelect: Story = {
         multiSelect
         searchable
         placeholder="Select statuses"
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   },
@@ -362,6 +371,27 @@ export const MultiSelect: Story = {
 /** Footer action — "+ Add new" button pinned at the bottom of the panel. */
 export const WithFooterAction: Story = {
   name: 'Footer Action',
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelector('.dropdown-trigger')!.getBoundingClientRect().width).toBe(390);
+    const canvas = within(canvasElement);
+    const page = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button'));
+    const option = await page.findByRole('option', { name: 'New', exact: true });
+    const footer = page.getByRole('button', { name: 'Add new status' });
+
+    await userEvent.hover(option);
+    await expect(option).toHaveAttribute('data-active');
+    await userEvent.unhover(option);
+    await userEvent.hover(footer);
+    await expect(option).not.toHaveAttribute('data-active');
+    await expect(canvasElement.ownerDocument.querySelectorAll('.dropdown-option[data-active]')).toHaveLength(0);
+
+    await userEvent.hover(option);
+    await expect(option).toHaveAttribute('data-active');
+    await userEvent.click(option);
+    await expect(page.queryByRole('listbox')).not.toBeInTheDocument();
+    await expect(canvas.getByRole('button')).toHaveTextContent('New');
+  },
   render: () => {
     const [val, setVal] = useState('');
     const [opts, setOpts] = useState(LEAD_STATUS);
@@ -379,7 +409,7 @@ export const WithFooterAction: Story = {
             if (label) setOpts(prev => [...prev, { value: label.toLowerCase().replace(/\s+/g, '-'), label }]);
           },
         }}
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   },
@@ -405,7 +435,7 @@ export const WithGroups: Story = {
         options={grouped}
         value={val}
         onChange={setVal}
-        width={622}
+        width={622} columns="1fr 390px"
       />
     );
   },
@@ -430,8 +460,8 @@ export const InForm: Story = {
     };
     return (
       <div style={card}>
-        <Dropdown label="Lead Status" options={LEAD_STATUS} value={status} onChange={setStatus} required width={622} />
-        <Dropdown label="Lead Source" options={LEAD_SOURCE} value={source} onChange={setSource} width={622} />
+        <Dropdown label="Lead Status" options={LEAD_STATUS} value={status} onChange={setStatus} required width={622} columns="1fr 390px" />
+        <Dropdown label="Lead Source" options={LEAD_SOURCE} value={source} onChange={setSource} width={622} columns="1fr 390px" />
       </div>
     );
   },
@@ -459,5 +489,87 @@ export const WithSubmenu = () => {
       placeholder="Select"
     />
   );
+};
+
+const CUSTOM_VIEW_OPTIONS = [
+  { value: 'lead-widget-1', label: 'Lead widget view 1' },
+  { value: 'lead-widget-2', label: 'Lead widget view 2' },
+  { value: 'lead-widget-3', label: 'Lead widget view 3' },
+  { value: 'lead-widget-4', label: 'Lead widget view 4' },
+  { value: 'lead-widget-5', label: 'Lead widget view 5' },
+];
+
+/** Refresh button at the top of the panel — labelled pill. */
+export const WithRefreshButton: Story = {
+  render: () => {
+    const [val, setVal] = useState('');
+    const [count, setCount] = useState(0);
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 622 }}>
+        <Dropdown
+          label="Form"
+          options={[
+            { value: 'contact', label: 'Contact Us Form' },
+            { value: 'subscription', label: 'Subscription Form' },
+            { value: 'compliant', label: 'Compliant Query Form' },
+          ]}
+          value={val}
+          onChange={setVal}
+          onRefresh={() => setCount(c => c + 1)}
+          width={622} columns="1fr 390px"
+        />
+        <span style={{ fontSize: 12, color: '#616E88' }}>Refreshed {count} times</span>
+      </div>
+    );
+  },
+};
+
+/** Refresh button in icon-only form. */
+export const WithRefreshIcon: Story = {
+  render: () => {
+    const [val, setVal] = useState('');
+    return (
+      <Dropdown
+        label="Form"
+        options={[
+          { value: 'contact', label: 'Contact Us Form' },
+          { value: 'subscription', label: 'Subscription Form' },
+        ]}
+        value={val}
+        onChange={setVal}
+        onRefresh={() => {}}
+        refreshVariant="icon"
+        refreshLabel="Refresh forms"
+        width={622} columns="1fr 390px"
+      />
+    );
+  },
+};
+
+/** Footer action with a submenu — "New Custom View ›" opens Use Canvas / Use Widget. */
+export const WithFooterSubmenu: Story = {
+  render: () => {
+    const [val, setVal] = useState('');
+    const [last, setLast] = useState('');
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 622 }}>
+        <Dropdown
+          label="Custom View"
+          options={CUSTOM_VIEW_OPTIONS}
+          value={val}
+          onChange={setVal}
+          footerAction={{
+            label: 'New Custom View',
+            submenu: [
+              { label: 'Use Canvas', onClick: () => setLast('Canvas') },
+              { label: 'Use Widget', onClick: () => setLast('Widget') },
+            ],
+          }}
+          width={622} columns="1fr 390px"
+        />
+        <span style={{ fontSize: 12, color: '#616E88' }}>Last action: {last || 'none'}</span>
+      </div>
+    );
+  },
 };
 

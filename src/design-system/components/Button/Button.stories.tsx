@@ -2,6 +2,9 @@ import { useState, useRef, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button, ButtonGroup } from './Button';
 import type { ButtonVariant, ButtonSize } from './Button';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { Dropdown } from '../Dropdown/Dropdown';
+import { Icon } from '../Icon/Icon';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -228,6 +231,59 @@ export const PrimaryLoader: Story = {
 export const PrimaryDisabled: Story = {
   name: 'Primary / Disabled',
   args: { children: 'Save', variant: 'primary', size: 'md', disabled: true },
+};
+
+const VERIFICATION_OPTIONS = [
+  { value: 'phone', label: 'Phone Number', icon: <Icon name="Mobile" size={16} /> },
+  { value: 'email', label: 'Email Address', icon: <Icon name="Email" size={16} /> },
+];
+
+function VerificationDropdownButton() {
+  const [selection, setSelection] = useState('');
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 12 }}>
+      <Dropdown
+        width="fit-content"
+        placeholder="Verify as"
+        value=""
+        triggerButtonVariant="primary"
+        panelStyle={{ width: 'max-content', maxWidth: 'calc(100vw - 24px)' }}
+        options={VERIFICATION_OPTIONS}
+        onChange={(value: string) => setSelection(value)}
+      />
+      {selection && <span role="status" style={{ color: 'var(--ds-text-base)', fontSize: 14 }}>
+        Selected: {VERIFICATION_OPTIONS.find(option => option.value === selection)?.label}
+      </span>}
+    </div>
+  );
+}
+
+export const DropdownButton: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Primary button with an inline arrow and an icon dropdown menu, as used by Verify as in Record Authentication. Reuses Dropdown with triggerButtonVariant="primary" for keyboard navigation, outside-click dismissal, and menu positioning.',
+      },
+    },
+  },
+  render: () => <VerificationDropdownButton />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const trigger = canvas.getByRole('button', { name: 'Verify as' });
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(await body.findByRole('option', { name: 'Phone Number' }));
+    await expect(canvas.getByRole('status')).toHaveTextContent('Selected: Phone Number');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(trigger);
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+    await expect(trigger).toHaveFocus();
+    await userEvent.click(trigger);
+    await userEvent.click(await body.findByRole('option', { name: 'Email Address' }));
+    await expect(canvas.getByRole('status')).toHaveTextContent('Selected: Email Address');
+  },
 };
 
 export const PrimaryWithArrow: Story = {
@@ -1054,6 +1110,9 @@ export const Overview: Story = {
           <Button variant="outline-blue" arrow>Actions</Button>
           <Button variant="outline-blue" size="sm" arrow>Actions</Button>
         </Row>
+      </Section>
+      <Section title="Dropdown Button — Verify as">
+        <VerificationDropdownButton />
       </Section>
       <Section title="Extreme Small (xs) — default only">
         <Row>

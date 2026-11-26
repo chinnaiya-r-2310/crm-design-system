@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Calendar } from './Calendar';
+import { expect, userEvent, within } from 'storybook/test';
 
 const meta: Meta<typeof Calendar> = {
   title: 'Design System/Components/Calendar',
@@ -190,6 +191,22 @@ export const DualCalendarRange: Story = {
  */
 export const DateOfMonthPicker: Story = {
   name: 'Date of Month (1–31)',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getAllByRole('button')).toHaveLength(31);
+    const second = canvas.getByRole('button', { name: '2', exact: true });
+    const last = canvas.getByRole('button', { name: '31', exact: true });
+    await expect(second).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(second);
+    await expect(second).toHaveAttribute('aria-pressed', 'false');
+    await userEvent.click(last);
+    await expect(last).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByText('5, 16, 23, 31')).toBeVisible();
+    last.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(last).toHaveAttribute('aria-pressed', 'false');
+    await expect(canvas.getByText('5, 16, 23')).toBeVisible();
+  },
   render: () => {
     const [selected, setSelected] = useState<number[]>([2, 5, 16, 23]);
     return (
@@ -216,6 +233,7 @@ export const AllVariants: Story = {
     const [rStart,  setRStart]  = useState<Date | null>(new Date(2019, 5, 10));
     const [rEnd,    setREnd]    = useState<Date | null>(new Date(2019, 5, 20));
     const [multi,   setMulti]   = useState<Date[]>([new Date(2019,5,3),new Date(2019,5,7),new Date(2019,5,14)]);
+    const [monthDays, setMonthDays] = useState<number[]>([2, 5, 16, 23]);
     const base = new Date(2019, 5, 1);
 
     return (
@@ -231,6 +249,10 @@ export const AllVariants: Story = {
         <div>
           <p style={{ margin: '0 0 6px', fontSize: 11, fontWeight: 600, color: '#616E88', fontFamily: 'var(--ds-font-family-base)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Multi Select</p>
           <Calendar mode="multi" selectedDates={multi} onMultiChange={setMulti} defaultMonth={base} />
+        </div>
+        <div>
+          <p style={{ margin: '0 0 6px', fontSize: 11, fontWeight: 600, color: '#616E88', fontFamily: 'var(--ds-font-family-base)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Date of Month (1–31)</p>
+          <Calendar mode="date-of-month" selectedDayNumbers={monthDays} onDayNumbersChange={setMonthDays} width="fit-content" />
         </div>
         <div>
           <p style={{ margin: '0 0 6px', fontSize: 11, fontWeight: 600, color: '#616E88', fontFamily: 'var(--ds-font-family-base)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Weekend Highlight</p>

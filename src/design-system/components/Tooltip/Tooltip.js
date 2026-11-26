@@ -45,12 +45,17 @@ export function Tooltip({
   followCursor = false,
   iconLabel,
   disabled = false,
+  /** Only show when the matching child is visually truncated. */
+  overflowSelector,
   wrapperStyle,
   wrapperClassName,
   as: Wrapper = 'span',
   maxWidth,
+  /** Milliseconds to wait after hover/focus before showing. Hiding is immediate. */
+  delay = 0,
 }) {
   const [visible, setVisible] = useState(false);
+  const showTimerRef = useRef(null);
   const [rect, setRect] = useState(null);
   const [effectivePlacement, setEffectivePlacement] = useState(placement);
   const wrapperRef = useRef(null);
@@ -66,12 +71,35 @@ export function Tooltip({
     }
   }, [followCursor, placement]);
 
-  const show = useCallback((event) => {
-    updatePosition(event);
-    setVisible(true);
-  }, [updatePosition]);
+  const clearShowTimer = () => {
+    clearTimeout(showTimerRef.current);
+    showTimerRef.current = null;
+  };
 
-  const hide = useCallback(() => setVisible(false), []);
+  const show = useCallback((event) => {
+    if (overflowSelector) {
+      const label = wrapperRef.current?.querySelector(overflowSelector);
+      if (!label || (label.scrollWidth <= label.clientWidth && label.scrollHeight <= label.clientHeight)) {
+        clearShowTimer();
+        setVisible(false);
+        return;
+      }
+    }
+    updatePosition(event);
+    clearShowTimer();
+    if (delay > 0) {
+      showTimerRef.current = setTimeout(() => setVisible(true), delay);
+    } else {
+      setVisible(true);
+    }
+  }, [updatePosition, delay, overflowSelector]);
+
+  const hide = useCallback(() => {
+    clearShowTimer();
+    setVisible(false);
+  }, []);
+
+  useEffect(() => clearShowTimer, []);
 
   // For alwaysVisible (Storybook stories), compute rect after mount
   useEffect(() => {

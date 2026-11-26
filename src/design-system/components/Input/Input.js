@@ -1,7 +1,7 @@
 import { Icon } from '../Icon/Icon';
-import { useId, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import './Input.css';
-import { Info, Lock } from '../../foundations/icons/Icons';
+import { Info, Lock, Search } from '../../foundations/icons/Icons';
 
 /**
  * Base Input component.
@@ -48,6 +48,9 @@ export function Input({
   timeValue,
   onTimeChange,
   variant,
+  inputRef,
+  onClear,
+  clearLabel = 'Clear search',
   /** 'md' (default) or 'sm': small is 27px tall with 13px text. */
   size = 'md',
   currencyCode = 'INR',
@@ -64,6 +67,11 @@ export function Input({
   const isCurrency = variant === 'currency';
   const isPassword = variant === 'password';
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [headerValue, setHeaderValue] = useState(inputProps.defaultValue ?? '');
+  const isHeader = variant === 'header';
+  const searchRef = useRef(null);
+  const [searchValue, setSearchValue] = useState(inputProps.defaultValue ?? '');
+  const currentSearchValue = inputProps.value ?? searchValue;
 
   const rootStyle = {
     width: typeof width === 'number' ? `${width}px` : width,
@@ -145,6 +153,10 @@ export function Input({
       aria-describedby={helperText ? `${inputId}-helper` : undefined}
       readOnly={isLookup || readOnly}
       {...inputProps}
+      onChange={isHeader ? (event) => {
+        setHeaderValue(event.target.value);
+        inputProps.onChange?.(event);
+      } : inputProps.onChange}
       placeholder={resolvedPlaceholder}
       onWheel={resolvedType === 'number' ? (e) => e.currentTarget.blur() : inputProps.onWheel}
     />
@@ -188,6 +200,49 @@ export function Input({
       )}
     </div>
   );
+
+  if (isHeader) {
+    return (
+      <div className="input-root input-header" style={style} data-variant={rootVariant}>
+        <span className="input-header-measure" aria-hidden="true">
+          {(inputProps.value ?? headerValue) || resolvedPlaceholder || '\u00a0'}
+        </span>
+        {inputWrapper}
+      </div>
+    );
+  }
+
+  // Compact search used in modal headers and toolbars. Controlled consumers
+  // provide onClear to reset their value; uncontrolled fields reset internally.
+  if (variant === 'search') {
+    return (
+      <div className={`input-root input-search ${_className ?? ''}`} style={rootStyle} data-variant={rootVariant}>
+        {labelEl}
+        <div className="input-input-wrapper" {...wrapperStateProps}>
+          <span className="input-search-icon"><Search aria-hidden="true" /></span>
+          <input {...inputProps} defaultValue={undefined} value={currentSearchValue}
+            id={inputId} type="search" className="input-input"
+            ref={element => {
+              searchRef.current = element;
+              if (typeof inputRef === 'function') inputRef(element);
+              else if (inputRef) inputRef.current = element;
+            }}
+            readOnly={readOnly} placeholder={resolvedPlaceholder ?? 'Search'}
+            aria-describedby={helperText ? `${inputId}-helper` : undefined}
+            onChange={event => { setSearchValue(event.target.value); inputProps.onChange?.(event); }} />
+          {currentSearchValue && !inputProps.disabled && !readOnly && (inputProps.value === undefined || onClear) && (
+            <button type="button" className="input-search-clear" aria-label={clearLabel}
+              onClick={() => { setSearchValue(''); onClear?.(); searchRef.current?.focus(); }}>
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
+                <path d="M1 1L7 7M7 1L1 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+              </svg>
+            </button>
+          )}
+        </div>
+        {helperEl}
+      </div>
+    );
+  }
 
   // ── Horizontal layout — two-column grid with label alignment ────────────
   if (layout === 'horizontal' && label) {

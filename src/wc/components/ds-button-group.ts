@@ -22,7 +22,7 @@ const BUTTON_BASE_STYLES = css`
     -webkit-font-smoothing: antialiased;
     transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
   }
-  .btn[data-size="md"] { height: 32px; padding: 0 14px; font-size: var(--ds-font-size-md); line-height: var(--ds-line-height-md); }
+  .btn[data-size="md"] { height: 32px; padding: 0 14px; font-size: var(--ds-font-size-base); line-height: var(--ds-line-height-md); }
   .btn[data-size="sm"] { height: 27px; padding: 0 12px; font-size: var(--ds-font-size-sm); line-height: var(--ds-line-height-sm); border-radius: 5px; }
   .btn[data-size="xs"] { height: 19px; padding: 0 10px; font-size: 11px; font-weight: var(--ds-font-weight-semibold, 600); line-height: 13px; border-radius: 4px; }
   .btn:disabled { cursor: not-allowed; pointer-events: none; }

@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { Dropdown } from '../Dropdown';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MergeField } from './MergeField';
-import { within, userEvent, waitFor } from 'storybook/test';
+import { expect, within, userEvent, waitFor } from 'storybook/test';
 
 const NOTIFICATION_FIELDS = [
   { value: 'recordname', label: 'Record Name' },
@@ -148,7 +148,7 @@ const CRM_FIELDS = [
 ];
 
 // Filter dropdown entries. Every entry is a selectable module; `source` is the field set it shows.
-// Section headers (Accounts, Vendors) are labels only.
+// The Related Modules section header is a label only.
 const CRM_MODULE_ENTRIES = [
   {
     module: 'Deals',
@@ -156,21 +156,18 @@ const CRM_MODULE_ENTRIES = [
       { value: 'Deals', label: 'Deals', source: 'Deals' },
       { value: 'Lookup1Contacts', label: 'Lookup 1 (Contacts)', source: 'Contacts' },
       { value: 'AccountNameAccounts', label: 'Account Name (Accounts)', source: 'Accounts' },
-      { value: 'Notes', label: 'Notes', source: 'Notes' },
       { value: 'DealProductLineItems', label: 'Product Line Items (Subform)', source: 'Product Line Items' },
       { value: 'DealQuotedItems', label: 'Quoted Items (Subform)', source: 'Quoted Items' },
     ],
   },
   {
-    module: 'Accounts',
+    module: 'Related Modules',
     items: [
-      { value: 'PrimaryAccountName', label: 'Primary Account Name', source: 'Accounts' },
-      { value: 'SecondaryAccountName', label: 'Secondary Account Name', source: 'Accounts' },
+      { value: 'Notes', label: 'Notes', source: 'Notes' },
+      { value: 'PrimaryAccountName', label: 'Primary Account Name (Accounts)', source: 'Accounts' },
+      { value: 'SecondaryAccountName', label: 'Secondary Account Name (Accounts)', source: 'Accounts' },
+      { value: 'VendorName', label: 'Vendor Name (Vendors)', source: 'Vendors' },
     ],
-  },
-  {
-    module: 'Vendors',
-    items: [{ value: 'VendorName', label: 'Vendor Name', source: 'Vendors' }],
   },
 ];
 
@@ -197,6 +194,12 @@ const meta: Meta<typeof MergeField> = {
     error: { control: 'boolean', table: { category: 'State' } },
     disabled: { control: 'boolean', table: { category: 'State' } },
     required: { control: 'boolean', table: { category: 'State' } },
+    filter: {
+      name: 'Filter',
+      control: 'boolean',
+      description: 'Show the module filter. When false, search and select fields across all modules.',
+      table: { category: 'Behavior', defaultValue: { summary: 'true' } },
+    },
   },
 };
 
@@ -503,6 +506,40 @@ export const MultilineAddingTagComplete: Story = {
   ),
 };
 
+export const MultilineTagSpacing: Story = {
+  name: 'Multiline / Tag spacing',
+  args: {
+    layout: 'vertical',
+    width: 240,
+    defaultValue: '#recordname\n#queuename\n#user #dateandtime #recordname #queuename',
+    mergeFields: NOTIFICATION_FIELDS,
+  },
+  play: async ({ canvasElement }) => {
+    const field = within(canvasElement).getByRole('textbox');
+    await waitFor(() => expect(field.querySelectorAll('.mergefield-token')).toHaveLength(6));
+    const assertSpacing = () => {
+      const rects = Array.from(field.querySelectorAll('.mergefield-token'), (tag) => tag.getBoundingClientRect());
+      let checked = 0;
+      for (let i = 1; i < rects.length; i += 1) {
+        if (rects[i].top > rects[i - 1].top + 1) {
+          expect(rects[i].top - rects[i - 1].bottom).toBeGreaterThanOrEqual(2);
+          checked += 1;
+        }
+      }
+      expect(checked).toBeGreaterThanOrEqual(2);
+    };
+    assertSpacing();
+    // Also cover narrow editors, where adjacent tokens wrap without a newline.
+    const originalWidth = field.style.width;
+    field.style.width = '170px';
+    try {
+      assertSpacing();
+    } finally {
+      field.style.width = originalWidth;
+    }
+  },
+};
+
 export const MultilineError: Story = {
   name: 'Multiline / Error',
   args: {
@@ -512,6 +549,30 @@ export const MultilineError: Story = {
     helperText: 'Cannot be Empty',
     mergeFields: CRM_FIELDS,
     moduleEntries: CRM_MODULE_ENTRIES,
+  },
+};
+
+export const FilterDisabled: Story = {
+  args: {
+    layout: 'vertical',
+    width: 390,
+    filter: false,
+    mergeFields: CRM_FIELDS,
+    moduleEntries: CRM_MODULE_ENTRIES,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const field = canvas.getByRole('textbox');
+    await userEvent.click(field);
+    await userEvent.type(field, '#', { skipClick: true });
+    const page = within(canvasElement.ownerDocument.body);
+    await expect(page.queryByRole('button', { name: 'Leads', exact: true })).not.toBeInTheDocument();
+    await expect(page.getAllByRole('option', { name: 'First Name', exact: true })[0]).toBeVisible();
+    await expect(page.getByRole('option', { name: 'Deal Name', exact: true })).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+    await userEvent.type(field, '#DealName', { skipClick: true });
+    await userEvent.keyboard('{Enter}');
+    await expect(canvasElement.querySelector('.mergefield-token')).toHaveAttribute('data-value', 'DealName');
   },
 };
 
@@ -542,6 +603,36 @@ export const SinglelineAddingTag: Story = {
     const field = canvas.getByRole('textbox');
     await userEvent.click(field);
     await userEvent.type(field, '#', { skipClick: true });
+
+    const page = within(canvasElement.ownerDocument.body);
+    for (const [label, expectedField] of [
+      ['Primary Account Name (Accounts)', 'Account Owner'],
+      ['Notes', 'Note Title'],
+      ['Secondary Account Name (Accounts)', 'Account Owner'],
+      ['Vendor Name (Vendors)', 'Email'],
+    ]) {
+      await userEvent.click(page.getByRole('button', { name: /Deals|Notes|Primary Account Name|Secondary Account Name/ }));
+      const moduleList = page.getByRole('listbox', { name: 'Module' });
+      const modules = within(moduleList);
+      // The filter menu fits the longest label, rather than wrapping at 260px.
+      const longestOption = modules.getByRole('option', { name: 'Secondary Account Name (Accounts)', exact: true });
+      const labelRange = canvasElement.ownerDocument.createRange();
+      labelRange.selectNodeContents(longestOption.lastChild!);
+      await expect(labelRange.getClientRects()).toHaveLength(1);
+      await expect(moduleList.scrollWidth).toBeLessThanOrEqual(moduleList.clientWidth);
+      const relatedHeader = modules.getByText('Related Modules', { exact: true });
+      await expect(relatedHeader).toBeVisible();
+      const notesOption = modules.getByRole('option', { name: 'Notes', exact: true });
+      const primaryAccountOption = modules.getByRole('option', { name: 'Primary Account Name (Accounts)', exact: true });
+      await expect(modules.getAllByRole('option')[5]).toBe(notesOption);
+      await expect(relatedHeader.compareDocumentPosition(notesOption) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+      await expect(notesOption.compareDocumentPosition(primaryAccountOption) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+      await expect(modules.queryByText('Accounts', { exact: true })).not.toBeInTheDocument();
+      await expect(modules.queryByText('Vendors', { exact: true })).not.toBeInTheDocument();
+      await userEvent.click(modules.getByRole('option', { name: label, exact: true }));
+      await expect(page.getByRole('button', { name: label, exact: true })).toBeVisible();
+      await expect(page.getByRole('option', { name: expectedField, exact: true })).toBeVisible();
+    }
   },
 };
 

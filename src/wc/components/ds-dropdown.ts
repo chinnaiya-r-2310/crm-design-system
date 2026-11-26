@@ -112,7 +112,7 @@ function ensureDropdownCSS() {
     }
     .ds-dd-footer-action:hover { background:var(--ds-components-dropdown-hover-bg,#F2F5FE); }
     .ds-dd-no-results {
-      height:32px; display:flex; align-items:center; padding:0 25px;
+      height:32px; display:flex; align-items:center; justify-content:center; text-align:center; padding:0 25px;
       font-family:var(--ds-font-family-base); font-size:var(--ds-font-size-base);
       color:var(--ds-text-muted,#8C9BAB);
     }

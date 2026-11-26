@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect } from 'storybook/test';
 import { SetupTable } from './Table';
 import type { SetupTableRow, TableColumn } from './Table';
 import { Switch } from '../Switch/Switch';
@@ -145,7 +146,7 @@ function Interactive({ initialRows, selectable, striped }: {
   };
 
   return (
-    <div style={{ padding: 24, background: '#f0f2f7', minHeight: '100vh' }}>
+    <div style={{ padding: 24, minHeight: '100vh' }}>
       <SetupTable
         columns={makeColumns(handleActiveChange)}
         rows={rows}
@@ -187,7 +188,7 @@ export const Empty: Story = {
   name: 'Empty State',
   parameters: { controls: { disable: true } },
   render: () => (
-    <div style={{ padding: 24, background: '#f0f2f7' }}>
+    <div style={{ padding: 24 }}>
       <SetupTable
         columns={makeColumns(() => {})}
         rows={[]}
@@ -229,5 +230,11 @@ export const ReportTable: Story = {
   render: () => (
     <SetupTable variant="report" columns={REPORT_COLUMNS} rows={REPORT_ROWS} width={1100} />
   ),
+  play: async ({ canvasElement }) => {
+    for (const header of canvasElement.querySelectorAll('thead th')) {
+      await expect(header).toHaveStyle({ borderBottomWidth: '2px' });
+    }
+    await expect(canvasElement.querySelector('tbody td')).toHaveStyle({ borderBottomWidth: '1px' });
+  },
 };
 

@@ -11,11 +11,29 @@ const preview: Preview = {
       },
     },
 
-    // Work Items: most recently created first (order of first git commit).
+    // Work Items: newest first. When creating a work item, prepend its exact
+    // title (without "Work Items/") to the list below; preserve existing order.
     options: {
       storySort: {
+        includeNames: true,
         order: [
           'Design System',
+          [
+            'Components',
+            [
+              '*',
+              [
+                'Overview — All Buttons',
+                'All Variants',
+                'All States',
+                'All Styles',
+                'All variations',
+                'All with title',
+                '*',
+              ],
+            ],
+            '*',
+          ],
           'Work Items',
           [
             'Field History Tracking',

@@ -40,6 +40,8 @@ function ensureTagsCSS() {
       height: 32px;
       display: flex;
       align-items: center;
+      justify-content: center;
+      text-align: center;
       padding: 0 16px;
       font-family: var(--ds-font-family-base);
       font-size: var(--ds-font-size-base);
@@ -109,7 +111,7 @@ export class DsTags extends LitElement {
         display: inline-flex;
         align-items: center;
         gap: 4px;
-        padding: 4px 10px;
+        padding: 1px 10px;
         height: 24px;
         background: #F0F3FF;
         border: 1px solid #CDD2FA;
@@ -118,7 +120,7 @@ export class DsTags extends LitElement {
         font-family: var(--ds-font-family-base);
         font-size: var(--ds-font-size-base);
         color: var(--ds-text-base);
-        line-height: 1;
+        line-height: var(--ds-line-height-base, 20px);
         max-width: 200px;
       }
       .tagLabel {

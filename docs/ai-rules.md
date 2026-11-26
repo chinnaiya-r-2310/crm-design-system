@@ -176,6 +176,12 @@ Prefer readability over cleverness.
 
 ---
 
+## Table interaction behavior
+
+Keep a table row's hover background while a control inside it is focused or its dropdown menu is open. Selected rows must retain their selected background. Row more-options triggers use a white circular background and border on hover, focus, and while open; reserve the border space to avoid layout shifts. Action menus must fit their labels rather than inherit the icon-only trigger width. Action-only dropdowns (such as Edit/Delete) must set `showSelectionIndicator={false}` so an empty selection-tick slot does not add leading space; keep the tick slot for selection dropdowns.
+
+---
+
 ## Rule 16
 
 Tooltips appear below the cursor.

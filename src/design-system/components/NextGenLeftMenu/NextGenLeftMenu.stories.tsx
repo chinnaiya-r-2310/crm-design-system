@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { NextGenLeftMenu } from './NextGenLeftMenu';
 
 const meta: Meta<typeof NextGenLeftMenu> = {
@@ -35,12 +35,13 @@ type Story = StoryObj<typeof NextGenLeftMenu>;
 // Wrapper — tracks active item
 // ─────────────────────────────────────────────────────────────────────────────
 
-function Shell({ initialActiveId }: { initialActiveId?: string }) {
+function Shell({ initialActiveId, defaultCollapsed = false }: { initialActiveId?: string; defaultCollapsed?: boolean }) {
   const [activeId, setActiveId] = useState<string | undefined>(initialActiveId);
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
       <NextGenLeftMenu
         activeId={activeId}
+        defaultCollapsed={defaultCollapsed}
         onItemClick={setActiveId}
       />
       <div style={{
@@ -62,6 +63,11 @@ function Shell({ initialActiveId }: { initialActiveId?: string }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // Stories
 // ─────────────────────────────────────────────────────────────────────────────
+
+export const CollapsedState: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => <Shell initialActiveId="reports" defaultCollapsed />,
+};
 
 export const Default: Story = {
   name: 'Default',

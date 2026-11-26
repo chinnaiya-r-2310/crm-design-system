@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="6 5.6 38 38" fill="none" role="img" aria-label="Reports" overflow="visible" style="overflow:visible">
+  <g data-motion-root="" stroke="#F32C78" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <path id="reports-outline" data-outline="" pathLength="1" d="M25 9H30Q40.7 9 40.7 19.7V29.5Q40.7 40.2 30 40.2H20Q9.3 40.2 9.3 29.5V19.7Q9.3 9 20 9H25Z" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path id="reports-bar-one" d="M18.8 31.8V28" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path id="reports-bar-two" d="M25.1 31.8V24.8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path id="reports-bar-three" d="M31.5 31.8V18.6" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+  </g>
+</svg>

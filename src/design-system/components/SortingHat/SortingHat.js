@@ -176,7 +176,6 @@ export function SortingHat({
           data-open-left={openLeft || undefined}
           data-open-up={openUp || undefined}
         >
-          <div className="sorting-hat-menu-title">Design Screens</div>
           {variations.length === 0 && (
             <div className="sorting-hat-menu-empty">No screens</div>
           )}

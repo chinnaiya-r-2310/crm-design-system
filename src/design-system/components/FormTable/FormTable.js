@@ -163,7 +163,7 @@ export function FormTable({
               {header}
             </th>
           ))}
-          <th aria-hidden="true" style={{ width: ACTIONS_WIDTH + actionGap }} />
+          {renderActions && <th className="ft-heading--actions" aria-hidden="true" style={{ width: ACTIONS_WIDTH + actionGap }} />}
         </tr>
       </thead>
       <tbody ref={bodyRef}>
@@ -191,7 +191,7 @@ export function FormTable({
                   {cell}
                 </td>
               ))}
-              <td className="ft-cell--actions" style={{ paddingLeft: actionGap, width: ACTIONS_WIDTH + actionGap }}>
+              {renderActions && <td className="ft-cell--actions" style={{ paddingLeft: actionGap, width: ACTIONS_WIDTH + actionGap }}>
                 <div className="ft-actions">
                   {actions.onRemove && (
                     <span className="ft-slot">
@@ -218,7 +218,7 @@ export function FormTable({
                     </span>
                   )}
                 </div>
-              </td>
+              </td>}
             </tr>
           );
         })}

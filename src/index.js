@@ -13,6 +13,7 @@ export { DatePicker } from './design-system/components/DatePicker';
 export { Dropdown } from './design-system/components/Dropdown';
 export { FormSection } from './design-system/components/FormSection';
 export { Icon, iconMap } from './design-system/components/Icon';
+export { IconPicker, ICON_PICKER_TEXT, INDUSTRY_ICONS, CUSTOM_BUTTON_ICONS } from './design-system/components/IconPicker';
 export { Input, DateTimeInput } from './design-system/components/Input';
 export { MergeField } from './design-system/components/MergeField';
 export { MessageBox } from './design-system/components/MessageBox';
@@ -27,13 +28,16 @@ export { VerticalTabs } from './design-system/components/VerticalTabs';
 export { Textarea } from './design-system/components/Textarea';
 export { Tooltip } from './design-system/components/Tooltip';
 export { UserPicker } from './design-system/components/UserPicker';
+export { UserSelectionModal } from './design-system/components/UserSelectionModal';
 export { NextGenLeftMenu } from './design-system/components/NextGenLeftMenu';
-export { Slider, MultiSlider, StepSlider } from './design-system/components/Slider';
+export { Slider, MultiSlider, StepSlider, DualRangeSlider } from './design-system/components/Slider';
 export { CodeSnippet } from './design-system/components/CodeSnippet';
 export { ProgressBar } from './design-system/components/ProgressBar';
 export { MessageInfo } from './design-system/components/MessageInfo';
 export { NextGenTopBand } from './design-system/components/NextGenTopBand';
 export { WMSBar } from './design-system/components/WMSBar';
+export { WMSToaster } from './design-system/components/WMSToaster';
+export { FormulaBuilder } from './design-system/components/FormulaBuilder';
 
 // ── Foundations / Icons ───────────────────────────────────────────────────────
 export {

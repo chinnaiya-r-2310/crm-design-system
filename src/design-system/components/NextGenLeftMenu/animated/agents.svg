@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="-1.5 -1.72 53 53" fill="none" role="img" aria-label="Agents bot" overflow="visible" style="overflow:visible">
+  <defs><clipPath id="agents-eye-window-left" data-eye-window-left="" clipPathUnits="userSpaceOnUse"><rect data-eye-shutter-left="" x="14.5" y="26.5" width="8" height="10"/></clipPath><clipPath id="agents-eye-window-right" data-eye-window-right="" clipPathUnits="userSpaceOnUse"><rect data-eye-shutter-right="" x="27.5" y="26.5" width="8" height="10"/></clipPath></defs>
+  <g data-motion-root="" stroke="#F39800" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <g id="agents-antenna">
+      <path id="agents-stem" d="M25 10.9V15.24" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+      <circle id="agents-top-circle" cx="25" cy="6.5" r="4.4" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </g>
+    <path id="agents-outline" data-outline="" pathLength="1" d="M25 15.24H35.3C41.54 15.24 46.6 20.3 46.6 26.54V36.16C46.6 42.4 41.54 47.46 35.3 47.46H14.7C8.46 47.46 3.4 42.4 3.4 36.16V26.54C3.4 20.3 8.46 15.24 14.7 15.24H25Z" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path id="agents-face" d="M25 23.85H31.2C32.7 23.85 33.1 22.15 35 22.15C37.6 22.15 40 25.25 40 28.55V35.7C40 38.8 37.5 41.2 34.4 41.2H15.6C12.5 41.2 10 38.8 10 35.7V28.55C10 25.25 12.4 22.15 15 22.15C16.9 22.15 17.3 23.85 18.8 23.85H25Z" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <g id="agents-eyes">
+      <g data-eye-clip-target="left" clip-path="url(#agents-eye-window-left)"><path id="agents-eye-left" d="M18.5 29.4V33.6" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g>
+      <g data-eye-clip-target="right" clip-path="url(#agents-eye-window-right)"><path id="agents-eye-right" d="M31.5 29.4V33.6" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g>
+    </g>
+  </g>
+</svg>

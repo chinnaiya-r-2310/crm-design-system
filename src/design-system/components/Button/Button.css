@@ -39,7 +39,7 @@
 .button-btn[data-size="md"] {
   height: 32px;
   padding: 0 14px;
-  font-size: var(--ds-font-size-md);
+  font-size: var(--ds-font-size-base);
   line-height: var(--ds-line-height-md);
   border-radius: 6px;
 }
@@ -708,7 +708,7 @@
 
 .button-split-btn[data-size="md"] {
   height: 32px;
-  font-size: var(--ds-font-size-md);
+  font-size: var(--ds-font-size-base);
   line-height: var(--ds-line-height-md);
   border-radius: 6px;
 }

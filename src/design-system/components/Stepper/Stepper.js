@@ -31,8 +31,10 @@ const SINGLE_COLORS = {
    that skips the flat edge joined to the body, so no vertical seam is drawn. */
 const HEAD_FILL = 'M11 30H0.05C0.01 30 -0.015 29.92 0.01 29.89L9.54 15L0.01 0.075C-0.01 0.04 0.01 0 0.05 0H11V30Z';
 const HEAD_STROKE = 'M11 0.5H0.6C0.4 0.5 0.3 0.6 0.4 0.75L9 15L0.4 29.25C0.3 29.4 0.4 29.5 0.6 29.5H11';
-const TAIL_FILL = 'M2 0H3.489C5.132 0 6.666 0.835 7.587 2.234L16 15L7.587 27.766C6.666 29.16 5.132 30 3.489 30H2Q0 30 0 28V2Q0 0 2 0Z';
-const TAIL_STROKE = 'M2 0.5H3.489C5.1 0.5 6.4 1.2 7.3 2.5L15.3 15L7.3 27.5C6.4 28.8 5.1 29.5 3.489 29.5H2Q0.5 29.5 0.5 28';
+// Meet the body's horizontal borders at x=0; rounding this shared edge
+// leaves visible gaps and a downward hook at the body/tail junction.
+const TAIL_FILL = 'M0 0H3.489C5.132 0 6.666 0.835 7.587 2.234L16 15L7.587 27.766C6.666 29.16 5.132 30 3.489 30H0Z';
+const TAIL_STROKE = 'M0 0.5H3.489C5.1 0.5 6.4 1.2 7.3 2.5L15.3 15L7.3 27.5C6.4 28.8 5.1 29.5 3.489 29.5H0';
 
 function Connector({ type, fill, stroke }) {
   const isHead = type === 'head';

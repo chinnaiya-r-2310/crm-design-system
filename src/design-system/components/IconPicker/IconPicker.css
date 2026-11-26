@@ -1,0 +1,278 @@
+/* ── Icon Picker ──────────────────────────────────────────────────────────────
+   Figma: 🗿 Pascal Stone › Icon Select (80715:427751)
+
+   .icon-picker
+     .icon-picker-search
+     .icon-picker-content  (shared scroll area)
+       .icon-picker-section  (Recommended — hidden while searching)
+       .icon-picker-divider
+       .icon-picker-grid | .icon-picker-empty
+   ──────────────────────────────────────────────────────────────────────────── */
+
+.icon-picker {
+  --icon-picker-cell: 36px;
+  --icon-picker-gap: 2px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 289px;
+  padding: 15px 12px 10px;
+  background: var(--ds-bg-common-card, #FFFFFF);
+  border: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px 0 var(--ds-shadow-dropdown, rgba(0, 0, 0, 0.15));
+  box-sizing: border-box;
+  font-family: var(--ds-font-family-base);
+}
+
+/* ── Optional popover chrome — the default panel and grid stay unchanged ── */
+
+.icon-picker--popover {
+  position: relative;
+}
+
+.icon-picker-hook {
+  position: absolute;
+  top: 32px;
+  left: -7px;
+  width: 12px;
+  height: 12px;
+  background: var(--ds-bg-common-card, #FFFFFF);
+  border-left: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
+  border-bottom: 1px solid var(--ds-components-dropdown-outline, #CED0E1);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.icon-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.icon-picker-title {
+  margin: 0;
+  min-width: 0;
+  font-size: var(--ds-font-size-lg, 16px);
+  font-weight: var(--ds-font-weight-semibold, 600);
+  line-height: 22px;
+  color: var(--ds-text-base, #202B46);
+  overflow-wrap: anywhere;
+}
+
+.icon-picker-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  padding: 5px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-text-label, #65748F);
+  cursor: pointer;
+}
+
+.icon-picker-close:hover {
+  background: var(--ds-bg-scale-bg1, #F5F7FA);
+}
+
+.icon-picker-close:focus-visible {
+  outline: 1px solid var(--ds-focus-default, #555BFF);
+  outline-offset: 1px;
+}
+
+/* ── Search ──────────────────────────────────────────────────────────────── */
+
+.icon-picker-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 29px;
+  padding: 0 8px;
+  background: var(--ds-bg-common-card, #FFFFFF);
+  border: 1px solid var(--ds-components-input-default-outline);
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.icon-picker-search:focus-within {
+  border-color: var(--ds-components-input-focus-outline);
+  box-shadow: 0 0 6px 0 var(--ds-components-input-focus-shadow);
+}
+
+.icon-picker-search-icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--ds-text-muted);
+}
+
+.icon-picker-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--ds-font-size-md);
+  color: var(--ds-text-base);
+}
+
+.icon-picker-search-input::placeholder {
+  color: var(--ds-components-input-placeholder-text);
+}
+
+.icon-picker-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  padding: 4px;
+  border: none;
+  border-radius: 100px;
+  background: var(--ds-bg-muted, #EAF0F4);
+  color: var(--ds-text-label);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.icon-picker-clear:focus-visible {
+  outline: 1px solid var(--ds-focus-default);
+  outline-offset: 1px;
+}
+
+/* ── Sections ────────────────────────────────────────────────────────────── */
+
+.icon-picker-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 5px;
+}
+
+.icon-picker-label {
+  font-size: var(--ds-font-size-md);
+  font-weight: var(--ds-font-weight-medium);
+  line-height: 15px;
+  color: var(--ds-text-label);
+}
+
+.icon-picker-divider {
+  margin: 0;
+  border: none;
+  border-top: 1px solid var(--ds-border-subtle);
+}
+
+/* ── Grid ────────────────────────────────────────────────────────────────── */
+
+.icon-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(7, var(--icon-picker-cell));
+  gap: var(--icon-picker-gap);
+}
+
+.icon-picker-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* Room for the selected badge, which sits outside the cell's top-right corner. */
+  padding: 4px 4px 0 0;
+  margin: -4px -4px 0 0;
+  max-height: calc(
+    var(--icon-picker-rows, 5) * var(--icon-picker-cell) +
+    (var(--icon-picker-rows, 5) - 1) * var(--icon-picker-gap) + 4px +
+    var(--icon-picker-recommended-height, 0px)
+  );
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.icon-picker-content--recommended {
+  /* Preserve the panel height: section padding, label, gaps, divider and recommended rows. */
+  --icon-picker-recommended-height: calc(
+    51px + var(--icon-picker-recommended-rows) * var(--icon-picker-cell) +
+    (var(--icon-picker-recommended-rows) - 1) * var(--icon-picker-gap)
+  );
+}
+
+.icon-picker-content > * {
+  flex-shrink: 0;
+}
+
+.icon-picker-cell-wrap {
+  display: block;
+}
+
+.icon-picker-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-picker-cell);
+  height: var(--icon-picker-cell);
+  padding: 0;
+  background: var(--ds-bg-common-card, #FFFFFF);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--ds-icon-primary-base);
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 100ms ease;
+}
+
+.icon-picker-cell:hover {
+  background: var(--ds-bg-scale-bg1);
+}
+
+.icon-picker-cell:focus-visible {
+  outline: 1px solid var(--ds-focus-default);
+  outline-offset: -1px;
+}
+
+.icon-picker-cell--selected,
+.icon-picker-cell--selected:hover {
+  /* Keep the overflowing tick and its outside ring above neighboring tiles. */
+  z-index: 1;
+  background: color-mix(in srgb, var(--ds-text-link) 5%, transparent);
+  border-color: var(--ds-text-link);
+}
+
+.icon-picker-initials {
+  font-size: 16px;
+  font-weight: var(--ds-font-weight-medium);
+  line-height: 18px;
+  color: var(--ds-text-base);
+}
+
+.icon-picker-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 1px #FFFFFF;
+  border-radius: 50%;
+  background: var(--ds-text-link);
+  color: var(--ds-icon-primary-white);
+}
+
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+
+.icon-picker-empty {
+  margin: 0;
+  padding: 15px 10px;
+  font-size: var(--ds-font-size-md);
+  color: var(--ds-text-muted);
+}

@@ -37,7 +37,7 @@
 
 .table-header-row {
   height: 36px;
-  border-bottom: 1px solid var(--ds-components-table-header-outline-border, #D9E0EB);
+  border-bottom: 2px solid var(--ds-components-table-header-outline-border, #D9E0EB);
 }
 
 /* ── Header cell ─────────────────────────────────────────────────────────── */
@@ -209,7 +209,10 @@
   border-bottom: none;
 }
 
-.table-body-row:hover {
+/* Keep the row highlight while a control is focused or its portaled menu is open. */
+.table-body-row:hover,
+.table-body-row:focus-within,
+.table-body-row:where(:has(.dropdown-trigger[data-open])) {
   background: var(--ds-components-table-table-hover, #F7F8FB);
 }
 
@@ -225,8 +228,14 @@
   background: var(--ds-components-table-alter-color, #FAFBFC);
 }
 
-.table-body-row[data-alt]:hover {
+.table-body-row[data-alt]:hover,
+.table-body-row[data-alt]:focus-within,
+.table-body-row[data-alt]:where(:has(.dropdown-trigger[data-open])) {
   background: var(--ds-components-table-table-hover, #F7F8FB);
+}
+
+.table-body-row[data-selected]:is(:focus-within, :has(.dropdown-trigger[data-open])) {
+  background: var(--ds-components-table-table-checked, #F5F8FF);
 }
 
 /* ── Body cell ───────────────────────────────────────────────────────────── */
@@ -372,6 +381,7 @@
 }
 
 .table-report thead th {
+  border-bottom-width: 2px;
   background: var(--ds-components-table-header-bg);
   font-weight: var(--ds-font-weight-medium);
   color: var(--ds-text-heading);

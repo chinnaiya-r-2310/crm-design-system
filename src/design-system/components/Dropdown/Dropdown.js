@@ -15,6 +15,13 @@ const CloseIcon = () => (
   </svg>
 );
 
+const RefreshIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+    <path d="M10.5 6a4.5 4.5 0 1 1-1.32-3.18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M9.5 1.5v2.5H7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 const PlusIcon = () => (
   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
     <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -32,6 +39,8 @@ function TruncatedLabel({
   className,
   wrapperStyle,
   spanProps,
+  tooltipVariant = 'black',
+  tooltipMaxWidth,
 }) {
   const ref = useRef(null);
   const [isTruncated, setIsTruncated] = useState(false);
@@ -44,7 +53,8 @@ function TruncatedLabel({
   return (
     <Tooltip
       content={text}
-      variant="black"
+      variant={tooltipVariant}
+      maxWidth={tooltipMaxWidth}
       placement="top"
       disabled={!isTruncated}
       wrapperStyle={wrapperStyle}
@@ -84,7 +94,18 @@ export function Dropdown({
   error,
   searchable = false,
   multiSelect = false,
+  /** Hide the reserved tick slot for action menus that do not represent a selection. */
+  showSelectionIndicator = true,
+  /**
+   * Footer action button. Pass `submenu: [{ label, onClick }]` to make it a
+   * flyout button (e.g. "New Custom View ›") whose items each run their own onClick.
+   */
   footerAction,
+  /** Shows a Refresh button at the top of the panel; called when it is clicked. */
+  onRefresh,
+  refreshLabel = 'Refresh',
+  /** 'label' (default) shows text + icon; 'icon' shows the icon only. */
+  refreshVariant = 'label',
   onChange,
   onMultiChange,
   id: idProp,
@@ -94,6 +115,8 @@ export function Dropdown({
   triggerIcon,
   triggerAriaLabel,
   triggerButtonVariant,
+  tooltipVariant = 'black',
+  tooltipMaxWidth,
   /** 'md' (default) or 'sm': small is 27px tall with 13px text. */
   size = 'md',
   /** Single-select only: shows a ✕ inside the trigger once a value is picked; clicking it calls onChange(''). */
@@ -108,6 +131,7 @@ export function Dropdown({
   /** Controlled selected module (pair with onModuleChange). Uncontrolled when omitted. */
   moduleValue,
   onModuleChange,
+  moduleFilterAriaLabel = 'Module',
 }) {
   const autoId = useId();
   const triggerId = idProp ?? autoId;
@@ -123,11 +147,15 @@ export function Dropdown({
   const rootRef    = useRef(null);
   const triggerRef = useRef(null);
   const panelRef   = useRef(null);
+  const submenuRef = useRef(null);
   const searchRef  = useRef(null);
   const listRef    = useRef(null);
 
   const [activeIndex, setActiveIndex] = useState(-1);
   const [submenuState, setSubmenuState] = useState(null);
+  // Footer action submenu (footerAction.submenu): { top, left } of its flyout, or null.
+  const [footerSubmenu, setFooterSubmenu] = useState(null);
+  const footerFlyoutRef = useRef(null);
   const PANEL_MAX_WIDTH = 390;
   const [panelPos, setPanelPos] = useState(null);
   const justOpenedRef  = useRef(false); // true only on the render cycle when panel first appears
@@ -197,6 +225,21 @@ export function Dropdown({
     });
   };
 
+  const openSubmenu = (opt, idx, element, focus = false) => {
+    if (opt.disabled || (!opt.submenu && !opt.submenuContent) || !element) return;
+    const rect = element.getBoundingClientRect();
+    setFooterSubmenu(null);
+    setSubmenuState({ idx, top: rect.top, left: rect.right, anchorLeft: rect.left });
+    if (focus) requestAnimationFrame(() => submenuRef.current?.querySelector('button, [tabindex="0"]')?.focus());
+  };
+
+  const openFooterSubmenu = (element) => {
+    const rect = element.getBoundingClientRect();
+    const panelRect = panelRef.current?.getBoundingClientRect();
+    setSubmenuState(null);
+    setFooterSubmenu({ top: rect.top, left: panelRect ? panelRect.right + 2 : rect.right });
+  };
+
   const selectSingle = (opt) => {
     if (opt.disabled) return;
     if (onChange) {
@@ -231,7 +274,7 @@ export function Dropdown({
     if (!open) return;
     const handler = (e) => {
       const t = e.target;
-      if (!rootRef.current?.contains(t) && !panelRef.current?.contains(t)) {
+      if (!rootRef.current?.contains(t) && !panelRef.current?.contains(t) && !submenuRef.current?.contains(t) && !footerFlyoutRef.current?.contains(t)) {
         setOpen(false);
       }
     };
@@ -247,6 +290,8 @@ export function Dropdown({
       updatePanelPos();
     } else {
       setPanelPos(null);
+      setSubmenuState(null);
+      setFooterSubmenu(null);
       justOpenedRef.current = false;
     }
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -335,11 +380,16 @@ export function Dropdown({
         while (next >= 0 && filtered[next]?.disabled) next--;
         return next >= 0 ? next : prev;
       });
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
+    } else if (e.key === 'Enter' || e.key === 'ArrowRight') {
       const opt = filtered[activeIndex];
       if (opt && !opt.disabled) {
-        multiSelect ? toggleMulti(opt) : selectSingle(opt);
+        if (opt.submenu || opt.submenuContent) {
+          e.preventDefault();
+          openSubmenu(opt, activeIndex, listRef.current?.querySelector(`[data-option-index="${activeIndex}"]`), true);
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          multiSelect ? toggleMulti(opt) : selectSingle(opt);
+        }
       }
     }
   };
@@ -372,33 +422,37 @@ export function Dropdown({
         data-disabled={opt.disabled || undefined}
         data-active={activeIndex === idx || undefined}
         data-option-index={idx}
-        data-submenu={opt.submenu ? true : undefined}
+        data-submenu={(opt.submenu || opt.submenuContent) ? true : undefined}
+        aria-haspopup={opt.submenuContent ? 'dialog' : opt.submenu ? 'menu' : undefined}
+        aria-expanded={(opt.submenu || opt.submenuContent) ? submenuState?.idx === idx : undefined}
         onMouseEnter={event => {
           setActiveIndex(idx);
-          if (opt.submenu) {
-            const rect = event.currentTarget.getBoundingClientRect();
-            setSubmenuState({ idx, top: rect.top, left: rect.right + 4 });
+          if (opt.submenu || opt.submenuContent) {
+            openSubmenu(opt, idx, event.currentTarget);
           } else {
             setSubmenuState(null);
           }
         }}
-        onClick={() => multiSelect ? toggleMulti(opt) : selectSingle(opt)}
+        onClick={event => (opt.submenu || opt.submenuContent)
+          ? openSubmenu(opt, idx, event.currentTarget, true)
+          : multiSelect ? toggleMulti(opt) : selectSingle(opt)}
       >
         {multiSelect ? (
           <span className='dropdown-option-check' aria-hidden="true">
             <span className={isSelected ? 'dropdown-multi-check-on' : 'dropdown-multi-check-off'} />
           </span>
-        ) : (
+        ) : showSelectionIndicator ? (
           <span className='dropdown-option-check'>
             {isSelected && <Check aria-hidden="true" />}
           </span>
-        )}
+        ) : null}
         {opt.icon && <span className='dropdown-option-icon' aria-hidden="true">{opt.icon}</span>}
-        {opt.submenu && <ChevronDownFilled className='dropdown-submenu-chevron' aria-hidden="true" />}
+        {(opt.submenu || opt.submenuContent) && <ChevronDownFilled className='dropdown-submenu-chevron' aria-hidden="true" />}
         {opt.description ? <span className='dropdown-option-content'>
           <span className='dropdown-option-label'>{opt.label}</span>
           <span className='dropdown-option-description'>{opt.description}</span>
-        </span> : <TruncatedLabel text={opt.label} className='dropdown-option-label' wrapperStyle={{ flex: 1, minWidth: 0 }} />}
+        </span> : <TruncatedLabel text={opt.label} className='dropdown-option-label' wrapperStyle={{ flex: 1, minWidth: 0 }} tooltipVariant={tooltipVariant} tooltipMaxWidth={tooltipMaxWidth} />}
+        {opt.trailingIcon && <span style={{ display: 'inline-flex', flexShrink: 0, marginRight: 'var(--ds-space-2, 8px)' }}>{opt.trailingIcon}</span>}
       </div>
     );
     return opt.disabled && opt.disabledTooltip ? (
@@ -410,14 +464,34 @@ export function Dropdown({
   };
 
   const submenuOption = submenuState ? filtered[submenuState.idx] : null;
-  const submenuFlyout = submenuOption?.submenu && createPortal(
+  const submenuFlyout = open && submenuOption && (submenuOption.submenu || submenuOption.submenuContent) && createPortal(
     <div
+      ref={element => {
+        submenuRef.current = element;
+        if (!element) return;
+        const rect = element.getBoundingClientRect();
+        const inset = parseFloat(getComputedStyle(element).paddingTop) || 0;
+        const left = rect.right > window.innerWidth
+          ? Math.max(inset, submenuState.anchorLeft - rect.width)
+          : submenuState.left;
+        element.style.left = `${left}px`;
+        element.style.top = `${Math.max(inset, Math.min(submenuState.top, window.innerHeight - rect.height - inset))}px`;
+      }}
       className='dropdown-submenu-flyout'
       style={{ top: submenuState.top, left: submenuState.left }}
-      role="menu"
-      onMouseLeave={() => setSubmenuState(null)}
+      role={submenuOption.submenuContent ? 'dialog' : 'menu'}
+      aria-label={submenuOption.label}
+      onKeyDown={event => {
+        if (event.key === 'Escape' || (event.key === 'ArrowLeft' && !submenuOption.submenuContent)) {
+          event.preventDefault();
+          event.stopPropagation();
+          setSubmenuState(null);
+          triggerRef.current?.focus();
+        }
+      }}
+      onMouseLeave={() => { if (!submenuOption.submenuContent) setSubmenuState(null); }}
     >
-      {submenuOption.submenu.map(sub => (
+      {submenuOption.submenuContent ? submenuOption.submenuContent({ close: () => { setOpen(false); triggerRef.current?.focus(); } }) : submenuOption.submenu.map(sub => (
         <div
           key={sub.value}
           className='dropdown-submenu-item'
@@ -433,7 +507,11 @@ export function Dropdown({
   );
 
   const optionListEl = (
-    <div className='dropdown-option-list' ref={listRef}>
+    <div
+      className='dropdown-option-list'
+      ref={listRef}
+      onMouseLeave={() => setActiveIndex(-1)}
+    >
       {filtered.length === 0 ? (
         <div className='dropdown-no-results'>No results found</div>
       ) : hasGroups ? (
@@ -478,6 +556,7 @@ export function Dropdown({
               <button
                 type="button"
                 className='dropdown-filter-module-trigger'
+                aria-label={moduleFilterAriaLabel}
                 aria-haspopup="listbox"
                 aria-expanded={moduleOpen}
                 onClick={() => setModuleOpen(o => !o)}
@@ -486,7 +565,7 @@ export function Dropdown({
                 <ChevronDownFilled aria-hidden="true" />
               </button>
               {moduleOpen && (
-                <div className='dropdown-filter-module-list' role="listbox" aria-label="Module">
+                <div className='dropdown-filter-module-list' role="listbox" aria-label={moduleFilterAriaLabel}>
                   {moduleFilter.map(m => (
                     <div
                       key={m}
@@ -531,8 +610,55 @@ export function Dropdown({
         </div>
       )}
 
+      {onRefresh && (
+        <div className='dropdown-refresh-row'>
+          <button
+            type="button"
+            className='dropdown-refresh-btn'
+            data-variant={refreshVariant}
+            aria-label={refreshLabel}
+            title={refreshLabel}
+            onClick={() => onRefresh()}
+          >
+            <RefreshIcon />
+            {refreshVariant === 'label' && <span>{refreshLabel}</span>}
+          </button>
+        </div>
+      )}
+
       {optionListEl}
       {submenuFlyout}
+
+      {open && footerAction?.submenu && footerSubmenu && createPortal(
+        <div
+          ref={footerFlyoutRef}
+          className='dropdown-submenu-flyout'
+          role="menu"
+          aria-label={footerAction.label}
+          style={{ top: footerSubmenu.top, left: footerSubmenu.left }}
+          onMouseLeave={() => setFooterSubmenu(null)}
+        >
+          {footerAction.submenu.map(item => (
+            <div
+              key={item.label}
+              className='dropdown-submenu-item'
+              role="menuitem"
+              tabIndex={0}
+              onClick={() => { item.onClick?.(); setOpen(false); }}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  item.onClick?.();
+                  setOpen(false);
+                }
+              }}
+            >
+              {item.label}
+            </div>
+          ))}
+        </div>,
+        document.body,
+      )}
 
       {(multiSelect || footerAction) && (
         <div className='dropdown-panel-footer'>
@@ -541,7 +667,23 @@ export function Dropdown({
               Done
             </button>
           )}
-          {footerAction && (
+          {footerAction?.submenu && (
+            <button
+              type="button"
+              className='dropdown-footer-action-btn'
+              aria-haspopup="menu"
+              aria-expanded={!!footerSubmenu}
+              onMouseEnter={e => openFooterSubmenu(e.currentTarget)}
+              onClick={e => (footerSubmenu ? setFooterSubmenu(null) : openFooterSubmenu(e.currentTarget))}
+            >
+              <span className='dropdown-footer-action-icon' aria-hidden="true">
+                {footerAction.icon ?? <PlusIcon />}
+              </span>
+              <span className='dropdown-footer-action-label'>{footerAction.label}</span>
+              <ChevronDownFilled className='dropdown-submenu-chevron' aria-hidden="true" />
+            </button>
+          )}
+          {footerAction && !footerAction.submenu && (
             <button
               type="button"
               className='dropdown-footer-action-btn'
@@ -588,6 +730,8 @@ export function Dropdown({
           <>
             <TruncatedLabel
               text={displayValue}
+              tooltipVariant={tooltipVariant}
+              tooltipMaxWidth={tooltipMaxWidth}
               className='dropdown-trigger-value'
               wrapperStyle={{ flex: 1, minWidth: 0 }}
               spanProps={{ 'data-placeholder': isPlaceholder || undefined }}

@@ -217,7 +217,7 @@
 }
 
 .modal-alert-content[data-heading-only] .modal-title {
-  font-size: 15px;
+  font-size: var(--ds-font-size-h3);
   font-weight: var(--ds-font-weight-semibold);
 }
 

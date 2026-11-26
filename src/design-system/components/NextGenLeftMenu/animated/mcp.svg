@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="2.5 2.5 45 45" fill="none" role="img" aria-label="MCP interlocking strokes" overflow="visible" style="overflow:visible">
+  <g data-motion-root="" stroke="#EDC900" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <g id="mcp-left-stroke">
+      <path id="mcp-left-tail" data-left-trim="" pathLength="1" d="M33.295353 14.562881C37.195347 13.562881 40.695347 16.062881 41.695347 19.062881C42.695347 22.062881 41.095356 24.062881 39.39536 25.762878L26.095356 39.062881C25.365361 39.792877 25.365361 40.532882 26.095356 41.262878L28.795353 43.962875" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+      <path id="mcp-left-curve" data-left-trim="" pathLength="1" d="M7.995353 24.262876L24.19535 7.962873C27.69535 4.462873 30.995353 6.262876 32.995353 9.16287C34.995353 12.062879 33.69535 14.66287 32.095359 16.262876L20.19535 28.062879" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </g>
+    <g id="mcp-right-stroke"><path id="mcp-right-curve" d="M27.995358 12.362873L15.595349 24.862873C12.395352 28.06287 12.395352 31.462879 15.695355 33.862873C18.595349 35.962879 21.295361 34.562885 23.295361 32.562885L35.995358 20.462879" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g>
+  </g>
+</svg>

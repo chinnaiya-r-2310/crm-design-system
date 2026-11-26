@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="8 8.15 34 34" fill="none" role="img" aria-label="Workqueue" overflow="visible" style="overflow:visible">
+  <g data-motion-root="" stroke="#FF7A1B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <path id="workqueue-top-bar" d="M17.2 11.3H33.8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path id="workqueue-outline" data-outline="" pathLength="1" d="M25 18H34Q39 18 39 23V34Q39 39 34 39H16Q11 39 11 34V23Q11 18 16 18H25Z" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle id="workqueue-dot-one" cx="18.3" cy="25.3" r=".05" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path id="workqueue-line-one" pathLength="1" d="M24.3 25.3H32.2" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle id="workqueue-dot-two" cx="18.3" cy="31.4" r=".05" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path id="workqueue-line-two" pathLength="1" d="M24.3 31.4H30.5" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+  </g>
+</svg>

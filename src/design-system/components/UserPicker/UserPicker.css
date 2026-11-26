@@ -69,7 +69,7 @@
 }
 
 .user-picker-form-row .user-picker-label {
-  text-align: right;
+  text-align: start;
   padding-top: 7px;
 }
 
@@ -77,6 +77,38 @@
 
 .user-picker-dropdown-wrapper {
   position: relative;
+}
+
+/* Optional in-trigger clear action, matching the Dropdown control. */
+.user-picker-trigger-clear {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: calc(var(--ds-font-size-base) * 2 + var(--ds-font-size-sm) / 3);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--ds-font-size-sm) + var(--ds-font-size-sm) / 3);
+  height: calc(var(--ds-font-size-sm) + var(--ds-font-size-sm) / 3);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--ds-bg-muted, var(--ds-bg-scale-bg4));
+  color: var(--ds-text-label);
+  cursor: pointer;
+}
+
+.user-picker-trigger-clear:hover {
+  color: var(--ds-text-heading);
+}
+
+.user-picker-trigger-clear:focus-visible {
+  outline: 2px solid var(--ds-components-input-focus-outline);
+  outline-offset: 1px;
+}
+
+.user-picker-dropdown-wrapper[data-clearable] .user-picker-trigger-user {
+  padding-inline-end: calc(var(--ds-font-size-sm) * 2 + var(--ds-font-size-sm) / 6);
 }
 
 /* ── Trigger ──────────────────────────────────────────────────────────────── */
@@ -461,6 +493,8 @@
   height: 50px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: 0 25px;
   font-family: var(--ds-font-family-base);
   font-size: var(--ds-font-size-base);
