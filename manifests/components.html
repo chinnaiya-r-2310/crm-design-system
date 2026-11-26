@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">21/62 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">57/62 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">2/397 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">21/62 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">57/62 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">3/403 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>7.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>7.9s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -7114,6 +7114,7 @@ width?: any = 670</code></pre>
             label=&quot;Lead Status&quot;
             options={LEAD_STATUS}
             width={622}
+            columns=&quot;1fr 390px&quot;
             value={val}
             onChange={setVal} /&gt;
     );
@@ -7136,7 +7137,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       value={val}
       onChange={setVal}
       placeholder=&quot;Lead Status&quot;
-      width={200}
+      width={390}
     /&gt;
   );
 };</code></pre>
@@ -7156,7 +7157,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       options={LEAD_STATUS}
       value={val}
       onChange={setVal}
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7176,7 +7177,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       options={LEAD_STATUS}
       value={val}
       onChange={setVal}
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7197,7 +7198,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       value={val}
       onChange={setVal}
       required
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7220,7 +7221,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       required
       error
       helperText=&quot;Please select a lead status.&quot;
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7238,7 +7239,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
     options={LEAD_STATUS}
     value=&quot;qualified&quot;
     disabled
-    width={622}
+    width={622} columns=&quot;1fr 390px&quot;
   /&gt;
 );</code></pre>
             </div>
@@ -7257,7 +7258,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       options={WITH_DISABLED}
       value={val}
       onChange={setVal}
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7278,7 +7279,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       value={val}
       onChange={setVal}
       moduleFilter={[&#39;Deals&#39;, &#39;Contacts&#39;, &#39;Accounts&#39;, &#39;Vendors&#39;]}
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7299,7 +7300,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       value={val}
       onChange={setVal}
       searchable
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7321,7 +7322,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       onChange={setVal}
       searchable
       helperText=&quot;Scroll or search to find your country.&quot;
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7342,7 +7343,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       value={val}
       onChange={setVal}
       layout=&quot;vertical&quot;
-      width={300}
+      width={390}
     /&gt;
   );
 };</code></pre>
@@ -7367,11 +7368,11 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
   const row: React.CSSProperties = { display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 16, width: 622 };
   return (
     &lt;div style={row}&gt;
-      &lt;Dropdown label=&quot;Default&quot; options={LEAD_STATUS} value={vals.default} onChange={set(&#39;default&#39;)} width={622} /&gt;
-      &lt;Dropdown label=&quot;With Value&quot; options={LEAD_STATUS} value={vals.value} onChange={set(&#39;value&#39;)} width={622} /&gt;
-      &lt;Dropdown label=&quot;Required&quot; options={LEAD_STATUS} value={vals.required} onChange={set(&#39;required&#39;)} required width={622} /&gt;
-      &lt;Dropdown label=&quot;Error&quot; options={LEAD_STATUS} value={vals.error} onChange={set(&#39;error&#39;)} error helperText=&quot;This field is required.&quot; width={622} /&gt;
-      &lt;Dropdown label=&quot;Disabled&quot; options={LEAD_STATUS} value={vals.disabled} disabled width={622} /&gt;
+      &lt;Dropdown label=&quot;Default&quot; options={LEAD_STATUS} value={vals.default} onChange={set(&#39;default&#39;)} width={622} columns=&quot;1fr 390px&quot; /&gt;
+      &lt;Dropdown label=&quot;With Value&quot; options={LEAD_STATUS} value={vals.value} onChange={set(&#39;value&#39;)} width={622} columns=&quot;1fr 390px&quot; /&gt;
+      &lt;Dropdown label=&quot;Required&quot; options={LEAD_STATUS} value={vals.required} onChange={set(&#39;required&#39;)} required width={622} columns=&quot;1fr 390px&quot; /&gt;
+      &lt;Dropdown label=&quot;Error&quot; options={LEAD_STATUS} value={vals.error} onChange={set(&#39;error&#39;)} error helperText=&quot;This field is required.&quot; width={622} columns=&quot;1fr 390px&quot; /&gt;
+      &lt;Dropdown label=&quot;Disabled&quot; options={LEAD_STATUS} value={vals.disabled} disabled width={622} columns=&quot;1fr 390px&quot; /&gt;
     &lt;/div&gt;
   );
 };</code></pre>
@@ -7394,7 +7395,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       multiSelect
       searchable
       placeholder=&quot;Select statuses&quot;
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7423,7 +7424,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
           if (label) setOpts(prev =&gt; [...prev, { value: label.toLowerCase().replace(/\s+/g, &#39;-&#39;), label }]);
         },
       }}
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7452,7 +7453,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       options={grouped}
       value={val}
       onChange={setVal}
-      width={622}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7480,8 +7481,8 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
   };
   return (
     &lt;div style={card}&gt;
-      &lt;Dropdown label=&quot;Lead Status&quot; options={LEAD_STATUS} value={status} onChange={setStatus} required width={622} /&gt;
-      &lt;Dropdown label=&quot;Lead Source&quot; options={LEAD_SOURCE} value={source} onChange={setSource} width={622} /&gt;
+      &lt;Dropdown label=&quot;Lead Status&quot; options={LEAD_STATUS} value={status} onChange={setStatus} required width={622} columns=&quot;1fr 390px&quot; /&gt;
+      &lt;Dropdown label=&quot;Lead Source&quot; options={LEAD_SOURCE} value={source} onChange={setSource} width={622} columns=&quot;1fr 390px&quot; /&gt;
     &lt;/div&gt;
   );
 };</code></pre>
@@ -7528,7 +7529,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
   const [val, setVal] = useState(&#39;&#39;);
   const [count, setCount] = useState(0);
   return (
-    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8, width: 390 }}&gt;
+    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8, width: 622 }}&gt;
       &lt;Dropdown
         label=&quot;Form&quot;
         options={[
@@ -7539,7 +7540,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
         value={val}
         onChange={setVal}
         onRefresh={() =&gt; setCount(c =&gt; c + 1)}
-        width={390}
+        width={622} columns=&quot;1fr 390px&quot;
       /&gt;
       &lt;span style={{ fontSize: 12, color: &#39;#616E88&#39; }}&gt;Refreshed {count} times&lt;/span&gt;
     &lt;/div&gt;
@@ -7567,7 +7568,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
       onRefresh={() =&gt; {}}
       refreshVariant=&quot;icon&quot;
       refreshLabel=&quot;Refresh forms&quot;
-      width={390}
+      width={622} columns=&quot;1fr 390px&quot;
     /&gt;
   );
 };</code></pre>
@@ -7583,7 +7584,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
   const [val, setVal] = useState(&#39;&#39;);
   const [last, setLast] = useState(&#39;&#39;);
   return (
-    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8, width: 223 }}&gt;
+    &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8, width: 622 }}&gt;
       &lt;Dropdown
         label=&quot;Custom View&quot;
         options={CUSTOM_VIEW_OPTIONS}
@@ -7596,7 +7597,7 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
             { label: &#39;Use Widget&#39;, onClick: () =&gt; setLast(&#39;Widget&#39;) },
           ],
         }}
-        width={223}
+        width={622} columns=&quot;1fr 390px&quot;
       /&gt;
       &lt;span style={{ fontSize: 12, color: &#39;#616E88&#39; }}&gt;Last action: {last || &#39;none&#39;}&lt;/span&gt;
     &lt;/div&gt;
@@ -9733,9 +9734,9 @@ rows?: any = []</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> FormulaBuilder</h2>
       <div class="badges">
-        <label for="c-20-design-system-components-formulabuilder-props" class="badge ok as-toggle">8 prop types</label>
+        <label for="c-20-design-system-components-formulabuilder-props" class="badge ok as-toggle">10 prop types</label>
         <label for="c-20-design-system-components-formulabuilder-info" class="badge info as-toggle">1 info</label>
-        <label for="c-20-design-system-components-formulabuilder-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-20-design-system-components-formulabuilder-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
@@ -9769,7 +9770,7 @@ rows?: any = []</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">8 prop types</span>
+              <span class="badge ok">10 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/FormulaBuilder/FormulaBuilder.js::FormulaBuilder</code></pre>
             <pre><code>Props:</code></pre>
@@ -9784,6 +9785,8 @@ defaultTab?: any = &#39;fields&#39;
 fields?: any = []
 
 functions?: any = []
+
+isOpen?: any = true
 
 title?: any = &#39;New Formula&#39;
 
@@ -9802,7 +9805,9 @@ validate?: any = function validateFormula(formula) {
 
   if (/[+\-*/%^&lt;&gt;=!]$/.test(text)) errors.push(&#39;Formula cannot end with an operator.&#39;);
   return errors;
-}</code></pre>
+}
+
+variant?: any = &#39;default&#39;</code></pre>
           </div>
         </div>
     
@@ -9832,6 +9837,22 @@ validate?: any = function validateFormula(formula) {
     onCancel={fn()}
     onDone={fn()}
     onCheckSyntax={fn()} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Modal</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Modal = () =&gt; &lt;FormulaBuilder
+    title=&quot;New Summary Formula&quot;
+    functions={FUNCTIONS}
+    fields={FIELDS}
+    onCancel={fn()}
+    onDone={fn()}
+    onCheckSyntax={fn()}
+    variant=&quot;modal&quot; /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -11013,9 +11034,9 @@ variant?: any = &#39;default&#39;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Input</h2>
       <div class="badges">
-        <label for="c-24-design-system-components-input-props" class="badge ok as-toggle">7 prop types</label>
+        <label for="c-24-design-system-components-input-props" class="badge ok as-toggle">8 prop types</label>
         
-        <label for="c-24-design-system-components-input-stories" class="badge ok as-toggle">26 stories</label>
+        <label for="c-24-design-system-components-input-stories" class="badge ok as-toggle">27 stories</label>
         
         
       </div>
@@ -11066,11 +11087,13 @@ Extending
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">7 prop types</span>
+              <span class="badge ok">8 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/Input/Input.js::Input</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>currencyCode?: any = &#39;INR&#39;
+            <pre><code>clearLabel?: any = &#39;Clear search&#39;
+
+currencyCode?: any = &#39;INR&#39;
 
 displayCurrency?: any = true
 
@@ -11122,6 +11145,19 @@ Shows the standard form row at rest.</div>
     onKeyDown={(event: React.KeyboardEvent&lt;HTMLInputElement&gt;) =&gt; {
       if (event.key === &#39;Enter&#39;) event.currentTarget.blur();
     }} /&gt;;</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Search box</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SearchInput = () =&gt; &lt;Input
+    variant=&quot;search&quot;
+    width={240}
+    aria-label=&quot;Search recipients&quot;
+    placeholder=&quot;Search&quot; /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -11540,13 +11576,13 @@ Clicking the date half opens a Calendar; the time half accepts free text.</div>
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  1272 | // ─────────────────────────────────────────────────────────────────────────────
-  1273 |
-&gt; 1274 | const meta = {
+  1285 | // ─────────────────────────────────────────────────────────────────────────────
+  1286 |
+&gt; 1287 | const meta = {
        | ^
-  1275 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
-  1276 |   parameters: {
-  1277 |     layout: &#39;fullscreen&#39;,
+  1288 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
+  1289 |   parameters: {
+  1290 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/JoinedReportsRevampV2.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -12260,7 +12296,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
   const getReportSettings = (report: string) =&gt; reportSettings[report] ?? {
     tab: &#39;columns&#39;,
     columns: [&#39;Account Name&#39;, &#39;Assistant&#39;, &#39;Asst Phone&#39;, &#39;Average Time Spent (Minutes)&#39;, &#39;Contact Name&#39;, &#39;Contact Owner&#39;],
-    aggregates: [&#39;Revenue per Lead&#39;, &#39;Projected Revenue&#39;, &#39;Avg of Annual Revenue&#39;, &#39;Min of Annual Revenue&#39;, &#39;Sum of Auto_Currency_aklnmyoh&#39;],
+    aggregates: [&#39;Revenue per Lead&#39;, &#39;Projected Revenue&#39;, &#39;Avg of Annual Revenue&#39;, &#39;Min of Annual Revenue&#39;, &#39;Sum of Expected Revenue&#39;],
     hasFilters: false,
     showRowCount: true,
   };
@@ -12273,10 +12309,11 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
   const [aggregates, setAggregates] = useState([&#39;Avg of Annual Revenue&#39;, &#39;Sum of Annual Revenue&#39;, &#39;Count of Unique Leads&#39;]);
   const [aggregateDraft, setAggregateDraft] = useState&lt;{ report: string; selected: string[]; showRowCount: boolean } | null&gt;(null);
   const [aggregateSearch, setAggregateSearch] = useState(&#39;&#39;);
+  const [activeFormulaOptions, setActiveFormulaOptions] = useState&lt;string | null&gt;(null);
   const [formulaOpen, setFormulaOpen] = useState(false);
   const [formulaColumns, setFormulaColumns] = useState([
-    { label: &#39;percent summary formula&#39;, formula: &#39;Annual Revenue / 100&#39; },
-    { label: &#39;ukh,hh&#39;, formula: &#39;Annual Revenue&#39; },
+    { label: &#39;Revenue Percentage&#39;, formula: &#39;Annual Revenue / 100&#39; },
+    { label: &#39;Total Annual Revenue&#39;, formula: &#39;Annual Revenue&#39; },
     { label: &#39;Revenue per Lead&#39;, formula: &#39;Annual Revenue / Count of Unique Leads&#39; },
     { label: &#39;Projected Revenue&#39;, formula: &#39;Annual Revenue * Probability / 100&#39; },
     { label: &#39;Revenue in Thousands&#39;, formula: &#39;Annual Revenue / 1000&#39; },
@@ -12290,7 +12327,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
   };
   const aggregateOptions = [...new Set([
     &#39;Count of Unique Leads&#39;,
-    ...[&#39;Annual Revenue&#39;, &#39;Auto_Currency_aklnmyoh&#39;, &#39;Auto_Currency_cajrfwgg&#39;].flatMap(field =&gt;
+    ...[&#39;Annual Revenue&#39;, &#39;Expected Revenue&#39;, &#39;Actual Revenue&#39;].flatMap(field =&gt;
       [&#39;Avg&#39;, &#39;Sum&#39;, &#39;Min&#39;, &#39;Max&#39;].map(operation =&gt; `${operation} of ${field}`)),
     ...(aggregateDraft ? getReportSettings(aggregateDraft.report).aggregates : []),
   ])].filter(label =&gt; !formulaColumns.some(column =&gt; column.label === label));
@@ -12364,14 +12401,18 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                       &lt;button type=&quot;button&quot; className=&quot;jrv2-aggregate-clear&quot; aria-label=&quot;Clear all report columns&quot; onClick={() =&gt; setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value =&gt; !formulaColumns.some(column =&gt; column.label === value)) })}&gt;Clear all&lt;/button&gt;
                     )}
                   &lt;/div&gt;
-                  {formulaColumns.filter(column =&gt; matchesAggregateSearch(column.label)).map((column, index) =&gt; (
-                    &lt;div className={`jrv2-aggregate-option${index === 0 ? &#39; jrv2-aggregate-option--initial&#39; : &#39;&#39;}`} key={column.label}&gt;
-                      &lt;Checkbox label={column.label} checked={aggregateDraft.selected.includes(column.label)} onChange={() =&gt; toggleAggregate(column.label)} /&gt;
+                  {formulaColumns.filter(column =&gt; matchesAggregateSearch(column.label)).map(column =&gt; (
+                    &lt;div className={`jrv2-aggregate-option${column.label === (formulaColumns.find(item =&gt; item.label === activeFormulaOptions &amp;&amp; matchesAggregateSearch(item.label))?.label ?? formulaColumns.find(item =&gt; matchesAggregateSearch(item.label))?.label) ? &#39; jrv2-aggregate-option--initial&#39; : &#39;&#39;}`} key={column.label}
+                      onMouseEnter={() =&gt; setActiveFormulaOptions(column.label)}
+                      onFocus={() =&gt; setActiveFormulaOptions(column.label)}&gt;
+                      &lt;Tooltip content={column.label} overflowSelector=&quot;.checkbox-label-text&quot; variant=&quot;white&quot; placement=&quot;top&quot; wrapperStyle={{ display: &#39;flex&#39;, flex: 1, minWidth: 0 }}&gt;
+                        &lt;Checkbox label={column.label} checked={aggregateDraft.selected.includes(column.label)} onChange={() =&gt; toggleAggregate(column.label)} /&gt;
+                      &lt;/Tooltip&gt;
                       &lt;Dropdown width=&quot;auto&quot; triggerAriaLabel={`Options for ${column.label}`} triggerButtonVariant=&quot;link-default&quot; triggerIcon={&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;3.80 25.60 17.00 7.00&quot; width={17} height={7} aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;
                         &lt;path d=&quot;M 8.8,29.1 A 1.5,1.5 0 0,1 7.3,30.6 A 1.5,1.5 0 0,1 5.8,29.1 A 1.5,1.5 0 0,1 7.3,27.6 A 1.5,1.5 0 0,1 8.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
                         &lt;path d=&quot;M 13.8,29.1 A 1.5,1.5 0 0,1 12.3,30.6 A 1.5,1.5 0 0,1 10.8,29.1 A 1.5,1.5 0 0,1 12.3,27.6 A 1.5,1.5 0 0,1 13.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
                         &lt;path d=&quot;M 18.8,29.1 A 1.5,1.5 0 0,1 17.3,30.6 A 1.5,1.5 0 0,1 15.8,29.1 A 1.5,1.5 0 0,1 17.3,27.6 A 1.5,1.5 0 0,1 18.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
-                      &lt;/svg&gt;} showSelectionIndicator={false}
+                      &lt;/svg&gt;} showSelectionIndicator={false} panelStyle={{ width: &#39;max-content&#39; }}
                         options={[{ value: &#39;edit&#39;, label: &#39;Edit&#39; }, { value: &#39;delete&#39;, label: &#39;Delete&#39; }]} onChange={(action: string) =&gt; {
                           if (action === &#39;edit&#39;) { setEditingFormula(column.label); setFormulaOpen(true); }
                           else if (action === &#39;delete&#39;) {
@@ -12391,7 +12432,9 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                     )}
                   &lt;/div&gt;
                   {aggregateOptions.filter(matchesAggregateSearch).map(label =&gt; (
-                    &lt;Checkbox key={label} label={label} checked={aggregateDraft.selected.includes(label)} onChange={() =&gt; toggleAggregate(label)} /&gt;
+                    &lt;Tooltip key={label} content={label} overflowSelector=&quot;.checkbox-label-text&quot; variant=&quot;white&quot; placement=&quot;top&quot; wrapperStyle={{ display: &#39;flex&#39;, minWidth: 0 }}&gt;
+                      &lt;Checkbox label={label} checked={aggregateDraft.selected.includes(label)} onChange={() =&gt; toggleAggregate(label)} /&gt;
+                    &lt;/Tooltip&gt;
                   ))}
                   {!aggregateOptions.some(matchesAggregateSearch) &amp;&amp; !formulaColumns.some(column =&gt; matchesAggregateSearch(column.label)) &amp;&amp; &lt;p className=&quot;jrv2-joined-muted&quot; role=&quot;status&quot;&gt;No matching columns&lt;/p&gt;}
                 &lt;/div&gt;
@@ -12434,7 +12477,10 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                           if (target &gt;= 0 &amp;&amp; target &lt; mappingOrder.length) reorderMapping(index, mappingOrder[target]);
                         }}
                       &gt;&lt;Icon name=&quot;CrmMaskDrag&quot; size={12} /&gt;&lt;/button&gt;}
-                      &lt;span className=&quot;jrv2-mapping-report-name&quot; title={reports[index]}&gt;{reports[index]}&lt;/span&gt;
+                      &lt;span className=&quot;jrv2-mapping-report-name&quot; onMouseEnter={event =&gt; {
+                        const label = event.currentTarget;
+                        label.title = label.scrollWidth &gt; label.clientWidth ? reports[index] : &#39;&#39;;
+                      }}&gt;{reports[index]}&lt;/span&gt;
                     &lt;/div&gt;
                     &lt;div role=&quot;cell&quot;&gt;&lt;Dropdown width=&quot;100%&quot; placeholder=&quot;Select field&quot; triggerAriaLabel={`Group by field for ${reports[index]}`} options={mappingOptions} value={mappedFields[index] || &#39;&#39;} error={groupError &amp;&amp; !mappedFields[index] ? &#39;Select a field&#39; : undefined} onChange={(field: string) =&gt; setMappedFields(current =&gt; reports.map((_, fieldIndex) =&gt; fieldIndex === index ? field : current[fieldIndex] || &#39;&#39;))} /&gt;&lt;/div&gt;
                   &lt;/div&gt;;
@@ -12528,7 +12574,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                         &lt;/div&gt;
                         &lt;div className=&quot;jrv2-report-name-row&quot;&gt;
                           &lt;p&gt;{report}&lt;/p&gt;
-                          &lt;Tooltip content=&quot;rename&quot; variant=&quot;black&quot; placement=&quot;top&quot; wrapperStyle={{ display: &#39;inline-flex&#39;, flexShrink: 0 }}&gt;
+                          &lt;Tooltip content=&quot;Rename&quot; variant=&quot;black&quot; placement=&quot;top&quot; wrapperStyle={{ display: &#39;inline-flex&#39;, flexShrink: 0 }}&gt;
                             &lt;button type=&quot;button&quot; className=&quot;jrv2-report-rename&quot; aria-label={`Rename Report ${index + 1}`}
                               onClick={event =&gt; {
                                 event.preventDefault();
@@ -12563,7 +12609,10 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                           &lt;/button&gt;
                         &lt;/div&gt;
                         &lt;Dragger dragHandleOnly items={settings.aggregates} onChange={(aggregates: string[]) =&gt; updateReportSettings(settingsKey, { aggregates })}
-                          renderItem={(label: string) =&gt; &lt;span className=&quot;jrv2-aggregate-label&quot; title={label}&gt;{label}&lt;/span&gt;} /&gt;
+                          renderItem={(label: string) =&gt; &lt;span className=&quot;jrv2-aggregate-label&quot; onMouseEnter={event =&gt; {
+                            const target = event.currentTarget;
+                            target.title = target.scrollWidth &gt; target.clientWidth ? label : &#39;&#39;;
+                          }}&gt;{label}&lt;/span&gt;} /&gt;
                       &lt;/&gt;)}
                     &lt;/div&gt;
                   &lt;/details&gt;
@@ -12742,11 +12791,11 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
             value={reportNameDraft} onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setReportNameDraft(event.target.value)} /&gt;
         &lt;/form&gt;
       &lt;/Modal&gt;
-      &lt;Modal isOpen={formulaOpen} title={editingFormula ? &#39;Edit Summary Formula&#39; : &#39;New Summary Formula&#39;} width={1000} onClose={() =&gt; setFormulaOpen(false)} showFooter={false}&gt;
-        {formulaOpen &amp;&amp; &lt;FormulaBuilder
+      {formulaOpen &amp;&amp; &lt;FormulaBuilder
+          variant=&quot;modal&quot;
           title={editingFormula ? &#39;Edit Summary Formula&#39; : &#39;New Summary Formula&#39;}
           defaultFormula={formulaColumns.find(column =&gt; column.label === editingFormula)?.formula || &#39;&#39;}
-          fields={[{ name: &#39;Leads&#39;, items: [{ id: &#39;annual-revenue&#39;, label: &#39;Annual Revenue&#39; }, { id: &#39;employees&#39;, label: &#39;No of Employees&#39; }] }]}
+          fields={[{ name: &#39;Leads&#39;, items: [{ id: &#39;annual-revenue&#39;, label: &#39;Annual Revenue&#39;, fieldType: &#39;currency&#39; }, { id: &#39;employees&#39;, label: &#39;No of Employees&#39;, fieldType: &#39;number&#39; }] }]}
           onCancel={() =&gt; setFormulaOpen(false)}
           onDone={({ formula }: { formula: string }) =&gt; {
             const label = editingFormula || `Summary formula ${formulaColumns.length + 1}`;
@@ -12754,7 +12803,6 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
             setAggregateDraft(current =&gt; current &amp;&amp; ({ ...current, selected: [...new Set([...current.selected, label])] }));
             setFormulaOpen(false);
           }} /&gt;}
-      &lt;/Modal&gt;
     &lt;/div&gt;
   );
 }
@@ -12789,6 +12837,7 @@ function JoinedReportsRevampV2Page({ primaryReportName, initialStep, initialRepo
       ) : (
         &lt;DefaultBuilderBackground
           saved={false}
+          navigation={&lt;NextGenLeftMenu activeId=&quot;reports&quot; defaultCollapsed /&gt;}
           onEdit={() =&gt; { setMode(&#39;edit&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
           onCreate={() =&gt; { setMode(&#39;create&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
         /&gt;
@@ -12861,7 +12910,7 @@ export const V2: Story = {
     await mount(&lt;JoinedReportsRevampV2Page key=&quot;creation-test&quot; {...args} /&gt;);
     const canvas = within(canvasElement);
     const page = within(document.body);
-    await expect(canvas.getByLabelText(&#39;Main navigation&#39;)).toHaveClass(&#39;jr-builder-nav&#39;);
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Expand sidebar&#39; })).toBeVisible();
     await expect(canvas.getByText(&#39;Leads By Source&#39;, { exact: true })).toBeVisible();
     await expect(canvas.getByRole(&#39;table&#39;, { name: &#39;Report 1 Leads By Source&#39; })).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Create Joined Report&#39;, exact: true }));
@@ -12907,21 +12956,53 @@ export const V2Summary: Story = {
     await expect(aggregateEditor.getAllByRole(&#39;checkbox&#39;).filter(checkbox =&gt; (checkbox as HTMLInputElement).checked)).toHaveLength(6);
     await expect(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Create Aggregate Formula&#39; })).toBeVisible();
     await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue per Lead&#39;, exact: true })).toBeInTheDocument();
-    const formulaOptions = aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Options for percent summary formula&#39; });
+    await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Total Annual Revenue&#39;, exact: true })).toBeInTheDocument();
+    for (const name of [&#39;Revenue Percentage&#39;, &#39;Sum of Expected Revenue&#39;, &#39;Sum of Actual Revenue&#39;]) {
+      const label = aggregateEditor.getByRole(&#39;checkbox&#39;, { name, exact: true }).closest(&#39;.checkbox-root&#39;)!;
+      const text = label.querySelector(&#39;.checkbox-label-text&#39;) as HTMLElement;
+      const body = within(canvasElement.ownerDocument.body);
+      await expect(getComputedStyle(text).textOverflow).toBe(&#39;ellipsis&#39;);
+      await userEvent.hover(label);
+      if (text.scrollWidth &gt; text.clientWidth) {
+        await expect(await body.findByRole(&#39;tooltip&#39;)).toHaveTextContent(name);
+      } else {
+        await expect(body.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
+      }
+      await userEvent.unhover(label);
+      const previousMaxWidth = text.style.maxWidth;
+      text.style.maxWidth = &#39;40px&#39;;
+      await userEvent.hover(label);
+      await expect(await body.findByRole(&#39;tooltip&#39;)).toHaveTextContent(name);
+      await userEvent.unhover(label);
+      text.style.maxWidth = previousMaxWidth;
+    }
+    const lastHoveredOptions = aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Options for Revenue per Lead&#39; });
+    await userEvent.hover(lastHoveredOptions.closest(&#39;.jrv2-aggregate-option&#39;)!);
+    await userEvent.hover(canvas.getByRole(&#39;textbox&#39;, { name: &#39;Report title&#39; }));
+    await expect(getComputedStyle(lastHoveredOptions.closest(&#39;.dropdown-root&#39;)!).opacity).toBe(&#39;1&#39;);
+    await expect(getComputedStyle(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Options for Revenue Percentage&#39; }).closest(&#39;.dropdown-root&#39;)!).opacity).toBe(&#39;0&#39;);
+    const formulaOptions = aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Options for Revenue Percentage&#39; });
+    await userEvent.hover(formulaOptions.closest(&#39;.jrv2-aggregate-option&#39;)!);
     await userEvent.click(formulaOptions);
     const formulaMenu = within(canvasElement.ownerDocument.body);
     await expect(formulaMenu.getByRole(&#39;option&#39;, { name: &#39;Edit&#39;, exact: true })).toBeVisible();
     await expect(formulaMenu.getByRole(&#39;option&#39;, { name: &#39;Delete&#39;, exact: true })).toBeVisible();
+    const actionPanel = formulaMenu.getByRole(&#39;option&#39;, { name: &#39;Edit&#39;, exact: true }).closest(&#39;.dropdown-panel&#39;)!;
+    await expect(actionPanel.getBoundingClientRect().width).toBeGreaterThan(formulaOptions.getBoundingClientRect().width);
+    for (const label of actionPanel.querySelectorAll(&#39;.dropdown-option-label&#39;)) {
+      await expect(label.clientWidth).toBeGreaterThan(0);
+      await expect(label.scrollWidth).toBeLessThanOrEqual(label.clientWidth);
+    }
     await userEvent.keyboard(&#39;{Escape}&#39;);
-    await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;percent summary formula&#39;, exact: true }));
+    await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue Percentage&#39;, exact: true }));
     await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Count of Unique Leads&#39;, exact: true }));
     await userEvent.click(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Clear all report columns&#39; }));
-    await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;percent summary formula&#39;, exact: true })).not.toBeChecked();
+    await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue Percentage&#39;, exact: true })).not.toBeChecked();
     await expect(aggregateEditor.queryByRole(&#39;button&#39;, { name: &#39;Clear all report columns&#39; })).not.toBeInTheDocument();
     await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Count of Unique Leads&#39;, exact: true })).toBeChecked();
-    await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;percent summary formula&#39;, exact: true }));
+    await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue Percentage&#39;, exact: true }));
     await userEvent.click(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Clear all module columns&#39; }));
-    await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;percent summary formula&#39;, exact: true })).toBeChecked();
+    await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue Percentage&#39;, exact: true })).toBeChecked();
     await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Count of Unique Leads&#39;, exact: true })).not.toBeChecked();
     await expect(aggregateEditor.queryByRole(&#39;button&#39;, { name: &#39;Clear all module columns&#39; })).not.toBeInTheDocument();
     await expect(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Clear all report columns&#39; })).toBeVisible();
@@ -13023,6 +13104,7 @@ export const V2Summary: Story = {
     await expect(total).toBeVisible();
     await expect(getComputedStyle(total).position).toBe(&#39;sticky&#39;);
     await expect(getComputedStyle(total).borderRightColor).toBe(&#39;rgba(0, 0, 0, 0)&#39;);
+    await expect(getComputedStyle(total).boxShadow).not.toBe(&#39;none&#39;);
     scroller.scrollTo(0, 0);
     scroller.dispatchEvent(new Event(&#39;scroll&#39;, { bubbles: true }));
     await waitFor(() =&gt; expect(scroller).not.toHaveClass(&#39;jrv2-joined-preview-scroll--scrolled&#39;));
@@ -13043,10 +13125,10 @@ export const V2Summary: Story = {
       await expect(rename).toBeVisible();
       if (index === 0) {
         await userEvent.hover(rename);
-        await expect(await within(document.body).findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;rename&#39;);
+        await expect(await within(document.body).findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Rename&#39;);
         await userEvent.unhover(rename);
         rename.focus();
-        await expect(await within(document.body).findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;rename&#39;);
+        await expect(await within(document.body).findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Rename&#39;);
         rename.blur();
       }
       const previousName = section.querySelector(&#39;summary p&#39;)!.textContent || originalName;
@@ -13413,7 +13495,7 @@ variant?: any = &#39;modal&#39;</code></pre>
       <div class="badges">
         <label for="c-27-design-system-components-mergefield-props" class="badge ok as-toggle">7 prop types</label>
         
-        <label for="c-27-design-system-components-mergefield-stories" class="badge ok as-toggle">9 stories</label>
+        <label for="c-27-design-system-components-mergefield-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
@@ -13719,6 +13801,19 @@ width?: any = 670</code></pre>
     mergeFields={NOTIFICATION_FIELDS}
   /&gt;
 );</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Multiline / Tag spacing</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const MultilineTagSpacing = () =&gt; &lt;MergeField
+    layout=&quot;vertical&quot;
+    width={240}
+    defaultValue=&quot;#recordname\n#queuename\n#user #dateandtime #recordname #queuename&quot;
+    mergeFields={NOTIFICATION_FIELDS} /&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -15386,7 +15481,7 @@ export const Pipeline: Story = { render: () =&gt; &lt;Preview selection={{ kind:
       <div class="badges">
         <label for="c-32-design-system-components-modal-err" class="badge err as-toggle">prop type error</label>
         <label for="c-32-design-system-components-modal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-32-design-system-components-modal-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-32-design-system-components-modal-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -15444,6 +15539,12 @@ const ALERT_ICONS = {
 const SINGLE_BTN_VARIANTS = new Set([&#39;success&#39;, &#39;info&#39;, &#39;denial&#39;]);
 let scrollLockCount = 0;
 let previousBodyOverflow = &#39;&#39;;
+const modalStack = [];
+const focusableSelector = &#39;a[href], button, input, select, textarea, [tabindex], [contenteditable=&quot;true&quot;]&#39;;
+const getFocusableElements = (root) =&gt; Array.from(root.querySelectorAll(focusableSelector)).filter(
+  element =&gt; element.tabIndex &gt;= 0 &amp;&amp; !element.matches(&#39;:disabled&#39;) &amp;&amp; !element.closest(&#39;[inert]&#39;)
+    &amp;&amp; element.getClientRects().length &gt; 0 &amp;&amp; getComputedStyle(element).visibility !== &#39;hidden&#39;
+);
 
 function alertConfirmVariant(variant) {
   return variant === &#39;error&#39; ? &#39;negative&#39; : &#39;primary&#39;;
@@ -15510,6 +15611,42 @@ export function Modal({
     onClose();
   }, [onCancel, onClose]);
 
+  // Only the most recently opened modal owns keyboard focus. Recompute controls
+  // on each Tab so conditional fields and disabled fieldsets are respected.
+  useEffect(() =&gt; {
+    if (!isVisible) return;
+    const dialog = dialogRef.current;
+    const opener = document.activeElement;
+    modalStack.push(dialog);
+    const handleTab = (event) =&gt; {
+      if (event.key !== &#39;Tab&#39; || modalStack.at(-1) !== dialog) return;
+      // Dropdowns and Tags render their listboxes outside the dialog portal.
+      // Include an active listbox so its search remains usable without letting
+      // Tab escape to the page at either boundary.
+      const portal = event.target instanceof Element &amp;&amp; !dialog.contains(event.target)
+        ? event.target.closest(&#39;[role=&quot;listbox&quot;]&#39;) : null;
+      const controls = [...getFocusableElements(dialog), ...(portal ? getFocusableElements(portal) : [])];
+      const first = controls[0] ?? dialog;
+      const last = controls.at(-1) ?? dialog;
+      const active = document.activeElement;
+      if (!controls.length || (!dialog.contains(active) &amp;&amp; !portal)
+        || (event.shiftKey ? active === first || active === dialog : active === last)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      }
+    };
+    document.addEventListener(&#39;keydown&#39;, handleTab);
+    // Even dialogs with no editable fields (alerts) need an initial focus target.
+    if (!disableAutoFocus) (getFocusableElements(dialog)[0] ?? dialog).focus();
+    return () =&gt; {
+      const wasTop = modalStack.at(-1) === dialog;
+      const index = modalStack.indexOf(dialog);
+      if (index !== -1) modalStack.splice(index, 1);
+      document.removeEventListener(&#39;keydown&#39;, handleTab);
+      if (wasTop &amp;&amp; opener instanceof HTMLElement &amp;&amp; opener.isConnected) opener.focus();
+    };
+  }, [isVisible]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Auto-focus the first editable form field when the modal opens
   useEffect(() =&gt; {
     if (isVisible &amp;&amp; !isClosing &amp;&amp; !disableAutoFocus) {
@@ -15517,7 +15654,7 @@ export function Modal({
         const first = dialogRef.current?.querySelector(
           &#39;input[type=&quot;text&quot;]:not([disabled]):not([readonly]):not(.tags-input):not(.dropdown-search-input), input[type=&quot;email&quot;]:not([disabled]), input[type=&quot;tel&quot;]:not([disabled]), input[type=&quot;number&quot;]:not([disabled]), input[type=&quot;search&quot;]:not([disabled]), input:not([type]):not([disabled]):not([readonly]):not(.tags-input), textarea:not([disabled])&#39;
         );
-        first?.focus();
+        if (modalStack.at(-1) === dialogRef.current) first?.focus();
       }, 50);
       return () =&gt; clearTimeout(t);
     }
@@ -15527,8 +15664,7 @@ export function Modal({
   useEffect(() =&gt; {
     if (!isVisible || !closeOnEscape || !showClose) return;
     const handler = (e) =&gt; {
-      const dialogs = document.querySelectorAll(&#39;.modal-dialog&#39;);
-      if (e.key === &#39;Escape&#39; &amp;&amp; dialogs[dialogs.length - 1] === dialogRef.current) onClose();
+      if (e.key === &#39;Escape&#39; &amp;&amp; modalStack.at(-1) === dialogRef.current) onClose();
     };
     document.addEventListener(&#39;keydown&#39;, handler);
     return () =&gt; document.removeEventListener(&#39;keydown&#39;, handler);
@@ -15583,6 +15719,7 @@ export function Modal({
           ref={dialogRef}
           className=&#39;modal-dialog&#39;
           role=&quot;alertdialog&quot;
+          tabIndex={-1}
           aria-modal=&quot;true&quot;
           aria-labelledby={titleId}
           style={{ width }}
@@ -15621,6 +15758,7 @@ export function Modal({
         ref={dialogRef}
         className={`modal-dialog${className ? ` ${className}` : &#39;&#39;}`}
         role=&quot;dialog&quot;
+        tabIndex={-1}
         aria-modal=&quot;true&quot;
         aria-labelledby={titleId}
         style={{ width }}
@@ -15753,6 +15891,37 @@ export default Modal;
     ))}
   &lt;/Modal&gt;
 );</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Nested Focus</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Focus ownership follows open order, including portals preceding their parent in the DOM.</div>
+              <pre><code>const NestedFocus = () =&gt; {
+  const [parentOpen, setParentOpen] = useState(false);
+  const [childOpen, setChildOpen] = useState(false);
+  return &lt;&gt;
+    &lt;Button onClick={() =&gt; setParentOpen(true)}&gt;Open parent&lt;/Button&gt;
+    &lt;Modal isOpen={childOpen} title=&quot;Nested dialog&quot; onClose={() =&gt; setChildOpen(false)} onSave={() =&gt; setChildOpen(false)}&gt;
+      &lt;Input label=&quot;Disabled field&quot; disabled /&gt;
+      &lt;Input label=&quot;Nested name&quot; /&gt;
+    &lt;/Modal&gt;
+    &lt;Modal isOpen={parentOpen} title=&quot;Parent dialog&quot; onClose={() =&gt; setParentOpen(false)} onSave={() =&gt; setParentOpen(false)}&gt;
+      &lt;Button onClick={() =&gt; setChildOpen(true)}&gt;Open child&lt;/Button&gt;
+    &lt;/Modal&gt;
+  &lt;/&gt;;
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">No Focusable Content</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const NoFocusableContent = () =&gt; &lt;Modal isOpen title=&quot;Read-only dialog&quot; showFooter={false} onClose={() =&gt; {}}&gt;&lt;p&gt;Notification details&lt;/p&gt;&lt;/Modal&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
@@ -20398,14 +20567,14 @@ export const DiagramOnly: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Select</h2>
       <div class="badges">
-        <label for="c-43-design-system-components-select-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-43-design-system-components-select-info" class="badge info as-toggle">1 info</label>
-        <label for="c-43-design-system-components-select-stories" class="badge ok as-toggle">10 stories</label>
+        <label for="c-43-design-system-components-select-with-piclist-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-43-design-system-components-select-with-piclist-info" class="badge info as-toggle">1 info</label>
+        <label for="c-43-design-system-components-select-with-piclist-stories" class="badge ok as-toggle">10 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/design-system/components/Select/Select.stories.tsx">design-system-components-select · ./src/design-system/components/Select/Select.stories.tsx</div>
+    <div class="meta" title="./src/design-system/components/Select/Select.stories.tsx">design-system-components-select-with-piclist · ./src/design-system/components/Select/Select.stories.tsx</div>
     
     
     
@@ -20413,11 +20582,11 @@ export const DiagramOnly: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-43-design-system-components-select-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-43-design-system-components-select-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-43-design-system-components-select-with-piclist-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-43-design-system-components-select-with-piclist-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-43-design-system-components-select-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-43-design-system-components-select-with-piclist-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -20468,8 +20637,9 @@ width?: any = 670</code></pre>
               
               <div class="hint">Default — no value selected, shows placeholder &quot;None&quot;.</div>
               <pre><code>const Default = () =&gt; &lt;Select
+    columns=&quot;1fr 390px&quot;
     label=&quot;Lead Status&quot;
-    width={670}
+    width={622}
     layout=&quot;horizontal&quot;
     options={LEAD_STATUS_OPTIONS} /&gt;;</code></pre>
             </div>
@@ -20481,9 +20651,10 @@ width?: any = 670</code></pre>
               
               <div class="hint">A value is currently selected — trigger shows the option label.</div>
               <pre><code>const WithValue = () =&gt; &lt;Select
+    columns=&quot;1fr 390px&quot;
     label=&quot;Lead Status&quot;
     value=&quot;qualified&quot;
-    width={670}
+    width={622}
     layout=&quot;horizontal&quot;
     options={LEAD_STATUS_OPTIONS} /&gt;;</code></pre>
             </div>
@@ -20495,8 +20666,9 @@ width?: any = 670</code></pre>
               
               <div class="hint">Hover state — border turns #797883.</div>
               <pre><code>const Hover = () =&gt; &lt;Select
+    columns=&quot;1fr 390px&quot;
     label=&quot;Lead Status&quot;
-    width={670}
+    width={622}
     layout=&quot;horizontal&quot;
     options={LEAD_STATUS_OPTIONS}
     forceState=&quot;hover&quot; /&gt;;</code></pre>
@@ -20509,8 +20681,9 @@ width?: any = 670</code></pre>
               
               <div class="hint">Focus state — border turns #5464F2 with blue glow.</div>
               <pre><code>const Focus = () =&gt; &lt;Select
+    columns=&quot;1fr 390px&quot;
     label=&quot;Lead Status&quot;
-    width={670}
+    width={622}
     layout=&quot;horizontal&quot;
     options={LEAD_STATUS_OPTIONS}
     forceState=&quot;focus&quot; /&gt;;</code></pre>
@@ -20523,9 +20696,10 @@ width?: any = 670</code></pre>
               
               <div class="hint">Required — red mandatory indicator on the left edge of the trigger.</div>
               <pre><code>const Required = () =&gt; &lt;Select
+    columns=&quot;1fr 390px&quot;
     label=&quot;Lead Status&quot;
     required
-    width={670}
+    width={622}
     layout=&quot;horizontal&quot;
     options={LEAD_STATUS_OPTIONS} /&gt;;</code></pre>
             </div>
@@ -20537,10 +20711,11 @@ width?: any = 670</code></pre>
               
               <div class="hint">Disabled — gray background, not interactive.</div>
               <pre><code>const Disabled = () =&gt; &lt;Select
+    columns=&quot;1fr 390px&quot;
     label=&quot;Lead Status&quot;
     value=&quot;new&quot;
     disabled
-    width={670}
+    width={622}
     layout=&quot;horizontal&quot;
     options={LEAD_STATUS_OPTIONS} /&gt;;</code></pre>
             </div>
@@ -20552,10 +20727,11 @@ width?: any = 670</code></pre>
               
               <div class="hint">Read-only — muted background, lock badge replaces chevron, value is not changeable.</div>
               <pre><code>const ReadOnly = () =&gt; &lt;Select
+    columns=&quot;1fr 390px&quot;
     label=&quot;Lead Status&quot;
     value=&quot;qualified&quot;
     readOnly
-    width={670}
+    width={622}
     layout=&quot;horizontal&quot;
     options={LEAD_STATUS_OPTIONS} /&gt;;</code></pre>
             </div>
@@ -20567,10 +20743,11 @@ width?: any = 670</code></pre>
               
               <div class="hint">Error — border and helper text turn #FF5D5A.</div>
               <pre><code>const Error = () =&gt; &lt;Select
+    columns=&quot;1fr 390px&quot;
     label=&quot;Lead Status&quot;
     helperText=&quot;Please select a lead status.&quot;
     error
-    width={670}
+    width={622}
     layout=&quot;horizontal&quot;
     options={LEAD_STATUS_OPTIONS} /&gt;;</code></pre>
             </div>
@@ -20582,11 +20759,12 @@ width?: any = 670</code></pre>
               
               <div class="hint">Full anatomy — label, placeholder, helper text, and required indicator.</div>
               <pre><code>const FullAnatomy = () =&gt; &lt;Select
+    columns=&quot;1fr 390px&quot;
     label=&quot;Lead Status&quot;
     placeholder=&quot;None&quot;
     helperText=&quot;Select the current stage of this lead.&quot;
     required
-    width={670}
+    width={622}
     layout=&quot;horizontal&quot;
     options={LEAD_STATUS_OPTIONS} /&gt;;</code></pre>
             </div>
@@ -20598,6 +20776,7 @@ width?: any = 670</code></pre>
               
               <div class="hint">Vertical layout — label stacked above the trigger.</div>
               <pre><code>const Vertical = () =&gt; &lt;Select
+    columns=&quot;1fr 390px&quot;
     label=&quot;Lead Status&quot;
     width={390}
     layout=&quot;vertical&quot;
@@ -24501,7 +24680,7 @@ export const AllTypography: StoryObj = {
   class="card 
   has-error 
   has-info 
-  no-story-error
+  has-story-error
   no-doc-error"
   role="listitem"
   aria-label="UsageLimitNotification">
@@ -24511,7 +24690,7 @@ export const AllTypography: StoryObj = {
       <div class="badges">
         <label for="c-56-work-items-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
         <label for="c-56-work-items-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-56-work-items-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-56-work-items-usage-limit-notification-stories" class="badge err as-toggle">1/2 story errors</label>
         
         
       </div>
@@ -24659,7 +24838,7 @@ const labelStyle: React.CSSProperties = {
   fontWeight: &#39;var(--ds-font-weight-regular)&#39;,
   color:      &#39;var(--ds-text-label)&#39;,
   whiteSpace: &#39;nowrap&#39;,
-  textAlign:  &#39;right&#39;,
+  textAlign:  &#39;start&#39;,
 };
 
 const sectionHeadingStyle: React.CSSProperties = {
@@ -24783,6 +24962,7 @@ type UsageListRow = {
     trigger: ReturnType&lt;typeof createUsageTrigger&gt;; recipients: UsageRecipient[];
     pushEmailEnabled: boolean; externalAppsEnabled: boolean;
     notifyPush: boolean; notifyEmail: boolean; notifyZohoCliq: boolean; notifySlack: boolean;
+    externalAppOrder?: string[];
     users: TagItem[]; channels: TagItem[]; slackUsers?: TagItem[]; slackChannels?: TagItem[]; slackTeam?: string; message: string; template?: TemplateSettings;
   };
 };
@@ -25000,24 +25180,30 @@ export const CreateNotification: Story = {
     const cliq = within(page.getByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; }));
     await userEvent.click(cliq.getByRole(&#39;button&#39;, { name: &#39;Select Recipients&#39; }));
     await waitFor(() =&gt; expect(page.getByText(&#39;Zoho Cliq Notification&#39;, { exact: true })).toBeVisible());
-    await expect(page.getByPlaceholderText(&#39;Select recipients&#39;)).toBeVisible();
+    await expect(await page.findByPlaceholderText(&#39;Select recipients&#39;)).toBeVisible();
     await userEvent.click(page.getAllByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }).at(-1)!);
     await waitFor(() =&gt; expect(page.queryByText(&#39;Zoho Cliq Notification&#39;, { exact: true })).not.toBeInTheDocument());
     await userEvent.click(page.getByRole(&#39;checkbox&#39;, { name: &#39;Slack&#39;, exact: true }));
     const slack = within(page.getByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; }));
     await userEvent.click(slack.getByRole(&#39;button&#39;, { name: &#39;Select Recipients&#39; }));
     await waitFor(() =&gt; expect(page.getByText(&#39;Slack Notification&#39;, { exact: true })).toBeVisible());
-    await expect(page.getByPlaceholderText(&#39;Select recipients&#39;)).toBeDisabled();
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).not.toBeInTheDocument();
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; })).not.toBeInTheDocument();
+    await expect(page.queryByPlaceholderText(&#39;Select recipients&#39;)).not.toBeInTheDocument();
+    await expect(page.queryByText(&#39;Select a team first to choose recipients.&#39;)).not.toBeInTheDocument();
     await expect(page.getByRole(&#39;button&#39;, { name: &#39;Slack team&#39; })).toHaveTextContent(&#39;Select&#39;);
     const appModal = page.getByText(&#39;Slack Notification&#39;, { exact: true }).closest(&#39;.modal-dialog&#39;) as HTMLElement;
     await expect(appModal.style.width).toBe(&#39;fit-content&#39;);
-    await expect(getComputedStyle(appModal.querySelector(&#39;.usage-app-recipients&#39;)!).gap).toBe(&#39;28px&#39;);
+    await expect(appModal.querySelector(&#39;.usage-app-recipients&#39;)).toBeNull();
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Slack team&#39; }));
     await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Select&#39;, exact: true })).not.toBeInTheDocument();
     await expect(page.getByRole(&#39;option&#39;, { name: &#39;Bennett Electronics&#39;, exact: true })).toBeVisible();
     await expect(page.getByRole(&#39;button&#39;, { name: &#39;Authorise another team&#39;, exact: true })).toBeVisible();
     await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;scranton store&#39;, exact: true }));
     await expect(page.getByPlaceholderText(&#39;Select recipients&#39;)).toBeEnabled();
+    await expect(page.queryByText(&#39;Select a team first to choose recipients.&#39;)).not.toBeInTheDocument();
+    await expect(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).toBeEnabled();
+    await expect(getComputedStyle(appModal.querySelector(&#39;.usage-app-recipients&#39;)!).gap).toBe(&#39;28px&#39;);
     await userEvent.click(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; }));
     await expect(page.getByPlaceholderText(&#39;Select channels&#39;)).toBeVisible();
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Done&#39;, exact: true }));
@@ -25033,7 +25219,8 @@ export const CreateNotification: Story = {
     await waitFor(() =&gt; expect(page.queryByText(&#39;Slack Notification&#39;, { exact: true })).not.toBeInTheDocument());
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }));
   },
-  render: () =&gt; {
+  render: (args) =&gt; {
+    const addExternalAppsVariant = args.externalAppsVariant === &#39;dropdown&#39;;
     const [open, setOpen] = useState(false);
     const [sidebarId, setSidebarId] = useState(&#39;admin-tools&#39;);
     const [featureFilter, setFeatureFilter] = useState(&#39;all&#39;);
@@ -25104,6 +25291,12 @@ export const CreateNotification: Story = {
     const [notifyEmail,    setNotifyEmail]    = useState(true);
     const [notifyZohoCliq, setNotifyZohoCliq] = useState(true);
     const [notifySlack,    setNotifySlack]    = useState(false);
+    const [externalAppOrder, setExternalAppOrder] = useState&lt;string[]&gt;([]);
+    const removeExternalApp = (app: string) =&gt; {
+      setExternalAppOrder(current =&gt; current.filter(value =&gt; value !== app));
+      if (app === &#39;cliq&#39;) setNotifyZohoCliq(false);
+      else setNotifySlack(false);
+    };
 
     // Message
     const criteriaKey = JSON.stringify(trigger);
@@ -25216,8 +25409,11 @@ export const CreateNotification: Story = {
       setExternalAppsEnabled(!systemEdit &amp;&amp; (config?.externalAppsEnabled ?? !!row?.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel))));
       setNotifyPush(systemEdit || (config?.notifyPush ?? (row ? !!row.channels?.includes(&#39;Push Notification&#39;) : true)));
       setNotifyEmail(systemEdit || (config?.notifyEmail ?? (row ? !!row.channels?.includes(&#39;Emails&#39;) : true)));
-      setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : true));
+      setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : !addExternalAppsVariant));
       setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes(&#39;Slack&#39;));
+      setExternalAppOrder(config?.externalAppOrder ?? (row?.channels ?? [])
+        .filter(channel =&gt; channel === &#39;Zoho Cliq&#39; || channel === &#39;Slack&#39;)
+        .map(channel =&gt; channel === &#39;Zoho Cliq&#39; ? &#39;cliq&#39; : &#39;slack&#39;));
       setZohoCommittedUsers(config?.users ?? []);
       setZohoCommittedChannels(config?.channels ?? []);
       setSlackCommittedUsers(config?.slackUsers ?? []);
@@ -25338,7 +25534,7 @@ export const CreateNotification: Story = {
           className=&quot;usage-app-modal&quot;
         &gt;
           &lt;div className=&quot;usage-app-modal__content&quot;&gt;
-            {recipientApp === &#39;Slack&#39; &amp;&amp; &lt;Dropdown label=&quot;Team&quot; placeholder=&quot;Select&quot; width=&quot;100%&quot; columns=&quot;auto minmax(0, 1fr)&quot;
+            {recipientApp === &#39;Slack&#39; &amp;&amp; &lt;Dropdown label=&quot;Team&quot; placeholder=&quot;Select&quot; width=&quot;100%&quot;
               triggerAriaLabel=&quot;Slack team&quot; value={slackDraftTeam}
               options={slackTeams}
               onChange={(team: string) =&gt; {
@@ -25349,10 +25545,11 @@ export const CreateNotification: Story = {
               }}
               panelStyle={{ &#39;--usage-slack-team-menu&#39;: 1 } as React.CSSProperties}
               footerAction={{ label: &#39;Authorise another team&#39;, icon: null, onClick: () =&gt; {} }} /&gt;}
-            &lt;fieldset className=&quot;usage-app-recipients&quot; disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}&gt;
+            {(recipientApp !== &#39;Slack&#39; || slackDraftTeam) &amp;&amp; &lt;fieldset className=&quot;usage-app-recipients&quot;&gt;
             &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
               &lt;Checkbox
                 label=&quot;Notify to users&quot;
+                disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                 checked={zohoNotifyUsers}
                 onChange={(e) =&gt; setZohoNotifyUsers(e.target.checked)}
               /&gt;
@@ -25362,6 +25559,7 @@ export const CreateNotification: Story = {
                   options={ZOHO_USER_OPTIONS}
                   onChange={setZohoDraftUsers}
                   placeholder=&quot;Select recipients&quot;
+                  disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                   width=&quot;100%&quot;
                 /&gt;
               )}
@@ -25369,6 +25567,7 @@ export const CreateNotification: Story = {
             &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
               &lt;Checkbox
                 label=&quot;Notify in Channels&quot;
+                disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                 checked={zohoNotifyChannels}
                 onChange={(e) =&gt; setZohoNotifyChannels(e.target.checked)}
               /&gt;
@@ -25378,11 +25577,12 @@ export const CreateNotification: Story = {
                   options={ZOHO_CHANNEL_OPTIONS}
                   onChange={setZohoDraftChannels}
                   placeholder=&quot;Select channels&quot;
+                  disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                   width=&quot;100%&quot;
                 /&gt;
               )}
             &lt;/div&gt;
-            &lt;/fieldset&gt;
+            &lt;/fieldset&gt;}
           &lt;/div&gt;
         &lt;/Modal&gt;
 
@@ -25419,7 +25619,7 @@ export const CreateNotification: Story = {
               modifiedTime: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
               channels, status: existing?.status ?? &#39;Active&#39;, summary: usageTriggerSummary(trigger),
               config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
-                notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
+                notifyPush, notifyEmail, notifyZohoCliq, notifySlack, externalAppOrder, users: zohoCommittedUsers,
                 channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
                 message, template: emailTemplate },
             };
@@ -25531,7 +25731,7 @@ export const CreateNotification: Story = {
             {/* Push Notification / Email */}
             &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
               &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                &lt;span style={subHeadingStyle}&gt;Push Notification / Email&lt;/span&gt;
+                &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;Push Notification / Email&lt;/h3&gt;
                 {!isSystemDefined &amp;&amp; &lt;Switch
                   checked={pushEmailEnabled}
                   onChange={(e) =&gt; setPushEmailEnabled(e.target.checked)}
@@ -25647,28 +25847,33 @@ export const CreateNotification: Story = {
 
             {/* External apps */}
             {!isSystemDefined &amp;&amp; &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
-              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                &lt;span style={subHeadingStyle}&gt;External apps&lt;/span&gt;
+              {addExternalAppsVariant ? (
+                externalAppsEnabled &amp;&amp; (notifyZohoCliq || notifySlack) &amp;&amp; &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;External apps&lt;/h3&gt;
+              ) : &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
+                &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;External apps&lt;/h3&gt;
                 &lt;Switch
                   checked={externalAppsEnabled}
                   onChange={(e) =&gt; setExternalAppsEnabled(e.target.checked)}
                   aria-label=&quot;Toggle external app notifications&quot;
                 /&gt;
-              &lt;/div&gt;
+              &lt;/div&gt;}
 
               {externalAppsEnabled &amp;&amp; (
                 &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8 }}&gt;
-                  &lt;FormRow label=&quot;Notify Via&quot; align=&quot;center&quot;&gt;
-                    &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                      {/* Isolate Checkbox&#39;s align-self: flex-start so the row can center it. */}
-                      &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39; }}&gt;
+                  {(addExternalAppsVariant ? externalAppOrder : [&#39;cliq&#39;, &#39;slack&#39;]).map(app =&gt; app === &#39;cliq&#39; ? (
+                  (!addExternalAppsVariant || notifyZohoCliq) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Zoho Cliq&#39; : &#39;Notify Via&#39;} align=&quot;center&quot;&gt;
+                    &lt;div className={addExternalAppsVariant ? &#39;usage-external-app-row&#39; : undefined} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
+                      {/* Keep the checkbox in the original variant only. */}
+                      {!addExternalAppsVariant &amp;&amp; &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39; }}&gt;
                         &lt;Checkbox
                           label=&quot;Zoho Cliq&quot;
                           checked={notifyZohoCliq}
                           onChange={(e) =&gt; setNotifyZohoCliq(e.target.checked)}
                         /&gt;
-                      &lt;/div&gt;
+                      &lt;/div&gt;}
                       &lt;div style={{
+                        flex: addExternalAppsVariant ? 1 : undefined,
+                        minWidth: 0,
                         opacity:       notifyZohoCliq ? 1 : 0,
                         pointerEvents: notifyZohoCliq ? &#39;auto&#39; : &#39;none&#39;,
                       }}&gt;
@@ -25706,14 +25911,20 @@ export const CreateNotification: Story = {
                           &lt;/button&gt;}
                         &lt;/div&gt;
                       &lt;/div&gt;
+                      {addExternalAppsVariant &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-external-app-remove&quot;
+                        aria-label=&quot;Remove Zoho Cliq&quot; onClick={() =&gt; removeExternalApp(&#39;cliq&#39;)}&gt;
+                        &lt;Icon name=&quot;CrmMinusRounded&quot; size={16} /&gt;
+                      &lt;/button&gt;}
                     &lt;/div&gt;
                   &lt;/FormRow&gt;
-                  &lt;div className=&quot;usage-slack-row&quot; style={{ paddingLeft: `calc(${LABEL_COL} + 20px)`, display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                    &lt;Checkbox
+                  ) : (
+                  (!addExternalAppsVariant || notifySlack) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Slack&#39; : &#39;&#39;}&gt;
+                    &lt;div className={`usage-slack-row${addExternalAppsVariant ? &#39; usage-external-app-row&#39; : &#39;&#39;}`} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
+                    {!addExternalAppsVariant &amp;&amp; &lt;Checkbox
                       label=&quot;Slack&quot;
                       checked={notifySlack}
                       onChange={(e) =&gt; setNotifySlack(e.target.checked)}
-                    /&gt;
+                    /&gt;}
                     {notifySlack &amp;&amp; &lt;div className={`usage-recipient-field usage-cliq-field${slackCommittedUsers.length || slackCommittedChannels.length ? &#39; usage-recipient-editable&#39; : &#39;&#39;}`}
                       role=&quot;group&quot; aria-label=&quot;Slack recipients&quot; onClick={(event) =&gt; {
                         if (!(event.target instanceof Element) || !event.target.closest(&#39;button&#39;)) openAppRecipients(&#39;Slack&#39;);
@@ -25738,7 +25949,40 @@ export const CreateNotification: Story = {
                         className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Slack recipients&quot; aria-haspopup=&quot;dialog&quot;
                         onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;&lt;/button&gt;}
                     &lt;/div&gt;}
-                  &lt;/div&gt;
+                    {addExternalAppsVariant &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-external-app-remove&quot;
+                      aria-label=&quot;Remove Slack&quot; onClick={() =&gt; removeExternalApp(&#39;slack&#39;)}&gt;
+                      &lt;Icon name=&quot;CrmMinusRounded&quot; size={16} /&gt;
+                    &lt;/button&gt;}
+                    &lt;/div&gt;
+                  &lt;/FormRow&gt;
+                  ))}
+                &lt;/div&gt;
+              )}
+
+              {addExternalAppsVariant &amp;&amp; !(externalAppsEnabled &amp;&amp; notifyZohoCliq &amp;&amp; notifySlack) &amp;&amp; (
+                &lt;div style={{ alignSelf: &#39;flex-start&#39;, marginBlock: -6 }}&gt;
+                  &lt;Dropdown
+                    width={190}
+                    triggerButtonVariant=&quot;ghost-blue&quot;
+                    triggerAriaLabel=&quot;Add External Apps&quot;
+                    placeholder=&quot;Add External Apps&quot;
+                    panelStyle={{ &#39;--dropdown-option-padding-left&#39;: &#39;10px&#39; }}
+                    value=&quot;&quot;
+                    showSelectionIndicator={false}
+                    options={[
+                      ...(!externalAppsEnabled || !notifyZohoCliq ? [{ value: &#39;cliq&#39;, label: &#39;Zoho Cliq&#39; }] : []),
+                      ...(!externalAppsEnabled || !notifySlack ? [{ value: &#39;slack&#39;, label: &#39;Slack&#39; }] : []),
+                    ]}
+                    onChange={(app: string) =&gt; {
+                      setExternalAppOrder(current =&gt; !externalAppsEnabled ? [app] : current.includes(app) ? current : [...current, app]);
+                      if (!externalAppsEnabled) {
+                        setNotifyZohoCliq(app === &#39;cliq&#39;);
+                        setNotifySlack(app === &#39;slack&#39;);
+                      } else if (app === &#39;cliq&#39;) setNotifyZohoCliq(true);
+                      else setNotifySlack(true);
+                      setExternalAppsEnabled(true);
+                    }}
+                  /&gt;
                 &lt;/div&gt;
               )}
             &lt;/div&gt;}
@@ -25795,6 +26039,104 @@ export const CreateNotification: Story = {
     );
   },
 };
+
+export const AddExternalApps: Story = {
+  name: &#39;Create Notification — Add External Apps&#39;,
+  args: { externalAppsVariant: &#39;dropdown&#39; },
+  render: CreateNotification.render,
+  play: async ({ canvasElement }) =&gt; {
+    if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
+    const page = within(canvasElement.ownerDocument.body);
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Create Notification&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;switch&#39;, { name: &#39;Toggle external app notifications&#39; })).not.toBeInTheDocument();
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Zoho Cliq&#39;, exact: true })).not.toBeInTheDocument();
+    const addApps = page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true });
+    await expect(addApps).toHaveAttribute(&#39;data-variant&#39;, &#39;ghost-blue&#39;);
+    await userEvent.click(addApps);
+    await expect(page.getByRole(&#39;option&#39;, { name: &#39;Slack&#39;, exact: true })).toBeVisible();
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Zoho Cliq&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Zoho Cliq&#39;, exact: true })).not.toBeInTheDocument();
+    await expect(page.getByText(&#39;Notify via Zoho Cliq&#39;, { exact: true })).toBeVisible();
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Remove Zoho Cliq&#39;, exact: true })).toBeVisible();
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Slack&#39;, exact: true })).not.toBeInTheDocument();
+    const cliq = within(page.getByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; }));
+    await userEvent.click(cliq.getByRole(&#39;button&#39;, { name: &#39;Select Recipients&#39; }));
+    await waitFor(() =&gt; expect(page.getByText(&#39;Zoho Cliq Notification&#39;, { exact: true })).toBeVisible());
+    await expect(page.getByPlaceholderText(&#39;Select recipients&#39;).closest(&#39;.tags-container&#39;)!.getBoundingClientRect().width).toBe(390);
+    await userEvent.click(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; }));
+    await expect(page.getByPlaceholderText(&#39;Select channels&#39;).closest(&#39;.tags-container&#39;)!.getBoundingClientRect().width).toBe(390);
+    await userEvent.click(page.getAllByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }).at(-1)!);
+    await waitFor(() =&gt; expect(page.queryByText(&#39;Zoho Cliq Notification&#39;, { exact: true })).not.toBeInTheDocument());
+    const heading = page.getByRole(&#39;heading&#39;, { name: &#39;External apps&#39;, exact: true });
+    await expect(heading).toBeVisible();
+    const nextAddApps = page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true });
+    await expect(cliq.getByRole(&#39;button&#39;, { name: &#39;Select Recipients&#39; }).getBoundingClientRect().bottom)
+      .toBeLessThanOrEqual(nextAddApps.getBoundingClientRect().top);
+    await expect(Math.abs(heading.getBoundingClientRect().left - nextAddApps.getBoundingClientRect().left)).toBeLessThanOrEqual(1);
+    await userEvent.click(nextAddApps);
+    await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Zoho Cliq&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Slack&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Slack&#39;, exact: true })).not.toBeInTheDocument();
+    await expect(page.getByText(&#39;Notify via Slack&#39;, { exact: true })).toBeVisible();
+    await expect(page.getByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; })).toBeVisible();
+    await userEvent.click(within(page.getByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; })).getByRole(&#39;button&#39;, { name: &#39;Select Recipients&#39; }));
+    const teamDropdown = await page.findByRole(&#39;button&#39;, { name: &#39;Slack team&#39; });
+    await expect(teamDropdown).toHaveTextContent(&#39;Select&#39;);
+    const teamRow = teamDropdown.closest(&#39;.dropdown-form-row&#39;)!;
+    const teamLabel = teamRow.querySelector(&#39;.dropdown-label&#39;)!;
+    await expect(getComputedStyle(teamLabel).textAlign).toBe(&#39;start&#39;);
+    const appDialog = teamDropdown.closest(&#39;.modal-dialog&#39;)!;
+    const appTitle = appDialog.querySelector(&#39;.modal-title&#39;)!;
+    await expect(teamLabel.getBoundingClientRect().left).toBeCloseTo(appTitle.getBoundingClientRect().left, 0);
+    await expect(getComputedStyle(teamRow).columnGap).toBe(&#39;20px&#39;);
+    await expect(teamDropdown.getBoundingClientRect().height).toBe(34);
+    await expect(teamDropdown.getBoundingClientRect().width).toBe(390);
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).not.toBeInTheDocument();
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; })).not.toBeInTheDocument();
+    await expect(page.queryByPlaceholderText(&#39;Select recipients&#39;)).not.toBeInTheDocument();
+    await expect(page.queryByText(&#39;Select a team first to choose recipients.&#39;)).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Slack team&#39; }));
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;scranton store&#39;, exact: true }));
+    await expect(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).toBeEnabled();
+    await expect(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; })).toBeEnabled();
+    await expect(page.getByPlaceholderText(&#39;Select recipients&#39;)).toBeVisible();
+    const usersField = page.getByPlaceholderText(&#39;Select recipients&#39;).closest(&#39;.tags-container&#39;)!;
+    await expect(usersField.getBoundingClientRect().width).toBe(390);
+    await expect(usersField.getBoundingClientRect().left).toBe(teamDropdown.getBoundingClientRect().left);
+    await userEvent.click(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; }));
+    await expect(page.getByPlaceholderText(&#39;Select channels&#39;).closest(&#39;.tags-container&#39;)!.getBoundingClientRect().width).toBe(390);
+    await userEvent.click(page.getAllByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }).at(-1)!);
+    await waitFor(() =&gt; expect(page.queryByText(&#39;Slack Notification&#39;, { exact: true })).not.toBeInTheDocument());
+    await expect(within(heading.parentElement!).getAllByRole(&#39;group&#39;).map(group =&gt; group.getAttribute(&#39;aria-label&#39;)))
+      .toEqual([&#39;Zoho Cliq recipients&#39;, &#39;Slack recipients&#39;]);
+    await expect(page.queryByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Remove Zoho Cliq&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Slack&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Zoho Cliq&#39;, exact: true }));
+    await expect(page.getByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; })).toBeVisible();
+    const externalSection = heading.parentElement!;
+    await expect(within(externalSection).getAllByRole(&#39;group&#39;).map(group =&gt; group.getAttribute(&#39;aria-label&#39;)))
+      .toEqual([&#39;Slack recipients&#39;, &#39;Zoho Cliq recipients&#39;]);
+    const pushHeading = page.getByRole(&#39;heading&#39;, { name: &#39;Push Notification / Email&#39;, level: 3, exact: true });
+    await expect(heading.tagName).toBe(pushHeading.tagName);
+    const pushSection = pushHeading.parentElement!.parentElement!;
+    await expect(getComputedStyle(externalSection).rowGap).toBe(getComputedStyle(pushSection).rowGap);
+    await expect(getComputedStyle(heading).marginBottom).toBe(&#39;0px&#39;);
+    const removeSlack = page.getByRole(&#39;button&#39;, { name: &#39;Remove Slack&#39;, exact: true });
+    const slackField = page.getByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; });
+    await expect(removeSlack.getBoundingClientRect().left - slackField.getBoundingClientRect().right).toBeCloseTo(6, 0);
+    const cliqField = page.getByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; });
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Remove Zoho Cliq&#39; }).getBoundingClientRect().left - cliqField.getBoundingClientRect().right).toBeCloseTo(6, 0);
+    await userEvent.click(removeSlack);
+    await expect(page.queryByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Remove Zoho Cliq&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;heading&#39;, { name: &#39;External apps&#39;, exact: true })).not.toBeInTheDocument();
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true })).toBeVisible();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }));
+  },
+};
 </code></pre></div>
     </div>
         </div>
@@ -25810,6 +26152,23 @@ export const CreateNotification: Story = {
     
         <div class="panel panel-stories">
           
+            <div class="note err">
+              <div class="row">
+                <span class="ex-name">Create Notification — Add External Apps</span>
+                <span class="badge err">story error</span>
+              </div>
+              
+              
+              
+              <pre><code>Expected render to be an arrow function or function expression
+  1317 |   name: &#39;Create Notification — Add External Apps&#39;,
+  1318 |   args: { externalAppsVariant: &#39;dropdown&#39; },
+&gt; 1319 |   render: CreateNotification.render,
+       |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  1320 |   play: async ({ canvasElement }) =&gt; {
+  1321 |     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
+  1322 |     const page = within(canvasElement.ownerDocument.body);</code></pre>
+            </div>
           
           
           <div class="note ok">
@@ -25848,7 +26207,8 @@ export const CreateNotification: Story = {
               </div>
               
               
-              <pre><code>const CreateNotification = () =&gt; {
+              <pre><code>const CreateNotification = (args) =&gt; {
+  const addExternalAppsVariant = args.externalAppsVariant === &#39;dropdown&#39;;
   const [open, setOpen] = useState(false);
   const [sidebarId, setSidebarId] = useState(&#39;admin-tools&#39;);
   const [featureFilter, setFeatureFilter] = useState(&#39;all&#39;);
@@ -25919,6 +26279,12 @@ export const CreateNotification: Story = {
   const [notifyEmail,    setNotifyEmail]    = useState(true);
   const [notifyZohoCliq, setNotifyZohoCliq] = useState(true);
   const [notifySlack,    setNotifySlack]    = useState(false);
+  const [externalAppOrder, setExternalAppOrder] = useState&lt;string[]&gt;([]);
+  const removeExternalApp = (app: string) =&gt; {
+    setExternalAppOrder(current =&gt; current.filter(value =&gt; value !== app));
+    if (app === &#39;cliq&#39;) setNotifyZohoCliq(false);
+    else setNotifySlack(false);
+  };
 
   // Message
   const criteriaKey = JSON.stringify(trigger);
@@ -26031,8 +26397,11 @@ export const CreateNotification: Story = {
     setExternalAppsEnabled(!systemEdit &amp;&amp; (config?.externalAppsEnabled ?? !!row?.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel))));
     setNotifyPush(systemEdit || (config?.notifyPush ?? (row ? !!row.channels?.includes(&#39;Push Notification&#39;) : true)));
     setNotifyEmail(systemEdit || (config?.notifyEmail ?? (row ? !!row.channels?.includes(&#39;Emails&#39;) : true)));
-    setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : true));
+    setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : !addExternalAppsVariant));
     setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes(&#39;Slack&#39;));
+    setExternalAppOrder(config?.externalAppOrder ?? (row?.channels ?? [])
+      .filter(channel =&gt; channel === &#39;Zoho Cliq&#39; || channel === &#39;Slack&#39;)
+      .map(channel =&gt; channel === &#39;Zoho Cliq&#39; ? &#39;cliq&#39; : &#39;slack&#39;));
     setZohoCommittedUsers(config?.users ?? []);
     setZohoCommittedChannels(config?.channels ?? []);
     setSlackCommittedUsers(config?.slackUsers ?? []);
@@ -26153,7 +26522,7 @@ export const CreateNotification: Story = {
         className=&quot;usage-app-modal&quot;
       &gt;
         &lt;div className=&quot;usage-app-modal__content&quot;&gt;
-          {recipientApp === &#39;Slack&#39; &amp;&amp; &lt;Dropdown label=&quot;Team&quot; placeholder=&quot;Select&quot; width=&quot;100%&quot; columns=&quot;auto minmax(0, 1fr)&quot;
+          {recipientApp === &#39;Slack&#39; &amp;&amp; &lt;Dropdown label=&quot;Team&quot; placeholder=&quot;Select&quot; width=&quot;100%&quot;
             triggerAriaLabel=&quot;Slack team&quot; value={slackDraftTeam}
             options={slackTeams}
             onChange={(team: string) =&gt; {
@@ -26164,10 +26533,11 @@ export const CreateNotification: Story = {
             }}
             panelStyle={{ &#39;--usage-slack-team-menu&#39;: 1 } as React.CSSProperties}
             footerAction={{ label: &#39;Authorise another team&#39;, icon: null, onClick: () =&gt; {} }} /&gt;}
-          &lt;fieldset className=&quot;usage-app-recipients&quot; disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}&gt;
+          {(recipientApp !== &#39;Slack&#39; || slackDraftTeam) &amp;&amp; &lt;fieldset className=&quot;usage-app-recipients&quot;&gt;
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
             &lt;Checkbox
               label=&quot;Notify to users&quot;
+              disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
               checked={zohoNotifyUsers}
               onChange={(e) =&gt; setZohoNotifyUsers(e.target.checked)}
             /&gt;
@@ -26177,6 +26547,7 @@ export const CreateNotification: Story = {
                 options={ZOHO_USER_OPTIONS}
                 onChange={setZohoDraftUsers}
                 placeholder=&quot;Select recipients&quot;
+                disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                 width=&quot;100%&quot;
               /&gt;
             )}
@@ -26184,6 +26555,7 @@ export const CreateNotification: Story = {
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
             &lt;Checkbox
               label=&quot;Notify in Channels&quot;
+              disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
               checked={zohoNotifyChannels}
               onChange={(e) =&gt; setZohoNotifyChannels(e.target.checked)}
             /&gt;
@@ -26193,11 +26565,12 @@ export const CreateNotification: Story = {
                 options={ZOHO_CHANNEL_OPTIONS}
                 onChange={setZohoDraftChannels}
                 placeholder=&quot;Select channels&quot;
+                disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                 width=&quot;100%&quot;
               /&gt;
             )}
           &lt;/div&gt;
-          &lt;/fieldset&gt;
+          &lt;/fieldset&gt;}
         &lt;/div&gt;
       &lt;/Modal&gt;
 
@@ -26234,7 +26607,7 @@ export const CreateNotification: Story = {
             modifiedTime: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
             channels, status: existing?.status ?? &#39;Active&#39;, summary: usageTriggerSummary(trigger),
             config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
-              notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
+              notifyPush, notifyEmail, notifyZohoCliq, notifySlack, externalAppOrder, users: zohoCommittedUsers,
               channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
               message, template: emailTemplate },
           };
@@ -26346,7 +26719,7 @@ export const CreateNotification: Story = {
           {/* Push Notification / Email */}
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
             &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-              &lt;span style={subHeadingStyle}&gt;Push Notification / Email&lt;/span&gt;
+              &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;Push Notification / Email&lt;/h3&gt;
               {!isSystemDefined &amp;&amp; &lt;Switch
                 checked={pushEmailEnabled}
                 onChange={(e) =&gt; setPushEmailEnabled(e.target.checked)}
@@ -26462,28 +26835,33 @@ export const CreateNotification: Story = {
 
           {/* External apps */}
           {!isSystemDefined &amp;&amp; &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
-            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-              &lt;span style={subHeadingStyle}&gt;External apps&lt;/span&gt;
+            {addExternalAppsVariant ? (
+              externalAppsEnabled &amp;&amp; (notifyZohoCliq || notifySlack) &amp;&amp; &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;External apps&lt;/h3&gt;
+            ) : &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
+              &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;External apps&lt;/h3&gt;
               &lt;Switch
                 checked={externalAppsEnabled}
                 onChange={(e) =&gt; setExternalAppsEnabled(e.target.checked)}
                 aria-label=&quot;Toggle external app notifications&quot;
               /&gt;
-            &lt;/div&gt;
+            &lt;/div&gt;}
 
             {externalAppsEnabled &amp;&amp; (
               &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8 }}&gt;
-                &lt;FormRow label=&quot;Notify Via&quot; align=&quot;center&quot;&gt;
-                  &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                    {/* Isolate Checkbox&#39;s align-self: flex-start so the row can center it. */}
-                    &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39; }}&gt;
+                {(addExternalAppsVariant ? externalAppOrder : [&#39;cliq&#39;, &#39;slack&#39;]).map(app =&gt; app === &#39;cliq&#39; ? (
+                (!addExternalAppsVariant || notifyZohoCliq) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Zoho Cliq&#39; : &#39;Notify Via&#39;} align=&quot;center&quot;&gt;
+                  &lt;div className={addExternalAppsVariant ? &#39;usage-external-app-row&#39; : undefined} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
+                    {/* Keep the checkbox in the original variant only. */}
+                    {!addExternalAppsVariant &amp;&amp; &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39; }}&gt;
                       &lt;Checkbox
                         label=&quot;Zoho Cliq&quot;
                         checked={notifyZohoCliq}
                         onChange={(e) =&gt; setNotifyZohoCliq(e.target.checked)}
                       /&gt;
-                    &lt;/div&gt;
+                    &lt;/div&gt;}
                     &lt;div style={{
+                      flex: addExternalAppsVariant ? 1 : undefined,
+                      minWidth: 0,
                       opacity:       notifyZohoCliq ? 1 : 0,
                       pointerEvents: notifyZohoCliq ? &#39;auto&#39; : &#39;none&#39;,
                     }}&gt;
@@ -26521,14 +26899,20 @@ export const CreateNotification: Story = {
                         &lt;/button&gt;}
                       &lt;/div&gt;
                     &lt;/div&gt;
+                    {addExternalAppsVariant &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-external-app-remove&quot;
+                      aria-label=&quot;Remove Zoho Cliq&quot; onClick={() =&gt; removeExternalApp(&#39;cliq&#39;)}&gt;
+                      &lt;Icon name=&quot;CrmMinusRounded&quot; size={16} /&gt;
+                    &lt;/button&gt;}
                   &lt;/div&gt;
                 &lt;/FormRow&gt;
-                &lt;div className=&quot;usage-slack-row&quot; style={{ paddingLeft: `calc(${LABEL_COL} + 20px)`, display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                  &lt;Checkbox
+                ) : (
+                (!addExternalAppsVariant || notifySlack) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Slack&#39; : &#39;&#39;}&gt;
+                  &lt;div className={`usage-slack-row${addExternalAppsVariant ? &#39; usage-external-app-row&#39; : &#39;&#39;}`} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
+                  {!addExternalAppsVariant &amp;&amp; &lt;Checkbox
                     label=&quot;Slack&quot;
                     checked={notifySlack}
                     onChange={(e) =&gt; setNotifySlack(e.target.checked)}
-                  /&gt;
+                  /&gt;}
                   {notifySlack &amp;&amp; &lt;div className={`usage-recipient-field usage-cliq-field${slackCommittedUsers.length || slackCommittedChannels.length ? &#39; usage-recipient-editable&#39; : &#39;&#39;}`}
                     role=&quot;group&quot; aria-label=&quot;Slack recipients&quot; onClick={(event) =&gt; {
                       if (!(event.target instanceof Element) || !event.target.closest(&#39;button&#39;)) openAppRecipients(&#39;Slack&#39;);
@@ -26553,7 +26937,40 @@ export const CreateNotification: Story = {
                       className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Slack recipients&quot; aria-haspopup=&quot;dialog&quot;
                       onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;&lt;/button&gt;}
                   &lt;/div&gt;}
-                &lt;/div&gt;
+                  {addExternalAppsVariant &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-external-app-remove&quot;
+                    aria-label=&quot;Remove Slack&quot; onClick={() =&gt; removeExternalApp(&#39;slack&#39;)}&gt;
+                    &lt;Icon name=&quot;CrmMinusRounded&quot; size={16} /&gt;
+                  &lt;/button&gt;}
+                  &lt;/div&gt;
+                &lt;/FormRow&gt;
+                ))}
+              &lt;/div&gt;
+            )}
+
+            {addExternalAppsVariant &amp;&amp; !(externalAppsEnabled &amp;&amp; notifyZohoCliq &amp;&amp; notifySlack) &amp;&amp; (
+              &lt;div style={{ alignSelf: &#39;flex-start&#39;, marginBlock: -6 }}&gt;
+                &lt;Dropdown
+                  width={190}
+                  triggerButtonVariant=&quot;ghost-blue&quot;
+                  triggerAriaLabel=&quot;Add External Apps&quot;
+                  placeholder=&quot;Add External Apps&quot;
+                  panelStyle={{ &#39;--dropdown-option-padding-left&#39;: &#39;10px&#39; }}
+                  value=&quot;&quot;
+                  showSelectionIndicator={false}
+                  options={[
+                    ...(!externalAppsEnabled || !notifyZohoCliq ? [{ value: &#39;cliq&#39;, label: &#39;Zoho Cliq&#39; }] : []),
+                    ...(!externalAppsEnabled || !notifySlack ? [{ value: &#39;slack&#39;, label: &#39;Slack&#39; }] : []),
+                  ]}
+                  onChange={(app: string) =&gt; {
+                    setExternalAppOrder(current =&gt; !externalAppsEnabled ? [app] : current.includes(app) ? current : [...current, app]);
+                    if (!externalAppsEnabled) {
+                      setNotifyZohoCliq(app === &#39;cliq&#39;);
+                      setNotifySlack(app === &#39;slack&#39;);
+                    } else if (app === &#39;cliq&#39;) setNotifyZohoCliq(true);
+                    else setNotifySlack(true);
+                    setExternalAppsEnabled(true);
+                  }}
+                /&gt;
               &lt;/div&gt;
             )}
           &lt;/div&gt;}
@@ -33311,13 +33728,13 @@ export const CreateDeal: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  1272 | // ─────────────────────────────────────────────────────────────────────────────
-  1273 |
-&gt; 1274 | const meta = {
+  1285 | // ─────────────────────────────────────────────────────────────────────────────
+  1286 |
+&gt; 1287 | const meta = {
        | ^
-  1275 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
-  1276 |   parameters: {
-  1277 |     layout: &#39;fullscreen&#39;,
+  1288 |   title: &#39;Work Items/Joined Reports - Revamp&#39;,
+  1289 |   parameters: {
+  1290 |     layout: &#39;fullscreen&#39;,
 
 ./src/design-system/patterns/JoinedReportsRevampV2.stories.tsx:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -34031,7 +34448,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
   const getReportSettings = (report: string) =&gt; reportSettings[report] ?? {
     tab: &#39;columns&#39;,
     columns: [&#39;Account Name&#39;, &#39;Assistant&#39;, &#39;Asst Phone&#39;, &#39;Average Time Spent (Minutes)&#39;, &#39;Contact Name&#39;, &#39;Contact Owner&#39;],
-    aggregates: [&#39;Revenue per Lead&#39;, &#39;Projected Revenue&#39;, &#39;Avg of Annual Revenue&#39;, &#39;Min of Annual Revenue&#39;, &#39;Sum of Auto_Currency_aklnmyoh&#39;],
+    aggregates: [&#39;Revenue per Lead&#39;, &#39;Projected Revenue&#39;, &#39;Avg of Annual Revenue&#39;, &#39;Min of Annual Revenue&#39;, &#39;Sum of Expected Revenue&#39;],
     hasFilters: false,
     showRowCount: true,
   };
@@ -34044,10 +34461,11 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
   const [aggregates, setAggregates] = useState([&#39;Avg of Annual Revenue&#39;, &#39;Sum of Annual Revenue&#39;, &#39;Count of Unique Leads&#39;]);
   const [aggregateDraft, setAggregateDraft] = useState&lt;{ report: string; selected: string[]; showRowCount: boolean } | null&gt;(null);
   const [aggregateSearch, setAggregateSearch] = useState(&#39;&#39;);
+  const [activeFormulaOptions, setActiveFormulaOptions] = useState&lt;string | null&gt;(null);
   const [formulaOpen, setFormulaOpen] = useState(false);
   const [formulaColumns, setFormulaColumns] = useState([
-    { label: &#39;percent summary formula&#39;, formula: &#39;Annual Revenue / 100&#39; },
-    { label: &#39;ukh,hh&#39;, formula: &#39;Annual Revenue&#39; },
+    { label: &#39;Revenue Percentage&#39;, formula: &#39;Annual Revenue / 100&#39; },
+    { label: &#39;Total Annual Revenue&#39;, formula: &#39;Annual Revenue&#39; },
     { label: &#39;Revenue per Lead&#39;, formula: &#39;Annual Revenue / Count of Unique Leads&#39; },
     { label: &#39;Projected Revenue&#39;, formula: &#39;Annual Revenue * Probability / 100&#39; },
     { label: &#39;Revenue in Thousands&#39;, formula: &#39;Annual Revenue / 1000&#39; },
@@ -34061,7 +34479,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
   };
   const aggregateOptions = [...new Set([
     &#39;Count of Unique Leads&#39;,
-    ...[&#39;Annual Revenue&#39;, &#39;Auto_Currency_aklnmyoh&#39;, &#39;Auto_Currency_cajrfwgg&#39;].flatMap(field =&gt;
+    ...[&#39;Annual Revenue&#39;, &#39;Expected Revenue&#39;, &#39;Actual Revenue&#39;].flatMap(field =&gt;
       [&#39;Avg&#39;, &#39;Sum&#39;, &#39;Min&#39;, &#39;Max&#39;].map(operation =&gt; `${operation} of ${field}`)),
     ...(aggregateDraft ? getReportSettings(aggregateDraft.report).aggregates : []),
   ])].filter(label =&gt; !formulaColumns.some(column =&gt; column.label === label));
@@ -34135,14 +34553,18 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                       &lt;button type=&quot;button&quot; className=&quot;jrv2-aggregate-clear&quot; aria-label=&quot;Clear all report columns&quot; onClick={() =&gt; setAggregateDraft({ ...aggregateDraft, selected: aggregateDraft.selected.filter(value =&gt; !formulaColumns.some(column =&gt; column.label === value)) })}&gt;Clear all&lt;/button&gt;
                     )}
                   &lt;/div&gt;
-                  {formulaColumns.filter(column =&gt; matchesAggregateSearch(column.label)).map((column, index) =&gt; (
-                    &lt;div className={`jrv2-aggregate-option${index === 0 ? &#39; jrv2-aggregate-option--initial&#39; : &#39;&#39;}`} key={column.label}&gt;
-                      &lt;Checkbox label={column.label} checked={aggregateDraft.selected.includes(column.label)} onChange={() =&gt; toggleAggregate(column.label)} /&gt;
+                  {formulaColumns.filter(column =&gt; matchesAggregateSearch(column.label)).map(column =&gt; (
+                    &lt;div className={`jrv2-aggregate-option${column.label === (formulaColumns.find(item =&gt; item.label === activeFormulaOptions &amp;&amp; matchesAggregateSearch(item.label))?.label ?? formulaColumns.find(item =&gt; matchesAggregateSearch(item.label))?.label) ? &#39; jrv2-aggregate-option--initial&#39; : &#39;&#39;}`} key={column.label}
+                      onMouseEnter={() =&gt; setActiveFormulaOptions(column.label)}
+                      onFocus={() =&gt; setActiveFormulaOptions(column.label)}&gt;
+                      &lt;Tooltip content={column.label} overflowSelector=&quot;.checkbox-label-text&quot; variant=&quot;white&quot; placement=&quot;top&quot; wrapperStyle={{ display: &#39;flex&#39;, flex: 1, minWidth: 0 }}&gt;
+                        &lt;Checkbox label={column.label} checked={aggregateDraft.selected.includes(column.label)} onChange={() =&gt; toggleAggregate(column.label)} /&gt;
+                      &lt;/Tooltip&gt;
                       &lt;Dropdown width=&quot;auto&quot; triggerAriaLabel={`Options for ${column.label}`} triggerButtonVariant=&quot;link-default&quot; triggerIcon={&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;3.80 25.60 17.00 7.00&quot; width={17} height={7} aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;
                         &lt;path d=&quot;M 8.8,29.1 A 1.5,1.5 0 0,1 7.3,30.6 A 1.5,1.5 0 0,1 5.8,29.1 A 1.5,1.5 0 0,1 7.3,27.6 A 1.5,1.5 0 0,1 8.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
                         &lt;path d=&quot;M 13.8,29.1 A 1.5,1.5 0 0,1 12.3,30.6 A 1.5,1.5 0 0,1 10.8,29.1 A 1.5,1.5 0 0,1 12.3,27.6 A 1.5,1.5 0 0,1 13.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
                         &lt;path d=&quot;M 18.8,29.1 A 1.5,1.5 0 0,1 17.3,30.6 A 1.5,1.5 0 0,1 15.8,29.1 A 1.5,1.5 0 0,1 17.3,27.6 A 1.5,1.5 0 0,1 18.8,29.1 Z&quot; fill=&quot;var(--ds-text-label)&quot; stroke=&quot;none&quot; /&gt;
-                      &lt;/svg&gt;} showSelectionIndicator={false}
+                      &lt;/svg&gt;} showSelectionIndicator={false} panelStyle={{ width: &#39;max-content&#39; }}
                         options={[{ value: &#39;edit&#39;, label: &#39;Edit&#39; }, { value: &#39;delete&#39;, label: &#39;Delete&#39; }]} onChange={(action: string) =&gt; {
                           if (action === &#39;edit&#39;) { setEditingFormula(column.label); setFormulaOpen(true); }
                           else if (action === &#39;delete&#39;) {
@@ -34162,7 +34584,9 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                     )}
                   &lt;/div&gt;
                   {aggregateOptions.filter(matchesAggregateSearch).map(label =&gt; (
-                    &lt;Checkbox key={label} label={label} checked={aggregateDraft.selected.includes(label)} onChange={() =&gt; toggleAggregate(label)} /&gt;
+                    &lt;Tooltip key={label} content={label} overflowSelector=&quot;.checkbox-label-text&quot; variant=&quot;white&quot; placement=&quot;top&quot; wrapperStyle={{ display: &#39;flex&#39;, minWidth: 0 }}&gt;
+                      &lt;Checkbox label={label} checked={aggregateDraft.selected.includes(label)} onChange={() =&gt; toggleAggregate(label)} /&gt;
+                    &lt;/Tooltip&gt;
                   ))}
                   {!aggregateOptions.some(matchesAggregateSearch) &amp;&amp; !formulaColumns.some(column =&gt; matchesAggregateSearch(column.label)) &amp;&amp; &lt;p className=&quot;jrv2-joined-muted&quot; role=&quot;status&quot;&gt;No matching columns&lt;/p&gt;}
                 &lt;/div&gt;
@@ -34205,7 +34629,10 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                           if (target &gt;= 0 &amp;&amp; target &lt; mappingOrder.length) reorderMapping(index, mappingOrder[target]);
                         }}
                       &gt;&lt;Icon name=&quot;CrmMaskDrag&quot; size={12} /&gt;&lt;/button&gt;}
-                      &lt;span className=&quot;jrv2-mapping-report-name&quot; title={reports[index]}&gt;{reports[index]}&lt;/span&gt;
+                      &lt;span className=&quot;jrv2-mapping-report-name&quot; onMouseEnter={event =&gt; {
+                        const label = event.currentTarget;
+                        label.title = label.scrollWidth &gt; label.clientWidth ? reports[index] : &#39;&#39;;
+                      }}&gt;{reports[index]}&lt;/span&gt;
                     &lt;/div&gt;
                     &lt;div role=&quot;cell&quot;&gt;&lt;Dropdown width=&quot;100%&quot; placeholder=&quot;Select field&quot; triggerAriaLabel={`Group by field for ${reports[index]}`} options={mappingOptions} value={mappedFields[index] || &#39;&#39;} error={groupError &amp;&amp; !mappedFields[index] ? &#39;Select a field&#39; : undefined} onChange={(field: string) =&gt; setMappedFields(current =&gt; reports.map((_, fieldIndex) =&gt; fieldIndex === index ? field : current[fieldIndex] || &#39;&#39;))} /&gt;&lt;/div&gt;
                   &lt;/div&gt;;
@@ -34299,7 +34726,7 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                         &lt;/div&gt;
                         &lt;div className=&quot;jrv2-report-name-row&quot;&gt;
                           &lt;p&gt;{report}&lt;/p&gt;
-                          &lt;Tooltip content=&quot;rename&quot; variant=&quot;black&quot; placement=&quot;top&quot; wrapperStyle={{ display: &#39;inline-flex&#39;, flexShrink: 0 }}&gt;
+                          &lt;Tooltip content=&quot;Rename&quot; variant=&quot;black&quot; placement=&quot;top&quot; wrapperStyle={{ display: &#39;inline-flex&#39;, flexShrink: 0 }}&gt;
                             &lt;button type=&quot;button&quot; className=&quot;jrv2-report-rename&quot; aria-label={`Rename Report ${index + 1}`}
                               onClick={event =&gt; {
                                 event.preventDefault();
@@ -34334,7 +34761,10 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
                           &lt;/button&gt;
                         &lt;/div&gt;
                         &lt;Dragger dragHandleOnly items={settings.aggregates} onChange={(aggregates: string[]) =&gt; updateReportSettings(settingsKey, { aggregates })}
-                          renderItem={(label: string) =&gt; &lt;span className=&quot;jrv2-aggregate-label&quot; title={label}&gt;{label}&lt;/span&gt;} /&gt;
+                          renderItem={(label: string) =&gt; &lt;span className=&quot;jrv2-aggregate-label&quot; onMouseEnter={event =&gt; {
+                            const target = event.currentTarget;
+                            target.title = target.scrollWidth &gt; target.clientWidth ? label : &#39;&#39;;
+                          }}&gt;{label}&lt;/span&gt;} /&gt;
                       &lt;/&gt;)}
                     &lt;/div&gt;
                   &lt;/details&gt;
@@ -34513,11 +34943,11 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
             value={reportNameDraft} onChange={(event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; setReportNameDraft(event.target.value)} /&gt;
         &lt;/form&gt;
       &lt;/Modal&gt;
-      &lt;Modal isOpen={formulaOpen} title={editingFormula ? &#39;Edit Summary Formula&#39; : &#39;New Summary Formula&#39;} width={1000} onClose={() =&gt; setFormulaOpen(false)} showFooter={false}&gt;
-        {formulaOpen &amp;&amp; &lt;FormulaBuilder
+      {formulaOpen &amp;&amp; &lt;FormulaBuilder
+          variant=&quot;modal&quot;
           title={editingFormula ? &#39;Edit Summary Formula&#39; : &#39;New Summary Formula&#39;}
           defaultFormula={formulaColumns.find(column =&gt; column.label === editingFormula)?.formula || &#39;&#39;}
-          fields={[{ name: &#39;Leads&#39;, items: [{ id: &#39;annual-revenue&#39;, label: &#39;Annual Revenue&#39; }, { id: &#39;employees&#39;, label: &#39;No of Employees&#39; }] }]}
+          fields={[{ name: &#39;Leads&#39;, items: [{ id: &#39;annual-revenue&#39;, label: &#39;Annual Revenue&#39;, fieldType: &#39;currency&#39; }, { id: &#39;employees&#39;, label: &#39;No of Employees&#39;, fieldType: &#39;number&#39; }] }]}
           onCancel={() =&gt; setFormulaOpen(false)}
           onDone={({ formula }: { formula: string }) =&gt; {
             const label = editingFormula || `Summary formula ${formulaColumns.length + 1}`;
@@ -34525,7 +34955,6 @@ function BuilderBackground({ onEdit, onCreate, saved, reports: sourceReports, in
             setAggregateDraft(current =&gt; current &amp;&amp; ({ ...current, selected: [...new Set([...current.selected, label])] }));
             setFormulaOpen(false);
           }} /&gt;}
-      &lt;/Modal&gt;
     &lt;/div&gt;
   );
 }
@@ -34560,6 +34989,7 @@ function JoinedReportsRevampV2Page({ primaryReportName, initialStep, initialRepo
       ) : (
         &lt;DefaultBuilderBackground
           saved={false}
+          navigation={&lt;NextGenLeftMenu activeId=&quot;reports&quot; defaultCollapsed /&gt;}
           onEdit={() =&gt; { setMode(&#39;edit&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
           onCreate={() =&gt; { setMode(&#39;create&#39;); setSession(current =&gt; current + 1); setOpen(true); }}
         /&gt;
@@ -34632,7 +35062,7 @@ export const V2: Story = {
     await mount(&lt;JoinedReportsRevampV2Page key=&quot;creation-test&quot; {...args} /&gt;);
     const canvas = within(canvasElement);
     const page = within(document.body);
-    await expect(canvas.getByLabelText(&#39;Main navigation&#39;)).toHaveClass(&#39;jr-builder-nav&#39;);
+    await expect(canvas.getByRole(&#39;button&#39;, { name: &#39;Expand sidebar&#39; })).toBeVisible();
     await expect(canvas.getByText(&#39;Leads By Source&#39;, { exact: true })).toBeVisible();
     await expect(canvas.getByRole(&#39;table&#39;, { name: &#39;Report 1 Leads By Source&#39; })).toBeVisible();
     await userEvent.click(canvas.getByRole(&#39;button&#39;, { name: &#39;Create Joined Report&#39;, exact: true }));
@@ -34678,21 +35108,53 @@ export const V2Summary: Story = {
     await expect(aggregateEditor.getAllByRole(&#39;checkbox&#39;).filter(checkbox =&gt; (checkbox as HTMLInputElement).checked)).toHaveLength(6);
     await expect(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Create Aggregate Formula&#39; })).toBeVisible();
     await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue per Lead&#39;, exact: true })).toBeInTheDocument();
-    const formulaOptions = aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Options for percent summary formula&#39; });
+    await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Total Annual Revenue&#39;, exact: true })).toBeInTheDocument();
+    for (const name of [&#39;Revenue Percentage&#39;, &#39;Sum of Expected Revenue&#39;, &#39;Sum of Actual Revenue&#39;]) {
+      const label = aggregateEditor.getByRole(&#39;checkbox&#39;, { name, exact: true }).closest(&#39;.checkbox-root&#39;)!;
+      const text = label.querySelector(&#39;.checkbox-label-text&#39;) as HTMLElement;
+      const body = within(canvasElement.ownerDocument.body);
+      await expect(getComputedStyle(text).textOverflow).toBe(&#39;ellipsis&#39;);
+      await userEvent.hover(label);
+      if (text.scrollWidth &gt; text.clientWidth) {
+        await expect(await body.findByRole(&#39;tooltip&#39;)).toHaveTextContent(name);
+      } else {
+        await expect(body.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
+      }
+      await userEvent.unhover(label);
+      const previousMaxWidth = text.style.maxWidth;
+      text.style.maxWidth = &#39;40px&#39;;
+      await userEvent.hover(label);
+      await expect(await body.findByRole(&#39;tooltip&#39;)).toHaveTextContent(name);
+      await userEvent.unhover(label);
+      text.style.maxWidth = previousMaxWidth;
+    }
+    const lastHoveredOptions = aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Options for Revenue per Lead&#39; });
+    await userEvent.hover(lastHoveredOptions.closest(&#39;.jrv2-aggregate-option&#39;)!);
+    await userEvent.hover(canvas.getByRole(&#39;textbox&#39;, { name: &#39;Report title&#39; }));
+    await expect(getComputedStyle(lastHoveredOptions.closest(&#39;.dropdown-root&#39;)!).opacity).toBe(&#39;1&#39;);
+    await expect(getComputedStyle(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Options for Revenue Percentage&#39; }).closest(&#39;.dropdown-root&#39;)!).opacity).toBe(&#39;0&#39;);
+    const formulaOptions = aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Options for Revenue Percentage&#39; });
+    await userEvent.hover(formulaOptions.closest(&#39;.jrv2-aggregate-option&#39;)!);
     await userEvent.click(formulaOptions);
     const formulaMenu = within(canvasElement.ownerDocument.body);
     await expect(formulaMenu.getByRole(&#39;option&#39;, { name: &#39;Edit&#39;, exact: true })).toBeVisible();
     await expect(formulaMenu.getByRole(&#39;option&#39;, { name: &#39;Delete&#39;, exact: true })).toBeVisible();
+    const actionPanel = formulaMenu.getByRole(&#39;option&#39;, { name: &#39;Edit&#39;, exact: true }).closest(&#39;.dropdown-panel&#39;)!;
+    await expect(actionPanel.getBoundingClientRect().width).toBeGreaterThan(formulaOptions.getBoundingClientRect().width);
+    for (const label of actionPanel.querySelectorAll(&#39;.dropdown-option-label&#39;)) {
+      await expect(label.clientWidth).toBeGreaterThan(0);
+      await expect(label.scrollWidth).toBeLessThanOrEqual(label.clientWidth);
+    }
     await userEvent.keyboard(&#39;{Escape}&#39;);
-    await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;percent summary formula&#39;, exact: true }));
+    await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue Percentage&#39;, exact: true }));
     await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Count of Unique Leads&#39;, exact: true }));
     await userEvent.click(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Clear all report columns&#39; }));
-    await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;percent summary formula&#39;, exact: true })).not.toBeChecked();
+    await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue Percentage&#39;, exact: true })).not.toBeChecked();
     await expect(aggregateEditor.queryByRole(&#39;button&#39;, { name: &#39;Clear all report columns&#39; })).not.toBeInTheDocument();
     await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Count of Unique Leads&#39;, exact: true })).toBeChecked();
-    await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;percent summary formula&#39;, exact: true }));
+    await userEvent.click(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue Percentage&#39;, exact: true }));
     await userEvent.click(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Clear all module columns&#39; }));
-    await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;percent summary formula&#39;, exact: true })).toBeChecked();
+    await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Revenue Percentage&#39;, exact: true })).toBeChecked();
     await expect(aggregateEditor.getByRole(&#39;checkbox&#39;, { name: &#39;Count of Unique Leads&#39;, exact: true })).not.toBeChecked();
     await expect(aggregateEditor.queryByRole(&#39;button&#39;, { name: &#39;Clear all module columns&#39; })).not.toBeInTheDocument();
     await expect(aggregateEditor.getByRole(&#39;button&#39;, { name: &#39;Clear all report columns&#39; })).toBeVisible();
@@ -34794,6 +35256,7 @@ export const V2Summary: Story = {
     await expect(total).toBeVisible();
     await expect(getComputedStyle(total).position).toBe(&#39;sticky&#39;);
     await expect(getComputedStyle(total).borderRightColor).toBe(&#39;rgba(0, 0, 0, 0)&#39;);
+    await expect(getComputedStyle(total).boxShadow).not.toBe(&#39;none&#39;);
     scroller.scrollTo(0, 0);
     scroller.dispatchEvent(new Event(&#39;scroll&#39;, { bubbles: true }));
     await waitFor(() =&gt; expect(scroller).not.toHaveClass(&#39;jrv2-joined-preview-scroll--scrolled&#39;));
@@ -34814,10 +35277,10 @@ export const V2Summary: Story = {
       await expect(rename).toBeVisible();
       if (index === 0) {
         await userEvent.hover(rename);
-        await expect(await within(document.body).findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;rename&#39;);
+        await expect(await within(document.body).findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Rename&#39;);
         await userEvent.unhover(rename);
         rename.focus();
-        await expect(await within(document.body).findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;rename&#39;);
+        await expect(await within(document.body).findByRole(&#39;tooltip&#39;)).toHaveTextContent(&#39;Rename&#39;);
         rename.blur();
       }
       const previousName = section.querySelector(&#39;summary p&#39;)!.textContent || originalName;
@@ -41374,7 +41837,7 @@ export const BannerExcludesLeftPanel: Story = {
   class="card 
   has-error 
   has-info 
-  no-story-error
+  has-story-error
   no-doc-error"
   role="listitem"
   aria-label="UsageLimitNotification">
@@ -41384,7 +41847,7 @@ export const BannerExcludesLeftPanel: Story = {
       <div class="badges">
         <label for="c-error-17-work-items-usage-limit-notification-err" class="badge err as-toggle">prop type error</label>
         <label for="c-error-17-work-items-usage-limit-notification-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-17-work-items-usage-limit-notification-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-error-17-work-items-usage-limit-notification-stories" class="badge err as-toggle">1/2 story errors</label>
         
         
       </div>
@@ -41532,7 +41995,7 @@ const labelStyle: React.CSSProperties = {
   fontWeight: &#39;var(--ds-font-weight-regular)&#39;,
   color:      &#39;var(--ds-text-label)&#39;,
   whiteSpace: &#39;nowrap&#39;,
-  textAlign:  &#39;right&#39;,
+  textAlign:  &#39;start&#39;,
 };
 
 const sectionHeadingStyle: React.CSSProperties = {
@@ -41656,6 +42119,7 @@ type UsageListRow = {
     trigger: ReturnType&lt;typeof createUsageTrigger&gt;; recipients: UsageRecipient[];
     pushEmailEnabled: boolean; externalAppsEnabled: boolean;
     notifyPush: boolean; notifyEmail: boolean; notifyZohoCliq: boolean; notifySlack: boolean;
+    externalAppOrder?: string[];
     users: TagItem[]; channels: TagItem[]; slackUsers?: TagItem[]; slackChannels?: TagItem[]; slackTeam?: string; message: string; template?: TemplateSettings;
   };
 };
@@ -41873,24 +42337,30 @@ export const CreateNotification: Story = {
     const cliq = within(page.getByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; }));
     await userEvent.click(cliq.getByRole(&#39;button&#39;, { name: &#39;Select Recipients&#39; }));
     await waitFor(() =&gt; expect(page.getByText(&#39;Zoho Cliq Notification&#39;, { exact: true })).toBeVisible());
-    await expect(page.getByPlaceholderText(&#39;Select recipients&#39;)).toBeVisible();
+    await expect(await page.findByPlaceholderText(&#39;Select recipients&#39;)).toBeVisible();
     await userEvent.click(page.getAllByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }).at(-1)!);
     await waitFor(() =&gt; expect(page.queryByText(&#39;Zoho Cliq Notification&#39;, { exact: true })).not.toBeInTheDocument());
     await userEvent.click(page.getByRole(&#39;checkbox&#39;, { name: &#39;Slack&#39;, exact: true }));
     const slack = within(page.getByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; }));
     await userEvent.click(slack.getByRole(&#39;button&#39;, { name: &#39;Select Recipients&#39; }));
     await waitFor(() =&gt; expect(page.getByText(&#39;Slack Notification&#39;, { exact: true })).toBeVisible());
-    await expect(page.getByPlaceholderText(&#39;Select recipients&#39;)).toBeDisabled();
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).not.toBeInTheDocument();
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; })).not.toBeInTheDocument();
+    await expect(page.queryByPlaceholderText(&#39;Select recipients&#39;)).not.toBeInTheDocument();
+    await expect(page.queryByText(&#39;Select a team first to choose recipients.&#39;)).not.toBeInTheDocument();
     await expect(page.getByRole(&#39;button&#39;, { name: &#39;Slack team&#39; })).toHaveTextContent(&#39;Select&#39;);
     const appModal = page.getByText(&#39;Slack Notification&#39;, { exact: true }).closest(&#39;.modal-dialog&#39;) as HTMLElement;
     await expect(appModal.style.width).toBe(&#39;fit-content&#39;);
-    await expect(getComputedStyle(appModal.querySelector(&#39;.usage-app-recipients&#39;)!).gap).toBe(&#39;28px&#39;);
+    await expect(appModal.querySelector(&#39;.usage-app-recipients&#39;)).toBeNull();
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Slack team&#39; }));
     await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Select&#39;, exact: true })).not.toBeInTheDocument();
     await expect(page.getByRole(&#39;option&#39;, { name: &#39;Bennett Electronics&#39;, exact: true })).toBeVisible();
     await expect(page.getByRole(&#39;button&#39;, { name: &#39;Authorise another team&#39;, exact: true })).toBeVisible();
     await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;scranton store&#39;, exact: true }));
     await expect(page.getByPlaceholderText(&#39;Select recipients&#39;)).toBeEnabled();
+    await expect(page.queryByText(&#39;Select a team first to choose recipients.&#39;)).not.toBeInTheDocument();
+    await expect(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).toBeEnabled();
+    await expect(getComputedStyle(appModal.querySelector(&#39;.usage-app-recipients&#39;)!).gap).toBe(&#39;28px&#39;);
     await userEvent.click(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; }));
     await expect(page.getByPlaceholderText(&#39;Select channels&#39;)).toBeVisible();
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Done&#39;, exact: true }));
@@ -41906,7 +42376,8 @@ export const CreateNotification: Story = {
     await waitFor(() =&gt; expect(page.queryByText(&#39;Slack Notification&#39;, { exact: true })).not.toBeInTheDocument());
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }));
   },
-  render: () =&gt; {
+  render: (args) =&gt; {
+    const addExternalAppsVariant = args.externalAppsVariant === &#39;dropdown&#39;;
     const [open, setOpen] = useState(false);
     const [sidebarId, setSidebarId] = useState(&#39;admin-tools&#39;);
     const [featureFilter, setFeatureFilter] = useState(&#39;all&#39;);
@@ -41977,6 +42448,12 @@ export const CreateNotification: Story = {
     const [notifyEmail,    setNotifyEmail]    = useState(true);
     const [notifyZohoCliq, setNotifyZohoCliq] = useState(true);
     const [notifySlack,    setNotifySlack]    = useState(false);
+    const [externalAppOrder, setExternalAppOrder] = useState&lt;string[]&gt;([]);
+    const removeExternalApp = (app: string) =&gt; {
+      setExternalAppOrder(current =&gt; current.filter(value =&gt; value !== app));
+      if (app === &#39;cliq&#39;) setNotifyZohoCliq(false);
+      else setNotifySlack(false);
+    };
 
     // Message
     const criteriaKey = JSON.stringify(trigger);
@@ -42089,8 +42566,11 @@ export const CreateNotification: Story = {
       setExternalAppsEnabled(!systemEdit &amp;&amp; (config?.externalAppsEnabled ?? !!row?.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel))));
       setNotifyPush(systemEdit || (config?.notifyPush ?? (row ? !!row.channels?.includes(&#39;Push Notification&#39;) : true)));
       setNotifyEmail(systemEdit || (config?.notifyEmail ?? (row ? !!row.channels?.includes(&#39;Emails&#39;) : true)));
-      setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : true));
+      setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : !addExternalAppsVariant));
       setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes(&#39;Slack&#39;));
+      setExternalAppOrder(config?.externalAppOrder ?? (row?.channels ?? [])
+        .filter(channel =&gt; channel === &#39;Zoho Cliq&#39; || channel === &#39;Slack&#39;)
+        .map(channel =&gt; channel === &#39;Zoho Cliq&#39; ? &#39;cliq&#39; : &#39;slack&#39;));
       setZohoCommittedUsers(config?.users ?? []);
       setZohoCommittedChannels(config?.channels ?? []);
       setSlackCommittedUsers(config?.slackUsers ?? []);
@@ -42211,7 +42691,7 @@ export const CreateNotification: Story = {
           className=&quot;usage-app-modal&quot;
         &gt;
           &lt;div className=&quot;usage-app-modal__content&quot;&gt;
-            {recipientApp === &#39;Slack&#39; &amp;&amp; &lt;Dropdown label=&quot;Team&quot; placeholder=&quot;Select&quot; width=&quot;100%&quot; columns=&quot;auto minmax(0, 1fr)&quot;
+            {recipientApp === &#39;Slack&#39; &amp;&amp; &lt;Dropdown label=&quot;Team&quot; placeholder=&quot;Select&quot; width=&quot;100%&quot;
               triggerAriaLabel=&quot;Slack team&quot; value={slackDraftTeam}
               options={slackTeams}
               onChange={(team: string) =&gt; {
@@ -42222,10 +42702,11 @@ export const CreateNotification: Story = {
               }}
               panelStyle={{ &#39;--usage-slack-team-menu&#39;: 1 } as React.CSSProperties}
               footerAction={{ label: &#39;Authorise another team&#39;, icon: null, onClick: () =&gt; {} }} /&gt;}
-            &lt;fieldset className=&quot;usage-app-recipients&quot; disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}&gt;
+            {(recipientApp !== &#39;Slack&#39; || slackDraftTeam) &amp;&amp; &lt;fieldset className=&quot;usage-app-recipients&quot;&gt;
             &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
               &lt;Checkbox
                 label=&quot;Notify to users&quot;
+                disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                 checked={zohoNotifyUsers}
                 onChange={(e) =&gt; setZohoNotifyUsers(e.target.checked)}
               /&gt;
@@ -42235,6 +42716,7 @@ export const CreateNotification: Story = {
                   options={ZOHO_USER_OPTIONS}
                   onChange={setZohoDraftUsers}
                   placeholder=&quot;Select recipients&quot;
+                  disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                   width=&quot;100%&quot;
                 /&gt;
               )}
@@ -42242,6 +42724,7 @@ export const CreateNotification: Story = {
             &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
               &lt;Checkbox
                 label=&quot;Notify in Channels&quot;
+                disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                 checked={zohoNotifyChannels}
                 onChange={(e) =&gt; setZohoNotifyChannels(e.target.checked)}
               /&gt;
@@ -42251,11 +42734,12 @@ export const CreateNotification: Story = {
                   options={ZOHO_CHANNEL_OPTIONS}
                   onChange={setZohoDraftChannels}
                   placeholder=&quot;Select channels&quot;
+                  disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                   width=&quot;100%&quot;
                 /&gt;
               )}
             &lt;/div&gt;
-            &lt;/fieldset&gt;
+            &lt;/fieldset&gt;}
           &lt;/div&gt;
         &lt;/Modal&gt;
 
@@ -42292,7 +42776,7 @@ export const CreateNotification: Story = {
               modifiedTime: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
               channels, status: existing?.status ?? &#39;Active&#39;, summary: usageTriggerSummary(trigger),
               config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
-                notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
+                notifyPush, notifyEmail, notifyZohoCliq, notifySlack, externalAppOrder, users: zohoCommittedUsers,
                 channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
                 message, template: emailTemplate },
             };
@@ -42404,7 +42888,7 @@ export const CreateNotification: Story = {
             {/* Push Notification / Email */}
             &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
               &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                &lt;span style={subHeadingStyle}&gt;Push Notification / Email&lt;/span&gt;
+                &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;Push Notification / Email&lt;/h3&gt;
                 {!isSystemDefined &amp;&amp; &lt;Switch
                   checked={pushEmailEnabled}
                   onChange={(e) =&gt; setPushEmailEnabled(e.target.checked)}
@@ -42520,28 +43004,33 @@ export const CreateNotification: Story = {
 
             {/* External apps */}
             {!isSystemDefined &amp;&amp; &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
-              &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                &lt;span style={subHeadingStyle}&gt;External apps&lt;/span&gt;
+              {addExternalAppsVariant ? (
+                externalAppsEnabled &amp;&amp; (notifyZohoCliq || notifySlack) &amp;&amp; &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;External apps&lt;/h3&gt;
+              ) : &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
+                &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;External apps&lt;/h3&gt;
                 &lt;Switch
                   checked={externalAppsEnabled}
                   onChange={(e) =&gt; setExternalAppsEnabled(e.target.checked)}
                   aria-label=&quot;Toggle external app notifications&quot;
                 /&gt;
-              &lt;/div&gt;
+              &lt;/div&gt;}
 
               {externalAppsEnabled &amp;&amp; (
                 &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8 }}&gt;
-                  &lt;FormRow label=&quot;Notify Via&quot; align=&quot;center&quot;&gt;
-                    &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                      {/* Isolate Checkbox&#39;s align-self: flex-start so the row can center it. */}
-                      &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39; }}&gt;
+                  {(addExternalAppsVariant ? externalAppOrder : [&#39;cliq&#39;, &#39;slack&#39;]).map(app =&gt; app === &#39;cliq&#39; ? (
+                  (!addExternalAppsVariant || notifyZohoCliq) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Zoho Cliq&#39; : &#39;Notify Via&#39;} align=&quot;center&quot;&gt;
+                    &lt;div className={addExternalAppsVariant ? &#39;usage-external-app-row&#39; : undefined} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
+                      {/* Keep the checkbox in the original variant only. */}
+                      {!addExternalAppsVariant &amp;&amp; &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39; }}&gt;
                         &lt;Checkbox
                           label=&quot;Zoho Cliq&quot;
                           checked={notifyZohoCliq}
                           onChange={(e) =&gt; setNotifyZohoCliq(e.target.checked)}
                         /&gt;
-                      &lt;/div&gt;
+                      &lt;/div&gt;}
                       &lt;div style={{
+                        flex: addExternalAppsVariant ? 1 : undefined,
+                        minWidth: 0,
                         opacity:       notifyZohoCliq ? 1 : 0,
                         pointerEvents: notifyZohoCliq ? &#39;auto&#39; : &#39;none&#39;,
                       }}&gt;
@@ -42579,14 +43068,20 @@ export const CreateNotification: Story = {
                           &lt;/button&gt;}
                         &lt;/div&gt;
                       &lt;/div&gt;
+                      {addExternalAppsVariant &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-external-app-remove&quot;
+                        aria-label=&quot;Remove Zoho Cliq&quot; onClick={() =&gt; removeExternalApp(&#39;cliq&#39;)}&gt;
+                        &lt;Icon name=&quot;CrmMinusRounded&quot; size={16} /&gt;
+                      &lt;/button&gt;}
                     &lt;/div&gt;
                   &lt;/FormRow&gt;
-                  &lt;div className=&quot;usage-slack-row&quot; style={{ paddingLeft: `calc(${LABEL_COL} + 20px)`, display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                    &lt;Checkbox
+                  ) : (
+                  (!addExternalAppsVariant || notifySlack) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Slack&#39; : &#39;&#39;}&gt;
+                    &lt;div className={`usage-slack-row${addExternalAppsVariant ? &#39; usage-external-app-row&#39; : &#39;&#39;}`} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
+                    {!addExternalAppsVariant &amp;&amp; &lt;Checkbox
                       label=&quot;Slack&quot;
                       checked={notifySlack}
                       onChange={(e) =&gt; setNotifySlack(e.target.checked)}
-                    /&gt;
+                    /&gt;}
                     {notifySlack &amp;&amp; &lt;div className={`usage-recipient-field usage-cliq-field${slackCommittedUsers.length || slackCommittedChannels.length ? &#39; usage-recipient-editable&#39; : &#39;&#39;}`}
                       role=&quot;group&quot; aria-label=&quot;Slack recipients&quot; onClick={(event) =&gt; {
                         if (!(event.target instanceof Element) || !event.target.closest(&#39;button&#39;)) openAppRecipients(&#39;Slack&#39;);
@@ -42611,7 +43106,40 @@ export const CreateNotification: Story = {
                         className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Slack recipients&quot; aria-haspopup=&quot;dialog&quot;
                         onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;&lt;/button&gt;}
                     &lt;/div&gt;}
-                  &lt;/div&gt;
+                    {addExternalAppsVariant &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-external-app-remove&quot;
+                      aria-label=&quot;Remove Slack&quot; onClick={() =&gt; removeExternalApp(&#39;slack&#39;)}&gt;
+                      &lt;Icon name=&quot;CrmMinusRounded&quot; size={16} /&gt;
+                    &lt;/button&gt;}
+                    &lt;/div&gt;
+                  &lt;/FormRow&gt;
+                  ))}
+                &lt;/div&gt;
+              )}
+
+              {addExternalAppsVariant &amp;&amp; !(externalAppsEnabled &amp;&amp; notifyZohoCliq &amp;&amp; notifySlack) &amp;&amp; (
+                &lt;div style={{ alignSelf: &#39;flex-start&#39;, marginBlock: -6 }}&gt;
+                  &lt;Dropdown
+                    width={190}
+                    triggerButtonVariant=&quot;ghost-blue&quot;
+                    triggerAriaLabel=&quot;Add External Apps&quot;
+                    placeholder=&quot;Add External Apps&quot;
+                    panelStyle={{ &#39;--dropdown-option-padding-left&#39;: &#39;10px&#39; }}
+                    value=&quot;&quot;
+                    showSelectionIndicator={false}
+                    options={[
+                      ...(!externalAppsEnabled || !notifyZohoCliq ? [{ value: &#39;cliq&#39;, label: &#39;Zoho Cliq&#39; }] : []),
+                      ...(!externalAppsEnabled || !notifySlack ? [{ value: &#39;slack&#39;, label: &#39;Slack&#39; }] : []),
+                    ]}
+                    onChange={(app: string) =&gt; {
+                      setExternalAppOrder(current =&gt; !externalAppsEnabled ? [app] : current.includes(app) ? current : [...current, app]);
+                      if (!externalAppsEnabled) {
+                        setNotifyZohoCliq(app === &#39;cliq&#39;);
+                        setNotifySlack(app === &#39;slack&#39;);
+                      } else if (app === &#39;cliq&#39;) setNotifyZohoCliq(true);
+                      else setNotifySlack(true);
+                      setExternalAppsEnabled(true);
+                    }}
+                  /&gt;
                 &lt;/div&gt;
               )}
             &lt;/div&gt;}
@@ -42668,6 +43196,104 @@ export const CreateNotification: Story = {
     );
   },
 };
+
+export const AddExternalApps: Story = {
+  name: &#39;Create Notification — Add External Apps&#39;,
+  args: { externalAppsVariant: &#39;dropdown&#39; },
+  render: CreateNotification.render,
+  play: async ({ canvasElement }) =&gt; {
+    if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
+    const page = within(canvasElement.ownerDocument.body);
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Create Notification&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;switch&#39;, { name: &#39;Toggle external app notifications&#39; })).not.toBeInTheDocument();
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Zoho Cliq&#39;, exact: true })).not.toBeInTheDocument();
+    const addApps = page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true });
+    await expect(addApps).toHaveAttribute(&#39;data-variant&#39;, &#39;ghost-blue&#39;);
+    await userEvent.click(addApps);
+    await expect(page.getByRole(&#39;option&#39;, { name: &#39;Slack&#39;, exact: true })).toBeVisible();
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Zoho Cliq&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Zoho Cliq&#39;, exact: true })).not.toBeInTheDocument();
+    await expect(page.getByText(&#39;Notify via Zoho Cliq&#39;, { exact: true })).toBeVisible();
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Remove Zoho Cliq&#39;, exact: true })).toBeVisible();
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Slack&#39;, exact: true })).not.toBeInTheDocument();
+    const cliq = within(page.getByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; }));
+    await userEvent.click(cliq.getByRole(&#39;button&#39;, { name: &#39;Select Recipients&#39; }));
+    await waitFor(() =&gt; expect(page.getByText(&#39;Zoho Cliq Notification&#39;, { exact: true })).toBeVisible());
+    await expect(page.getByPlaceholderText(&#39;Select recipients&#39;).closest(&#39;.tags-container&#39;)!.getBoundingClientRect().width).toBe(390);
+    await userEvent.click(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; }));
+    await expect(page.getByPlaceholderText(&#39;Select channels&#39;).closest(&#39;.tags-container&#39;)!.getBoundingClientRect().width).toBe(390);
+    await userEvent.click(page.getAllByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }).at(-1)!);
+    await waitFor(() =&gt; expect(page.queryByText(&#39;Zoho Cliq Notification&#39;, { exact: true })).not.toBeInTheDocument());
+    const heading = page.getByRole(&#39;heading&#39;, { name: &#39;External apps&#39;, exact: true });
+    await expect(heading).toBeVisible();
+    const nextAddApps = page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true });
+    await expect(cliq.getByRole(&#39;button&#39;, { name: &#39;Select Recipients&#39; }).getBoundingClientRect().bottom)
+      .toBeLessThanOrEqual(nextAddApps.getBoundingClientRect().top);
+    await expect(Math.abs(heading.getBoundingClientRect().left - nextAddApps.getBoundingClientRect().left)).toBeLessThanOrEqual(1);
+    await userEvent.click(nextAddApps);
+    await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Zoho Cliq&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Slack&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Slack&#39;, exact: true })).not.toBeInTheDocument();
+    await expect(page.getByText(&#39;Notify via Slack&#39;, { exact: true })).toBeVisible();
+    await expect(page.getByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; })).toBeVisible();
+    await userEvent.click(within(page.getByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; })).getByRole(&#39;button&#39;, { name: &#39;Select Recipients&#39; }));
+    const teamDropdown = await page.findByRole(&#39;button&#39;, { name: &#39;Slack team&#39; });
+    await expect(teamDropdown).toHaveTextContent(&#39;Select&#39;);
+    const teamRow = teamDropdown.closest(&#39;.dropdown-form-row&#39;)!;
+    const teamLabel = teamRow.querySelector(&#39;.dropdown-label&#39;)!;
+    await expect(getComputedStyle(teamLabel).textAlign).toBe(&#39;start&#39;);
+    const appDialog = teamDropdown.closest(&#39;.modal-dialog&#39;)!;
+    const appTitle = appDialog.querySelector(&#39;.modal-title&#39;)!;
+    await expect(teamLabel.getBoundingClientRect().left).toBeCloseTo(appTitle.getBoundingClientRect().left, 0);
+    await expect(getComputedStyle(teamRow).columnGap).toBe(&#39;20px&#39;);
+    await expect(teamDropdown.getBoundingClientRect().height).toBe(34);
+    await expect(teamDropdown.getBoundingClientRect().width).toBe(390);
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).not.toBeInTheDocument();
+    await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; })).not.toBeInTheDocument();
+    await expect(page.queryByPlaceholderText(&#39;Select recipients&#39;)).not.toBeInTheDocument();
+    await expect(page.queryByText(&#39;Select a team first to choose recipients.&#39;)).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Slack team&#39; }));
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;scranton store&#39;, exact: true }));
+    await expect(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify to users&#39; })).toBeEnabled();
+    await expect(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; })).toBeEnabled();
+    await expect(page.getByPlaceholderText(&#39;Select recipients&#39;)).toBeVisible();
+    const usersField = page.getByPlaceholderText(&#39;Select recipients&#39;).closest(&#39;.tags-container&#39;)!;
+    await expect(usersField.getBoundingClientRect().width).toBe(390);
+    await expect(usersField.getBoundingClientRect().left).toBe(teamDropdown.getBoundingClientRect().left);
+    await userEvent.click(page.getByRole(&#39;checkbox&#39;, { name: &#39;Notify in Channels&#39; }));
+    await expect(page.getByPlaceholderText(&#39;Select channels&#39;).closest(&#39;.tags-container&#39;)!.getBoundingClientRect().width).toBe(390);
+    await userEvent.click(page.getAllByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }).at(-1)!);
+    await waitFor(() =&gt; expect(page.queryByText(&#39;Slack Notification&#39;, { exact: true })).not.toBeInTheDocument());
+    await expect(within(heading.parentElement!).getAllByRole(&#39;group&#39;).map(group =&gt; group.getAttribute(&#39;aria-label&#39;)))
+      .toEqual([&#39;Zoho Cliq recipients&#39;, &#39;Slack recipients&#39;]);
+    await expect(page.queryByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Remove Zoho Cliq&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;option&#39;, { name: &#39;Slack&#39;, exact: true })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;option&#39;, { name: &#39;Zoho Cliq&#39;, exact: true }));
+    await expect(page.getByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; })).toBeVisible();
+    const externalSection = heading.parentElement!;
+    await expect(within(externalSection).getAllByRole(&#39;group&#39;).map(group =&gt; group.getAttribute(&#39;aria-label&#39;)))
+      .toEqual([&#39;Slack recipients&#39;, &#39;Zoho Cliq recipients&#39;]);
+    const pushHeading = page.getByRole(&#39;heading&#39;, { name: &#39;Push Notification / Email&#39;, level: 3, exact: true });
+    await expect(heading.tagName).toBe(pushHeading.tagName);
+    const pushSection = pushHeading.parentElement!.parentElement!;
+    await expect(getComputedStyle(externalSection).rowGap).toBe(getComputedStyle(pushSection).rowGap);
+    await expect(getComputedStyle(heading).marginBottom).toBe(&#39;0px&#39;);
+    const removeSlack = page.getByRole(&#39;button&#39;, { name: &#39;Remove Slack&#39;, exact: true });
+    const slackField = page.getByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; });
+    await expect(removeSlack.getBoundingClientRect().left - slackField.getBoundingClientRect().right).toBeCloseTo(6, 0);
+    const cliqField = page.getByRole(&#39;group&#39;, { name: &#39;Zoho Cliq recipients&#39; });
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Remove Zoho Cliq&#39; }).getBoundingClientRect().left - cliqField.getBoundingClientRect().right).toBeCloseTo(6, 0);
+    await userEvent.click(removeSlack);
+    await expect(page.queryByRole(&#39;group&#39;, { name: &#39;Slack recipients&#39; })).not.toBeInTheDocument();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Remove Zoho Cliq&#39;, exact: true }));
+    await expect(page.queryByRole(&#39;heading&#39;, { name: &#39;External apps&#39;, exact: true })).not.toBeInTheDocument();
+    await expect(page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true })).toBeVisible();
+    await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Cancel&#39;, exact: true }));
+  },
+};
 </code></pre></div>
     </div>
         </div>
@@ -42683,6 +43309,23 @@ export const CreateNotification: Story = {
     
         <div class="panel panel-stories">
           
+            <div class="note err">
+              <div class="row">
+                <span class="ex-name">Create Notification — Add External Apps</span>
+                <span class="badge err">story error</span>
+              </div>
+              
+              
+              
+              <pre><code>Expected render to be an arrow function or function expression
+  1317 |   name: &#39;Create Notification — Add External Apps&#39;,
+  1318 |   args: { externalAppsVariant: &#39;dropdown&#39; },
+&gt; 1319 |   render: CreateNotification.render,
+       |           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  1320 |   play: async ({ canvasElement }) =&gt; {
+  1321 |     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
+  1322 |     const page = within(canvasElement.ownerDocument.body);</code></pre>
+            </div>
           
           
           <div class="note ok">
@@ -42721,7 +43364,8 @@ export const CreateNotification: Story = {
               </div>
               
               
-              <pre><code>const CreateNotification = () =&gt; {
+              <pre><code>const CreateNotification = (args) =&gt; {
+  const addExternalAppsVariant = args.externalAppsVariant === &#39;dropdown&#39;;
   const [open, setOpen] = useState(false);
   const [sidebarId, setSidebarId] = useState(&#39;admin-tools&#39;);
   const [featureFilter, setFeatureFilter] = useState(&#39;all&#39;);
@@ -42792,6 +43436,12 @@ export const CreateNotification: Story = {
   const [notifyEmail,    setNotifyEmail]    = useState(true);
   const [notifyZohoCliq, setNotifyZohoCliq] = useState(true);
   const [notifySlack,    setNotifySlack]    = useState(false);
+  const [externalAppOrder, setExternalAppOrder] = useState&lt;string[]&gt;([]);
+  const removeExternalApp = (app: string) =&gt; {
+    setExternalAppOrder(current =&gt; current.filter(value =&gt; value !== app));
+    if (app === &#39;cliq&#39;) setNotifyZohoCliq(false);
+    else setNotifySlack(false);
+  };
 
   // Message
   const criteriaKey = JSON.stringify(trigger);
@@ -42904,8 +43554,11 @@ export const CreateNotification: Story = {
     setExternalAppsEnabled(!systemEdit &amp;&amp; (config?.externalAppsEnabled ?? !!row?.channels?.some(channel =&gt; [&#39;Zoho Cliq&#39;, &#39;Slack&#39;].includes(channel))));
     setNotifyPush(systemEdit || (config?.notifyPush ?? (row ? !!row.channels?.includes(&#39;Push Notification&#39;) : true)));
     setNotifyEmail(systemEdit || (config?.notifyEmail ?? (row ? !!row.channels?.includes(&#39;Emails&#39;) : true)));
-    setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : true));
+    setNotifyZohoCliq(config?.notifyZohoCliq ?? (row ? !!row.channels?.includes(&#39;Zoho Cliq&#39;) : !addExternalAppsVariant));
     setNotifySlack(config?.notifySlack ?? !!row?.channels?.includes(&#39;Slack&#39;));
+    setExternalAppOrder(config?.externalAppOrder ?? (row?.channels ?? [])
+      .filter(channel =&gt; channel === &#39;Zoho Cliq&#39; || channel === &#39;Slack&#39;)
+      .map(channel =&gt; channel === &#39;Zoho Cliq&#39; ? &#39;cliq&#39; : &#39;slack&#39;));
     setZohoCommittedUsers(config?.users ?? []);
     setZohoCommittedChannels(config?.channels ?? []);
     setSlackCommittedUsers(config?.slackUsers ?? []);
@@ -43026,7 +43679,7 @@ export const CreateNotification: Story = {
         className=&quot;usage-app-modal&quot;
       &gt;
         &lt;div className=&quot;usage-app-modal__content&quot;&gt;
-          {recipientApp === &#39;Slack&#39; &amp;&amp; &lt;Dropdown label=&quot;Team&quot; placeholder=&quot;Select&quot; width=&quot;100%&quot; columns=&quot;auto minmax(0, 1fr)&quot;
+          {recipientApp === &#39;Slack&#39; &amp;&amp; &lt;Dropdown label=&quot;Team&quot; placeholder=&quot;Select&quot; width=&quot;100%&quot;
             triggerAriaLabel=&quot;Slack team&quot; value={slackDraftTeam}
             options={slackTeams}
             onChange={(team: string) =&gt; {
@@ -43037,10 +43690,11 @@ export const CreateNotification: Story = {
             }}
             panelStyle={{ &#39;--usage-slack-team-menu&#39;: 1 } as React.CSSProperties}
             footerAction={{ label: &#39;Authorise another team&#39;, icon: null, onClick: () =&gt; {} }} /&gt;}
-          &lt;fieldset className=&quot;usage-app-recipients&quot; disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}&gt;
+          {(recipientApp !== &#39;Slack&#39; || slackDraftTeam) &amp;&amp; &lt;fieldset className=&quot;usage-app-recipients&quot;&gt;
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
             &lt;Checkbox
               label=&quot;Notify to users&quot;
+              disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
               checked={zohoNotifyUsers}
               onChange={(e) =&gt; setZohoNotifyUsers(e.target.checked)}
             /&gt;
@@ -43050,6 +43704,7 @@ export const CreateNotification: Story = {
                 options={ZOHO_USER_OPTIONS}
                 onChange={setZohoDraftUsers}
                 placeholder=&quot;Select recipients&quot;
+                disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                 width=&quot;100%&quot;
               /&gt;
             )}
@@ -43057,6 +43712,7 @@ export const CreateNotification: Story = {
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 10 }}&gt;
             &lt;Checkbox
               label=&quot;Notify in Channels&quot;
+              disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
               checked={zohoNotifyChannels}
               onChange={(e) =&gt; setZohoNotifyChannels(e.target.checked)}
             /&gt;
@@ -43066,11 +43722,12 @@ export const CreateNotification: Story = {
                 options={ZOHO_CHANNEL_OPTIONS}
                 onChange={setZohoDraftChannels}
                 placeholder=&quot;Select channels&quot;
+                disabled={recipientApp === &#39;Slack&#39; &amp;&amp; !slackDraftTeam}
                 width=&quot;100%&quot;
               /&gt;
             )}
           &lt;/div&gt;
-          &lt;/fieldset&gt;
+          &lt;/fieldset&gt;}
         &lt;/div&gt;
       &lt;/Modal&gt;
 
@@ -43107,7 +43764,7 @@ export const CreateNotification: Story = {
             modifiedTime: new Intl.DateTimeFormat(&#39;en-US&#39;, { hour: &#39;numeric&#39;, minute: &#39;2-digit&#39;, second: &#39;2-digit&#39; }).format(new Date()),
             channels, status: existing?.status ?? &#39;Active&#39;, summary: usageTriggerSummary(trigger),
             config: { trigger: { ...trigger }, recipients: notifyToTags, pushEmailEnabled, externalAppsEnabled,
-              notifyPush, notifyEmail, notifyZohoCliq, notifySlack, users: zohoCommittedUsers,
+              notifyPush, notifyEmail, notifyZohoCliq, notifySlack, externalAppOrder, users: zohoCommittedUsers,
               channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
               message, template: emailTemplate },
           };
@@ -43219,7 +43876,7 @@ export const CreateNotification: Story = {
           {/* Push Notification / Email */}
           &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
             &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-              &lt;span style={subHeadingStyle}&gt;Push Notification / Email&lt;/span&gt;
+              &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;Push Notification / Email&lt;/h3&gt;
               {!isSystemDefined &amp;&amp; &lt;Switch
                 checked={pushEmailEnabled}
                 onChange={(e) =&gt; setPushEmailEnabled(e.target.checked)}
@@ -43335,28 +43992,33 @@ export const CreateNotification: Story = {
 
           {/* External apps */}
           {!isSystemDefined &amp;&amp; &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 12 }}&gt;
-            &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-              &lt;span style={subHeadingStyle}&gt;External apps&lt;/span&gt;
+            {addExternalAppsVariant ? (
+              externalAppsEnabled &amp;&amp; (notifyZohoCliq || notifySlack) &amp;&amp; &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;External apps&lt;/h3&gt;
+            ) : &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
+              &lt;h3 style={{ ...subHeadingStyle, margin: 0 }}&gt;External apps&lt;/h3&gt;
               &lt;Switch
                 checked={externalAppsEnabled}
                 onChange={(e) =&gt; setExternalAppsEnabled(e.target.checked)}
                 aria-label=&quot;Toggle external app notifications&quot;
               /&gt;
-            &lt;/div&gt;
+            &lt;/div&gt;}
 
             {externalAppsEnabled &amp;&amp; (
               &lt;div style={{ display: &#39;flex&#39;, flexDirection: &#39;column&#39;, gap: 8 }}&gt;
-                &lt;FormRow label=&quot;Notify Via&quot; align=&quot;center&quot;&gt;
-                  &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                    {/* Isolate Checkbox&#39;s align-self: flex-start so the row can center it. */}
-                    &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39; }}&gt;
+                {(addExternalAppsVariant ? externalAppOrder : [&#39;cliq&#39;, &#39;slack&#39;]).map(app =&gt; app === &#39;cliq&#39; ? (
+                (!addExternalAppsVariant || notifyZohoCliq) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Zoho Cliq&#39; : &#39;Notify Via&#39;} align=&quot;center&quot;&gt;
+                  &lt;div className={addExternalAppsVariant ? &#39;usage-external-app-row&#39; : undefined} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
+                    {/* Keep the checkbox in the original variant only. */}
+                    {!addExternalAppsVariant &amp;&amp; &lt;div style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39; }}&gt;
                       &lt;Checkbox
                         label=&quot;Zoho Cliq&quot;
                         checked={notifyZohoCliq}
                         onChange={(e) =&gt; setNotifyZohoCliq(e.target.checked)}
                       /&gt;
-                    &lt;/div&gt;
+                    &lt;/div&gt;}
                     &lt;div style={{
+                      flex: addExternalAppsVariant ? 1 : undefined,
+                      minWidth: 0,
                       opacity:       notifyZohoCliq ? 1 : 0,
                       pointerEvents: notifyZohoCliq ? &#39;auto&#39; : &#39;none&#39;,
                     }}&gt;
@@ -43394,14 +44056,20 @@ export const CreateNotification: Story = {
                         &lt;/button&gt;}
                       &lt;/div&gt;
                     &lt;/div&gt;
+                    {addExternalAppsVariant &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-external-app-remove&quot;
+                      aria-label=&quot;Remove Zoho Cliq&quot; onClick={() =&gt; removeExternalApp(&#39;cliq&#39;)}&gt;
+                      &lt;Icon name=&quot;CrmMinusRounded&quot; size={16} /&gt;
+                    &lt;/button&gt;}
                   &lt;/div&gt;
                 &lt;/FormRow&gt;
-                &lt;div className=&quot;usage-slack-row&quot; style={{ paddingLeft: `calc(${LABEL_COL} + 20px)`, display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: 12 }}&gt;
-                  &lt;Checkbox
+                ) : (
+                (!addExternalAppsVariant || notifySlack) &amp;&amp; &lt;FormRow key={app} label={addExternalAppsVariant ? &#39;Notify via Slack&#39; : &#39;&#39;}&gt;
+                  &lt;div className={`usage-slack-row${addExternalAppsVariant ? &#39; usage-external-app-row&#39; : &#39;&#39;}`} style={{ display: &#39;flex&#39;, alignItems: &#39;center&#39;, gap: addExternalAppsVariant ? &#39;var(--ds-space-6, 6px)&#39; : 12 }}&gt;
+                  {!addExternalAppsVariant &amp;&amp; &lt;Checkbox
                     label=&quot;Slack&quot;
                     checked={notifySlack}
                     onChange={(e) =&gt; setNotifySlack(e.target.checked)}
-                  /&gt;
+                  /&gt;}
                   {notifySlack &amp;&amp; &lt;div className={`usage-recipient-field usage-cliq-field${slackCommittedUsers.length || slackCommittedChannels.length ? &#39; usage-recipient-editable&#39; : &#39;&#39;}`}
                     role=&quot;group&quot; aria-label=&quot;Slack recipients&quot; onClick={(event) =&gt; {
                       if (!(event.target instanceof Element) || !event.target.closest(&#39;button&#39;)) openAppRecipients(&#39;Slack&#39;);
@@ -43426,7 +44094,40 @@ export const CreateNotification: Story = {
                       className=&quot;usage-cliq-edit&quot; aria-label=&quot;Edit Slack recipients&quot; aria-haspopup=&quot;dialog&quot;
                       onClick={() =&gt; openAppRecipients(&#39;Slack&#39;)}&gt;&lt;Icon name=&quot;CrmEditFilledMd&quot; size={13} /&gt;&lt;/button&gt;}
                   &lt;/div&gt;}
-                &lt;/div&gt;
+                  {addExternalAppsVariant &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;usage-external-app-remove&quot;
+                    aria-label=&quot;Remove Slack&quot; onClick={() =&gt; removeExternalApp(&#39;slack&#39;)}&gt;
+                    &lt;Icon name=&quot;CrmMinusRounded&quot; size={16} /&gt;
+                  &lt;/button&gt;}
+                  &lt;/div&gt;
+                &lt;/FormRow&gt;
+                ))}
+              &lt;/div&gt;
+            )}
+
+            {addExternalAppsVariant &amp;&amp; !(externalAppsEnabled &amp;&amp; notifyZohoCliq &amp;&amp; notifySlack) &amp;&amp; (
+              &lt;div style={{ alignSelf: &#39;flex-start&#39;, marginBlock: -6 }}&gt;
+                &lt;Dropdown
+                  width={190}
+                  triggerButtonVariant=&quot;ghost-blue&quot;
+                  triggerAriaLabel=&quot;Add External Apps&quot;
+                  placeholder=&quot;Add External Apps&quot;
+                  panelStyle={{ &#39;--dropdown-option-padding-left&#39;: &#39;10px&#39; }}
+                  value=&quot;&quot;
+                  showSelectionIndicator={false}
+                  options={[
+                    ...(!externalAppsEnabled || !notifyZohoCliq ? [{ value: &#39;cliq&#39;, label: &#39;Zoho Cliq&#39; }] : []),
+                    ...(!externalAppsEnabled || !notifySlack ? [{ value: &#39;slack&#39;, label: &#39;Slack&#39; }] : []),
+                  ]}
+                  onChange={(app: string) =&gt; {
+                    setExternalAppOrder(current =&gt; !externalAppsEnabled ? [app] : current.includes(app) ? current : [...current, app]);
+                    if (!externalAppsEnabled) {
+                      setNotifyZohoCliq(app === &#39;cliq&#39;);
+                      setNotifySlack(app === &#39;slack&#39;);
+                    } else if (app === &#39;cliq&#39;) setNotifyZohoCliq(true);
+                    else setNotifySlack(true);
+                    setExternalAppsEnabled(true);
+                  }}
+                /&gt;
               &lt;/div&gt;
             )}
           &lt;/div&gt;}
@@ -44242,7 +44943,7 @@ export const AllTypography: StoryObj = {
       <div class="badges">
         <label for="c-error-0-design-system-components-modal-err" class="badge err as-toggle">prop type error</label>
         <label for="c-error-0-design-system-components-modal-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-0-design-system-components-modal-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-error-0-design-system-components-modal-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -44300,6 +45001,12 @@ const ALERT_ICONS = {
 const SINGLE_BTN_VARIANTS = new Set([&#39;success&#39;, &#39;info&#39;, &#39;denial&#39;]);
 let scrollLockCount = 0;
 let previousBodyOverflow = &#39;&#39;;
+const modalStack = [];
+const focusableSelector = &#39;a[href], button, input, select, textarea, [tabindex], [contenteditable=&quot;true&quot;]&#39;;
+const getFocusableElements = (root) =&gt; Array.from(root.querySelectorAll(focusableSelector)).filter(
+  element =&gt; element.tabIndex &gt;= 0 &amp;&amp; !element.matches(&#39;:disabled&#39;) &amp;&amp; !element.closest(&#39;[inert]&#39;)
+    &amp;&amp; element.getClientRects().length &gt; 0 &amp;&amp; getComputedStyle(element).visibility !== &#39;hidden&#39;
+);
 
 function alertConfirmVariant(variant) {
   return variant === &#39;error&#39; ? &#39;negative&#39; : &#39;primary&#39;;
@@ -44366,6 +45073,42 @@ export function Modal({
     onClose();
   }, [onCancel, onClose]);
 
+  // Only the most recently opened modal owns keyboard focus. Recompute controls
+  // on each Tab so conditional fields and disabled fieldsets are respected.
+  useEffect(() =&gt; {
+    if (!isVisible) return;
+    const dialog = dialogRef.current;
+    const opener = document.activeElement;
+    modalStack.push(dialog);
+    const handleTab = (event) =&gt; {
+      if (event.key !== &#39;Tab&#39; || modalStack.at(-1) !== dialog) return;
+      // Dropdowns and Tags render their listboxes outside the dialog portal.
+      // Include an active listbox so its search remains usable without letting
+      // Tab escape to the page at either boundary.
+      const portal = event.target instanceof Element &amp;&amp; !dialog.contains(event.target)
+        ? event.target.closest(&#39;[role=&quot;listbox&quot;]&#39;) : null;
+      const controls = [...getFocusableElements(dialog), ...(portal ? getFocusableElements(portal) : [])];
+      const first = controls[0] ?? dialog;
+      const last = controls.at(-1) ?? dialog;
+      const active = document.activeElement;
+      if (!controls.length || (!dialog.contains(active) &amp;&amp; !portal)
+        || (event.shiftKey ? active === first || active === dialog : active === last)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      }
+    };
+    document.addEventListener(&#39;keydown&#39;, handleTab);
+    // Even dialogs with no editable fields (alerts) need an initial focus target.
+    if (!disableAutoFocus) (getFocusableElements(dialog)[0] ?? dialog).focus();
+    return () =&gt; {
+      const wasTop = modalStack.at(-1) === dialog;
+      const index = modalStack.indexOf(dialog);
+      if (index !== -1) modalStack.splice(index, 1);
+      document.removeEventListener(&#39;keydown&#39;, handleTab);
+      if (wasTop &amp;&amp; opener instanceof HTMLElement &amp;&amp; opener.isConnected) opener.focus();
+    };
+  }, [isVisible]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Auto-focus the first editable form field when the modal opens
   useEffect(() =&gt; {
     if (isVisible &amp;&amp; !isClosing &amp;&amp; !disableAutoFocus) {
@@ -44373,7 +45116,7 @@ export function Modal({
         const first = dialogRef.current?.querySelector(
           &#39;input[type=&quot;text&quot;]:not([disabled]):not([readonly]):not(.tags-input):not(.dropdown-search-input), input[type=&quot;email&quot;]:not([disabled]), input[type=&quot;tel&quot;]:not([disabled]), input[type=&quot;number&quot;]:not([disabled]), input[type=&quot;search&quot;]:not([disabled]), input:not([type]):not([disabled]):not([readonly]):not(.tags-input), textarea:not([disabled])&#39;
         );
-        first?.focus();
+        if (modalStack.at(-1) === dialogRef.current) first?.focus();
       }, 50);
       return () =&gt; clearTimeout(t);
     }
@@ -44383,8 +45126,7 @@ export function Modal({
   useEffect(() =&gt; {
     if (!isVisible || !closeOnEscape || !showClose) return;
     const handler = (e) =&gt; {
-      const dialogs = document.querySelectorAll(&#39;.modal-dialog&#39;);
-      if (e.key === &#39;Escape&#39; &amp;&amp; dialogs[dialogs.length - 1] === dialogRef.current) onClose();
+      if (e.key === &#39;Escape&#39; &amp;&amp; modalStack.at(-1) === dialogRef.current) onClose();
     };
     document.addEventListener(&#39;keydown&#39;, handler);
     return () =&gt; document.removeEventListener(&#39;keydown&#39;, handler);
@@ -44439,6 +45181,7 @@ export function Modal({
           ref={dialogRef}
           className=&#39;modal-dialog&#39;
           role=&quot;alertdialog&quot;
+          tabIndex={-1}
           aria-modal=&quot;true&quot;
           aria-labelledby={titleId}
           style={{ width }}
@@ -44477,6 +45220,7 @@ export function Modal({
         ref={dialogRef}
         className={`modal-dialog${className ? ` ${className}` : &#39;&#39;}`}
         role=&quot;dialog&quot;
+        tabIndex={-1}
         aria-modal=&quot;true&quot;
         aria-labelledby={titleId}
         style={{ width }}
@@ -44609,6 +45353,37 @@ export default Modal;
     ))}
   &lt;/Modal&gt;
 );</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Nested Focus</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Focus ownership follows open order, including portals preceding their parent in the DOM.</div>
+              <pre><code>const NestedFocus = () =&gt; {
+  const [parentOpen, setParentOpen] = useState(false);
+  const [childOpen, setChildOpen] = useState(false);
+  return &lt;&gt;
+    &lt;Button onClick={() =&gt; setParentOpen(true)}&gt;Open parent&lt;/Button&gt;
+    &lt;Modal isOpen={childOpen} title=&quot;Nested dialog&quot; onClose={() =&gt; setChildOpen(false)} onSave={() =&gt; setChildOpen(false)}&gt;
+      &lt;Input label=&quot;Disabled field&quot; disabled /&gt;
+      &lt;Input label=&quot;Nested name&quot; /&gt;
+    &lt;/Modal&gt;
+    &lt;Modal isOpen={parentOpen} title=&quot;Parent dialog&quot; onClose={() =&gt; setParentOpen(false)} onSave={() =&gt; setParentOpen(false)}&gt;
+      &lt;Button onClick={() =&gt; setChildOpen(true)}&gt;Open child&lt;/Button&gt;
+    &lt;/Modal&gt;
+  &lt;/&gt;;
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">No Focusable Content</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const NoFocusableContent = () =&gt; &lt;Modal isOpen title=&quot;Read-only dialog&quot; showFooter={false} onClose={() =&gt; {}}&gt;&lt;p&gt;Notification details&lt;/p&gt;&lt;/Modal&gt;;</code></pre>
             </div>
             <div class="note ok">
               <div class="row">
