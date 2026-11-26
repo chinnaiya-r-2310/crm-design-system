@@ -132,14 +132,14 @@
   box-sizing: border-box;
 }
 
-/* Horizontal only — start-align labels with the form's content edge.
+/* Horizontal only — right-align labels toward the form controls.
    Preserve the existing column proportions and field widths.
    Single line:   label text is centred against the 34px input height.
    Multi-line:    label wraps downward; input stays fixed at top of its cell,
                   giving "first-line alignment."
    padding-top nudge: (input-height − line-height) / 2 = (34 − 20) / 2 = 7px */
 .input-form-row .input-label {
-  text-align: start;
+  text-align: right;
   padding-top: 7px;
 }
 

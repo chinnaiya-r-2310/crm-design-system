@@ -9,7 +9,7 @@ import './RecordAuthentication.css';
 export type TemplateSettings = { subject: string; sender: string; body: string };
 const DEFAULT_SUBJECT = 'Verify your email address with ${Organization.OrganizationName}';
 const SENDER_OPTIONS = [
-  { value: 'my-email', label: 'My Email (alex.morgan@example.com)', group: 'My Email' },
+  { value: 'my-email', label: 'alex.morgan@example.com', group: 'My Email' },
   { value: 'owner', label: 'Record Owner’s Email', group: 'Other Emails' },
   { value: 'multi-user', label: 'Account Manager’s Email', group: 'Other Emails' },
   { value: 'layout-id', label: 'Created By User’s Email', group: 'Other Emails' },

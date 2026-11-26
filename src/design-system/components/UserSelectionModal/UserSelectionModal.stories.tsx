@@ -509,6 +509,11 @@ export const IndividualUsersAdditionalRecipients: Story = {
     const editorDialog = page.getByRole('dialog', { name: 'Edit Recipient' });
     const editor = within(editorDialog);
     await waitFor(() => expect(editor.getByDisplayValue('Operations')).toBeVisible());
+    const verificationNote = editor.getByText(/A confirmation email will be sent/);
+    await expect(verificationNote).toBeVisible();
+    await expect(verificationNote.closest('.msg-info-root')).not.toHaveClass('msg-info-multi');
+    await expect(verificationNote.closest('.msg-info-root')!.querySelector('ul')).toBeNull();
+    await expect(editorDialog.getBoundingClientRect().width).toBeLessThanOrEqual(625);
     const editorBody = editorDialog.querySelector<HTMLElement>('.modal-body')!;
     await expect(editorBody.scrollWidth).toBeLessThanOrEqual(editorBody.clientWidth);
     for (const input of editor.getAllByRole('textbox')) {

@@ -6,6 +6,7 @@ import { Tooltip } from '../Tooltip/Tooltip';
 import { Button } from '../Button/Button';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { Input } from '../Input/Input';
+import { MessageInfo } from '../MessageInfo/MessageInfo';
 import { SetupTable } from '../Table/Table';
 import { Check, Edit, More, Search } from '../../foundations/icons/Icons';
 import './UserSelectionModal.css';
@@ -391,7 +392,7 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
       setPendingDeleteRecipient(null);
     }}
   />}
-  {creatingRecipient && <Modal isOpen title={editingRecipient ? 'Edit Recipient' : 'Create Recipient'} width={730} className="user-selection-recipient-modal user-selection-recipient-editor"
+  {creatingRecipient && <Modal isOpen title={editingRecipient ? 'Edit Recipient' : 'Create Recipient'} width={625} className="user-selection-recipient-modal user-selection-recipient-editor"
     onClose={() => setCreatingRecipient(false)} onCancel={() => setCreatingRecipient(false)} saveLabel="Save" onSave={() => {
       const address = recipientAddress.trim();
       const errors: { name?: string; email?: string } = {};
@@ -433,6 +434,7 @@ export function UserSelectionModal({ value, options, onSave, onClose, title = 'S
         setRecipientAddress(event.target.value);
         setCreationErrors(current => ({ ...current, email: undefined }));
       }} />
+    <MessageInfo variant="note" message="A confirmation email will be sent to new or changed email addresses. The recipient is verified only after they confirm their email address." />
   </Modal>}
   </>;
 }

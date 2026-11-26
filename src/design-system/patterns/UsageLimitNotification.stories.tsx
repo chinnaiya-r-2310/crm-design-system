@@ -12,7 +12,7 @@ import { Checkbox } from '../components/Checkbox/Checkbox';
 import { Button } from '../components/Button/Button';
 import { MergeField } from '../components/MergeField/MergeField';
 import { Tooltip } from '../components/Tooltip/Tooltip';
-import { CrmAlertInfo, More, Search } from '../foundations/icons/Icons';
+import { CrmAlertInfo, Info, More, Search } from '../foundations/icons/Icons';
 import { NextGenTopBand } from '../components/NextGenTopBand/NextGenTopBand';
 import { VerticalTabs } from '../components/VerticalTabs/VerticalTabs';
 import { SETUP_MENU_ITEMS } from '../components/VerticalTabs/setupMenuItems';
@@ -111,7 +111,7 @@ const labelStyle: React.CSSProperties = {
   fontWeight: 'var(--ds-font-weight-regular)',
   color:      'var(--ds-text-label)',
   whiteSpace: 'nowrap',
-  textAlign:  'start',
+  textAlign:  'right',
 };
 
 const sectionHeadingStyle: React.CSSProperties = {
@@ -231,6 +231,7 @@ type UsageListRow = {
   modifier?: string; modifiedDate?: string; modifiedTime?: string;
   channels?: string[]; status?: 'Active' | 'Paused' | 'Completed'; system?: boolean;
   summary?: string;
+  newlyAdded?: boolean;
   config?: {
     trigger: ReturnType<typeof createUsageTrigger>; recipients: UsageRecipient[];
     pushEmailEnabled: boolean; externalAppsEnabled: boolean;
@@ -330,14 +331,19 @@ function UsageChannelsCell({ channels = [] }: { channels?: string[] }) {
 const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) => void) => [
   { key: 'actions', label: '', width: 31, render: (_value: unknown, row: UsageListRow) => <UsageRowActions row={row} onAction={onAction} /> },
   { key: 'name', label: 'Notification Name', width: '25%', render: (_value: unknown, row: UsageListRow) =>
-    <Tooltip variant="white" placement="top" maxWidth={600} wrapperStyle={{ display: 'inline-flex', maxWidth: '100%', minWidth: 0, verticalAlign: 'middle' }} content={row.summary || `${row.feature}: ${row.name}. Notify via ${row.channels?.join(', ')}.`}>
+    <span className="usage-page__name-cell" data-new-notification={row.newlyAdded || undefined}>
       <button type="button" className="usage-page__name" aria-haspopup="dialog" onClick={() => onAction('edit', row)}>{row.name}</button>
-    </Tooltip> },
+      <Tooltip variant="white" placement="top" followCursor maxWidth={600}
+        content={row.summary || `${row.feature}: ${row.name}. Notify via ${row.channels?.join(', ')}.`}>
+        <Info className="usage-page__summary-info" width={16} height={16} role="img"
+          aria-label={`Summary: ${row.summary || `${row.feature}: ${row.name}`}`} />
+      </Tooltip>
+    </span> },
   { key: 'feature', label: 'Feature', width: '13%' },
   { key: 'channels', label: 'Notify via', width: '22%', render: (_value: unknown, row: UsageListRow) => <UsageChannelsCell channels={row.channels} /> },
   { key: 'creator', label: 'Created by', width: '14%', render: personCell('creator') },
   { key: 'modifier', label: 'Modified by', width: '14%', render: personCell('modifier') },
-  { key: 'status', label: 'Status', width: 120, render: (_value: unknown, row: UsageListRow) => <span>{row.status}</span> },
+  { key: 'status', label: 'Status', width: 120, render: (_value: unknown, row: UsageListRow) => <span className="usage-page__status" data-status={row.status}>{row.status}</span> },
 ];
 
 export const CreateNotification: Story = {
@@ -524,12 +530,21 @@ export const CreateNotification: Story = {
     const [editingId, setEditingId] = useState<string>();
     const isSystemDefined = !!savedRows.find(row => row.id === editingId)?.system;
     const [pendingDelete, setPendingDelete] = useState<UsageListRow>();
-    const [deleteSuccess, setDeleteSuccess] = useState<string>();
+    const [successMessage, setSuccessMessage] = useState<string>();
+    const [newNotificationId, setNewNotificationId] = useState<string>();
     useEffect(() => {
-      if (!deleteSuccess) return;
-      const timeout = window.setTimeout(() => setDeleteSuccess(undefined), 4000);
+      if (!successMessage) return;
+      const timeout = window.setTimeout(() => setSuccessMessage(undefined), 4000);
       return () => window.clearTimeout(timeout);
-    }, [deleteSuccess]);
+    }, [successMessage]);
+    useEffect(() => {
+      if (!newNotificationId) return;
+      const timeout = window.setTimeout(() => {
+        setSavedRows(current => current.map(row => row.id === newNotificationId ? { ...row, newlyAdded: false } : row));
+        setNewNotificationId(undefined);
+      }, 4000);
+      return () => window.clearTimeout(timeout);
+    }, [newNotificationId]);
     const visibleRows = savedRows.filter(row =>
       (featureFilter === 'all' || row.feature === featureFilter) &&
       (typeFilter === 'all' || (typeFilter === 'system' ? row.system : !row.system)) &&
@@ -701,8 +716,11 @@ export const CreateNotification: Story = {
     const onRowAction = (action: RowAction, row: UsageListRow) => {
       if (action === 'edit' || action === 'clone') openEditor(row, action === 'clone');
       else if (action === 'delete') { if (!row.system) setPendingDelete(row); }
-      else if (!row.system && row.status !== 'Completed') setSavedRows(current => current.map(item => item.id === row.id && !item.system
-        ? { ...item, status: action === 'pause' ? 'Paused' : 'Active' } : item));
+      else if (!row.system && row.status !== 'Completed') {
+        setSavedRows(current => current.map(item => item.id === row.id && !item.system
+          ? { ...item, status: action === 'pause' ? 'Paused' : 'Active' } : item));
+        setSuccessMessage(`${row.name} ${action === 'pause' ? 'paused' : 'resumed'} successfully.`);
+      }
     };
     const columns = usageListColumns(onRowAction);
 
@@ -738,8 +756,8 @@ export const CreateNotification: Story = {
           input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         `}</style>
 
-        {deleteSuccess && <MessageBox variant="success" className="usage-page__success-alert"
-          message={`${deleteSuccess} deleted successfully.`} onClose={() => setDeleteSuccess(undefined)} />}
+        {successMessage && <MessageBox variant="success" className="usage-page__success-alert"
+          message={successMessage} onClose={() => setSuccessMessage(undefined)} />}
 
         <div className="usage-page">
           <aside className="usage-page__sidebar" aria-label="Setup navigation">
@@ -748,7 +766,7 @@ export const CreateNotification: Story = {
           </aside>
           <header className="usage-page__topband"><NextGenTopBand moduleLabel={null} showTerritory={false} /></header>
           <main className="usage-page__workspace" aria-label="Usage limit notifications">
-            <Tabs tabs={[{ id: 'usage', label: 'Usage Limits' }, { id: 'admin', label: 'Admin tool' }]}
+            <Tabs tabs={[{ id: 'admin', label: 'Admin tool' }, { id: 'usage', label: 'Usage Limits' }]}
               activeTab={pageTab} onChange={setPageTab} />
             {pageTab === 'usage' ? <>
               <div className="usage-page__sections">
@@ -896,7 +914,9 @@ export const CreateNotification: Story = {
                 channels: zohoCommittedChannels, slackUsers: slackCommittedUsers, slackChannels: slackCommittedChannels, slackTeam: slackCommittedTeam,
                 message, template: emailTemplate },
             };
-            setSavedRows(current => editingId ? current.map(row => row.id === editingId ? saved : row) : [...current, saved]);
+            setSavedRows(current => editingId ? current.map(row => row.id === editingId ? saved : row)
+              : [{ ...saved, newlyAdded: true }, ...current.map(row => ({ ...row, newlyAdded: false }))]);
+            if (!editingId) setNewNotificationId(saved.id);
             setNameError(false);
             setOpen(false);
           }}
@@ -1132,7 +1152,7 @@ export const CreateNotification: Story = {
               </div>}
 
               {externalAppsEnabled && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--ds-line-height-base)' }}>
                   {(addExternalAppsVariant ? externalAppOrder : ['cliq', 'slack']).map(app => app === 'cliq' ? (
                   (!addExternalAppsVariant || notifyZohoCliq) && <FormRow key={app} label={addExternalAppsVariant ? 'Notify via Zoho Cliq' : 'Notify Via'} align="center">
                     <div className={addExternalAppsVariant ? 'usage-external-app-row' : undefined} style={{ display: 'flex', alignItems: 'center', gap: addExternalAppsVariant ? 'var(--ds-space-6, 6px)' : 12 }}>
@@ -1286,7 +1306,7 @@ export const CreateNotification: Story = {
           onSave={() => {
             if (!pendingDelete.system) {
               setSavedRows(current => current.filter(row => row.id !== pendingDelete.id));
-              setDeleteSuccess(pendingDelete.name);
+              setSuccessMessage(`${pendingDelete.name} deleted successfully.`);
             }
             setPendingDelete(undefined);
           }}
@@ -1357,11 +1377,10 @@ export const AddExternalApps: Story = {
     await expect(teamDropdown).toHaveTextContent('Select');
     const teamRow = teamDropdown.closest('.dropdown-form-row')!;
     const teamLabel = teamRow.querySelector('.dropdown-label')!;
-    await expect(getComputedStyle(teamLabel).textAlign).toBe('start');
-    const appDialog = teamDropdown.closest('.modal-dialog')!;
-    const appTitle = appDialog.querySelector('.modal-title')!;
-    await expect(teamLabel.getBoundingClientRect().left).toBeCloseTo(appTitle.getBoundingClientRect().left, 0);
+    await expect(getComputedStyle(teamLabel).textAlign).toBe('right');
     await expect(getComputedStyle(teamRow).columnGap).toBe('20px');
+    await expect(teamDropdown.getBoundingClientRect().left - teamLabel.getBoundingClientRect().right).toBeCloseTo(20, 0);
+    await expect(teamLabel.getBoundingClientRect().width).toBeLessThan(60);
     await expect(teamDropdown.getBoundingClientRect().height).toBe(34);
     await expect(teamDropdown.getBoundingClientRect().width).toBe(390);
     await expect(page.queryByRole('checkbox', { name: 'Notify to users' })).not.toBeInTheDocument();
@@ -1369,6 +1388,7 @@ export const AddExternalApps: Story = {
     await expect(page.queryByPlaceholderText('Select recipients')).not.toBeInTheDocument();
     await expect(page.queryByText('Select a team first to choose recipients.')).not.toBeInTheDocument();
     await userEvent.click(page.getByRole('button', { name: 'Slack team' }));
+    await expect(page.getByRole('button', { name: 'Authorise another team', exact: true })).toBeVisible();
     await userEvent.click(page.getByRole('option', { name: 'scranton store', exact: true }));
     await expect(page.getByRole('checkbox', { name: 'Notify to users' })).toBeEnabled();
     await expect(page.getByRole('checkbox', { name: 'Notify in Channels' })).toBeEnabled();
@@ -1401,6 +1421,10 @@ export const AddExternalApps: Story = {
     const slackField = page.getByRole('group', { name: 'Slack recipients' });
     await expect(removeSlack.getBoundingClientRect().left - slackField.getBoundingClientRect().right).toBeCloseTo(6, 0);
     const cliqField = page.getByRole('group', { name: 'Zoho Cliq recipients' });
+    await expect(cliqField.getBoundingClientRect().top - slackField.getBoundingClientRect().bottom).toBeCloseTo(20, 0);
+    const messageHint = page.getByText('Type # to insert merge field', { exact: true });
+    const labelColor = getComputedStyle(page.getByText('Notify via Zoho Cliq', { exact: true })).color;
+    await expect(getComputedStyle(messageHint).color).toBe(labelColor);
     await expect(page.getByRole('button', { name: 'Remove Zoho Cliq' }).getBoundingClientRect().left - cliqField.getBoundingClientRect().right).toBeCloseTo(6, 0);
     await userEvent.click(removeSlack);
     await expect(page.queryByRole('group', { name: 'Slack recipients' })).not.toBeInTheDocument();
@@ -1408,5 +1432,57 @@ export const AddExternalApps: Story = {
     await expect(page.queryByRole('heading', { name: 'External apps', exact: true })).not.toBeInTheDocument();
     await expect(page.getByRole('button', { name: 'Add External Apps', exact: true })).toBeVisible();
     await userEvent.click(page.getByRole('button', { name: 'Cancel', exact: true }));
+    const primaryTabs = canvasElement.querySelector('.usage-page__workspace > .tabs-tab-bar')!;
+    await expect(within(primaryTabs as HTMLElement).getAllByRole('tab').map(tab => tab.textContent)).toEqual(['Admin tool', 'Usage Limits']);
+    const firstName = page.getByRole('button', { name: 'Reached add-on limit 60%', exact: true });
+    const { page: browserPage } = await import('vitest/browser');
+    const summaryTrigger = firstName.parentElement!.querySelector('.tooltip-wrapper')!;
+    await browserPage.elementLocator(primaryTabs).hover();
+    await expect(summaryTrigger).not.toBeVisible();
+    await browserPage.elementLocator(firstName).hover();
+    await expect(summaryTrigger).toBeVisible();
+    await userEvent.hover(firstName);
+    await expect(page.queryByRole('tooltip')).not.toBeInTheDocument();
+    firstName.focus();
+    await expect(page.queryByRole('tooltip')).not.toBeInTheDocument();
+    const summaryIcon = firstName.parentElement!.querySelector('.usage-page__summary-info')!;
+    const iconBounds = summaryIcon.getBoundingClientRect();
+    const nameBounds = firstName.getBoundingClientRect();
+    await expect(iconBounds.width).toBe(16);
+    await expect(iconBounds.height).toBe(16);
+    await expect(Math.abs(iconBounds.top + iconBounds.height / 2 - nameBounds.top - nameBounds.height / 2)).toBeLessThanOrEqual(1);
+    await expect(summaryIcon.querySelector('circle')).toHaveAttribute('stroke', 'currentColor');
+    await expect(summaryIcon).toHaveAttribute('fill', 'none');
+    await userEvent.hover(summaryIcon);
+    await expect(await page.findByRole('tooltip')).toHaveTextContent('60');
+    await userEvent.unhover(summaryIcon);
+    await waitFor(() => expect(page.queryByRole('tooltip')).not.toBeInTheDocument());
+    const row = firstName.closest('tr')!;
+    const actions = within(row).getByRole('button', { name: 'More options for Reached add-on limit 60%' });
+    await userEvent.hover(row);
+    await userEvent.click(actions);
+    await userEvent.click(page.getByRole('option', { name: 'Pause', exact: true }));
+    await expect(page.getByText('Reached add-on limit 60% paused successfully.')).toBeVisible();
+    await expect(within(row).getByText('Paused', { exact: true })).toHaveAttribute('data-status', 'Paused');
+    await userEvent.click(actions);
+    await userEvent.click(page.getByRole('option', { name: 'Resume', exact: true }));
+    await expect(page.getByText('Reached add-on limit 60% resumed successfully.')).toBeVisible();
+    await expect(within(row).getByText('Active', { exact: true })).toHaveAttribute('data-status', 'Active');
+    await userEvent.click(actions);
+    await userEvent.click(page.getByRole('option', { name: 'Clone', exact: true }));
+    await userEvent.click(page.getByRole('button', { name: 'Save', exact: true }));
+    const newName = page.getByRole('button', { name: 'Reached add-on limit 60%_Cloned', exact: true });
+    const newRow = newName.closest('tr')!;
+    await expect(newRow).toBe(canvasElement.querySelector('.table-report tbody tr'));
+    const newCell = newName.closest('td')!;
+    await expect(getComputedStyle(newCell).backgroundColor).toBe('rgb(253, 250, 222)');
+    const highlight = newCell.getAnimations()[0];
+    await expect(highlight).toBeDefined();
+    await expect(highlight.effect!.getTiming().duration).toBe(4000);
+    highlight.currentTime = 3000;
+    await expect(getComputedStyle(newCell).backgroundColor).not.toBe('rgb(253, 250, 222)');
+    await expect(getComputedStyle(newCell).backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    await waitFor(() => expect(newRow.querySelector('[data-new-notification]')).toBeNull(), { timeout: 6000 });
+    await expect(getComputedStyle(newCell).backgroundColor).toBe('rgba(0, 0, 0, 0)');
   },
 };

@@ -36,9 +36,9 @@
   width: 390px;
   max-width: 100%;
 }
-.usage-app-modal__content:has(> .dropdown-root) { width: 565px; }
+.usage-app-modal__content:has(> .dropdown-root) { width: max-content; }
 .usage-app-modal__content .dropdown-form-row {
-  grid-template-columns: minmax(0, 155px) minmax(0, 390px);
+  grid-template-columns: max-content minmax(0, 390px);
 }
 .usage-app-modal__content .dropdown-field-column { min-width: 0; }
 .usage-app-modal__content > .usage-app-recipients {
@@ -169,7 +169,7 @@
   max-width: 100%;
   box-sizing: border-box;
 }
-.usage-notification-modal .mergefield-hint { color: var(--ds-text-paragraph); font-size: var(--ds-font-size-md); line-height: var(--ds-line-height-base); }
+.usage-notification-modal .mergefield-hint { color: var(--ds-text-label); font-size: var(--ds-font-size-md); line-height: var(--ds-line-height-base); }
 .usage-page .table-report thead th { position: sticky; top: 0; z-index: 1; background: var(--ds-bg-common-card); font-weight: var(--ds-font-weight-medium); }
 .usage-page .table-report tr:has(.usage-page__group) { background: var(--ds-bg-scale-bg2); }
 .usage-page .table-report tr:has(.usage-page__group) td { padding-block: 0; }
@@ -191,3 +191,31 @@
 .usage-page__more-trigger { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
 .usage-page__hover-list { display: flex; flex-direction: column; gap: calc(var(--ds-line-height-base) / 4); }
 .usage-page .button-link-btn { font-size: inherit; }
+.usage-page__name-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-8, 8px);
+  min-width: 0;
+}
+.usage-page__name-cell > .usage-page__name { min-width: 0; flex: 0 1 auto; }
+.usage-page__name-cell > .tooltip-wrapper { display: inline-flex; align-items: center; justify-content: center; align-self: center; flex-shrink: 0; }
+.usage-page__name-cell > .tooltip-wrapper { visibility: hidden; }
+.usage-page .table-report tbody tr:hover .usage-page__name-cell > .tooltip-wrapper { visibility: visible; }
+.usage-page__summary-info { display: block; color: var(--ds-text-label); }
+.usage-page__status[data-status="Active"] { color: var(--ds-status-success); }
+.usage-page__status[data-status="Paused"] { color: var(--ds-status-warning); }
+.usage-page__status[data-status="Completed"] { color: var(--ds-text-label); }
+.usage-page .table-report tbody tr:has([data-new-notification]) > td {
+  animation: usage-notification-highlight 4s ease-out both;
+}
+@keyframes usage-notification-highlight {
+  0%, 50% { background-color: var(--ds-icon-bg-orange-yellow); }
+  100% { background-color: transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .usage-page .table-report tbody tr:has([data-new-notification]) > td { animation: none; }
+}
+.dropdown-panel[style*="--usage-slack-team-menu"] .dropdown-footer-action-btn:hover,
+.dropdown-panel[style*="--usage-slack-team-menu"] .dropdown-footer-action-btn:focus-visible {
+  background: var(--ds-components-dropdown-hover-bg);
+}

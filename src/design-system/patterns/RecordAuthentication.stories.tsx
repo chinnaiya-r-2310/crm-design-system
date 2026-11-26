@@ -512,7 +512,7 @@ export const EmailVerification: Story = {
           await expect(senderList.getByText(group, { exact: true })).toBeInTheDocument();
         }
         const senderLabels = [
-          'My Email (alex.morgan@example.com)', 'Record Owner’s Email', 'Account Manager’s Email',
+          'alex.morgan@example.com', 'Record Owner’s Email', 'Account Manager’s Email',
           'Created By User’s Email', 'Sales Representative’s Email', 'Customer Success Manager’s Email',
           'Sales Team (sales@example.com)', 'Customer Support (support@example.com)',
           'Support Notifications (notifications@example.com)',
