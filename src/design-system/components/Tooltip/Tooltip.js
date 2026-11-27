@@ -59,6 +59,27 @@ export function Tooltip({
   const [rect, setRect] = useState(null);
   const [effectivePlacement, setEffectivePlacement] = useState(placement);
   const wrapperRef = useRef(null);
+  const keyboardInteractionRef = useRef(false);
+
+  // Autofocus and restored focus must not announce a tooltip on page/dialog open.
+  // Only focus moved during a keyboard interaction should open it.
+  useEffect(() => {
+    const doc = wrapperRef.current.ownerDocument;
+    const startKeyboardInteraction = (event) => {
+      if (!event.metaKey && !event.ctrlKey && !event.altKey) keyboardInteractionRef.current = true;
+    };
+    const endKeyboardInteraction = () => { keyboardInteractionRef.current = false; };
+    doc.addEventListener('keydown', startKeyboardInteraction, true);
+    doc.addEventListener('keyup', endKeyboardInteraction, true);
+    doc.addEventListener('pointerdown', endKeyboardInteraction, true);
+    doc.defaultView.addEventListener('blur', endKeyboardInteraction);
+    return () => {
+      doc.removeEventListener('keydown', startKeyboardInteraction, true);
+      doc.removeEventListener('keyup', endKeyboardInteraction, true);
+      doc.removeEventListener('pointerdown', endKeyboardInteraction, true);
+      doc.defaultView.removeEventListener('blur', endKeyboardInteraction);
+    };
+  }, []);
 
   const updatePosition = useCallback((event) => {
     if (wrapperRef.current) {
@@ -190,7 +211,7 @@ export function Tooltip({
       onMouseEnter={show}
       onMouseMove={followCursor ? updatePosition : undefined}
       onMouseLeave={hide}
-      onFocus={show}
+      onFocus={event => { if (keyboardInteractionRef.current) show(event); }}
       onBlur={hide}
       onKeyDown={event => { if (event.key === 'Escape') hide(); }}
     >

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tooltip } from './Tooltip';
 import { Button } from '../Button/Button';
-import { expect, fireEvent, waitFor, within } from 'storybook/test';
+import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Design System/Components/Tooltip',
@@ -77,10 +77,10 @@ export const WithDelay: Story = {
   ),
   play: async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'Hover and wait' });
-    fireEvent.mouseEnter(trigger.parentElement!);
+    fireEvent.mouseOver(trigger);
     expect(document.querySelector('[role="tooltip"]')).toBeNull();
     await waitFor(() => expect(document.querySelector('[role="tooltip"]')).not.toBeNull(), { timeout: 1500 });
-    fireEvent.mouseLeave(trigger.parentElement!);
+    fireEvent.mouseOut(trigger);
     await waitFor(() => expect(document.querySelector('[role="tooltip"]')).toBeNull());
   },
 };
@@ -199,6 +199,50 @@ export const ViewportEdges: Story = {
       await fireEvent.mouseOut(trigger);
       await waitFor(() => expect(body.queryByRole('tooltip')).not.toBeInTheDocument());
     }
+  },
+};
+
+/** Automatic or restored focus must not open a tooltip on page/dialog load. */
+export const FocusInteractions: Story = {
+  render: () => (
+    <div style={{ padding: 40 }}>
+      <button type="button">Before trigger</button>
+      <Tooltip content="Intentional interaction only">
+        <button type="button" autoFocus>Autofocused trigger</button>
+      </Tooltip>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    const trigger = canvas.getByRole('button', { name: 'Autofocused trigger' });
+    const before = canvas.getByRole('button', { name: 'Before trigger' });
+    await waitFor(() => expect(trigger).toHaveFocus());
+    expect(body.queryByRole('tooltip')).not.toBeInTheDocument();
+
+    // Hover remains available, even on an automatically focused control.
+    await fireEvent.mouseOver(trigger);
+    await waitFor(() => expect(body.getByRole('tooltip')).toBeVisible());
+    await fireEvent.mouseOut(trigger);
+    await waitFor(() => expect(body.queryByRole('tooltip')).not.toBeInTheDocument());
+
+    // Programmatic focus (including modal focus restoration) stays quiet.
+    before.focus();
+    trigger.focus();
+    expect(body.queryByRole('tooltip')).not.toBeInTheDocument();
+
+    // Deliberate keyboard navigation still reveals the tooltip.
+    before.focus();
+    await userEvent.tab();
+    await waitFor(() => expect(body.getByRole('tooltip')).toBeVisible());
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('tooltip')).not.toBeInTheDocument());
+    await userEvent.tab({ shift: true });
+    expect(before).toHaveFocus();
+    await userEvent.tab();
+    await waitFor(() => expect(body.getByRole('tooltip')).toBeVisible());
+    await userEvent.tab({ shift: true });
+    await waitFor(() => expect(body.queryByRole('tooltip')).not.toBeInTheDocument());
   },
 };
 

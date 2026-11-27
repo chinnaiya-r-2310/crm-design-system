@@ -28,8 +28,16 @@ const ColumnAddIcon = (props) => (
   </svg>
 );
 const ExpandIcon = crmIconMap.CrmExpand;
-const FilterIcon = crmIconMap.CrmFilter;
-const SortIcon = crmIconMap.CrmArrowUpDownSort;
+const FilterIcon = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="26.200 598.600 16.500 17.000" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M33.2,615h-.6c-.4-.2-.7-.7-.7-1.2v-3.7c0-1.2-.5-2.4-1.4-3.2l-2.8-2.6c-.6-.6-1-1.4-1-2.2,0-1.7,1.3-3,3-3h9.6c1.6,0,2.9,1.3,2.9,2.9s-.4,1.7-1,2.3l-3,2.6c-1,.8-1.5,2-1.5,3.3v1.5c0,.8-.4,1.5-1,1.9l-1.7,1.2c-.3.2-.6.3-.8.3,0,0,0-.1,0-.1ZM29.7,600.5c-.8,0-1.5.7-1.5,1.5s.2.8.5,1.1l2.8,2.6c1.2,1.1,1.9,2.7,1.9,4.3v3.4l1.4-1c.2-.2.4-.4.4-.7v-1.5c0-1.7.8-3.3,2.1-4.4l3-2.6c.3-.3.5-.7.5-1.1,0-.8-.6-1.4-1.4-1.4h-9.7v-.2h0Z" />
+  </svg>
+);
+const SortIcon = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="110.367 1465.900 12.623 11.100" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M116.3,1468.7c.3.3.3.8,0,1.1,0,0-.3.2-.5.2s-.4,0-.5-.2l-.8-.8v6.7c0,.4-.3.8-.8.8s-.8-.3-.8-.8v-6.7l-.8.8c-.3.3-.8.3-1.1,0s-.3-.8,0-1.1l2-2c.3-.3.8-.3,1.1,0l2.2,2h0ZM122.3,1473.1c-.3-.3-.8-.3-1.1,0l-.8.8v-6.7c0-.4-.3-.8-.8-.8s-.8.3-.8.8v6.7l-.8-.8c-.3-.3-.8-.3-1.1,0s-.3.8,0,1.1l2,2s.3.2.5.2.4,0,.5-.2l2-2c.7-.3.7-.8.4-1.1Z" />
+  </svg>
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -156,7 +164,7 @@ function FieldHistoryTrackingModal({
     <Modal
         isOpen={isOpen}
         title={`${fieldName} History Tracking`}
-        description="Select columns to display."
+        description="Select columns to display"
         onClose={onClose}
         onCancel={onClose}
         onSave={() => onDone?.({ requiredOrder, selected, trackDurationIn })}
@@ -424,23 +432,33 @@ function FieldPropertiesDemo({ fieldName = 'Email' }) {
         }
       >
         <style>{`
-          .mc-modal-dialog .modal-body { gap: 0; margin-top: -12px; overflow: hidden; }
+          .mc-modal-dialog .modal-body { gap: 0; margin-top: -12px; overflow-y: auto; }
           .mc-modal-dialog .dropdown-root { flex-shrink: 0; }
           .mc-modal-dialog .fht-columns-label {
+            position: sticky;
+            /* Cover the modal body's 4px focus clearance while stuck. */
+            top: -4px;
+            padding-top: 4px;
+            z-index: 3;
+            background: var(--ds-bg-common-white);
             flex-shrink: 0;
             margin: 0;
             padding-bottom: 6px;
             font-weight: var(--ds-font-weight-regular);
           }
-          .mc-modal-dialog .mc--embedded { flex: 1; min-height: 0; }
+          .mc-modal-dialog .mc--embedded { flex: none; min-height: 0; display: contents; }
           .mc-modal-dialog .mc--embedded .mc-search {
-            position: relative;
-            top: auto;
+            position: sticky;
+            top: calc(var(--ds-line-height-base) + 6px);
+            /* Keep the focus shadow above the sticky label while scrolling. */
+            z-index: 4;
+            margin-bottom: 0;
             flex-shrink: 0;
           }
           .mc-modal-dialog .mc--embedded .mc-list {
             min-height: 0;
-            overflow-y: auto;
+            flex-shrink: 0;
+            overflow: visible;
             padding-left: var(--ds-line-height-sm);
             margin-left: calc(-1 * var(--ds-line-height-sm));
           }
@@ -464,7 +482,7 @@ function FieldPropertiesDemo({ fieldName = 'Email' }) {
           style={{ marginBottom: 'var(--ds-font-size-base)' }}
         />
         <p className="fht-columns-label" style={label}>
-          Select columns to display.
+          Select columns to display
         </p>
         <ManageColumns
           variant="modal"
@@ -715,12 +733,24 @@ function FieldHistorySection({ plainFirstColumn = false }) {
   const [sortDraft, setSortDraft] = useState(sort);
   const settingsRef = useRef(null);
   const panelRef = useRef(null);
+  const filtersRef = useRef(null);
+
+  useEffect(() => {
+    if (expanded && filtersOpen) {
+      filtersRef.current?.querySelector('input[type="search"]')?.focus({ preventScroll: true });
+    }
+  }, [expanded, filtersOpen]);
 
   const openPanel = () => {
     const r = settingsRef.current.getBoundingClientRect();
     setDraft(applied);
     setPanel({ top: r.bottom + 8, right: Math.max(8, window.innerWidth - r.right) });
   };
+
+  // Focus the search on every opening, including in the expanded view.
+  useEffect(() => {
+    if (panel) panelRef.current?.querySelector('input[type="search"]')?.focus({ preventScroll: true });
+  }, [panel]);
 
   // Close on outside click or Escape.
   useEffect(() => {
@@ -787,6 +817,8 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         : String(a[key]).localeCompare(String(b[key]));
     return sort.direction === 'ascending' ? compare : -compare;
   });
+  const hasFilters = Object.values(filters).some(values => values.length > 0);
+  const hasSort = Boolean(sort.key);
   const sortOptions = [{ label: 'None', value: '' }, ...SETTINGS_FIELDS.map(field => ({
     label: field.label, value: field.key,
   }))];
@@ -830,32 +862,33 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         width="min(90vw, calc(100vw - 48px))"
         showFooter={false}
         showClose
-        headerActions={
-          <Tooltip content="Manage Column" placement="top" followCursor variant="black" disabled={!!panel}>
-            <button
-              ref={expanded ? settingsRef : undefined}
-              type="button"
-              className="crm-screens__header-icon"
-              aria-label="Manage Column"
-              aria-haspopup="dialog"
-              aria-expanded={!!panel}
-              onClick={openPanel}
-            >
-              <ColumnAddIcon width={16} height={16} aria-hidden="true" />
-            </button>
-          </Tooltip>
-        }
       >
         <div className="fht-expanded-slider__toolbar">
-          <Button variant="ghost-blue" className="fht-expanded-slider__tool" aria-expanded={filtersOpen}
-            aria-controls="fht-history-filters" frontIcon={<FilterIcon width={18} height={18} />}
-            onClick={() => setFiltersOpen(open => !open)}>Filter</Button>
-          <Button variant="ghost-blue" className="fht-expanded-slider__tool" aria-expanded={sortOpen}
-            aria-haspopup="dialog" frontIcon={<SortIcon width={16} height={16} />}
-            onClick={() => { setSortDraft(sort); setSortOpen(true); }}>Sort</Button>
+          <div className="fht-expanded-slider__tool-group" data-applied={hasFilters}>
+            <Button variant="ghost-blue" className="fht-expanded-slider__tool" aria-expanded={filtersOpen}
+              aria-label={hasFilters ? 'Filter (applied)' : 'Filter'}
+              aria-controls="fht-history-filters" frontIcon={<span className="fht-expanded-slider__tool-icon"><FilterIcon width={16} height={16} /></span>}
+              onClick={() => setFiltersOpen(open => !open)}>Filter</Button>
+            {hasFilters && <button type="button" className="fht-expanded-slider__clear-tool"
+              aria-label="Clear filters" onClick={() => setFilters({})}>×</button>}
+          </div>
+          <div className="fht-expanded-slider__tool-group" data-applied={hasSort}>
+            <Button variant="ghost-blue" className="fht-expanded-slider__tool" aria-expanded={sortOpen}
+              aria-label={hasSort ? 'Sort (applied)' : 'Sort'}
+              aria-haspopup="dialog" frontIcon={<span className="fht-expanded-slider__tool-icon"><SortIcon width={12} height={12} /></span>}
+              onClick={() => { setSortDraft(sort); setSortOpen(true); }}>Sort</Button>
+            {hasSort && <button type="button" className="fht-expanded-slider__clear-tool"
+              aria-label="Clear sort" onClick={() => {
+                const cleared = { key: '', direction: 'ascending' };
+                setSort(cleared);
+                setSortDraft(cleared);
+              }}>×</button>}
+          </div>
         </div>
         <div className="fht-expanded-slider__layout">
-          {filtersOpen && <aside id="fht-history-filters" className="fht-expanded-slider__filters" aria-label="Filter Field History by">
+          <div className="fht-expanded-slider__filter-shell" data-open={filtersOpen}
+            inert={!filtersOpen} aria-hidden={!filtersOpen}>
+          <aside ref={filtersRef} id="fht-history-filters" className="fht-expanded-slider__filters" aria-label="Filter Field History by">
             <h3>Filter Field History by</h3>
             <Input variant="search" width="100%" placeholder="Search" aria-label="Search history filters"
               value={filterSearch} onChange={event => setFilterSearch(event.target.value)} onClear={() => setFilterSearch('')} />
@@ -879,10 +912,29 @@ function FieldHistorySection({ plainFirstColumn = false }) {
               {!SETTINGS_FIELDS.some(field => field.label.toLowerCase().includes(filterSearch.toLowerCase()))
                 && <p role="status">No filters found</p>}
             </div>
-          </aside>}
+          </aside>
+          </div>
           <div className="fht-expanded-slider__content">
             <div className="crm-screens__fh-table">
-              <SetupTable columns={columns} rows={sliderRows} />
+              <SetupTable columns={columns.map((column, index) => index === columns.length - 1 ? {
+                ...column,
+                label: <span className="fht-expanded-slider__column-header">
+                  {column.label}
+                  <Tooltip content="Manage Column" placement="top" followCursor variant="black" disabled={!!panel}>
+                    <button
+                      ref={expanded ? settingsRef : undefined}
+                      type="button"
+                      className="crm-screens__header-icon"
+                      aria-label="Manage Column"
+                      aria-haspopup="dialog"
+                      aria-expanded={!!panel}
+                      onClick={openPanel}
+                    >
+                      <ColumnAddIcon width={16} height={16} aria-hidden="true" />
+                    </button>
+                  </Tooltip>
+                </span>,
+              } : column)} rows={sliderRows} />
             </div>
             <div className="fht-expanded-slider__summary">
               <span>Total Records <strong>{sliderRows.length}</strong></span>
@@ -895,15 +947,15 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         width="min(460px, calc(100vw - 64px))" showFooter={false} showClose
         closeLabel="Close sort" onClose={() => setSortOpen(false)}>
         <div className="fht-sort-popover__fields">
-          <Dropdown width="100%" triggerAriaLabel="Sort by field" value={sortDraft.key} options={sortOptions}
+          <Dropdown size="sm" width="100%" triggerAriaLabel="Sort by field" value={sortDraft.key} options={sortOptions}
             onChange={key => setSortDraft(current => ({ ...current, key }))} />
-          <Dropdown width="100%" triggerAriaLabel="Sort direction" value={sortDraft.direction} disabled={!sortDraft.key}
+          <Dropdown size="sm" width="100%" triggerAriaLabel="Sort direction" value={sortDraft.direction} disabled={!sortDraft.key}
             options={[{ label: 'Ascending', value: 'ascending' }, { label: 'Descending', value: 'descending' }]}
             onChange={direction => setSortDraft(current => ({ ...current, direction }))} />
         </div>
         <div className="fht-sort-popover__actions">
-          <Button variant="default" onClick={() => setSortOpen(false)}>Cancel</Button>
-          <Button disabled={!sortDraft.key && !sort.key} onClick={() => { setSort(sortDraft); setSortOpen(false); }}>Apply</Button>
+          <Button size="sm" variant="default" onClick={() => setSortOpen(false)}>Cancel</Button>
+          <Button size="sm" disabled={!sortDraft.key && !sort.key} onClick={() => { setSort(sortDraft); setSortOpen(false); }}>Apply</Button>
         </div>
       </Modal>
       {visibleRows.length > 0 ? (
