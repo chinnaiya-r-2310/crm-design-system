@@ -56,10 +56,30 @@ function computeSpans(rows, key) {
   return info;
 }
 
-function ReportTable({ columns, rows, emptyMessage, width }) {
-  const spans = Object.fromEntries(
-    columns.filter(col => col.merge).map(col => [col.key, computeSpans(rows, col.key)])
-  );
+function ReportTable({ columns, rows, emptyMessage, width, groups }) {
+  const renderRows = (items, collapsed) => {
+    const spans = Object.fromEntries(
+      columns.filter(col => col.merge).map(col => [col.key, computeSpans(items, col.key)])
+    );
+    return items.map((row, i) => (
+      <tr key={row.id ?? i}>
+        {columns.map(col => {
+          const info = spans[col.key]?.[i];
+          if (info?.skip) return null;
+          return (
+            <td key={col.key} rowSpan={info?.span > 1 ? info.span : undefined}
+              style={{ textAlign: col.align ?? 'left' }}>
+              {collapsed === undefined ? contentOf(col, row, i) : (
+                <div className="table-report-group-reveal" data-collapsed={collapsed || undefined} inert={collapsed || undefined}>
+                  <div><div className="table-report-group-content">{contentOf(col, row, i)}</div></div>
+                </div>
+              )}
+            </td>
+          );
+        })}
+      </tr>
+    ));
+  };
   const contentOf = (col, row, i) => (col.render ? col.render(row[col.key], row, i) : String(row[col.key] ?? ''));
 
   return (
@@ -74,36 +94,14 @@ function ReportTable({ columns, rows, emptyMessage, width }) {
             ))}
           </tr>
         </thead>
-        <tbody>
-          {rows.length === 0 ? (
-            <tr>
-              <td className="table-report-empty" colSpan={columns.length}>{emptyMessage}</td>
-            </tr>
-          ) : rows.map((row, i) => (
-            <tr key={row.id ?? i}>
-              {columns.map(col => {
-                if (!col.merge) {
-                  return (
-                    <td key={col.key} style={{ textAlign: col.align ?? 'left' }}>
-                      {contentOf(col, row, i)}
-                    </td>
-                  );
-                }
-                const info = spans[col.key][i];
-                if (info.skip) return null;
-                return (
-                  <td
-                    key={col.key}
-                    rowSpan={info.span > 1 ? info.span : undefined}
-                    style={{ textAlign: col.align ?? 'left' }}
-                  >
-                    {contentOf(col, row, i)}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
+        {rows.length === 0 ? (
+          <tbody><tr><td className="table-report-empty" colSpan={columns.length}>{emptyMessage}</td></tr></tbody>
+        ) : groups ? groups.map(group => (
+          <tbody key={group.id} className="table-report-group-body" data-collapsed={group.collapsed || undefined}>
+            <tr className="table-report-group"><td colSpan={columns.length}>{group.header}</td></tr>
+            {renderRows(group.rows, !!group.collapsed)}
+          </tbody>
+        )) : <tbody>{renderRows(rows)}</tbody>}
       </table>
     </div>
   );
@@ -121,6 +119,7 @@ export function SetupTable({
   maxHeight,
   emptyMessage = 'No data',
   variant = 'setup',
+  groups,
   resizable = true,
 }) {
   // ── Resizable column widths ───────────────────────────────────────────────
@@ -216,7 +215,7 @@ export function SetupTable({
   );
 
   if (variant === 'report') {
-    return <ReportTable columns={columnDefs} rows={rows} emptyMessage={emptyMessage} width={width} />;
+    return <ReportTable columns={columnDefs} rows={rows} emptyMessage={emptyMessage} width={width} groups={groups} />;
   }
 
   // ── Render ────────────────────────────────────────────────────────────────

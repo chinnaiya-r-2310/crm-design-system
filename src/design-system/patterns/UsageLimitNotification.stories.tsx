@@ -12,12 +12,13 @@ import { Checkbox } from '../components/Checkbox/Checkbox';
 import { Button } from '../components/Button/Button';
 import { MergeField } from '../components/MergeField/MergeField';
 import { Tooltip } from '../components/Tooltip/Tooltip';
-import { CrmAlertInfo, Info, More, Search } from '../foundations/icons/Icons';
+import { ChevronDownFilled, CrmAlertInfo, Info, More, Search } from '../foundations/icons/Icons';
 import { NextGenTopBand } from '../components/NextGenTopBand/NextGenTopBand';
 import { VerticalTabs } from '../components/VerticalTabs/VerticalTabs';
 import { SETUP_MENU_ITEMS } from '../components/VerticalTabs/setupMenuItems';
 import { Tabs } from '../components/Tabs/Tabs';
 import { SetupTable } from '../components/Table/Table';
+import { SortingHat } from '../components/SortingHat/SortingHat';
 import './UsageLimitNotification.page.css';
 import { USAGE_FEATURES } from './UsageLimitNotification.data';
 import { TemplateDialog } from './TemplateDialog';
@@ -40,6 +41,10 @@ const meta: Meta = {
   parameters: {
     layout: 'fullscreen',
     docs: {
+      // Group headers contain React elements inside table data. Dynamic source
+      // generation traverses their owner trees and can exhaust the browser heap.
+      // Use the story's static source instead; canvas rendering is unchanged.
+      source: { type: 'code' },
       description: {
         component:
           'Modal pattern for creating usage limit notifications — ' +
@@ -228,18 +233,11 @@ function TagPlaceholder({ tags }: { tags: Array<{ label: string; count: number }
 // Story
 // ─────────────────────────────────────────────────────────────────────────────
 
-const USAGE_USER_AVATARS: Record<string, string> = {
-  'Priya Nair': 'user_03.jpg',
-  'Arjun Kumar': 'user_04.jpg',
-  'Meera Iyer': 'user_07.jpg',
-  'Sam Carter': 'user_08.jpg',
-};
-
 const CURRENT_USAGE_USER = 'Priya Nair';
 
 type UsageListRow = {
   id: string; feature: string; name: string; creator?: string; date?: string; time?: string;
-  modifier?: string; modifiedDate?: string; modifiedTime?: string;
+  modifier?: string; modifiedDate?: string; modifiedTime?: string; lastTriggeredOn?: string;
   channels?: string[]; status?: 'Active' | 'Paused' | 'Completed'; system?: boolean;
   summary?: string;
   newlyAdded?: boolean;
@@ -257,19 +255,35 @@ function UsageRowActions({ row, onAction }: { row: UsageListRow; onAction: (acti
   return <span className="usage-page__row-actions"><Dropdown width={27} triggerIcon={<More />}
     triggerAriaLabel={`More options for ${row.name}`} value="" panelStyle={{ width: 160, '--usage-actions-menu': 1 }}
     options={[
-      { value: 'edit', label: 'Edit' }, { value: 'clone', label: 'Clone' },
+      { value: 'edit', label: 'Edit', disabled: row.system, disabledTooltip: 'System-defined notifications cannot be edited.' },
+      { value: 'clone', label: 'Clone' },
       ...(!row.system && row.status === 'Active' ? [{ value: 'pause', label: 'Pause' }] : []),
       ...(!row.system && row.status === 'Paused' ? [{ value: 'resume', label: 'Resume' }] : []),
       { value: 'delete', label: 'Delete', disabled: row.system, disabledTooltip: 'System-defined notifications cannot be deleted.' },
     ]} onChange={(action: RowAction) => onAction(action, row)} /></span>;
 }
 
-const USAGE_LIST_ROWS: UsageListRow[] = [
+// Seed partial trigger history deterministically, rounding to the nearest row.
+function withTriggerHistory(rows: UsageListRow[]): UsageListRow[] {
+  const totals = {
+    system: rows.filter(row => row.system).length,
+    user: rows.filter(row => !row.system).length,
+  };
+  const seen = { system: 0, user: 0 };
+  return rows.map(row => {
+    const group = row.system ? 'system' : 'user';
+    const populated = seen[group]++ < Math.round(totals[group] * (row.system ? 0.35 : 0.7));
+    return { ...row, lastTriggeredOn: populated ? 'Nov 26, 2026, 10:30 AM' : undefined };
+  });
+}
+
+const USAGE_LIST_ROWS: UsageListRow[] = withTriggerHistory([
   ...['60%', '5000', '4000', '3000', '2500'].map((value, index) => ({
     id: `api-${index}`, feature: 'API', name: `Reached add-on limit ${value}`,
     creator: index > 2 ? 'System' : index === 2 ? 'Arjun Kumar' : 'Priya Nair',
     modifier: index > 2 ? 'System' : index === 2 ? 'Priya Nair' : 'Arjun Kumar',
     date: index > 2 ? 'Jan 12, 2026' : 'Jul 3, 2026', system: index > 2,
+    lastTriggeredOn: 'Nov 26, 2026, 10:30 AM',
     channels: ['Push Notification', 'Emails', 'Zoho Cliq', 'Slack'], status: 'Active' as const,
   })),
   { id: 'functions', feature: 'Functions', name: 'Reached daily limit 5000 calls', creator: 'Meera Iyer', date: 'Jul 3, 2026', channels: ['Push Notification', 'Emails', 'Zoho Cliq', 'Slack'], status: 'Active' },
@@ -286,15 +300,35 @@ const USAGE_LIST_ROWS: UsageListRow[] = [
   { id: 'webhooks-allocation-warning', feature: 'Webhooks', name: 'Webhook allocation warning', creator: 'Priya Nair', modifier: 'Arjun Kumar', date: 'Jun 29, 2026', channels: ['Push Notification', 'Emails', 'Zoho Cliq', 'Slack'], status: 'Paused' },
   { id: 'data-storage-usage-review', feature: 'Data storage', name: 'Data storage usage review', creator: 'Arjun Kumar', modifier: 'Sam Carter', date: 'Jun 28, 2026', channels: ['Emails', 'Zoho Cliq'], status: 'Completed' },
   { id: 'file-storage-allocation-warning', feature: 'File storage', name: 'File storage allocation warning', creator: 'Meera Iyer', modifier: 'Priya Nair', date: 'Jun 28, 2026', channels: ['Push Notification', 'Emails', 'Slack'], status: 'Active' },
-];
+]);
 
-const personCell = (field: 'creator' | 'modifier') => (_value: unknown, row: UsageListRow) => {
+// Initial setup: built-in notifications only, before any user-defined rules.
+const INITIAL_USAGE_LIST_ROWS: UsageListRow[] = withTriggerHistory(Object.values(USAGE_FEATURES)
+  .filter(feature => !feature.blank)
+  .flatMap(feature => ['60%', '70%', '80%', '85%', '90%', '95%', '100%'].map(threshold => ({
+    id: `system-${feature.label}-${threshold}`,
+    feature: feature.label,
+    name: `${feature.label} usage reached ${threshold}`,
+    creator: 'System', modifier: 'System', date: 'Jan 12, 2026', system: true,
+    channels: ['Push Notification', 'Emails'], status: 'Active' as const,
+  }))).slice(0, 47));
+
+const V2_USAGE_LIST_ROWS = [...USAGE_LIST_ROWS.filter(row => !row.system), ...INITIAL_USAGE_LIST_ROWS];
+
+const USAGE_USER_AVATARS: Record<string, string> = {
+  'Priya Nair': 'user_03.jpg',
+  'Arjun Kumar': 'user_04.jpg',
+  'Meera Iyer': 'user_07.jpg',
+  'Sam Carter': 'user_08.jpg',
+};
+
+const lastModifiedCell = (_value: unknown, row: UsageListRow) => {
   if (row.system) return '-';
-  const user = (field === 'modifier' ? row.modifier : row.creator) ?? row.creator;
-  const date = (field === 'modifier' ? row.modifiedDate : row.date) ?? row.date;
-  const time = (field === 'modifier' ? row.modifiedTime : row.time) ?? row.time;
+  const user = row.modifier ?? row.creator;
+  const date = row.modifiedDate ?? row.date;
+  const time = row.modifiedTime ?? row.time;
   const details = `${user} on ${date}${time ? ` ${time}` : ''}`;
-  const avatar = user ? USAGE_USER_AVATARS[user] : undefined;
+  const avatar = USAGE_USER_AVATARS[user];
   return (
     <Tooltip variant="white" placement="top" followCursor wrapperStyle={{ display: 'inline-flex', maxWidth: '100%' }} content={details}>
       <span className="usage-page__person" tabIndex={0} aria-label={details}>
@@ -352,19 +386,44 @@ const usageListColumns = (onAction: (action: RowAction, row: UsageListRow) => vo
     </span> },
   { key: 'feature', label: 'Feature', width: '13%' },
   { key: 'channels', label: 'Notify via', width: '22%', render: (_value: unknown, row: UsageListRow) => <UsageChannelsCell channels={row.channels} /> },
-  { key: 'creator', label: 'Created by', width: '14%', render: personCell('creator') },
-  { key: 'modifier', label: 'Modified by', width: '14%', render: personCell('modifier') },
+  { key: 'modifier', label: 'Last Modified', width: '14%', render: lastModifiedCell },
+  { key: 'lastTriggeredOn', label: 'Last Triggered On', width: 200, render: (value: string | undefined) => <span className="usage-page__triggered-date">{value || '-'}</span> },
   { key: 'status', label: 'Status', width: 120, render: (_value: unknown, row: UsageListRow) => <span className="usage-page__status" data-status={row.status}>{row.status}</span> },
 ];
 
 export const CreateNotification: Story = {
-  name: 'Create Notification',
+  name: 'V1',
   play: async ({ canvasElement }) => {
     // Only auto-open the modal for the test runner or when ?playModal is in the URL,
     // so the story page loads without the modal for normal viewing.
     const shouldPlay = navigator.webdriver || new URLSearchParams(window.location.search).has('playModal');
     if (!shouldPlay) return;
     const page = within(canvasElement.ownerDocument.body);
+    const userCount = USAGE_LIST_ROWS.filter(row => !row.system).length;
+    const systemCount = USAGE_LIST_ROWS.filter(row => row.system).length;
+    const userGroup = page.getByRole('button', { name: `User Defined, ${userCount} notifications` });
+    const systemGroup = page.getByRole('button', { name: `System Defined, ${systemCount} notifications` });
+    await expect(userGroup).toHaveAttribute('aria-expanded', 'true');
+    await expect(systemGroup).toHaveAttribute('aria-expanded', 'true');
+    await expect(userGroup.querySelector('.usage-page__group-count')).toHaveTextContent(String(userCount));
+    const countBounds = userGroup.querySelector('.usage-page__group-count')!.getBoundingClientRect();
+    await expect(countBounds.width).toBeGreaterThan(countBounds.height);
+    await userEvent.click(userGroup);
+    await expect(userGroup).toHaveAttribute('aria-expanded', 'false');
+    await waitFor(() => expect(page.getByText('Slow webhook responses', { exact: true })).not.toBeVisible());
+    await expect(page.getByRole('button', { name: 'Storage above 85%', exact: true })).toBeVisible();
+    userGroup.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(userGroup).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(systemGroup);
+    await waitFor(() => expect(page.getByText('Storage above 85%', { exact: true })).not.toBeVisible());
+    await expect(page.getByRole('button', { name: 'Slow webhook responses', exact: true })).toBeVisible();
+    await userEvent.click(systemGroup);
+    const listSearch = page.getByRole('searchbox', { name: 'Search notifications' });
+    await userEvent.type(listSearch, 'Slow webhook responses');
+    await expect(page.getByRole('button', { name: 'User Defined, 1 notifications' })).toBeVisible();
+    await expect(page.queryByRole('button', { name: /System Defined, / })).not.toBeInTheDocument();
+    await userEvent.clear(listSearch);
     await userEvent.click(page.getByRole('button', { name: 'Create Notification', exact: true }));
     const nameInput = page.getByRole('textbox', { name: 'Notification Name' });
     const nameLabel = page.getByText('Notification Name', { selector: 'label' });
@@ -516,7 +575,7 @@ export const CreateNotification: Story = {
     const [featureFilter, setFeatureFilter] = useState('all');
     const [pageTab, setPageTab] = useState('usage');
     const [sectionTab, setSectionTab] = useState('notifications');
-    const [savedRows, setSavedRows] = useState<UsageListRow[]>(() => USAGE_LIST_ROWS.map(row => {
+    const [savedRows, setSavedRows] = useState<UsageListRow[]>(() => (args.listState === 'initial' ? INITIAL_USAGE_LIST_ROWS : addExternalAppsVariant ? V2_USAGE_LIST_ROWS : USAGE_LIST_ROWS).map(row => {
       const featureKey = Object.entries(USAGE_FEATURES).find(([, item]) => item.label.toLowerCase() === row.feature.toLowerCase())?.[0];
       const trigger = createUsageTrigger(featureKey);
       // Seed demo rules with real editable criteria, shared by their hover summary.
@@ -535,7 +594,7 @@ export const CreateNotification: Story = {
           users: [], channels: [], message: usageNotificationMessage(trigger) },
       };
     }));
-    const [typeFilter, setTypeFilter] = useState('all');
+    const [collapsedGroups, setCollapsedGroups] = useState<string[]>(() => args.listState === 'initial' ? ['system'] : []);
     const [statusFilter, setStatusFilter] = useState('all');
     const [search, setSearch] = useState('');
     const [editingId, setEditingId] = useState<string>();
@@ -558,7 +617,6 @@ export const CreateNotification: Story = {
     }, [newNotificationId]);
     const visibleRows = savedRows.filter(row =>
       (featureFilter === 'all' || row.feature === featureFilter) &&
-      (typeFilter === 'all' || (typeFilter === 'system' ? row.system : !row.system)) &&
       (statusFilter === 'all' || row.status === statusFilter) &&
       `${row.name} ${row.feature}`.toLowerCase().includes(search.trim().toLowerCase()));
     const notificationNameId = useId();
@@ -697,6 +755,7 @@ export const CreateNotification: Story = {
     }, [open, content, showCriteria, externalAppsEnabled, pushEmailEnabled, showMessage]);
 
     const openEditor = (row?: UsageListRow, clone = false) => {
+      if (row?.system && !clone) return;
       setEditingId(clone ? undefined : row?.id);
       setNotificationName(row ? `${row.name}${clone ? '_Cloned' : ''}` : '');
       const config = row?.config;
@@ -816,10 +875,6 @@ export const CreateNotification: Story = {
                       panelStyle={{ width: 'max-content', minWidth: 150, maxWidth: 'calc(100vw - 32px)' }}
                       options={[{ value: 'all', label: 'All Features' }, ...FEATURE_OPTIONS.map(item => ({ value: item.label, label: item.label }))]}
                       onChange={setFeatureFilter} />
-                    <Dropdown triggerAriaLabel="Filter notifications by type" width={150} value={typeFilter}
-                      panelStyle={{ width: 'max-content', minWidth: 150, maxWidth: 'calc(100vw - 32px)' }}
-                      options={[{ value: 'all', label: 'All Types' }, { value: 'system', label: 'System Defined' }, { value: 'user', label: 'User Defined' }]}
-                      onChange={setTypeFilter} />
                     <Dropdown triggerAriaLabel="Filter notifications by status" width={150} value={statusFilter}
                       options={[{ value: 'all', label: 'All Status' }, ...['Active', 'Paused', 'Completed'].map(status => ({ value: status, label: status }))]}
                       onChange={setStatusFilter} />
@@ -827,12 +882,35 @@ export const CreateNotification: Story = {
                   <Button variant="primary" className="usage-page__create-notification" onClick={() => openEditor()}>Create Notification</Button>
                 </div>
                 <div className="usage-page__table-region" role="region" aria-label="Notifications table" tabIndex={0}>
-                  <SetupTable variant="report" width="100%" columns={columns} rows={visibleRows} emptyMessage="No notifications found" />
+                  <SetupTable variant="report" width="100%" columns={columns} rows={visibleRows} emptyMessage="No notifications found"
+                    groups={[
+                      { id: 'user', label: 'User Defined', system: false },
+                      { id: 'system', label: 'System Defined', system: true },
+                    ].map(group => {
+                      const rows = visibleRows.filter(row => !!row.system === group.system);
+                      const collapsed = collapsedGroups.includes(group.id);
+                      return {
+                        id: group.id, rows, collapsed,
+                        header: <button type="button" className="usage-page__group" aria-expanded={!collapsed}
+                          aria-label={`${group.label}, ${rows.length} notifications`}
+                          onClick={() => setCollapsedGroups(current => collapsed
+                            ? current.filter(id => id !== group.id) : [...current, group.id])}>
+                          <ChevronDownFilled aria-hidden="true" className="usage-page__group-chevron" />
+                          <span>{group.label}</span>
+                          <span className="usage-page__group-count" aria-hidden="true">{rows.length}</span>
+                        </button>,
+                      };
+                    }).filter(group => group.rows.length > 0)} />
                 </div>
               </section> : <section className="usage-page__content"><h1>Usage Limits</h1><p>Configure usage alerts in the Notification Configurator tab.</p></section>}
             </> : <section className="usage-page__content"><h1>Admin tool</h1><p>Select Usage Limits to manage usage notifications.</p></section>}
           </main>
         </div>
+
+        <SortingHat variations={[
+          { label: 'Default', storyId: 'work-items-usage-limit-notification--add-external-apps' },
+          { label: 'Initial State', storyId: 'work-items-usage-limit-notification--initial-state' },
+        ]} />
 
         {/* ── Zoho Cliq Notification sub-modal ─────────────────────────── */}
         <Modal
@@ -1357,7 +1435,7 @@ export const CreateNotification: Story = {
 };
 
 export const AddExternalApps: Story = {
-  name: 'Create Notification — Add External Apps',
+  name: 'V2',
   args: { externalAppsVariant: 'dropdown' },
   render: CreateNotification.render,
   play: async ({ canvasElement }) => {
@@ -1512,7 +1590,7 @@ export const AddExternalApps: Story = {
     await userEvent.click(page.getByRole('button', { name: 'Save', exact: true }));
     const newName = page.getByRole('button', { name: 'Reached add-on limit 60%_Cloned', exact: true });
     const newRow = newName.closest('tr')!;
-    await expect(newRow).toBe(canvasElement.querySelector('.table-report tbody tr'));
+    await expect(newRow).toBe(canvasElement.querySelector('.table-report tbody tr:not(.table-report-group)'));
     const newCell = newName.closest('td')!;
     await expect(getComputedStyle(newCell).backgroundColor).toBe('rgb(253, 250, 222)');
     const highlight = newCell.getAnimations()[0];
@@ -1523,5 +1601,26 @@ export const AddExternalApps: Story = {
     await expect(getComputedStyle(newCell).backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
     await waitFor(() => expect(newRow.querySelector('[data-new-notification]')).toBeNull(), { timeout: 6000 });
     await expect(getComputedStyle(newCell).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+  },
+};
+
+export const InitialState: Story = {
+  args: { externalAppsVariant: 'dropdown', listState: 'initial' },
+  render: CreateNotification.render,
+  play: async ({ canvasElement }) => {
+    if (!navigator.webdriver && !new URLSearchParams(window.location.search).has('playModal')) return;
+    const page = within(canvasElement);
+    const group = page.getByRole('button', { name: 'System Defined, 47 notifications' });
+    await expect(group).toBeVisible();
+    await expect(page.queryByRole('button', { name: /User Defined, / })).not.toBeInTheDocument();
+    await expect(group.querySelector('.usage-page__group-count')).toHaveTextContent('47');
+    await expect(getComputedStyle(group.querySelector('.usage-page__group-count')!).fontSize).toBe('12px');
+    await expect(getComputedStyle(group.closest('td')!).borderBottomWidth).toBe('0px');
+    await expect(group).toHaveAttribute('aria-expanded', 'false');
+    await expect(page.queryByRole('button', { name: 'API usage reached 60%', exact: true })).not.toBeInTheDocument();
+    await userEvent.click(group);
+    await waitFor(() => expect(page.getByRole('button', { name: 'API usage reached 60%', exact: true })).toBeVisible());
+    await userEvent.click(group);
+    await waitFor(() => expect(page.getByText('API usage reached 60%', { exact: true })).not.toBeVisible());
   },
 };

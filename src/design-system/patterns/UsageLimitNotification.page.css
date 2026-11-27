@@ -141,7 +141,7 @@
 .usage-page .table-report { min-width: 960px; table-layout: fixed; border: 0; border-radius: 0; overflow: visible; }
 .usage-page .table-report th, .usage-page .table-report td { border-right: 0; padding: 0 calc(var(--ds-line-height-base) * 0.6); vertical-align: middle; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .usage-page .table-report th:first-child, .usage-page .table-report td:first-child { padding: 0; overflow: visible; }
-.usage-page .table-report tbody tr:not(:has(.table-report-empty)):hover,
+.usage-page .table-report tbody tr:not(.table-report-group):not(:has(.table-report-empty)):hover,
 .usage-page .table-report tbody tr:has(.usage-page__row-actions .dropdown-trigger:focus-visible),
 .usage-page .table-report tbody tr:has(.usage-page__row-actions .dropdown-trigger[data-open]) { background: var(--ds-components-table-table-hover); }
 /* Keep the sticky header and notification rows the same height. */
@@ -172,10 +172,40 @@
 .usage-notification-modal .mergefield-hint { color: var(--ds-text-label); font-size: var(--ds-font-size-md); line-height: var(--ds-line-height-base); }
 .usage-page .table-report thead th { position: sticky; top: 0; z-index: 1; background: var(--ds-bg-common-card); font-weight: var(--ds-font-weight-medium); }
 .usage-page .table-report tr:has(.usage-page__group) { background: var(--ds-bg-scale-bg2); }
-.usage-page .table-report tr:has(.usage-page__group) td { padding-block: 0; }
+.usage-page .table-report tr:has(.usage-page__group) td { padding-block: 0; border-bottom: thin solid var(--ds-border-lighter); }
+.usage-page .table-report .table-report-group-body > tr:not(.table-report-group) { height: auto; }
+.usage-page .table-report .table-report-group-body > tr:not(.table-report-group) > td { padding: 0; }
+.usage-page .table-report .table-report-group-content { padding-inline: calc(var(--ds-line-height-base) * 0.6); }
+.usage-page .table-report .table-report-group-body > tr > td:first-child .table-report-group-content { padding-inline: 0; }
+.usage-page .table-report .table-report-group-body[data-collapsed] > tr:not(.table-report-group) > td { border-bottom-width: 0; }
+/* The table region supplies the final outline; keep dividers only between groups. */
+.usage-page .table-report .table-report-group-body:last-child[data-collapsed] > .table-report-group > td { border-bottom: 0; }
 .usage-page__group, .usage-page__name, .usage-page__person, .usage-page__status { display: flex; align-items: center; gap: calc(var(--ds-line-height-base) / 2); }
-.usage-page__group { font-weight: var(--ds-font-weight-semibold); white-space: nowrap; }
-.usage-page__group-count { display: inline-flex; justify-content: center; align-items: center; min-width: var(--ds-line-height-h2); height: var(--ds-line-height-h2); padding-inline: calc(var(--ds-line-height-base) / 4); border: thin solid var(--ds-border-lighter); border-radius: 50%; background: var(--ds-bg-common-card); font-weight: var(--ds-font-weight-regular); }
+.usage-page__group {
+  width: 100%;
+  padding: 0 var(--ds-line-height-base);
+  min-height: calc(var(--ds-line-height-base) * 2);
+  border: 0;
+  background: transparent;
+  color: var(--ds-text-base);
+  font: inherit;
+  font-weight: var(--ds-font-weight-semibold);
+  text-align: start;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.usage-page__group:focus-visible {
+  outline: thin solid var(--ds-components-input-focus-outline);
+  outline-offset: calc(var(--ds-line-height-base) / -10);
+}
+.usage-page__group-chevron {
+  color: var(--ds-text-label);
+  flex-shrink: 0;
+  width: var(--ds-font-size-sm);
+  height: var(--ds-font-size-sm);
+}
+.usage-page__group[aria-expanded="false"] .usage-page__group-chevron { transform: rotate(-90deg); }
+.usage-page__group-count { font-size: var(--ds-font-size-sm); display: inline-flex; justify-content: center; align-items: center; width: max-content; flex-shrink: 0; height: var(--ds-line-height-h2); padding-inline: calc(var(--ds-line-height-base) / 2); border: thin solid var(--ds-border-lighter); border-radius: var(--ds-line-height-h2); background: var(--ds-bg-common-card); font-weight: var(--ds-font-weight-regular); }
 .usage-page__name { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .usage-page__person { min-width: 0; max-width: 100%; }
 .usage-page__person img { flex-shrink: 0; }
