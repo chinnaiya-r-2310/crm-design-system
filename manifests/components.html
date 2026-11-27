@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">22/63 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">58/63 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">4/406 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">22/63 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">58/63 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">4/407 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>7.0s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -3845,9 +3845,9 @@ export const Default: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> CriteriaBuilder</h2>
       <div class="badges">
-        <label for="c-8-design-system-components-criteriabuilder-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-8-design-system-components-criteriabuilder-props" class="badge ok as-toggle">6 prop types</label>
         <label for="c-8-design-system-components-criteriabuilder-info" class="badge info as-toggle">1 info</label>
-        <label for="c-8-design-system-components-criteriabuilder-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-8-design-system-components-criteriabuilder-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -3881,7 +3881,7 @@ export const Default: Story = {
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">5 prop types</span>
+              <span class="badge ok">6 prop types</span>
             </div>
             <pre><code>Component: src/design-system/components/CriteriaBuilder/CriteriaBuilder.js::CriteriaBuilder</code></pre>
             <pre><code>Props:</code></pre>
@@ -3892,6 +3892,8 @@ fieldOptions?: any = []
 operatorOptions?: any = []
 
 placeholder?: any = &#39;None&#39;
+
+reorderable?: any = false
 
 valueWidth?: any = 390</code></pre>
           </div>
@@ -3922,6 +3924,26 @@ valueWidth?: any = 390</code></pre>
   &lt;Interactive
     initialRows={DEFAULT_ROWS}
     initialPattern=&quot;( ( ( 1 and 2 ) or 3 ) and 4 )&quot;
+  /&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With reorder</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Reorder rows while preserving custom pattern grouping and criterion references.</div>
+              <pre><code>const WithReorder = () =&gt; (
+  &lt;Interactive
+    reorderable
+    initialRows={[
+      ...DEFAULT_ROWS,
+      { id: &#39;r5&#39;, field: &#39;company&#39;, operator: &#39;contains&#39;, value: &#39;Zylker&#39;, type: &#39;text&#39;, connector: &#39;AND&#39; },
+      { id: &#39;r6&#39;, field: &#39;city&#39;, operator: &#39;is&#39;, value: &#39;Chennai&#39;, type: &#39;text&#39;, connector: &#39;AND&#39; },
+      { id: &#39;r7&#39;, field: &#39;lead_source&#39;, operator: &#39;is&#39;, value: &#39;Website&#39;, type: &#39;text&#39;, connector: &#39;AND&#39; },
+    ]}
+    initialPattern=&quot;( ( ( 1 and 2 ) or 3 ) and 4 ) and 5 and 6 and 7&quot;
   /&gt;
 );</code></pre>
             </div>
@@ -8591,7 +8613,7 @@ function FieldHistorySection({ plainFirstColumn = false }) {
               &lt;SetupTable columns={columns.map((column, index) =&gt; index === columns.length - 1 ? {
                 ...column,
                 label: &lt;span className=&quot;fht-expanded-slider__column-header&quot;&gt;
-                  {column.label}
+                  &lt;span className=&quot;fht-expanded-slider__column-label&quot;&gt;{column.label}&lt;/span&gt;
                   &lt;Tooltip content=&quot;Manage Column&quot; placement=&quot;top&quot; followCursor variant=&quot;black&quot; disabled={!!panel}&gt;
                     &lt;button
                       ref={expanded ? settingsRef : undefined}
@@ -33280,7 +33302,7 @@ function FieldHistorySection({ plainFirstColumn = false }) {
               &lt;SetupTable columns={columns.map((column, index) =&gt; index === columns.length - 1 ? {
                 ...column,
                 label: &lt;span className=&quot;fht-expanded-slider__column-header&quot;&gt;
-                  {column.label}
+                  &lt;span className=&quot;fht-expanded-slider__column-label&quot;&gt;{column.label}&lt;/span&gt;
                   &lt;Tooltip content=&quot;Manage Column&quot; placement=&quot;top&quot; followCursor variant=&quot;black&quot; disabled={!!panel}&gt;
                     &lt;button
                       ref={expanded ? settingsRef : undefined}
