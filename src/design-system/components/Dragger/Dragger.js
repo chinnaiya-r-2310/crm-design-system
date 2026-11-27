@@ -22,7 +22,7 @@ import './Dragger.css';
      dragHandleOnly — start dragging only from the grip or a custom data-drag-handle
    ─────────────────────────────────────────────────────────────────────────────── */
 
-export function Dragger({ items, onChange, gripperOnHover = false, renderItem, dragHandleOnly = false }) {
+export function Dragger({ items, onChange, gripperOnHover = false, renderItem, dragHandleOnly = false, onDragStart, onDragEnd, onDragPositionChange }) {
   const [dragging, setDragging] = useState(null);
   const [highlighted, setHighlighted] = useState(null);
   const containerRef = useRef(null);
@@ -64,10 +64,13 @@ export function Dragger({ items, onChange, gripperOnHover = false, renderItem, d
     window.removeEventListener('pointermove', drag.move);
     window.removeEventListener('pointerup', drag.up);
     drag.ghost.remove();
+    drag.source.style.removeProperty('--dragger-picked-width');
+    drag.source.style.removeProperty('--dragger-picked-height');
     dragRef.current = null;
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
     setDragging(null);
+    onDragEnd?.();
     if (latest.current.items.join('|') !== drag.startOrder) setHighlighted(drag.id);
   };
 
@@ -94,6 +97,7 @@ export function Dragger({ items, onChange, gripperOnHover = false, renderItem, d
   };
 
   const beginDrag = (source, item, startY) => {
+    onDragStart?.(item);
     const rect = source.getBoundingClientRect();
 
     const ghost = document.createElement('div');
@@ -122,6 +126,9 @@ export function Dragger({ items, onChange, gripperOnHover = false, renderItem, d
     });
     ghost.innerHTML = html;
     document.body.appendChild(ghost);
+    const pickedRect = ghost.getBoundingClientRect();
+    source.style.setProperty('--dragger-picked-width', `${pickedRect.width}px`);
+    source.style.setProperty('--dragger-picked-height', `${pickedRect.height}px`);
 
     const move = (moveEvent) => {
       const drag = dragRef.current;
@@ -130,19 +137,21 @@ export function Dragger({ items, onChange, gripperOnHover = false, renderItem, d
       const { items: current, onChange: notify } = latest.current;
       const container = containerRef.current;
       if (!container) return;
-      const pointer = moveEvent.clientY - container.getBoundingClientRect().top;
+      const pointer = moveEvent.clientY - container.getBoundingClientRect().top + container.scrollTop;
       const others = current.filter(id => id !== drag.id);
       const midpoints = others.map(id => {
         const el = container.querySelector(`[data-item="${CSS.escape(id)}"]`);
         return el ? el.offsetTop + el.offsetHeight / 2 : Infinity;
       });
       const slotIndex = midpoints.filter(middle => pointer > middle).length;
+      onDragPositionChange?.(slotIndex, drag.ghost);
       const next = [...others.slice(0, slotIndex), drag.id, ...others.slice(slotIndex)];
       if (next.some((id, index) => id !== current[index])) notify(next);
     };
 
     dragRef.current = {
       id: item,
+      source,
       startY,
       startOrder: latest.current.items.join('|'),
       ghost,

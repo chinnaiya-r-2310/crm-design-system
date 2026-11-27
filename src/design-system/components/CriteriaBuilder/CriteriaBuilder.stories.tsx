@@ -5,6 +5,7 @@ import { CriteriaBuilder } from './CriteriaBuilder';
 import { CriteriaSummary } from './CriteriaSummary';
 import { NestedCriteria } from './NestedCriteria';
 import type { CriteriaRow } from './CriteriaBuilder';
+import './CriteriaBuilder.stories.css';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -242,18 +243,21 @@ const LIMIT_ROWS: CriteriaRow[] = Array.from({ length: 25 }, (_, i) => ({
 function Interactive({
   initialRows,
   initialPattern,
+  reorderable = false,
 }: {
   initialRows: CriteriaRow[];
   initialPattern: string;
+  reorderable?: boolean;
 }) {
   const [rows, setRows] = useState<CriteriaRow[]>(initialRows);
   const [pattern, setPattern] = useState(initialPattern);
 
   return (
-    <div style={{ width: 760, padding: 24, background: '#fff' }}>
+    <div className="criteria-builder-story-interactive" style={{ width: 760, padding: 24, background: '#fff' }}>
       <CriteriaBuilder
         rows={rows}
         pattern={pattern}
+        reorderable={reorderable}
         fieldOptions={FIELD_OPTIONS}
         getOperatorOptions={getOperatorOptions}
         getDefaultOperator={getDefaultOperator}
@@ -280,6 +284,282 @@ export const Default: Story = {
       initialPattern="( ( ( 1 and 2 ) or 3 ) and 4 )"
     />
   ),
+};
+
+/** Reorder rows while preserving custom pattern grouping and criterion references. */
+export const WithReorder: Story = {
+  name: 'With reorder',
+  parameters: { layout: 'fullscreen', controls: { disable: true } },
+  decorators: [
+    (Story) => (
+      <main className="criteria-reorder-showcase">
+        <div className="criteria-reorder-showcase__accent criteria-reorder-showcase__accent--primary" aria-hidden="true" />
+        <div className="criteria-reorder-showcase__accent criteria-reorder-showcase__accent--success" aria-hidden="true" />
+        <div className="criteria-reorder-showcase__accent criteria-reorder-showcase__accent--warning" aria-hidden="true" />
+        <section className="criteria-reorder-showcase__content" aria-labelledby="criteria-reorder-title">
+          <h1 id="criteria-reorder-title">
+            Criteria Builder with <span className="criteria-reorder-showcase__title-accent">Reorder</span>
+          </h1>
+          <Story />
+        </section>
+      </main>
+    ),
+  ],
+  render: () => (
+    <Interactive
+      reorderable
+      initialRows={[
+        ...DEFAULT_ROWS,
+        { id: 'r5', field: 'company', operator: 'contains', value: 'Zylker', type: 'text', connector: 'AND' },
+        { id: 'r6', field: 'city', operator: 'is', value: 'Chennai', type: 'text', connector: 'AND' },
+        { id: 'r7', field: 'lead_source', operator: 'is', value: 'Website', type: 'text', connector: 'AND' },
+      ]}
+      initialPattern="( ( ( 1 and 2 ) or 3 ) and 4 ) and 5 and 6 and 7"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const pattern = () => canvasElement.querySelector('.criteria-builder-pattern-text');
+    const fields = () => Array.from(canvasElement.querySelectorAll('.criteria-builder-row .dropdown-root'))
+      .map(element => element.textContent);
+    const connectors = () => Array.from(canvasElement.querySelectorAll('.criteria-builder-conn-btn'));
+    const initialConnectors = connectors();
+    const initialOperators = initialConnectors.map(element => element.textContent);
+    const initialFields = fields();
+    await expect(canvas.getAllByRole('button', { name: /Reorder criterion/ })).toHaveLength(7);
+    const root = canvasElement.querySelector('.criteria-builder-root')!;
+    const initialTop = root.getBoundingClientRect().top;
+    const heading = canvas.getByRole('heading', { name: 'Criteria Builder with Reorder' });
+    await expect(heading.querySelector('.criteria-reorder-showcase__title-accent')).toHaveTextContent('Reorder');
+    const headingTop = heading.getBoundingClientRect().top;
+    const initialHeight = root.getBoundingClientRect().height;
+    const initialPatternTop = pattern()!.getBoundingClientRect().top;
+    const rowGeometry = () => Array.from(canvasElement.querySelectorAll('.dragger .criteria-builder-row'))
+      .map(row => {
+        const rect = row.getBoundingClientRect();
+        return { top: rect.top, bottom: rect.bottom, height: rect.height };
+      });
+    const initialRows = rowGeometry();
+    const rowGaps = (rects: ReturnType<typeof rowGeometry>) => rects.slice(1)
+      .map((rect, index) => rect.top - rects[index].bottom);
+    const dragHandle = canvas.getByRole('button', { name: 'Reorder criterion 1' });
+    const dragBox = dragHandle.getBoundingClientRect();
+    const view = canvasElement.ownerDocument.defaultView!;
+    dragHandle.dispatchEvent(new PointerEvent('pointerdown', {
+      bubbles: true, button: 0, clientX: dragBox.x + 14, clientY: dragBox.y + 17,
+    }));
+    view.dispatchEvent(new PointerEvent('pointermove', { clientY: dragBox.y + 25 }));
+    await waitFor(() => expect(canvasElement.querySelector('[data-dragging]')).not.toBeNull());
+    await expect(root.getBoundingClientRect().height).toBe(initialHeight);
+    await expect(pattern()!.getBoundingClientRect().top).toBe(initialPatternTop);
+    await expect(rowGeometry()).toEqual(initialRows);
+    await expect(rowGaps(rowGeometry())).toEqual(rowGaps(initialRows));
+    const list = canvasElement.querySelector('.criteria-builder-reorder-layout > .dragger')!;
+    await expect(view.getComputedStyle(list).overflowX).toBe('visible');
+    for (const row of list.querySelectorAll('.criteria-builder-row')) {
+      await expect(row.getBoundingClientRect().right).toBeLessThanOrEqual(list.getBoundingClientRect().right);
+      for (const fields of row.querySelectorAll('.criteria-builder-fields')) {
+        await expect(fields.getBoundingClientRect().right).toBeLessThanOrEqual(list.getBoundingClientRect().right);
+      }
+    }
+    for (const action of canvasElement.querySelectorAll('.criteria-builder-actions button')) {
+      await expect(action).not.toBeVisible();
+    }
+    for (const connector of connectors()) {
+      await expect(connector).not.toBeVisible();
+    }
+    // Focus/hover must not reveal another row's handle during an active drag.
+    const otherHandle = canvas.getByRole('button', { name: 'Reorder criterion 2' });
+    otherHandle.focus();
+    await userEvent.hover(otherHandle);
+    for (const grip of canvasElement.querySelectorAll('.criteria-builder-reorder-grip')) {
+      await expect(grip).not.toBeVisible();
+    }
+    await userEvent.unhover(otherHandle);
+    for (const line of canvasElement.querySelectorAll('.criteria-builder-reorder-rail .criteria-builder-circle-conn-line')) {
+      await expect(line).toBeVisible();
+      await expect(view.getComputedStyle(line).top).toBe('31px');
+    }
+    for (const number of canvasElement.querySelectorAll('.criteria-builder-reorder-number')) {
+      // Only the floating copy displays the picked criterion's number.
+      await expect(view.getComputedStyle(number).visibility).toBe(
+        number.closest('.dragger-item--placeholder') ? 'hidden' : 'visible'
+      );
+    }
+    const ghostNumber = canvasElement.ownerDocument.querySelector('.dragger-ghost .criteria-builder-reorder-number');
+    await expect(ghostNumber).toBeVisible();
+    await expect(ghostNumber).toHaveTextContent('1');
+    const ghostGrip = canvasElement.ownerDocument.querySelector('.dragger-ghost .criteria-builder-reorder-grip')!;
+    await expect(ghostGrip).toBeVisible();
+    const ghost = ghostGrip.closest('.dragger-ghost')!;
+    const ghostBox = ghost.getBoundingClientRect();
+    const pickedBox = ghost.querySelector('.dragger-item')!.getBoundingClientRect();
+    await expect(pickedBox.top - ghostBox.top).toBe(6);
+    await expect(ghostBox.bottom - pickedBox.bottom).toBe(6);
+    await expect(ghostBox.right - pickedBox.right).toBe(6);
+    const pickedFields = ghost.querySelector('.criteria-builder-fields')!;
+    await expect(pickedFields.getBoundingClientRect().right).toBeLessThanOrEqual(pickedBox.right);
+    await expect(view.getComputedStyle(ghost.querySelector('.criteria-builder-actions')!).display).toBe('none');
+    const pickedValue = pickedFields.children[pickedFields.children.length - 2];
+    await expect(ghostBox.right - pickedValue.getBoundingClientRect().right).toBe(6);
+    const placeholder = list.querySelector('.dragger-item--placeholder')!;
+    const slotStyle = view.getComputedStyle(placeholder, '::before');
+    await expect(parseFloat(slotStyle.left)).toBe(0);
+    await expect(parseFloat(slotStyle.width)).toBeCloseTo(ghostBox.width, 1);
+    await expect(parseFloat(slotStyle.height)).toBeCloseTo(ghostBox.height, 1);
+    const connectorLine = canvasElement.querySelector('.criteria-builder-reorder-rail .criteria-builder-circle-conn-line')!;
+    await expect(connectorLine.getBoundingClientRect().left).toBeGreaterThan(placeholder.getBoundingClientRect().left);
+    await expect(parseFloat(slotStyle.top)).toBe(-6);
+    const rail = canvasElement.querySelector('.criteria-builder-reorder-rail')!;
+    await expect(view.getComputedStyle(rail).zIndex).toBe('0');
+    await expect(view.getComputedStyle(list).zIndex).toBe('1');
+    const railCircles = rail.querySelectorAll('.criteria-builder-circle');
+    for (const circle of railCircles) {
+      const bridge = view.getComputedStyle(circle, '::before');
+      await expect(bridge.content).toBe('""');
+      await expect(bridge.width).toBe('1px');
+      await expect(view.getComputedStyle(circle).visibility).toBe('visible');
+    }
+    for (const action of ghost.querySelectorAll('.criteria-builder-actions button')) {
+      await expect(action).not.toBeVisible();
+    }
+    await expect(ghostNumber!.getBoundingClientRect().left - ghostGrip.getBoundingClientRect().right).toBe(6);
+    view.dispatchEvent(new PointerEvent('pointerup'));
+    await waitFor(() => expect(canvasElement.querySelector('[data-dragging]')).toBeNull());
+    for (const connector of connectors()) {
+      await expect(connector).toBeVisible();
+    }
+    for (const action of canvasElement.querySelectorAll('.criteria-builder-actions button')) {
+      await expect(action).toBeVisible();
+    }
+    for (const line of canvasElement.querySelectorAll('.criteria-builder-reorder-rail .criteria-builder-circle-conn-line')) {
+      await expect(view.getComputedStyle(line).top).toBe('61px');
+    }
+    (view.document.activeElement as HTMLElement)?.blur();
+    await expect(root.getBoundingClientRect().height).toBe(initialHeight);
+    const lastActions = canvasElement.querySelector('.dragger-item:last-child .criteria-builder-actions')!;
+    const [minus, plus] = Array.from(lastActions.children).map(element => element.getBoundingClientRect());
+    await expect(plus.left - minus.right).toBe(10);
+    const firstHandle = canvas.getByRole('button', { name: 'Reorder criterion 1' });
+    const handleBox = firstHandle.getBoundingClientRect();
+    const number = firstHandle.querySelector('.criteria-builder-reorder-number')!;
+    const grip = firstHandle.querySelector('.criteria-builder-reorder-grip')!;
+    const fieldBox = canvasElement.querySelector('.criteria-builder-fields')!.getBoundingClientRect();
+    await expect(number).toBeVisible();
+    await expect(grip).not.toBeVisible();
+    await expect(fieldBox.left - handleBox.right).toBe(6);
+    firstHandle.focus();
+    await expect(number).toBeVisible();
+    await expect(grip).toBeVisible();
+    await expect(number.getBoundingClientRect().left - grip.getBoundingClientRect().right).toBe(6);
+    const railBox = canvasElement.querySelector('.criteria-builder-reorder-rail')!.getBoundingClientRect();
+    await expect(railBox.left).toBe(number.getBoundingClientRect().left);
+    const patternLabel = canvasElement.querySelector('.criteria-builder-pattern-label')!;
+    await expect(number.getBoundingClientRect().left).toBe(patternLabel.getBoundingClientRect().left);
+    await expect(grip.getBoundingClientRect().right).toBeLessThan(root.getBoundingClientRect().left);
+    await expect(firstHandle.getBoundingClientRect().width).toBe(handleBox.width);
+    firstHandle.blur();
+    await expect(number).toBeVisible();
+    await expect(grip).not.toBeVisible();
+    firstHandle.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(pattern()).toHaveTextContent('( ( ( 2 and 1 ) or 3 ) and 4 ) and 5 and 6 and 7');
+    await expect(fields().slice(0, 4)).toEqual([...initialFields.slice(2, 4), ...initialFields.slice(0, 2)]);
+    await expect(connectors()).toEqual(initialConnectors);
+    await expect(connectors().map(element => element.textContent)).toEqual(initialOperators);
+    await expect(canvasElement.querySelector('.dragger .criteria-builder-conn-btn')).toBeNull();
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(pattern()).toHaveTextContent('( ( ( 1 and 2 ) or 3 ) and 4 ) and 5 and 6 and 7');
+    // Boundary moves are no-ops.
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(fields()).toEqual(initialFields);
+    // The picked number follows the live position; drop does not animate it again.
+    const fourthHandle = canvas.getByRole('button', { name: 'Reorder criterion 4' });
+    const fourthBox = fourthHandle.getBoundingClientRect();
+    fourthHandle.dispatchEvent(new PointerEvent('pointerdown', {
+      bubbles: true, button: 0, clientX: fourthBox.x + 6, clientY: fourthBox.y + 17,
+    }));
+    view.dispatchEvent(new PointerEvent('pointermove', { clientY: fourthBox.y + 25 }));
+    await waitFor(() => expect(canvasElement.querySelector('[data-dragging]')).not.toBeNull());
+    // Rail slots must follow variable-height rows, not retain the old range-row
+    // position when a move changes the order without changing element sizes.
+    const expectRailAligned = async () => {
+      await waitFor(async () => {
+        const slots = Array.from(rail.children);
+        const items = Array.from(list.children) as HTMLElement[];
+        for (let index = 0; index < items.length; index++) {
+          const slot = slots[index] as HTMLElement;
+          await expect(slot.offsetTop).toBe(items[index].offsetTop);
+          await expect(slot.offsetHeight).toBe(items[index].offsetHeight + (index < items.length - 1 ? 38 : 0));
+        }
+      });
+    };
+    const liveNumber = canvasElement.ownerDocument.querySelector('.dragger-ghost .criteria-builder-reorder-number')!;
+    await expect(liveNumber).toHaveTextContent('4');
+    const secondRow = canvasElement.querySelectorAll('.dragger > .dragger-item')[1] as HTMLElement;
+    const listTop = list.getBoundingClientRect().top;
+    view.dispatchEvent(new PointerEvent('pointermove', { clientY: listTop + secondRow.offsetTop - 1 }));
+    await waitFor(() => expect(liveNumber).toHaveTextContent('2'));
+    await expectRailAligned();
+    view.dispatchEvent(new PointerEvent('pointermove', { clientY: dragBox.y }));
+    await waitFor(() => expect(pattern()).toHaveTextContent('( ( ( 2 and 3 ) or 4 ) and 1 ) and 5 and 6 and 7'));
+    await expect(liveNumber).toHaveTextContent('1');
+    await expect(list.querySelector('.dragger-item--placeholder .criteria-builder-reorder-number')).not.toBeVisible();
+    view.dispatchEvent(new PointerEvent('pointerup'));
+    await waitFor(() => expect(canvasElement.querySelector('[data-dragging]')).toBeNull());
+    await expect(canvasElement.querySelector('.criteria-builder-number-transition')).toBeNull();
+    const droppedNumber = list.querySelector('.dragger-item:first-child .criteria-builder-reorder-number')!;
+    await expect(droppedNumber).toHaveTextContent('1');
+    const highlightedRow = list.querySelector('.dragger-item--highlight')!;
+    await expect(highlightedRow).not.toBeNull();
+    // After drop, connectors paint above the yellow feedback, unlike the gray
+    // placeholder during dragging. Keep the existing highlight geometry.
+    await expect(view.getComputedStyle(rail).zIndex).toBe('1');
+    await expect(view.getComputedStyle(list).zIndex).toBe('auto');
+    await expect(connectorLine).toBeVisible();
+    const highlightShadows = view.getComputedStyle(highlightedRow).boxShadow;
+    await expect(highlightShadows).toContain('0px -10px 0px 0px');
+    await expect(highlightShadows).toContain('0px 10px 0px 0px');
+    const highlightFade = highlightedRow.getAnimations().find(
+      animation => (animation as CSSAnimation).animationName === 'criteria-drop-highlight-fade',
+    )!;
+    await expect(highlightFade).toBeDefined();
+    await expect(view.getComputedStyle(highlightedRow).animationTimingFunction).toBe('ease-out');
+    highlightFade.pause();
+    highlightFade.currentTime = 800;
+    const initialHighlight = view.getComputedStyle(highlightedRow).backgroundColor;
+    highlightFade.currentTime = 1400;
+    await expect(view.getComputedStyle(highlightedRow).backgroundColor).not.toBe(initialHighlight);
+    highlightFade.currentTime = 2000;
+    await expect(view.getComputedStyle(highlightedRow).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    await expect(view.getComputedStyle(highlightedRow).boxShadow).toContain('rgba(0, 0, 0, 0)');
+    await expect(connectorLine).toBeVisible();
+    highlightFade.play();
+    await expect(view.getComputedStyle(droppedNumber.firstElementChild!).animationName).toBe('none');
+    await expect(root.getBoundingClientRect().height).toBe(initialHeight);
+    canvas.getByRole('button', { name: 'Reorder criterion 1' }).focus();
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}{ArrowDown}');
+    await expect(fields()).toEqual(initialFields);
+    // Custom grouping survives a move rather than being regenerated.
+    await userEvent.click(canvas.getByRole('button', { name: 'Edit Pattern' }));
+    const input = canvas.getByRole('textbox', { name: 'Criteria pattern' });
+    await userEvent.clear(input);
+    await userEvent.type(input, '( 1 or 3 ) and ( 2 or 4 ) and 5 and 6 and 7');
+    await userEvent.click(canvas.getByRole('button', { name: 'Save pattern' }));
+    canvas.getByRole('button', { name: 'Reorder criterion 4' }).focus();
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(pattern()).toHaveTextContent('( 1 or 4 ) and ( 2 or 3 ) and 5 and 6 and 7');
+    await userEvent.click(canvas.getAllByRole('button', { name: 'Remove row' })[3]);
+    await expect(canvas.getAllByRole('button', { name: /Reorder criterion/ })).toHaveLength(6);
+    await expect(root.getBoundingClientRect().top).toBe(initialTop);
+    await expect(heading.getBoundingClientRect().top).toBe(headingTop);
+    const shorterHeight = root.getBoundingClientRect().height;
+    await userEvent.click(canvas.getByRole('button', { name: 'Add row' }));
+    await expect(canvas.getAllByRole('button', { name: /Reorder criterion/ })).toHaveLength(7);
+    await expect(root.getBoundingClientRect().height).toBeGreaterThan(shorterHeight);
+    await expect(root.getBoundingClientRect().top).toBe(initialTop);
+    await expect(heading.getBoundingClientRect().top).toBe(headingTop);
+  },
 };
 
 /** Error state — field-level validation messages visible on multiple rows. */

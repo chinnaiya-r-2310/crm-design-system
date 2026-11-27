@@ -100,6 +100,259 @@
   box-sizing: border-box;
 }
 
+/* Connectors stay in a separate, stationary rail outside the draggable items. */
+.criteria-builder-reorder-layout {
+  position: relative;
+  padding-left: 0;
+}
+
+.criteria-builder-reorder-layout:has(> .dragger > .dragger-item:only-child) {
+  padding-left: calc(28px + var(--ds-line-height-base) * 0.3);
+}
+
+/* Keep the original list footprint and natural row heights during dragging so
+   picking up a criterion does not increase the spaces between its controls. */
+.criteria-builder-reorder-layout[data-dragging] > .dragger {
+  height: var(--criteria-drag-list-height);
+  overflow: visible;
+}
+
+.criteria-builder-reorder-layout[data-dragging] > .dragger > .dragger-item {
+  flex-shrink: 0;
+}
+
+.criteria-builder-reorder-layout .criteria-builder-row,
+.dragger-ghost .criteria-builder-row:has(> .criteria-builder-reorder-handle) {
+  gap: calc(var(--ds-line-height-base) * 0.3);
+}
+
+.criteria-builder-reorder-rail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Keep connectors visible across the yellow drop highlight. The active drag
+     overrides this layer so the gray placeholder still covers the line. */
+  z-index: 1;
+  pointer-events: none;
+}
+
+.criteria-builder-reorder-rail .criteria-builder-conn-btn {
+  pointer-events: auto;
+}
+
+.criteria-builder-reorder-rail .criteria-builder-circle-conn-line {
+  bottom: 0;
+}
+
+.criteria-builder-reorder-layout > .dragger > .dragger-item:not(:last-child) {
+  margin-bottom: 38px;
+}
+
+/* Reorder variant reuses Dragger; the existing row owns its accessible handle. */
+.criteria-builder-reorder-layout > .dragger {
+  gap: 0;
+  /* Include fixed-width fields in the list and picked copy instead of clipping
+     content that extends beyond the builder's available width. */
+  min-width: max-content;
+}
+
+.criteria-builder-reorder-layout > .dragger > .dragger-item {
+  padding: 0;
+  cursor: default;
+  touch-action: auto;
+}
+
+.criteria-builder-reorder-layout > .dragger > .dragger-item > .dragger-grip,
+.dragger-ghost .dragger-item:has(> .criteria-builder-row-content) > .dragger-grip {
+  display: none;
+}
+
+.criteria-builder-reorder-handle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  flex-shrink: 0;
+  gap: calc(var(--ds-line-height-base) * 0.3);
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ds-text-label);
+  cursor: grab;
+  touch-action: none;
+}
+
+.criteria-builder-reorder-grip {
+  position: absolute;
+  right: calc(100% + var(--ds-line-height-base) * 0.3);
+  display: inline-flex;
+  flex-shrink: 0;
+  visibility: hidden;
+}
+
+/* Bridge the gap to the outdented grip so pointer hover remains continuous. */
+.criteria-builder-reorder-handle:not(:disabled)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  width: calc(12px + var(--ds-line-height-base) * 0.3);
+}
+
+.criteria-builder-reorder-layout:not([data-dragging]) .criteria-builder-row:hover .criteria-builder-reorder-handle:not(:disabled) .criteria-builder-reorder-grip,
+.criteria-builder-reorder-layout:not([data-dragging]) .criteria-builder-reorder-handle:hover:not(:disabled) .criteria-builder-reorder-grip,
+.criteria-builder-reorder-layout:not([data-dragging]) .criteria-builder-reorder-handle:focus-visible:not(:disabled) .criteria-builder-reorder-grip {
+  visibility: visible;
+}
+
+.criteria-builder-reorder-handle:disabled {
+  cursor: default;
+}
+
+/* Keep row numbers visible during dragging, including in the picked copy. */
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-reorder-handle .criteria-builder-reorder-number,
+.dragger-ghost .criteria-builder-reorder-handle .criteria-builder-reorder-number {
+  visibility: visible;
+}
+
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-reorder-handle .criteria-builder-reorder-grip {
+  visibility: hidden;
+}
+
+.dragger-ghost .criteria-builder-reorder-handle .criteria-builder-reorder-grip {
+  visibility: visible;
+}
+
+.criteria-builder-reorder-layout[data-dragging] .dragger-item--placeholder .criteria-builder-reorder-number {
+  visibility: hidden;
+}
+
+/* Pad only the floating copy, leaving the list's row geometry unchanged. */
+.dragger-ghost:has(.criteria-builder-reorder-handle) {
+  box-sizing: content-box;
+  /* Override Dragger's measured list width: the copy omits hidden actions. */
+  width: max-content !important;
+  padding: calc(var(--ds-line-height-base) * 0.3);
+  padding-left: 0;
+  margin-top: calc(var(--ds-line-height-base) * -0.3);
+}
+
+/* Preserve action space so hiding the controls never shifts the fields. */
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-actions,
+.dragger-ghost:has(.criteria-builder-reorder-handle) .criteria-builder-actions {
+  visibility: hidden;
+}
+
+/* Only the picked copy drops the unused action column and its field gap. */
+.dragger-ghost:has(.criteria-builder-reorder-handle) .criteria-builder-actions {
+  display: none;
+}
+
+/* Match the padded picked copy without changing the placeholder's layout box. */
+.criteria-builder-reorder-layout .dragger-item--placeholder {
+  position: relative;
+  background: transparent;
+}
+
+.criteria-builder-reorder-layout .dragger-item--placeholder::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--ds-line-height-base) * -0.3);
+  left: 0;
+  width: var(--dragger-picked-width);
+  height: var(--dragger-picked-height);
+  background: var(--ds-bg-scale-bg4);
+  border-radius: inherit;
+}
+
+/* Keep the full-width empty slot above the continuous connector rail. */
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-reorder-rail {
+  z-index: 0;
+}
+
+.criteria-builder-reorder-layout[data-dragging] > .dragger {
+  z-index: 1;
+}
+
+/* Fade the entire drop highlight together, including its extended edges.
+   Match Dragger's two-second feedback lifetime without animating row content. */
+.criteria-builder-reorder-layout .dragger-item--highlight {
+  --criteria-drop-feedback-duration: 2s;
+  animation: criteria-drop-highlight-fade var(--criteria-drop-feedback-duration) ease-out both;
+  box-shadow:
+    0 calc(var(--ds-line-height-base) / -2) 0 var(--ds-icon-bg-orange-yellow),
+    0 calc(var(--ds-line-height-base) / 2) 0 var(--ds-icon-bg-orange-yellow);
+}
+
+@keyframes criteria-drop-highlight-fade {
+  0%, 40% {
+    background-color: var(--ds-icon-bg-orange-yellow);
+    box-shadow:
+      0 calc(var(--ds-line-height-base) / -2) 0 var(--ds-icon-bg-orange-yellow),
+      0 calc(var(--ds-line-height-base) / 2) 0 var(--ds-icon-bg-orange-yellow);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow:
+      0 calc(var(--ds-line-height-base) / -2) 0 transparent,
+      0 calc(var(--ds-line-height-base) / 2) 0 transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .criteria-builder-reorder-layout .dragger-item--highlight {
+    animation: none;
+  }
+}
+
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-reorder-rail .criteria-builder-circle {
+  background: transparent;
+  border-color: transparent;
+  visibility: visible !important;
+  color: transparent;
+  position: relative;
+}
+
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-reorder-rail .criteria-builder-circle::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: var(--ds-border-subtle, #D6D6E3);
+}
+
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-reorder-rail > :first-child .criteria-builder-circle::before {
+  top: 50%;
+}
+
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-reorder-rail > :last-child .criteria-builder-circle::before {
+  bottom: 50%;
+}
+
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-reorder-number {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hide operator labels without collapsing the stationary connector rail. */
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-reorder-rail .criteria-builder-conn-btn {
+  visibility: hidden;
+}
+
+.criteria-builder-reorder-layout[data-dragging] .criteria-builder-reorder-rail .criteria-builder-circle-conn-line {
+  top: 31px;
+}
+
+.criteria-builder-reorder-handle:focus-visible {
+  outline: 2px solid var(--ds-text-link);
+}
+
 /* ── Fields row ────────────────────────────────────────────────────────────── */
 
 /* Field, Operator, Value columns and Actions all sit in this flex row.
@@ -142,7 +395,7 @@
 .criteria-builder-actions {
   display: flex;
   align-items: center;
-  gap: calc(var(--ds-line-height-base) / 4);
+  gap: calc(var(--ds-line-height-base) / 2);
   flex-shrink: 0;
   height: 34px;
   margin-left: 5px;

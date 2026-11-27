@@ -919,7 +919,7 @@ function FieldHistorySection({ plainFirstColumn = false }) {
               <SetupTable columns={columns.map((column, index) => index === columns.length - 1 ? {
                 ...column,
                 label: <span className="fht-expanded-slider__column-header">
-                  {column.label}
+                  <span className="fht-expanded-slider__column-label">{column.label}</span>
                   <Tooltip content="Manage Column" placement="top" followCursor variant="black" disabled={!!panel}>
                     <button
                       ref={expanded ? settingsRef : undefined}

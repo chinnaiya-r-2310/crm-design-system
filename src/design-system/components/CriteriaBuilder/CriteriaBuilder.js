@@ -1,8 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { createPortal, flushSync } from 'react-dom';
 import './CriteriaBuilder.css';
 import { Dropdown } from '../Dropdown/Dropdown';
 import { Input } from '../Input/Input';
+import { Dragger } from '../Dragger/Dragger';
+import { Icon } from '../Icon/Icon';
 import { DateTimeInput } from '../Input/DateTimeInput';
 import { MessageBox } from '../MessageBox/MessageBox';
 import {
@@ -104,11 +106,37 @@ export function CriteriaBuilder({
   valueWidth = 390,
   /** Show the minus on a single remaining row too, so the last row can be removed (off by default). */
   allowRemoveLast = false,
+  /** Enable drag handles and keyboard reordering without changing the saved criteria logic. */
+  reorderable = false,
 }) {
   const [editingPattern, setEditingPattern] = useState(false);
   const [patternDraft, setPatternDraft] = useState(pattern);
   const [showLimitToast, setShowLimitToast] = useState(false);
   const [patternError, setPatternError] = useState('');
+  const [dragHeight, setDragHeight] = useState(null);
+  const [slotHeights, setSlotHeights] = useState([]);
+  const reorderRef = useRef(null);
+
+  // Keep the stationary connector rail aligned before paint, including when
+  // differently sized criteria swap places without resizing their DOM nodes.
+  useLayoutEffect(() => {
+    if (!reorderable || !reorderRef.current) return undefined;
+    const items = [...reorderRef.current.querySelectorAll('.dragger > .dragger-item')];
+    const measure = () => setSlotHeights(
+      [...reorderRef.current.querySelectorAll('.dragger > .dragger-item')].map(item => item.offsetHeight)
+    );
+    const observer = new ResizeObserver(measure);
+    items.forEach(item => observer.observe(item));
+    measure();
+    return () => observer.disconnect();
+  }, [reorderable, rows]);
+
+  const startReorder = () => {
+    const listHeight = reorderRef.current.querySelector('.dragger').offsetHeight;
+    flushSync(() => {
+      setDragHeight({ list: listHeight });
+    });
+  };
 
   const updateRow = (id, updates) =>
     onChange(rows.map(r => (r.id === id ? { ...r, ...updates } : r)));
@@ -177,16 +205,57 @@ export function CriteriaBuilder({
     setEditingPattern(false);
   };
 
-  return (
-    <div className='criteria-builder-root'>
-      {rows.map((row, index) => (
-        <div key={row.id}>
+  const reorderRows = (ids) => {
+    if (ids.every((id, index) => id === rows[index].id)) return;
+    const nextRows = ids.map(id => rows.find(row => row.id === id));
+    // Replace all references simultaneously so custom grouping and AND/OR logic survive.
+    const nextPattern = (pattern || generatePattern(rows)).replace(/\d+/g, number => {
+      const row = rows[Number(number) - 1];
+      return row ? String(ids.indexOf(row.id) + 1) : number;
+    });
+    // Connectors stay at their existing positions; only criterion data moves.
+    const connectedRows = nextRows.map((row, index) => ({
+      ...row,
+      connector: rows[index].connector,
+    }));
+    onChange(connectedRows);
+    onPatternChange(nextPattern);
+    setPatternDraft(nextPattern);
+    setPatternError('');
+  };
+
+  const renderRow = (row, index) => (
+        <div key={row.id} className='criteria-builder-row-content'>
           {/* ── Row ───────────────────────────────────────────────────────── */}
           <div className='criteria-builder-row'>
+            {reorderable && rows.length > 1 && (
+              <button
+                type="button"
+                className="criteria-builder-reorder-handle"
+                data-drag-handle
+                aria-label={`Reorder criterion ${index + 1}`}
+                title="Drag to reorder, or use Arrow Up and Arrow Down"
+                disabled={editingPattern}
+                onKeyDown={event => {
+                  if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
+                  event.preventDefault();
+                  const target = index + (event.key === 'ArrowUp' ? -1 : 1);
+                  if (target < 0 || target >= rows.length) return;
+                  const ids = rows.map(item => item.id);
+                  [ids[index], ids[target]] = [ids[target], ids[index]];
+                  reorderRows(ids);
+                }}
+              >
+                <span className="criteria-builder-reorder-grip" aria-hidden="true"><Icon name="CrmMaskDrag" size={12} /></span>
+                <span className="criteria-builder-circle criteria-builder-reorder-number" aria-hidden="true">
+                  <span>{index + 1}</span>
+                </span>
+              </button>
+            )}
             {/* Circle number + connecting lines */}
             {/* AND / OR sits right under the circle (top-aligned), so a tall row
                 such as date-range doesn't push it down next to the following row. */}
-            <div className={`criteria-builder-circle-col${index < rows.length - 1 ? ' criteria-builder-circle-col--has-conn' : ''}`}>
+            {!reorderable && <div className={`criteria-builder-circle-col${index < rows.length - 1 ? ' criteria-builder-circle-col--has-conn' : ''}`}>
               {index === 0
                 ? <div className='criteria-builder-circle-top-spacer' />
                 : <div className='criteria-builder-circle-top-line' />
@@ -205,7 +274,7 @@ export function CriteriaBuilder({
                   <div className='criteria-builder-circle-conn-line' />
                 </>
               )}
-            </div>
+            </div>}
 
             {/* Fields */}
             <div className='criteria-builder-fields'>
@@ -374,12 +443,59 @@ export function CriteriaBuilder({
           </div>
 
           {/* ── Connector (AND / OR) ─────────────────────────────────────── */}
-          {index < rows.length - 1 && (
+          {!reorderable && index < rows.length - 1 && (
             /* Spacer only — the AND / OR button and its line live in the row's circle column above. */
             <div className='criteria-builder-connector' aria-hidden='true' />
           )}
         </div>
-      ))}
+  );
+
+  return (
+    <div className={`criteria-builder-root${reorderable ? ' criteria-builder-root--reorderable' : ''}`}>
+      {reorderable ? (
+        <div
+          ref={reorderRef}
+          className="criteria-builder-reorder-layout"
+          data-dragging={dragHeight !== null ? '' : undefined}
+          style={dragHeight === null ? undefined : {
+            '--criteria-drag-list-height': `${dragHeight.list}px`,
+          }}
+        >
+          <div className="criteria-builder-reorder-rail">
+            {rows.map((row, index) => (
+              <div
+                key={index}
+                className={`criteria-builder-circle-col${index < rows.length - 1 ? ' criteria-builder-circle-col--has-conn' : ''}`}
+                style={{ height: slotHeights[index] === undefined ? undefined : slotHeights[index] + (index < rows.length - 1 ? 38 : 0) }}
+              >
+                <div className={index === 0 ? 'criteria-builder-circle-top-spacer' : 'criteria-builder-circle-top-line'} />
+                <div className="criteria-builder-circle" style={rows.length > 1 ? { visibility: 'hidden' } : undefined} aria-hidden={rows.length > 1 ? true : undefined}>{index + 1}</div>
+                {index < rows.length - 1 && <>
+                  <div className="criteria-builder-conn-lead" />
+                  <button
+                    className="criteria-builder-conn-btn"
+                    onClick={() => toggleConnector(row.id)}
+                    aria-label={`Toggle connector, currently ${row.connector}`}
+                  >{row.connector}</button>
+                  <div className="criteria-builder-circle-conn-line" />
+                </>}
+              </div>
+            ))}
+          </div>
+          <Dragger
+            items={rows.map(row => row.id)}
+            onChange={reorderRows}
+            onDragStart={startReorder}
+            onDragEnd={() => setDragHeight(null)}
+            onDragPositionChange={(index, preview) => {
+              const number = preview.querySelector('.criteria-builder-reorder-number');
+              if (number) number.textContent = String(index + 1);
+            }}
+            dragHandleOnly
+            renderItem={id => renderRow(rows.find(row => row.id === id), rows.findIndex(row => row.id === id))}
+          />
+        </div>
+      ) : rows.map(renderRow)}
 
       {/* ── Criteria limit toast (portal, fixed 100px from top, centered) ──── */}
       {showLimitToast && createPortal(
