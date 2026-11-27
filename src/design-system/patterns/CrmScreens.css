@@ -374,8 +374,10 @@
   margin: 0 8px;
 }
 
-/* Field History page: shorter section headers. */
+/* Match section headers with and without small action buttons. */
 .crm-screens--field-history .crm-screens__card-header {
+  box-sizing: border-box;
+  min-height: 40px; /* 27px action button + 12px padding + 1px border */
   padding: 6px 12px; /* title lines up with the first cell text */
 }
 

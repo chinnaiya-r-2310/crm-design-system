@@ -9,9 +9,6 @@ import { Button } from '../components/Button/Button';
 import { Dragger } from '../components/Dragger/Dragger';
 import { MessageInfo } from '../components/MessageInfo/MessageInfo';
 import { MessageBox } from '../components/MessageBox/MessageBox';
-import { Dropdown } from '../components/Dropdown/Dropdown';
-import { UserPicker } from '../components/UserPicker/UserPicker';
-import { Calendar } from '../components/Calendar/Calendar';
 import { SetupTable } from '../components/Table/Table';
 import { DetailPage, RecordCard } from './CrmScreens.page';
 import { SortingHat } from '../components/SortingHat/SortingHat';
@@ -562,55 +559,6 @@ const FIELD_HISTORY_ROWS = [
   },
 ];
 
-const FIELD_HISTORY_TIME_OPTIONS = [
-  { value: '7d', label: 'Last 7 days' },
-  { value: '30d', label: 'Last 30 days' },
-  { value: '6m', label: 'Last 6 months' },
-  { value: '1y', label: 'Last 1 year' },
-  { value: 'date', label: 'Specific Date' },
-];
-
-// Named users for the user filter (UserPicker); the input clear button resets the filter.
-const FIELD_HISTORY_USERS = [
-  { id: 'elijah', name: 'Elijah Morgan', subLabel: 'elijah.morgan@zohocorp.com', avatarUrl: '/images/avatars/user_01.jpg' },
-  { id: 'klaus', name: 'Klaus Weber', subLabel: 'klaus.weber@zohocorp.com', avatarUrl: '/images/avatars/user_04.jpg' },
-  { id: 'mikasa', name: 'Mikasa Chen', subLabel: 'mikasa.chen@zohocorp.com', avatarUrl: '/images/avatars/user_03.jpg' },
-  { id: 'yren', name: 'Yren Okafor', subLabel: 'yren.okafor@zohocorp.com', avatarUrl: '/images/avatars/user_06.jpg' },
-];
-
-// "Today" for the sample data, so Last 7 days / 30 days / 6 months show different rows.
-const FIELD_HISTORY_TODAY = new Date(2026, 5, 3, 12, 0);
-
-const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
-const sameDay = (a, b) => startOfDay(a).getTime() === startOfDay(b).getTime();
-
-function matchesTime(row, filter, date) {
-  const when = new Date(row.modifiedTime);
-  const since = (days, months = 0) => {
-    const d = new Date(FIELD_HISTORY_TODAY);
-    d.setDate(d.getDate() - days);
-    d.setMonth(d.getMonth() - months);
-    return d;
-  };
-  switch (filter) {
-    case '7d': return when >= since(7);
-    case '30d': return when >= since(30);
-    case '6m': return when >= since(0, 6);
-    case '1y': return when >= since(0, 12);
-    case 'date': return !date || sameDay(when, date);
-    default: return true;
-  }
-}
-
-const SOURCE_FILTER_LABELS = { manual: 'Manual (UI)', workflow: 'Workflow', api: 'API', import: 'Import' };
-
-const FIELD_HISTORY_SOURCE_OPTIONS = [
-  { value: 'manual', label: 'Manual (UI)' },
-  { value: 'workflow', label: 'Workflow' },
-  { value: 'api', label: 'API' },
-  { value: 'import', label: 'Import' },
-];
-
 // Subdued pastel tokens distinguish stages without vibrant fills.
 const STAGE_COLORS = {
   'Value Prop': ['--ds-neutral-pastel6', '--ds-text-heading'],
@@ -701,28 +649,6 @@ const SETTINGS_FIELDS = [
 
 // plainFirstColumn: the first column shows the stage transition as plain text, without capsules.
 function FieldHistorySection({ plainFirstColumn = false }) {
-  const [timeFilter, setTimeFilter] = useState('');
-  const [userFilter, setUserFilter] = useState('');
-  const [sourceFilter, setSourceFilter] = useState('');
-  const [specificDate, setSpecificDate] = useState(null);
-  const filterPanelStyle = ({ width, left }) => ({
-    width: 'max-content',
-    minWidth: width,
-    maxWidth: `calc(100vw - ${left}px - var(--ds-font-size-sm))`,
-  });
-  const timeOptions = FIELD_HISTORY_TIME_OPTIONS.map(option => option.value === 'date' ? {
-    ...option,
-    triggerLabel: specificDate?.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
-    submenuContent: ({ close }) => (
-      <div className="fht-date-calendar">
-        <Calendar
-          value={specificDate}
-          defaultMonth={specificDate ?? FIELD_HISTORY_TODAY}
-          onChange={date => { setSpecificDate(date); setTimeFilter('date'); close(); }}
-        />
-      </div>
-    ),
-  } : option);
   const [applied, setApplied] = useState(DEFAULT_COLUMN_KEYS); // columns shown in the table
   const [draft, setDraft] = useState(DEFAULT_COLUMN_KEYS); // selection while the panel is open
   const [panel, setPanel] = useState(null); // { top, right } when the settings panel is open
@@ -796,25 +722,10 @@ function FieldHistorySection({ plainFirstColumn = false }) {
       return c;
     });
 
-  // The filters narrow the rows shown in the table.
-  const userName = FIELD_HISTORY_USERS.find((u) => u.id === userFilter)?.name;
-  const visibleRows = FIELD_HISTORY_ROWS.filter((row) => (
-    matchesTime(row, timeFilter, specificDate)
-    && (!userFilter || userFilter === 'all' || row.modifiedBy === userName)
-    && (!sourceFilter || sourceFilter === 'all' || row.source === SOURCE_FILTER_LABELS[sourceFilter])
-  )).sort((a, b) => new Date(b.modifiedTime) - new Date(a.modifiedTime));
+  const visibleRows = [...FIELD_HISTORY_ROWS].sort((a, b) => new Date(b.modifiedTime) - new Date(a.modifiedTime));
 
   return (
-    <RecordCard
-      title="Field History - Stage"
-      actions={
-        <>
-          <Dropdown size="sm" triggerAriaLabel="Time filter" placeholder="Select Date" value={timeFilter} options={timeOptions} onChange={value => { setTimeFilter(value); if (!value) setSpecificDate(null); }} clearable clearAriaLabel="Clear date filter" width={180} panelStyle={filterPanelStyle} />
-          <UserPicker size="sm" layout="vertical" width={180} placeholder="Select User" users={FIELD_HISTORY_USERS} value={userFilter} onChange={setUserFilter} clearable clearAriaLabel="Clear user filter" checkPosition="left" panelClassName="fht-user-filter-panel" panelStyle={filterPanelStyle} />
-          <Dropdown size="sm" triggerAriaLabel="Source filter" placeholder="Select Source" value={sourceFilter} options={FIELD_HISTORY_SOURCE_OPTIONS} onChange={setSourceFilter} clearable clearAriaLabel="Clear source filter" width={180} panelStyle={filterPanelStyle} />
-        </>
-      }
-    >
+    <RecordCard title="Field History - Stage">
       {visibleRows.length > 0 ? (
         <div className="crm-screens__fh-table">
           <SetupTable columns={columns} rows={visibleRows} />

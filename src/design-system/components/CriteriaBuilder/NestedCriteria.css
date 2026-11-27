@@ -70,7 +70,7 @@
   margin-inline-end: 2px;
   border: thin solid var(--ds-border-subtle);
   border-radius: 50%;
-  background: var(--ds-bg-scale-bg2);
+  background: var(--ds-bg-common-white);
   font-size: var(--ds-font-size-sm);
 }
 .nested-criteria__related-remove {

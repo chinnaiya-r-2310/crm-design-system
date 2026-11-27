@@ -1,0 +1,160 @@
+{
+  "sourceFrameId": "545:375",
+  "excludedNodeIds": [
+    "545:3204"
+  ],
+  "illustrations": [
+    {
+      "id": "empty-inbox",
+      "label": "Empty inbox",
+      "description": "An open envelope with a puzzled face.",
+      "nodeId": "545:1523",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1523"
+    },
+    {
+      "id": "select-window",
+      "label": "Select a window",
+      "description": "Overlapping windows with a clicking pointer.",
+      "nodeId": "545:1547",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1547"
+    },
+    {
+      "id": "empty-box",
+      "label": "Empty box",
+      "description": "An open box with small decorative crosses and circles.",
+      "nodeId": "545:1570",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1570"
+    },
+    {
+      "id": "unavailable-board",
+      "label": "Unavailable board",
+      "description": "Three columns of cards with a restriction badge.",
+      "nodeId": "545:1602",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1602"
+    },
+    {
+      "id": "empty-chart",
+      "label": "Empty chart",
+      "description": "An outlined bar chart without data.",
+      "nodeId": "545:1649",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1649"
+    },
+    {
+      "id": "browser-error",
+      "label": "Browser error",
+      "description": "A surprised browser window with an error speech bubble.",
+      "nodeId": "545:1666",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1666"
+    },
+    {
+      "id": "no-search-results-inverse",
+      "label": "No search results — inverse",
+      "description": "A translucent white magnifying glass for dark backgrounds.",
+      "nodeId": "545:2575",
+      "background": "dark",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-2575"
+    },
+    {
+      "id": "empty-board",
+      "label": "Empty board",
+      "description": "Three columns of placeholder cards.",
+      "nodeId": "545:1843",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1843"
+    },
+    {
+      "id": "empty-team",
+      "label": "Empty team",
+      "description": "A group of outlined people with decorative sparkles.",
+      "nodeId": "837:7787",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=837-7787"
+    },
+    {
+      "id": "select-window-compact",
+      "label": "Select a window — compact",
+      "description": "Compact overlapping windows with a clicking pointer.",
+      "nodeId": "545:1933",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1933"
+    },
+    {
+      "id": "empty-list",
+      "label": "Empty list",
+      "description": "A rounded panel containing placeholder text rows.",
+      "nodeId": "545:1892",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1892"
+    },
+    {
+      "id": "empty-analytics",
+      "label": "Empty analytics",
+      "description": "A purple pie chart with colorful decorative shapes.",
+      "nodeId": "545:2156",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-2156"
+    },
+    {
+      "id": "unavailable-list",
+      "label": "Unavailable list",
+      "description": "A placeholder text panel with a restriction badge.",
+      "nodeId": "545:1902",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1902"
+    },
+    {
+      "id": "empty-record",
+      "label": "Empty record",
+      "description": "A compact panel with three placeholder text rows.",
+      "nodeId": "837:7789",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=837-7789"
+    },
+    {
+      "id": "no-search-results",
+      "label": "No search results",
+      "description": "A magnifying glass inspecting documents.",
+      "nodeId": "545:2167",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-2167"
+    },
+    {
+      "id": "unavailable-record",
+      "label": "Unavailable record",
+      "description": "A compact placeholder panel with a restriction badge.",
+      "nodeId": "837:7788",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=837-7788"
+    },
+    {
+      "id": "record-warning",
+      "label": "Record warning",
+      "description": "Stacked yellow record cards with an exclamation mark.",
+      "nodeId": "545:1956",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-1956"
+    },
+    {
+      "id": "user-access-restricted",
+      "label": "User access restricted",
+      "description": "A user profile in a window with a prohibition symbol.",
+      "nodeId": "545:2070",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-2070"
+    },
+    {
+      "id": "empty-documents",
+      "label": "Empty documents",
+      "description": "Two pale documents on a circular background.",
+      "nodeId": "545:2195",
+      "background": "light",
+      "figmaUrl": "https://www.figma.com/design/W02fYIWpt9U3WADH4cwZny?node-id=545-2195"
+    }
+  ]
+}

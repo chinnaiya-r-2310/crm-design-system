@@ -451,8 +451,8 @@ function FilterTabs({ initialTab = 'base' }: { initialTab?: FilterTabId }) {
 export type FilterVersion = 1 | 1.1 | 2;
 
 /** Each open seeds the sections from the applied snapshot, so Cancel discards edits and Apply saves them. */
-function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 'base' }: {
-  isOpen: boolean; onClose: () => void; onApply: (snapshot: FilterSnapshot) => void; version?: FilterVersion; saved: FilterSnapshot; focus?: FilterTabId;
+function AddFilterModal({ isOpen, onClose, onApply, onRemove, version = 1, saved, focus = 'base' }: {
+  isOpen: boolean; onClose: () => void; onApply: (snapshot: FilterSnapshot) => void; onRemove: () => void; version?: FilterVersion; saved: FilterSnapshot; focus?: FilterTabId;
 }) {
   const live = useRef<FilterSnapshot>({});
   const store = useMemo<FilterStoreValue>(() => ({
@@ -469,6 +469,7 @@ function AddFilterModal({ isOpen, onClose, onApply, version = 1, saved, focus = 
       className={version === 1 ? 'cmr-filter' : 'cmr-filter cmr-filter--v11'}
       cancelLabel="Cancel"
       saveLabel="Apply"
+      footerStart={<Button variant="ghost-red" onClick={onRemove}>Remove Filter</Button>}
       onClose={onClose}
       onCancel={onClose}
       onSave={() => onApply({ ...live.current })}
@@ -776,6 +777,7 @@ function ConfigPanel({ initialTab, initialModalOpen = false, filterVersion = 1, 
         version={filterVersion}
         onClose={() => setModalOpen(false)}
         onApply={(snapshot) => { setSaved(snapshot); setModalOpen(false); setToast(true); }}
+        onRemove={() => { setSaved({}); setModalOpen(false); setToast(false); }}
       />
       <Modal
         type="alert"
@@ -1119,6 +1121,16 @@ export const SavedFiltersV1Checks: Story = {
     await userEvent.click(confirmAgain.getByRole('button', { name: 'Delete' }));
     await expect(canvas.getByText('No filters applied')).toBeVisible();
     await expect(canvas.getByRole('button', { name: 'Add Filter' })).toBeVisible();
+
+    // The modal's leading red ghost action is also available for draft filters.
+    await userEvent.click(canvas.getByRole('button', { name: 'Add Filter' }));
+    const editing = within(await body.findByRole('dialog', { name: 'Add Filter' }));
+    const removeFilter = editing.getByRole('button', { name: 'Remove Filter' });
+    await expect(removeFilter).toHaveAttribute('data-variant', 'ghost-red');
+    await userEvent.click(removeFilter);
+    await waitFor(() => expect(body.queryByRole('dialog')).toBeNull());
+    await expect(canvas.getByText('No filters applied')).toBeVisible();
+    await expect(canvas.queryByText('Filter applied successfully')).toBeNull();
   },
 };
 
