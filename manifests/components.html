@@ -588,13 +588,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">22/63 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">58/63 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">4/405 story errors</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">22/63 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">58/63 infos</a><a class="filter-pill err" data-k="story-errors" href="#filter-story-errors">4/406 story errors</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.1s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -7661,13 +7661,13 @@ Small size: 27px tall with 13px text, for compact toolbars and section headers.<
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  36 | // ─────────────────────────────────────────────────────────────────────────────
-  37 |
-&gt; 38 | export default {
+  44 | // ─────────────────────────────────────────────────────────────────────────────
+  45 |
+&gt; 46 | export default {
      | ^
-  39 |   title: &#39;Work Items/Field History Tracking&#39;,
-  40 |   parameters: {
-  41 |     layout: &#39;centered&#39;,
+  47 |   title: &#39;Work Items/Field History Tracking&#39;,
+  48 |   parameters: {
+  49 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/FieldHistoryTracking.stories.js:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -7700,8 +7700,16 @@ const ColumnAddIcon = (props) =&gt; (
   &lt;/svg&gt;
 );
 const ExpandIcon = crmIconMap.CrmExpand;
-const FilterIcon = crmIconMap.CrmFilter;
-const SortIcon = crmIconMap.CrmArrowUpDownSort;
+const FilterIcon = (props) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;26.200 598.600 16.500 17.000&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot; {...props}&gt;
+    &lt;path d=&quot;M33.2,615h-.6c-.4-.2-.7-.7-.7-1.2v-3.7c0-1.2-.5-2.4-1.4-3.2l-2.8-2.6c-.6-.6-1-1.4-1-2.2,0-1.7,1.3-3,3-3h9.6c1.6,0,2.9,1.3,2.9,2.9s-.4,1.7-1,2.3l-3,2.6c-1,.8-1.5,2-1.5,3.3v1.5c0,.8-.4,1.5-1,1.9l-1.7,1.2c-.3.2-.6.3-.8.3,0,0,0-.1,0-.1ZM29.7,600.5c-.8,0-1.5.7-1.5,1.5s.2.8.5,1.1l2.8,2.6c1.2,1.1,1.9,2.7,1.9,4.3v3.4l1.4-1c.2-.2.4-.4.4-.7v-1.5c0-1.7.8-3.3,2.1-4.4l3-2.6c.3-.3.5-.7.5-1.1,0-.8-.6-1.4-1.4-1.4h-9.7v-.2h0Z&quot; /&gt;
+  &lt;/svg&gt;
+);
+const SortIcon = (props) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;110.367 1465.900 12.623 11.100&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot; {...props}&gt;
+    &lt;path d=&quot;M116.3,1468.7c.3.3.3.8,0,1.1,0,0-.3.2-.5.2s-.4,0-.5-.2l-.8-.8v6.7c0,.4-.3.8-.8.8s-.8-.3-.8-.8v-6.7l-.8.8c-.3.3-.8.3-1.1,0s-.3-.8,0-1.1l2-2c.3-.3.8-.3,1.1,0l2.2,2h0ZM122.3,1473.1c-.3-.3-.8-.3-1.1,0l-.8.8v-6.7c0-.4-.3-.8-.8-.8s-.8.3-.8.8v6.7l-.8-.8c-.3-.3-.8-.3-1.1,0s-.3.8,0,1.1l2,2s.3.2.5.2.4,0,.5-.2l2-2c.7-.3.7-.8.4-1.1Z&quot; /&gt;
+  &lt;/svg&gt;
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -7828,7 +7836,7 @@ function FieldHistoryTrackingModal({
     &lt;Modal
         isOpen={isOpen}
         title={`${fieldName} History Tracking`}
-        description=&quot;Select columns to display.&quot;
+        description=&quot;Select columns to display&quot;
         onClose={onClose}
         onCancel={onClose}
         onSave={() =&gt; onDone?.({ requiredOrder, selected, trackDurationIn })}
@@ -8096,23 +8104,33 @@ function FieldPropertiesDemo({ fieldName = &#39;Email&#39; }) {
         }
       &gt;
         &lt;style&gt;{`
-          .mc-modal-dialog .modal-body { gap: 0; margin-top: -12px; overflow: hidden; }
+          .mc-modal-dialog .modal-body { gap: 0; margin-top: -12px; overflow-y: auto; }
           .mc-modal-dialog .dropdown-root { flex-shrink: 0; }
           .mc-modal-dialog .fht-columns-label {
+            position: sticky;
+            /* Cover the modal body&#39;s 4px focus clearance while stuck. */
+            top: -4px;
+            padding-top: 4px;
+            z-index: 3;
+            background: var(--ds-bg-common-white);
             flex-shrink: 0;
             margin: 0;
             padding-bottom: 6px;
             font-weight: var(--ds-font-weight-regular);
           }
-          .mc-modal-dialog .mc--embedded { flex: 1; min-height: 0; }
+          .mc-modal-dialog .mc--embedded { flex: none; min-height: 0; display: contents; }
           .mc-modal-dialog .mc--embedded .mc-search {
-            position: relative;
-            top: auto;
+            position: sticky;
+            top: calc(var(--ds-line-height-base) + 6px);
+            /* Keep the focus shadow above the sticky label while scrolling. */
+            z-index: 4;
+            margin-bottom: 0;
             flex-shrink: 0;
           }
           .mc-modal-dialog .mc--embedded .mc-list {
             min-height: 0;
-            overflow-y: auto;
+            flex-shrink: 0;
+            overflow: visible;
             padding-left: var(--ds-line-height-sm);
             margin-left: calc(-1 * var(--ds-line-height-sm));
           }
@@ -8136,7 +8154,7 @@ function FieldPropertiesDemo({ fieldName = &#39;Email&#39; }) {
           style={{ marginBottom: &#39;var(--ds-font-size-base)&#39; }}
         /&gt;
         &lt;p className=&quot;fht-columns-label&quot; style={label}&gt;
-          Select columns to display.
+          Select columns to display
         &lt;/p&gt;
         &lt;ManageColumns
           variant=&quot;modal&quot;
@@ -8387,12 +8405,24 @@ function FieldHistorySection({ plainFirstColumn = false }) {
   const [sortDraft, setSortDraft] = useState(sort);
   const settingsRef = useRef(null);
   const panelRef = useRef(null);
+  const filtersRef = useRef(null);
+
+  useEffect(() =&gt; {
+    if (expanded &amp;&amp; filtersOpen) {
+      filtersRef.current?.querySelector(&#39;input[type=&quot;search&quot;]&#39;)?.focus({ preventScroll: true });
+    }
+  }, [expanded, filtersOpen]);
 
   const openPanel = () =&gt; {
     const r = settingsRef.current.getBoundingClientRect();
     setDraft(applied);
     setPanel({ top: r.bottom + 8, right: Math.max(8, window.innerWidth - r.right) });
   };
+
+  // Focus the search on every opening, including in the expanded view.
+  useEffect(() =&gt; {
+    if (panel) panelRef.current?.querySelector(&#39;input[type=&quot;search&quot;]&#39;)?.focus({ preventScroll: true });
+  }, [panel]);
 
   // Close on outside click or Escape.
   useEffect(() =&gt; {
@@ -8459,6 +8489,8 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         : String(a[key]).localeCompare(String(b[key]));
     return sort.direction === &#39;ascending&#39; ? compare : -compare;
   });
+  const hasFilters = Object.values(filters).some(values =&gt; values.length &gt; 0);
+  const hasSort = Boolean(sort.key);
   const sortOptions = [{ label: &#39;None&#39;, value: &#39;&#39; }, ...SETTINGS_FIELDS.map(field =&gt; ({
     label: field.label, value: field.key,
   }))];
@@ -8502,32 +8534,33 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         width=&quot;min(90vw, calc(100vw - 48px))&quot;
         showFooter={false}
         showClose
-        headerActions={
-          &lt;Tooltip content=&quot;Manage Column&quot; placement=&quot;top&quot; followCursor variant=&quot;black&quot; disabled={!!panel}&gt;
-            &lt;button
-              ref={expanded ? settingsRef : undefined}
-              type=&quot;button&quot;
-              className=&quot;crm-screens__header-icon&quot;
-              aria-label=&quot;Manage Column&quot;
-              aria-haspopup=&quot;dialog&quot;
-              aria-expanded={!!panel}
-              onClick={openPanel}
-            &gt;
-              &lt;ColumnAddIcon width={16} height={16} aria-hidden=&quot;true&quot; /&gt;
-            &lt;/button&gt;
-          &lt;/Tooltip&gt;
-        }
       &gt;
         &lt;div className=&quot;fht-expanded-slider__toolbar&quot;&gt;
-          &lt;Button variant=&quot;ghost-blue&quot; className=&quot;fht-expanded-slider__tool&quot; aria-expanded={filtersOpen}
-            aria-controls=&quot;fht-history-filters&quot; frontIcon={&lt;FilterIcon width={18} height={18} /&gt;}
-            onClick={() =&gt; setFiltersOpen(open =&gt; !open)}&gt;Filter&lt;/Button&gt;
-          &lt;Button variant=&quot;ghost-blue&quot; className=&quot;fht-expanded-slider__tool&quot; aria-expanded={sortOpen}
-            aria-haspopup=&quot;dialog&quot; frontIcon={&lt;SortIcon width={16} height={16} /&gt;}
-            onClick={() =&gt; { setSortDraft(sort); setSortOpen(true); }}&gt;Sort&lt;/Button&gt;
+          &lt;div className=&quot;fht-expanded-slider__tool-group&quot; data-applied={hasFilters}&gt;
+            &lt;Button variant=&quot;ghost-blue&quot; className=&quot;fht-expanded-slider__tool&quot; aria-expanded={filtersOpen}
+              aria-label={hasFilters ? &#39;Filter (applied)&#39; : &#39;Filter&#39;}
+              aria-controls=&quot;fht-history-filters&quot; frontIcon={&lt;span className=&quot;fht-expanded-slider__tool-icon&quot;&gt;&lt;FilterIcon width={16} height={16} /&gt;&lt;/span&gt;}
+              onClick={() =&gt; setFiltersOpen(open =&gt; !open)}&gt;Filter&lt;/Button&gt;
+            {hasFilters &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;fht-expanded-slider__clear-tool&quot;
+              aria-label=&quot;Clear filters&quot; onClick={() =&gt; setFilters({})}&gt;×&lt;/button&gt;}
+          &lt;/div&gt;
+          &lt;div className=&quot;fht-expanded-slider__tool-group&quot; data-applied={hasSort}&gt;
+            &lt;Button variant=&quot;ghost-blue&quot; className=&quot;fht-expanded-slider__tool&quot; aria-expanded={sortOpen}
+              aria-label={hasSort ? &#39;Sort (applied)&#39; : &#39;Sort&#39;}
+              aria-haspopup=&quot;dialog&quot; frontIcon={&lt;span className=&quot;fht-expanded-slider__tool-icon&quot;&gt;&lt;SortIcon width={12} height={12} /&gt;&lt;/span&gt;}
+              onClick={() =&gt; { setSortDraft(sort); setSortOpen(true); }}&gt;Sort&lt;/Button&gt;
+            {hasSort &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;fht-expanded-slider__clear-tool&quot;
+              aria-label=&quot;Clear sort&quot; onClick={() =&gt; {
+                const cleared = { key: &#39;&#39;, direction: &#39;ascending&#39; };
+                setSort(cleared);
+                setSortDraft(cleared);
+              }}&gt;×&lt;/button&gt;}
+          &lt;/div&gt;
         &lt;/div&gt;
         &lt;div className=&quot;fht-expanded-slider__layout&quot;&gt;
-          {filtersOpen &amp;&amp; &lt;aside id=&quot;fht-history-filters&quot; className=&quot;fht-expanded-slider__filters&quot; aria-label=&quot;Filter Field History by&quot;&gt;
+          &lt;div className=&quot;fht-expanded-slider__filter-shell&quot; data-open={filtersOpen}
+            inert={!filtersOpen} aria-hidden={!filtersOpen}&gt;
+          &lt;aside ref={filtersRef} id=&quot;fht-history-filters&quot; className=&quot;fht-expanded-slider__filters&quot; aria-label=&quot;Filter Field History by&quot;&gt;
             &lt;h3&gt;Filter Field History by&lt;/h3&gt;
             &lt;Input variant=&quot;search&quot; width=&quot;100%&quot; placeholder=&quot;Search&quot; aria-label=&quot;Search history filters&quot;
               value={filterSearch} onChange={event =&gt; setFilterSearch(event.target.value)} onClear={() =&gt; setFilterSearch(&#39;&#39;)} /&gt;
@@ -8551,10 +8584,29 @@ function FieldHistorySection({ plainFirstColumn = false }) {
               {!SETTINGS_FIELDS.some(field =&gt; field.label.toLowerCase().includes(filterSearch.toLowerCase()))
                 &amp;&amp; &lt;p role=&quot;status&quot;&gt;No filters found&lt;/p&gt;}
             &lt;/div&gt;
-          &lt;/aside&gt;}
+          &lt;/aside&gt;
+          &lt;/div&gt;
           &lt;div className=&quot;fht-expanded-slider__content&quot;&gt;
             &lt;div className=&quot;crm-screens__fh-table&quot;&gt;
-              &lt;SetupTable columns={columns} rows={sliderRows} /&gt;
+              &lt;SetupTable columns={columns.map((column, index) =&gt; index === columns.length - 1 ? {
+                ...column,
+                label: &lt;span className=&quot;fht-expanded-slider__column-header&quot;&gt;
+                  {column.label}
+                  &lt;Tooltip content=&quot;Manage Column&quot; placement=&quot;top&quot; followCursor variant=&quot;black&quot; disabled={!!panel}&gt;
+                    &lt;button
+                      ref={expanded ? settingsRef : undefined}
+                      type=&quot;button&quot;
+                      className=&quot;crm-screens__header-icon&quot;
+                      aria-label=&quot;Manage Column&quot;
+                      aria-haspopup=&quot;dialog&quot;
+                      aria-expanded={!!panel}
+                      onClick={openPanel}
+                    &gt;
+                      &lt;ColumnAddIcon width={16} height={16} aria-hidden=&quot;true&quot; /&gt;
+                    &lt;/button&gt;
+                  &lt;/Tooltip&gt;
+                &lt;/span&gt;,
+              } : column)} rows={sliderRows} /&gt;
             &lt;/div&gt;
             &lt;div className=&quot;fht-expanded-slider__summary&quot;&gt;
               &lt;span&gt;Total Records &lt;strong&gt;{sliderRows.length}&lt;/strong&gt;&lt;/span&gt;
@@ -8567,15 +8619,15 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         width=&quot;min(460px, calc(100vw - 64px))&quot; showFooter={false} showClose
         closeLabel=&quot;Close sort&quot; onClose={() =&gt; setSortOpen(false)}&gt;
         &lt;div className=&quot;fht-sort-popover__fields&quot;&gt;
-          &lt;Dropdown width=&quot;100%&quot; triggerAriaLabel=&quot;Sort by field&quot; value={sortDraft.key} options={sortOptions}
+          &lt;Dropdown size=&quot;sm&quot; width=&quot;100%&quot; triggerAriaLabel=&quot;Sort by field&quot; value={sortDraft.key} options={sortOptions}
             onChange={key =&gt; setSortDraft(current =&gt; ({ ...current, key }))} /&gt;
-          &lt;Dropdown width=&quot;100%&quot; triggerAriaLabel=&quot;Sort direction&quot; value={sortDraft.direction} disabled={!sortDraft.key}
+          &lt;Dropdown size=&quot;sm&quot; width=&quot;100%&quot; triggerAriaLabel=&quot;Sort direction&quot; value={sortDraft.direction} disabled={!sortDraft.key}
             options={[{ label: &#39;Ascending&#39;, value: &#39;ascending&#39; }, { label: &#39;Descending&#39;, value: &#39;descending&#39; }]}
             onChange={direction =&gt; setSortDraft(current =&gt; ({ ...current, direction }))} /&gt;
         &lt;/div&gt;
         &lt;div className=&quot;fht-sort-popover__actions&quot;&gt;
-          &lt;Button variant=&quot;default&quot; onClick={() =&gt; setSortOpen(false)}&gt;Cancel&lt;/Button&gt;
-          &lt;Button disabled={!sortDraft.key &amp;&amp; !sort.key} onClick={() =&gt; { setSort(sortDraft); setSortOpen(false); }}&gt;Apply&lt;/Button&gt;
+          &lt;Button size=&quot;sm&quot; variant=&quot;default&quot; onClick={() =&gt; setSortOpen(false)}&gt;Cancel&lt;/Button&gt;
+          &lt;Button size=&quot;sm&quot; disabled={!sortDraft.key &amp;&amp; !sort.key} onClick={() =&gt; { setSort(sortDraft); setSortOpen(false); }}&gt;Apply&lt;/Button&gt;
         &lt;/div&gt;
       &lt;/Modal&gt;
       {visibleRows.length &gt; 0 ? (
@@ -24260,7 +24312,7 @@ export const BannerExcludesLeftPanel: Story = {
       <div class="badges">
         <label for="c-55-design-system-components-tooltip-props" class="badge ok as-toggle">8 prop types</label>
         <label for="c-55-design-system-components-tooltip-info" class="badge info as-toggle">1 info</label>
-        <label for="c-55-design-system-components-tooltip-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-55-design-system-components-tooltip-stories" class="badge ok as-toggle">9 stories</label>
         
         
       </div>
@@ -24454,6 +24506,22 @@ variant?: any = &#39;black&#39;</code></pre>
         &lt;button type=&quot;button&quot;&gt;Cursor edge&lt;/button&gt;
       &lt;/Tooltip&gt;
     &lt;/div&gt;
+  &lt;/div&gt;
+);</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Focus Interactions</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              <div class="hint">Automatic or restored focus must not open a tooltip on page/dialog load.</div>
+              <pre><code>const FocusInteractions = () =&gt; (
+  &lt;div style={{ padding: 40 }}&gt;
+    &lt;button type=&quot;button&quot;&gt;Before trigger&lt;/button&gt;
+    &lt;Tooltip content=&quot;Intentional interaction only&quot;&gt;
+      &lt;button type=&quot;button&quot; autoFocus&gt;Autofocused trigger&lt;/button&gt;
+    &lt;/Tooltip&gt;
   &lt;/div&gt;
 );</code></pre>
             </div>
@@ -32282,13 +32350,13 @@ export const Phase1: Story = {
     <div class="note err">
       <div class="note-title">Prop type error</div>
       <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
-  36 | // ─────────────────────────────────────────────────────────────────────────────
-  37 |
-&gt; 38 | export default {
+  44 | // ─────────────────────────────────────────────────────────────────────────────
+  45 |
+&gt; 46 | export default {
      | ^
-  39 |   title: &#39;Work Items/Field History Tracking&#39;,
-  40 |   parameters: {
-  41 |     layout: &#39;centered&#39;,
+  47 |   title: &#39;Work Items/Field History Tracking&#39;,
+  48 |   parameters: {
+  49 |     layout: &#39;centered&#39;,
 
 ./src/design-system/patterns/FieldHistoryTracking.stories.js:
 import { useEffect, useRef, useState } from &#39;react&#39;;
@@ -32321,8 +32389,16 @@ const ColumnAddIcon = (props) =&gt; (
   &lt;/svg&gt;
 );
 const ExpandIcon = crmIconMap.CrmExpand;
-const FilterIcon = crmIconMap.CrmFilter;
-const SortIcon = crmIconMap.CrmArrowUpDownSort;
+const FilterIcon = (props) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;26.200 598.600 16.500 17.000&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot; {...props}&gt;
+    &lt;path d=&quot;M33.2,615h-.6c-.4-.2-.7-.7-.7-1.2v-3.7c0-1.2-.5-2.4-1.4-3.2l-2.8-2.6c-.6-.6-1-1.4-1-2.2,0-1.7,1.3-3,3-3h9.6c1.6,0,2.9,1.3,2.9,2.9s-.4,1.7-1,2.3l-3,2.6c-1,.8-1.5,2-1.5,3.3v1.5c0,.8-.4,1.5-1,1.9l-1.7,1.2c-.3.2-.6.3-.8.3,0,0,0-.1,0-.1ZM29.7,600.5c-.8,0-1.5.7-1.5,1.5s.2.8.5,1.1l2.8,2.6c1.2,1.1,1.9,2.7,1.9,4.3v3.4l1.4-1c.2-.2.4-.4.4-.7v-1.5c0-1.7.8-3.3,2.1-4.4l3-2.6c.3-.3.5-.7.5-1.1,0-.8-.6-1.4-1.4-1.4h-9.7v-.2h0Z&quot; /&gt;
+  &lt;/svg&gt;
+);
+const SortIcon = (props) =&gt; (
+  &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;110.367 1465.900 12.623 11.100&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot; {...props}&gt;
+    &lt;path d=&quot;M116.3,1468.7c.3.3.3.8,0,1.1,0,0-.3.2-.5.2s-.4,0-.5-.2l-.8-.8v6.7c0,.4-.3.8-.8.8s-.8-.3-.8-.8v-6.7l-.8.8c-.3.3-.8.3-1.1,0s-.3-.8,0-1.1l2-2c.3-.3.8-.3,1.1,0l2.2,2h0ZM122.3,1473.1c-.3-.3-.8-.3-1.1,0l-.8.8v-6.7c0-.4-.3-.8-.8-.8s-.8.3-.8.8v6.7l-.8-.8c-.3-.3-.8-.3-1.1,0s-.3.8,0,1.1l2,2s.3.2.5.2.4,0,.5-.2l2-2c.7-.3.7-.8.4-1.1Z&quot; /&gt;
+  &lt;/svg&gt;
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -32449,7 +32525,7 @@ function FieldHistoryTrackingModal({
     &lt;Modal
         isOpen={isOpen}
         title={`${fieldName} History Tracking`}
-        description=&quot;Select columns to display.&quot;
+        description=&quot;Select columns to display&quot;
         onClose={onClose}
         onCancel={onClose}
         onSave={() =&gt; onDone?.({ requiredOrder, selected, trackDurationIn })}
@@ -32717,23 +32793,33 @@ function FieldPropertiesDemo({ fieldName = &#39;Email&#39; }) {
         }
       &gt;
         &lt;style&gt;{`
-          .mc-modal-dialog .modal-body { gap: 0; margin-top: -12px; overflow: hidden; }
+          .mc-modal-dialog .modal-body { gap: 0; margin-top: -12px; overflow-y: auto; }
           .mc-modal-dialog .dropdown-root { flex-shrink: 0; }
           .mc-modal-dialog .fht-columns-label {
+            position: sticky;
+            /* Cover the modal body&#39;s 4px focus clearance while stuck. */
+            top: -4px;
+            padding-top: 4px;
+            z-index: 3;
+            background: var(--ds-bg-common-white);
             flex-shrink: 0;
             margin: 0;
             padding-bottom: 6px;
             font-weight: var(--ds-font-weight-regular);
           }
-          .mc-modal-dialog .mc--embedded { flex: 1; min-height: 0; }
+          .mc-modal-dialog .mc--embedded { flex: none; min-height: 0; display: contents; }
           .mc-modal-dialog .mc--embedded .mc-search {
-            position: relative;
-            top: auto;
+            position: sticky;
+            top: calc(var(--ds-line-height-base) + 6px);
+            /* Keep the focus shadow above the sticky label while scrolling. */
+            z-index: 4;
+            margin-bottom: 0;
             flex-shrink: 0;
           }
           .mc-modal-dialog .mc--embedded .mc-list {
             min-height: 0;
-            overflow-y: auto;
+            flex-shrink: 0;
+            overflow: visible;
             padding-left: var(--ds-line-height-sm);
             margin-left: calc(-1 * var(--ds-line-height-sm));
           }
@@ -32757,7 +32843,7 @@ function FieldPropertiesDemo({ fieldName = &#39;Email&#39; }) {
           style={{ marginBottom: &#39;var(--ds-font-size-base)&#39; }}
         /&gt;
         &lt;p className=&quot;fht-columns-label&quot; style={label}&gt;
-          Select columns to display.
+          Select columns to display
         &lt;/p&gt;
         &lt;ManageColumns
           variant=&quot;modal&quot;
@@ -33008,12 +33094,24 @@ function FieldHistorySection({ plainFirstColumn = false }) {
   const [sortDraft, setSortDraft] = useState(sort);
   const settingsRef = useRef(null);
   const panelRef = useRef(null);
+  const filtersRef = useRef(null);
+
+  useEffect(() =&gt; {
+    if (expanded &amp;&amp; filtersOpen) {
+      filtersRef.current?.querySelector(&#39;input[type=&quot;search&quot;]&#39;)?.focus({ preventScroll: true });
+    }
+  }, [expanded, filtersOpen]);
 
   const openPanel = () =&gt; {
     const r = settingsRef.current.getBoundingClientRect();
     setDraft(applied);
     setPanel({ top: r.bottom + 8, right: Math.max(8, window.innerWidth - r.right) });
   };
+
+  // Focus the search on every opening, including in the expanded view.
+  useEffect(() =&gt; {
+    if (panel) panelRef.current?.querySelector(&#39;input[type=&quot;search&quot;]&#39;)?.focus({ preventScroll: true });
+  }, [panel]);
 
   // Close on outside click or Escape.
   useEffect(() =&gt; {
@@ -33080,6 +33178,8 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         : String(a[key]).localeCompare(String(b[key]));
     return sort.direction === &#39;ascending&#39; ? compare : -compare;
   });
+  const hasFilters = Object.values(filters).some(values =&gt; values.length &gt; 0);
+  const hasSort = Boolean(sort.key);
   const sortOptions = [{ label: &#39;None&#39;, value: &#39;&#39; }, ...SETTINGS_FIELDS.map(field =&gt; ({
     label: field.label, value: field.key,
   }))];
@@ -33123,32 +33223,33 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         width=&quot;min(90vw, calc(100vw - 48px))&quot;
         showFooter={false}
         showClose
-        headerActions={
-          &lt;Tooltip content=&quot;Manage Column&quot; placement=&quot;top&quot; followCursor variant=&quot;black&quot; disabled={!!panel}&gt;
-            &lt;button
-              ref={expanded ? settingsRef : undefined}
-              type=&quot;button&quot;
-              className=&quot;crm-screens__header-icon&quot;
-              aria-label=&quot;Manage Column&quot;
-              aria-haspopup=&quot;dialog&quot;
-              aria-expanded={!!panel}
-              onClick={openPanel}
-            &gt;
-              &lt;ColumnAddIcon width={16} height={16} aria-hidden=&quot;true&quot; /&gt;
-            &lt;/button&gt;
-          &lt;/Tooltip&gt;
-        }
       &gt;
         &lt;div className=&quot;fht-expanded-slider__toolbar&quot;&gt;
-          &lt;Button variant=&quot;ghost-blue&quot; className=&quot;fht-expanded-slider__tool&quot; aria-expanded={filtersOpen}
-            aria-controls=&quot;fht-history-filters&quot; frontIcon={&lt;FilterIcon width={18} height={18} /&gt;}
-            onClick={() =&gt; setFiltersOpen(open =&gt; !open)}&gt;Filter&lt;/Button&gt;
-          &lt;Button variant=&quot;ghost-blue&quot; className=&quot;fht-expanded-slider__tool&quot; aria-expanded={sortOpen}
-            aria-haspopup=&quot;dialog&quot; frontIcon={&lt;SortIcon width={16} height={16} /&gt;}
-            onClick={() =&gt; { setSortDraft(sort); setSortOpen(true); }}&gt;Sort&lt;/Button&gt;
+          &lt;div className=&quot;fht-expanded-slider__tool-group&quot; data-applied={hasFilters}&gt;
+            &lt;Button variant=&quot;ghost-blue&quot; className=&quot;fht-expanded-slider__tool&quot; aria-expanded={filtersOpen}
+              aria-label={hasFilters ? &#39;Filter (applied)&#39; : &#39;Filter&#39;}
+              aria-controls=&quot;fht-history-filters&quot; frontIcon={&lt;span className=&quot;fht-expanded-slider__tool-icon&quot;&gt;&lt;FilterIcon width={16} height={16} /&gt;&lt;/span&gt;}
+              onClick={() =&gt; setFiltersOpen(open =&gt; !open)}&gt;Filter&lt;/Button&gt;
+            {hasFilters &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;fht-expanded-slider__clear-tool&quot;
+              aria-label=&quot;Clear filters&quot; onClick={() =&gt; setFilters({})}&gt;×&lt;/button&gt;}
+          &lt;/div&gt;
+          &lt;div className=&quot;fht-expanded-slider__tool-group&quot; data-applied={hasSort}&gt;
+            &lt;Button variant=&quot;ghost-blue&quot; className=&quot;fht-expanded-slider__tool&quot; aria-expanded={sortOpen}
+              aria-label={hasSort ? &#39;Sort (applied)&#39; : &#39;Sort&#39;}
+              aria-haspopup=&quot;dialog&quot; frontIcon={&lt;span className=&quot;fht-expanded-slider__tool-icon&quot;&gt;&lt;SortIcon width={12} height={12} /&gt;&lt;/span&gt;}
+              onClick={() =&gt; { setSortDraft(sort); setSortOpen(true); }}&gt;Sort&lt;/Button&gt;
+            {hasSort &amp;&amp; &lt;button type=&quot;button&quot; className=&quot;fht-expanded-slider__clear-tool&quot;
+              aria-label=&quot;Clear sort&quot; onClick={() =&gt; {
+                const cleared = { key: &#39;&#39;, direction: &#39;ascending&#39; };
+                setSort(cleared);
+                setSortDraft(cleared);
+              }}&gt;×&lt;/button&gt;}
+          &lt;/div&gt;
         &lt;/div&gt;
         &lt;div className=&quot;fht-expanded-slider__layout&quot;&gt;
-          {filtersOpen &amp;&amp; &lt;aside id=&quot;fht-history-filters&quot; className=&quot;fht-expanded-slider__filters&quot; aria-label=&quot;Filter Field History by&quot;&gt;
+          &lt;div className=&quot;fht-expanded-slider__filter-shell&quot; data-open={filtersOpen}
+            inert={!filtersOpen} aria-hidden={!filtersOpen}&gt;
+          &lt;aside ref={filtersRef} id=&quot;fht-history-filters&quot; className=&quot;fht-expanded-slider__filters&quot; aria-label=&quot;Filter Field History by&quot;&gt;
             &lt;h3&gt;Filter Field History by&lt;/h3&gt;
             &lt;Input variant=&quot;search&quot; width=&quot;100%&quot; placeholder=&quot;Search&quot; aria-label=&quot;Search history filters&quot;
               value={filterSearch} onChange={event =&gt; setFilterSearch(event.target.value)} onClear={() =&gt; setFilterSearch(&#39;&#39;)} /&gt;
@@ -33172,10 +33273,29 @@ function FieldHistorySection({ plainFirstColumn = false }) {
               {!SETTINGS_FIELDS.some(field =&gt; field.label.toLowerCase().includes(filterSearch.toLowerCase()))
                 &amp;&amp; &lt;p role=&quot;status&quot;&gt;No filters found&lt;/p&gt;}
             &lt;/div&gt;
-          &lt;/aside&gt;}
+          &lt;/aside&gt;
+          &lt;/div&gt;
           &lt;div className=&quot;fht-expanded-slider__content&quot;&gt;
             &lt;div className=&quot;crm-screens__fh-table&quot;&gt;
-              &lt;SetupTable columns={columns} rows={sliderRows} /&gt;
+              &lt;SetupTable columns={columns.map((column, index) =&gt; index === columns.length - 1 ? {
+                ...column,
+                label: &lt;span className=&quot;fht-expanded-slider__column-header&quot;&gt;
+                  {column.label}
+                  &lt;Tooltip content=&quot;Manage Column&quot; placement=&quot;top&quot; followCursor variant=&quot;black&quot; disabled={!!panel}&gt;
+                    &lt;button
+                      ref={expanded ? settingsRef : undefined}
+                      type=&quot;button&quot;
+                      className=&quot;crm-screens__header-icon&quot;
+                      aria-label=&quot;Manage Column&quot;
+                      aria-haspopup=&quot;dialog&quot;
+                      aria-expanded={!!panel}
+                      onClick={openPanel}
+                    &gt;
+                      &lt;ColumnAddIcon width={16} height={16} aria-hidden=&quot;true&quot; /&gt;
+                    &lt;/button&gt;
+                  &lt;/Tooltip&gt;
+                &lt;/span&gt;,
+              } : column)} rows={sliderRows} /&gt;
             &lt;/div&gt;
             &lt;div className=&quot;fht-expanded-slider__summary&quot;&gt;
               &lt;span&gt;Total Records &lt;strong&gt;{sliderRows.length}&lt;/strong&gt;&lt;/span&gt;
@@ -33188,15 +33308,15 @@ function FieldHistorySection({ plainFirstColumn = false }) {
         width=&quot;min(460px, calc(100vw - 64px))&quot; showFooter={false} showClose
         closeLabel=&quot;Close sort&quot; onClose={() =&gt; setSortOpen(false)}&gt;
         &lt;div className=&quot;fht-sort-popover__fields&quot;&gt;
-          &lt;Dropdown width=&quot;100%&quot; triggerAriaLabel=&quot;Sort by field&quot; value={sortDraft.key} options={sortOptions}
+          &lt;Dropdown size=&quot;sm&quot; width=&quot;100%&quot; triggerAriaLabel=&quot;Sort by field&quot; value={sortDraft.key} options={sortOptions}
             onChange={key =&gt; setSortDraft(current =&gt; ({ ...current, key }))} /&gt;
-          &lt;Dropdown width=&quot;100%&quot; triggerAriaLabel=&quot;Sort direction&quot; value={sortDraft.direction} disabled={!sortDraft.key}
+          &lt;Dropdown size=&quot;sm&quot; width=&quot;100%&quot; triggerAriaLabel=&quot;Sort direction&quot; value={sortDraft.direction} disabled={!sortDraft.key}
             options={[{ label: &#39;Ascending&#39;, value: &#39;ascending&#39; }, { label: &#39;Descending&#39;, value: &#39;descending&#39; }]}
             onChange={direction =&gt; setSortDraft(current =&gt; ({ ...current, direction }))} /&gt;
         &lt;/div&gt;
         &lt;div className=&quot;fht-sort-popover__actions&quot;&gt;
-          &lt;Button variant=&quot;default&quot; onClick={() =&gt; setSortOpen(false)}&gt;Cancel&lt;/Button&gt;
-          &lt;Button disabled={!sortDraft.key &amp;&amp; !sort.key} onClick={() =&gt; { setSort(sortDraft); setSortOpen(false); }}&gt;Apply&lt;/Button&gt;
+          &lt;Button size=&quot;sm&quot; variant=&quot;default&quot; onClick={() =&gt; setSortOpen(false)}&gt;Cancel&lt;/Button&gt;
+          &lt;Button size=&quot;sm&quot; disabled={!sortDraft.key &amp;&amp; !sort.key} onClick={() =&gt; { setSort(sortDraft); setSortOpen(false); }}&gt;Apply&lt;/Button&gt;
         &lt;/div&gt;
       &lt;/Modal&gt;
       {visibleRows.length &gt; 0 ? (
