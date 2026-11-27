@@ -381,7 +381,7 @@
   padding: 6px 12px; /* title lines up with the first cell text */
 }
 
-/* Field History table: body text in the label colour; end-of-header icon button. */
+/* Field History table: body text in the label colour; header action buttons. */
 .crm-screens__fh-table .table-td {
   color: var(--ds-text-label, #616E88);
 }
@@ -390,24 +390,26 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: calc(var(--ds-line-height-base) + var(--ds-line-height-base) / 5);
+  height: calc(var(--ds-line-height-base) + var(--ds-line-height-base) / 5);
+  flex-shrink: 0;
+  box-sizing: border-box;
   padding: 0;
-  border: 1px solid transparent;
-  border-radius: 6px;
+  border: none;
+  border-radius: 50%;
   background: transparent;
   color: var(--ds-text-base, #313949);
   cursor: pointer;
 }
 
-/* Hover and focus (also while its panel is open): same border as the input hover border. */
-.crm-screens__header-icon:hover,
-.crm-screens__header-icon:focus,
-.crm-screens__header-icon:focus-visible,
-.crm-screens__header-icon[aria-expanded="true"] {
-  border-color: var(--ds-components-input-hover-outline, #A5ADCC);
-  background: var(--ds-bg-common-card, #ffffff);
-  outline: none;
+/* Both header actions show a grey circle only on hover. */
+.crm-screens__header-icon:hover {
+  background: var(--ds-bg-expand-action, #E8EAF5);
+}
+
+.crm-screens__header-icon:focus-visible {
+  outline: 2px solid var(--ds-components-input-hover-outline, #A5ADCC);
+  outline-offset: 2px;
 }
 
 /* Field History table: row lines on every cell, so the last columns get them too. */
@@ -439,57 +441,202 @@
   color: var(--ds-text-label, #616E88);
 }
 
-/* The column settings icon stays on the right while the table scrolls. */
-/* Only the header icon floats: its header cell stays at the right edge while the table scrolls.
-   Its left border is a separator that runs the full height of the header. */
-.crm-screens__fh-table .table-th:last-child {
-  position: sticky;
-  right: 0;
-  z-index: 1;
-  background: var(--ds-bg-common-card, #ffffff);
-  vertical-align: middle;
-}
-
-/* Separator before the icon: drawn as a pseudo-element, so it stays visible on the sticky cell
-   (collapsed table borders do not follow a sticky cell) and runs the full height of the header. */
-.crm-screens__fh-table .table-th:last-child::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 1px;
-  background: var(--ds-border-lighter, #DCDBEE);
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Icon centred in the header row. */
-.crm-screens__fh-table .table-th:last-child .table-th-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  min-height: 36px;
-  padding-inline: 0;
-}
-
-.crm-screens__fh-table .table-th:last-child .table-th-inner > span {
-  display: flex;
-  flex: 0 0 auto; /* Keep the hover border inset from the sticky column separator. */
-  align-items: center;
-}
-
-/* No resize handle on the icon column. */
-.crm-screens__fh-table .table-th:last-child .table-resize-handle {
-  display: none;
-}
-
 /* Field History: the body sits inside the header's horizontal scroller, so one scroll moves
    the header and the rows together. The body does not scroll on its own. */
 .crm-screens__fh-table .table-body-wrap {
   overflow: visible;
   max-height: none;
+}
+
+/* Expanded related list: reuse Modal focus/dismissal behavior with a right-hand slider layout. */
+@keyframes fht-slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fht-slide-out {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+.modal-dialog.fht-expanded-slider {
+  position: fixed;
+  inset-block: 0;
+  right: 0;
+  height: 100dvh;
+  max-height: 100dvh;
+  gap: 0;
+  padding: 0;
+  border-radius: 0;
+  overflow: visible;
+  animation-name: fht-slide-in;
+}
+
+.modal-dialog.fht-expanded-slider[data-closing] {
+  animation-name: fht-slide-out;
+}
+
+.fht-expanded-slider > .modal-header {
+  margin: 0;
+  padding: var(--ds-spacing-3, 12px) var(--ds-spacing-4, 16px);
+  border-bottom: 1px solid var(--ds-border-lighter);
+  background: var(--ds-bg-common-card);
+}
+
+.fht-expanded-slider .modal-title { flex: 1; }
+
+.fht-expanded-slider .modal-close {
+  position: absolute;
+  top: var(--ds-spacing-3, 12px);
+  right: calc(100% + var(--ds-spacing-3, 12px));
+  background: var(--ds-bg-common-card);
+  box-shadow: 0 var(--ds-spacing-1, 4px) var(--ds-spacing-2, 8px) var(--ds-shadow-dropdown);
+}
+
+.fht-expanded-slider > .modal-body {
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  background: var(--ds-bg-common-bg);
+  scrollbar-gutter: auto;
+}
+
+.fht-expanded-slider__toolbar {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--ds-spacing-2, 8px);
+  padding: var(--ds-spacing-2, 8px) var(--ds-spacing-4, 16px);
+  background: var(--ds-bg-common-card);
+}
+
+.fht-expanded-slider__tool.button-btn {
+  color: var(--ds-text-base);
+}
+
+.fht-expanded-slider__tool[aria-expanded="true"],
+.fht-expanded-slider__tool:focus-visible {
+  background: var(--ds-bg-scale-bg4);
+}
+
+.fht-expanded-slider__tool[aria-haspopup="dialog"] { anchor-name: --fht-sort; }
+
+.fht-expanded-slider__layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  gap: var(--ds-spacing-3, 12px);
+  padding: var(--ds-spacing-4, 16px);
+}
+
+.fht-expanded-slider__filters {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 min(30%, 300px);
+  min-width: 0;
+  gap: var(--ds-spacing-4, 16px);
+  padding: var(--ds-spacing-4, 16px);
+  overflow: auto;
+  border: 1px solid var(--ds-border-lighter);
+  border-radius: var(--ds-radius-lg, 8px);
+  background: var(--ds-bg-common-card);
+  color: var(--ds-text-base);
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+}
+
+.fht-expanded-slider__filters h3 {
+  margin: 0;
+  font-size: var(--ds-font-size-base);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.fht-expanded-slider__filter-list,
+.fht-expanded-slider__filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-spacing-3, 12px);
+}
+
+.fht-expanded-slider__content { min-width: 0; }
+
+.modal-backdrop:has(> .fht-sort-popover) { background: transparent; }
+
+.modal-dialog.fht-sort-popover {
+  position: fixed;
+  position-anchor: --fht-sort;
+  overflow: visible;
+  animation-name: fadeIn;
+  top: anchor(bottom, 100px);
+  left: clamp(8px, anchor(left, 20vw), calc(100vw - 476px));
+  margin-top: var(--ds-spacing-3, 12px);
+  padding: var(--ds-spacing-6, 24px) var(--ds-spacing-8, 32px);
+  gap: var(--ds-spacing-5, 20px);
+  border: 1px solid var(--ds-border-lighter);
+  border-radius: var(--ds-radius-lg, 8px);
+  box-shadow: 0 var(--ds-spacing-1, 4px) var(--ds-spacing-3, 12px) var(--ds-shadow-dropdown);
+}
+
+.modal-dialog.fht-sort-popover[data-closing] { animation-name: slideUp; }
+
+.fht-sort-popover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--ds-spacing-8, 32px);
+  width: var(--ds-spacing-3, 12px);
+  height: var(--ds-spacing-3, 12px);
+  background: var(--ds-bg-common-card);
+  border-top: 1px solid var(--ds-border-lighter);
+  border-left: 1px solid var(--ds-border-lighter);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.fht-sort-popover .modal-title { font-size: var(--ds-font-size-base); font-weight: var(--ds-font-weight-regular); }
+.fht-sort-popover .modal-header,
+.fht-sort-popover .modal-body { margin: 0; padding: 0; }
+.fht-sort-popover .modal-close { display: none; }
+.fht-sort-popover__fields { display: flex; gap: var(--ds-spacing-4, 16px); }
+.fht-sort-popover__fields > * { flex: 1; min-width: 0; }
+.fht-sort-popover__actions { display: flex; justify-content: flex-end; gap: var(--ds-spacing-2, 8px); margin-top: var(--ds-spacing-5, 20px); }
+
+@media (max-width: 600px) {
+  .fht-expanded-slider__layout { flex-direction: column; }
+  .fht-expanded-slider__filters { flex: 0 0 auto; max-height: 40%; }
+  .fht-sort-popover__fields { flex-direction: column; }
+}
+
+.fht-expanded-slider__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--ds-border-lighter);
+  border-radius: var(--ds-radius-lg, 8px);
+  background: var(--ds-bg-common-card);
+}
+
+.fht-expanded-slider__content > .crm-screens__fh-table {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.fht-expanded-slider__summary {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--ds-spacing-3, 12px);
+  padding: var(--ds-spacing-2, 8px) var(--ds-spacing-4, 16px);
+  border-top: 1px solid var(--ds-border-lighter);
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-base);
+  color: var(--ds-text-base);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-dialog.fht-expanded-slider,
+  .modal-dialog.fht-expanded-slider[data-closing] { animation-duration: 1ms; }
 }
 
 /* Column settings panel, opened from the table header icon (portal, fixed to the viewport). */
@@ -581,16 +728,6 @@ body:has(> .dragger-ghost) .fht-settings-panel .dragger-item:hover .dragger-grip
    across the columns); it still scrolls when the columns need more room. */
 .crm-screens__fh-table .table-table {
   min-width: 100%;
-}
-
-/* The column before the icon column: no static separator line. Its resize handle still works,
-   and the line shows on hover like on the other columns. */
-.crm-screens__fh-table .table-th:nth-last-child(2) .table-resize-handle::after {
-  background: transparent;
-}
-
-.crm-screens__fh-table .table-th:nth-last-child(2) .table-resize-handle:hover::after {
-  background: var(--ds-brand-primary, #5464F2);
 }
 
 /* Capsule variant: equal spacing on each side of the arrow, without extra margins. */

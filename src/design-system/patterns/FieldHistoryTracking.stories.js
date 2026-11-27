@@ -5,6 +5,7 @@ import { ManageColumns } from '../components/ManageColumns/ManageColumns';
 import { getModuleFields } from '../data/crm-sample-data';
 import { Checkbox } from '../components/Checkbox/Checkbox';
 import { Input } from '../components/Input/Input';
+import { Dropdown } from '../components/Dropdown/Dropdown';
 import { Button } from '../components/Button/Button';
 import { Dragger } from '../components/Dragger/Dragger';
 import { MessageInfo } from '../components/MessageInfo/MessageInfo';
@@ -17,8 +18,18 @@ import { crmIconMap } from '../foundations/icons/CrmCatalog';
 import { Tooltip } from '../components/Tooltip/Tooltip';
 import '../components/Tags/Tags.css';
 
-// Column settings icon from the icon gallery (CrmColumnArrange).
-const ColumnArrangeIcon = crmIconMap.CrmColumnArrange;
+// Detail-page column management uses the table-and-dropdown icon.
+const ColumnAddIcon = (props) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M5.06787 2.88892V13.4445" stroke="#313949" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M14.3801 6H0.995483" stroke="#313949" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M15 8.07692V2.59231C15 2.25385 14.7544 2 14.4269 2H1.5731C1.24561 2 1 2.25385 1 2.59231V13.4923C1 13.8308 1.24561 14 1.49123 14H7.18713" stroke="#313949" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M14.7929 11H9.20711C8.76165 11 8.53857 11.5386 8.85355 11.8536L11.6464 14.6464C11.8417 14.8417 12.1583 14.8417 12.3536 14.6464L15.1464 11.8536C15.4614 11.5386 15.2383 11 14.7929 11Z" fill="#313949" />
+  </svg>
+);
+const ExpandIcon = crmIconMap.CrmExpand;
+const FilterIcon = crmIconMap.CrmFilter;
+const SortIcon = crmIconMap.CrmArrowUpDownSort;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Meta
@@ -44,6 +55,11 @@ export default {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const MAX_ADDITIONAL = 10;
+
+const DURATION_OPTIONS = [
+  { label: 'Calendar Days', value: 'calendar-days' },
+  { label: 'Business Days', value: 'business-days' },
+];
 
 const ADDITIONAL_COLUMNS = [
   'Contact Owner', 'Categories', 'Other Phone', 'Phone', 'Mobile', 'Duplicate Check',
@@ -124,6 +140,7 @@ function FieldHistoryTrackingModal({
 }) {
   const [requiredOrder, setRequiredOrder] = useState(REQUIRED_COLUMNS);
   const [selected, setSelected] = useState(initialSelected);
+  const [trackDurationIn, setTrackDurationIn] = useState('calendar-days');
 
   const limitReached = selected.length >= MAX_ADDITIONAL;
 
@@ -142,7 +159,7 @@ function FieldHistoryTrackingModal({
         description="Select columns to display."
         onClose={onClose}
         onCancel={onClose}
-        onSave={() => onDone?.({ requiredOrder, selected })}
+        onSave={() => onDone?.({ requiredOrder, selected, trackDurationIn })}
         cancelLabel="Cancel"
         saveLabel="Done"
         width={640}
@@ -152,6 +169,15 @@ function FieldHistoryTrackingModal({
           .fht-manage-columns .modal-body { padding-right: 3px; }
         `}</style>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24, paddingRight: 0 }}>
+
+          <Dropdown
+            label="Track Duration in"
+            layout="vertical"
+            width="100%"
+            options={DURATION_OPTIONS}
+            value={trackDurationIn}
+            onChange={setTrackDurationIn}
+          />
 
           {/* ── Required columns (locked, reorderable) ──────────────── */}
           <section aria-labelledby="fht-required-heading">
@@ -292,6 +318,7 @@ function FieldPropertiesDemo({ fieldName = 'Email' }) {
   const [manageOpen, setManageOpen] = useState(false);
   const [trackedColumns, setTrackedColumns] = useState([...REQUIRED_TRACKED_KEYS, 'Phone', 'Owner']);
   const [limitExceeded, setLimitExceeded] = useState(false);
+  const [trackDurationIn, setTrackDurationIn] = useState('calendar-days');
 
   // Blocks a selection that would exceed the 10 additional columns and shows the alert.
   const handleTrackedChange = next => {
@@ -374,7 +401,6 @@ function FieldPropertiesDemo({ fieldName = 'Email' }) {
         isOpen={manageOpen}
         className="mc-modal-dialog"
         title="Email History Tracking"
-        description="Select columns to display."
         width={400}
         onClose={closeManageColumns}
         onCancel={closeManageColumns}
@@ -387,18 +413,6 @@ function FieldPropertiesDemo({ fieldName = 'Email' }) {
               .fht-mc-info .msg-info-root { display: block; width: 100%; height: auto; min-height: 0; }
             `}</style>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%' }}>
-            {limitExceeded && (
-              <div style={{ width: '100%' }}>
-                <MessageBox
-                  variant="info"
-                  title="Limit reached"
-                  message={`You can add up to ${MAX_ADDITIONAL} additional columns. Remove a column to add another.`}
-                  closable
-                  onClose={() => setLimitExceeded(false)}
-                  style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
-                />
-              </div>
-            )}
             <div className="fht-mc-info">
               <MessageInfo
                 variant="info"
@@ -410,8 +424,48 @@ function FieldPropertiesDemo({ fieldName = 'Email' }) {
         }
       >
         <style>{`
-          .mc-modal-dialog .modal-body { gap: 0; margin-top: -12px; }
+          .mc-modal-dialog .modal-body { gap: 0; margin-top: -12px; overflow: hidden; }
+          .mc-modal-dialog .dropdown-root { flex-shrink: 0; }
+          .mc-modal-dialog .fht-columns-label {
+            flex-shrink: 0;
+            margin: 0;
+            padding-bottom: 6px;
+            font-weight: var(--ds-font-weight-regular);
+          }
+          .mc-modal-dialog .mc--embedded { flex: 1; min-height: 0; }
+          .mc-modal-dialog .mc--embedded .mc-search {
+            position: relative;
+            top: auto;
+            flex-shrink: 0;
+          }
+          .mc-modal-dialog .mc--embedded .mc-list {
+            min-height: 0;
+            overflow-y: auto;
+            padding-left: var(--ds-line-height-sm);
+            margin-left: calc(-1 * var(--ds-line-height-sm));
+          }
+          .fht-limit-alert {
+            position: fixed;
+            top: calc(var(--ds-line-height-base) * 3.5);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1100;
+            width: max-content;
+            max-width: calc(100vw - var(--ds-line-height-sm) * 2);
+          }
         `}</style>
+        <Dropdown
+          label="Track Duration in"
+          layout="vertical"
+          width="100%"
+          options={DURATION_OPTIONS}
+          value={trackDurationIn}
+          onChange={setTrackDurationIn}
+          style={{ marginBottom: 'var(--ds-font-size-base)' }}
+        />
+        <p className="fht-columns-label" style={label}>
+          Select columns to display.
+        </p>
         <ManageColumns
           variant="modal"
           embedded
@@ -421,6 +475,17 @@ function FieldPropertiesDemo({ fieldName = 'Email' }) {
           onChange={handleTrackedChange}
         />
       </Modal>
+      {manageOpen && limitExceeded && createPortal(
+        <MessageBox
+          variant="info"
+          className="fht-limit-alert"
+          title="Limit reached"
+          message={`You can add up to ${MAX_ADDITIONAL} additional columns. Remove a column to add another.`}
+          closable
+          onClose={() => setLimitExceeded(false)}
+        />,
+        document.body,
+      )}
     </>
   );
 }
@@ -614,17 +679,6 @@ const FIELD_HISTORY_COLUMNS = [
     width: 130,
     render: value => <span>{value}</span>,
   },
-  {
-    // End-of-header column: column settings icon, no body content.
-    key: 'columnSettings',
-    label: (
-      <button type="button" className="crm-screens__header-icon" aria-label="Manage Column">
-        <ColumnArrangeIcon width={16} height={16} aria-hidden="true" />
-      </button>
-    ),
-    width: 36,
-    render: () => null,
-  },
 ];
 
 // Column settings panel: the same Manage Columns list, opened from the header icon.
@@ -652,6 +706,13 @@ function FieldHistorySection({ plainFirstColumn = false }) {
   const [applied, setApplied] = useState(DEFAULT_COLUMN_KEYS); // columns shown in the table
   const [draft, setDraft] = useState(DEFAULT_COLUMN_KEYS); // selection while the panel is open
   const [panel, setPanel] = useState(null); // { top, right } when the settings panel is open
+  const [expanded, setExpanded] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filterSearch, setFilterSearch] = useState('');
+  const [filters, setFilters] = useState({});
+  const [sortOpen, setSortOpen] = useState(false);
+  const [sort, setSort] = useState({ key: '', direction: 'ascending' });
+  const [sortDraft, setSortDraft] = useState(sort);
   const settingsRef = useRef(null);
   const panelRef = useRef(null);
 
@@ -684,29 +745,19 @@ function FieldHistorySection({ plainFirstColumn = false }) {
     return () => { document.body.style.overflow = previous; };
   }, [panel]);
 
-  // Table columns follow the order chosen in the Manage Columns panel; the icon column stays last.
-  const columns = [...applied.map((k) => FIELD_HISTORY_COLUMNS.find((c) => c.key === k)), FIELD_HISTORY_COLUMNS.find((c) => c.key === 'columnSettings')]
+  useEffect(() => {
+    if (!sortOpen) return undefined;
+    const dismiss = event => {
+      if (event.target instanceof Element
+        && event.target.matches('.modal-backdrop:has(> .fht-sort-popover)')) setSortOpen(false);
+    };
+    document.addEventListener('click', dismiss);
+    return () => document.removeEventListener('click', dismiss);
+  }, [sortOpen]);
+
+  // Table columns follow the order chosen in the Manage Columns panel.
+  const columns = applied.map((k) => FIELD_HISTORY_COLUMNS.find((c) => c.key === k))
     .map((c) => {
-      if (c.key === 'columnSettings') {
-        return {
-          ...c,
-          label: (
-            <Tooltip content="Manage Column" placement="top" followCursor variant="black" disabled={!!panel}>
-              <button
-                ref={settingsRef}
-                type="button"
-                className="crm-screens__header-icon"
-                aria-label="Manage Column"
-                aria-haspopup="dialog"
-                aria-expanded={!!panel}
-                onClick={openPanel}
-              >
-                <ColumnArrangeIcon width={16} height={16} aria-hidden="true" />
-              </button>
-            </Tooltip>
-          ),
-        };
-      }
       if (plainFirstColumn && c.key === 'from') {
         return {
           ...c,
@@ -723,9 +774,138 @@ function FieldHistorySection({ plainFirstColumn = false }) {
     });
 
   const visibleRows = [...FIELD_HISTORY_ROWS].sort((a, b) => new Date(b.modifiedTime) - new Date(a.modifiedTime));
+  const sliderRows = visibleRows.filter(row => Object.entries(filters).every(
+    ([key, values]) => !values.length || values.includes(row[key]),
+  )).sort((a, b) => {
+    if (!sort.key) return 0;
+    const key = sort.key;
+    const numeric = value => Number(String(value).replace(/[^\d.-]/g, ''));
+    const compare = ['modifiedTime', 'closingDate'].includes(key)
+      ? new Date(a[key]) - new Date(b[key])
+      : ['duration', 'amount', 'probability'].includes(key)
+        ? numeric(a[key]) - numeric(b[key])
+        : String(a[key]).localeCompare(String(b[key]));
+    return sort.direction === 'ascending' ? compare : -compare;
+  });
+  const sortOptions = [{ label: 'None', value: '' }, ...SETTINGS_FIELDS.map(field => ({
+    label: field.label, value: field.key,
+  }))];
 
   return (
-    <RecordCard title="Field History - Stage">
+    <RecordCard title="Field History - Stage" actions={
+      <>
+        <Tooltip content="Manage Column" placement="top" followCursor variant="black" disabled={!!panel}>
+          <button
+            ref={expanded ? undefined : settingsRef}
+            type="button"
+            className="crm-screens__header-icon"
+            aria-label="Manage Column"
+            aria-haspopup="dialog"
+            aria-expanded={!!panel}
+            onClick={openPanel}
+          >
+            <ColumnAddIcon width={16} height={16} aria-hidden="true" />
+          </button>
+        </Tooltip>
+        <Tooltip content="Expand" placement="top" followCursor variant="black" disabled={expanded}>
+          <button
+            type="button"
+            className="crm-screens__header-icon crm-screens__header-icon--expand"
+            aria-label="Expand Field History"
+            aria-haspopup="dialog"
+            aria-expanded={expanded}
+            onClick={() => setExpanded(true)}
+          >
+            <ExpandIcon width={14} height={14} aria-hidden="true" />
+          </button>
+        </Tooltip>
+      </>
+    }>
+      <Modal
+        isOpen={expanded}
+        className="fht-expanded-slider"
+        title="Field History - Stage"
+        onClose={() => { setPanel(null); setSortOpen(false); setExpanded(false); }}
+        closeOnEscape={!panel && !sortOpen}
+        width="min(90vw, calc(100vw - 48px))"
+        showFooter={false}
+        showClose
+        headerActions={
+          <Tooltip content="Manage Column" placement="top" followCursor variant="black" disabled={!!panel}>
+            <button
+              ref={expanded ? settingsRef : undefined}
+              type="button"
+              className="crm-screens__header-icon"
+              aria-label="Manage Column"
+              aria-haspopup="dialog"
+              aria-expanded={!!panel}
+              onClick={openPanel}
+            >
+              <ColumnAddIcon width={16} height={16} aria-hidden="true" />
+            </button>
+          </Tooltip>
+        }
+      >
+        <div className="fht-expanded-slider__toolbar">
+          <Button variant="ghost-blue" className="fht-expanded-slider__tool" aria-expanded={filtersOpen}
+            aria-controls="fht-history-filters" frontIcon={<FilterIcon width={18} height={18} />}
+            onClick={() => setFiltersOpen(open => !open)}>Filter</Button>
+          <Button variant="ghost-blue" className="fht-expanded-slider__tool" aria-expanded={sortOpen}
+            aria-haspopup="dialog" frontIcon={<SortIcon width={16} height={16} />}
+            onClick={() => { setSortDraft(sort); setSortOpen(true); }}>Sort</Button>
+        </div>
+        <div className="fht-expanded-slider__layout">
+          {filtersOpen && <aside id="fht-history-filters" className="fht-expanded-slider__filters" aria-label="Filter Field History by">
+            <h3>Filter Field History by</h3>
+            <Input variant="search" width="100%" placeholder="Search" aria-label="Search history filters"
+              value={filterSearch} onChange={event => setFilterSearch(event.target.value)} onClear={() => setFilterSearch('')} />
+            <div className="fht-expanded-slider__filter-list">
+              {SETTINGS_FIELDS.filter(field => field.label.toLowerCase().includes(filterSearch.toLowerCase())).map(field => (
+                <div key={field.key} className="fht-expanded-slider__filter-field">
+                  <Checkbox label={field.label} checked={Object.hasOwn(filters, field.key)} onChange={event => {
+                    setFilters(current => {
+                      const next = { ...current };
+                      if (event.target.checked) next[field.key] = [];
+                      else delete next[field.key];
+                      return next;
+                    });
+                  }} />
+                  {Object.hasOwn(filters, field.key) && <Dropdown multiSelect width="100%" searchable
+                    triggerAriaLabel={`Filter ${field.label}`} placeholder="All" selectedValues={filters[field.key]}
+                    options={[...new Set(FIELD_HISTORY_ROWS.map(row => row[field.key]))].map(value => ({ label: value, value }))}
+                    onMultiChange={values => setFilters(current => ({ ...current, [field.key]: values }))} />}
+                </div>
+              ))}
+              {!SETTINGS_FIELDS.some(field => field.label.toLowerCase().includes(filterSearch.toLowerCase()))
+                && <p role="status">No filters found</p>}
+            </div>
+          </aside>}
+          <div className="fht-expanded-slider__content">
+            <div className="crm-screens__fh-table">
+              <SetupTable columns={columns} rows={sliderRows} />
+            </div>
+            <div className="fht-expanded-slider__summary">
+              <span>Total Records <strong>{sliderRows.length}</strong></span>
+              <span>{sliderRows.length ? `1 to ${sliderRows.length}` : '0'}</span>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal isOpen={expanded && sortOpen} className="fht-sort-popover" title="Sort By"
+        width="min(460px, calc(100vw - 64px))" showFooter={false} showClose
+        closeLabel="Close sort" onClose={() => setSortOpen(false)}>
+        <div className="fht-sort-popover__fields">
+          <Dropdown width="100%" triggerAriaLabel="Sort by field" value={sortDraft.key} options={sortOptions}
+            onChange={key => setSortDraft(current => ({ ...current, key }))} />
+          <Dropdown width="100%" triggerAriaLabel="Sort direction" value={sortDraft.direction} disabled={!sortDraft.key}
+            options={[{ label: 'Ascending', value: 'ascending' }, { label: 'Descending', value: 'descending' }]}
+            onChange={direction => setSortDraft(current => ({ ...current, direction }))} />
+        </div>
+        <div className="fht-sort-popover__actions">
+          <Button variant="default" onClick={() => setSortOpen(false)}>Cancel</Button>
+          <Button disabled={!sortDraft.key && !sort.key} onClick={() => { setSort(sortDraft); setSortOpen(false); }}>Apply</Button>
+        </div>
+      </Modal>
       {visibleRows.length > 0 ? (
         <div className="crm-screens__fh-table">
           <SetupTable columns={columns} rows={visibleRows} />
