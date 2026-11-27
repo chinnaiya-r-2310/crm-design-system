@@ -594,7 +594,7 @@
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>4.5s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>7.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -24866,7 +24866,9 @@ function FormRow({
   children,
   align = &#39;center&#39;,
   labelOffset,
+  labelInfo,
 }: {
+  labelInfo?: string;
   label: string;
   children: React.ReactNode;
   align?: &#39;center&#39; | &#39;start&#39;;
@@ -24880,7 +24882,16 @@ function FormRow({
       columnGap: 20,
       alignItems: align,
     }}&gt;
-      &lt;span style={{ ...labelStyle, paddingTop: pt }}&gt;{label}&lt;/span&gt;
+      &lt;span style={{ ...labelStyle, paddingTop: pt }}&gt;
+        {labelInfo ? &lt;span className=&quot;usage-notification-label-info&quot;&gt;
+          &lt;span&gt;{label}&lt;/span&gt;
+          &lt;Tooltip content={labelInfo} variant=&quot;white&quot; placement=&quot;top&quot; followCursor
+            wrapperStyle={{ display: &#39;inline-flex&#39;, alignItems: &#39;center&#39;, alignSelf: &#39;center&#39;, lineHeight: 0 }}&gt;
+            &lt;CrmAlertInfo className=&quot;usage-notification-message-info&quot; width={14} height={14}
+              tabIndex={0} role=&quot;img&quot; aria-label={labelInfo} /&gt;
+          &lt;/Tooltip&gt;
+        &lt;/span&gt; : label}
+      &lt;/span&gt;
       &lt;div data-usage-field={label ? &#39;&#39; : undefined} style={{ minWidth: 0, width: label ? &#39;max-content&#39; : undefined }}&gt;{children}&lt;/div&gt;
     &lt;/div&gt;
   );
@@ -25473,6 +25484,17 @@ export const CreateNotification: Story = {
             transform: none;
             scale: none;
           }
+          .usage-notification-label-info {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            gap: calc(var(--ds-font-size-sm) / 3);
+          }
+          .usage-notification-message-info {
+            display: block;
+            color: var(--ds-text-label);
+          }
+          .usage-notification-message-info &gt; circle:first-child,
           .usage-notification-measure-info &gt; circle:first-child {
             fill: currentColor;
           }
@@ -26010,7 +26032,8 @@ export const CreateNotification: Story = {
 
           {/* ── Message ─────────────────────────────────────────────────── */}
           {showMessage &amp;&amp; (
-            &lt;FormRow label=&quot;Notification message&quot; align=&quot;start&quot; labelOffset={7}&gt;
+            &lt;FormRow label=&quot;Notification message&quot; align=&quot;start&quot; labelOffset={7}
+              labelInfo=&quot;Applicable for both push notifications and external apps&quot;&gt;
               &lt;MergeField
                 key={criteriaKey}
                 aria-label=&quot;Notification message&quot;
@@ -26068,6 +26091,22 @@ export const AddExternalApps: Story = {
     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
     const page = within(canvasElement.ownerDocument.body);
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Create Notification&#39;, exact: true }));
+    const messageInfoText = &#39;Applicable for both push notifications and external apps&#39;;
+    const messageInfo = page.getByRole(&#39;img&#39;, { name: messageInfoText });
+    await waitFor(() =&gt; expect(messageInfo).toBeVisible());
+    await expect(messageInfo.getBoundingClientRect().width).toBe(14);
+    await expect(messageInfo.getBoundingClientRect().height).toBe(14);
+    const messageLabelRect = page.getByText(&#39;Notification message&#39;, { exact: true }).getBoundingClientRect();
+    const messageInfoRect = messageInfo.getBoundingClientRect();
+    await expect(Math.abs((messageInfoRect.top + messageInfoRect.height / 2)
+      - (messageLabelRect.top + messageLabelRect.height / 2))).toBeLessThanOrEqual(1);
+    await expect(getComputedStyle(messageInfo).color).toBe(getComputedStyle(page.getByText(&#39;Notification message&#39;, { exact: true })).color);
+    await expect(getComputedStyle(messageInfo.querySelector(&#39;circle&#39;)!).fill).toBe(getComputedStyle(messageInfo).color);
+    await userEvent.hover(messageInfo);
+    await expect(page.getByRole(&#39;tooltip&#39;)).toHaveTextContent(messageInfoText);
+    await expect(page.getByRole(&#39;tooltip&#39;)).toHaveClass(&#39;tooltip-white&#39;);
+    await userEvent.unhover(messageInfo);
+    await expect(page.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
     await expect(page.queryByRole(&#39;switch&#39;, { name: &#39;Toggle external app notifications&#39; })).not.toBeInTheDocument();
     await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Zoho Cliq&#39;, exact: true })).not.toBeInTheDocument();
     const addApps = page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true });
@@ -26237,13 +26276,13 @@ export const AddExternalApps: Story = {
               
               
               <pre><code>Expected render to be an arrow function or function expression
-  1337 |   name: &#39;Create Notification — Add External Apps&#39;,
-  1338 |   args: { externalAppsVariant: &#39;dropdown&#39; },
-&gt; 1339 |   render: CreateNotification.render,
+  1360 |   name: &#39;Create Notification — Add External Apps&#39;,
+  1361 |   args: { externalAppsVariant: &#39;dropdown&#39; },
+&gt; 1362 |   render: CreateNotification.render,
        |           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  1340 |   play: async ({ canvasElement }) =&gt; {
-  1341 |     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
-  1342 |     const page = within(canvasElement.ownerDocument.body);</code></pre>
+  1363 |   play: async ({ canvasElement }) =&gt; {
+  1364 |     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
+  1365 |     const page = within(canvasElement.ownerDocument.body);</code></pre>
             </div>
           
           
@@ -26532,6 +26571,17 @@ export const AddExternalApps: Story = {
           transform: none;
           scale: none;
         }
+        .usage-notification-label-info {
+          display: inline-flex;
+          align-items: center;
+          vertical-align: middle;
+          gap: calc(var(--ds-font-size-sm) / 3);
+        }
+        .usage-notification-message-info {
+          display: block;
+          color: var(--ds-text-label);
+        }
+        .usage-notification-message-info &gt; circle:first-child,
         .usage-notification-measure-info &gt; circle:first-child {
           fill: currentColor;
         }
@@ -27069,7 +27119,8 @@ export const AddExternalApps: Story = {
 
         {/* ── Message ─────────────────────────────────────────────────── */}
         {showMessage &amp;&amp; (
-          &lt;FormRow label=&quot;Notification message&quot; align=&quot;start&quot; labelOffset={7}&gt;
+          &lt;FormRow label=&quot;Notification message&quot; align=&quot;start&quot; labelOffset={7}
+            labelInfo=&quot;Applicable for both push notifications and external apps&quot;&gt;
             &lt;MergeField
               key={criteriaKey}
               aria-label=&quot;Notification message&quot;
@@ -42114,7 +42165,9 @@ function FormRow({
   children,
   align = &#39;center&#39;,
   labelOffset,
+  labelInfo,
 }: {
+  labelInfo?: string;
   label: string;
   children: React.ReactNode;
   align?: &#39;center&#39; | &#39;start&#39;;
@@ -42128,7 +42181,16 @@ function FormRow({
       columnGap: 20,
       alignItems: align,
     }}&gt;
-      &lt;span style={{ ...labelStyle, paddingTop: pt }}&gt;{label}&lt;/span&gt;
+      &lt;span style={{ ...labelStyle, paddingTop: pt }}&gt;
+        {labelInfo ? &lt;span className=&quot;usage-notification-label-info&quot;&gt;
+          &lt;span&gt;{label}&lt;/span&gt;
+          &lt;Tooltip content={labelInfo} variant=&quot;white&quot; placement=&quot;top&quot; followCursor
+            wrapperStyle={{ display: &#39;inline-flex&#39;, alignItems: &#39;center&#39;, alignSelf: &#39;center&#39;, lineHeight: 0 }}&gt;
+            &lt;CrmAlertInfo className=&quot;usage-notification-message-info&quot; width={14} height={14}
+              tabIndex={0} role=&quot;img&quot; aria-label={labelInfo} /&gt;
+          &lt;/Tooltip&gt;
+        &lt;/span&gt; : label}
+      &lt;/span&gt;
       &lt;div data-usage-field={label ? &#39;&#39; : undefined} style={{ minWidth: 0, width: label ? &#39;max-content&#39; : undefined }}&gt;{children}&lt;/div&gt;
     &lt;/div&gt;
   );
@@ -42721,6 +42783,17 @@ export const CreateNotification: Story = {
             transform: none;
             scale: none;
           }
+          .usage-notification-label-info {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            gap: calc(var(--ds-font-size-sm) / 3);
+          }
+          .usage-notification-message-info {
+            display: block;
+            color: var(--ds-text-label);
+          }
+          .usage-notification-message-info &gt; circle:first-child,
           .usage-notification-measure-info &gt; circle:first-child {
             fill: currentColor;
           }
@@ -43258,7 +43331,8 @@ export const CreateNotification: Story = {
 
           {/* ── Message ─────────────────────────────────────────────────── */}
           {showMessage &amp;&amp; (
-            &lt;FormRow label=&quot;Notification message&quot; align=&quot;start&quot; labelOffset={7}&gt;
+            &lt;FormRow label=&quot;Notification message&quot; align=&quot;start&quot; labelOffset={7}
+              labelInfo=&quot;Applicable for both push notifications and external apps&quot;&gt;
               &lt;MergeField
                 key={criteriaKey}
                 aria-label=&quot;Notification message&quot;
@@ -43316,6 +43390,22 @@ export const AddExternalApps: Story = {
     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
     const page = within(canvasElement.ownerDocument.body);
     await userEvent.click(page.getByRole(&#39;button&#39;, { name: &#39;Create Notification&#39;, exact: true }));
+    const messageInfoText = &#39;Applicable for both push notifications and external apps&#39;;
+    const messageInfo = page.getByRole(&#39;img&#39;, { name: messageInfoText });
+    await waitFor(() =&gt; expect(messageInfo).toBeVisible());
+    await expect(messageInfo.getBoundingClientRect().width).toBe(14);
+    await expect(messageInfo.getBoundingClientRect().height).toBe(14);
+    const messageLabelRect = page.getByText(&#39;Notification message&#39;, { exact: true }).getBoundingClientRect();
+    const messageInfoRect = messageInfo.getBoundingClientRect();
+    await expect(Math.abs((messageInfoRect.top + messageInfoRect.height / 2)
+      - (messageLabelRect.top + messageLabelRect.height / 2))).toBeLessThanOrEqual(1);
+    await expect(getComputedStyle(messageInfo).color).toBe(getComputedStyle(page.getByText(&#39;Notification message&#39;, { exact: true })).color);
+    await expect(getComputedStyle(messageInfo.querySelector(&#39;circle&#39;)!).fill).toBe(getComputedStyle(messageInfo).color);
+    await userEvent.hover(messageInfo);
+    await expect(page.getByRole(&#39;tooltip&#39;)).toHaveTextContent(messageInfoText);
+    await expect(page.getByRole(&#39;tooltip&#39;)).toHaveClass(&#39;tooltip-white&#39;);
+    await userEvent.unhover(messageInfo);
+    await expect(page.queryByRole(&#39;tooltip&#39;)).not.toBeInTheDocument();
     await expect(page.queryByRole(&#39;switch&#39;, { name: &#39;Toggle external app notifications&#39; })).not.toBeInTheDocument();
     await expect(page.queryByRole(&#39;checkbox&#39;, { name: &#39;Zoho Cliq&#39;, exact: true })).not.toBeInTheDocument();
     const addApps = page.getByRole(&#39;button&#39;, { name: &#39;Add External Apps&#39;, exact: true });
@@ -43485,13 +43575,13 @@ export const AddExternalApps: Story = {
               
               
               <pre><code>Expected render to be an arrow function or function expression
-  1337 |   name: &#39;Create Notification — Add External Apps&#39;,
-  1338 |   args: { externalAppsVariant: &#39;dropdown&#39; },
-&gt; 1339 |   render: CreateNotification.render,
+  1360 |   name: &#39;Create Notification — Add External Apps&#39;,
+  1361 |   args: { externalAppsVariant: &#39;dropdown&#39; },
+&gt; 1362 |   render: CreateNotification.render,
        |           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  1340 |   play: async ({ canvasElement }) =&gt; {
-  1341 |     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
-  1342 |     const page = within(canvasElement.ownerDocument.body);</code></pre>
+  1363 |   play: async ({ canvasElement }) =&gt; {
+  1364 |     if (!navigator.webdriver &amp;&amp; !new URLSearchParams(window.location.search).has(&#39;playModal&#39;)) return;
+  1365 |     const page = within(canvasElement.ownerDocument.body);</code></pre>
             </div>
           
           
@@ -43780,6 +43870,17 @@ export const AddExternalApps: Story = {
           transform: none;
           scale: none;
         }
+        .usage-notification-label-info {
+          display: inline-flex;
+          align-items: center;
+          vertical-align: middle;
+          gap: calc(var(--ds-font-size-sm) / 3);
+        }
+        .usage-notification-message-info {
+          display: block;
+          color: var(--ds-text-label);
+        }
+        .usage-notification-message-info &gt; circle:first-child,
         .usage-notification-measure-info &gt; circle:first-child {
           fill: currentColor;
         }
@@ -44317,7 +44418,8 @@ export const AddExternalApps: Story = {
 
         {/* ── Message ─────────────────────────────────────────────────── */}
         {showMessage &amp;&amp; (
-          &lt;FormRow label=&quot;Notification message&quot; align=&quot;start&quot; labelOffset={7}&gt;
+          &lt;FormRow label=&quot;Notification message&quot; align=&quot;start&quot; labelOffset={7}
+            labelInfo=&quot;Applicable for both push notifications and external apps&quot;&gt;
             &lt;MergeField
               key={criteriaKey}
               aria-label=&quot;Notification message&quot;
