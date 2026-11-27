@@ -139,7 +139,9 @@ function FormRow({
   children,
   align = 'center',
   labelOffset,
+  labelInfo,
 }: {
+  labelInfo?: string;
   label: string;
   children: React.ReactNode;
   align?: 'center' | 'start';
@@ -153,7 +155,16 @@ function FormRow({
       columnGap: 20,
       alignItems: align,
     }}>
-      <span style={{ ...labelStyle, paddingTop: pt }}>{label}</span>
+      <span style={{ ...labelStyle, paddingTop: pt }}>
+        {labelInfo ? <span className="usage-notification-label-info">
+          <span>{label}</span>
+          <Tooltip content={labelInfo} variant="white" placement="top" followCursor
+            wrapperStyle={{ display: 'inline-flex', alignItems: 'center', alignSelf: 'center', lineHeight: 0 }}>
+            <CrmAlertInfo className="usage-notification-message-info" width={14} height={14}
+              tabIndex={0} role="img" aria-label={labelInfo} />
+          </Tooltip>
+        </span> : label}
+      </span>
       <div data-usage-field={label ? '' : undefined} style={{ minWidth: 0, width: label ? 'max-content' : undefined }}>{children}</div>
     </div>
   );
@@ -746,6 +757,17 @@ export const CreateNotification: Story = {
             transform: none;
             scale: none;
           }
+          .usage-notification-label-info {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            gap: calc(var(--ds-font-size-sm) / 3);
+          }
+          .usage-notification-message-info {
+            display: block;
+            color: var(--ds-text-label);
+          }
+          .usage-notification-message-info > circle:first-child,
           .usage-notification-measure-info > circle:first-child {
             fill: currentColor;
           }
@@ -1283,7 +1305,8 @@ export const CreateNotification: Story = {
 
           {/* ── Message ─────────────────────────────────────────────────── */}
           {showMessage && (
-            <FormRow label="Notification message" align="start" labelOffset={7}>
+            <FormRow label="Notification message" align="start" labelOffset={7}
+              labelInfo="Applicable for both push notifications and external apps">
               <MergeField
                 key={criteriaKey}
                 aria-label="Notification message"
@@ -1341,6 +1364,22 @@ export const AddExternalApps: Story = {
     if (!navigator.webdriver && !new URLSearchParams(window.location.search).has('playModal')) return;
     const page = within(canvasElement.ownerDocument.body);
     await userEvent.click(page.getByRole('button', { name: 'Create Notification', exact: true }));
+    const messageInfoText = 'Applicable for both push notifications and external apps';
+    const messageInfo = page.getByRole('img', { name: messageInfoText });
+    await waitFor(() => expect(messageInfo).toBeVisible());
+    await expect(messageInfo.getBoundingClientRect().width).toBe(14);
+    await expect(messageInfo.getBoundingClientRect().height).toBe(14);
+    const messageLabelRect = page.getByText('Notification message', { exact: true }).getBoundingClientRect();
+    const messageInfoRect = messageInfo.getBoundingClientRect();
+    await expect(Math.abs((messageInfoRect.top + messageInfoRect.height / 2)
+      - (messageLabelRect.top + messageLabelRect.height / 2))).toBeLessThanOrEqual(1);
+    await expect(getComputedStyle(messageInfo).color).toBe(getComputedStyle(page.getByText('Notification message', { exact: true })).color);
+    await expect(getComputedStyle(messageInfo.querySelector('circle')!).fill).toBe(getComputedStyle(messageInfo).color);
+    await userEvent.hover(messageInfo);
+    await expect(page.getByRole('tooltip')).toHaveTextContent(messageInfoText);
+    await expect(page.getByRole('tooltip')).toHaveClass('tooltip-white');
+    await userEvent.unhover(messageInfo);
+    await expect(page.queryByRole('tooltip')).not.toBeInTheDocument();
     await expect(page.queryByRole('switch', { name: 'Toggle external app notifications' })).not.toBeInTheDocument();
     await expect(page.queryByRole('checkbox', { name: 'Zoho Cliq', exact: true })).not.toBeInTheDocument();
     const addApps = page.getByRole('button', { name: 'Add External Apps', exact: true });
